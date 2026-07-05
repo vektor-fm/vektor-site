@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://julianlaycock.github.io/vektor-site/sitemap.xml
