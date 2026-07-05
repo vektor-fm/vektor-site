@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://julianlaycock.github.io/vektor-site/sitemap.xml
+Sitemap: https://vektor-fm.github.io/vektor-site/sitemap.xml

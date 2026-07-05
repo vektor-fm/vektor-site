@@ -1,17 +1,26 @@
 <!DOCTYPE html>
 <html lang="en" id="top"><head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>vektor /// the index — the AI frontier, cut to what ships</title>
 <meta name="description" content="Daily shorts on the Claude &amp; AI tooling that actually matters — and every issue delivers the goods. Join The Teardown.">
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="VEKTOR — the AI frontier, cut to what ships.">
 <meta property="og:description" content="Daily shorts on the Claude &amp; AI tooling that actually matters. Get The Teardown — one email a week.">
-<meta property="og:image" content="https://julianlaycock.github.io/vektor-site/og/vektor-og.png">
-<meta property="og:url" content="https://julianlaycock.github.io/vektor-site/">
-<link rel="canonical" href="https://julianlaycock.github.io/vektor-site/">
+<meta property="og:image" content="https://vektor-fm.github.io/vektor-site/og/vektor-og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="VEKTOR — the AI frontier, cut to what ships.">
+<meta property="og:site_name" content="vektor">
+<meta property="og:url" content="https://vektor-fm.github.io/vektor-site/">
+<link rel="canonical" href="https://vektor-fm.github.io/vektor-site/">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#101010">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23101010'/%3E%3Ctext x='30' y='48' font-family='Arial' font-size='46' font-weight='600' text-anchor='middle' fill='%23EFEADD'%3Ev%3C/text%3E%3Ccircle cx='52' cy='44' r='5' fill='%2339FF35'/%3E%3C/svg%3E">
+<link rel="preload" href="fonts/tektur-900-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/inter-tight-600-latin.woff2" as="font" type="font/woff2" crossorigin>
 
 <style>/* latin-ext */
 @font-face {
@@ -154,6 +163,28 @@
   .kick{font-family:var(--kick); text-transform:uppercase; letter-spacing:0.14em; font-size:13px; line-height:1.4;}
   .rule{font-family:var(--mono); color:rgba(239,234,221,0.4); overflow:hidden; white-space:nowrap; user-select:none;}
 
+  /* ---------- chrome bar (matches the issue pages) ---------- */
+  .chrome{position:sticky; top:0; z-index:50; background:var(--ink); border-bottom:1px solid #262626;
+    display:flex; align-items:center; justify-content:space-between; height:64px; padding:0 var(--rail);}
+  .chrome .marker{font-family:var(--kick); text-transform:uppercase; letter-spacing:0.1em; font-size:13px; color:#8f8b80;}
+  @media (max-width:520px){ .chrome .marker{display:none;} }
+  .wm{position:relative; display:inline-flex; text-decoration:none; font-family:var(--wm); font-weight:600; letter-spacing:-0.045em; color:var(--paper); font-size:30px; line-height:1;}
+  .wm-main{position:relative; z-index:2; display:inline-flex;}
+  .wm-main .ch{position:relative; display:inline-block;}
+  .wm-main .ch .l{opacity:0; animation:showL .01s steps(1) forwards; animation-delay:calc(0.20s + var(--i)*0.075s);}
+  .wm-main .ch .g{position:absolute; left:0; top:0; font-family:var(--mono); color:var(--acid); opacity:0; animation:flashG .075s steps(1) forwards; animation-delay:calc(0.14s + var(--i)*0.075s);}
+  @keyframes showL{to{opacity:1;}}
+  @keyframes flashG{0%{opacity:1;}100%{opacity:0;}}
+  .wm-plate{position:absolute; left:0; top:0; z-index:1; mix-blend-mode:screen; pointer-events:none;}
+  .wm-acid{color:var(--acid); animation:regA 1.15s steps(1) forwards;}
+  .wm-orchid{color:var(--orchid); animation:regB 1.15s steps(1) forwards;}
+  @keyframes regA{0%{transform:translate(7px,4px);opacity:.85}30%{transform:translate(4px,2px)}55%{transform:translate(2px,1px)}78%{transform:translate(0,0);opacity:.5}100%{transform:translate(0,0);opacity:0}}
+  @keyframes regB{0%{transform:translate(-6px,-4px);opacity:.85}30%{transform:translate(-4px,-2px)}55%{transform:translate(-2px,-1px)}78%{transform:translate(0,0);opacity:.5}100%{transform:translate(0,0);opacity:0}}
+  @media (prefers-reduced-motion:reduce){
+    .wm-main .ch .l{opacity:1; animation:none;}
+    .wm-main .ch .g,.wm-plate{display:none;}
+  }
+
   /* woven brand band */
   .weave{height:26px; width:min(230px,60vw); margin:0 0 0 var(--rail);
     background-color:var(--orchid);
@@ -175,13 +206,16 @@
 
   /* newsletter (primary action, in-hero) */
   .capture{margin-top:36px; max-width:560px; border-top:3px solid var(--paper); padding-top:24px;}
-  .capture label{display:block; color:var(--acid); margin-bottom:14px;}
+  .capture h2.kick{display:block; color:var(--acid); margin:0 0 14px; font-weight:400;}
+  .capture .ok{display:none; margin-top:14px; font-family:var(--kick); text-transform:uppercase; letter-spacing:0.1em; font-size:13px; color:var(--acid);}
+  .capture.done form{display:none;}
+  .capture.done .ok{display:block;}
   .capture form{display:flex; gap:10px; flex-wrap:wrap;}
   .capture input{flex:1 1 240px; min-height:52px; background:transparent; border:2px solid #3a3a3a; color:var(--paper); font-family:var(--mono); font-size:16px; padding:0 16px;}
   .capture input:focus{outline:none; border-color:var(--acid);}
   .capture .btn{min-height:52px; padding:0 24px; display:inline-flex; align-items:center; font-family:var(--kick); text-transform:uppercase; letter-spacing:0.08em; font-size:14px; background:var(--acid); color:var(--ink); border:2px solid var(--acid); cursor:pointer; text-decoration:none;}
   .capture .btn:hover{background:#5cff59;}
-  .capture .note{font-size:12px; color:#6f6a56; margin-top:12px; letter-spacing:0.03em;}
+  .capture .note{font-size:12px; color:#8f8b80; margin-top:12px; letter-spacing:0.03em;}
 
   /* ---------- generic btn ---------- */
   .btn{display:inline-flex; align-items:center; gap:8px; min-height:48px; padding:0 22px; font-family:var(--kick); text-transform:uppercase; letter-spacing:0.08em; font-size:14px; text-decoration:none; border:2px solid currentColor; background:transparent; cursor:pointer;}
@@ -201,12 +235,13 @@
   .lcard .get{min-height:50px; padding:0 24px; display:inline-flex; align-items:center; font-family:var(--kick); text-transform:uppercase; letter-spacing:0.08em; font-size:15px; background:var(--ink); color:var(--paper); text-decoration:none; border:0;}
   .lcard .get:hover{background:#000;}
   .lcard .watch{font-family:var(--mono); font-size:13px; color:rgba(16,16,16,0.75); letter-spacing:0.04em;}
-  .lcard .watch a{color:var(--ink); text-decoration:none; border-bottom:1px solid rgba(16,16,16,0.4);}
+  .lcard .watch a{color:var(--ink); text-decoration:none; border-bottom:1px solid rgba(16,16,16,0.4); display:inline-block; padding:12px 0; margin:-12px 0;}
   .lcard .watch a:hover{border-color:var(--ink);}
 
   /* ---------- RITUAL strip ---------- */
   .ritual{padding:40px var(--rail); }
-  .ritual .h{font-family:var(--kick); text-transform:uppercase; letter-spacing:0.12em; font-size:13px; color:#8f8b80; margin-bottom:20px;}
+  .ritual .h{font-family:var(--kick); text-transform:uppercase; letter-spacing:0.12em; font-size:13px; font-weight:400; color:#8f8b80; margin:0 0 20px;}
+  .fig h2{margin:0;}
   .steps{display:grid; grid-template-columns:1fr; gap:0;}
   @media (min-width:720px){ .steps{grid-template-columns:repeat(3,1fr);} }
   .step{border-top:2px solid #2a2a2a; padding:20px 0; display:flex; gap:18px; align-items:baseline;}
@@ -229,7 +264,7 @@
   footer{margin-top:26px; padding:44px var(--rail) 60px; border-top:1px solid #262626;}
   .foot-rule{font-size:15px; margin-bottom:32px;}
   .socials{display:flex; flex-wrap:wrap; gap:22px;}
-  .socials a{font-family:var(--kick); text-transform:uppercase; letter-spacing:0.1em; font-size:13px; color:#8f8b80; text-decoration:none;}
+  .socials a{font-family:var(--kick); text-transform:uppercase; letter-spacing:0.1em; font-size:13px; color:#8f8b80; text-decoration:none; padding:12px 0; margin:-12px 0;}
   .socials a:hover{color:var(--acid);}
   .backref{margin-top:32px; font-family:var(--kick); text-transform:uppercase; letter-spacing:0.1em; font-size:13px; color:var(--paper);}
   .wordmark-foot{display:flex; align-items:center; gap:14px; margin-top:38px; flex-wrap:wrap;}
@@ -239,6 +274,19 @@
 </head>
 <body>
 
+<script>document.documentElement.className='js';</script>
+
+<!-- ======================= CHROME ======================= -->
+<header class="chrome">
+  <a class="wm" href="#top" aria-label="vektor">
+    <span class="wm-plate wm-acid" aria-hidden="true">vektor</span>
+    <span class="wm-plate wm-orchid" aria-hidden="true">vektor</span>
+    <span class="wm-main">
+      <span class="ch" style="--i:0"><span class="g">%</span><span class="l">v</span></span><span class="ch" style="--i:1"><span class="g">#</span><span class="l">e</span></span><span class="ch" style="--i:2"><span class="g">Z</span><span class="l">k</span></span><span class="ch" style="--i:3"><span class="g">8</span><span class="l">t</span></span><span class="ch" style="--i:4"><span class="g">@</span><span class="l">o</span></span><span class="ch" style="--i:5"><span class="g">W</span><span class="l">r</span></span>
+    </span>
+  </a>
+  <span class="marker">The Index</span>
+</header>
 
 <div class="weave" aria-hidden="true" style="margin-top:30px;"></div>
 
@@ -256,16 +304,7 @@
   <div class="kick eye">Vektor /// The Index</div>
   <h1>The AI frontier,<br>cut to what<br>ships<span class="dot">.</span></h1>
   <p class="sub">Daily shorts on the Claude &amp; AI tooling that actually matters — and every issue delivers the goods.</p>
-
-  <!-- PRIMARY ACTION — newsletter. Wire {{NEWSLETTER_ACTION}} to your provider (Buttondown/ConvertKit); design untouched. -->
-  <div class="capture" id="subscribe">
-    <label class="kick">The Teardown — one email / week</label>
-    <form method="post" action="{{NEWSLETTER_ACTION}}">
-      <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required="">
-      <button class="btn" type="submit">Subscribe →</button>
-    </form>
-    <div class="note">One teardown a week. How the frontier's tools actually work. Unsubscribe anytime.</div>
-  </div>
+  <p class="sub" style="margin-top:10px; font-size:14px; color:#8f8b80;">One short a day. Every video ends in working links — comment the keyword, get the goods.</p>
 </section>
 
 <!-- ============================ LATEST ISSUE ============================ -->
@@ -277,18 +316,31 @@
     <div class="lactions">
       <a class="get" data-goatcounter-click="hub-get-the-five" href="./no-004.html">Get the five →</a>
       <span class="watch">Watch:
-        <a href="https://tiktok.com/@vektor.fm" target="_blank" rel="noopener">TikTok</a> /
-        <a href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Instagram</a> /
-        <a href="https://youtube.com/@vektor.fm" target="_blank" rel="noopener">YouTube</a> /
-        <a href="https://x.com/vektor.fm" target="_blank" rel="noopener">X</a>
+        <a data-goatcounter-click="hub-follow-tiktok" href="https://tiktok.com/@vektor.fm" target="_blank" rel="noopener">TikTok</a> /
+        <a data-goatcounter-click="hub-follow-instagram" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Instagram</a> /
+        <a data-goatcounter-click="hub-follow-youtube" href="https://youtube.com/@vektorfm" target="_blank" rel="noopener">YouTube</a> /
+        <a data-goatcounter-click="hub-follow-x" href="https://x.com/vektordotfm" target="_blank" rel="noopener">X</a>
       </span>
     </div>
   </article>
 </section>
 
+<!-- ============================ NEWSLETTER (primary conversion) ============================ -->
+<section style="padding:12px var(--rail) 0;">
+  <div class="capture" id="subscribe">
+    <h2 class="kick">The Teardown — one email / week</h2>
+    <form method="post" action="https://buttondown.com/api/emails/embed-subscribe/teardown">
+      <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required="">
+      <button class="btn" type="submit">Subscribe →</button>
+    </form>
+    <div class="ok" role="status">Check your inbox — confirm and you're in. This drop's config pack comes with the welcome email.</div>
+    <div class="note">The current drop's config pack + one teardown a week. Unsubscribe anytime.</div>
+  </div>
+</section>
+
 <!-- ============================ RITUAL STRIP ============================ -->
 <section class="ritual">
-  <div class="h">How it works</div>
+  <h2 class="h">How it works</h2>
   <div class="steps">
     <div class="step"><span class="n">01</span><span class="t">Watch the reel</span></div>
     <div class="step"><span class="n">02</span><span class="t">Comment the keyword</span></div>
@@ -297,7 +349,7 @@
 </section>
 
 <!-- ============================ ARCHIVE ============================ -->
-<div class="fig"><span class="kick">Fig. A ·</span><span class="gaccent">archive</span><span class="line"></span></div>
+<div class="fig"><h2 class="kick">Fig. 01 ·</h2><span class="gaccent">archive</span><span class="line"></span></div>
 <section class="archive">
 
   <!-- ===== ARCHIVE ROW — copy this <a.row> block for each new issue (newest first) ===== -->
@@ -312,16 +364,25 @@
   </a>
   <!-- ===== END ARCHIVE ROW ===== -->
 
+  <div class="row" aria-hidden="false">
+    <span class="no" style="color:#8f8b80;">001–003</span>
+    <span class="mid">
+      <span class="t" style="color:#8f8b80;">Pre-site era.</span>
+      <span class="k">Lived in the DMs</span>
+    </span>
+  </div>
+
 </section>
 
 <!-- ============================ FOOTER ============================ -->
 <footer>
   <div class="rule foot-rule">////////////////////////////////////////////////////////////////////////////////////////////////</div>
   <nav class="socials" aria-label="Social links">
-    <a href="https://tiktok.com/@vektor.fm" target="_blank" rel="noopener">TikTok · @vektor.fm</a>
-    <a href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Instagram · @vektor.fm</a>
-    <a href="https://youtube.com/@vektor.fm" target="_blank" rel="noopener">YouTube · @vektor.fm</a>
-    <a href="https://x.com/vektor.fm" target="_blank" rel="noopener">X · @vektor.fm</a>
+    <a data-goatcounter-click="hub-follow-tiktok-foot" href="https://tiktok.com/@vektor.fm" target="_blank" rel="noopener">TikTok · @vektor.fm</a>
+    <a data-goatcounter-click="hub-follow-instagram-foot" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Instagram · @vektor.fm</a>
+    <a data-goatcounter-click="hub-follow-youtube-foot" href="https://youtube.com/@vektorfm" target="_blank" rel="noopener">YouTube · @vektorfm</a>
+    <a data-goatcounter-click="hub-follow-x-foot" href="https://x.com/vektordotfm" target="_blank" rel="noopener">X · @vektordotfm</a>
+    <a href="./privacy.html">Privacy</a>
   </nav>
   <div class="backref">Comment the keyword on the latest reel.</div>
   <div class="wordmark-foot">
@@ -332,9 +393,23 @@
 
 
 
-<script data-goatcounter="https://vektor.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<script data-goatcounter="https://vektor.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 <script>
-  // GoatCounter subscribe-attempt event; page works fully without JS.
+  // GoatCounter subscribe event + non-blocking Buttondown submit + UTM tagging.
+  // Page works fully without JS (form falls back to a normal POST redirect).
   document.querySelectorAll('form').forEach(function(f){ f.addEventListener('submit', function(){ if(window.goatcounter && goatcounter.count){ goatcounter.count({path:'hub-subscribe-submit', event:true}); } }); });
+  var cap=document.querySelector('.capture'), cform=cap&&cap.querySelector('form');
+  if(cform && window.fetch && window.FormData && window.URLSearchParams){
+    cform.addEventListener('submit', function(e){
+      e.preventDefault();
+      fetch(cform.action, {method:'POST', mode:'no-cors', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body:new URLSearchParams(new FormData(cform)).toString()})
+        .then(function(){ cap.classList.add('done'); })
+        .catch(function(){ cform.submit(); });
+    });
+  }
+  document.querySelectorAll('a[href^="http"]').forEach(function(a){
+    try{ var u=new URL(a.href); if(u.hostname==='github.com'){return;}
+      if(!u.searchParams.has('utm_source')){ u.searchParams.set('utm_source','vektor'); u.searchParams.set('utm_medium','bio'); u.searchParams.set('utm_campaign','index'); a.href=u.toString(); } }catch(e){}
+  });
 </script>
 </body></html>
