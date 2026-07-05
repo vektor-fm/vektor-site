@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>vektor /// the 5-skill config pack</title>
+<meta name="description" content="The Teardown welcome pack — five Claude Code skills, verified install lines, starter settings.">
+<style>
+@font-face { font-family: 'Tektur'; font-weight: 900; font-display: swap; src: url("fonts/tektur-900-latin.woff2") format('woff2'); }
+@font-face { font-family: 'IBM Plex Mono'; font-weight: 400; font-display: swap; src: url("fonts/ibm-plex-mono-400-latin.woff2") format('woff2'); }
+@font-face { font-family: 'IBM Plex Mono'; font-weight: 600; font-display: swap; src: url("fonts/ibm-plex-mono-600-latin.woff2") format('woff2'); }
+@font-face { font-family: 'Inter Tight'; font-weight: 600; font-display: swap; src: url("fonts/inter-tight-600-latin.woff2") format('woff2'); }
+:root { --ink:#101010; --paper:#EFEADD; --orchid:#C77BC9; --aqua:#8FC5C9; --cream:#F4EFDF; --fog:#E8ECEA; --acid:#39FF35; --mono:'IBM Plex Mono',ui-monospace,monospace; --disp:'Tektur',system-ui,sans-serif; }
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:var(--ink); color:var(--paper); font-family:var(--mono); font-size:16px; line-height:1.55; }
+.wrap { max-width:760px; margin:0 auto; padding:clamp(24px,6vw,64px) clamp(18px,5vw,40px) 80px; }
+.wm { font-family:'Inter Tight',system-ui,sans-serif; font-weight:600; font-size:34px; letter-spacing:-0.045em; text-transform:lowercase; color:var(--paper); }
+.kick { font-size:13px; text-transform:uppercase; letter-spacing:0.14em; color:var(--acid); margin:26px 0 10px; }
+h1 { font-family:var(--disp); font-weight:900; text-transform:uppercase; font-size:clamp(34px,7.5vw,56px); line-height:1.05; margin-bottom:14px; }
+.rule { color:rgba(239,234,221,0.4); overflow:hidden; white-space:nowrap; user-select:none; margin:18px 0 30px; }
+p.lede { color:rgba(239,234,221,0.85); max-width:60ch; }
+.card { margin-top:34px; padding:22px 22px 24px; border:2px solid rgba(239,234,221,0.18); }
+.card h2 { font-family:var(--disp); font-weight:900; text-transform:uppercase; font-size:24px; margin-bottom:6px; }
+.card .n { color:var(--orchid); margin-right:10px; }
+.card p { color:rgba(239,234,221,0.8); margin-bottom:14px; max-width:60ch; }
+pre { background:#000; border:1px solid rgba(239,234,221,0.25); padding:14px 16px; overflow-x:auto; font-size:14px; line-height:1.5; }
+pre code { font-family:var(--mono); color:var(--acid); }
+.repo { display:inline-block; margin-top:10px; font-size:13px; color:var(--aqua); text-decoration:underline; text-underline-offset:3px; word-break:break-all; }
+.repo:focus-visible { outline:2px solid var(--acid); outline-offset:2px; }
+.note { font-size:13px; color:rgba(239,234,221,0.55); margin-top:10px; }
+.settings pre code { color:var(--fog); }
+.foot { margin-top:56px; padding-top:22px; border-top:2px solid rgba(239,234,221,0.18); font-size:13px; text-transform:uppercase; letter-spacing:0.1em; color:rgba(239,234,221,0.6); }
+.foot a { color:var(--acid); text-decoration:none; }
+</style></head>
+<body>
+<div class="wrap">
+  <span class="wm">vektor</span>
+  <div class="kick">The Teardown · Welcome pack</div>
+  <h1>The 5-skill<br>config pack.</h1>
+  <div class="rule">////////////////////////////////////////////////////////////////</div>
+  <p class="lede">Everything from NO. 004 in one place: the five skills, what each one actually does, and the exact install line — verified against each repo, not guessed. Paste them into a terminal (or Claude Code itself for the /plugin ones) and you're set.</p>
+
+  <div class="card">
+    <h2><span class="n">01</span>Find Skills</h2>
+    <p>The package manager for skills — searches the library and installs what you need. The one that finds the other four.</p>
+    <pre><code>npx skills find &lt;what you need&gt;
+npx skills add vercel-labs/agent-skills -a claude-code</code></pre>
+    <a class="repo" href="https://github.com/vercel-labs/skills">github.com/vercel-labs/skills</a>
+  </div>
+
+  <div class="card">
+    <h2><span class="n">02</span>Superpowers</h2>
+    <p>Makes Claude plan properly and check its own work before it calls a task done. Run inside Claude Code:</p>
+    <pre><code>/plugin install superpowers@claude-plugins-official</code></pre>
+    <a class="repo" href="https://github.com/obra/superpowers">github.com/obra/superpowers</a>
+  </div>
+
+  <div class="card">
+    <h2><span class="n">03</span>Claude-Mem</h2>
+    <p>Cross-session memory — it remembers your project so you stop re-explaining it every time.</p>
+    <pre><code>npx claude-mem install</code></pre>
+    <a class="repo" href="https://github.com/thedotmack/claude-mem">github.com/thedotmack/claude-mem</a>
+  </div>
+
+  <div class="card">
+    <h2><span class="n">04</span>Impeccable</h2>
+    <p>Front-end design taste on tap — kills AI-slop UI before it reaches your screen. The installer detects your setup and asks project vs global.</p>
+    <pre><code>npx impeccable install</code></pre>
+    <a class="repo" href="https://github.com/pbakaus/impeccable">github.com/pbakaus/impeccable</a>
+  </div>
+
+  <div class="card">
+    <h2><span class="n">05</span>Task Observer</h2>
+    <p>Watches how you work and quietly improves your other skills over time. The last one runs itself.</p>
+    <pre><code>npx -y skills add rebelytics/one-skill-to-rule-them-all --skill task-observer --agent claude-code</code></pre>
+    <a class="repo" href="https://crossaitools.com/skills/rebelytics/one-skill-to-rule-them-all/task-observer">crossaitools.com/…/task-observer</a>
+  </div>
+
+  <div class="card settings">
+    <h2><span class="n">+</span>Starter settings</h2>
+    <p>Drop this in <code>.claude/settings.json</code> at your project root. It pre-approves the read-only commands Claude asks about constantly, so the skills above run with fewer permission prompts — without approving anything that writes.</p>
+    <pre><code>{
+  "permissions": {
+    "allow": [
+      "Bash(git status)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(npm run lint)",
+      "Bash(npm run test:*)"
+    ]
+  }
+}</code></pre>
+    <p class="note">Two habits that outdo any config: keep a short CLAUDE.md at the repo root (what the project is, how to run tests, what "done" means) — every skill reads it. And let claude-mem do the remembering instead of pasting context every session.</p>
+  </div>
+
+  <div class="foot">
+    vektor /// the teardown · one email a week ·
+    <a href="./index.html">back to the index</a>
+  </div>
+</div>
+</body></html>
