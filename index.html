@@ -333,7 +333,6 @@
       <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required="">
       <button class="btn" type="submit">Subscribe →</button>
     </form>
-    <div class="ok" role="status">Check your inbox — confirm and you're in. This drop's config pack comes with the welcome email.</div>
     <div class="note">The current drop's config pack + one teardown a week. Unsubscribe anytime.</div>
   </div>
 </section>
@@ -398,15 +397,8 @@
   // GoatCounter subscribe event + non-blocking Buttondown submit + UTM tagging.
   // Page works fully without JS (form falls back to a normal POST redirect).
   document.querySelectorAll('form').forEach(function(f){ f.addEventListener('submit', function(){ if(window.goatcounter && goatcounter.count){ goatcounter.count({path:'hub-subscribe-submit', event:true}); } }); });
-  var cap=document.querySelector('.capture'), cform=cap&&cap.querySelector('form');
-  if(cform && window.fetch && window.FormData && window.URLSearchParams){
-    cform.addEventListener('submit', function(e){
-      e.preventDefault();
-      fetch(cform.action, {method:'POST', mode:'no-cors', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body:new URLSearchParams(new FormData(cform)).toString()})
-        .then(function(){ cap.classList.add('done'); })
-        .catch(function(){ cform.submit(); });
-    });
-  }
+  // Form submits as a plain navigation POST — Buttondown interposes a one-click
+  // verification page, so an AJAX submit silently drops the signup (tested 2026-07-05).
   document.querySelectorAll('a[href^="http"]').forEach(function(a){
     try{ var u=new URL(a.href); if(u.hostname==='github.com'){return;}
       if(!u.searchParams.has('utm_source')){ u.searchParams.set('utm_source','vektor'); u.searchParams.set('utm_medium','bio'); u.searchParams.set('utm_campaign','index'); a.href=u.toString(); } }catch(e){}

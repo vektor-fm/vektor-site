@@ -509,8 +509,7 @@
       <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
       <button class="btn" type="submit">Send me the pack →</button>
     </form>
-    <div class="ok" role="status">Check your inbox — confirm the email and the pack is yours.</div>
-    <div class="note">Free. The config pack lands after you confirm. Unsubscribe anytime.</div>
+    <div class="note">Free. The config pack lands after you confirm your email. Unsubscribe anytime.</div>
   </div>
 
   <!-- ===== FUTURE SHOP TIER (courses / merch) — drop a section here when live.
@@ -578,16 +577,9 @@
     else { fallback(location.href); done(); }
   }); }
 
-  // Newsletter: non-blocking submit + inline success (no-JS falls back to a normal POST redirect)
-  var news=document.querySelector('.news'), nform=news&&news.querySelector('form');
-  if(nform && window.fetch && window.FormData && window.URLSearchParams){
-    nform.addEventListener('submit', function(e){
-      e.preventDefault();
-      fetch(nform.action, {method:'POST', mode:'no-cors', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body:new URLSearchParams(new FormData(nform)).toString()})
-        .then(function(){ news.classList.add('done'); })
-        .catch(function(){ nform.submit(); });
-    });
-  }
+  // Newsletter submits as a plain navigation POST — Buttondown interposes a
+  // one-click human-verification page on embed-subscribe, so an AJAX submit
+  // would silently drop the signup (tested 2026-07-05). Do NOT re-add fetch here.
 
   // Sticky follow bar: appears once the last card has been seen, hides at the footer form; a11y-toggled
   var sticky=document.getElementById('stickyCta'), sub=document.getElementById('subscribe'), dismissed=false;
