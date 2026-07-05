@@ -2,20 +2,21 @@
 <html lang="en" id="top"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>vektor /// no. 004 — you only need 5 skills</title>
-<meta name="description" content="The five Claude Code skills we showed in NO. 004 — links and installs below. As promised.">
+<title>vektor /// no. 006 — one file. 188,000 stars.</title>
+<meta name="description" content="The Karpathy-derived CLAUDE.md from NO. 006 — repo, the four rules, and our starter file. As promised.">
 
 <!-- OG / social preview (traffic arrives via DM) -->
+<!-- og:image is the hub card as placeholder — swap to og/no-006.png when generated -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="You only need 5 skills. — vektor /// no. 004">
-<meta property="og:description" content="The five Claude Code skills from the reel. Links + installs, no gate.">
-<meta property="og:image" content="https://vektor-fm.github.io/vektor-site/og/no-004.png">
+<meta property="og:title" content="One file. 188,000 stars. — vektor /// no. 006">
+<meta property="og:description" content="The Karpathy-derived CLAUDE.md from the reel — repo, four rules, starter file. No gate.">
+<meta property="og:image" content="https://vektor-fm.github.io/vektor-site/og/vektor-og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="You only need 5 skills. — vektor /// no. 004">
+<meta property="og:image:alt" content="One file. 188,000 stars. — vektor /// no. 006">
 <meta property="og:site_name" content="vektor">
-<meta property="og:url" content="https://vektor-fm.github.io/vektor-site/no-004.html">
-<link rel="canonical" href="https://vektor-fm.github.io/vektor-site/no-004.html">
+<meta property="og:url" content="https://vektor-fm.github.io/vektor-site/no-006.html">
+<link rel="canonical" href="https://vektor-fm.github.io/vektor-site/no-006.html">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#101010">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23101010'/%3E%3Ctext x='30' y='48' font-family='Arial' font-size='46' font-weight='600' text-anchor='middle' fill='%23EFEADD'%3Ev%3C/text%3E%3Ccircle cx='52' cy='44' r='5' fill='%2339FF35'/%3E%3C/svg%3E">
@@ -149,7 +150,6 @@
     --ink:#101010; --paper:#EFEADD; --cream:#F4EFDF; --fog:#E8ECEA;
     --orchid:#C77BC9; --aqua:#8FC5C9; --acid:#39FF35; --teal:#0E9C86;
     --blue-a:#1B4FA0; --blue-b:#2B6BC4; --blue-c:#153A78; --blue-meta:#BFD9FF;
-    --signal:linear-gradient(165deg,#1B4FA0 0%,#2B6BC4 60%,#153A78 100%);
     --disp:'Tektur',system-ui,sans-serif;
     --kick:'Workbench','IBM Plex Mono',monospace;
     --mono:'IBM Plex Mono',ui-monospace,monospace;
@@ -201,10 +201,10 @@
     .wm-foot .ch2 .g{display:none;}
   }
 
-  /* ---------- woven band (brand signature) ---------- */
+  /* ---------- woven band (brand signature) — cream/ink is NO. 006's field ---------- */
   .weave{
     height:26px; width:min(230px,60vw); margin:0 0 0 var(--rail);
-    background-color:var(--orchid);
+    background-color:var(--cream);
     background-image:
       repeating-linear-gradient(90deg, rgba(16,16,16,.55) 0 3px, transparent 3px 9px),
       repeating-linear-gradient(0deg, rgba(16,16,16,.55) 0 3px, transparent 3px 9px),
@@ -214,13 +214,13 @@
 
   /* ---------- hero ---------- */
   .hero{padding:38px var(--rail) 30px; position:relative;}
-  .hero .eye{color:var(--acid); margin-bottom:20px;}
+  .hero .eye{color:var(--cream); margin-bottom:20px;}
   .hero h1{margin:0; font-size:clamp(40px,11vw,120px);}
   .hero h1 .dot{color:var(--acid);}
-  .hero .sub{max-width:34ch; margin-top:24px; font-size:16px; line-height:1.55; color:var(--paper);}
+  .hero .sub{max-width:36ch; margin-top:24px; font-size:16px; line-height:1.55; color:var(--paper);}
   .hero .ascii{
     position:absolute; top:30px; right:6px; font-family:var(--mono); font-size:10px; line-height:1.05;
-    color:rgba(57,255,53,0.22); white-space:pre; user-select:none; pointer-events:none; display:none;
+    color:rgba(244,239,223,0.18); white-space:pre; user-select:none; pointer-events:none; display:none;
   }
   @media (min-width:760px){ .hero .ascii{display:block;} }
   .hero .rule{margin-top:34px; font-size:15px;}
@@ -229,15 +229,18 @@
   .fig{padding:26px var(--rail) 6px; display:flex; align-items:center; gap:16px;}
   .fig .kick{color:#8f8b80; white-space:nowrap;}
   .fig .line{flex:1; height:1px; background:#2a2a2a;}
+  .fig h2{margin:0;}
+  .fig .gaccent{font-family:var(--goth); font-size:34px; color:var(--paper); line-height:0.7;}
 
-  /* ---------- skill cards ---------- */
+  /* ---------- cards ---------- */
   .issues{padding:12px var(--rail) 0;}
   .card{position:relative; margin:16px 0; padding:26px 24px 24px; overflow:hidden;}
   .card .top{display:flex; align-items:flex-start; justify-content:space-between; gap:16px;}
   .card .tag{font-family:var(--kick); text-transform:uppercase; letter-spacing:0.12em; font-size:13px;}
   .card .goth{font-family:var(--goth); font-size:52px; line-height:0.8; margin-top:-6px;}
-  .card h2{font-family:var(--disp); font-weight:900; text-transform:uppercase; line-height:1; letter-spacing:0.005em; font-size:clamp(38px,11vw,60px); margin:18px 0 0;}
-  .card .one{font-size:15.5px; line-height:1.5; margin-top:12px; max-width:40ch;}
+  .card h2{font-family:var(--disp); font-weight:900; text-transform:uppercase; line-height:1; letter-spacing:0.005em; font-size:clamp(30px,8.5vw,56px); margin:18px 0 0; overflow-wrap:break-word;}
+  .card .one{font-size:15.5px; line-height:1.5; margin-top:12px; max-width:44ch;}
+  .card .stars{display:inline-block; margin-top:16px; font-family:var(--kick); text-transform:uppercase; letter-spacing:0.1em; font-size:12px; padding:8px 12px; background:var(--ink); color:var(--cream);}
   .card .actions{display:flex; flex-wrap:wrap; gap:10px; margin-top:22px; align-items:stretch;}
   .btn{
     display:inline-flex; align-items:center; gap:8px; min-height:48px; padding:0 20px;
@@ -252,14 +255,21 @@
   .copybtn{display:none; flex:none; align-items:center; min-height:44px; padding:0 12px; margin:2px 0;
     font-family:var(--kick); text-transform:uppercase; letter-spacing:0.08em; font-size:12px; border:0; cursor:pointer;}
   .js .copybtn{display:inline-flex;}
-  #copyAll,#shareBtn{display:none;}
-  .js #copyAll,.js #shareBtn{display:inline-flex;}
-  .fig h2{margin:0;}
-  .fig .gaccent{font-family:var(--goth); font-size:34px; color:var(--paper); line-height:0.7;}
+  #copyStarter,#shareBtn{display:none;}
+  .js #copyStarter,.js #shareBtn{display:inline-flex;}
   .news h2{margin:0 0 12px; font-weight:400;}
-  .news .ok{display:none; margin-top:12px; font-family:var(--kick); text-transform:uppercase; letter-spacing:0.1em; font-size:13px; color:var(--acid);}
-  .news.done form{display:none;}
-  .news.done .ok{display:block;}
+
+  /* copy-to-clipboard starter block */
+  .tpl{border:2px solid #3a3a3a; background:#141414; padding:18px 16px; overflow-x:auto; -webkit-overflow-scrolling:touch;
+    font-family:var(--mono); font-size:13px; line-height:1.6; margin:20px 0 0; color:var(--paper); white-space:pre;}
+  .tpl code{font-family:inherit;}
+
+  /* the four rules — ledger rows */
+  .ledger{padding:10px var(--rail) 6px;}
+  .lrow{display:flex; gap:18px; align-items:baseline; border-top:2px solid #2a2a2a; padding:20px 0;}
+  .lrow:last-of-type{border-bottom:2px solid #2a2a2a;}
+  .lrow .n{font-family:var(--disp); font-weight:900; font-size:40px; color:var(--cream); flex:none; line-height:1;}
+  .lrow .t{font-family:var(--mono); font-size:15px; text-transform:uppercase; letter-spacing:0.04em; line-height:1.4;}
 
   /* card skins */
   .c-orchid{background:var(--orchid); color:var(--ink);}
@@ -272,24 +282,13 @@
   .c-orchid .copy,.c-aqua .copy,.c-cream .copy{border-color:rgba(16,16,16,0.45); color:var(--ink);}
   .c-orchid .copybtn,.c-aqua .copybtn,.c-cream .copybtn{background:var(--ink); color:var(--paper);}
 
-  .c-signal{background:var(--blue-a); color:var(--paper);} /* flat field — Americana law: no gradients, no glow */
-  .c-signal .tag{color:var(--blue-meta);}
-  .c-signal .goth{color:var(--acid);}
-  .c-signal .one{color:var(--blue-meta);}
-  .c-signal .btn{color:var(--acid); border-color:var(--acid);}
-  .c-signal .btn:hover{background:var(--acid); color:var(--ink);}
-  .c-signal .copy{border-color:rgba(57,255,53,0.5); color:var(--paper);}
-  .c-signal .copybtn{background:var(--acid); color:var(--ink);}
-  .c-signal .ascii-art{position:absolute; top:20px; right:16px; font-family:var(--mono); font-size:12px; line-height:1.02; color:var(--acid); white-space:pre; user-select:none; opacity:0.9;}
-  @media (max-width:560px){ .c-signal .ascii-art{position:static; margin:16px 0 0; font-size:11px;} }
-
   .c-ink{background:var(--ink); color:var(--paper); border:1px solid #2a2a2a;}
   .c-ink .tag{color:#8f8b80;}
-  .c-ink .goth{color:var(--acid);}
-  .c-ink .btn{color:var(--acid); border-color:var(--acid);}
-  .c-ink .btn:hover{background:var(--acid); color:var(--ink);}
+  .c-ink .goth{color:var(--cream);}
+  .c-ink .btn{color:var(--cream); border-color:var(--cream);}
+  .c-ink .btn:hover{background:var(--cream); color:var(--ink);}
   .c-ink .copy{border-color:#3a3a3a; color:var(--paper);}
-  .c-ink .copybtn{background:var(--acid); color:var(--ink);}
+  .c-ink .copybtn{background:var(--cream); color:var(--ink);}
 
   /* ---------- footer ---------- */
   footer{margin-top:40px; padding:44px var(--rail) 60px; border-top:1px solid #262626;}
@@ -307,14 +306,14 @@
   .backref{margin-top:34px; font-family:var(--kick); text-transform:uppercase; letter-spacing:0.1em; font-size:13px; color:var(--paper);}
   .backref b{color:var(--acid);}
   .wordmark-foot{display:flex; align-items:center; gap:14px; margin-top:40px;}
-  .wordmark-foot .m{font-family:var(--mono); font-size:12px; color:#6f6a56;}
+  .wordmark-foot .m{font-family:var(--mono); font-size:12px; color:#8f8b80;}
 
   /* ---------- hero actions ---------- */
   .hero .actions{display:flex; flex-wrap:wrap; gap:10px; margin-top:26px;}
   .hero .actions .btn{color:var(--paper); border-color:var(--paper);}
   .hero .actions .btn:hover{background:var(--paper); color:var(--ink);}
-  .hero .actions .btn.primary{background:var(--acid); color:var(--ink); border-color:var(--acid);}
-  .hero .actions .btn.primary:hover{background:#5cff59; color:var(--ink);}
+  .hero .actions .btn.primary{background:var(--cream); color:var(--ink); border-color:var(--cream);}
+  .hero .actions .btn.primary:hover{background:#fffbee; color:var(--ink);}
 
   /* ---------- lead-magnet pack bullets ---------- */
   .pack{display:flex; flex-wrap:wrap; gap:8px 22px; margin:12px 0 18px;}
@@ -355,18 +354,18 @@
       <span class="ch" style="--i:0"><span class="g">%</span><span class="l">v</span></span><span class="ch" style="--i:1"><span class="g">#</span><span class="l">e</span></span><span class="ch" style="--i:2"><span class="g">Z</span><span class="l">k</span></span><span class="ch" style="--i:3"><span class="g">8</span><span class="l">t</span></span><span class="ch" style="--i:4"><span class="g">@</span><span class="l">o</span></span><span class="ch" style="--i:5"><span class="g">W</span><span class="l">r</span></span>
     </span>
   </a>
-  <span class="marker">Claude Skills · The Shortlist</span>
+  <span class="marker">Claude Code · The File</span>
 </header>
 
-<!-- sticky conversion bar (shown after hero, dismissible) -->
+<!-- sticky conversion bar (shown after the last card, dismissible) -->
 <div class="sticky-cta" id="stickyCta" aria-hidden="true">
-  <span class="t">Follow <b>@vektor.fm</b> → tomorrow's drop</span>
-  <span class="r"><a class="go" data-goatcounter-click="no004-follow-sticky" href="https://www.instagram.com/vektor.fm/" target="_blank" rel="noopener">Follow →</a><button class="x" id="ctaClose" type="button" aria-label="Dismiss">×</button></span>
+  <span class="t">Follow <b>@vektor.fm</b> → tonight's drop</span>
+  <span class="r"><a class="go" data-goatcounter-click="no006-follow-sticky" href="https://www.instagram.com/vektor.fm/" target="_blank" rel="noopener">Follow →</a><button class="x" id="ctaClose" type="button" aria-label="Dismiss">×</button></span>
 </div>
 
 <div class="weave" aria-hidden="true"></div>
 
-<!-- ======================= HERO (always shows latest issue) ======================= -->
+<!-- ======================= HERO ======================= -->
 <section class="hero">
   <div class="ascii" aria-hidden="true">   .:;!ii!;:.
  .;itfLCCLfti;.
@@ -375,13 +374,12 @@
 ;tLG08@@@80GLt;
  .;itfLCCLfti;.
    .:;!ii!;:.</div>
-  <div class="kick eye">Claude Skills · The Shortlist</div>
-  <h1 class="disp">You only<br>need 5<br>skills<span class="dot">.</span></h1>
-  <p class="sub">The five Claude Code skills we showed in NO. 004 — links and installs below. As promised.</p>
+  <div class="kick eye">Claude Code · The File</div>
+  <h1 class="disp">One file.<br>188,000<br>stars<span class="dot">.</span></h1>
+  <p class="sub">The Karpathy-derived CLAUDE.md from NO. 006 — repo, the four rules, and our starter file. As promised.</p>
   <div class="actions">
-    <a class="btn primary" href="#no-004">Jump to the 5 ↓</a>
-    <a class="btn" href="#subscribe">Get the config pack →</a>
-    <button class="btn" id="copyAll" type="button">Copy all 5 links</button>
+    <a class="btn primary" href="#no-006">Get the file ↓</a>
+    <a class="btn" href="#starter">Our starter file ↓</a>
     <button class="btn" id="shareBtn" type="button">Send to a dev friend</button>
   </div>
   <div class="rule">////////////////////////////////////////////////////////////////////////////////////////////////</div>
@@ -390,121 +388,118 @@
 <!-- ======================= ISSUE DIVIDER ======================= -->
 <div class="fig">
   <h2 class="kick">Fig. 01 ·</h2>
-  <span class="gaccent">the skill library</span>
+  <span class="gaccent">the file</span>
   <span class="line"></span>
 </div>
 
 <!-- =====================================================================
-     ISSUE BLOCK — NO. 004  ·  copy this whole <section> to add a new issue.
-     Bump the anchor id, the SKILL 0X / 05 tags, the field colors, and the
-     hero above. The newest issue's hero copy always lives in <section class="hero">.
+     ISSUE BLOCK — NO. 006 · the Karpathy-derived CLAUDE.md.
      ===================================================================== -->
-<section class="issues" id="no-004">
+<section class="issues" id="no-006">
 
-  <!-- SKILL 01 -->
-  <article class="card c-orchid">
-    <div class="top">
-      <span class="tag">Skill 01 / 05 · find skills · 25k★</span>
-      <span class="goth">search</span>
-    </div>
-    <h2>Find Skills</h2>
-    <p class="one">Searches the skill library and auto-installs what you need — the one that finds the other four.</p>
-    <div class="actions">
-      <a class="btn" data-goatcounter-click="no004-skill-find-skills" href="https://github.com/vercel-labs/skills" target="_blank" rel="noopener">Open on GitHub →</a>
-      <div class="copy"><code>github.com/vercel-labs/skills</code><button class="copybtn" data-copy="https://github.com/vercel-labs/skills">Copy</button></div>
-    </div>
-  </article>
-
-  <!-- SKILL 02 -->
-  <article class="card c-aqua">
-    <div class="top">
-      <span class="tag">Skill 02 / 05 · superpowers · 246k★</span>
-      <span class="goth">plan</span>
-    </div>
-    <h2>Superpowers</h2>
-    <p class="one">Makes Claude plan properly and check its own work before it calls a task done.</p>
-    <div class="actions">
-      <a class="btn" data-goatcounter-click="no004-skill-superpowers" href="https://github.com/obra/superpowers" target="_blank" rel="noopener">Open on GitHub →</a>
-      <div class="copy"><code>github.com/obra/superpowers</code><button class="copybtn" data-copy="https://github.com/obra/superpowers">Copy</button></div>
-    </div>
-  </article>
-
-  <!-- SKILL 03 -->
-  <article class="card c-signal">
-    <div class="ascii-art" aria-hidden="true">  .:!tC0@0Ct!:.
- ;tG8W%##%W8Gt;
-:fG@W#*++*#W@Gf:
-!C8%*+=::=+*%8C!
-:fG@W#*++*#W@Gf:
- ;tG8W%##%W8Gt;
-  .:!tC0@0Ct!:.</div>
-    <div class="top">
-      <span class="tag">Skill 03 / 05 · claude-mem · 86k★</span>
-      <span class="goth">memory</span>
-    </div>
-    <h2>Claude-Mem</h2>
-    <p class="one">It remembers your work. Cross-session memory, so you stop re-explaining the project every time.</p>
-    <div class="actions">
-      <a class="btn" data-goatcounter-click="no004-skill-claude-mem" href="https://github.com/thedotmack/claude-mem" target="_blank" rel="noopener">Open on GitHub →</a>
-      <div class="copy"><code>github.com/thedotmack/claude-mem</code><button class="copybtn" data-copy="https://github.com/thedotmack/claude-mem">Copy</button></div>
-    </div>
-  </article>
-
-  <!-- SKILL 04 -->
+  <!-- THE REPO (primary card) -->
   <article class="card c-cream">
     <div class="top">
-      <span class="tag">Skill 04 / 05 · impeccable · 44k★</span>
-      <span class="goth">taste</span>
+      <span class="tag">The repo · CLAUDE.md · Karpathy-derived</span>
+      <span class="goth">the file</span>
     </div>
-    <h2>Impeccable</h2>
-    <p class="one">Front-end design taste on tap — kills AI-slop UI before it reaches your screen.</p>
+    <h2>andrej&#8209;karpathy&#8209;skills</h2>
+    <p class="one">One CLAUDE.md in your repo root. Claude Code reads it before every task — four working rules distilled from Karpathy's notes on how LLMs fail at code.</p>
+    <span class="stars">187,849 ★ · live count via GitHub API · 2026-07-05</span>
     <div class="actions">
-      <a class="btn" data-goatcounter-click="no004-skill-impeccable" href="https://github.com/pbakaus/impeccable" target="_blank" rel="noopener">Open on GitHub →</a>
-      <div class="copy"><code>github.com/pbakaus/impeccable</code><button class="copybtn" data-copy="https://github.com/pbakaus/impeccable">Copy</button></div>
+      <a class="btn" data-goatcounter-click="no006-get-file" href="https://github.com/forrestchang/andrej-karpathy-skills" target="_blank" rel="noopener">Get the file →</a>
+      <div class="copy"><code>curl -O https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md</code><button class="copybtn" data-copy="curl -O https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md">Copy</button></div>
     </div>
   </article>
 
-  <!-- SKILL 05 -->
+  <!-- THE HONEST PART -->
   <article class="card c-ink">
     <div class="top">
-      <span class="tag">Skill 05 / 05 · task observer</span>
-      <span class="goth">watch</span>
+      <span class="tag">The honest part</span>
+      <span class="goth">honest</span>
     </div>
-    <h2>Task Observer</h2>
-    <p class="one">Watches how you work and quietly improves your other skills over time.</p>
+    <h2>Karpathy didn't write it.</h2>
+    <p class="one">Forrest Chang built it from Karpathy's public notes on how LLMs fail at code. It still works.</p>
+  </article>
+
+</section>
+
+<!-- THE FOUR RULES — ledger -->
+<div class="fig">
+  <h2 class="kick">Fig. 02 ·</h2>
+  <span class="gaccent">the four rules</span>
+  <span class="line"></span>
+</div>
+<section class="ledger" aria-label="The four rules inside the file">
+  <div class="lrow"><span class="n">01</span><span class="t">No silent assumptions</span></div>
+  <div class="lrow"><span class="n">02</span><span class="t">No over-engineering</span></div>
+  <div class="lrow"><span class="n">03</span><span class="t">No orthogonal changes</span></div>
+  <div class="lrow"><span class="n">04</span><span class="t">Verify before you claim done</span></div>
+</section>
+
+<section class="issues">
+
+  <!-- OUR STARTER CLAUDE.md — the combo with NO. 005 -->
+  <article class="card c-ink" id="starter">
+    <div class="top">
+      <span class="tag">Our starter · The combo · NO. 005 × NO. 006</span>
+      <span class="goth">starter</span>
+    </div>
+    <h2>Two layers, one file.</h2>
+    <p class="one">The context layer is the brain.md from <a data-goatcounter-click="no006-see-no005" href="./no-005.html">NO. 005</a>. This starter wires it in, then hands behavior to the Karpathy file. Copy, fill in, ship.</p>
+<pre class="tpl" id="starterTpl"><code># CLAUDE.md — source of truth for &lt;project&gt;
+_Last updated: &lt;date&gt; — update this YOURSELF after every real decision. No AI edits._
+_Context layer: the brain.md template from vektor NO. 005._
+
+## 1 · What &amp; why
+What this is: …
+Who it's for / the job it does: …
+What "done" looks like: …
+
+## 2 · Decisions (append-only)
+- &lt;date&gt; — Chose X over Y because … (revisit if: …)
+- &lt;date&gt; — …
+
+## 3 · Right now
+Working on: …
+Next up: …
+Known mess / debt: …
+
+&lt;!-- For the behavioral layer, append the Karpathy-skills file below this line. --&gt;
+&lt;!-- curl -O https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md --&gt;</code></pre>
     <div class="actions">
-      <a class="btn" data-goatcounter-click="no004-skill-task-observer" href="https://crossaitools.com/skills/rebelytics/one-skill-to-rule-them-all/task-observer" target="_blank" rel="noopener">Open the skill →</a>
-      <div class="copy"><code>crossaitools.com/…/task-observer</code><button class="copybtn" data-copy="https://crossaitools.com/skills/rebelytics/one-skill-to-rule-them-all/task-observer">Copy</button></div>
+      <button class="btn" id="copyStarter" type="button">Copy the starter</button>
+      <a class="btn" data-goatcounter-click="no006-see-no005-btn" href="./no-005.html">The brain file — NO. 005 →</a>
     </div>
   </article>
 
-  <!-- FOLLOW ASK — the reciprocity moment, right after the last skill -->
+  <!-- FOLLOW ASK — the reciprocity moment, right after the content -->
   <article class="card c-ink">
     <div class="top">
       <span class="tag">No gate / no catch</span>
       <span class="goth">follow</span>
     </div>
-    <h2>That's all 5. No gate, no catch.</h2>
+    <h2>That's the whole file. No gate, no catch.</h2>
     <p class="one">This page exists because people follow. If it saved you an afternoon, the follow is the thank-you — one new tool teardown every day.</p>
     <div class="actions">
-      <a class="btn" data-goatcounter-click="no004-follow-tiktok" href="https://tiktok.com/@vektor.fm" target="_blank" rel="noopener">TikTok →</a>
-      <a class="btn" data-goatcounter-click="no004-follow-instagram" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Instagram →</a>
-      <a class="btn" data-goatcounter-click="no004-follow-youtube" href="https://youtube.com/@vektorfm" target="_blank" rel="noopener">YouTube →</a>
-      <a class="btn" data-goatcounter-click="no004-follow-x" href="https://x.com/vektordotfm" target="_blank" rel="noopener">X →</a>
+      <a class="btn" data-goatcounter-click="no006-follow-tiktok" href="https://tiktok.com/@vektor.fm" target="_blank" rel="noopener">TikTok →</a>
+      <a class="btn" data-goatcounter-click="no006-follow-instagram" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Instagram →</a>
+      <a class="btn" data-goatcounter-click="no006-follow-youtube" href="https://youtube.com/@vektorfm" target="_blank" rel="noopener">YouTube →</a>
+      <a class="btn" data-goatcounter-click="no006-follow-x" href="https://x.com/vektordotfm" target="_blank" rel="noopener">X →</a>
     </div>
   </article>
 
 </section>
-<!-- ===================== END ISSUE BLOCK — NO. 004 ===================== -->
+<!-- ===================== END ISSUE BLOCK — NO. 006 ===================== -->
 
 <!-- ======================= FOOTER ======================= -->
 <footer>
   <div class="rule foot-rule">////////////////////////////////////////////////////////////////////////////////////////////////</div>
 
   <div class="news" id="subscribe">
-    <h2 class="kick" style="color:var(--acid);">Get the pack — 5 skills, one config</h2>
+    <h2 class="kick" style="color:var(--acid);">Get the pack — the working setup, one config</h2>
     <div class="pack">
-      <span>All 5 install lines</span><span>Claude Code settings</span><span>One teardown / week</span>
+      <span>The config pack</span><span>Claude Code settings</span><span>One teardown / week</span>
     </div>
     <form action="https://buttondown.com/api/emails/embed-subscribe/vektor" method="post">
       <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
@@ -513,52 +508,44 @@
     <div class="note">Free. The config pack lands after you confirm your email. Unsubscribe anytime.</div>
   </div>
 
-  <!-- ===== FUTURE SHOP TIER (courses / merch) — drop a section here when live.
-       Reuse the .card system: one field color each, Tektur name, a price chip, a real
-       checkout link (Gumroad/Stripe/Shopify). Keep to <=3 offers so it never fights the
-       newsletter goal, which stays the page's primary conversion. ===== -->
-
   <nav class="socials" aria-label="Social links">
-    <a data-goatcounter-click="no004-follow-tiktok-foot" href="https://tiktok.com/@vektor.fm" target="_blank" rel="noopener">TikTok · @vektor.fm</a>
-    <a data-goatcounter-click="no004-follow-instagram-foot" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Instagram · @vektor.fm</a>
-    <a data-goatcounter-click="no004-follow-youtube-foot" href="https://youtube.com/@vektorfm" target="_blank" rel="noopener">YouTube · @vektorfm</a>
-    <a data-goatcounter-click="no004-follow-x-foot" href="https://x.com/vektordotfm" target="_blank" rel="noopener">X · @vektordotfm</a>
+    <a data-goatcounter-click="no006-follow-tiktok-foot" href="https://tiktok.com/@vektor.fm" target="_blank" rel="noopener">TikTok · @vektor.fm</a>
+    <a data-goatcounter-click="no006-follow-instagram-foot" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Instagram · @vektor.fm</a>
+    <a data-goatcounter-click="no006-follow-youtube-foot" href="https://youtube.com/@vektorfm" target="_blank" rel="noopener">YouTube · @vektorfm</a>
+    <a data-goatcounter-click="no006-follow-x-foot" href="https://x.com/vektordotfm" target="_blank" rel="noopener">X · @vektordotfm</a>
     <a href="./privacy.html">Privacy</a>
   </nav>
 
-  <div class="backref"><a href="./no-005.html">No. 005 is live →</a> <b>The next keyword is only on the reel</b> — follow @vektor.fm to catch it.</div>
+  <div class="backref">No. 007 drops tonight. <b>The keyword is only on the reel</b> — follow @vektor.fm to catch it.</div>
 
   <div class="wordmark-foot">
     <span class="wm-foot" id="wmFoot" aria-label="vektor"><span class="ch2" style="--i:0"><span class="g">%</span><span class="l">v</span></span><span class="ch2" style="--i:1"><span class="g">#</span><span class="l">e</span></span><span class="ch2" style="--i:2"><span class="g">Z</span><span class="l">k</span></span><span class="ch2" style="--i:3"><span class="g">8</span><span class="l">t</span></span><span class="ch2" style="--i:4"><span class="g">@</span><span class="l">o</span></span><span class="ch2" style="--i:5"><span class="g">W</span><span class="l">r</span></span></span>
-    <span class="m">/// no. 004 / five skills / 07-2026 · the frontier, by the numbers</span>
+    <span class="m">/// no. 006 / the file / 07-2026 · the frontier, by the numbers</span>
   </div>
 </footer>
 
 <script>
-  // Progressive enhancement: copy-to-clipboard. Page is fully usable without this.
-  document.querySelectorAll('.copybtn').forEach(function(btn){
-    btn.addEventListener('click', function(){
-      var text = btn.getAttribute('data-copy');
-      var done = function(){ var o=btn.textContent; btn.textContent='Copied ✓'; setTimeout(function(){btn.textContent=o;},1400); };
-      if(navigator.clipboard && navigator.clipboard.writeText){
-        navigator.clipboard.writeText(text).then(done).catch(function(){ fallback(text); done(); });
-      } else { fallback(text); done(); }
-    });
-  });
+  // Progressive enhancement: copy + share. Page is fully usable without this.
   function fallback(text){
     var t=document.createElement('textarea'); t.value=text; t.style.position='fixed'; t.style.opacity='0';
     document.body.appendChild(t); t.focus(); t.select();
     try{ document.execCommand('copy'); }catch(e){}
     document.body.removeChild(t);
   }
+  function copyText(text, btn, doneLabel){
+    var o=btn.textContent, done=function(){ btn.textContent=doneLabel; setTimeout(function(){btn.textContent=o;},1600); };
+    if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(done).catch(function(){ fallback(text); done(); }); }
+    else { fallback(text); done(); }
+  }
 
-  // Copy-all installs (hero primary utility)
-  var ca=document.getElementById('copyAll');
-  if(ca){ ca.addEventListener('click', function(){
-    var urls=[].slice.call(document.querySelectorAll('.copybtn')).map(function(b){return b.getAttribute('data-copy');}).join('\n');
-    var o=ca.textContent, done=function(){ ca.textContent='Copied all 5 ✓'; setTimeout(function(){ca.textContent=o;},1600); };
-    if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(urls).then(done).catch(function(){fallback(urls);done();}); } else { fallback(urls); done(); }
-  }); }
+  // Copy buttons on .copy chips (curl line)
+  document.querySelectorAll('.copybtn').forEach(function(btn){
+    btn.addEventListener('click', function(){ copyText(btn.getAttribute('data-copy'), btn, 'Copied ✓'); });
+  });
+
+  // Copy the starter CLAUDE.md (the promised asset)
+  var cs=document.getElementById('copyStarter'), tpl=document.getElementById('starterTpl');
+  if(cs && tpl){ cs.addEventListener('click', function(){ copyText(tpl.textContent, cs, 'Copied ✓'); }); }
 
   // UTM tagging on outbound links (this page's traffic arrives via DM);
   // github.com links stay clean; campaign derives from the filename (survives per-issue copy-paste)
@@ -571,11 +558,9 @@
   // Share loop: native share sheet, clipboard fallback
   var sh=document.getElementById('shareBtn');
   if(sh){ sh.addEventListener('click', function(){
-    if(window.goatcounter && goatcounter.count){ goatcounter.count({path:'no004-share', event:true}); }
-    var done=function(){ var o=sh.textContent; sh.textContent='Link copied — paste it ✓'; setTimeout(function(){sh.textContent=o;},1600); };
+    if(window.goatcounter && goatcounter.count){ goatcounter.count({path:'no006-share', event:true}); }
     if(navigator.share){ navigator.share({title:document.title, url:location.href}).catch(function(){}); }
-    else if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(location.href).then(done).catch(function(){ fallback(location.href); done(); }); }
-    else { fallback(location.href); done(); }
+    else { copyText(location.href, sh, 'Link copied — paste it ✓'); }
   }); }
 
   // Newsletter submits as a plain navigation POST — Buttondown interposes a
@@ -604,11 +589,12 @@
 
 <script data-goatcounter="https://vektor.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 <script>
-  // GoatCounter events: copy-all + subscribe attempts (clicks on .btn links are
+  // GoatCounter events: starter/curl copies + subscribe attempts (clicks on .btn links are
   // tracked via data-goatcounter-click by count.js itself)
   function gcEvent(name){ if(window.goatcounter && goatcounter.count){ goatcounter.count({path:name, event:true}); } }
-  var caBtn=document.getElementById('copyAll');
-  if(caBtn){ caBtn.addEventListener('click', function(){ gcEvent('no004-copy-all'); }); }
-  document.querySelectorAll('form').forEach(function(f){ f.addEventListener('submit', function(){ gcEvent('no004-subscribe-submit'); }); });
+  var csBtn=document.getElementById('copyStarter');
+  if(csBtn){ csBtn.addEventListener('click', function(){ gcEvent('no006-copy-starter'); }); }
+  document.querySelectorAll('.copybtn').forEach(function(b){ b.addEventListener('click', function(){ gcEvent('no006-copy-curl'); }); });
+  document.querySelectorAll('form').forEach(function(f){ f.addEventListener('submit', function(){ gcEvent('no006-subscribe-submit'); }); });
 </script>
 </body></html>
