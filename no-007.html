@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en" id="top"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>vektor /// no. 007 — 1.6M lines. on iPhone.</title>
+<meta name="description" content="Command & Conquer Generals, native on iPhone — the repo from NO. 007, plus the honest version of who built what. As promised.">
+
+<!-- OG / social preview (traffic arrives via DM) -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="1.6M lines. On iPhone. — vektor /// no. 007">
+<meta property="og:description" content="Command & Conquer Generals running native on iPhone — the repo + the fork-then-port honesty. No gate.">
+<meta property="og:image" content="https://vektor-fm.github.io/vektor-site/og/no-007.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="1.6M lines. On iPhone. — vektor /// no. 007">
+<meta property="og:site_name" content="vektor">
+<meta property="og:url" content="https://vektor-fm.github.io/vektor-site/no-007.html">
+<link rel="canonical" href="https://vektor-fm.github.io/vektor-site/no-007.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="1.6M lines. On iPhone. — vektor /// no. 007">
+<meta name="twitter:description" content="Command & Conquer Generals running native on iPhone — the repo + the fork-then-port honesty. No gate.">
+<meta name="twitter:image" content="https://vektor-fm.github.io/vektor-site/og/no-007.png">
+<meta name="theme-color" content="#101010">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23101010'/%3E%3Ctext x='30' y='48' font-family='Arial' font-size='46' font-weight='600' text-anchor='middle' fill='%23EFEADD'%3Ev%3C/text%3E%3Ccircle cx='52' cy='44' r='5' fill='%2339FF35'/%3E%3C/svg%3E">
+<link rel="preload" href="fonts/tektur-900-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/inter-tight-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+
+<style>
+@font-face { font-family: 'IBM Plex Mono'; font-style: normal; font-weight: 400; font-display: swap; src: url("fonts/ibm-plex-mono-400-latin.woff2") format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'IBM Plex Mono'; font-style: normal; font-weight: 500; font-display: swap; src: url("fonts/ibm-plex-mono-500-latin.woff2") format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'IBM Plex Mono'; font-style: normal; font-weight: 600; font-display: swap; src: url("fonts/ibm-plex-mono-600-latin.woff2") format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Inter Tight'; font-style: normal; font-weight: 600; font-display: swap; src: url("fonts/inter-tight-600-latin.woff2") format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Jacquard 24'; font-style: normal; font-weight: 400; font-display: swap; src: url("fonts/jacquard-24-400-latin.woff2") format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Tektur'; font-style: normal; font-weight: 900; font-stretch: 100%; font-display: swap; src: url("fonts/tektur-900-latin.woff2") format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Workbench'; font-style: normal; font-weight: 400; font-display: swap; src: url("fonts/workbench-400-latin.woff2") format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+</style>
+
+<style>
+  :root{
+    --ink:#101010; --paper:#EFEADD; --cream:#F4EFDF; --fog:#E8ECEA;
+    --orchid:#C77BC9; --aqua:#8FC5C9; --acid:#39FF35; --teal:#0E9C86;
+    --blue-a:#1B4FA0; --blue-b:#2B6BC4; --blue-c:#153A78; --blue-meta:#BFD9FF;
+    --disp:'Tektur',system-ui,sans-serif;
+    --kick:'Workbench','IBM Plex Mono',monospace;
+    --mono:'IBM Plex Mono',ui-monospace,monospace;
+    --goth:'Jacquard 24',serif;
+    --wm:'Inter Tight',system-ui,sans-serif;
+    --rail:clamp(18px,5.5vw,64px);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;}
+  body{ background:var(--ink); color:var(--paper); font-family:var(--mono); -webkit-font-smoothing:antialiased; line-height:1.5; overflow-x:hidden; }
+  a{color:inherit;}
+  ::selection{background:var(--acid); color:var(--ink);}
+  .kick{font-family:var(--kick); text-transform:uppercase; letter-spacing:0.14em; font-size:13px; line-height:1.4;}
+  .rule{font-family:var(--mono); color:rgba(239,234,221,0.4); overflow:hidden; white-space:nowrap; user-select:none;}
+  .disp{font-family:var(--disp); font-weight:900; text-transform:uppercase; line-height:1.02; letter-spacing:0.005em;}
+  .chrome{ position:sticky; top:0; z-index:50; background:var(--ink); border-bottom:1px solid #262626; display:flex; align-items:center; justify-content:space-between; height:64px; padding:0 var(--rail); }
+  .chrome .marker{font-family:var(--kick); text-transform:uppercase; letter-spacing:0.1em; font-size:13px; color:#8f8b80;}
+  @media (max-width:520px){ .chrome .marker{display:none;} }
+  .wm{position:relative; display:inline-flex; text-decoration:none; font-family:var(--wm); font-weight:600; letter-spacing:-0.045em; color:var(--paper); font-size:30px; line-height:1;}
+  .wm-main{position:relative; z-index:2; display:inline-flex;}
+  .wm-main .ch{position:relative; display:inline-block;}
+  .wm-main .ch .l{opacity:0; animation:showL .01s steps(1) forwards; animation-delay:calc(0.20s + var(--i)*0.075s);}
+  .wm-main .ch .g{position:absolute; left:0; top:0; font-family:var(--mono); color:var(--acid); opacity:0; animation:flashG .075s steps(1) forwards; animation-delay:calc(0.14s + var(--i)*0.075s);}
+  @keyframes showL{to{opacity:1;}}
+  @keyframes flashG{0%{opacity:1;}100%{opacity:0;}}
+  .wm-plate{position:absolute; left:0; top:0; z-index:1; mix-blend-mode:screen; pointer-events:none;}
+  .wm-acid{color:var(--acid); animation:regA 1.15s steps(1) forwards;}
+  .wm-orchid{color:var(--orchid); animation:regB 1.15s steps(1) forwards;}
+  @keyframes regA{0%{transform:translate(7px,4px);opacity:.85}30%{transform:translate(4px,2px)}55%{transform:translate(2px,1px)}78%{transform:translate(0,0);opacity:.5}100%{transform:translate(0,0);opacity:0}}
+  @keyframes regB{0%{transform:translate(-6px,-4px);opacity:.85}30%{transform:translate(-4px,-2px)}55%{transform:translate(-2px,-1px)}78%{transform:translate(0,0);opacity:.5}100%{transform:translate(0,0);opacity:0}}
+  @media (prefers-reduced-motion:reduce){ .wm-main .ch .l{opacity:1; animation:none;} .wm-main .ch .g,.wm-plate{display:none;} .wm-foot.play .ch2 .l{animation:none;} .wm-foot .ch2 .g{display:none;} }
+  .weave{ height:26px; width:min(230px,60vw); margin:0 0 0 var(--rail); background-color:var(--aqua); background-image: repeating-linear-gradient(90deg, rgba(16,16,16,.55) 0 3px, transparent 3px 9px), repeating-linear-gradient(0deg, rgba(16,16,16,.55) 0 3px, transparent 3px 9px), repeating-linear-gradient(90deg, rgba(255,255,255,.25) 0 1px, transparent 1px 9px); background-blend-mode:multiply; }
+  .hero{padding:38px var(--rail) 30px; position:relative;}
+  .hero .eye{color:var(--aqua); margin-bottom:20px;}
+  .hero h1{margin:0; font-size:clamp(40px,11vw,120px);}
+  .hero h1 .dot{color:var(--acid);}
+  .hero .sub{max-width:38ch; margin-top:24px; font-size:16px; line-height:1.55; color:var(--paper);}
+  .hero .rule{margin-top:34px; font-size:15px;}
+  .fig{padding:26px var(--rail) 6px; display:flex; align-items:center; gap:16px;}
+  .fig .kick{color:#8f8b80; white-space:nowrap;}
+  .fig .line{flex:1; height:1px; background:#2a2a2a;}
+  .fig h2{margin:0;}
+  .fig .gaccent{font-family:var(--goth); font-size:34px; color:var(--paper); line-height:0.7;}
+  .issues{padding:12px var(--rail) 0;}
+  .card{position:relative; margin:16px 0; padding:26px 24px 24px; overflow:hidden;}
+  .card .top{display:flex; align-items:flex-start; justify-content:space-between; gap:16px;}
+  .card .tag{font-family:var(--kick); text-transform:uppercase; letter-spacing:0.12em; font-size:13px;}
+  .card .goth{font-family:var(--goth); font-size:52px; line-height:0.8; margin-top:-6px;}
+  .card h2{font-family:var(--disp); font-weight:900; text-transform:uppercase; line-height:1; letter-spacing:0.005em; font-size:clamp(30px,8.5vw,56px); margin:18px 0 0; overflow-wrap:break-word;}
+  .card .one{font-size:15.5px; line-height:1.5; margin-top:12px; max-width:46ch;}
+  .card .stars{display:inline-block; margin-top:16px; font-family:var(--kick); text-transform:uppercase; letter-spacing:0.1em; font-size:12px; padding:8px 12px; background:var(--ink); color:var(--cream);}
+  .card .actions{display:flex; flex-wrap:wrap; gap:10px; margin-top:22px; align-items:stretch;}
+  .btn{ display:inline-flex; align-items:center; gap:8px; min-height:48px; padding:0 20px; font-family:var(--kick); text-transform:uppercase; letter-spacing:0.08em; font-size:14px; text-decoration:none; border:2px solid currentColor; background:transparent; cursor:pointer; }
+  .copy{ display:flex; align-items:center; min-height:48px; border:2px solid; padding:0 6px 0 14px; gap:10px; font-family:var(--mono); font-size:13.5px; flex:1 1 240px; min-width:0; justify-content:space-between; }
+  .copy code{overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  .copybtn{display:none; flex:none; align-items:center; min-height:44px; padding:0 12px; margin:2px 0; font-family:var(--kick); text-transform:uppercase; letter-spacing:0.08em; font-size:12px; border:0; cursor:pointer;}
+  .js .copybtn{display:inline-flex;}
+  #shareBtn{display:none;}
+  .js #shareBtn{display:inline-flex;}
+  .ledger{padding:10px var(--rail) 6px;}
+  .lrow{display:flex; gap:18px; align-items:baseline; border-top:2px solid #2a2a2a; padding:20px 0;}
+  .lrow:last-of-type{border-bottom:2px solid #2a2a2a;}
+  .lrow .n{font-family:var(--disp); font-weight:900; font-size:40px; color:var(--aqua); flex:none; line-height:1;}
+  .lrow .t{font-family:var(--mono); font-size:15px; text-transform:uppercase; letter-spacing:0.04em; line-height:1.4;}
+  .c-aqua{background:var(--aqua); color:var(--ink);}
+  .c-cream{background:var(--cream); color:var(--ink);}
+  .c-aqua .goth,.c-cream .goth{color:var(--ink);}
+  .c-aqua .tag,.c-cream .tag{color:rgba(16,16,16,0.8);}
+  .c-aqua .btn,.c-cream .btn{color:var(--ink);}
+  .c-aqua .btn:hover,.c-cream .btn:hover{background:var(--ink); color:var(--paper);}
+  .c-aqua .copy,.c-cream .copy{border-color:rgba(16,16,16,0.45); color:var(--ink);}
+  .c-aqua .copybtn,.c-cream .copybtn{background:var(--ink); color:var(--paper);}
+  .c-ink{background:var(--ink); color:var(--paper); border:1px solid #2a2a2a;}
+  .c-ink .tag{color:#8f8b80;}
+  .c-ink .goth{color:var(--cream);}
+  .c-ink .btn{color:var(--cream); border-color:var(--cream);}
+  .c-ink .btn:hover{background:var(--cream); color:var(--ink);}
+  .c-ink .copy{border-color:#3a3a3a; color:var(--paper);}
+  .c-ink .copybtn{background:var(--cream); color:var(--ink);}
+  footer{margin-top:40px; padding:44px var(--rail) 60px; border-top:1px solid #262626;}
+  .foot-rule{font-size:15px; margin-bottom:34px;}
+  .news label{display:block; color:var(--acid); margin-bottom:12px;}
+  .news h2{margin:0 0 12px; font-weight:400;}
+  .news form{display:flex; gap:10px; flex-wrap:wrap; max-width:520px;}
+  .news input{flex:1 1 220px; min-height:48px; background:transparent; border:2px solid #3a3a3a; color:var(--paper); font-family:var(--mono); font-size:15px; padding:0 14px;}
+  .news input:focus{outline:none; border-color:var(--acid);}
+  .news .btn{color:var(--acid); border-color:var(--acid);}
+  .news .btn:hover{background:var(--acid); color:var(--ink);}
+  .news .note{font-size:12px; color:#8f8b80; margin-top:10px; letter-spacing:0.04em;}
+  .pack{display:flex; flex-wrap:wrap; gap:8px 22px; margin:12px 0 18px;}
+  .pack span{font-family:var(--mono); font-size:13.5px; color:#8f8b80;}
+  .pack span::before{content:"\25B8 "; color:var(--acid);}
+  .socials{display:flex; flex-wrap:wrap; gap:22px; margin-top:38px;}
+  .socials a{font-family:var(--kick); text-transform:uppercase; letter-spacing:0.1em; font-size:13px; color:#8f8b80; text-decoration:none; padding:12px 0; margin:-12px 0;}
+  .socials a:hover{color:var(--acid);}
+  .backref{margin-top:34px; font-family:var(--kick); text-transform:uppercase; letter-spacing:0.1em; font-size:13px; color:var(--paper);}
+  .backref b{color:var(--acid);}
+  .wordmark-foot{display:flex; align-items:center; gap:14px; margin-top:40px;}
+  .wordmark-foot .m{font-family:var(--mono); font-size:12px; color:#8f8b80;}
+  .hero .actions{display:flex; flex-wrap:wrap; gap:10px; margin-top:26px;}
+  .hero .actions .btn{color:var(--paper); border-color:var(--paper);}
+  .hero .actions .btn:hover{background:var(--paper); color:var(--ink);}
+  .hero .actions .btn.primary{background:var(--aqua); color:var(--ink); border-color:var(--aqua);}
+  .hero .actions .btn.primary:hover{background:#a9d6da; color:var(--ink);}
+  .sticky-cta{position:fixed; left:0; right:0; bottom:0; z-index:60; background:var(--ink); border-top:1px solid #2a2a2a; display:flex; align-items:center; justify-content:space-between; gap:14px; padding:12px var(--rail) calc(12px + env(safe-area-inset-bottom)); transform:translateY(130%); transition:transform .3s ease;}
+  .sticky-cta.show{transform:translateY(0);}
+  .sticky-cta .t{font-family:var(--kick); text-transform:uppercase; letter-spacing:0.1em; font-size:13px; color:var(--paper);}
+  .sticky-cta .t b{color:var(--acid);}
+  .sticky-cta .r{display:flex; align-items:center; gap:8px; flex:none;}
+  .sticky-cta .go{min-height:44px; display:inline-flex; align-items:center; padding:0 18px; font-family:var(--kick); text-transform:uppercase; letter-spacing:0.08em; font-size:13px; background:var(--acid); color:var(--ink); text-decoration:none; border:0; cursor:pointer;}
+  .sticky-cta .x{background:none; border:0; color:#8f8b80; font-family:var(--mono); font-size:22px; line-height:1; min-width:44px; min-height:44px; display:inline-flex; align-items:center; justify-content:center; cursor:pointer;}
+  @media (max-width:560px){ .sticky-cta{padding:10px 16px calc(10px + env(safe-area-inset-bottom));} .sticky-cta .t{font-size:11.5px; letter-spacing:0.06em;} }
+  .wm-foot{position:relative; display:inline-flex; font-family:var(--wm); font-weight:600; letter-spacing:-0.045em; font-size:34px; color:var(--paper);}
+  .wm-foot .ch2{position:relative; display:inline-block;}
+  .wm-foot .ch2 .l{opacity:1;}
+  .wm-foot .ch2 .g{position:absolute; left:0; top:0; font-family:var(--mono); color:var(--acid); opacity:0;}
+  .wm-foot.play .ch2 .l{animation:revealL2 .01s steps(1) both; animation-delay:calc(0.16s + var(--i)*0.07s);}
+  .wm-foot.play .ch2 .g{animation:flashG2 .07s steps(1) both; animation-delay:calc(0.10s + var(--i)*0.07s);}
+  @keyframes revealL2{0%{opacity:0;}100%{opacity:1;}}
+  @keyframes flashG2{0%{opacity:1;}100%{opacity:0;}}
+</style>
+</head>
+<body>
+<script>document.documentElement.className='js';</script>
+
+<header class="chrome">
+  <a class="wm" href="./index.html" aria-label="vektor">
+    <span class="wm-plate wm-acid" aria-hidden="true">vektor</span>
+    <span class="wm-plate wm-orchid" aria-hidden="true">vektor</span>
+    <span class="wm-main">
+      <span class="ch" style="--i:0"><span class="g">%</span><span class="l">v</span></span><span class="ch" style="--i:1"><span class="g">#</span><span class="l">e</span></span><span class="ch" style="--i:2"><span class="g">Z</span><span class="l">k</span></span><span class="ch" style="--i:3"><span class="g">8</span><span class="l">t</span></span><span class="ch" style="--i:4"><span class="g">@</span><span class="l">o</span></span><span class="ch" style="--i:5"><span class="g">W</span><span class="l">r</span></span>
+    </span>
+  </a>
+  <span class="marker">Repo of the Day · The Port</span>
+</header>
+
+<div class="sticky-cta" id="stickyCta" aria-hidden="true">
+  <span class="t">Follow <b>@vektor.fm</b> → tonight's drop</span>
+  <span class="r"><a class="go" data-goatcounter-click="no007-follow-sticky" href="https://www.instagram.com/vektor.fm/" target="_blank" rel="noopener">Follow →</a><button class="x" id="ctaClose" type="button" aria-label="Dismiss">×</button></span>
+</div>
+
+<div class="weave" aria-hidden="true"></div>
+
+<section class="hero">
+  <div class="kick eye">Repo of the Day · The Port</div>
+  <h1 class="disp">1.6M lines.<br>On iPhone<span class="dot">.</span></h1>
+  <p class="sub">Command &amp; Conquer Generals — the whole 1.6-million-line C++ game — running native on iPhone &amp; iPad. The repo, plus the honest version of who actually built what. As promised.</p>
+  <div class="actions">
+    <a class="btn primary" data-goatcounter-click="no007-get-repo" href="https://github.com/ammaarreshi/Generals-Mac-iOS-iPad" target="_blank" rel="noopener">Get the repo →</a>
+    <a class="btn" href="#honest">The honest part ↓</a>
+    <button class="btn" id="shareBtn" type="button">Send to a C&amp;C friend</button>
+  </div>
+  <div class="rule">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+</section>
+
+<div class="fig">
+  <h2 class="kick">Fig. 01 ·</h2>
+  <span class="gaccent">the port</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues" id="no-007">
+
+  <article class="card c-aqua">
+    <div class="top">
+      <span class="tag">The repo · macOS · iPhone · iPad</span>
+      <span class="goth">the port</span>
+    </div>
+    <h2>Generals&#8209;Mac&#8209;iOS&#8209;iPad</h2>
+    <p class="one">The real GPL-v3 engine (via GeneralsX), a DXVK → MoltenVK → Metal renderer, and RTS touch controls — native ARM64 on macOS, iPhone and iPad. No game assets included; bring your own install.</p>
+    <span class="stars">968 ★ · created 2026-07-04 · live count via GitHub API</span>
+    <div class="actions">
+      <a class="btn" data-goatcounter-click="no007-get-repo" href="https://github.com/ammaarreshi/Generals-Mac-iOS-iPad" target="_blank" rel="noopener">Get the repo →</a>
+      <div class="copy"><code>git clone https://github.com/ammaarreshi/Generals-Mac-iOS-iPad</code><button class="copybtn" data-copy="git clone https://github.com/ammaarreshi/Generals-Mac-iOS-iPad">Copy</button></div>
+    </div>
+  </article>
+
+  <article class="card c-ink" id="honest">
+    <div class="top">
+      <span class="tag">The honest part · fork-then-port</span>
+      <span class="goth">honest</span>
+    </div>
+    <h2>Not AI-from-scratch.</h2>
+    <p class="one">Nobody wrote 1.6M lines with AI. GeneralsX already had the engine on macOS/Linux, built on EA's GPL-v3 source. The part built with Claude is the <b>iOS/iPad layer</b> — touch input for a mouse-and-keyboard RTS, the mobile build, and the whole Metal render chain. Fork-then-port.</p>
+  </article>
+
+</section>
+
+<div class="fig">
+  <h2 class="kick">Fig. 02 ·</h2>
+  <span class="gaccent">who did what</span>
+  <span class="line"></span>
+</div>
+<section class="ledger" aria-label="Who did what">
+  <div class="lrow"><span class="n">01</span><span class="t">EA — open-sourced Generals: Zero Hour under the GPL v3 (2025)</span></div>
+  <div class="lrow"><span class="n">02</span><span class="t">GeneralsX — the macOS + Linux engine port</span></div>
+  <div class="lrow"><span class="n">03</span><span class="t">Claude / Fable — the iPhone + iPad layer, touch + Metal</span></div>
+</section>
+
+<section class="issues">
+  <article class="card c-ink">
+    <div class="top">
+      <span class="tag">No gate / no catch</span>
+      <span class="goth">follow</span>
+    </div>
+    <h2>That's the repo. No gate, no catch.</h2>
+    <p class="one">This page exists because people follow. If it made your day, the follow is the thank-you — one tool teardown, every day.</p>
+    <div class="actions">
+      <a class="btn" data-goatcounter-click="no007-follow-tiktok" href="https://tiktok.com/@vektor.fm" target="_blank" rel="noopener">TikTok →</a>
+      <a class="btn" data-goatcounter-click="no007-follow-instagram" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Instagram →</a>
+      <a class="btn" data-goatcounter-click="no007-follow-youtube" href="https://youtube.com/@vektorfm" target="_blank" rel="noopener">YouTube →</a>
+      <a class="btn" data-goatcounter-click="no007-follow-x" href="https://x.com/vektordotfm" target="_blank" rel="noopener">X →</a>
+    </div>
+  </article>
+</section>
+
+<footer>
+  <div class="rule foot-rule">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+
+  <div class="news" id="subscribe">
+    <h2 class="kick" style="color:var(--acid);">Get the pack — the working setup, one config</h2>
+    <div class="pack">
+      <span>The config pack</span><span>Claude Code settings</span><span>One teardown / week</span>
+    </div>
+    <form action="https://buttondown.com/api/emails/embed-subscribe/vektor" method="post">
+      <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
+      <button class="btn" type="submit">Send me the pack →</button>
+    </form>
+    <div class="note">Free. The config pack lands after you confirm your email. Unsubscribe anytime.</div>
+  </div>
+
+  <nav class="socials" aria-label="Social links">
+    <a data-goatcounter-click="no007-follow-tiktok-foot" href="https://tiktok.com/@vektor.fm" target="_blank" rel="noopener">TikTok · @vektor.fm</a>
+    <a data-goatcounter-click="no007-follow-instagram-foot" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Instagram · @vektor.fm</a>
+    <a data-goatcounter-click="no007-follow-youtube-foot" href="https://youtube.com/@vektorfm" target="_blank" rel="noopener">YouTube · @vektorfm</a>
+    <a data-goatcounter-click="no007-follow-x-foot" href="https://x.com/vektordotfm" target="_blank" rel="noopener">X · @vektordotfm</a>
+    <a href="./privacy.html">Privacy</a>
+  </nav>
+
+  <div class="backref">No. 008 drops tonight. <b>The keyword is only on the reel</b> — follow @vektor.fm to catch it.</div>
+
+  <div class="wordmark-foot">
+    <span class="wm-foot" id="wmFoot" aria-label="vektor"><span class="ch2" style="--i:0"><span class="g">%</span><span class="l">v</span></span><span class="ch2" style="--i:1"><span class="g">#</span><span class="l">e</span></span><span class="ch2" style="--i:2"><span class="g">Z</span><span class="l">k</span></span><span class="ch2" style="--i:3"><span class="g">8</span><span class="l">t</span></span><span class="ch2" style="--i:4"><span class="g">@</span><span class="l">o</span></span><span class="ch2" style="--i:5"><span class="g">W</span><span class="l">r</span></span></span>
+    <span class="m">/// no. 007 / the port / 07-2026 · the frontier, by the numbers</span>
+  </div>
+</footer>
+
+<script>
+  function fallback(text){ var t=document.createElement('textarea'); t.value=text; t.style.position='fixed'; t.style.opacity='0'; document.body.appendChild(t); t.focus(); t.select(); try{ document.execCommand('copy'); }catch(e){} document.body.removeChild(t); }
+  function copyText(text, btn, doneLabel){ var o=btn.textContent, done=function(){ btn.textContent=doneLabel; setTimeout(function(){btn.textContent=o;},1600); }; if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(done).catch(function(){ fallback(text); done(); }); } else { fallback(text); done(); } }
+  document.querySelectorAll('.copybtn').forEach(function(btn){ btn.addEventListener('click', function(){ copyText(btn.getAttribute('data-copy'), btn, 'Copied ✓'); }); });
+  var camp=(location.pathname.split('/').pop()||'index').replace(/\.html$/,'')||'index';
+  document.querySelectorAll('a[href^="http"]').forEach(function(a){ try{ var u=new URL(a.href); if(u.hostname==='github.com'){return;} if(!u.searchParams.has('utm_source')){ u.searchParams.set('utm_source','vektor'); u.searchParams.set('utm_medium','dm'); u.searchParams.set('utm_campaign',camp); a.href=u.toString(); } }catch(e){} });
+  var sh=document.getElementById('shareBtn');
+  if(sh){ sh.addEventListener('click', function(){ if(window.goatcounter && goatcounter.count){ goatcounter.count({path:'no007-share', event:true}); } if(navigator.share){ navigator.share({title:document.title, url:location.href}).catch(function(){}); } else { copyText(location.href, sh, 'Link copied — paste it ✓'); } }); }
+  var sticky=document.getElementById('stickyCta'), sub=document.getElementById('subscribe'), dismissed=false;
+  var cards=document.querySelectorAll('.issues .card'), lastCard=cards[cards.length-1];
+  function updCta(){ if(dismissed){return;} var seen=lastCard.getBoundingClientRect().bottom < window.innerHeight*0.6; var r=sub.getBoundingClientRect(); var subVisible=r.top<window.innerHeight && r.bottom>0; var show=seen && !subVisible; sticky.classList.toggle('show', show); sticky.setAttribute('aria-hidden', show?'false':'true'); }
+  window.addEventListener('scroll',updCta,{passive:true}); window.addEventListener('resize',updCta); updCta();
+  document.getElementById('ctaClose').addEventListener('click', function(){ dismissed=true; sticky.classList.remove('show'); sticky.setAttribute('aria-hidden','true'); });
+  var wmFoot=document.getElementById('wmFoot');
+  if(wmFoot && 'IntersectionObserver' in window){ var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ wmFoot.classList.remove('play'); void wmFoot.offsetWidth; wmFoot.classList.add('play'); } }); }, {threshold:0.6}); io.observe(wmFoot); }
+</script>
+
+<script data-goatcounter="https://vektor.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+<script>
+  function gcEvent(name){ if(window.goatcounter && goatcounter.count){ goatcounter.count({path:name, event:true}); } }
+  document.querySelectorAll('.copybtn').forEach(function(b){ b.addEventListener('click', function(){ gcEvent('no007-copy-clone'); }); });
+  document.querySelectorAll('form').forEach(function(f){ f.addEventListener('submit', function(){ gcEvent('no007-subscribe-submit'); }); });
+</script>
+</body></html>
