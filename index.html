@@ -156,6 +156,7 @@
     --rail:clamp(18px,5.5vw,72px);
   }
   *{box-sizing:border-box;}
+  :focus-visible{outline:2px solid var(--acid); outline-offset:2px;}
   html,body{margin:0;}
   body{background:var(--ink); color:var(--paper); font-family:var(--mono); line-height:1.5; -webkit-font-smoothing:antialiased; overflow-x:hidden;}
   a{color:inherit;}
@@ -211,7 +212,7 @@
   .capture.done form{display:none;}
   .capture.done .ok{display:block;}
   .capture form{display:flex; gap:10px; flex-wrap:wrap;}
-  .capture input{flex:1 1 240px; min-height:52px; background:transparent; border:2px solid #3a3a3a; color:var(--paper); font-family:var(--mono); font-size:16px; padding:0 16px;}
+  .capture input{flex:1 1 240px; min-height:52px; background:transparent; border:2px solid #6a6a6a; color:var(--paper); font-family:var(--mono); font-size:16px; padding:0 16px;}
   .capture input:focus{outline:none; border-color:var(--acid);}
   .capture .btn{min-height:52px; padding:0 24px; display:inline-flex; align-items:center; font-family:var(--kick); text-transform:uppercase; letter-spacing:0.08em; font-size:14px; background:var(--acid); color:var(--ink); border:2px solid var(--acid); cursor:pointer; text-decoration:none;}
   .capture .btn:hover{background:#5cff59;}
@@ -229,12 +230,12 @@
   /* ---------- LATEST issue (featured card) ---------- */
   .latest{padding:14px var(--rail) 0;}
   .lcard{background:var(--orchid); color:var(--ink); padding:30px 26px 28px; position:relative; overflow:hidden;}
-  .lcard .tag{font-family:var(--kick); text-transform:uppercase; letter-spacing:0.12em; font-size:13px; color:rgba(16,16,16,0.7);}
+  .lcard .tag{font-family:var(--kick); text-transform:uppercase; letter-spacing:0.12em; font-size:13px; color:var(--ink);}
   .lcard h2{font-family:var(--disp); font-weight:900; text-transform:uppercase; line-height:1.0; letter-spacing:0.005em; font-size:clamp(40px,11vw,78px); margin:16px 0 0;}
   .lcard .lactions{display:flex; flex-wrap:wrap; gap:12px 24px; align-items:center; margin-top:26px;}
   .lcard .get{min-height:50px; padding:0 24px; display:inline-flex; align-items:center; font-family:var(--kick); text-transform:uppercase; letter-spacing:0.08em; font-size:15px; background:var(--ink); color:var(--paper); text-decoration:none; border:0;}
   .lcard .get:hover{background:#000;}
-  .lcard .watch{font-family:var(--mono); font-size:13px; color:rgba(16,16,16,0.75); letter-spacing:0.04em;}
+  .lcard .watch{font-family:var(--mono); font-size:13px; color:var(--ink); letter-spacing:0.04em;}
   .lcard .watch a{color:var(--ink); text-decoration:none; border-bottom:1px solid rgba(16,16,16,0.4); display:inline-block; padding:12px 0; margin:-12px 0;}
   .lcard .watch a:hover{border-color:var(--ink);}
 
@@ -269,7 +270,7 @@
   .backref{margin-top:32px; font-family:var(--kick); text-transform:uppercase; letter-spacing:0.1em; font-size:13px; color:var(--paper);}
   .wordmark-foot{display:flex; align-items:center; gap:14px; margin-top:38px; flex-wrap:wrap;}
   .wordmark-foot .w{font-family:var(--wm); font-weight:600; letter-spacing:-0.045em; font-size:34px; color:var(--paper);}
-  .wordmark-foot .m{font-family:var(--mono); font-size:12px; color:#6f6a56;}
+  .wordmark-foot .m{font-family:var(--mono); font-size:12px; color:#8f8b80;}
 </style>
 </head>
 <body>
