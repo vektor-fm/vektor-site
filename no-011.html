@@ -265,6 +265,33 @@
   .hero .actions .btn:hover{background:var(--paper); color:var(--ink);}
   .hero .actions .btn.primary{background:var(--aqua); color:var(--ink); border-color:var(--aqua);}
   .hero .actions .btn.primary:hover{background:#a9d6da; color:var(--ink);}
+  .midcap{margin:20px var(--rail); padding:30px 26px 28px; background:#141414; border:2px solid var(--aqua);}
+  .midcap .k{display:block; color:var(--acid); font-family:var(--kick); text-transform:uppercase; letter-spacing:0.14em; font-size:13px; margin-bottom:10px;}
+  .midcap h2{font-family:var(--disp); font-weight:900; text-transform:uppercase; line-height:1.02; letter-spacing:0.005em; font-size:clamp(28px,7.5vw,48px); margin:0 0 12px;}
+  .midcap p{font-size:15.5px; line-height:1.5; max-width:52ch; margin:0 0 20px; color:var(--paper);}
+  .midcap form{display:flex; gap:10px; flex-wrap:wrap; max-width:540px;}
+  .midcap input{flex:1 1 240px; min-height:52px; background:transparent; border:2px solid #6a6a6a; color:var(--paper); font-family:var(--mono); font-size:15px; padding:0 14px;}
+  .midcap input:focus{outline:none; border-color:var(--acid);}
+  .midcap .btn{min-height:52px; padding:0 22px; background:var(--acid); color:var(--ink); border-color:var(--acid);}
+  .midcap .btn:hover{background:#5cff59; color:var(--ink);}
+  .midcap .note{font-size:12px; color:#8f8b80; margin-top:12px; letter-spacing:0.04em;}
+  .pop[hidden]{display:none;}
+  .pop{position:fixed; inset:0; z-index:100; display:flex; align-items:center; justify-content:center; padding:20px;}
+  .pop-scrim{position:absolute; inset:0; background:rgba(0,0,0,0.72); cursor:pointer;}
+  .pop-card{position:relative; z-index:1; width:100%; max-width:440px; background:#141414; border:2px solid var(--aqua); padding:34px 26px 26px; animation:popIn .22s ease;}
+  @keyframes popIn{from{opacity:0; transform:translateY(12px);}to{opacity:1; transform:none;}}
+  .pop-x{position:absolute; top:6px; right:6px; background:none; border:0; color:#8f8b80; font-family:var(--mono); font-size:26px; line-height:1; min-width:44px; min-height:44px; cursor:pointer;}
+  .pop-x:hover{color:var(--acid);}
+  .pop-card .k{display:block; color:var(--acid); font-family:var(--kick); text-transform:uppercase; letter-spacing:0.14em; font-size:12px; margin-bottom:10px;}
+  .pop-card h2{font-family:var(--disp); font-weight:900; text-transform:uppercase; line-height:1.02; letter-spacing:0.005em; font-size:clamp(26px,7vw,38px); margin:0 0 12px;}
+  .pop-card p{font-size:14.5px; line-height:1.5; margin:0 0 18px; color:var(--paper);}
+  .pop-card form{display:flex; flex-direction:column; gap:10px;}
+  .pop-card input{min-height:50px; background:transparent; border:2px solid #6a6a6a; color:var(--paper); font-family:var(--mono); font-size:15px; padding:0 14px;}
+  .pop-card input:focus{outline:none; border-color:var(--acid);}
+  .pop-card .btn{min-height:50px; justify-content:center; background:var(--acid); color:var(--ink); border-color:var(--acid);}
+  .pop-card .btn:hover{background:#5cff59; color:var(--ink);}
+  .pop-card .note{font-size:11.5px; color:#8f8b80; margin-top:12px; letter-spacing:0.03em;}
+  @media (prefers-reduced-motion:reduce){ .pop-card{animation:none;} }
   .sticky-cta{position:fixed; left:0; right:0; bottom:0; z-index:60; background:var(--ink); border-top:1px solid #2a2a2a; display:flex; align-items:center; justify-content:space-between; gap:14px; padding:12px var(--rail) calc(12px + env(safe-area-inset-bottom)); transform:translateY(130%); transition:transform .3s ease;}
   .sticky-cta.show{transform:translateY(0);}
   .sticky-cta .t{font-family:var(--kick); text-transform:uppercase; letter-spacing:0.1em; font-size:13px; color:var(--paper);}
@@ -303,6 +330,21 @@
 </div>
 
 <div class="weave" aria-hidden="true"></div>
+
+<div class="pop" id="packPop" hidden>
+  <div class="pop-scrim" data-pop-close></div>
+  <div class="pop-card" role="dialog" aria-modal="true" aria-labelledby="popH">
+    <button class="pop-x" type="button" data-pop-close aria-label="Close">×</button>
+    <span class="k">One email a week · the working setup</span>
+    <h2 id="popH">Keep the whole toolkit.</h2>
+    <p>The Teardown sends the config pack and one working AI setup a week — the same rig behind this channel. Free, and you can unsubscribe anytime.</p>
+    <form action="https://buttondown.com/api/emails/embed-subscribe/vektor" method="post">
+      <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
+      <button class="btn" type="submit">Get the weekly pack →</button>
+    </form>
+    <div class="note">Free. The config pack lands after you confirm your email. Unsubscribe anytime.</div>
+  </div>
+</div>
 
 <section class="hero">
   <div class="kick eye">This Week in AI · The Rules · Part 2</div>
@@ -399,6 +441,17 @@
   <div class="lrow"><span class="n">03</span><span class="t">Start a new Claude Code session · it reads the file before touching your code</span></div>
 </section>
 
+<section class="midcap" aria-label="Get the weekly pack">
+  <span class="k">One email a week · the working setup</span>
+  <h2>Keep the whole toolkit.</h2>
+  <p>The Teardown sends the config pack and one working AI setup a week — the same rig behind this channel. Free, and you can unsubscribe anytime.</p>
+  <form action="https://buttondown.com/api/emails/embed-subscribe/vektor" method="post">
+    <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
+    <button class="btn" type="submit">Get the weekly pack →</button>
+  </form>
+  <div class="note">Free. The config pack lands after you confirm your email. Unsubscribe anytime.</div>
+</section>
+
 <div class="fig">
   <h2 class="kick">Fig. 03 ·</h2>
   <span class="gaccent">what's next</span>
@@ -412,9 +465,9 @@
       <span class="goth">soon</span>
     </div>
     <h2>The 4 agents that work while you sleep.</h2>
-    <p class="one">Next up: the four Claude agents that run tasks while you're away — the setup, and what each one actually does. The keyword only lives on the reel, and followers get it first.</p>
+    <p class="one">Next up: the four Claude agents that run tasks while you're away — the setup, and what each one actually does. A new keyword drops daily on the reel, and followers get it first.</p>
     <div class="actions">
-      <a class="btn" data-goatcounter-click="no011-follow-next" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Follow @vektor.fm for the next one →</a>
+      <a class="btn primary" data-goatcounter-click="no011-follow-next" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Follow @vektor.fm for the next one →</a>
     </div>
   </article>
 
@@ -427,21 +480,6 @@
     <p class="one">Part 1 covers rules 1–4 — smallest change, match the style, done means tests pass, and never invent an API. Same file, all seven rules, on one page.</p>
     <div class="actions">
       <a class="btn" data-goatcounter-click="no011-part1" href="./no-010.html">Read Part 1 →</a>
-    </div>
-  </article>
-
-  <article class="card c-ink">
-    <div class="top">
-      <span class="tag">No gate / no catch</span>
-      <span class="goth">follow</span>
-    </div>
-    <h2>That's the file. No gate, no catch.</h2>
-    <p class="one">This page exists because people follow. If it made your day, the follow is the thank-you — one AI teardown, every day.</p>
-    <div class="actions">
-      <a class="btn" data-goatcounter-click="no011-follow-tiktok" href="https://tiktok.com/@vektor.fm" target="_blank" rel="noopener">TikTok →</a>
-      <a class="btn" data-goatcounter-click="no011-follow-instagram" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Instagram →</a>
-      <a class="btn" data-goatcounter-click="no011-follow-youtube" href="https://youtube.com/@vektorfm" target="_blank" rel="noopener">YouTube →</a>
-      <a class="btn" data-goatcounter-click="no011-follow-x" href="https://x.com/vektordotfm" target="_blank" rel="noopener">X →</a>
     </div>
   </article>
 </section>
@@ -496,6 +534,16 @@
   document.getElementById('ctaClose').addEventListener('click', function(){ dismissed=true; sticky.classList.remove('show'); sticky.setAttribute('aria-hidden','true'); });
   var wmFoot=document.getElementById('wmFoot');
   if(wmFoot && 'IntersectionObserver' in window){ var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ wmFoot.classList.remove('play'); void wmFoot.offsetWidth; wmFoot.classList.add('play'); } }); }, {threshold:0.6}); io.observe(wmFoot); }
+  // on-open pack popup — once per visitor (localStorage), dismissible (x / scrim / Esc)
+  (function(){ var pop=document.getElementById('packPop'); if(!pop){return;} var KEY='vektor_pack_seen';
+    try{ if(localStorage.getItem(KEY)){ return; } }catch(e){}
+    function seen(){ try{ localStorage.setItem(KEY,'1'); }catch(e){} }
+    function esc(e){ if(e.key==='Escape'){ close(); } }
+    function close(){ pop.setAttribute('hidden',''); seen(); document.removeEventListener('keydown',esc); }
+    pop.querySelectorAll('[data-pop-close]').forEach(function(el){ el.addEventListener('click', close); });
+    var f=pop.querySelector('form'); if(f){ f.addEventListener('submit', seen); }
+    setTimeout(function(){ pop.removeAttribute('hidden'); document.addEventListener('keydown',esc); var x=pop.querySelector('.pop-x'); if(x){ try{ x.focus(); }catch(e){} } }, 900);
+  })();
   document.querySelectorAll('form').forEach(function(f){ f.addEventListener('submit', function(){ gcEvent('no011-subscribe-submit'); }); });
 </script>
 
