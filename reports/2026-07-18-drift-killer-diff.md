@@ -59,7 +59,13 @@ The shared CSS is the superset of both widget generations, so each page now *def
 `.snippet` + `.proof` + `.copy` even where it doesn't use them (e.g. `.snippet` on 007,
 `.copy` on 011–015). Unused → no visual effect; present only so one source covers every page.
 
-### 5. Closing scripts unified (behaviour-identical)
+### 5. Woven brand band → full-bleed (founder-requested, all pages incl. index)
+`.weave` changed from a fixed `min(230px,60vw)` chip to `width:100%; margin:0` — the band
+now spans the full page width edge-to-edge. One-line change in `partials/head.html` +
+`src/index.body.html`; applies everywhere at once (the drift-killer paying off). Deliberate
+design change on top of the refactor.
+
+### 6. Closing scripts unified (behaviour-identical)
 The per-page copy/share/sticky/UTM/wordmark scripts became one shared block. Copy handler
 binds both widget types (`.copybtn` and `#snipCopy`). Share/sticky/UTM/reveal identical.
 Subscribe-submit tracking fires only where it did before (`subscribe_track` flag:
