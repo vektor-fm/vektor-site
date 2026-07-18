@@ -1,0 +1,10 @@
+{
+  "name": "vektor-site",
+  "private": true,
+  "type": "module",
+  "description": "Vektor landing pages — static, built from partials + per-issue manifests (see build.mjs).",
+  "scripts": {
+    "build": "node build.mjs",
+    "check": "node build.mjs --check"
+  }
+}

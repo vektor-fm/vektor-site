@@ -1,0 +1,166 @@
+<section class="hero">
+  <div class="kick eye">This Week in AI · Agents</div>
+  <h1 class="disp">Agent.<br>Hired<span class="dot">.</span></h1>
+  <p class="sub">An AI agent is just an employee with one job. We ship a video every day with a team of them — a pitch agent, a build agent, a review judge — and the whole hiring paperwork is small markdown files. This is the starter kit: the agent template, the tools allowlist, and one complete skill you can run tonight. Free, no gate. As promised.</p>
+  <div class="snippet" id="file">
+    <div class="bar"><span class="f">.claude/agents/review-judge.md · one employee, one file</span><button class="snipbtn" id="snipCopy" type="button">Copy skeleton</button></div>
+    <pre id="snipText">---
+name: review-judge
+description: Strict read-only reviewer. Given a diff or feature,
+  checks it against the project's rules and returns a GO / REVISE
+  verdict with specific fixes. Use before merging or shipping.
+tools: Read, Grep, Glob, Bash   # least privilege — no Write, no Edit
+---
+
+You are the review judge — a strict, consistent, read-only reviewer.
+
+## The job
+Your ONLY job: decide whether the change is safe to ship, and say
+exactly what to fix if it isn't. You never fix anything yourself.
+
+## Every run
+1. Read the project's rules file — it overrides anything here.
+2. Gather the real state: the diff, the changed files, the test run.
+3. Check every rule. Resist leniency — reviewers drift toward
+   "looks good"; default to flagging a real issue.
+
+## What done looks like
+VERDICT: GO | REVISE
+— every finding as one line: what's wrong → the specific fix.
+
+# ↓ The download is the fill-in-the-blanks version: every field with
+#   inline guidance — who it is, its one job, what done looks like.</pre>
+  </div>
+  <div class="actions">
+    <a class="btn primary" data-goatcounter-click="no013-download-template" href="./files/agent-starter-kit/agent-template.md" download="agent-template.md">Download the template ↓</a>
+    <a class="btn" href="#kit">The 3 pieces ↓</a>
+    <button class="btn" id="shareBtn" type="button">Send to a builder</button>
+  </div>
+  <div class="rule">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+</section>
+
+<div class="fig">
+  <h2 class="kick">Fig. 01 ·</h2>
+  <span class="gaccent">the three pieces</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues" id="kit">
+
+  <article class="card c-cream">
+    <div class="top">
+      <span class="tag">Piece 1 · the agent file</span>
+      <span class="goth">hire</span>
+    </div>
+    <h2>Who it is. One job.</h2>
+    <p class="one">The whole employee is one markdown file in <code>.claude/agents/</code>: a name, a description (the hiring ad — it's how Claude decides when to hand work over), a tools line, and the job contract — who it is, what it does every run, what done looks like. The template is fill-in-the-blanks with the guidance written inline, so the blanks teach you the pattern as you fill them.</p>
+    <span class="proof">.claude/agents/&lt;name&gt;.md · name · description · tools</span>
+    <div class="actions">
+      <a class="btn" data-goatcounter-click="no013-download-template2" href="./files/agent-starter-kit/agent-template.md" download="agent-template.md">agent-template.md ↓</a>
+    </div>
+  </article>
+
+  <article class="card c-aqua">
+    <div class="top">
+      <span class="tag">Piece 2 · the tools</span>
+      <span class="goth">keys</span>
+    </div>
+    <h2>Least privilege.</h2>
+    <p class="one">The <code>tools:</code> line is the agent's keycard — and omitting it grants everything, including editing files. Same rule as a human hire: only what the job needs. Our review judge <b>can't</b> rewrite the code it grades, because we never handed it Write or Edit. The allowlist walks the three tiers — reader, reviewer, builder — with the safety logic for each.</p>
+    <span class="proof">tools: Read, Grep, Glob · start read-only, promote on need</span>
+    <div class="actions">
+      <a class="btn" data-goatcounter-click="no013-download-tools" href="./files/agent-starter-kit/tools-allowlist.md" download="tools-allowlist.md">tools-allowlist.md ↓</a>
+    </div>
+  </article>
+
+  <article class="card c-ink">
+    <div class="top">
+      <span class="tag">Piece 3 · the skill</span>
+      <span class="goth">sop</span>
+    </div>
+    <h2>The daily review.</h2>
+    <p class="one">A skill is a written-down procedure any session runs the same way every time. This one is complete and runnable tonight: type <code>/daily-review</code> and it checks the working tree, unpushed commits, tests, leftover debris and today's commit messages — then returns a strict GO / FIX-FIRST verdict with specific actions. It's modeled on the judge that gates our videos every day.</p>
+    <span class="proof">.claude/skills/daily-review/SKILL.md · /daily-review</span>
+    <div class="actions">
+      <a class="btn" data-goatcounter-click="no013-download-skill" href="./files/agent-starter-kit/starter-skill.md" download="starter-skill.md">starter-skill.md ↓</a>
+    </div>
+  </article>
+
+</section>
+
+<div class="fig">
+  <h2 class="kick">Fig. 02 ·</h2>
+  <span class="gaccent">the setup</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues">
+  <article class="card c-cream" id="howto">
+    <div class="top">
+      <span class="tag">How to use it · 60 seconds</span>
+      <span class="goth">setup</span>
+    </div>
+    <h2>Three files. One minute.</h2>
+    <p class="one">No plugin, no config server. Claude Code reads <code>.claude/agents/</code> and <code>.claude/skills/</code> from your project automatically — drop the files in, start a session, and the hire exists. The README covers the whole install plus the one idea that makes agents work: one agent, one job. The moment a job description says "and also…", that's two employees.</p>
+    <span class="stars">4 files · inline guidance · runnable tonight · no gate</span>
+    <div class="actions">
+      <a class="btn" data-goatcounter-click="no013-download-readme" href="./files/agent-starter-kit/README.md" download="README.md">README — the 60-second setup ↓</a>
+    </div>
+  </article>
+</section>
+
+<section class="ledger" aria-label="How to use the kit">
+  <div class="lrow"><span class="n">01</span><span class="t">Download the kit above — template, allowlist, skill, README</span></div>
+  <div class="lrow"><span class="n">02</span><span class="t">Template → .claude/agents/&lt;name&gt;.md · skill → .claude/skills/daily-review/SKILL.md · fill the blanks</span></div>
+  <div class="lrow"><span class="n">03</span><span class="t">New Claude Code session · type /daily-review · or say "use the &lt;name&gt; agent"</span></div>
+</section>
+
+<div class="fig">
+  <h2 class="kick">Fig. 03 ·</h2>
+  <span class="gaccent">what's next</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues">
+  <article class="card c-ink" id="next">
+    <div class="top">
+      <span class="tag">Next drop · daily</span>
+      <span class="goth">soon</span>
+    </div>
+    <h2>New keyword. Every day.</h2>
+    <p class="one">One AI teardown a day, and every issue delivers the goods — the keyword only lives on the reel, and followers catch it first.</p>
+    <div class="actions">
+      <a class="btn" data-goatcounter-click="no013-follow-next" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Follow @vektor.fm for the next one →</a>
+    </div>
+  </article>
+
+  <article class="card c-ink">
+    <div class="top">
+      <span class="tag">Give your agents rules to obey</span>
+      <span class="goth">the laws</span>
+    </div>
+    <h2>The CLAUDE.md drops.</h2>
+    <p class="one">An agent is only as good as the rules it runs under. The seven operating rules keep its output tight; the six git-hygiene rules keep it from wrecking your repo. Same format as this kit — drop-in files, every rule with the WHY.</p>
+    <div class="actions">
+      <a class="btn" data-goatcounter-click="no013-part1" href="./no-010.html">Rules 1–4 →</a>
+      <a class="btn" data-goatcounter-click="no013-part2" href="./no-011.html">Rules 5–7 →</a>
+      <a class="btn" data-goatcounter-click="no013-git" href="./no-012.html">Git hygiene →</a>
+    </div>
+  </article>
+
+  <article class="card c-ink">
+    <div class="top">
+      <span class="tag">No gate / no catch</span>
+      <span class="goth">follow</span>
+    </div>
+    <h2>That's the kit. No gate, no catch.</h2>
+    <p class="one">This page exists because people follow. If your first agent ships something this week, the follow is the thank-you — one AI teardown, every day.</p>
+    <div class="actions">
+      <a class="btn" data-goatcounter-click="no013-follow-tiktok" href="https://tiktok.com/@vektor.fm" target="_blank" rel="noopener">TikTok →</a>
+      <a class="btn" data-goatcounter-click="no013-follow-instagram" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Instagram →</a>
+      <a class="btn" data-goatcounter-click="no013-follow-youtube" href="https://youtube.com/@vektorfm" target="_blank" rel="noopener">YouTube →</a>
+      <a class="btn" data-goatcounter-click="no013-follow-x" href="https://x.com/vektordotfm" target="_blank" rel="noopener">X →</a>
+    </div>
+  </article>
+</section>
+

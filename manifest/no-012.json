@@ -1,0 +1,21 @@
+{
+  "number": "012",
+  "title": "vektor /// no. 012 — 6 rules. your repo survives.",
+  "description": "The git-hygiene CLAUDE.md — six rules that stop an AI coding agent (or a second session) from wrecking your repo: explicit adds, push after commit, worktrees for parallel work. Free, no gate.",
+  "og_title": "6 rules. Your repo survives. — vektor /// no. 012",
+  "og_description": "The git-hygiene CLAUDE.md — six rules that stop an AI agent (or a parallel session) from staging your half-done work, losing commits, or leaking secrets. Every rule with the WHY. No gate.",
+  "og_image": "https://vektor-fm.github.io/vektor-site/og/no-012.png",
+  "og_alt": "6 rules. Your repo survives. — vektor /// no. 012",
+  "og_url": "https://vektor-fm.github.io/vektor-site/no-012.html",
+  "canonical": "https://vektor-fm.github.io/vektor-site/no-012.html",
+  "tw_title": "6 rules. Your repo survives. — vektor /// no. 012",
+  "tw_description": "The git-hygiene CLAUDE.md — six rules that stop an AI agent (or a parallel session) from staging your half-done work, losing commits, or leaking secrets. Every rule with the WHY. No gate.",
+  "tw_image": "https://vektor-fm.github.io/vektor-site/og/no-012.png",
+  "marker": "This Week in AI · Git Hygiene",
+  "sticky_text": "Next drop: <b>the keyword only lives on the reel</b>",
+  "backref_html": "A new keyword drops every day — <b>it only lives on the reel</b> — follow @vektor.fm to catch it. Want the operating rules? <a href=\"./no-010.html\">Rules 1–4 →</a> · <a href=\"./no-011.html\">Rules 5–7 →</a>",
+  "footer_meta": "/// no. 012 / git hygiene / 07-2026 · the frontier, by the numbers",
+  "copy_event": "no012-copy-file",
+  "subscribe_track": false,
+  "slug": "no012"
+}

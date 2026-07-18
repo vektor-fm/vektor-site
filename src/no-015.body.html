@@ -1,0 +1,165 @@
+<section class="hero">
+  <div class="kick eye">This Week in AI · Loops</div>
+  <h1 class="disp">Write the<br>loop<span class="dot">.</span></h1>
+  <p class="sub">Boris Cherny, head of Claude Code, says the real skill now isn't a better prompt — it's <b>loop engineering</b>. Stop one-shot prompting. Write a loop that prompts the model, checks the result against a done-condition, and re-runs until it passes. Here's that loop — about 20 lines, runnable tonight — plus the one-page why. Free, no gate. As promised.</p>
+  <div class="snippet" id="file">
+    <div class="bar"><span class="f">agent-loop.sh · plan → run → check → repeat</span><button class="snipbtn" id="snipCopy" type="button">Copy the loop</button></div>
+    <pre id="snipText">#!/usr/bin/env bash
+set -euo pipefail
+
+TASK="Fix the failing tests. Edit the source, not the tests."
+CHECK="npm test"        # the DONE-CONDITION: exits 0 when the work is done
+AI="claude -p"          # any CLI that edits your project from a prompt
+MAX_ITERS=6             # a loop without a cap is a bill without a cap
+
+last_output=""
+for i in $(seq 1 "$MAX_ITERS"); do
+  # PLAN + RUN — prompt with the task, plus last time's real failure output.
+  prompt="$TASK
+
+Done means this command exits 0:
+    $CHECK"
+  [ -n "$last_output" ] && prompt="$prompt
+
+The check just failed. Find the cause, fix it, then stop:
+$last_output"
+  $AI "$prompt"
+
+  # CHECK — the model doesn't decide it's done. This does.
+  if last_output="$(eval "$CHECK" 2>&1)"; then
+    echo "✓ done in $i iteration(s)."; exit 0
+  fi
+done
+echo "✗ hit the cap — tighten your TASK or CHECK, not the count." >&2; exit 1
+
+# ↓ The download has this + a Python twin + the one-page "why".</pre>
+  </div>
+  <div class="actions">
+    <a class="btn primary" data-goatcounter-click="no015-download-loop" href="./files/starter-loop/agent-loop.sh" download="agent-loop.sh">Download agent-loop.sh ↓</a>
+    <a class="btn" href="#kit">The 3 pieces ↓</a>
+    <button class="btn" id="shareBtn" type="button">Send to a builder</button>
+  </div>
+  <div class="rule">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+</section>
+
+<div class="fig">
+  <h2 class="kick">Fig. 01 ·</h2>
+  <span class="gaccent">the three pieces</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues" id="kit">
+
+  <article class="card c-cream">
+    <div class="top">
+      <span class="tag">Piece 1 · the loop</span>
+      <span class="goth">run</span>
+    </div>
+    <h2>Plan. Run. Check. Repeat.</h2>
+    <p class="one">A one-shot prompt has no idea whether it succeeded — so the checking falls back on <em>you</em>, by hand, every time. The loop moves that into code: it prompts the model, lets it work one turn, then runs a real check and feeds any failure back in — until the check passes or it hits a cap. Two files, same 20 lines: <code>agent-loop.sh</code> for bash, <code>agent-loop.py</code> for Windows or no-bash. No framework.</p>
+    <span class="proof">for i in 1..MAX: prompt → run → check → break-on-pass</span>
+    <div class="actions">
+      <a class="btn" data-goatcounter-click="no015-download-sh" href="./files/starter-loop/agent-loop.sh" download="agent-loop.sh">agent-loop.sh ↓</a>
+      <a class="btn" data-goatcounter-click="no015-download-py" href="./files/starter-loop/agent-loop.py" download="agent-loop.py">agent-loop.py ↓</a>
+    </div>
+  </article>
+
+  <article class="card c-aqua">
+    <div class="top">
+      <span class="tag">Piece 2 · the done-condition</span>
+      <span class="goth">check</span>
+    </div>
+    <h2>The one line that matters.</h2>
+    <p class="one">The whole loop lives or dies on <code>CHECK</code> — any command that exits <code>0</code> only when the work is truly done: your tests, a build, a linter, a <code>curl</code> that must return 200. If you can't write it, you don't yet know what "done" means, and neither will the model. <b>The model doesn't declare victory — the check does.</b> And never let it edit its own check, or a stuck loop "wins" by deleting the test.</p>
+    <span class="proof">CHECK="npm test" · pytest -q · npm run build · ./verify.sh</span>
+  </article>
+
+  <article class="card c-ink">
+    <div class="top">
+      <span class="tag">Piece 3 · the why</span>
+      <span class="goth">sop</span>
+    </div>
+    <h2>Stop prompting. Write loops.</h2>
+    <p class="one">The one-page explainer: the four steps, why the done-condition is the honest core, why every loop needs a hard cap — and the honesty check on when a loop is the <em>wrong</em> tool (no real done-condition, expensive or irreversible passes, genuinely one-shot tasks). Plain English, no hype.</p>
+    <span class="proof">stop-prompting-write-loops.md · one page · read in 3 min</span>
+    <div class="actions">
+      <a class="btn" data-goatcounter-click="no015-download-why" href="./files/starter-loop/stop-prompting-write-loops.md" download="stop-prompting-write-loops.md">the why ↓</a>
+    </div>
+  </article>
+
+</section>
+
+<div class="fig">
+  <h2 class="kick">Fig. 02 ·</h2>
+  <span class="gaccent">the run</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues">
+  <article class="card c-cream" id="howto">
+    <div class="top">
+      <span class="tag">How to run it · 60 seconds</span>
+      <span class="goth">setup</span>
+    </div>
+    <h2>Three knobs. One minute.</h2>
+    <p class="one">No install beyond an AI CLI that can edit your project (default: <a href="https://claude.com/claude-code" target="_blank" rel="noopener">Claude Code</a>'s <code>claude -p</code>). Point <code>CHECK</code> at a command that already tells you the truth, set a <code>TASK</code>, cap the iterations, and run. The README walks the three knobs and the one idea: the check is what turns a text generator into something that keeps working until the bar is met.</p>
+    <span class="stars">2 loops · 1 explainer · runnable tonight · no gate</span>
+    <div class="actions">
+      <a class="btn" data-goatcounter-click="no015-download-readme" href="./files/starter-loop/README.md" download="README.md">README — the 60-second run ↓</a>
+    </div>
+  </article>
+</section>
+
+<section class="ledger" aria-label="How to run the loop">
+  <div class="lrow"><span class="n">01</span><span class="t">Download the loop above — agent-loop.sh (or .py) + the one-page why</span></div>
+  <div class="lrow"><span class="n">02</span><span class="t">Set CHECK to a command that exits 0 when done · set TASK · set MAX_ITERS</span></div>
+  <div class="lrow"><span class="n">03</span><span class="t">TASK="..." CHECK="npm test" bash agent-loop.sh · watch it plan → run → check → repeat</span></div>
+</section>
+
+<div class="fig">
+  <h2 class="kick">Fig. 03 ·</h2>
+  <span class="gaccent">what's next</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues">
+  <article class="card c-ink" id="next">
+    <div class="top">
+      <span class="tag">Next drop · daily</span>
+      <span class="goth">soon</span>
+    </div>
+    <h2>New keyword. Every day.</h2>
+    <p class="one">One AI teardown a day, and every issue delivers the goods — the keyword only lives on the reel, and followers catch it first.</p>
+    <div class="actions">
+      <a class="btn" data-goatcounter-click="no015-follow-next" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Follow @vektor.fm for the next one →</a>
+    </div>
+  </article>
+
+  <article class="card c-ink">
+    <div class="top">
+      <span class="tag">Give the loop a worker to run</span>
+      <span class="goth">the agents</span>
+    </div>
+    <h2>Hire your first AI agent.</h2>
+    <p class="one">A loop is the <em>how</em>; an agent is the <em>who</em> — a worker hired for one job, with its own tool keycard. The starter kit is the pattern behind the team we run a daily channel with: the agent template, the tools allowlist, one runnable skill. Same drop-in format as this loop.</p>
+    <div class="actions">
+      <a class="btn" data-goatcounter-click="no015-agents" href="./no-013.html">The agent starter kit →</a>
+    </div>
+  </article>
+
+  <article class="card c-ink">
+    <div class="top">
+      <span class="tag">No gate / no catch</span>
+      <span class="goth">follow</span>
+    </div>
+    <h2>That's the loop. No gate, no catch.</h2>
+    <p class="one">This page exists because people follow. If a loop closes a real task for you this week, the follow is the thank-you — one AI teardown, every day.</p>
+    <div class="actions">
+      <a class="btn" data-goatcounter-click="no015-follow-tiktok" href="https://tiktok.com/@vektor.fm" target="_blank" rel="noopener">TikTok →</a>
+      <a class="btn" data-goatcounter-click="no015-follow-instagram" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Instagram →</a>
+      <a class="btn" data-goatcounter-click="no015-follow-youtube" href="https://youtube.com/@vektorfm" target="_blank" rel="noopener">YouTube →</a>
+      <a class="btn" data-goatcounter-click="no015-follow-x" href="https://x.com/vektordotfm" target="_blank" rel="noopener">X →</a>
+    </div>
+  </article>
+</section>
+

@@ -1,0 +1,25 @@
+
+
+<script>
+  function fallback(text){ var t=document.createElement('textarea'); t.value=text; t.style.position='fixed'; t.style.opacity='0'; document.body.appendChild(t); t.focus(); t.select(); try{ document.execCommand('copy'); }catch(e){} document.body.removeChild(t); }
+  function copyText(text, btn, doneLabel){ var o=btn.textContent, done=function(){ btn.textContent=doneLabel; setTimeout(function(){btn.textContent=o;},1600); }; if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(done).catch(function(){ fallback(text); done(); }); } else { fallback(text); done(); } }
+  function gcEvent(name){ if(name && window.goatcounter && goatcounter.count){ goatcounter.count({path:name, event:true}); } }
+  var COPY_EVENT={{COPY_EVENT_JS}};
+  document.querySelectorAll('.copybtn').forEach(function(btn){ btn.addEventListener('click', function(){ copyText(btn.getAttribute('data-copy'), btn, 'Copied ✓'); gcEvent(COPY_EVENT); }); });
+  var snip=document.getElementById('snipCopy');
+  if(snip){ snip.addEventListener('click', function(){ var el=document.getElementById('snipText'); copyText(el.textContent, snip, 'Copied ✓'); gcEvent(COPY_EVENT); }); }
+  var camp=(location.pathname.split('/').pop()||'index').replace(/\.html$/,'')||'index';
+  document.querySelectorAll('a[href^="http"]').forEach(function(a){ try{ var u=new URL(a.href); if(u.hostname==='github.com'){return;} if(!u.searchParams.has('utm_source')){ u.searchParams.set('utm_source','vektor'); u.searchParams.set('utm_medium','dm'); u.searchParams.set('utm_campaign',camp); a.href=u.toString(); } }catch(e){} });
+  var sh=document.getElementById('shareBtn');
+  if(sh){ sh.addEventListener('click', function(){ gcEvent('{{SLUG}}-share'); if(navigator.share){ navigator.share({title:document.title, url:location.href}).catch(function(){}); } else { copyText(location.href, sh, 'Link copied — paste it ✓'); } }); }
+  var sticky=document.getElementById('stickyCta'), sub=document.getElementById('subscribe'), dismissed=false;
+  var cards=document.querySelectorAll('.issues .card'), lastCard=cards[cards.length-1];
+  function updCta(){ if(dismissed){return;} var seen=lastCard.getBoundingClientRect().bottom < window.innerHeight*0.6; var r=sub.getBoundingClientRect(); var subVisible=r.top<window.innerHeight && r.bottom>0; var show=seen && !subVisible; sticky.classList.toggle('show', show); sticky.setAttribute('aria-hidden', show?'false':'true'); }
+  window.addEventListener('scroll',updCta,{passive:true}); window.addEventListener('resize',updCta); updCta();
+  document.getElementById('ctaClose').addEventListener('click', function(){ dismissed=true; sticky.classList.remove('show'); sticky.setAttribute('aria-hidden','true'); });
+  var wmFoot=document.getElementById('wmFoot');
+  if(wmFoot && 'IntersectionObserver' in window){ var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ wmFoot.classList.remove('play'); void wmFoot.offsetWidth; wmFoot.classList.add('play'); } }); }, {threshold:0.6}); io.observe(wmFoot); }{{SUBSCRIBE_BLOCK}}
+</script>
+
+<script data-goatcounter="https://vektor.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body></html>

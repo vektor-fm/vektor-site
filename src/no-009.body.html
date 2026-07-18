@@ -1,0 +1,101 @@
+<section class="hero">
+  <div class="kick eye">This Week in AI · The Carousel</div>
+  <h1 class="disp">One prompt.<br>Every carousel<span class="dot">.</span></h1>
+  <p class="sub">The master prompt from the reel. Paste it into a Claude project, type any topic, and Claude builds a perfectly-branded Instagram carousel as an interactive preview you click through. Set your brand kit once and every slide matches. As promised.</p>
+  <div class="actions">
+    <a class="btn primary" href="#prompt">Copy the master prompt ↓</a>
+    <a class="btn" href="#howto">How to use it ↓</a>
+    <button class="btn" id="shareBtn" type="button">Send to a builder</button>
+  </div>
+  <div class="rule">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+</section>
+
+<div class="fig">
+  <h2 class="kick">Fig. 01 ·</h2>
+  <span class="gaccent">the prompt</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues" id="no-009">
+
+  <article class="card c-aqua" id="prompt">
+    <div class="top">
+      <span class="tag">The master prompt · paste-ready</span>
+      <span class="goth">the prompt</span>
+    </div>
+    <h2>The carousel master prompt.</h2>
+    <p class="one">Drop this into a Claude project's instructions. Fill in the brand kit once. Then just type a topic and Claude returns the whole carousel — an interactive, click-through preview, every slide on-brand, plus a caption and Canva-ready slide copy.</p>
+    <span class="stars">6–8 slides · on-brand · interactive preview · export to Canva</span>
+    <div class="snippet">
+      <div class="bar"><span class="f">carousel-studio.prompt</span><button class="snipbtn" id="snipCopy" type="button">Copy prompt</button></div>
+      <pre id="snipText">You are my Instagram Carousel Studio. When I give you a topic, produce a complete, on-brand carousel I can post — delivered as an interactive preview I can click through.
+
+BRAND KIT (fill this in once; reuse for every carousel)
+- Brand name: [BRAND]
+- Voice: [e.g. sharp, plain-spoken, no fluff]
+- Primary color: [#HEX]   Accent: [#HEX]
+- Background: [#HEX]   Text: [#HEX]
+- Headline font feel: [e.g. bold grotesk]   Body: [clean sans]
+- Handle: [@handle]
+
+WHAT TO BUILD
+1. Don't ask me questions — infer the sharpest angle from my topic. If it's thin, pick the most useful, specific take and commit.
+2. Write 6–8 slides:
+   - Slide 1 = a scroll-stopping hook: a bold claim, a number, or a contrarian line. Not a title.
+   - Middle slides = one idea each, <= 20 words, concrete, no filler.
+   - Second-to-last = the payoff / the "so what".
+   - Last = a clear CTA (save it, follow [@handle], or comment a keyword).
+3. Every slide uses the brand kit — colors, font feel, and voice — consistently.
+
+DELIVER AS AN INTERACTIVE PREVIEW
+Return a single self-contained HTML file (inline CSS + JS, no external assets) that renders the carousel as 1080x1350 slides I can click / arrow through (left + right, keyboard and on-screen buttons), with a slide counter and my brand colors applied. Make it look finished, not a wireframe.
+
+THEN, IN THE SAME REPLY
+- Give me the caption: first line = the hook, then the value, then the CTA + 5–10 niche hashtags.
+- List the slide copy as plain text so I can paste it straight into Canva.
+- End with: "Say 'change ___' and I'll edit the preview."
+
+RULES
+No lorem ipsum, no placeholder images, no "great question". Ship the entire thing in one reply.</pre>
+    </div>
+  </article>
+
+  <article class="card c-ink" id="howto">
+    <div class="top">
+      <span class="tag">How to use it · 3 steps</span>
+      <span class="goth">setup</span>
+    </div>
+    <h2>Set it up once.</h2>
+    <p class="one">Exactly what's in the reel — the one-time setup, then it's a topic away forever.</p>
+  </article>
+
+</section>
+
+<div class="fig">
+  <h2 class="kick">Fig. 02 ·</h2>
+  <span class="gaccent">the setup</span>
+  <span class="line"></span>
+</div>
+<section class="ledger" aria-label="How to use the master prompt">
+  <div class="lrow"><span class="n">01</span><span class="t">Open Claude → Projects → new project → name it “Instagram Carousels”</span></div>
+  <div class="lrow"><span class="n">02</span><span class="t">Paste the master prompt into the project instructions · fill in the brand kit once</span></div>
+  <div class="lrow"><span class="n">03</span><span class="t">Type your topic → click through the preview → export to Canva or ask Claude to tweak it</span></div>
+</section>
+
+<section class="issues">
+  <article class="card c-ink">
+    <div class="top">
+      <span class="tag">No gate / no catch</span>
+      <span class="goth">follow</span>
+    </div>
+    <h2>That's the prompt. No gate, no catch.</h2>
+    <p class="one">This page exists because people follow. If it made your day, the follow is the thank-you — one AI teardown, every day.</p>
+    <div class="actions">
+      <a class="btn" data-goatcounter-click="no009-follow-tiktok" href="https://tiktok.com/@vektor.fm" target="_blank" rel="noopener">TikTok →</a>
+      <a class="btn" data-goatcounter-click="no009-follow-instagram" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Instagram →</a>
+      <a class="btn" data-goatcounter-click="no009-follow-youtube" href="https://youtube.com/@vektorfm" target="_blank" rel="noopener">YouTube →</a>
+      <a class="btn" data-goatcounter-click="no009-follow-x" href="https://x.com/vektordotfm" target="_blank" rel="noopener">X →</a>
+    </div>
+  </article>
+</section>
+
