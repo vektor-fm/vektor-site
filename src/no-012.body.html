@@ -1,0 +1,147 @@
+<section class="hero">
+  <div class="kick eye">This Week in AI · Git Hygiene</div>
+  <h1 class="disp">Repo.<br>Guarded<span class="dot">.</span></h1>
+  <p class="sub">The moment you run a coding agent next to your own editor — or two Claude sessions at once — the working tree stops being yours. One broad <code>git add -A</code> sweeps someone else's half-done work into your commit. These six rules stop that. We run them in production every day; here's the file, free, no gate. As promised.</p>
+  <div class="snippet" id="file">
+    <div class="bar"><span class="f">CLAUDE.md · git hygiene · the six rules</span><button class="snipbtn" id="snipCopy" type="button">Copy rules</button></div>
+    <pre id="snipText"># CLAUDE.md — git hygiene for AI coding agents
+# Paste this section into your CLAUDE.md. Claude Code reads it every session,
+# BEFORE it runs a single git command.
+
+## Git hygiene — always
+1. Stage explicit paths only — `git add &lt;specific files&gt;`, NEVER
+   `git add -A`, `git add .`, or `git commit -a`.
+2. Check for a second session — if `git status` shows changes you didn't
+   make, do NOT stage them. Unrecognized files are a stop sign.
+3. Push after you commit — "committed" is not "backed up". Never end a
+   session with silent unpushed commits.
+4. Never commit secrets or junk — .gitignore first: .env, node_modules/,
+   weights, build outputs. No remote at all? Flag it.
+5. Write meaningful messages — one commit = one coherent change,
+   never "wip".
+6. Parallel work goes in worktrees — two sessions means two working
+   trees, not a fight over one checkout.
+
+# ↓ The download is the full template: every rule with the WHY comment —
+#   the real production failure each line exists to prevent.</pre>
+  </div>
+  <div class="actions">
+    <a class="btn primary" data-goatcounter-click="no012-download-file" href="./files/CLAUDE-git-hygiene.md" download="CLAUDE-git-hygiene.md">Download the file ↓</a>
+    <a class="btn" href="#rules">Why these 3 ↓</a>
+    <button class="btn" id="shareBtn" type="button">Send to a builder</button>
+  </div>
+  <div class="rule">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+</section>
+
+<div class="fig">
+  <h2 class="kick">Fig. 01 ·</h2>
+  <span class="gaccent">the big three</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues" id="rules">
+
+  <article class="card c-cream">
+    <div class="top">
+      <span class="tag">Rule 1 · explicit paths</span>
+      <span class="goth">add</span>
+    </div>
+    <h2>Never <span style="white-space:nowrap;">add&nbsp;-A</span> again.</h2>
+    <p class="one">A broad add doesn't know which changes are its own — it stages everything it finds, including another session's half-finished edits. The commit "works", the history looks clean, and someone else's broken change just shipped inside yours. Explicit paths make that impossible.</p>
+    <span class="proof">git add &lt;file&gt; · never -A · never commit -a</span>
+  </article>
+
+  <article class="card c-aqua">
+    <div class="top">
+      <span class="tag">Rule 3 · push after commit</span>
+      <span class="goth">push</span>
+    </div>
+    <h2>Committed is not backed up.</h2>
+    <p class="one">Until it's pushed, a commit exists on exactly one machine — and local-only commits fail in silence. Nothing looks wrong until the laptop is gone. The rule: commit, then push, and if pushing isn't possible, <b>say so out loud</b> so a human can finish the job.</p>
+    <span class="proof">one machine ≠ a backup</span>
+  </article>
+
+  <article class="card c-ink">
+    <div class="top">
+      <span class="tag">Rule 6 · worktrees</span>
+      <span class="goth">split</span>
+    </div>
+    <h2>Two sessions. Two trees.</h2>
+    <p class="one">Rules 1–2 reduce the damage of a collision; worktrees remove the collision. <code>git worktree</code> (in Claude Code: <code>claude --worktree &lt;name&gt;</code>) gives every parallel session its own isolated folder and branch — instead of two agents fighting over one checkout.</p>
+    <span class="proof">git worktree · isolated folder + branch</span>
+  </article>
+
+</section>
+
+<div class="fig">
+  <h2 class="kick">Fig. 02 ·</h2>
+  <span class="gaccent">the file</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues">
+  <article class="card c-cream" id="howto">
+    <div class="top">
+      <span class="tag">How to use it · 3 steps</span>
+      <span class="goth">setup</span>
+    </div>
+    <h2>One section. Every session.</h2>
+    <p class="one">Claude Code reads CLAUDE.md at the start of every session, automatically — no plugin, no setting. This file is a drop-in section: paste it into your project's CLAUDE.md (or <code>~/.claude/CLAUDE.md</code> for every repo you own). The download keeps the WHY comment on every rule — each one exists because removing it caused a real mistake.</p>
+    <span class="stars">6 rules · every WHY included · drop-in section · no gate</span>
+  </article>
+</section>
+
+<section class="ledger" aria-label="How to use the file">
+  <div class="lrow"><span class="n">01</span><span class="t">Download the file above (or copy the six rules)</span></div>
+  <div class="lrow"><span class="n">02</span><span class="t">Paste the section into your project's CLAUDE.md — or ~/.claude/CLAUDE.md for all repos</span></div>
+  <div class="lrow"><span class="n">03</span><span class="t">Start a new Claude Code session · the rules apply before the first git command</span></div>
+</section>
+
+<div class="fig">
+  <h2 class="kick">Fig. 03 ·</h2>
+  <span class="gaccent">what's next</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues">
+  <article class="card c-ink" id="next">
+    <div class="top">
+      <span class="tag">Next drop · daily</span>
+      <span class="goth">soon</span>
+    </div>
+    <h2>New keyword. Every day.</h2>
+    <p class="one">One AI teardown a day, and every issue delivers the goods — the keyword only lives on the reel, and followers catch it first.</p>
+    <div class="actions">
+      <a class="btn" data-goatcounter-click="no012-follow-next" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Follow @vektor.fm for the next one →</a>
+    </div>
+  </article>
+
+  <article class="card c-ink">
+    <div class="top">
+      <span class="tag">Want the operating rules too?</span>
+      <span class="goth">the seven</span>
+    </div>
+    <h2>The seven-rule CLAUDE.md.</h2>
+    <p class="one">Git hygiene keeps your repo safe; the seven operating rules keep Claude's output tight — smallest change, plan first, search before read, show the diff. Same format, one page each.</p>
+    <div class="actions">
+      <a class="btn" data-goatcounter-click="no012-part1" href="./no-010.html">Rules 1–4 →</a>
+      <a class="btn" data-goatcounter-click="no012-part2" href="./no-011.html">Rules 5–7 →</a>
+    </div>
+  </article>
+
+  <article class="card c-ink">
+    <div class="top">
+      <span class="tag">No gate / no catch</span>
+      <span class="goth">follow</span>
+    </div>
+    <h2>That's the file. No gate, no catch.</h2>
+    <p class="one">This page exists because people follow. If it saved you a bad commit, the follow is the thank-you — one AI teardown, every day.</p>
+    <div class="actions">
+      <a class="btn" data-goatcounter-click="no012-follow-tiktok" href="https://tiktok.com/@vektor.fm" target="_blank" rel="noopener">TikTok →</a>
+      <a class="btn" data-goatcounter-click="no012-follow-instagram" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Instagram →</a>
+      <a class="btn" data-goatcounter-click="no012-follow-youtube" href="https://youtube.com/@vektorfm" target="_blank" rel="noopener">YouTube →</a>
+      <a class="btn" data-goatcounter-click="no012-follow-x" href="https://x.com/vektordotfm" target="_blank" rel="noopener">X →</a>
+    </div>
+  </article>
+</section>
+

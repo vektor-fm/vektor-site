@@ -1,0 +1,142 @@
+<section class="hero">
+  <div class="kick eye">This Week in AI · The Rules · Part 2</div>
+  <h1 class="disp">Faster.<br>Cheaper<span class="dot">.</span></h1>
+  <p class="sub">Rules 5–7 of the CLAUDE.md — plan first, search before read, show the diff. Three lines in one plain-text file that cut your token bill and your review time. Here's the whole seven-rule file, free, no gate. As promised.</p>
+  <div class="snippet" id="file">
+    <div class="bar"><span class="f">CLAUDE.md · the whole file</span><button class="snipbtn" id="snipCopy" type="button">Copy file</button></div>
+    <pre id="snipText"># CLAUDE.md — house rules for Claude Code
+# Claude Code reads this at the start of every session. Put it in your project root.
+
+## Operating rules — always
+1. Smallest change that works. No refactors, no "while I'm here" edits.
+2. Match the style of the file you're in. Read first, copy its patterns.
+3. Done means the tests pass. Red isn't done — run the tests before you say done.
+4. When unsure, ask — and never invent an API. Don't guess signatures.
+
+## Operating rules — faster & cheaper
+5. Plan first. List every file you'll change and wait for my go.
+6. Search before read. Grep for the symbol; don't load whole files.
+7. Show the diff first. Old lines out, new lines in — wait for a yes.
+
+# ↓ The download is the full working template: commands, architecture,
+#   code style, testing, git and gotchas — the parts Claude can't guess.</pre>
+  </div>
+  <div class="actions">
+    <a class="btn primary" data-goatcounter-click="no011-download-file" href="./files/CLAUDE.md" download="CLAUDE.md">Download CLAUDE.md ↓</a>
+    <a class="btn" href="#rules">See the 3 rules ↓</a>
+    <button class="btn" id="shareBtn" type="button">Send to a builder</button>
+  </div>
+  <div class="rule">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+</section>
+
+<div class="fig">
+  <h2 class="kick">Fig. 01 ·</h2>
+  <span class="gaccent">the three</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues" id="rules">
+
+  <article class="card c-cream">
+    <div class="top">
+      <span class="tag">Rule 5 · plan first</span>
+      <span class="goth">plan</span>
+    </div>
+    <h2>List the files. Then go.</h2>
+    <p class="one">You hand Claude a task. Before it touches a thing, it lists every file it wants to change — and waits for your go. You approve a plan against a file list, not a surprise mid-edit. Fewer wrong turns, and a wrong turn is the expensive one: it costs the mistake, the correction, and the redo.</p>
+    <span class="proof">plan → approve → then it writes</span>
+  </article>
+
+  <article class="card c-aqua">
+    <div class="top">
+      <span class="tag">Rule 6 · search before read</span>
+      <span class="goth">search</span>
+    </div>
+    <h2>Grep, don't swallow.</h2>
+    <p class="one">Instead of loading a whole file into context, Claude runs one quick search and gets back the exact lines it needs. On a real run that was <b>4 lines instead of a 2,251-line file</b> — same answer, a fraction of the tokens. Context is the meter: every line Claude reads is a line you pay for.</p>
+    <span class="proof">4 lines · not 2,251</span>
+  </article>
+
+  <article class="card c-ink">
+    <div class="top">
+      <span class="tag">Rule 7 · show the diff first</span>
+      <span class="goth">diff</span>
+    </div>
+    <h2>See it before it saves.</h2>
+    <p class="one">Before writing anything, Claude prints the exact change — old lines out, new lines in — and waits for your yes. Nothing happens behind your back. You approve three lines you can see, not four hundred you can't. Faster to review, and safer to run.</p>
+    <span class="proof">3 lines you see &gt; 400 you don't</span>
+  </article>
+
+</section>
+
+<div class="fig">
+  <h2 class="kick">Fig. 02 ·</h2>
+  <span class="gaccent">the file</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues">
+  <article class="card c-cream" id="howto">
+    <div class="top">
+      <span class="tag">How to use it · 3 steps</span>
+      <span class="goth">setup</span>
+    </div>
+    <h2>One file. Ten seconds.</h2>
+    <p class="one">Claude Code reads CLAUDE.md at the start of every session, automatically — no plugin, no setting. The seven rules are ready to use as-is; the rest of the file is a template you fill in with your project's commands and structure (that's the part that actually saves Claude from guessing).</p>
+    <span class="stars">7 rules · project root · read every session · no gate</span>
+  </article>
+</section>
+
+<section class="ledger" aria-label="How to use the file">
+  <div class="lrow"><span class="n">01</span><span class="t">Create a file called CLAUDE.md in your project root</span></div>
+  <div class="lrow"><span class="n">02</span><span class="t">Download the file above, or paste the seven rules and fill in your commands</span></div>
+  <div class="lrow"><span class="n">03</span><span class="t">Start a new Claude Code session · it reads the file before touching your code</span></div>
+</section>
+
+<div class="fig">
+  <h2 class="kick">Fig. 03 ·</h2>
+  <span class="gaccent">what's next</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues">
+  <article class="card c-ink" id="next">
+    <div class="top">
+      <span class="tag">Next drop · this week</span>
+      <span class="goth">soon</span>
+    </div>
+    <h2>The 4 agents that work while you sleep.</h2>
+    <p class="one">Next up: the four Claude agents that run tasks while you're away — the setup, and what each one actually does. The keyword only lives on the reel, and followers get it first.</p>
+    <div class="actions">
+      <a class="btn" data-goatcounter-click="no011-follow-next" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Follow @vektor.fm for the next one →</a>
+    </div>
+  </article>
+
+  <article class="card c-ink">
+    <div class="top">
+      <span class="tag">Missed Part 1?</span>
+      <span class="goth">rules 1–4</span>
+    </div>
+    <h2>The first four rules.</h2>
+    <p class="one">Part 1 covers rules 1–4 — smallest change, match the style, done means tests pass, and never invent an API. Same file, all seven rules, on one page.</p>
+    <div class="actions">
+      <a class="btn" data-goatcounter-click="no011-part1" href="./no-010.html">Read Part 1 →</a>
+    </div>
+  </article>
+
+  <article class="card c-ink">
+    <div class="top">
+      <span class="tag">No gate / no catch</span>
+      <span class="goth">follow</span>
+    </div>
+    <h2>That's the file. No gate, no catch.</h2>
+    <p class="one">This page exists because people follow. If it made your day, the follow is the thank-you — one AI teardown, every day.</p>
+    <div class="actions">
+      <a class="btn" data-goatcounter-click="no011-follow-tiktok" href="https://tiktok.com/@vektor.fm" target="_blank" rel="noopener">TikTok →</a>
+      <a class="btn" data-goatcounter-click="no011-follow-instagram" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Instagram →</a>
+      <a class="btn" data-goatcounter-click="no011-follow-youtube" href="https://youtube.com/@vektorfm" target="_blank" rel="noopener">YouTube →</a>
+      <a class="btn" data-goatcounter-click="no011-follow-x" href="https://x.com/vektordotfm" target="_blank" rel="noopener">X →</a>
+    </div>
+  </article>
+</section>
+
