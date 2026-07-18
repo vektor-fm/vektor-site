@@ -12,8 +12,8 @@
     { "number": "009", "title_short": "One prompt. Every carousel.", "section": "The Carousel", "date": "07-2026", "keyword": "Carousel", "lastmod": "2026-07-14", "built": true },
     { "number": "008", "title_short": "120,000 chars. Leaked.", "section": "The Leak", "date": "07-2026", "keyword": "Steal", "lastmod": "2026-07-14", "built": true },
     { "number": "007", "title_short": "1.6M lines. On iPhone.", "section": "The Port", "date": "07-2026", "keyword": "Generals", "lastmod": "2026-07-14", "built": true },
-    { "number": "006", "title_short": "One file. 188,000 stars.", "section": "The File", "date": "07-2026", "keyword": "Karpathy", "lastmod": "2026-07-14", "built": false },
-    { "number": "005", "title_short": "Code with AI. Keep your brain.", "section": "Four Rules", "date": "07-2026", "keyword": "Brain", "lastmod": "2026-07-14", "built": false },
-    { "number": "004", "title_short": "You only need 5 skills.", "section": "Five Skills", "date": "07-2026", "keyword": "Claude", "lastmod": "2026-07-05", "built": false }
+    { "number": "006", "title_short": "One file. 188,000 stars.", "section": "The File", "date": "07-2026", "keyword": "Karpathy", "lastmod": "2026-07-14", "built": true },
+    { "number": "005", "title_short": "Code with AI. Keep your brain.", "section": "Four Rules", "date": "07-2026", "keyword": "Brain", "lastmod": "2026-07-14", "built": true },
+    { "number": "004", "title_short": "You only need 5 skills.", "section": "Five Skills", "date": "07-2026", "keyword": "Claude", "lastmod": "2026-07-05", "built": true }
   ]
 }
