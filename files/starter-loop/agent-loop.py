@@ -15,6 +15,7 @@
 # ─────────────────────────────────────────────────────────────────────────────
 import os
 import shlex
+import shutil
 import subprocess
 import sys
 
@@ -23,13 +24,30 @@ TASK = os.environ.get(
     "TASK", "Make the test suite pass. Fix the source code, do not edit the tests."
 )
 CHECK = os.environ.get("CHECK", "npm test")   # the DONE-CONDITION: exits 0 when done
-AI = os.environ.get("AI", "claude -p")         # the CLI that edits your project
+# AI — the CLI that edits your project. `--permission-mode acceptEdits` is what
+# lets Claude Code actually APPLY its edits headlessly; without it `claude -p`
+# asks for approval it can never get in a script, so the edits are dropped and
+# the check can never pass. Drop the flag if your CLI doesn't use it.
+AI = os.environ.get("AI", "claude -p --permission-mode acceptEdits")
 MAX_ITERS = int(os.environ.get("MAX_ITERS", "6"))  # a loop needs a cap
 
 
 def shell(cmd, **kw):
     """Run a command through the shell, text mode."""
     return subprocess.run(cmd, shell=True, text=True, **kw)
+
+
+def run_ai(ai: str, prompt: str) -> subprocess.CompletedProcess:
+    """Invoke the AI CLI with the prompt as a single argument, NO shell.
+
+    The prompt is passed straight through as one argv element, so it is never
+    re-parsed by a shell — the same call works on Windows and POSIX. (The old
+    version shell-quoted with shlex.quote, which emits POSIX single-quotes that
+    cmd.exe does not understand, mangling any prompt with spaces on Windows.)
+    """
+    parts = shlex.split(ai, posix=(os.name != "nt"))
+    exe = shutil.which(parts[0]) or parts[0]  # resolve the npm .cmd shim on Windows
+    return subprocess.run([exe, *parts[1:], prompt], text=True)
 
 
 def main() -> int:
@@ -44,7 +62,7 @@ def main() -> int:
                 "\n\nThe check just failed. Here is its output — find the cause, "
                 f"fix it, then stop:\n{last_output}"
             )
-        shell(f"{AI} {shlex.quote(prompt)}")
+        run_ai(AI, prompt)
 
         # CHECK — run the done-condition; capture output to feed back next time.
         print(f"─── checking: {CHECK}")

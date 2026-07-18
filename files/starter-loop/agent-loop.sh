@@ -26,9 +26,12 @@ TASK="${TASK:-Make the test suite pass. Fix the source code, do not edit the tes
 CHECK="${CHECK:-npm test}"
 
 # AI — the CLI that reads a prompt and edits your project. Default: Claude Code.
-#   `claude -p "<prompt>"` runs ONE non-interactive turn with tools enabled.
-#   Swap in any coding CLI that takes a prompt argument.
-AI="${AI:-claude -p}"
+#   `claude -p "<prompt>"` runs ONE non-interactive turn. The `--permission-mode
+#   acceptEdits` flag is what lets the model actually APPLY its edits headlessly —
+#   without it, `claude -p` asks for approval it can never get in a script, so the
+#   edits are dropped and the check can never pass. Swap in any coding CLI that
+#   takes a prompt argument (drop the flag if your CLI doesn't use it).
+AI="${AI:-claude -p --permission-mode acceptEdits}"
 
 # MAX_ITERS — hard cap. A loop without a cap is a bill without a cap.
 MAX_ITERS="${MAX_ITERS:-6}"

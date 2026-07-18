@@ -18,7 +18,9 @@ head of Claude Code, points to as the actual skill now.
 You need a project with a **done-condition** — a command that exits `0` only
 when the work is finished (your tests, a build, a linter, a health check) — and
 an AI CLI that can edit the project. Default is [Claude
-Code](https://claude.com/claude-code)'s `claude -p`.
+Code](https://claude.com/claude-code)'s `claude -p --permission-mode acceptEdits`
+— that flag is what lets it apply edits headlessly instead of pausing to ask for
+approval a script can't give. Without it the loop runs but never changes a file.
 
 ```bash
 # from the project root:
@@ -57,8 +59,9 @@ time. Move the check into code and the model keeps working — against a bar it
 can't fake — until the bar is met. That's the whole shift from prompting to
 loops.
 
-Swap `AI="claude -p"` for any coding CLI that takes a prompt argument; the loop
-doesn't care which model runs inside it.
+Swap the `AI` command for any coding CLI that takes a prompt argument (drop the
+`--permission-mode` flag if yours doesn't use it); the loop doesn't care which
+model runs inside it.
 
 ---
 
