@@ -16,6 +16,6 @@
   "backref_html": "A new keyword drops every day — <b>it only lives on the reel</b> — follow @vektor.fm to catch it. Give your new hire its rulebook: <a href=\"./no-010.html\">Rules 1–4 →</a> · <a href=\"./no-011.html\">Rules 5–7 →</a> · <a href=\"./no-012.html\">Git hygiene →</a>",
   "footer_meta": "/// no. 013 / agents / 07-2026 · the frontier, by the numbers",
   "copy_event": "no013-copy-file",
-  "subscribe_track": false,
+  "subscribe_track": true,
   "slug": "no013"
 }

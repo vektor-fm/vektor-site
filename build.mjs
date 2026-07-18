@@ -137,6 +137,10 @@ if (check) {
   if (bad || errs.length) { console.error(`\ncheck FAILED: ${bad} out-of-sync, ${errs.length} broken link(s).`); process.exit(1); }
   console.log(`check OK: ${Object.keys(out).length} outputs in sync, all links/assets resolve.`);
 } else {
-  for (const [name, content] of Object.entries(out)) writeFileSync(join(ROOT, name), content);
-  console.log(`built ${Object.keys(out).length} files: ${BUILT.length} issue pages + index.html + sitemap.xml`);
+  let wrote = 0;
+  for (const [name, content] of Object.entries(out)) {
+    // write-if-different (normalised compare) so unchanged outputs don't churn line endings
+    if (!exists(name) || read(name) !== content) { writeFileSync(join(ROOT, name), content); wrote++; }
+  }
+  console.log(`built ${Object.keys(out).length} outputs, ${wrote} changed (${BUILT.length} issue pages + index.html + sitemap.xml)`);
 }
