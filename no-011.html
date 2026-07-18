@@ -496,6 +496,7 @@
   document.getElementById('ctaClose').addEventListener('click', function(){ dismissed=true; sticky.classList.remove('show'); sticky.setAttribute('aria-hidden','true'); });
   var wmFoot=document.getElementById('wmFoot');
   if(wmFoot && 'IntersectionObserver' in window){ var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ wmFoot.classList.remove('play'); void wmFoot.offsetWidth; wmFoot.classList.add('play'); } }); }, {threshold:0.6}); io.observe(wmFoot); }
+  document.querySelectorAll('form').forEach(function(f){ f.addEventListener('submit', function(){ gcEvent('no011-subscribe-submit'); }); });
 </script>
 
 <script data-goatcounter="https://vektor.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
