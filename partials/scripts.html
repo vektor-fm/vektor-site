@@ -8,6 +8,8 @@
   document.querySelectorAll('.copybtn').forEach(function(btn){ btn.addEventListener('click', function(){ copyText(btn.getAttribute('data-copy'), btn, 'Copied ✓'); gcEvent(COPY_EVENT); }); });
   var snip=document.getElementById('snipCopy');
   if(snip){ snip.addEventListener('click', function(){ var el=document.getElementById('snipText'); copyText(el.textContent, snip, 'Copied ✓'); gcEvent(COPY_EVENT); }); }
+  // generic copy hook (legacy multi-card pages): data-copy-target="all" | "#id"; optional data-copy-event
+  document.querySelectorAll('[data-copy-target]').forEach(function(btn){ btn.addEventListener('click', function(){ var t=btn.getAttribute('data-copy-target'), text; if(t==='all'){ text=[].slice.call(document.querySelectorAll('.copybtn')).map(function(b){return b.getAttribute('data-copy');}).join('\n'); } else { var el=document.querySelector(t); text=el?el.textContent:''; } copyText(text, btn, 'Copied ✓'); gcEvent(btn.getAttribute('data-copy-event')); }); });
   var camp=(location.pathname.split('/').pop()||'index').replace(/\.html$/,'')||'index';
   document.querySelectorAll('a[href^="http"]').forEach(function(a){ try{ var u=new URL(a.href); if(u.hostname==='github.com'){return;} if(!u.searchParams.has('utm_source')){ u.searchParams.set('utm_source','vektor'); u.searchParams.set('utm_medium','dm'); u.searchParams.set('utm_campaign',camp); a.href=u.toString(); } }catch(e){} });
   var sh=document.getElementById('shareBtn');

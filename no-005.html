@@ -6,7 +6,6 @@
 <meta name="description" content="The four rules from NO. 005 — plus the brain-file template. As promised.">
 
 <!-- OG / social preview (traffic arrives via DM) -->
-<!-- per-issue og card (brand/_extracted/og-card-005.html → og/no-005.png) -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="Code with AI. Keep your brain. — vektor /// no. 005">
 <meta property="og:description" content="The four rules from the reel + the brain.md template. No gate.">
@@ -163,29 +162,15 @@
   *{box-sizing:border-box;}
   :focus-visible{outline:2px solid var(--acid); outline-offset:2px;}
   html,body{margin:0;}
-  body{
-    background:var(--ink); color:var(--paper);
-    font-family:var(--mono); -webkit-font-smoothing:antialiased;
-    line-height:1.5; overflow-x:hidden;
-  }
+  body{ background:var(--ink); color:var(--paper); font-family:var(--mono); -webkit-font-smoothing:antialiased; line-height:1.5; overflow-x:hidden; }
   a{color:inherit;}
   ::selection{background:var(--acid); color:var(--ink);}
-
   .kick{font-family:var(--kick); text-transform:uppercase; letter-spacing:0.14em; font-size:13px; line-height:1.4;}
   .rule{font-family:var(--mono); color:rgba(239,234,221,0.4); overflow:hidden; white-space:nowrap; user-select:none;}
   .disp{font-family:var(--disp); font-weight:900; text-transform:uppercase; line-height:1.02; letter-spacing:0.005em;}
-
-  /* ---------- chrome bar ---------- */
-  .chrome{
-    position:sticky; top:0; z-index:50; background:var(--ink);
-    border-bottom:1px solid #262626;
-    display:flex; align-items:center; justify-content:space-between;
-    height:64px; padding:0 var(--rail);
-  }
+  .chrome{ position:sticky; top:0; z-index:50; background:var(--ink); border-bottom:1px solid #262626; display:flex; align-items:center; justify-content:space-between; height:64px; padding:0 var(--rail); }
   .chrome .marker{font-family:var(--kick); text-transform:uppercase; letter-spacing:0.1em; font-size:13px; color:#8f8b80;}
   @media (max-width:520px){ .chrome .marker{display:none;} }
-
-  /* ---------- animated wordmark (A decode + B register + C type-on), once ---------- */
   .wm{position:relative; display:inline-flex; text-decoration:none; font-family:var(--wm); font-weight:600; letter-spacing:-0.045em; color:var(--paper); font-size:30px; line-height:1;}
   .wm-main{position:relative; z-index:2; display:inline-flex;}
   .wm-main .ch{position:relative; display:inline-block;}
@@ -198,132 +183,115 @@
   .wm-orchid{color:var(--orchid); animation:regB 1.15s steps(1) forwards;}
   @keyframes regA{0%{transform:translate(7px,4px);opacity:.85}30%{transform:translate(4px,2px)}55%{transform:translate(2px,1px)}78%{transform:translate(0,0);opacity:.5}100%{transform:translate(0,0);opacity:0}}
   @keyframes regB{0%{transform:translate(-6px,-4px);opacity:.85}30%{transform:translate(-4px,-2px)}55%{transform:translate(-2px,-1px)}78%{transform:translate(0,0);opacity:.5}100%{transform:translate(0,0);opacity:0}}
-  @media (prefers-reduced-motion:reduce){
-    .wm-main .ch .l{opacity:1; animation:none;}
-    .wm-main .ch .g,.wm-plate{display:none;}
-    .wm-foot.play .ch2 .l{animation:none;}
-    .wm-foot .ch2 .g{display:none;}
-  }
-
-  /* ---------- woven band (brand signature) — aqua is NO. 005's field ---------- */
-  .weave{
-    height:26px; width:100%; margin:0;
-    background-color:var(--aqua);
-    background-image:
-      repeating-linear-gradient(90deg, rgba(16,16,16,.55) 0 3px, transparent 3px 9px),
-      repeating-linear-gradient(0deg, rgba(16,16,16,.55) 0 3px, transparent 3px 9px),
-      repeating-linear-gradient(90deg, rgba(255,255,255,.25) 0 1px, transparent 1px 9px);
-    background-blend-mode:multiply;
-  }
-
-  /* ---------- hero ---------- */
+  @media (prefers-reduced-motion:reduce){ .wm-main .ch .l{opacity:1; animation:none;} .wm-main .ch .g,.wm-plate{display:none;} .wm-foot.play .ch2 .l{animation:none;} .wm-foot .ch2 .g{display:none;} }
+  .weave{ height:26px; width:100%; margin:0; background-color:var(--aqua); background-image: repeating-linear-gradient(90deg, rgba(16,16,16,.55) 0 3px, transparent 3px 9px), repeating-linear-gradient(0deg, rgba(16,16,16,.55) 0 3px, transparent 3px 9px), repeating-linear-gradient(90deg, rgba(255,255,255,.25) 0 1px, transparent 1px 9px); background-blend-mode:multiply; }
   .hero{padding:38px var(--rail) 30px; position:relative;}
   .hero .eye{color:var(--aqua); margin-bottom:20px;}
   .hero h1{margin:0; font-size:clamp(40px,11vw,120px);}
-  .hero h1 .dot{color:var(--aqua);}
-  .hero .sub{max-width:34ch; margin-top:24px; font-size:16px; line-height:1.55; color:var(--paper);}
-  .hero .ascii{
-    position:absolute; top:30px; right:6px; font-family:var(--mono); font-size:10px; line-height:1.05;
-    color:rgba(143,197,201,0.28); white-space:pre; user-select:none; pointer-events:none; display:none;
-  }
-  @media (min-width:760px){ .hero .ascii{display:block;} }
+  .hero h1 .dot{color:var(--acid);}
+  .hero .sub{max-width:44ch; margin-top:24px; font-size:16px; line-height:1.55; color:var(--paper);}
   .hero .rule{margin-top:34px; font-size:15px;}
-
-  /* ---------- section divider ---------- */
   .fig{padding:26px var(--rail) 6px; display:flex; align-items:center; gap:16px;}
   .fig .kick{color:#8f8b80; white-space:nowrap;}
   .fig .line{flex:1; height:1px; background:#2a2a2a;}
   .fig h2{margin:0;}
   .fig .gaccent{font-family:var(--goth); font-size:34px; color:var(--paper); line-height:0.7;}
-
-  /* ---------- rule cards ---------- */
   .issues{padding:12px var(--rail) 0;}
   .card{position:relative; margin:16px 0; padding:26px 24px 24px; overflow:hidden;}
   .card .top{display:flex; align-items:flex-start; justify-content:space-between; gap:16px;}
   .card .tag{font-family:var(--kick); text-transform:uppercase; letter-spacing:0.12em; font-size:13px;}
   .card .goth{font-family:var(--goth); font-size:52px; line-height:0.8; margin-top:-6px;}
-  .card h2{font-family:var(--disp); font-weight:900; text-transform:uppercase; line-height:1; letter-spacing:0.005em; font-size:clamp(34px,9.5vw,58px); margin:18px 0 0;}
-  .card .one{font-size:15.5px; line-height:1.5; margin-top:12px; max-width:44ch;}
+  .card h2{font-family:var(--disp); font-weight:900; text-transform:uppercase; line-height:1; letter-spacing:0.005em; font-size:clamp(30px,8.5vw,56px); margin:18px 0 0; overflow-wrap:break-word;}
+  .card .one{font-size:15.5px; line-height:1.5; margin-top:12px; max-width:48ch;}
+  .card .proof{display:inline-block; margin-top:16px; font-family:var(--mono); font-size:13px; padding:8px 12px; background:var(--ink); color:var(--acid); border:1px solid #2a2a2a;}
+  .c-cream .proof,.c-aqua .proof{background:var(--ink); color:var(--acid);}
+  .card .stars{display:inline-block; margin-top:16px; font-family:var(--kick); text-transform:uppercase; letter-spacing:0.1em; font-size:12px; padding:8px 12px; background:var(--ink); color:var(--cream);}
   .card .actions{display:flex; flex-wrap:wrap; gap:10px; margin-top:22px; align-items:stretch;}
-  .btn{
-    display:inline-flex; align-items:center; gap:8px; min-height:48px; padding:0 20px;
-    font-family:var(--kick); text-transform:uppercase; letter-spacing:0.08em; font-size:14px;
-    text-decoration:none; border:2px solid currentColor; background:transparent; cursor:pointer;
-  }
-  .copybtn{display:none;}
-  #copyTemplate,#heroCopyTpl,#shareBtn{display:none;}
-  .js #copyTemplate,.js #heroCopyTpl,.js #shareBtn{display:inline-flex;}
-  .news h2{margin:0 0 12px; font-weight:400;}
-
-  /* copy-to-clipboard template block */
-  .tpl{border:2px solid #3a3a3a; background:#141414; padding:18px 16px; overflow-x:auto; -webkit-overflow-scrolling:touch;
-    font-family:var(--mono); font-size:13px; line-height:1.6; margin:20px 0 0; color:var(--paper); white-space:pre;}
-  .tpl code{font-family:inherit;}
-
-  /* receipt strip (social proof) */
-  .receipt{margin:26px var(--rail) 0; border:1px solid #2a2a2a; padding:16px 20px;}
-  .receipt a{display:inline-block; font-family:var(--mono); font-size:12.5px; letter-spacing:0.06em; text-transform:uppercase;
-    color:var(--aqua); text-decoration:none; border-bottom:1px solid rgba(143,197,201,0.4); padding:12px 0; margin:-8px 0;}
-  .receipt a:hover{border-color:var(--aqua);}
-  .receipt .credit{margin-top:14px;}
-  .receipt .credit a{color:#8f8b80; border-bottom-color:#3a3a3a;}
-  .receipt .credit a:hover{color:var(--paper); border-color:#8f8b80;}
-
-  /* card skins */
-  .c-orchid{background:var(--orchid); color:var(--ink);}
+  .btn{ display:inline-flex; align-items:center; gap:8px; min-height:48px; padding:0 20px; font-family:var(--kick); text-transform:uppercase; letter-spacing:0.08em; font-size:14px; text-decoration:none; border:2px solid currentColor; background:transparent; cursor:pointer; }
+  .copy{ display:flex; align-items:center; min-height:48px; border:2px solid; padding:0 6px 0 14px; gap:10px; font-family:var(--mono); font-size:13.5px; flex:1 1 240px; min-width:0; justify-content:space-between; }
+  .copy code{overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  .copybtn{display:none; flex:none; align-items:center; min-height:44px; padding:0 12px; margin:2px 0; font-family:var(--kick); text-transform:uppercase; letter-spacing:0.08em; font-size:12px; border:0; cursor:pointer;}
+  .js .copybtn{display:inline-flex;}
+  .snippet{ position:relative; margin-top:18px; border:2px solid #3a3a3a; background:#0b0b0b; }
+  .snippet .bar{display:flex; align-items:center; justify-content:space-between; gap:10px; padding:8px 8px 8px 14px; border-bottom:1px solid #262626;}
+  .snippet .bar .f{font-family:var(--kick); text-transform:uppercase; letter-spacing:0.1em; font-size:12px; color:#8f8b80;}
+  .snippet pre{margin:0; padding:16px 14px; overflow-x:auto; max-height:60vh; overflow-y:auto; font-family:var(--mono); font-size:13px; line-height:1.55; color:var(--paper); white-space:pre-wrap; word-break:break-word;}
+  .snippet .snipbtn{flex:none; min-height:38px; padding:0 12px; font-family:var(--kick); text-transform:uppercase; letter-spacing:0.08em; font-size:12px; border:0; cursor:pointer; background:var(--acid); color:var(--ink);}
+  #shareBtn{display:none;}
+  .js #shareBtn{display:inline-flex;}
+  .ledger{padding:10px var(--rail) 6px;}
+  .lrow{display:flex; gap:18px; align-items:baseline; border-top:2px solid #2a2a2a; padding:20px 0;}
+  .lrow:last-of-type{border-bottom:2px solid #2a2a2a;}
+  .lrow .n{font-family:var(--disp); font-weight:900; font-size:40px; color:var(--aqua); flex:none; line-height:1;}
+  .lrow .t{font-family:var(--mono); font-size:15px; text-transform:uppercase; letter-spacing:0.04em; line-height:1.4;}
   .c-aqua{background:var(--aqua); color:var(--ink);}
   .c-cream{background:var(--cream); color:var(--ink);}
-  .c-orchid .goth,.c-aqua .goth,.c-cream .goth{color:var(--ink);}
-  .c-orchid .tag,.c-aqua .tag,.c-cream .tag{color:rgba(16,16,16,0.8);}
-  .c-orchid .btn,.c-aqua .btn,.c-cream .btn{color:var(--ink);}
-  .c-orchid .btn:hover,.c-aqua .btn:hover,.c-cream .btn:hover{background:var(--ink); color:var(--paper);}
-
-  .c-signal{background:var(--blue-a); color:var(--paper);} /* flat field — Americana law: no gradients, no glow */
-  .c-signal .tag{color:var(--blue-meta);}
-  .c-signal .goth{color:var(--acid);}
-  .c-signal .one{color:var(--blue-meta);}
-  .c-signal .btn{color:var(--acid); border-color:var(--acid);}
-  .c-signal .btn:hover{background:var(--acid); color:var(--ink);}
-  .c-signal .ascii-art{position:absolute; top:20px; right:16px; font-family:var(--mono); font-size:12px; line-height:1.02; color:var(--acid); white-space:pre; user-select:none; opacity:0.9;}
-  @media (max-width:560px){ .c-signal .ascii-art{position:static; margin:16px 0 0; font-size:11px;} }
-
+  .c-aqua .goth,.c-cream .goth{color:var(--ink);}
+  .c-aqua .tag,.c-cream .tag{color:rgba(16,16,16,0.8);}
+  .c-aqua .btn,.c-cream .btn{color:var(--ink);}
+  .c-aqua .btn:hover,.c-cream .btn:hover{background:var(--ink); color:var(--paper);}
+  .c-aqua .copy,.c-cream .copy{border-color:rgba(16,16,16,0.45); color:var(--ink);}
+  .c-aqua .copybtn,.c-cream .copybtn{background:var(--ink); color:var(--paper);}
   .c-ink{background:var(--ink); color:var(--paper); border:1px solid #2a2a2a;}
   .c-ink .tag{color:#8f8b80;}
-  .c-ink .goth{color:var(--acid);}
-  .c-ink .btn{color:var(--acid); border-color:var(--acid);}
-  .c-ink .btn:hover{background:var(--acid); color:var(--ink);}
-
-  /* ---------- footer ---------- */
+  .c-ink .goth{color:var(--cream);}
+  .c-ink .btn{color:var(--cream); border-color:var(--cream);}
+  .c-ink .btn:hover{background:var(--cream); color:var(--ink);}
+  .c-ink .copy{border-color:#3a3a3a; color:var(--paper);}
+  .c-ink .copybtn{background:var(--cream); color:var(--ink);}
   footer{margin-top:40px; padding:44px var(--rail) 60px; border-top:1px solid #262626;}
   .foot-rule{font-size:15px; margin-bottom:34px;}
   .news label{display:block; color:var(--acid); margin-bottom:12px;}
+  .news h2{margin:0 0 12px; font-weight:400;}
   .news form{display:flex; gap:10px; flex-wrap:wrap; max-width:520px;}
   .news input{flex:1 1 220px; min-height:48px; background:transparent; border:2px solid #6a6a6a; color:var(--paper); font-family:var(--mono); font-size:15px; padding:0 14px;}
   .news input:focus{outline:none; border-color:var(--acid);}
   .news .btn{color:var(--acid); border-color:var(--acid);}
   .news .btn:hover{background:var(--acid); color:var(--ink);}
   .news .note{font-size:12px; color:#8f8b80; margin-top:10px; letter-spacing:0.04em;}
+  .pack{display:flex; flex-wrap:wrap; gap:8px 22px; margin:12px 0 18px;}
+  .pack span{font-family:var(--mono); font-size:13.5px; color:#8f8b80;}
+  .pack span::before{content:"\25B8 "; color:var(--acid);}
   .socials{display:flex; flex-wrap:wrap; gap:22px; margin-top:38px;}
   .socials a{font-family:var(--kick); text-transform:uppercase; letter-spacing:0.1em; font-size:13px; color:#8f8b80; text-decoration:none; padding:12px 0; margin:-12px 0;}
   .socials a:hover{color:var(--acid);}
   .backref{margin-top:34px; font-family:var(--kick); text-transform:uppercase; letter-spacing:0.1em; font-size:13px; color:var(--paper);}
   .backref b{color:var(--acid);}
+  .backref a{color:var(--acid);}
   .wordmark-foot{display:flex; align-items:center; gap:14px; margin-top:40px;}
   .wordmark-foot .m{font-family:var(--mono); font-size:12px; color:#8f8b80;}
-
-  /* ---------- hero actions ---------- */
   .hero .actions{display:flex; flex-wrap:wrap; gap:10px; margin-top:26px;}
   .hero .actions .btn{color:var(--paper); border-color:var(--paper);}
   .hero .actions .btn:hover{background:var(--paper); color:var(--ink);}
   .hero .actions .btn.primary{background:var(--aqua); color:var(--ink); border-color:var(--aqua);}
-  .hero .actions .btn.primary:hover{background:#a9d4d7; color:var(--ink);}
-
-  /* ---------- lead-magnet pack bullets ---------- */
-  .pack{display:flex; flex-wrap:wrap; gap:8px 22px; margin:12px 0 18px;}
-  .pack span{font-family:var(--mono); font-size:13.5px; color:#8f8b80;}
-  .pack span::before{content:"\25B8 "; color:var(--acid);}
-
-  /* ---------- sticky CTA bar ---------- */
+  .hero .actions .btn.primary:hover{background:#a9d6da; color:var(--ink);}
+  .midcap{margin:20px var(--rail); padding:30px 26px 28px; background:#141414; border:2px solid var(--aqua);}
+  .midcap .k{display:block; color:var(--acid); font-family:var(--kick); text-transform:uppercase; letter-spacing:0.14em; font-size:13px; margin-bottom:10px;}
+  .midcap h2{font-family:var(--disp); font-weight:900; text-transform:uppercase; line-height:1.02; letter-spacing:0.005em; font-size:clamp(28px,7.5vw,48px); margin:0 0 12px;}
+  .midcap p{font-size:15.5px; line-height:1.5; max-width:52ch; margin:0 0 20px; color:var(--paper);}
+  .midcap form{display:flex; gap:10px; flex-wrap:wrap; max-width:540px;}
+  .midcap input{flex:1 1 240px; min-height:52px; background:transparent; border:2px solid #6a6a6a; color:var(--paper); font-family:var(--mono); font-size:15px; padding:0 14px;}
+  .midcap input:focus{outline:none; border-color:var(--acid);}
+  .midcap .btn{min-height:52px; padding:0 22px; background:var(--acid); color:var(--ink); border-color:var(--acid);}
+  .midcap .btn:hover{background:#5cff59; color:var(--ink);}
+  .midcap .note{font-size:12px; color:#8f8b80; margin-top:12px; letter-spacing:0.04em;}
+  .pop[hidden]{display:none;}
+  .pop{position:fixed; inset:0; z-index:100; display:flex; align-items:center; justify-content:center; padding:20px;}
+  .pop-scrim{position:absolute; inset:0; background:rgba(0,0,0,0.72); cursor:pointer;}
+  .pop-card{position:relative; z-index:1; width:100%; max-width:440px; background:#141414; border:2px solid var(--aqua); padding:34px 26px 26px; animation:popIn .22s ease;}
+  @keyframes popIn{from{opacity:0; transform:translateY(12px);}to{opacity:1; transform:none;}}
+  .pop-x{position:absolute; top:6px; right:6px; background:none; border:0; color:#8f8b80; font-family:var(--mono); font-size:26px; line-height:1; min-width:44px; min-height:44px; cursor:pointer;}
+  .pop-x:hover{color:var(--acid);}
+  .pop-card .k{display:block; color:var(--acid); font-family:var(--kick); text-transform:uppercase; letter-spacing:0.14em; font-size:12px; margin-bottom:10px;}
+  .pop-card h2{font-family:var(--disp); font-weight:900; text-transform:uppercase; line-height:1.02; letter-spacing:0.005em; font-size:clamp(26px,7vw,38px); margin:0 0 12px;}
+  .pop-card p{font-size:14.5px; line-height:1.5; margin:0 0 18px; color:var(--paper);}
+  .pop-card form{display:flex; flex-direction:column; gap:10px;}
+  .pop-card input{min-height:50px; background:transparent; border:2px solid #6a6a6a; color:var(--paper); font-family:var(--mono); font-size:15px; padding:0 14px;}
+  .pop-card input:focus{outline:none; border-color:var(--acid);}
+  .pop-card .btn{min-height:50px; justify-content:center; background:var(--acid); color:var(--ink); border-color:var(--acid);}
+  .pop-card .btn:hover{background:#5cff59; color:var(--ink);}
+  .pop-card .note{font-size:11.5px; color:#8f8b80; margin-top:12px; letter-spacing:0.03em;}
+  @media (prefers-reduced-motion:reduce){ .pop-card{animation:none;} }
   .sticky-cta{position:fixed; left:0; right:0; bottom:0; z-index:60; background:var(--ink); border-top:1px solid #2a2a2a; display:flex; align-items:center; justify-content:space-between; gap:14px; padding:12px var(--rail) calc(12px + env(safe-area-inset-bottom)); transform:translateY(130%); transition:transform .3s ease;}
   .sticky-cta.show{transform:translateY(0);}
   .sticky-cta .t{font-family:var(--kick); text-transform:uppercase; letter-spacing:0.1em; font-size:13px; color:var(--paper);}
@@ -332,8 +300,6 @@
   .sticky-cta .go{min-height:44px; display:inline-flex; align-items:center; padding:0 18px; font-family:var(--kick); text-transform:uppercase; letter-spacing:0.08em; font-size:13px; background:var(--acid); color:var(--ink); text-decoration:none; border:0; cursor:pointer;}
   .sticky-cta .x{background:none; border:0; color:#8f8b80; font-family:var(--mono); font-size:22px; line-height:1; min-width:44px; min-height:44px; display:inline-flex; align-items:center; justify-content:center; cursor:pointer;}
   @media (max-width:560px){ .sticky-cta{padding:10px 16px calc(10px + env(safe-area-inset-bottom));} .sticky-cta .t{font-size:11.5px; letter-spacing:0.06em;} }
-
-  /* ---------- replayable footer wordmark ---------- */
   .wm-foot{position:relative; display:inline-flex; font-family:var(--wm); font-weight:600; letter-spacing:-0.045em; font-size:34px; color:var(--paper);}
   .wm-foot .ch2{position:relative; display:inline-block;}
   .wm-foot .ch2 .l{opacity:1;}
@@ -342,13 +308,41 @@
   .wm-foot.play .ch2 .g{animation:flashG2 .07s steps(1) both; animation-delay:calc(0.10s + var(--i)*0.07s);}
   @keyframes revealL2{0%{opacity:0;}100%{opacity:1;}}
   @keyframes flashG2{0%{opacity:1;}100%{opacity:0;}}
+  /* --- legacy multi-card (Gen-A) superset: skins + decoration used by no-004..006 --- */
+  .c-orchid{background:var(--orchid); color:var(--ink);}
+  .c-orchid .goth{color:var(--ink);}
+  .c-orchid .tag{color:rgba(16,16,16,0.8);}
+  .c-orchid .btn{color:var(--ink);}
+  .c-orchid .btn:hover{background:var(--ink); color:var(--paper);}
+  .c-orchid .copy{border-color:rgba(16,16,16,0.45); color:var(--ink);}
+  .c-orchid .copybtn{background:var(--ink); color:var(--paper);}
+  .c-signal{background:var(--blue-a); color:var(--paper);}
+  .c-signal .tag{color:var(--blue-meta);}
+  .c-signal .goth{color:var(--acid);}
+  .c-signal .one{color:var(--blue-meta);}
+  .c-signal .btn{color:var(--acid); border-color:var(--acid);}
+  .c-signal .btn:hover{background:var(--acid); color:var(--ink);}
+  .c-signal .copy{border-color:rgba(57,255,53,0.5); color:var(--paper);}
+  .c-signal .copybtn{background:var(--acid); color:var(--ink);}
+  .c-signal .ascii-art{position:absolute; top:20px; right:16px; font-family:var(--mono); font-size:12px; line-height:1.02; color:var(--acid); white-space:pre; user-select:none; opacity:0.9;}
+  @media (max-width:560px){ .c-signal .ascii-art{position:static; margin:16px 0 0; font-size:11px;} }
+  .hero .ascii{position:absolute; top:30px; right:6px; font-family:var(--mono); font-size:10px; line-height:1.05; color:rgba(57,255,53,0.22); white-space:pre; user-select:none; pointer-events:none; display:none;}
+  @media (min-width:760px){ .hero .ascii{display:block;} }
+  .tpl{border:2px solid #3a3a3a; background:#141414; padding:18px 16px; overflow-x:auto; -webkit-overflow-scrolling:touch; font-family:var(--mono); font-size:13px; line-height:1.6; margin:20px 0 0; color:var(--paper); white-space:pre;}
+  .tpl code{font-family:inherit;}
+  .receipt{margin:26px var(--rail) 0; border:1px solid #2a2a2a; padding:16px 20px;}
+  .receipt a{display:inline-block; font-family:var(--mono); font-size:12.5px; letter-spacing:0.06em; text-transform:uppercase; color:var(--aqua); text-decoration:none; border-bottom:1px solid rgba(143,197,201,0.4); padding:12px 0; margin:-8px 0;}
+  .receipt a:hover{border-color:var(--aqua);}
+  .receipt .credit{margin-top:14px;}
+  .receipt .credit a{color:#8f8b80; border-bottom-color:#3a3a3a;}
+  .receipt .credit a:hover{color:var(--paper); border-color:#8f8b80;}
+  #copyAll,#copyTemplate,#heroCopyTpl,#copyStarter{display:none;}
+  .js #copyAll,.js #copyTemplate,.js #heroCopyTpl,.js #copyStarter{display:inline-flex;}
 </style>
 </head>
 <body>
-
 <script>document.documentElement.className='js';</script>
 
-<!-- ======================= CHROME ======================= -->
 <header class="chrome">
   <a class="wm" href="./index.html" aria-label="vektor">
     <span class="wm-plate wm-acid" aria-hidden="true">vektor</span>
@@ -360,7 +354,6 @@
   <span class="marker">AI Coding · The Four Rules</span>
 </header>
 
-<!-- sticky conversion bar (shown after the last card, dismissible) -->
 <div class="sticky-cta" id="stickyCta" aria-hidden="true">
   <span class="t">Follow <b>@vektor.fm</b> → tomorrow's drop</span>
   <span class="r"><a class="go" data-goatcounter-click="no005-follow-sticky" href="https://www.instagram.com/vektor.fm/" target="_blank" rel="noopener">Follow →</a><button class="x" id="ctaClose" type="button" aria-label="Dismiss">×</button></span>
@@ -368,7 +361,21 @@
 
 <div class="weave" aria-hidden="true"></div>
 
-<!-- ======================= HERO ======================= -->
+<div class="pop" id="packPop" hidden>
+  <div class="pop-scrim" data-pop-close></div>
+  <div class="pop-card" role="dialog" aria-modal="true" aria-labelledby="popH">
+    <button class="pop-x" type="button" data-pop-close aria-label="Close">×</button>
+    <span class="k">One email a week · the working setup</span>
+    <h2 id="popH">Keep the whole toolkit.</h2>
+    <p>The Teardown sends the config pack and one working AI setup a week — the same rig behind this channel. Free, and you can unsubscribe anytime.</p>
+    <form action="https://buttondown.com/api/emails/embed-subscribe/vektor" method="post">
+      <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
+      <button class="btn" type="submit">Get the weekly pack →</button>
+    </form>
+    <div class="note">Free. The config pack lands after you confirm your email. Unsubscribe anytime.</div>
+  </div>
+</div>
+
 <section class="hero">
   <div class="ascii" aria-hidden="true">   .:;!ii!;:.
  .;itfLCCLfti;.
@@ -381,7 +388,7 @@
   <h1 class="disp">Code with AI.<br>Keep your<br>brain<span class="dot">.</span></h1>
   <p class="sub">The four rules from NO. 005 — plus the brain-file template. As promised.</p>
   <div class="actions">
-    <button class="btn primary" id="heroCopyTpl" type="button">Copy the brain file</button>
+    <button class="btn primary" id="heroCopyTpl" type="button" data-copy-target="#brainTpl" data-copy-event="no005-copy-template">Copy the brain file</button>
     <a class="btn" href="#no-005">See the 4 rules ↓</a>
     <button class="btn" id="shareBtn" type="button">Send to a dev friend</button>
   </div>
@@ -478,7 +485,7 @@ Known mess / debt: …
 
 &lt;!-- New AI chat? Paste this file first. If a section is stale, fix it before prompting. --&gt;</code></pre>
     <div class="actions">
-      <button class="btn" id="copyTemplate" type="button">Copy the template</button>
+      <button class="btn" id="copyTemplate" type="button" data-copy-target="#brainTpl" data-copy-event="no005-copy-template">Copy the template</button>
     </div>
   </article>
 
@@ -495,22 +502,32 @@ Known mess / debt: …
     </div>
   </article>
 
-  <!-- FOLLOW ASK — the reciprocity moment, right after the content -->
+</section>
+
+<section class="midcap" aria-label="Get the weekly pack">
+  <span class="k">One email a week · the working setup</span>
+  <h2>Keep the whole toolkit.</h2>
+  <p>The Teardown sends the config pack and one working AI setup a week — the same rig behind this channel. Free, and you can unsubscribe anytime.</p>
+  <form action="https://buttondown.com/api/emails/embed-subscribe/vektor" method="post">
+    <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
+    <button class="btn" type="submit">Get the weekly pack →</button>
+  </form>
+  <div class="note">Free. The config pack lands after you confirm your email. Unsubscribe anytime.</div>
+</section>
+
+<section class="issues">
+  <!-- FOLLOW ASK — the reciprocity moment -->
   <article class="card c-ink">
     <div class="top">
       <span class="tag">No gate / no catch</span>
       <span class="goth">follow</span>
     </div>
-    <h2>That's all four. No gate, no catch.</h2>
-    <p class="one">This page exists because people follow. If it saved you an afternoon, the follow is the thank-you — one new tool teardown every day.</p>
+    <h2>That's all four. Follow for the next one.</h2>
+    <p class="one">This page exists because people follow — a new teardown drops daily, and followers catch it first. If it saved you an afternoon, the follow is the thank-you.</p>
     <div class="actions">
-      <a class="btn" data-goatcounter-click="no005-follow-tiktok" href="https://tiktok.com/@vektor.fm" target="_blank" rel="noopener">TikTok →</a>
-      <a class="btn" data-goatcounter-click="no005-follow-instagram" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Instagram →</a>
-      <a class="btn" data-goatcounter-click="no005-follow-youtube" href="https://youtube.com/@vektorfm" target="_blank" rel="noopener">YouTube →</a>
-      <a class="btn" data-goatcounter-click="no005-follow-x" href="https://x.com/vektordotfm" target="_blank" rel="noopener">X →</a>
+      <a class="btn primary" data-goatcounter-click="no005-follow-instagram" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Follow @vektor.fm →</a>
     </div>
   </article>
-
 </section>
 
 <!-- RECEIPT STRIP — social proof for the peak number -->
@@ -555,73 +572,38 @@ Known mess / debt: …
 </footer>
 
 <script>
-  // Progressive enhancement: copy + share. Page is fully usable without this.
-  function fallback(text){
-    var t=document.createElement('textarea'); t.value=text; t.style.position='fixed'; t.style.opacity='0';
-    document.body.appendChild(t); t.focus(); t.select();
-    try{ document.execCommand('copy'); }catch(e){}
-    document.body.removeChild(t);
-  }
-  function copyText(text, btn, doneLabel){
-    var o=btn.textContent, done=function(){ btn.textContent=doneLabel; setTimeout(function(){btn.textContent=o;},1600); };
-    if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(done).catch(function(){ fallback(text); done(); }); }
-    else { fallback(text); done(); }
-  }
-
-  // Copy the brain.md template (the promised asset)
-  var ct=document.getElementById('copyTemplate'), tpl=document.getElementById('brainTpl');
-  if(ct && tpl){ ct.addEventListener('click', function(){ copyText(tpl.textContent, ct, 'Copied ✓'); }); }
-  // Hero delivers the promised asset above the fold: copy the brain file straight away.
-  var hct=document.getElementById('heroCopyTpl');
-  if(hct && tpl){ hct.addEventListener('click', function(){ copyText(tpl.textContent, hct, 'Copied ✓'); if(window.gcEvent) gcEvent('no005-copy-template'); }); }
-
-  // UTM tagging on outbound links (this page's traffic arrives via DM);
-  // github.com links stay clean; campaign derives from the filename (survives per-issue copy-paste)
+  function fallback(text){ var t=document.createElement('textarea'); t.value=text; t.style.position='fixed'; t.style.opacity='0'; document.body.appendChild(t); t.focus(); t.select(); try{ document.execCommand('copy'); }catch(e){} document.body.removeChild(t); }
+  function copyText(text, btn, doneLabel){ var o=btn.textContent, done=function(){ btn.textContent=doneLabel; setTimeout(function(){btn.textContent=o;},1600); }; if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(done).catch(function(){ fallback(text); done(); }); } else { fallback(text); done(); } }
+  function gcEvent(name){ if(name && window.goatcounter && goatcounter.count){ goatcounter.count({path:name, event:true}); } }
+  var COPY_EVENT=null;
+  document.querySelectorAll('.copybtn').forEach(function(btn){ btn.addEventListener('click', function(){ copyText(btn.getAttribute('data-copy'), btn, 'Copied ✓'); gcEvent(COPY_EVENT); }); });
+  var snip=document.getElementById('snipCopy');
+  if(snip){ snip.addEventListener('click', function(){ var el=document.getElementById('snipText'); copyText(el.textContent, snip, 'Copied ✓'); gcEvent(COPY_EVENT); }); }
+  // generic copy hook (legacy multi-card pages): data-copy-target="all" | "#id"; optional data-copy-event
+  document.querySelectorAll('[data-copy-target]').forEach(function(btn){ btn.addEventListener('click', function(){ var t=btn.getAttribute('data-copy-target'), text; if(t==='all'){ text=[].slice.call(document.querySelectorAll('.copybtn')).map(function(b){return b.getAttribute('data-copy');}).join('\n'); } else { var el=document.querySelector(t); text=el?el.textContent:''; } copyText(text, btn, 'Copied ✓'); gcEvent(btn.getAttribute('data-copy-event')); }); });
   var camp=(location.pathname.split('/').pop()||'index').replace(/\.html$/,'')||'index';
-  document.querySelectorAll('a[href^="http"]').forEach(function(a){
-    try{ var u=new URL(a.href); if(u.hostname==='github.com'){return;}
-      if(!u.searchParams.has('utm_source')){ u.searchParams.set('utm_source','vektor'); u.searchParams.set('utm_medium','dm'); u.searchParams.set('utm_campaign',camp); a.href=u.toString(); } }catch(e){}
-  });
-
-  // Share loop: native share sheet, clipboard fallback
+  document.querySelectorAll('a[href^="http"]').forEach(function(a){ try{ var u=new URL(a.href); if(u.hostname==='github.com'){return;} if(!u.searchParams.has('utm_source')){ u.searchParams.set('utm_source','vektor'); u.searchParams.set('utm_medium','dm'); u.searchParams.set('utm_campaign',camp); a.href=u.toString(); } }catch(e){} });
   var sh=document.getElementById('shareBtn');
-  if(sh){ sh.addEventListener('click', function(){
-    if(window.goatcounter && goatcounter.count){ goatcounter.count({path:'no005-share', event:true}); }
-    if(navigator.share){ navigator.share({title:document.title, url:location.href}).catch(function(){}); }
-    else { copyText(location.href, sh, 'Link copied — paste it ✓'); }
-  }); }
-
-  // Newsletter submits as a plain navigation POST — Buttondown interposes a
-  // one-click human-verification page on embed-subscribe, so an AJAX submit
-  // would silently drop the signup (tested 2026-07-05). Do NOT re-add fetch here.
-
-  // Sticky follow bar: appears once the last card has been seen, hides at the footer form; a11y-toggled
+  if(sh){ sh.addEventListener('click', function(){ gcEvent('no005-share'); if(navigator.share){ navigator.share({title:document.title, url:location.href}).catch(function(){}); } else { copyText(location.href, sh, 'Link copied — paste it ✓'); } }); }
   var sticky=document.getElementById('stickyCta'), sub=document.getElementById('subscribe'), dismissed=false;
   var cards=document.querySelectorAll('.issues .card'), lastCard=cards[cards.length-1];
-  function updCta(){ if(dismissed){return;}
-    var seen=lastCard.getBoundingClientRect().bottom < window.innerHeight*0.6;
-    var r=sub.getBoundingClientRect(); var subVisible=r.top<window.innerHeight && r.bottom>0;
-    var show=seen && !subVisible;
-    sticky.classList.toggle('show', show); sticky.setAttribute('aria-hidden', show?'false':'true'); }
+  function updCta(){ if(dismissed){return;} var seen=lastCard.getBoundingClientRect().bottom < window.innerHeight*0.6; var r=sub.getBoundingClientRect(); var subVisible=r.top<window.innerHeight && r.bottom>0; var show=seen && !subVisible; sticky.classList.toggle('show', show); sticky.setAttribute('aria-hidden', show?'false':'true'); }
   window.addEventListener('scroll',updCta,{passive:true}); window.addEventListener('resize',updCta); updCta();
   document.getElementById('ctaClose').addEventListener('click', function(){ dismissed=true; sticky.classList.remove('show'); sticky.setAttribute('aria-hidden','true'); });
-
-  // Footer wordmark: replay the decode/type-on when it scrolls into view
   var wmFoot=document.getElementById('wmFoot');
-  if(wmFoot && 'IntersectionObserver' in window){
-    var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ wmFoot.classList.remove('play'); void wmFoot.offsetWidth; wmFoot.classList.add('play'); } }); }, {threshold:0.6});
-    io.observe(wmFoot);
-  }
-</script>
-
-
-<script data-goatcounter="https://vektor.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
-<script>
-  // GoatCounter events: template copy + subscribe attempts (clicks on .btn links are
-  // tracked via data-goatcounter-click by count.js itself)
-  function gcEvent(name){ if(window.goatcounter && goatcounter.count){ goatcounter.count({path:name, event:true}); } }
-  var ctBtn=document.getElementById('copyTemplate');
-  if(ctBtn){ ctBtn.addEventListener('click', function(){ gcEvent('no005-copy-template'); }); }
+  if(wmFoot && 'IntersectionObserver' in window){ var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ wmFoot.classList.remove('play'); void wmFoot.offsetWidth; wmFoot.classList.add('play'); } }); }, {threshold:0.6}); io.observe(wmFoot); }
+  // on-open pack popup — once per visitor (localStorage), dismissible (x / scrim / Esc)
+  (function(){ var pop=document.getElementById('packPop'); if(!pop){return;} var KEY='vektor_pack_seen';
+    try{ if(localStorage.getItem(KEY)){ return; } }catch(e){}
+    function seen(){ try{ localStorage.setItem(KEY,'1'); }catch(e){} }
+    function esc(e){ if(e.key==='Escape'){ close(); } }
+    function close(){ pop.setAttribute('hidden',''); seen(); document.removeEventListener('keydown',esc); }
+    pop.querySelectorAll('[data-pop-close]').forEach(function(el){ el.addEventListener('click', close); });
+    var f=pop.querySelector('form'); if(f){ f.addEventListener('submit', seen); }
+    setTimeout(function(){ pop.removeAttribute('hidden'); document.addEventListener('keydown',esc); var x=pop.querySelector('.pop-x'); if(x){ try{ x.focus(); }catch(e){} } }, 900);
+  })();
   document.querySelectorAll('form').forEach(function(f){ f.addEventListener('submit', function(){ gcEvent('no005-subscribe-submit'); }); });
 </script>
+
+<script data-goatcounter="https://vektor.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </body></html>

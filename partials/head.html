@@ -308,6 +308,36 @@
   .wm-foot.play .ch2 .g{animation:flashG2 .07s steps(1) both; animation-delay:calc(0.10s + var(--i)*0.07s);}
   @keyframes revealL2{0%{opacity:0;}100%{opacity:1;}}
   @keyframes flashG2{0%{opacity:1;}100%{opacity:0;}}
+  /* --- legacy multi-card (Gen-A) superset: skins + decoration used by no-004..006 --- */
+  .c-orchid{background:var(--orchid); color:var(--ink);}
+  .c-orchid .goth{color:var(--ink);}
+  .c-orchid .tag{color:rgba(16,16,16,0.8);}
+  .c-orchid .btn{color:var(--ink);}
+  .c-orchid .btn:hover{background:var(--ink); color:var(--paper);}
+  .c-orchid .copy{border-color:rgba(16,16,16,0.45); color:var(--ink);}
+  .c-orchid .copybtn{background:var(--ink); color:var(--paper);}
+  .c-signal{background:var(--blue-a); color:var(--paper);}
+  .c-signal .tag{color:var(--blue-meta);}
+  .c-signal .goth{color:var(--acid);}
+  .c-signal .one{color:var(--blue-meta);}
+  .c-signal .btn{color:var(--acid); border-color:var(--acid);}
+  .c-signal .btn:hover{background:var(--acid); color:var(--ink);}
+  .c-signal .copy{border-color:rgba(57,255,53,0.5); color:var(--paper);}
+  .c-signal .copybtn{background:var(--acid); color:var(--ink);}
+  .c-signal .ascii-art{position:absolute; top:20px; right:16px; font-family:var(--mono); font-size:12px; line-height:1.02; color:var(--acid); white-space:pre; user-select:none; opacity:0.9;}
+  @media (max-width:560px){ .c-signal .ascii-art{position:static; margin:16px 0 0; font-size:11px;} }
+  .hero .ascii{position:absolute; top:30px; right:6px; font-family:var(--mono); font-size:10px; line-height:1.05; color:rgba(57,255,53,0.22); white-space:pre; user-select:none; pointer-events:none; display:none;}
+  @media (min-width:760px){ .hero .ascii{display:block;} }
+  .tpl{border:2px solid #3a3a3a; background:#141414; padding:18px 16px; overflow-x:auto; -webkit-overflow-scrolling:touch; font-family:var(--mono); font-size:13px; line-height:1.6; margin:20px 0 0; color:var(--paper); white-space:pre;}
+  .tpl code{font-family:inherit;}
+  .receipt{margin:26px var(--rail) 0; border:1px solid #2a2a2a; padding:16px 20px;}
+  .receipt a{display:inline-block; font-family:var(--mono); font-size:12.5px; letter-spacing:0.06em; text-transform:uppercase; color:var(--aqua); text-decoration:none; border-bottom:1px solid rgba(143,197,201,0.4); padding:12px 0; margin:-8px 0;}
+  .receipt a:hover{border-color:var(--aqua);}
+  .receipt .credit{margin-top:14px;}
+  .receipt .credit a{color:#8f8b80; border-bottom-color:#3a3a3a;}
+  .receipt .credit a:hover{color:var(--paper); border-color:#8f8b80;}
+  #copyAll,#copyTemplate,#heroCopyTpl,#copyStarter{display:none;}
+  .js #copyAll,.js #copyTemplate,.js #heroCopyTpl,.js #copyStarter{display:inline-flex;}
 </style>
 </head>
 <body>
