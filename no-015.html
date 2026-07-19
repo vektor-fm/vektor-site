@@ -282,7 +282,7 @@
   @keyframes popIn{from{opacity:0; transform:translateY(12px);}to{opacity:1; transform:none;}}
   .pop-x{position:absolute; top:6px; right:6px; background:none; border:0; color:#8f8b80; font-family:var(--mono); font-size:26px; line-height:1; min-width:44px; min-height:44px; cursor:pointer;}
   .pop-x:hover{color:var(--acid);}
-  .pop-card .k{display:block; color:var(--acid); font-family:var(--kick); text-transform:uppercase; letter-spacing:0.14em; font-size:12px; margin-bottom:10px;}
+  .pop-card .k{display:block; color:var(--acid); font-family:var(--kick); text-transform:uppercase; letter-spacing:0.14em; font-size:12px; margin-bottom:10px; padding-right:48px;}
   .pop-card h2{font-family:var(--disp); font-weight:900; text-transform:uppercase; line-height:1.02; letter-spacing:0.005em; font-size:clamp(26px,7vw,38px); margin:0 0 12px;}
   .pop-card p{font-size:14.5px; line-height:1.5; margin:0 0 18px; color:var(--paper);}
   .pop-card form{display:flex; flex-direction:column; gap:10px;}
@@ -376,6 +376,7 @@
   </div>
 </div>
 
+<main>
 <section class="hero">
   <div class="kick eye">This Week in AI · Loops</div>
   <h1 class="disp">Write the<br>loop<span class="dot">.</span></h1>
@@ -537,6 +538,8 @@ echo "✗ hit the cap — tighten your TASK or CHECK, not the count." >&2; exit 
   </article>
 </section>
 
+</main>
+
 <footer>
   <div class="rule foot-rule">////////////////////////////////////////////////////////////////////////////////////////////////</div>
 
@@ -583,8 +586,13 @@ echo "✗ hit the cap — tighten your TASK or CHECK, not the count." >&2; exit 
   var sh=document.getElementById('shareBtn');
   if(sh){ sh.addEventListener('click', function(){ gcEvent('no015-share'); if(navigator.share){ navigator.share({title:document.title, url:location.href}).catch(function(){}); } else { copyText(location.href, sh, 'Link copied — paste it ✓'); } }); }
   var sticky=document.getElementById('stickyCta'), sub=document.getElementById('subscribe'), dismissed=false;
-  var cards=document.querySelectorAll('.issues .card'), lastCard=cards[cards.length-1];
-  function updCta(){ if(dismissed){return;} var seen=lastCard.getBoundingClientRect().bottom < window.innerHeight*0.6; var r=sub.getBoundingClientRect(); var subVisible=r.top<window.innerHeight && r.bottom>0; var show=seen && !subVisible; sticky.classList.toggle('show', show); sticky.setAttribute('aria-hidden', show?'false':'true'); }
+  var midcap=document.querySelector('.midcap'), cards=document.querySelectorAll('.issues .card'), lastCard=cards[cards.length-1];
+  // show once the reader has scrolled PAST the mid-page capture (peak intent handled),
+  // hide while a subscribe form intersects the bar's own strip (bottom 130px) so the bar
+  // never covers or competes with a form CTA. The old rule (last card above 60vh AND
+  // footer form fully off-screen) was geometrically unsatisfiable — the bar never showed.
+  function inBarZone(el){ if(!el){return false;} var r=el.getBoundingClientRect(); return r.top<window.innerHeight && r.bottom>window.innerHeight-130; }
+  function updCta(){ if(dismissed){return;} var gate=midcap||lastCard; var passed=!!gate && gate.getBoundingClientRect().bottom<0; var show=passed && !inBarZone(midcap) && !inBarZone(sub); sticky.classList.toggle('show', show); sticky.setAttribute('aria-hidden', show?'false':'true'); }
   window.addEventListener('scroll',updCta,{passive:true}); window.addEventListener('resize',updCta); updCta();
   document.getElementById('ctaClose').addEventListener('click', function(){ dismissed=true; sticky.classList.remove('show'); sticky.setAttribute('aria-hidden','true'); });
   var wmFoot=document.getElementById('wmFoot');

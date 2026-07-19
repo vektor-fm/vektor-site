@@ -236,8 +236,9 @@
   .lcard .get{min-height:50px; padding:0 24px; display:inline-flex; align-items:center; font-family:var(--kick); text-transform:uppercase; letter-spacing:0.08em; font-size:15px; background:var(--ink); color:var(--paper); text-decoration:none; border:0;}
   .lcard .get:hover{background:#000;}
   .lcard .watch{font-family:var(--mono); font-size:13px; color:var(--ink); letter-spacing:0.04em;}
-  .lcard .watch a{color:var(--ink); text-decoration:none; border-bottom:1px solid rgba(16,16,16,0.4); display:inline-block; padding:12px 0; margin:-12px 0;}
-  .lcard .watch a:hover{border-color:var(--ink);}
+  .lcard .watch a{color:var(--ink); text-decoration:underline; text-decoration-color:rgba(16,16,16,0.4); text-underline-offset:3px; display:inline-flex; justify-content:center; min-width:24px; padding:12px 0; margin:-12px 0;}
+  .lcard .watch a:hover{text-decoration-color:var(--ink);}
+  .lcard .watch .wi{white-space:nowrap;}
 
   /* ---------- RITUAL strip ---------- */
   .ritual{padding:40px var(--rail); }
@@ -265,7 +266,7 @@
   footer{margin-top:26px; padding:44px var(--rail) 60px; border-top:1px solid #262626;}
   .foot-rule{font-size:15px; margin-bottom:32px;}
   .socials{display:flex; flex-wrap:wrap; gap:22px;}
-  .socials a{font-family:var(--kick); text-transform:uppercase; letter-spacing:0.1em; font-size:13px; color:#8f8b80; text-decoration:none; padding:12px 0; margin:-12px 0;}
+  .socials a{font-family:var(--kick); text-transform:uppercase; letter-spacing:0.1em; font-size:13px; color:#8f8b80; text-decoration:none; padding:12px 0; margin:-12px 0; display:inline-flex; align-items:center; justify-content:center; min-width:44px;}
   .socials a:hover{color:var(--acid);}
   .backref{margin-top:32px; font-family:var(--kick); text-transform:uppercase; letter-spacing:0.1em; font-size:13px; color:var(--paper);}
   .wordmark-foot{display:flex; align-items:center; gap:14px; margin-top:38px; flex-wrap:wrap;}
@@ -289,6 +290,7 @@
   <span class="marker">The Index</span>
 </header>
 
+<main>
 <div class="weave" aria-hidden="true"></div>
 
 <!-- ============================ HERO / COVER ============================ -->
@@ -317,10 +319,10 @@
     <div class="lactions">
       <a class="get" data-goatcounter-click="hub-open-latest" href="./no-{{LATEST_NUM}}.html">{{LATEST_CTA}}</a>
       <span class="watch">Watch:
-        <a data-goatcounter-click="hub-follow-tiktok" href="https://tiktok.com/@vektor.fm" target="_blank" rel="noopener">TikTok</a> /
-        <a data-goatcounter-click="hub-follow-instagram" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Instagram</a> /
-        <a data-goatcounter-click="hub-follow-youtube" href="https://youtube.com/@vektorfm" target="_blank" rel="noopener">YouTube</a> /
-        <a data-goatcounter-click="hub-follow-x" href="https://x.com/vektordotfm" target="_blank" rel="noopener">X</a>
+        <span class="wi"><a data-goatcounter-click="hub-follow-tiktok" href="https://tiktok.com/@vektor.fm" target="_blank" rel="noopener">TikTok</a> /</span>
+        <span class="wi"><a data-goatcounter-click="hub-follow-instagram" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Instagram</a> /</span>
+        <span class="wi"><a data-goatcounter-click="hub-follow-youtube" href="https://youtube.com/@vektorfm" target="_blank" rel="noopener">YouTube</a> /</span>
+        <span class="wi"><a data-goatcounter-click="hub-follow-x" href="https://x.com/vektordotfm" target="_blank" rel="noopener">X</a></span>
       </span>
     </div>
   </article>
@@ -365,6 +367,7 @@
   </div>
 
 </section>
+</main>
 
 <!-- ============================ FOOTER ============================ -->
 <footer>
