@@ -1,0 +1,133 @@
+<section class="hero">
+  <div class="kick eye">This Week in AI · AI vs the Final</div>
+  <h1 class="disp">The match-<br>predictor prompt<span class="dot">.</span></h1>
+  <p class="sub">On July 14 we asked 9 AIs to pick the World Cup winner — <b>zero said Spain to win</b>. By July 17, six of seven had flipped. A chatbot asked "who wins?" retrieves narratives. Asked correctly, it calculates. This prompt is the "asked correctly" part — paste it into ChatGPT, Claude or Gemini and get real probabilities instead of vibes. Free, no gate. As promised.</p>
+  <div class="snippet" id="file">
+    <div class="bar"><span class="f">match-predictor.txt · paste into any AI</span><button class="snipbtn" id="snipCopy" type="button">Copy the prompt</button></div>
+    <pre id="snipText">You are a football match forecaster. Use ONLY the data I paste below —
+no outside knowledge, no narratives about form, momentum, or big names.
+
+Data: [paste: last 10 results for each team, goals for/against,
+xG for/against if you have it, home/neutral venue, key absences]
+
+Output exactly:
+(1) P(TeamA win), P(draw), P(TeamB win) as percentages summing to 100.
+(2) The three data points that moved your estimate most, one line each.
+(3) Your single biggest uncertainty.
+
+Do not hedge with "anything can happen". Do not mention star players
+unless they appear in the data.</pre>
+  </div>
+  <div class="actions">
+    <a class="btn" href="#steps">The 3 steps ↓</a>
+    <button class="btn" id="shareBtn" type="button">Send to a football fan</button>
+  </div>
+  <div class="rule">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+</section>
+
+<div class="fig">
+  <h2 class="kick">Fig. 01 ·</h2>
+  <span class="gaccent">the three steps</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues" id="steps">
+
+  <article class="card c-cream">
+    <div class="top">
+      <span class="tag">Step 1 · the prompt</span>
+      <span class="goth">ask</span>
+    </div>
+    <h2>Force it off the story.</h2>
+    <p class="one">The prompt above does two things a normal question doesn't: it <b>bans outside knowledge</b> — no form narratives, no "big-game pedigree" — and it <b>fixes the output format</b>, three probabilities that must sum to 100, plus the data points that moved them. The model can't tell a story; it has to weigh what you pasted. Copy it once, keep it, reuse it every matchday.</p>
+    <span class="proof">data in → P(win) / P(draw) / P(win) · sums to 100 · no hedging</span>
+  </article>
+
+  <article class="card c-aqua">
+    <div class="top">
+      <span class="tag">Step 2 · the data — all free</span>
+      <span class="goth">feed</span>
+    </div>
+    <h2>Where to get the numbers.</h2>
+    <p class="one">Three sources, all free, two minutes total. <b><a href="https://fbref.com" target="_blank" rel="noopener">FBref</a></b> team pages for the last 10 results and goals for/against. <b><a href="https://understat.com" target="_blank" rel="noopener">Understat</a></b> for xG for/against — expected goals, the quality of chances behind the scoreline. The club's <b>official X account</b> for confirmed lineups and key absences. Paste all of it into the [data] slot.</p>
+    <span class="proof">FBref → results/goals · Understat → xG · club X → lineups/absences</span>
+  </article>
+
+  <article class="card c-ink">
+    <div class="top">
+      <span class="tag">Step 3 · the market sanity-check</span>
+      <span class="goth">check</span>
+    </div>
+    <h2>Check it against the money.</h2>
+    <p class="one">Convert the bookmaker or Polymarket odds to implied probabilities: <b>1 ÷ decimal odds</b> for each outcome, then scale the three so they sum to 100% — that strips the bookmaker's margin (the vig). If your AI's number differs from the market by more than 10 points, trust the market unless <em>you</em> know something it doesn't — billions of dollars usually beat a chatbot's vibes.</p>
+    <span class="proof">P = 1 / decimal odds → normalize the 3 to 100% · gap &gt; 10 pts → trust the market</span>
+  </article>
+
+</section>
+
+<div class="fig">
+  <h2 class="kick">Fig. 02 ·</h2>
+  <span class="gaccent">why this works</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues">
+  <article class="card c-cream" id="why">
+    <div class="top">
+      <span class="tag">The footnote · storyteller vs calculator</span>
+      <span class="goth">why</span>
+    </div>
+    <h2>They stop storytelling and start counting.</h2>
+    <p class="one">Asked "who wins tonight?", a chatbot follows the story — that's how our 9 AIs flipped France → Argentina → Spain in five days, tracking the headlines, not the numbers. Forced onto pasted data with a fixed output format, the same models stop retrieving narratives and start weighing evidence. Same AI. The question is the difference.</p>
+    <span class="stars">9 AIs · 0 picked Spain on Jul 14 · 6 of 7 flipped by Jul 17</span>
+  </article>
+</section>
+
+<section class="ledger" aria-label="How to run the predictor">
+  <div class="lrow"><span class="n">01</span><span class="t">Copy the prompt above — it works in ChatGPT, Claude and Gemini</span></div>
+  <div class="lrow"><span class="n">02</span><span class="t">Paste the data: FBref results · Understat xG · lineups from the club's X</span></div>
+  <div class="lrow"><span class="n">03</span><span class="t">Sanity-check vs the market: 1 / decimal odds, normalize to 100% · &gt;10 pts off → trust the money</span></div>
+</section>
+
+<section class="midcap" aria-label="Get the weekly pack">
+  <span class="k">One email a week · the working setup</span>
+  <h2>Keep the whole toolkit.</h2>
+  <p>The Teardown sends the config pack and one working AI setup a week — the same rig behind this channel. Free, and you can unsubscribe anytime.</p>
+  <form action="https://buttondown.com/api/emails/embed-subscribe/vektor" method="post">
+    <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
+    <button class="btn" type="submit">Get the weekly pack →</button>
+  </form>
+  <div class="note">Free. The config pack lands after you confirm your email. Unsubscribe anytime.</div>
+</section>
+
+<div class="fig">
+  <h2 class="kick">Fig. 03 ·</h2>
+  <span class="gaccent">what's next</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues">
+  <article class="card c-ink">
+    <div class="top">
+      <span class="tag">Make it run itself</span>
+      <span class="goth">the loop</span>
+    </div>
+    <h2>Put the prompt on a loop.</h2>
+    <p class="one">A prompt is one answer; a loop is a system — prompt the model, check the result against a done-condition, re-run until it passes. The starter loop is about 20 lines, runnable tonight, and it takes any prompt on this page as its task. Same drop-in format.</p>
+    <div class="actions">
+      <a class="btn" data-goatcounter-click="no017-loop" href="./no-015.html">The starter loop →</a>
+    </div>
+  </article>
+
+  <article class="card c-ink" id="next">
+    <div class="top">
+      <span class="tag">No gate / no catch</span>
+      <span class="goth">follow</span>
+    </div>
+    <h2>That's the prompt. Follow for the next one.</h2>
+    <p class="one">One AI workflow you can copy, every day — a new keyword drops daily on the reel, and followers catch it first. If this prompt called a match better than your gut this week, the follow is the thank-you.</p>
+    <div class="actions">
+      <a class="btn primary" data-goatcounter-click="no017-follow-instagram" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Follow @vektor.fm →</a>
+    </div>
+  </article>
+</section>

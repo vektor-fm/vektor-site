@@ -1,9 +1,10 @@
 {
   "index": {
-    "lastmod": "2026-07-16",
-    "latest_cta": "Get the starter loop →"
+    "lastmod": "2026-07-19",
+    "latest_cta": "Get the predictor prompt →"
   },
   "issues": [
+    { "number": "017", "title_short": "The match-predictor prompt.", "section": "AI vs the Final", "date": "07-2026", "keyword": "Final", "lastmod": "2026-07-19", "built": true },
     { "number": "015", "title_short": "Stop prompting. Write loops.", "section": "Loops", "date": "07-2026", "keyword": "Loop", "lastmod": "2026-07-16", "built": true },
     { "number": "013", "title_short": "Hire your first AI agent.", "section": "Agents", "date": "07-2026", "keyword": "Agent", "lastmod": "2026-07-15", "built": true },
     { "number": "012", "title_short": "6 rules. Your repo survives.", "section": "Git Hygiene", "date": "07-2026", "keyword": "Repo", "lastmod": "2026-07-15", "built": true },
