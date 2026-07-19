@@ -22,8 +22,9 @@
     "accent": "#8FC5C9",
     "kick": "Claude Code · The File",
     "h1_html": "One file.<br>188,000 stars<span class=\"dot\">.</span>",
-    "h1_size": 108,
+    "h1_size": 104,
     "sub_html": "The Karpathy-derived CLAUDE.md — repo, four rules, starter file. No gate.",
-    "meta_html": "/// no. 006 / the file / 07-2026 · <b>vektor-fm.github.io</b>"
+    "meta_html": "/// no. 006 / the file / 07-2026 · <b>vektor-fm.github.io</b>",
+    "sub_mt": 18
   }
 }

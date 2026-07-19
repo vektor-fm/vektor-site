@@ -22,9 +22,10 @@
     "accent": "#C77BC9",
     "kick": "Repo of the Day · The Port",
     "h1_html": "1.6M lines.<br>On iPhone<span class=\"dot\">.</span>",
-    "h1_size": 116,
+    "h1_size": 104,
     "h1_mt": 16,
-    "sub_html": "Command &amp; Conquer Generals — the whole C++ game — running native on iPhone. The repo, plus the honest version of who built what. No gate.",
-    "meta_html": "/// no. 007 / the port / 07-2026 · <b>vektor-fm.github.io</b>"
+    "sub_html": "Command &amp; Conquer Generals — the whole C++ game — running native on iPhone. The repo. No gate.",
+    "meta_html": "/// no. 007 / the port / 07-2026 · <b>vektor-fm.github.io</b>",
+    "sub_mt": 18
   }
 }
