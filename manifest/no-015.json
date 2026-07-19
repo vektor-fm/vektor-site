@@ -22,9 +22,9 @@
     "accent": "#8FC5C9",
     "kick": "This Week in AI · Loops",
     "h1_html": "Stop prompting.<br>Write loops<span class=\"dot\">.</span>",
-    "h1_size": 120,
-    "sub_mt": 30,
-    "sub_html": "The head of Claude Code writes loops, not prompts. The starter loop — plan → run → check → repeat, runnable. No gate.",
+    "h1_size": 104,
+    "sub_mt": 18,
+    "sub_html": "The head of Claude Code writes loops, not prompts. The starter loop, runnable. No gate.",
     "meta_html": "/// no. 015 / loops / 07-2026 · <b>vektor-fm.github.io</b>"
   }
 }
