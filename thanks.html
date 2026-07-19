@@ -35,7 +35,19 @@
   .chrome{ position:sticky; top:0; z-index:50; background:var(--ink); border-bottom:1px solid #262626; display:flex; align-items:center; justify-content:space-between; height:64px; padding:0 var(--rail); }
   .chrome .marker{font-family:var(--kick); text-transform:uppercase; letter-spacing:0.1em; font-size:13px; color:#8f8b80;}
   @media (max-width:520px){ .chrome .marker{display:none;} }
-  .wm{display:inline-flex; text-decoration:none; font-family:var(--wm); font-weight:600; letter-spacing:-0.045em; color:var(--paper); font-size:30px; line-height:1;}
+  .wm{position:relative; display:inline-flex; text-decoration:none; font-family:var(--wm); font-weight:600; letter-spacing:-0.045em; color:var(--paper); font-size:30px; line-height:1;}
+  .wm-main{position:relative; z-index:2; display:inline-flex;}
+  .wm-main .ch{position:relative; display:inline-block;}
+  .wm-main .ch .l{opacity:0; animation:showL .01s steps(1) forwards; animation-delay:calc(0.20s + var(--i)*0.075s);}
+  .wm-main .ch .g{position:absolute; left:0; top:0; font-family:var(--mono); color:var(--acid); opacity:0; animation:flashG .075s steps(1) forwards; animation-delay:calc(0.14s + var(--i)*0.075s);}
+  @keyframes showL{to{opacity:1;}}
+  @keyframes flashG{0%{opacity:1;}100%{opacity:0;}}
+  .wm-plate{position:absolute; left:0; top:0; z-index:1; mix-blend-mode:screen; pointer-events:none;}
+  .wm-acid{color:var(--acid); animation:regA 1.15s steps(1) forwards;}
+  .wm-orchid{color:#C77BC9; animation:regB 1.15s steps(1) forwards;}
+  @keyframes regA{0%{transform:translate(7px,4px);opacity:.85}30%{transform:translate(4px,2px)}55%{transform:translate(2px,1px)}78%{transform:translate(0,0);opacity:.5}100%{transform:translate(0,0);opacity:0}}
+  @keyframes regB{0%{transform:translate(-6px,-4px);opacity:.85}30%{transform:translate(-4px,-2px)}55%{transform:translate(-2px,-1px)}78%{transform:translate(0,0);opacity:.5}100%{transform:translate(0,0);opacity:0}}
+  @media (prefers-reduced-motion:reduce){ .wm-main .ch .l{opacity:1; animation:none;} .wm-main .ch .g,.wm-plate{display:none;} }
   .weave{ height:26px; width:100%; margin:0; background-color:var(--aqua); background-image: repeating-linear-gradient(90deg, rgba(16,16,16,.55) 0 3px, transparent 3px 9px), repeating-linear-gradient(0deg, rgba(16,16,16,.55) 0 3px, transparent 3px 9px), repeating-linear-gradient(90deg, rgba(255,255,255,.25) 0 1px, transparent 1px 9px); background-blend-mode:multiply; }
   .hero{padding:56px var(--rail) 40px;}
   .hero .eye{color:var(--aqua); margin-bottom:20px;}
@@ -60,7 +72,13 @@
 <body>
 
 <header class="chrome">
-  <a class="wm" href="./index.html" aria-label="vektor">vektor</a>
+  <a class="wm" href="./index.html" aria-label="vektor">
+    <span class="wm-plate wm-acid" aria-hidden="true">vektor</span>
+    <span class="wm-plate wm-orchid" aria-hidden="true">vektor</span>
+    <span class="wm-main">
+      <span class="ch" style="--i:0"><span class="g">%</span><span class="l">v</span></span><span class="ch" style="--i:1"><span class="g">#</span><span class="l">e</span></span><span class="ch" style="--i:2"><span class="g">Z</span><span class="l">k</span></span><span class="ch" style="--i:3"><span class="g">8</span><span class="l">t</span></span><span class="ch" style="--i:4"><span class="g">@</span><span class="l">o</span></span><span class="ch" style="--i:5"><span class="g">W</span><span class="l">r</span></span>
+    </span>
+  </a>
   <span class="marker">The Teardown · Confirmed</span>
 </header>
 

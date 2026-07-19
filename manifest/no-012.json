@@ -17,5 +17,14 @@
   "footer_meta": "/// no. 012 / git hygiene / 07-2026 · the frontier, by the numbers",
   "copy_event": "no012-copy-file",
   "subscribe_track": true,
-  "slug": "no012"
+  "slug": "no012",
+  "og_card": {
+    "accent": "#8FC5C9",
+    "kick": "This Week in AI · Git Hygiene",
+    "h1_html": "6 rules.<br>Your repo survives<span class=\"dot\">.</span>",
+    "h1_size": 90,
+    "sub_html": "The git-hygiene CLAUDE.md — six rules that keep an AI agent from wrecking your repo. No gate.",
+    "meta_html": "/// no. 012 / git hygiene / 07-2026 · <b>vektor-fm.github.io</b>",
+    "sub_mt": 18
+  }
 }

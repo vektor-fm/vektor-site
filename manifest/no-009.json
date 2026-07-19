@@ -17,5 +17,14 @@
   "footer_meta": "/// no. 009 / the carousel / 07-2026 · the frontier, by the numbers",
   "copy_event": "no009-copy-prompt",
   "subscribe_track": true,
-  "slug": "no009"
+  "slug": "no009",
+  "og_card": {
+    "accent": "#8FC5C9",
+    "kick": "This Week in AI · The Carousel",
+    "h1_html": "One prompt.<br>Every carousel<span class=\"dot\">.</span>",
+    "h1_size": 104,
+    "sub_html": "The master prompt that turns any topic into an Instagram carousel. Paste-ready. No gate.",
+    "meta_html": "/// no. 009 / the carousel / 07-2026 · <b>vektor-fm.github.io</b>",
+    "sub_mt": 18
+  }
 }
