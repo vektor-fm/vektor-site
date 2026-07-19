@@ -17,5 +17,13 @@
   "footer_meta": "/// no. 005 / four rules / 07-2026 · the frontier, by the numbers",
   "copy_event": null,
   "subscribe_track": true,
-  "slug": "no005"
+  "slug": "no005",
+  "og_card": {
+    "accent": "#8FC5C9",
+    "kick": "AI Coding · The Four Rules",
+    "h1_html": "Code with AI.<br>Keep your brain<span class=\"dot\">.</span>",
+    "h1_size": 100,
+    "sub_html": "The four rules from the reel + the brain.md template. No gate.",
+    "meta_html": "/// no. 005 / four rules / 07-2026 · <b>vektor-fm.github.io</b>"
+  }
 }
