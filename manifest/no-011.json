@@ -17,5 +17,14 @@
   "footer_meta": "/// no. 011 / the rules · part 2 / 07-2026 · the frontier, by the numbers",
   "copy_event": "no011-copy-file",
   "subscribe_track": true,
-  "slug": "no011"
+  "slug": "no011",
+  "og_card": {
+    "accent": "#8FC5C9",
+    "kick": "This Week in AI · The Rules · Part 2",
+    "h1_html": "3 rules.<br>Faster + cheaper<span class=\"dot\">.</span>",
+    "h1_size": 104,
+    "sub_html": "Rules 5–7 — plan first, search before read, show the diff — plus the full file. No gate.",
+    "meta_html": "/// no. 011 / the rules · part 2 / 07-2026 · <b>vektor-fm.github.io</b>",
+    "sub_mt": 18
+  }
 }

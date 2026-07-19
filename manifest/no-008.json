@@ -17,5 +17,14 @@
   "footer_meta": "/// no. 008 / the leak / 07-2026 · the frontier, by the numbers",
   "copy_event": "no008-copy-starter",
   "subscribe_track": true,
-  "slug": "no008"
+  "slug": "no008",
+  "og_card": {
+    "accent": "#8FC5C9",
+    "kick": "This Week in AI · The Leak",
+    "h1_html": "120,000 chars.<br>Leaked<span class=\"dot\">.</span>",
+    "h1_size": 104,
+    "sub_html": "Claude's system prompt on GitHub — plus a paste-ready starter CLAUDE.md. No gate.",
+    "meta_html": "/// no. 008 / the leak / 07-2026 · <b>vektor-fm.github.io</b>",
+    "sub_mt": 18
+  }
 }

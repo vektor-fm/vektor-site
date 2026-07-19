@@ -206,8 +206,10 @@
   @media (min-width:820px){ .hero .ascii{display:block;} }
 
   /* newsletter (primary action, in-hero) */
-  .capture{margin-top:36px; max-width:560px; border-top:3px solid var(--paper); padding-top:24px;}
-  .capture h2.kick{display:block; color:var(--acid); margin:0 0 14px; font-weight:400;}
+  .capture{margin-top:36px; background:#141414; border:2px solid var(--aqua); padding:30px 26px 28px;}
+  .capture .ck{display:block; color:var(--acid); font-family:var(--kick); text-transform:uppercase; letter-spacing:0.14em; font-size:13px; margin-bottom:10px;}
+  .capture h2.d{font-family:var(--disp); font-weight:900; text-transform:uppercase; line-height:1.02; letter-spacing:0.005em; font-size:clamp(28px,7.5vw,48px); margin:0 0 12px;}
+  .capture p.s{font-size:15.5px; line-height:1.5; max-width:52ch; margin:0 0 20px; color:var(--paper);}
   .capture .ok{display:none; margin-top:14px; font-family:var(--kick); text-transform:uppercase; letter-spacing:0.1em; font-size:13px; color:var(--acid);}
   .capture.done form{display:none;}
   .capture.done .ok{display:block;}
@@ -270,7 +272,15 @@
   .socials a:hover{color:var(--acid);}
   .backref{margin-top:32px; font-family:var(--kick); text-transform:uppercase; letter-spacing:0.1em; font-size:13px; color:var(--paper);}
   .wordmark-foot{display:flex; align-items:center; gap:14px; margin-top:38px; flex-wrap:wrap;}
-  .wordmark-foot .w{font-family:var(--wm); font-weight:600; letter-spacing:-0.045em; font-size:34px; color:var(--paper);}
+  .wm-foot{position:relative; display:inline-flex; font-family:var(--wm); font-weight:600; letter-spacing:-0.045em; font-size:34px; color:var(--paper);}
+  .wm-foot .ch2{position:relative; display:inline-block;}
+  .wm-foot .ch2 .l{opacity:1;}
+  .wm-foot .ch2 .g{position:absolute; left:0; top:0; font-family:var(--mono); color:var(--acid); opacity:0;}
+  .wm-foot.play .ch2 .l{animation:revealL2 .01s steps(1) both; animation-delay:calc(0.16s + var(--i)*0.07s);}
+  .wm-foot.play .ch2 .g{animation:flashG2 .07s steps(1) both; animation-delay:calc(0.10s + var(--i)*0.07s);}
+  @keyframes revealL2{0%{opacity:0;}100%{opacity:1;}}
+  @keyframes flashG2{0%{opacity:1;}100%{opacity:0;}}
+  @media (prefers-reduced-motion:reduce){ .wm-foot.play .ch2 .l{animation:none;} .wm-foot .ch2 .g{display:none;} }
   .wordmark-foot .m{font-family:var(--mono); font-size:12px; color:#8f8b80;}
 </style>
 </head>
@@ -331,12 +341,14 @@
 <!-- ============================ NEWSLETTER (primary conversion) ============================ -->
 <section style="padding:12px var(--rail) 0;">
   <div class="capture" id="subscribe">
-    <h2 class="kick">The Teardown — one email / week</h2>
+    <span class="ck">The Teardown — one email / week</span>
+    <h2 class="d">Get every drop's pack.</h2>
+    <p class="s">The current drop's config pack + one teardown a week, straight to your inbox.</p>
     <form method="post" action="https://buttondown.com/api/emails/embed-subscribe/vektor">
       <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required="">
       <button class="btn" type="submit">Subscribe →</button>
     </form>
-    <div class="note">The current drop's config pack + one teardown a week. Unsubscribe anytime.</div>
+    <div class="note">Free. Unsubscribe anytime.</div>
   </div>
 </section>
 
@@ -381,7 +393,7 @@
   </nav>
   <div class="backref">Comment the keyword on the latest reel.</div>
   <div class="wordmark-foot">
-    <span class="w">vektor</span>
+    <span class="wm-foot" id="wmFoot" aria-label="vektor"><span class="ch2" style="--i:0"><span class="g">%</span><span class="l">v</span></span><span class="ch2" style="--i:1"><span class="g">#</span><span class="l">e</span></span><span class="ch2" style="--i:2"><span class="g">Z</span><span class="l">k</span></span><span class="ch2" style="--i:3"><span class="g">8</span><span class="l">t</span></span><span class="ch2" style="--i:4"><span class="g">@</span><span class="l">o</span></span><span class="ch2" style="--i:5"><span class="g">W</span><span class="l">r</span></span></span>
     <span class="m">/// index / 07-2026 · the frontier, by the numbers</span>
   </div>
 </footer>
@@ -393,6 +405,8 @@
   // GoatCounter subscribe event + non-blocking Buttondown submit + UTM tagging.
   // Page works fully without JS (form falls back to a normal POST redirect).
   document.querySelectorAll('form').forEach(function(f){ f.addEventListener('submit', function(){ if(window.goatcounter && goatcounter.count){ goatcounter.count({path:'hub-subscribe-submit', event:true}); } }); });
+  var wmFoot=document.getElementById('wmFoot');
+  if(wmFoot && 'IntersectionObserver' in window){ var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ wmFoot.classList.remove('play'); void wmFoot.offsetWidth; wmFoot.classList.add('play'); } }); }, {threshold:0.6}); io.observe(wmFoot); }
   // Form submits as a plain navigation POST — Buttondown interposes a one-click
   // verification page, so an AJAX submit silently drops the signup (tested 2026-07-05).
   document.querySelectorAll('a[href^="http"]').forEach(function(a){
