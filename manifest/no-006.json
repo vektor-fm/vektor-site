@@ -17,5 +17,13 @@
   "footer_meta": "/// no. 006 / the file / 07-2026 · the frontier, by the numbers",
   "copy_event": "no006-copy-curl",
   "subscribe_track": true,
-  "slug": "no006"
+  "slug": "no006",
+  "og_card": {
+    "accent": "#8FC5C9",
+    "kick": "Claude Code · The File",
+    "h1_html": "One file.<br>188,000 stars<span class=\"dot\">.</span>",
+    "h1_size": 108,
+    "sub_html": "The Karpathy-derived CLAUDE.md — repo, four rules, starter file. No gate.",
+    "meta_html": "/// no. 006 / the file / 07-2026 · <b>vektor-fm.github.io</b>"
+  }
 }

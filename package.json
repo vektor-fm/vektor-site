@@ -5,6 +5,7 @@
   "description": "Vektor landing pages — static, built from partials + per-issue manifests (see build.mjs).",
   "scripts": {
     "build": "node build.mjs",
-    "check": "node build.mjs --check"
+    "check": "node build.mjs --check",
+    "og:render": "node render-og.mjs"
   }
 }

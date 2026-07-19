@@ -17,5 +17,15 @@
   "footer_meta": "/// no. 013 / agents / 07-2026 · the frontier, by the numbers",
   "copy_event": "no013-copy-file",
   "subscribe_track": true,
-  "slug": "no013"
+  "slug": "no013",
+  "og_card": {
+    "accent": "#8FC5C9",
+    "kick": "This Week in AI · Agents",
+    "h1_html": "Agent. Hired<span class=\"dot\">.</span>",
+    "h1_size": 150,
+    "sub_mt": 30,
+    "sub_max": 46,
+    "sub_html": "The starter kit for your first Claude Code agent — the template, the tools allowlist, one runnable skill. No gate.",
+    "meta_html": "/// no. 013 / agents / 07-2026 · <b>vektor-fm.github.io</b>"
+  }
 }

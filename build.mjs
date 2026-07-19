@@ -3,8 +3,13 @@
 //
 // Issue pages (site.json issues[] with built:true) are assembled from shared
 // partials/ + a per-issue manifest/ + the page's bespoke src/<slug>.body.html.
-// index.html + sitemap.xml are generated from site.json. The served root .html
-// files are BUILD OUTPUTS — edit partials/ + manifest/ + src/, never the output.
+// index.html + sitemap.xml are generated from site.json. OG share-card sources
+// (og-src-no-<num>.html) are generated from partials/og-card.html + the
+// manifest's og_card block. The served root .html files are BUILD OUTPUTS —
+// edit partials/ + manifest/ + src/, never the output.
+//
+// og/no-<num>.png is NOT rebuilt here (needs a browser) — after changing an
+// og_card, re-render with: npm run og:render -- <num> (see render-og.mjs).
 //
 //   node build.mjs           build all outputs
 //   node build.mjs --check    verify outputs are in sync + all links/assets resolve (CI/pre-merge gate)
@@ -59,6 +64,24 @@ function renderIssue(num) {
   return out;
 }
 
+// ---- OG share-card source (og-src-no-<num>.html, rendered to og/no-<num>.png) ----
+function renderOgCard(num, card) {
+  const map = {
+    OG_ACCENT: card.accent,
+    OG_HEADLINE_SIZE: String(card.h1_size),
+    OG_HEADLINE_MT: String(card.h1_mt ?? 18),
+    OG_SUB_MT: String(card.sub_mt ?? 26),
+    OG_SUB_MAX: String(card.sub_max ?? 48),
+    OG_KICK: card.kick,
+    OG_HEADLINE: card.h1_html,
+    OG_SUB: card.sub_html,
+    OG_META: card.meta_html,
+  };
+  const out = fill(read('partials/og-card.html'), map);
+  assertNoTokens(out, `og-src-no-${num}`);
+  return out;
+}
+
 // ---- index.html ----
 function rowHtml(i) {
   return `  <a class="row" href="./no-${i.number}.html">\n`
@@ -97,7 +120,11 @@ function renderSitemap() {
 // ---- outputs map ----
 function outputs() {
   const o = {};
-  for (const i of BUILT) o[`no-${i.number}.html`] = renderIssue(i.number);
+  for (const i of BUILT) {
+    o[`no-${i.number}.html`] = renderIssue(i.number);
+    const man = JSON.parse(read(`manifest/no-${i.number}.json`));
+    if (man.og_card) o[`og-src-no-${i.number}.html`] = renderOgCard(i.number, man.og_card);
+  }
   o['index.html'] = renderIndex();
   o['sitemap.xml'] = renderSitemap();
   return o;
@@ -142,5 +169,6 @@ if (check) {
     // write-if-different (normalised compare) so unchanged outputs don't churn line endings
     if (!exists(name) || read(name) !== content) { writeFileSync(join(ROOT, name), content); wrote++; }
   }
-  console.log(`built ${Object.keys(out).length} outputs, ${wrote} changed (${BUILT.length} issue pages + index.html + sitemap.xml)`);
+  const cards = Object.keys(out).filter((n) => n.startsWith('og-src-')).length;
+  console.log(`built ${Object.keys(out).length} outputs, ${wrote} changed (${BUILT.length} issue pages + ${cards} og cards + index.html + sitemap.xml)`);
 }
