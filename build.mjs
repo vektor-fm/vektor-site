@@ -29,10 +29,10 @@ const BUILT = site.issues.filter((i) => i.built);
 
 // ---- template fill: {{TOKEN}} -> value (uppercase tokens only) ----
 function fill(tpl, map) {
-  return tpl.replace(/\{\{([A-Z_]+)\}\}/g, (m, k) => (k in map ? map[k] : m));
+  return tpl.replace(/\{\{([A-Z0-9_]+)\}\}/g, (m, k) => (k in map ? map[k] : m));
 }
 function assertNoTokens(html, label) {
-  const left = html.match(/\{\{[A-Z_]+\}\}/g);
+  const left = html.match(/\{\{[A-Z0-9_]+\}\}/g);
   if (left) throw new Error(`${label}: unfilled tokens ${[...new Set(left)].join(', ')}`);
 }
 
