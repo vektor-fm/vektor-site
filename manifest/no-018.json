@@ -1,0 +1,30 @@
+{
+  "number": "018",
+  "title": "vektor /// no. 018 — the open scorecard.",
+  "description": "The open scorecard — every AI-model call we logged before the event, graded in public with the Brier score. Market 2, model 1 — and we publish the loss anyway. Free, no gate.",
+  "og_title": "The open scorecard — vektor /// no. 018",
+  "og_description": "Three calls logged in public before the games — France, Brazil, Djokovic — then graded with the Brier score. Market 2, model 1. Published anyway.",
+  "og_image": "https://vektor-fm.github.io/vektor-site/og/no-018.png",
+  "og_alt": "The open scorecard — vektor /// no. 018",
+  "og_url": "https://vektor-fm.github.io/vektor-site/no-018.html",
+  "canonical": "https://vektor-fm.github.io/vektor-site/no-018.html",
+  "tw_title": "The open scorecard — vektor /// no. 018",
+  "tw_description": "Three calls logged in public before the games — France, Brazil, Djokovic — then graded with the Brier score. Market 2, model 1. Published anyway.",
+  "tw_image": "https://vektor-fm.github.io/vektor-site/og/no-018.png",
+  "marker": "This Week in AI · The Grade",
+  "sticky_text": "Next drop: <b>a new keyword daily on the reel</b>",
+  "backref_html": "A new keyword drops every day — <b>catch it first on the reel</b> — follow @vektor.fm. Make your own calls: <a href=\"./no-017.html\">The match-predictor prompt →</a>",
+  "footer_meta": "/// no. 018 / the grade / 07-2026 · the frontier, by the numbers",
+  "copy_event": "no018-copy-scorecard",
+  "subscribe_track": true,
+  "slug": "no018",
+  "og_card": {
+    "accent": "#C77BC9",
+    "kick": "This Week in AI · The Grade",
+    "h1_html": "The open<br>scorecard<span class=\"dot\">.</span>",
+    "h1_size": 92,
+    "sub_mt": 18,
+    "sub_html": "Logged before the games, graded in public: market 2, model 1 — and the loss is published anyway.",
+    "meta_html": "/// no. 018 / the grade / 07-2026 · <b>vektor-fm.github.io</b>"
+  }
+}

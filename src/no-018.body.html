@@ -1,0 +1,151 @@
+<section class="hero">
+  <div class="kick eye">This Week in AI · The Grade</div>
+  <h1 class="disp">The open<br>scorecard<span class="dot">.</span></h1>
+  <p class="sub">On June 30 we logged three AI-model calls in public — France, Brazil, Djokovic — with the market's number next to each, where we couldn't edit them. The tournament is over: <b>Spain 1–0 Argentina</b> (aet, Torres 106', Jul 19, MetLife — via Wikipedia + ESPN). So this is grading day: every call, the exact math, and a running record we publish whether we win or lose. Free, no gate. As promised.</p>
+  <div class="snippet" id="file">
+    <div class="bar"><span class="f">scorecard.txt · the full record</span><button class="snipbtn" id="snipCopy" type="button">Copy the scorecard</button></div>
+    <pre id="snipText">VEKTOR OPEN SCORECARD — calls logged 2026-06-30, graded on resolution
+Brier score = (forecast − outcome)² · lower is better
+
+CALL 01 · France win the World Cup
+  model 8% vs market 23%
+  result: France out — Spain 2–0 in the semi (Jul 14)
+  Brier: model 0.0064 vs market 0.0529 → point MODEL
+
+CALL 02 · Brazil win the World Cup
+  model 9% vs Polymarket 6% (de-vig)
+  result: Brazil out
+  Brier: model 0.0081 vs market 0.0036 → point MARKET
+
+CALL 03 · Djokovic wins Wimbledon
+  model 31% vs bookies 14%
+  result: did not win (resolved Jul 13)
+  Brier: model 0.0961 vs market 0.0196 → point MARKET
+
+RUNNING RECORD · market 2 — model 1
+mean Brier: market 0.025 vs model 0.037 → the market is ahead
+context: final — Spain 1–0 Argentina (aet, Torres 106') · Jul 19 2026 · MetLife</pre>
+  </div>
+  <div class="actions">
+    <a class="btn" href="#calls">The three calls ↓</a>
+    <button class="btn" id="shareBtn" type="button">Send to a stats friend</button>
+  </div>
+  <div class="rule">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+</section>
+
+<div class="fig">
+  <h2 class="kick">Fig. 01 ·</h2>
+  <span class="gaccent">the three calls</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues" id="calls">
+
+  <article class="card c-cream">
+    <div class="top">
+      <span class="tag">Call 01 · France — logged 06-30</span>
+      <span class="goth">8%</span>
+    </div>
+    <h2>France: point model.</h2>
+    <p class="one">We logged <b>France to win at 8%</b> while the market priced them at <b>23%</b>. France went out — Spain beat them 2–0 in the semi on July 14. Grade the miss both ways: the model's Brier is <b>0.0064</b>, the market's is <b>0.0529</b>. Lower is better — the model was far closer to what actually happened. Point model.</p>
+    <span class="proof">model 8% · market 23% → Brier 0.0064 vs 0.0529 · point MODEL</span>
+  </article>
+
+  <article class="card c-aqua">
+    <div class="top">
+      <span class="tag">Call 02 · Brazil — logged 06-30</span>
+      <span class="goth">9%</span>
+    </div>
+    <h2>Brazil: point market.</h2>
+    <p class="one">We had <b>Brazil at 9%</b>; Polymarket — with the built-in margin stripped out (de-vig) — said <b>6%</b>. Brazil went out. Both numbers were right to be skeptical, but the market was <em>more</em> skeptical, and on a call that resolves "no", the lower number scores better: Brier <b>0.0081</b> for the model vs <b>0.0036</b> for the market. Point market.</p>
+    <span class="proof">model 9% · Polymarket 6% de-vig → Brier 0.0081 vs 0.0036 · point MARKET</span>
+  </article>
+
+  <article class="card c-ink">
+    <div class="top">
+      <span class="tag">Call 03 · Djokovic — resolved 07-13</span>
+      <span class="goth">31%</span>
+    </div>
+    <h2>Djokovic: point market, big.</h2>
+    <p class="one">Our widest miss. The model put <b>Djokovic to win Wimbledon at 31%</b>; the bookies said <b>14%</b>. He didn't win — resolved July 13. Brier: model <b>0.0961</b> vs market <b>0.0196</b>. Confidence has a price when you're wrong, and this is the call that swings the averages. Point market — and the reason the tally reads the way it does.</p>
+    <span class="proof">model 31% · bookies 14% → Brier 0.0961 vs 0.0196 · point MARKET</span>
+  </article>
+
+</section>
+
+<div class="fig">
+  <h2 class="kick">Fig. 02 ·</h2>
+  <span class="gaccent">the tally</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues">
+  <article class="card c-cream" id="tally">
+    <div class="top">
+      <span class="tag">The running record · as of 07-20</span>
+      <span class="goth">2–1</span>
+    </div>
+    <h2>Market 2, model 1 — published anyway.</h2>
+    <p class="one">Points: <b>market 2, model 1</b>. Mean Brier across the three calls: <b>market 0.025 vs model 0.037</b> — lower is better, so the market is ahead. We could have posted the France call alone and looked clever. Instead the whole card is here, because the point of this channel is a forecasting record you can check — not a highlight reel.</p>
+    <span class="stars">Market 2 · Model 1 · mean Brier 0.025 vs 0.037 · logged 06-30</span>
+  </article>
+
+  <article class="card c-ink" id="how">
+    <div class="top">
+      <span class="tag">The footnote · how we grade</span>
+      <span class="goth">how</span>
+    </div>
+    <h2>Logged before. Graded after. All of it.</h2>
+    <p class="one">Every call is logged publicly <b>before</b> the event, where we can't edit it. When the event resolves, it's graded with the <b>Brier score</b> — the gap between the probability we gave and what actually happened, squared. Lower is better, and it rewards honest probabilities, not lucky picks: a confident wrong call costs more than a humble one. And we publish wins <b>and</b> losses — because a record you can't lose isn't a record.</p>
+    <span class="stars">A public forecasting log · not betting advice</span>
+  </article>
+</section>
+
+<section class="ledger" aria-label="How the scorecard works">
+  <div class="lrow"><span class="n">01</span><span class="t">Log the call in public before the event — no edits after</span></div>
+  <div class="lrow"><span class="n">02</span><span class="t">Grade it with the Brier score when it resolves — lower is better</span></div>
+  <div class="lrow"><span class="n">03</span><span class="t">Publish the tally either way — today that's market 2, model 1</span></div>
+</section>
+
+<section class="midcap" aria-label="Get the weekly pack">
+  <span class="k">One email a week · the working setup</span>
+  <h2>Keep the whole toolkit.</h2>
+  <p>The Teardown sends the config pack and one working AI setup a week — the same rig behind this channel. Free, and you can unsubscribe anytime.</p>
+  <form action="https://buttondown.com/api/emails/embed-subscribe/vektor" method="post">
+    <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
+    <button class="btn" type="submit">Get the weekly pack →</button>
+  </form>
+  <div class="note">Free. The config pack lands after you confirm your email. Unsubscribe anytime.</div>
+</section>
+
+<div class="fig">
+  <h2 class="kick">Fig. 03 ·</h2>
+  <span class="gaccent">what's next</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues">
+  <article class="card c-ink">
+    <div class="top">
+      <span class="tag">Make your own calls</span>
+      <span class="goth">predict</span>
+    </div>
+    <h2>Run the same play yourself.</h2>
+    <p class="one">The numbers on this card come from the same discipline as the match-predictor prompt: force the AI onto pasted data, get real probabilities, check them against the market before you trust either. Copy the prompt, log your number before kickoff, grade yourself after. That's the whole system.</p>
+    <div class="actions">
+      <a class="btn" data-goatcounter-click="no018-predictor" href="./no-017.html">The match-predictor prompt →</a>
+    </div>
+  </article>
+
+  <article class="card c-ink" id="next">
+    <div class="top">
+      <span class="tag">No gate / no catch</span>
+      <span class="goth">follow</span>
+    </div>
+    <h2>That's the grade. Follow for the next card.</h2>
+    <p class="one">The scorecard keeps running — every new call gets logged before the event and graded here when it resolves. A new keyword drops daily on the reel, and followers catch it first. If an open record beats a highlight reel for you, the follow is the thank-you.</p>
+    <div class="actions">
+      <a class="btn primary" data-goatcounter-click="no018-follow-instagram" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Follow @vektor.fm →</a>
+    </div>
+  </article>
+</section>

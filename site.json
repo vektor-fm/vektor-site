@@ -1,9 +1,10 @@
 {
   "index": {
-    "lastmod": "2026-07-19",
-    "latest_cta": "Get the predictor prompt →"
+    "lastmod": "2026-07-20",
+    "latest_cta": "See the open scorecard →"
   },
   "issues": [
+    { "number": "018", "title_short": "Market 2, model 1. Published.", "section": "The Grade", "date": "07-2026", "keyword": "Score", "lastmod": "2026-07-20", "built": true },
     { "number": "017", "title_short": "The match-predictor prompt.", "section": "AI vs the Final", "date": "07-2026", "keyword": "Final", "lastmod": "2026-07-19", "built": true },
     { "number": "015", "title_short": "Stop prompting. Write loops.", "section": "Loops", "date": "07-2026", "keyword": "Loop", "lastmod": "2026-07-16", "built": true },
     { "number": "013", "title_short": "Hire your first AI agent.", "section": "Agents", "date": "07-2026", "keyword": "Agent", "lastmod": "2026-07-15", "built": true },
