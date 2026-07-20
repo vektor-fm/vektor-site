@@ -1,0 +1,29 @@
+{
+  "number": "019",
+  "title": "vektor /// no. 019 — the academy series.",
+  "description": "The Academy Series — Anthropic's free course catalog, decoded: one episode a day for five days, one cheat sheet per episode, all collected on this hub. Episode 1: the catalog, ranked for devs. Free, no gate.",
+  "og_title": "The Academy Series — vektor /// no. 019",
+  "og_description": "Anthropic's free course catalog, decoded — one episode a day for five days, one cheat sheet per episode, all collected here. Ep 1: the catalog, ranked for devs.",
+  "og_image": "https://vektor-fm.github.io/vektor-site/og/no-019.png",
+  "og_alt": "The Academy Series — vektor /// no. 019",
+  "og_url": "https://vektor-fm.github.io/vektor-site/no-019.html",
+  "canonical": "https://vektor-fm.github.io/vektor-site/no-019.html",
+  "tw_title": "The Academy Series — vektor /// no. 019",
+  "tw_description": "Anthropic's free course catalog, decoded — one episode a day for five days, one cheat sheet per episode, all collected here. Ep 1: the catalog, ranked for devs.",
+  "tw_image": "https://vektor-fm.github.io/vektor-site/og/no-019.png",
+  "marker": "This Week in AI · The Academy",
+  "sticky_text": "Next episode: <b>a new drop daily on the reel</b>",
+  "backref_html": "A new keyword drops every day — <b>catch it first on the reel</b> — follow @vektor.fm. Meanwhile, make your smartest model write the brain files: <a href=\"./no-018.html\">Bottle the brain →</a>",
+  "footer_meta": "/// no. 019 / the academy / 07-2026 · the frontier, by the numbers",
+  "subscribe_track": true,
+  "slug": "no019",
+  "og_card": {
+    "accent": "#8FC5C9",
+    "kick": "This Week in AI · The Academy",
+    "h1_html": "The academy<br>series<span class=\"dot\">.</span>",
+    "h1_size": 92,
+    "sub_mt": 18,
+    "sub_html": "Anthropic's free course catalog, decoded — one episode a day, one cheat sheet per episode, all collected on one page.",
+    "meta_html": "/// no. 019 / the academy / 07-2026 · <b>vektor-fm.github.io</b>"
+  }
+}

@@ -1,110 +1,164 @@
 <section class="hero">
-  <div class="kick eye">This Week in AI · The Grade</div>
-  <h1 class="disp">The open<br>scorecard<span class="dot">.</span></h1>
-  <p class="sub">On June 30 we logged three AI-model calls in public — France, Brazil, Djokovic — with the market's number next to each, where we couldn't edit them. The tournament is over: <b>Spain 1–0 Argentina</b> (aet, Torres 106', Jul 19, MetLife — via Wikipedia + ESPN). So this is grading day: every call, the exact math, and a running record we publish whether we win or lose. Free, no gate. As promised.</p>
+  <div class="kick eye">This Week in AI · Bottle the Brain</div>
+  <h1 class="disp">Bottle<br>the brain<span class="dot">.</span></h1>
+  <p class="sub">On July 20, Fable 5 went permanent — <b>50% of your Max limits, for good</b>. Don't burn the smart half on chat. Paste the prompt below into your smartest model, once, from your repo root — it writes <b>3 files</b>: a project overview, an honest gaps audit, and an upgraded CLAUDE.md. Every cheaper session after starts with that brain already on the page. Free, no gate. As promised.</p>
   <div class="snippet" id="file">
-    <div class="bar"><span class="f">scorecard.txt · the full record</span><button class="snipbtn" id="snipCopy" type="button">Copy the scorecard</button></div>
-    <pre id="snipText">VEKTOR OPEN SCORECARD — calls logged 2026-06-30, graded on resolution
-Brier score = (forecast − outcome)² · lower is better
+    <div class="bar"><span class="f">bottle-the-brain.txt · one run, your smartest model</span><button class="snipbtn" id="snipCopy" type="button">Copy the master prompt</button></div>
+    <pre id="snipText">You are the smartest model I have access to, and this is your one run
+on this codebase. First explore the repository — entry points, configs,
+folder layout, tests, dependency manifests — then write THREE files at
+the repo root. Every claim must cite a real file path; if you did not
+open it, do not assert it. No generic advice anywhere.
 
-CALL 01 · France win the World Cup
-  model 8% vs market 23%
-  result: France out — Spain 2–0 in the semi (Jul 14)
-  Brier: model 0.0064 vs market 0.0529 → point MODEL
+FILE 1 — 01-overview.md. What this app is, in one paragraph a new
+developer could repeat. The major pieces and how data flows between
+them, entry to exit. WHY the architecture is shaped this way — the
+constraint or trade-off behind each big decision, not just what exists.
+End with the load-bearing files: path + what breaks if it changes.
 
-CALL 02 · Brazil win the World Cup
-  model 9% vs Polymarket 6% (de-vig)
-  result: Brazil out
-  Brier: model 0.0081 vs market 0.0036 → point MARKET
+FILE 2 — 02-gaps.md. Audit the codebase for weaknesses: tech debt,
+untested paths, fragile edges, swallowed errors, security holes
+(unvalidated input, secrets in code, injection). Write each as a
+workable ticket — severity P0/P1/P2, file:line, what is wrong, why it
+matters, the concrete fix — ordered by risk. A ticket that could apply
+to any codebase is a failed ticket.
 
-CALL 03 · Djokovic wins Wimbledon
-  model 31% vs bookies 14%
-  result: did not win (resolved Jul 13)
-  Brier: model 0.0961 vs market 0.0196 → point MARKET
+FILE 3 — CLAUDE.md. Upgrade the existing one if present; keep what is
+still true. Standing orders for a fresh session: the exact build, test
+and run commands (verified against the config files, not guessed); the
+conventions this codebase actually follows; the never/always rules you
+would give a junior; the gotchas you hit while exploring — what looks
+wrong but is intentional, what looks fine but bites.
 
-RUNNING RECORD · market 2 — model 1
-mean Brier: market 0.025 vs model 0.037 → the market is ahead
-context: final — Spain 1–0 Argentina (aet, Torres 106') · Jul 19 2026 · MetLife</pre>
+Quality bar: a cheaper model reading only these three files should
+start its next session knowing what you know right now.</pre>
   </div>
   <div class="actions">
-    <a class="btn" href="#calls">The three calls ↓</a>
-    <button class="btn" id="shareBtn" type="button">Send to a stats friend</button>
+    <a class="btn" href="#files">The 3 files ↓</a>
+    <button class="btn" id="shareBtn" type="button">Send to a dev</button>
   </div>
   <div class="rule">////////////////////////////////////////////////////////////////////////////////////////////////</div>
 </section>
 
 <div class="fig">
   <h2 class="kick">Fig. 01 ·</h2>
-  <span class="gaccent">the three calls</span>
+  <span class="gaccent">the three files</span>
   <span class="line"></span>
 </div>
 
-<section class="issues" id="calls">
+<section class="issues" id="files">
 
   <article class="card c-cream">
     <div class="top">
-      <span class="tag">Call 01 · France — logged 06-30</span>
-      <span class="goth">8%</span>
+      <span class="tag">File 1 · 01-overview.md</span>
+      <span class="goth">know</span>
     </div>
-    <h2>France: point model.</h2>
-    <p class="one">We logged <b>France to win at 8%</b> while the market priced them at <b>23%</b>. France went out — Spain beat them 2–0 in the semi on July 14. Grade the miss both ways: the model's Brier is <b>0.0064</b>, the market's is <b>0.0529</b>. Lower is better — the model was far closer to what actually happened. Point model.</p>
-    <span class="proof">model 8% · market 23% → Brier 0.0064 vs 0.0529 · point MODEL</span>
+    <h2>What the app is — and why.</h2>
+    <p class="one">A cheaper model isn't just less clever — it starts every session <b>blind</b>: no memory of your codebase, no record of how the pieces fit. The overview is the map the smart model draws once. The why-section matters most: architecture described without its trade-offs reads like a directory listing, and the next session will "improve" a decision it never understood.</p>
+    <div class="snippet">
+      <div class="bar"><span class="f">01-overview.md · the skeleton</span><button class="snipbtn" type="button" data-copy-target="#tplOverview" data-copy-event="no018-copy-overview">Copy</button></div>
+      <pre id="tplOverview"># 01-overview.md — the map
+
+## Purpose
+One paragraph: what the app does, who it serves, the job it is hired for.
+
+## Architecture
+Each major piece — name, path, one line on its job.
+
+## Data flow
+How one request/job moves through the system, entry to exit.
+
+## Key decisions
+Why it is built this way: each decision + the constraint/trade-off behind it.
+
+## Conventions
+The naming, layout and patterns a new session must follow to fit in.</pre>
+    </div>
+    <span class="proof">purpose · architecture · data flow · key decisions · conventions</span>
   </article>
 
   <article class="card c-aqua">
     <div class="top">
-      <span class="tag">Call 02 · Brazil — logged 06-30</span>
-      <span class="goth">9%</span>
+      <span class="tag">File 2 · 02-gaps.md</span>
+      <span class="goth">audit</span>
     </div>
-    <h2>Brazil: point market.</h2>
-    <p class="one">We had <b>Brazil at 9%</b>; Polymarket — with the built-in margin stripped out (de-vig) — said <b>6%</b>. Brazil went out. Both numbers were right to be skeptical, but the market was <em>more</em> skeptical, and on a call that resolves "no", the lower number scores better: Brier <b>0.0081</b> for the model vs <b>0.0036</b> for the market. Point market.</p>
-    <span class="proof">model 9% · Polymarket 6% de-vig → Brier 0.0081 vs 0.0036 · point MARKET</span>
+    <h2>Every weakness, as tickets.</h2>
+    <p class="one">Point the smart model at the whole codebase and make it list what's wrong: tech debt, untested paths, fragile edges, security holes. The format is the trick — <b>severity-tagged tickets with a file:line and a concrete fix</b>, so the cheaper model doesn't have to judge anything. The expensive brain finds the problems; the cheap one works the list, ticket by ticket.</p>
+    <div class="snippet">
+      <div class="bar"><span class="f">02-gaps.md · the skeleton</span><button class="snipbtn" type="button" data-copy-target="#tplGaps" data-copy-event="no018-copy-gaps">Copy</button></div>
+      <pre id="tplGaps"># 02-gaps.md — the honest audit
+
+Ordered by risk. One ticket per weakness — each workable as-is.
+
+## P0 · fix before shipping anything else
+### [P0] Short title of the weakness
+- Where: path/to/file.ext:line
+- What: the weakness, one or two lines
+- Why it matters: the failure it will cause
+- Fix: the concrete change
+
+## P1 · fix this week
+Same ticket format. Untested critical paths and fragile edges live here.
+
+## P2 · track it
+Same ticket format. Debt that slows you down but won't break production.</pre>
+    </div>
+    <span class="proof">P0/P1/P2 · file:line · why it matters · the concrete fix</span>
   </article>
 
   <article class="card c-ink">
     <div class="top">
-      <span class="tag">Call 03 · Djokovic — resolved 07-13</span>
-      <span class="goth">31%</span>
+      <span class="tag">File 3 · CLAUDE.md</span>
+      <span class="goth">orders</span>
     </div>
-    <h2>Djokovic: point market, big.</h2>
-    <p class="one">Our widest miss. The model put <b>Djokovic to win Wimbledon at 31%</b>; the bookies said <b>14%</b>. He didn't win — resolved July 13. Brier: model <b>0.0961</b> vs market <b>0.0196</b>. Confidence has a price when you're wrong, and this is the call that swings the averages. Point market — and the reason the tally reads the way it does.</p>
-    <span class="proof">model 31% · bookies 14% → Brier 0.0961 vs 0.0196 · point MARKET</span>
+    <h2>Standing orders, every session.</h2>
+    <p class="one">Claude Code reads CLAUDE.md at the start of <b>every session</b> — so load it with everything the smart model learned: the exact commands, the real conventions, the never/always rules, the gotchas. This isn't a prompt trick you paste each time. The smart model writes it once, and every cheap session after starts from it — its logic, its standards, already on the page.</p>
+    <div class="snippet">
+      <div class="bar"><span class="f">CLAUDE.md · the skeleton</span><button class="snipbtn" type="button" data-copy-target="#tplClaude" data-copy-event="no018-copy-claudemd">Copy</button></div>
+      <pre id="tplClaude"># CLAUDE.md — standing orders (read at every session start)
+
+## What this is
+One line on the project + pointers to 01-overview.md and 02-gaps.md.
+
+## Commands
+Build / test / run / lint — exact commands, copy-paste ready.
+
+## Style
+The conventions actually used here, not aspirations.
+
+## Laws
+The never/always rules: "never edit X by hand", "always run tests before Y".
+
+## Gotchas
+What looks wrong but is intentional; what looks fine but bites.</pre>
+    </div>
+    <span class="proof">commands · style · laws · gotchas — read at every session start</span>
   </article>
 
 </section>
 
 <div class="fig">
   <h2 class="kick">Fig. 02 ·</h2>
-  <span class="gaccent">the tally</span>
+  <span class="gaccent">the three scopes</span>
   <span class="line"></span>
 </div>
 
 <section class="issues">
-  <article class="card c-cream" id="tally">
+  <article class="card c-orchid" id="scopes">
     <div class="top">
-      <span class="tag">The running record · as of 07-20</span>
-      <span class="goth">2–1</span>
+      <span class="tag">The footnote · where CLAUDE.md lives</span>
+      <span class="goth">scopes</span>
     </div>
-    <h2>Market 2, model 1 — published anyway.</h2>
-    <p class="one">Points: <b>market 2, model 1</b>. Mean Brier across the three calls: <b>market 0.025 vs model 0.037</b> — lower is better, so the market is ahead. We could have posted the France call alone and looked clever. Instead the whole card is here, because the point of this channel is a forecasting record you can check — not a highlight reel.</p>
-    <span class="stars">Market 2 · Model 1 · mean Brier 0.025 vs 0.037 · logged 06-30</span>
-  </article>
-
-  <article class="card c-ink" id="how">
-    <div class="top">
-      <span class="tag">The footnote · how we grade</span>
-      <span class="goth">how</span>
-    </div>
-    <h2>Logged before. Graded after. All of it.</h2>
-    <p class="one">Every call is logged publicly <b>before</b> the event, where we can't edit it. When the event resolves, it's graded with the <b>Brier score</b> — the gap between the probability we gave and what actually happened, squared. Lower is better, and it rewards honest probabilities, not lucky picks: a confident wrong call costs more than a humble one. And we publish wins <b>and</b> losses — because a record you can't lose isn't a record.</p>
-    <span class="stars">A public forecasting log · not betting advice</span>
+    <h2>There are actually three claude reads.</h2>
+    <p class="one">CLAUDE.md isn't one file — it's a hierarchy. <b>Machine</b>: <code>~/.claude/CLAUDE.md</code>, rules for every project you touch (your voice, your git habits). <b>Project</b>: the repo root — what this codebase is, its commands, its laws. That's the one the master prompt upgrades. <b>Working folder</b>: a CLAUDE.md inside a subfolder, loaded when Claude works there — rules for just that corner. They stack, and the most specific wins.</p>
+    <span class="stars">machine · project · working folder — they stack, most specific wins</span>
   </article>
 </section>
 
-<section class="ledger" aria-label="How the scorecard works">
-  <div class="lrow"><span class="n">01</span><span class="t">Log the call in public before the event — no edits after</span></div>
-  <div class="lrow"><span class="n">02</span><span class="t">Grade it with the Brier score when it resolves — lower is better</span></div>
-  <div class="lrow"><span class="n">03</span><span class="t">Publish the tally either way — today that's market 2, model 1</span></div>
+<section class="ledger" aria-label="How to run the system">
+  <div class="lrow"><span class="n">01</span><span class="t">Paste the master prompt into your smartest model — one run, from the repo root</span></div>
+  <div class="lrow"><span class="n">02</span><span class="t">Review + commit the 3 files it writes — read the gaps list before you trust it</span></div>
+  <div class="lrow"><span class="n">03</span><span class="t">Open your next cheap session — it reads CLAUDE.md and inherits the brain</span></div>
 </section>
 
 <section class="midcap" aria-label="Get the weekly pack">
@@ -127,13 +181,13 @@ context: final — Spain 1–0 Argentina (aet, Torres 106') · Jul 19 2026 · Me
 <section class="issues">
   <article class="card c-ink">
     <div class="top">
-      <span class="tag">Make your own calls</span>
-      <span class="goth">predict</span>
+      <span class="tag">Load the CLAUDE.md right</span>
+      <span class="goth">the rules</span>
     </div>
-    <h2>Run the same play yourself.</h2>
-    <p class="one">The numbers on this card come from the same discipline as the match-predictor prompt: force the AI onto pasted data, get real probabilities, check them against the market before you trust either. Copy the prompt, log your number before kickoff, grade yourself after. That's the whole system.</p>
+    <h2>Start from the 7 rules.</h2>
+    <p class="one">The upgraded CLAUDE.md the master prompt writes is repo-specific by design. Pair it with the 7 standing rules that work in any repo — plan first, explicit adds, show the diff — and the two files together are the whole discipline. Same drop-in format.</p>
     <div class="actions">
-      <a class="btn" data-goatcounter-click="no018-predictor" href="./no-017.html">The match-predictor prompt →</a>
+      <a class="btn" data-goatcounter-click="no018-rules" href="./no-010.html">The CLAUDE.md rules →</a>
     </div>
   </article>
 
@@ -142,8 +196,8 @@ context: final — Spain 1–0 Argentina (aet, Torres 106') · Jul 19 2026 · Me
       <span class="tag">No gate / no catch</span>
       <span class="goth">follow</span>
     </div>
-    <h2>That's the grade. Follow for the next card.</h2>
-    <p class="one">The scorecard keeps running — every new call gets logged before the event and graded here when it resolves. A new keyword drops daily on the reel, and followers catch it first. If an open record beats a highlight reel for you, the follow is the thank-you.</p>
+    <h2>That's the system. Follow for the next one.</h2>
+    <p class="one">One AI workflow you can copy, every day — a new keyword drops daily on the reel, and followers catch it first. If the brain files save your next session from starting blind, the follow is the thank-you.</p>
     <div class="actions">
       <a class="btn primary" data-goatcounter-click="no018-follow-instagram" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Follow @vektor.fm →</a>
     </div>
