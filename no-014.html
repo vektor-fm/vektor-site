@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en" id="top"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>vektor /// no. 014 — give claude code a memory.</title>
+<meta name="description" content="The claude-mem quick-start — the exact install steps and the real hook config, straight from the shipped hooks.json. Claude Code forgets everything when you close it; this fixes that. Free, no gate.">
+
+<!-- OG / social preview (traffic arrives via DM) -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Give Claude Code a memory. — vektor /// no. 014">
+<meta property="og:description" content="Claude Code forgets everything when you close it. claude-mem gives it memory across sessions. The exact install steps + the real hook config, with the traps. No gate.">
+<meta property="og:image" content="https://vektor-fm.github.io/vektor-site/og/no-014.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Give Claude Code a memory. — vektor /// no. 014">
+<meta property="og:site_name" content="vektor">
+<meta property="og:url" content="https://vektor-fm.github.io/vektor-site/no-014.html">
+<link rel="canonical" href="https://vektor-fm.github.io/vektor-site/no-014.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Give Claude Code a memory. — vektor /// no. 014">
+<meta name="twitter:description" content="Claude Code forgets everything when you close it. claude-mem gives it memory across sessions. The exact install steps + the real hook config, with the traps. No gate.">
+<meta name="twitter:image" content="https://vektor-fm.github.io/vektor-site/og/no-014.png">
+<meta name="theme-color" content="#101010">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23101010'/%3E%3Ctext x='30' y='48' font-family='Arial' font-size='46' font-weight='600' text-anchor='middle' fill='%23EFEADD'%3Ev%3C/text%3E%3Ccircle cx='52' cy='44' r='5' fill='%2339FF35'/%3E%3C/svg%3E">
+<link rel="preload" href="fonts/tektur-900-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/inter-tight-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+
+<style>
+@font-face { font-family: 'IBM Plex Mono'; font-style: normal; font-weight: 400; font-display: swap; src: url("fonts/ibm-plex-mono-400-latin.woff2") format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'IBM Plex Mono'; font-style: normal; font-weight: 500; font-display: swap; src: url("fonts/ibm-plex-mono-500-latin.woff2") format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'IBM Plex Mono'; font-style: normal; font-weight: 600; font-display: swap; src: url("fonts/ibm-plex-mono-600-latin.woff2") format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Inter Tight'; font-style: normal; font-weight: 600; font-display: swap; src: url("fonts/inter-tight-600-latin.woff2") format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Jacquard 24'; font-style: normal; font-weight: 400; font-display: swap; src: url("fonts/jacquard-24-400-latin.woff2") format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Tektur'; font-style: normal; font-weight: 900; font-stretch: 100%; font-display: swap; src: url("fonts/tektur-900-latin.woff2") format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Workbench'; font-style: normal; font-weight: 400; font-display: swap; src: url("fonts/workbench-400-latin.woff2") format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+</style>
+
+<style>
+  :root{
+    --ink:#101010; --paper:#EFEADD; --cream:#F4EFDF; --fog:#E8ECEA;
+    --orchid:#C77BC9; --aqua:#8FC5C9; --acid:#39FF35; --teal:#0E9C86;
+    --blue-a:#1B4FA0; --blue-b:#2B6BC4; --blue-c:#153A78; --blue-meta:#BFD9FF;
+    --disp:'Tektur',system-ui,sans-serif;
+    --kick:'Workbench','IBM Plex Mono',monospace;
+    --mono:'IBM Plex Mono',ui-monospace,monospace;
+    --goth:'Jacquard 24',serif;
+    --wm:'Inter Tight',system-ui,sans-serif;
+    --rail:clamp(18px,5.5vw,64px);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;}
+  body{ background:var(--ink); color:var(--paper); font-family:var(--mono); -webkit-font-smoothing:antialiased; line-height:1.5; overflow-x:hidden; }
+  a{color:inherit;}
+  ::selection{background:var(--acid); color:var(--ink);}
+  .kick{font-family:var(--kick); text-transform:uppercase; letter-spacing:0.14em; font-size:13px; line-height:1.4;}
+  .rule{font-family:var(--mono); color:rgba(239,234,221,0.4); overflow:hidden; white-space:nowrap; user-select:none;}
+  .disp{font-family:var(--disp); font-weight:900; text-transform:uppercase; line-height:1.02; letter-spacing:0.005em;}
+  .chrome{ position:sticky; top:0; z-index:50; background:var(--ink); border-bottom:1px solid #262626; display:flex; align-items:center; justify-content:space-between; height:64px; padding:0 var(--rail); }
+  .chrome .marker{font-family:var(--kick); text-transform:uppercase; letter-spacing:0.1em; font-size:13px; color:#8f8b80;}
+  @media (max-width:520px){ .chrome .marker{display:none;} }
+  .wm{position:relative; display:inline-flex; text-decoration:none; font-family:var(--wm); font-weight:600; letter-spacing:-0.045em; color:var(--paper); font-size:30px; line-height:1;}
+  .wm-main{position:relative; z-index:2; display:inline-flex;}
+  .wm-main .ch{position:relative; display:inline-block;}
+  .wm-main .ch .l{opacity:0; animation:showL .01s steps(1) forwards; animation-delay:calc(0.20s + var(--i)*0.075s);}
+  .wm-main .ch .g{position:absolute; left:0; top:0; font-family:var(--mono); color:var(--acid); opacity:0; animation:flashG .075s steps(1) forwards; animation-delay:calc(0.14s + var(--i)*0.075s);}
+  @keyframes showL{to{opacity:1;}}
+  @keyframes flashG{0%{opacity:1;}100%{opacity:0;}}
+  .wm-plate{position:absolute; left:0; top:0; z-index:1; mix-blend-mode:screen; pointer-events:none;}
+  .wm-acid{color:var(--acid); animation:regA 1.15s steps(1) forwards;}
+  .wm-orchid{color:var(--orchid); animation:regB 1.15s steps(1) forwards;}
+  @keyframes regA{0%{transform:translate(7px,4px);opacity:.85}30%{transform:translate(4px,2px)}55%{transform:translate(2px,1px)}78%{transform:translate(0,0);opacity:.5}100%{transform:translate(0,0);opacity:0}}
+  @keyframes regB{0%{transform:translate(-6px,-4px);opacity:.85}30%{transform:translate(-4px,-2px)}55%{transform:translate(-2px,-1px)}78%{transform:translate(0,0);opacity:.5}100%{transform:translate(0,0);opacity:0}}
+  @media (prefers-reduced-motion:reduce){ .wm-main .ch .l{opacity:1; animation:none;} .wm-main .ch .g,.wm-plate{display:none;} .wm-foot.play .ch2 .l{animation:none;} .wm-foot .ch2 .g{display:none;} }
+  .weave{ height:26px; width:min(230px,60vw); margin:0 0 0 var(--rail); background-color:var(--aqua); background-image: repeating-linear-gradient(90deg, rgba(16,16,16,.55) 0 3px, transparent 3px 9px), repeating-linear-gradient(0deg, rgba(16,16,16,.55) 0 3px, transparent 3px 9px), repeating-linear-gradient(90deg, rgba(255,255,255,.25) 0 1px, transparent 1px 9px); background-blend-mode:multiply; }
+  .hero{padding:38px var(--rail) 30px; position:relative;}
+  .hero .eye{color:var(--aqua); margin-bottom:20px;}
+  .hero h1{margin:0; font-size:clamp(40px,11vw,120px);}
+  .hero h1 .dot{color:var(--acid);}
+  .hero .sub{max-width:44ch; margin-top:24px; font-size:16px; line-height:1.55; color:var(--paper);}
+  .hero .rule{margin-top:34px; font-size:15px;}
+  .fig{padding:26px var(--rail) 6px; display:flex; align-items:center; gap:16px;}
+  .fig .kick{color:#8f8b80; white-space:nowrap;}
+  .fig .line{flex:1; height:1px; background:#2a2a2a;}
+  .fig h2{margin:0;}
+  .fig .gaccent{font-family:var(--goth); font-size:34px; color:var(--paper); line-height:0.7;}
+  .issues{padding:12px var(--rail) 0;}
+  .card{position:relative; margin:16px 0; padding:26px 24px 24px; overflow:hidden;}
+  .card .top{display:flex; align-items:flex-start; justify-content:space-between; gap:16px;}
+  .card .tag{font-family:var(--kick); text-transform:uppercase; letter-spacing:0.12em; font-size:13px;}
+  .card .goth{font-family:var(--goth); font-size:52px; line-height:0.8; margin-top:-6px;}
+  .card h2{font-family:var(--disp); font-weight:900; text-transform:uppercase; line-height:1; letter-spacing:0.005em; font-size:clamp(30px,8.5vw,56px); margin:18px 0 0; overflow-wrap:break-word;}
+  .card .one{font-size:15.5px; line-height:1.5; margin-top:12px; max-width:48ch;}
+  .card .proof{display:inline-block; margin-top:16px; font-family:var(--mono); font-size:13px; padding:8px 12px; background:var(--ink); color:var(--acid); border:1px solid #2a2a2a;}
+  .c-cream .proof,.c-aqua .proof{background:var(--ink); color:var(--acid);}
+  .card .stars{display:inline-block; margin-top:16px; font-family:var(--kick); text-transform:uppercase; letter-spacing:0.1em; font-size:12px; padding:8px 12px; background:var(--ink); color:var(--cream);}
+  .card .actions{display:flex; flex-wrap:wrap; gap:10px; margin-top:22px; align-items:stretch;}
+  .btn{ display:inline-flex; align-items:center; gap:8px; min-height:48px; padding:0 20px; font-family:var(--kick); text-transform:uppercase; letter-spacing:0.08em; font-size:14px; text-decoration:none; border:2px solid currentColor; background:transparent; cursor:pointer; }
+  .snippet{ position:relative; margin-top:18px; border:2px solid #3a3a3a; background:#0b0b0b; }
+  .snippet .bar{display:flex; align-items:center; justify-content:space-between; gap:10px; padding:8px 8px 8px 14px; border-bottom:1px solid #262626;}
+  .snippet .bar .f{font-family:var(--kick); text-transform:uppercase; letter-spacing:0.1em; font-size:12px; color:#8f8b80;}
+  .snippet pre{margin:0; padding:16px 14px; overflow-x:auto; max-height:60vh; overflow-y:auto; font-family:var(--mono); font-size:13px; line-height:1.55; color:var(--paper); white-space:pre-wrap; word-break:break-word;}
+  .snippet .snipbtn{flex:none; min-height:38px; padding:0 12px; font-family:var(--kick); text-transform:uppercase; letter-spacing:0.08em; font-size:12px; border:0; cursor:pointer; background:var(--acid); color:var(--ink);}
+  #shareBtn{display:none;}
+  .js #shareBtn{display:inline-flex;}
+  .ledger{padding:10px var(--rail) 6px;}
+  .lrow{display:flex; gap:18px; align-items:baseline; border-top:2px solid #2a2a2a; padding:20px 0;}
+  .lrow:last-of-type{border-bottom:2px solid #2a2a2a;}
+  .lrow .n{font-family:var(--disp); font-weight:900; font-size:40px; color:var(--aqua); flex:none; line-height:1;}
+  .lrow .t{font-family:var(--mono); font-size:15px; text-transform:uppercase; letter-spacing:0.04em; line-height:1.4;}
+  .c-aqua{background:var(--aqua); color:var(--ink);}
+  .c-cream{background:var(--cream); color:var(--ink);}
+  .c-aqua .goth,.c-cream .goth{color:var(--ink);}
+  .c-aqua .tag,.c-cream .tag{color:rgba(16,16,16,0.8);}
+  .c-aqua .btn,.c-cream .btn{color:var(--ink);}
+  .c-aqua .btn:hover,.c-cream .btn:hover{background:var(--ink); color:var(--paper);}
+  .c-ink{background:var(--ink); color:var(--paper); border:1px solid #2a2a2a;}
+  .c-ink .tag{color:#8f8b80;}
+  .c-ink .goth{color:var(--cream);}
+  .c-ink .btn{color:var(--cream); border-color:var(--cream);}
+  .c-ink .btn:hover{background:var(--cream); color:var(--ink);}
+  footer{margin-top:40px; padding:44px var(--rail) 60px; border-top:1px solid #262626;}
+  .foot-rule{font-size:15px; margin-bottom:34px;}
+  .news label{display:block; color:var(--acid); margin-bottom:12px;}
+  .news h2{margin:0 0 12px; font-weight:400;}
+  .news form{display:flex; gap:10px; flex-wrap:wrap; max-width:520px;}
+  .news input{flex:1 1 220px; min-height:48px; background:transparent; border:2px solid #3a3a3a; color:var(--paper); font-family:var(--mono); font-size:15px; padding:0 14px;}
+  .news input:focus{outline:none; border-color:var(--acid);}
+  .news .btn{color:var(--acid); border-color:var(--acid);}
+  .news .btn:hover{background:var(--acid); color:var(--ink);}
+  .news .note{font-size:12px; color:#8f8b80; margin-top:10px; letter-spacing:0.04em;}
+  .pack{display:flex; flex-wrap:wrap; gap:8px 22px; margin:12px 0 18px;}
+  .pack span{font-family:var(--mono); font-size:13.5px; color:#8f8b80;}
+  .pack span::before{content:"\25B8 "; color:var(--acid);}
+  .socials{display:flex; flex-wrap:wrap; gap:22px; margin-top:38px;}
+  .socials a{font-family:var(--kick); text-transform:uppercase; letter-spacing:0.1em; font-size:13px; color:#8f8b80; text-decoration:none; padding:12px 0; margin:-12px 0;}
+  .socials a:hover{color:var(--acid);}
+  .backref{margin-top:34px; font-family:var(--kick); text-transform:uppercase; letter-spacing:0.1em; font-size:13px; color:var(--paper);}
+  .backref b{color:var(--acid);}
+  .backref a{color:var(--acid);}
+  .wordmark-foot{display:flex; align-items:center; gap:14px; margin-top:40px;}
+  .wordmark-foot .m{font-family:var(--mono); font-size:12px; color:#8f8b80;}
+  .hero .actions{display:flex; flex-wrap:wrap; gap:10px; margin-top:26px;}
+  .hero .actions .btn{color:var(--paper); border-color:var(--paper);}
+  .hero .actions .btn:hover{background:var(--paper); color:var(--ink);}
+  .hero .actions .btn.primary{background:var(--aqua); color:var(--ink); border-color:var(--aqua);}
+  .hero .actions .btn.primary:hover{background:#a9d6da; color:var(--ink);}
+  .sticky-cta{position:fixed; left:0; right:0; bottom:0; z-index:60; background:var(--ink); border-top:1px solid #2a2a2a; display:flex; align-items:center; justify-content:space-between; gap:14px; padding:12px var(--rail) calc(12px + env(safe-area-inset-bottom)); transform:translateY(130%); transition:transform .3s ease;}
+  .sticky-cta.show{transform:translateY(0);}
+  .sticky-cta .t{font-family:var(--kick); text-transform:uppercase; letter-spacing:0.1em; font-size:13px; color:var(--paper);}
+  .sticky-cta .t b{color:var(--acid);}
+  .sticky-cta .r{display:flex; align-items:center; gap:8px; flex:none;}
+  .sticky-cta .go{min-height:44px; display:inline-flex; align-items:center; padding:0 18px; font-family:var(--kick); text-transform:uppercase; letter-spacing:0.08em; font-size:13px; background:var(--acid); color:var(--ink); text-decoration:none; border:0; cursor:pointer;}
+  .sticky-cta .x{background:none; border:0; color:#8f8b80; font-family:var(--mono); font-size:22px; line-height:1; min-width:44px; min-height:44px; display:inline-flex; align-items:center; justify-content:center; cursor:pointer;}
+  @media (max-width:560px){ .sticky-cta{padding:10px 16px calc(10px + env(safe-area-inset-bottom));} .sticky-cta .t{font-size:11.5px; letter-spacing:0.06em;} }
+  .wm-foot{position:relative; display:inline-flex; font-family:var(--wm); font-weight:600; letter-spacing:-0.045em; font-size:34px; color:var(--paper);}
+  .wm-foot .ch2{position:relative; display:inline-block;}
+  .wm-foot .ch2 .l{opacity:1;}
+  .wm-foot .ch2 .g{position:absolute; left:0; top:0; font-family:var(--mono); color:var(--acid); opacity:0;}
+  .wm-foot.play .ch2 .l{animation:revealL2 .01s steps(1) both; animation-delay:calc(0.16s + var(--i)*0.07s);}
+  .wm-foot.play .ch2 .g{animation:flashG2 .07s steps(1) both; animation-delay:calc(0.10s + var(--i)*0.07s);}
+  @keyframes revealL2{0%{opacity:0;}100%{opacity:1;}}
+  @keyframes flashG2{0%{opacity:1;}100%{opacity:0;}}
+</style>
+</head>
+<body>
+<script>document.documentElement.className='js';</script>
+
+<header class="chrome">
+  <a class="wm" href="./index.html" aria-label="vektor">
+    <span class="wm-plate wm-acid" aria-hidden="true">vektor</span>
+    <span class="wm-plate wm-orchid" aria-hidden="true">vektor</span>
+    <span class="wm-main">
+      <span class="ch" style="--i:0"><span class="g">%</span><span class="l">v</span></span><span class="ch" style="--i:1"><span class="g">#</span><span class="l">e</span></span><span class="ch" style="--i:2"><span class="g">Z</span><span class="l">k</span></span><span class="ch" style="--i:3"><span class="g">8</span><span class="l">t</span></span><span class="ch" style="--i:4"><span class="g">@</span><span class="l">o</span></span><span class="ch" style="--i:5"><span class="g">W</span><span class="l">r</span></span>
+    </span>
+  </a>
+  <span class="marker">This Week in AI · Memory</span>
+</header>
+
+<div class="sticky-cta" id="stickyCta" aria-hidden="true">
+  <span class="t">Next drop: <b>the keyword only lives on the reel</b></span>
+  <span class="r"><a class="go" data-goatcounter-click="no014-follow-sticky" href="https://www.instagram.com/vektor.fm/" target="_blank" rel="noopener">Follow →</a><button class="x" id="ctaClose" type="button" aria-label="Dismiss">×</button></span>
+</div>
+
+<div class="weave" aria-hidden="true"></div>
+
+<section class="hero">
+  <div class="kick eye">This Week in AI · Memory</div>
+  <h1 class="disp">Give it a<br>memory<span class="dot">.</span></h1>
+  <p class="sub">Claude Code forgets everything the moment you close it. <b>claude-mem</b> — a third-party repo at <b>87,572 stars</b> — hooks the session lifecycle and gives it memory across sessions. Here's what I promised: the exact install steps and the hook config that actually ships, pulled from the source and not from the README. Free, no gate. The traps are in here too.</p>
+  <div class="snippet" id="file">
+    <div class="bar"><span class="f">install · restart · the hooks that register</span><button class="snipbtn" id="snipCopy" type="button">Copy the install</button></div>
+    <pre id="snipText"># 1. INSTALL — one command, then restart Claude Code.
+npx claude-mem install
+
+# Prereq: Node.js 20+ (NOT auto-installed).
+# The installer is INTERACTIVE — it multi-selects your IDEs
+# and prompts for an LLM provider + API key.
+# Unattended:
+#   npx claude-mem install --ide claude-code --provider &lt;p&gt; --model &lt;m&gt;
+
+# TRAP — this is NOT the install:
+#   npm install -g claude-mem   # ← SDK/library ONLY.
+# No hooks. No worker. Nothing tells you why it does nothing.
+
+# Telemetry is ON by default. Opt out:
+npx claude-mem telemetry disable
+
+
+# 2. THE HOOK CONFIG — what actually registers.
+# Source of truth: the shipped plugin/hooks/hooks.json.
+# Five lifecycle hooks + a Setup version-check pre-hook.
+
+  SessionStart      startup|clear|compact   worker + inject context
+  UserPromptSubmit  —                       session-init
+  PreToolUse        Read  ← ONLY Read       file-context (async)
+  PostToolUse       *                       observation  (async)
+  Stop              —                       summarize    (async)
+
+# WARNING — the repo's README contradicts its own shipped config:
+# it lists SessionEnd (NOT registered) and omits PreToolUse (IS
+# registered). Debugging hooks? Read hooks.json, never the README.
+
+# ↓ The download has this + the commands, the 11 hosts, the caveats.</pre>
+  </div>
+  <div class="actions">
+    <a class="btn primary" data-goatcounter-click="no014-download-quickstart" href="./files/claude-mem-quickstart/README.md" download="claude-mem-quickstart.md">Download the quick-start ↓</a>
+    <a class="btn" href="#kit">The 3 pieces ↓</a>
+    <button class="btn" id="shareBtn" type="button">Send to a builder</button>
+  </div>
+  <div class="rule">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+</section>
+
+<div class="fig">
+  <h2 class="kick">Fig. 01 ·</h2>
+  <span class="gaccent">the three pieces</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues" id="kit">
+
+  <article class="card c-cream">
+    <div class="top">
+      <span class="tag">Piece 1 · the install</span>
+      <span class="goth">npx</span>
+    </div>
+    <h2>One command. Then restart.</h2>
+    <p class="one"><code>npx claude-mem install</code>, then restart Claude Code. That's the whole install. <b>Node.js 20+ is a real prerequisite and is not auto-installed.</b> The installer is interactive — it multi-selects your IDEs and prompts for an LLM provider plus an API key, so don't expect it to run silently. <b>The trap:</b> <code>npm install -g claude-mem</code> installs the SDK/library only — no plugin hooks, no worker service. You'd get the package and none of the behaviour, and nothing would tell you why.</p>
+    <span class="proof">npx claude-mem install · restart · node 20+ required</span>
+    <div class="actions">
+      <a class="btn" data-goatcounter-click="no014-download-install" href="./files/claude-mem-quickstart/README.md" download="claude-mem-quickstart.md">The install steps ↓</a>
+      <a class="btn" data-goatcounter-click="no014-repo" href="https://github.com/thedotmack/claude-mem" target="_blank" rel="noopener">The repo →</a>
+    </div>
+  </article>
+
+  <article class="card c-aqua">
+    <div class="top">
+      <span class="tag">Piece 2 · the hook config</span>
+      <span class="goth">hooks</span>
+    </div>
+    <h2>Read the json, not the readme.</h2>
+    <p class="one">Five lifecycle hooks register from the shipped <code>plugin/hooks/hooks.json</code>, plus a <code>Setup</code> version-check pre-hook: <code>SessionStart</code> (matcher <code>startup|clear|compact</code>), <code>UserPromptSubmit</code>, <code>PreToolUse</code>, <code>PostToolUse</code> (matcher <code>*</code>) and <code>Stop</code>. Two things worth knowing. <b>One:</b> <code>PreToolUse</code> fires on <code>Read</code> only — not on every tool call. <b>Two:</b> the repo's own README contradicts its shipped config — it lists <code>SessionEnd</code>, which isn't registered anywhere, and omits <code>PreToolUse</code>, which is. If you're debugging hooks, read <code>hooks.json</code>.</p>
+    <span class="proof">SessionStart · UserPromptSubmit · PreToolUse(Read) · PostToolUse(*) · Stop</span>
+  </article>
+
+  <article class="card c-ink">
+    <div class="top">
+      <span class="tag">Piece 3 · the caveats</span>
+      <span class="goth">read</span>
+    </div>
+    <h2>Genuinely useful. Genuinely young.</h2>
+    <p class="one">The honest half. <b>This is not an Anthropic project</b> — it's a third-party repo (Apache 2.0, last pushed 2026-07-16, actively maintained) that happens to have 87,572 stars. <b>Telemetry is on by default</b>; <code>npx claude-mem telemetry disable</code> turns it off. And the README-vs-config contradiction above is the kind of thing that costs you an evening. Read the source before you point it at anything sensitive.</p>
+    <span class="proof">apache 2.0 · not anthropic · telemetry on by default</span>
+    <div class="actions">
+      <a class="btn" data-goatcounter-click="no014-download-caveats" href="./files/claude-mem-quickstart/README.md" download="claude-mem-quickstart.md">The caveats ↓</a>
+    </div>
+  </article>
+
+</section>
+
+<div class="fig">
+  <h2 class="kick">Fig. 02 ·</h2>
+  <span class="gaccent">the run</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues">
+  <article class="card c-cream" id="howto">
+    <div class="top">
+      <span class="tag">How it works · three moves</span>
+      <span class="goth">setup</span>
+    </div>
+    <h2>Capture. Store. Restore.</h2>
+    <p class="one"><b>Capture</b> — the hooks watch the session: tool calls, decisions, file reads. <b>Store</b> — it compresses into a local SQLite database with AI-written summaries, plus a Chroma vector index for hybrid semantic + keyword search. <b>Restore</b> — next session, <code>SessionStart</code> injects the relevant slice back automatically. It runs across 11 hosts: claude-code, cursor, opencode, openclaw, windsurf, codex-cli, copilot-cli, antigravity, goose, roo-code, warp. <b>Not all equal:</b> Copilot CLI is MCP-only — you get search, but not automatic transcript capture. And <b>Gemini is not a host</b> — it's an LLM provider option, in the same slot as OpenRouter.</p>
+    <span class="stars">sqlite + chroma · 11 hosts · verified 2026-07-17 · no gate</span>
+    <div class="actions">
+      <a class="btn" data-goatcounter-click="no014-download-readme" href="./files/claude-mem-quickstart/README.md" download="claude-mem-quickstart.md">README — the 5-minute quick-start ↓</a>
+    </div>
+  </article>
+</section>
+
+<section class="ledger" aria-label="How to install claude-mem">
+  <div class="lrow"><span class="n">01</span><span class="t">Check Node 20+ · then run npx claude-mem install — not npm install -g</span></div>
+  <div class="lrow"><span class="n">02</span><span class="t">Answer the interactive prompts (IDEs, LLM provider, API key) · restart Claude Code</span></div>
+  <div class="lrow"><span class="n">03</span><span class="t">npx claude-mem status · npx claude-mem telemetry disable · read hooks.json, not the README</span></div>
+</section>
+
+<div class="fig">
+  <h2 class="kick">Fig. 03 ·</h2>
+  <span class="gaccent">what's next</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues">
+  <article class="card c-ink" id="next">
+    <div class="top">
+      <span class="tag">Next drop · daily</span>
+      <span class="goth">soon</span>
+    </div>
+    <h2>New keyword. Every day.</h2>
+    <p class="one">One AI teardown a day, and every issue delivers the goods — the keyword only lives on the reel, and followers catch it first.</p>
+    <div class="actions">
+      <a class="btn" data-goatcounter-click="no014-follow-next" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Follow @vektor.fm for the next one →</a>
+    </div>
+  </article>
+
+  <article class="card c-ink">
+    <div class="top">
+      <span class="tag">Give the memory something to remember</span>
+      <span class="goth">the loop</span>
+    </div>
+    <h2>Stop prompting. Write loops.</h2>
+    <p class="one">Memory is the <em>what it keeps</em>; a loop is the <em>what it does</em> — prompt, check the result against a real done-condition, re-run until it passes. About 20 lines, runnable tonight, plus the one-page why. Same drop-in format as this quick-start.</p>
+    <div class="actions">
+      <a class="btn" data-goatcounter-click="no014-loops" href="./no-015.html">The starter loop →</a>
+    </div>
+  </article>
+
+  <article class="card c-ink">
+    <div class="top">
+      <span class="tag">No gate / no catch</span>
+      <span class="goth">follow</span>
+    </div>
+    <h2>That's the quick-start. No gate, no catch.</h2>
+    <p class="one">This page exists because people follow. If claude-mem saves you an evening of re-explaining your project this week, the follow is the thank-you — one AI teardown, every day.</p>
+    <div class="actions">
+      <a class="btn" data-goatcounter-click="no014-follow-tiktok" href="https://tiktok.com/@vektor.fm" target="_blank" rel="noopener">TikTok →</a>
+      <a class="btn" data-goatcounter-click="no014-follow-instagram" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Instagram →</a>
+      <a class="btn" data-goatcounter-click="no014-follow-youtube" href="https://youtube.com/@vektorfm" target="_blank" rel="noopener">YouTube →</a>
+      <a class="btn" data-goatcounter-click="no014-follow-x" href="https://x.com/vektordotfm" target="_blank" rel="noopener">X →</a>
+    </div>
+  </article>
+</section>
+
+<footer>
+  <div class="rule foot-rule">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+
+  <div class="news" id="subscribe">
+    <h2 class="kick" style="color:var(--acid);">Get the pack — the working setup, one config</h2>
+    <div class="pack">
+      <span>The config pack</span><span>Claude Code settings</span><span>One teardown / week</span>
+    </div>
+    <form action="https://buttondown.com/api/emails/embed-subscribe/vektor" method="post">
+      <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
+      <button class="btn" type="submit">Send me the pack →</button>
+    </form>
+    <div class="note">Free. The config pack lands after you confirm your email. Unsubscribe anytime.</div>
+  </div>
+
+  <nav class="socials" aria-label="Social links">
+    <a data-goatcounter-click="no014-follow-tiktok-foot" href="https://tiktok.com/@vektor.fm" target="_blank" rel="noopener">TikTok · @vektor.fm</a>
+    <a data-goatcounter-click="no014-follow-instagram-foot" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Instagram · @vektor.fm</a>
+    <a data-goatcounter-click="no014-follow-youtube-foot" href="https://youtube.com/@vektorfm" target="_blank" rel="noopener">YouTube · @vektorfm</a>
+    <a data-goatcounter-click="no014-follow-x-foot" href="https://x.com/vektordotfm" target="_blank" rel="noopener">X · @vektordotfm</a>
+    <a href="./privacy.html">Privacy</a>
+  </nav>
+
+  <div class="backref">A new keyword drops every day — <b>it only lives on the reel</b> — follow @vektor.fm to catch it. Give the memory something to do: <a href="./no-015.html">The starter loop →</a> · <a href="./no-013.html">The agent starter kit →</a></div>
+
+  <div class="wordmark-foot">
+    <span class="wm-foot" id="wmFoot" aria-label="vektor"><span class="ch2" style="--i:0"><span class="g">%</span><span class="l">v</span></span><span class="ch2" style="--i:1"><span class="g">#</span><span class="l">e</span></span><span class="ch2" style="--i:2"><span class="g">Z</span><span class="l">k</span></span><span class="ch2" style="--i:3"><span class="g">8</span><span class="l">t</span></span><span class="ch2" style="--i:4"><span class="g">@</span><span class="l">o</span></span><span class="ch2" style="--i:5"><span class="g">W</span><span class="l">r</span></span></span>
+    <span class="m">/// no. 014 / memory / 07-2026 · the frontier, by the numbers</span>
+  </div>
+</footer>
+
+<script>
+  function fallback(text){ var t=document.createElement('textarea'); t.value=text; t.style.position='fixed'; t.style.opacity='0'; document.body.appendChild(t); t.focus(); t.select(); try{ document.execCommand('copy'); }catch(e){} document.body.removeChild(t); }
+  function copyText(text, btn, doneLabel){ var o=btn.textContent, done=function(){ btn.textContent=doneLabel; setTimeout(function(){btn.textContent=o;},1600); }; if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(done).catch(function(){ fallback(text); done(); }); } else { fallback(text); done(); } }
+  var snip=document.getElementById('snipCopy');
+  if(snip){ snip.addEventListener('click', function(){ var el=document.getElementById('snipText'); copyText(el.textContent, snip, 'Copied ✓'); if(window.goatcounter && goatcounter.count){ goatcounter.count({path:'no014-copy-install', event:true}); } }); }
+  var camp=(location.pathname.split('/').pop()||'index').replace(/\.html$/,'')||'index';
+  document.querySelectorAll('a[href^="http"]').forEach(function(a){ try{ var u=new URL(a.href); if(u.hostname==='github.com'){return;} if(!u.searchParams.has('utm_source')){ u.searchParams.set('utm_source','vektor'); u.searchParams.set('utm_medium','dm'); u.searchParams.set('utm_campaign',camp); a.href=u.toString(); } }catch(e){} });
+  var sh=document.getElementById('shareBtn');
+  if(sh){ sh.addEventListener('click', function(){ if(window.goatcounter && goatcounter.count){ goatcounter.count({path:'no014-share', event:true}); } if(navigator.share){ navigator.share({title:document.title, url:location.href}).catch(function(){}); } else { copyText(location.href, sh, 'Link copied — paste it ✓'); } }); }
+  var sticky=document.getElementById('stickyCta'), sub=document.getElementById('subscribe'), dismissed=false;
+  var cards=document.querySelectorAll('.issues .card'), lastCard=cards[cards.length-1];
+  function updCta(){ if(dismissed){return;} var seen=lastCard.getBoundingClientRect().bottom < window.innerHeight*0.6; var r=sub.getBoundingClientRect(); var subVisible=r.top<window.innerHeight && r.bottom>0; var show=seen && !subVisible; sticky.classList.toggle('show', show); sticky.setAttribute('aria-hidden', show?'false':'true'); }
+  window.addEventListener('scroll',updCta,{passive:true}); window.addEventListener('resize',updCta); updCta();
+  document.getElementById('ctaClose').addEventListener('click', function(){ dismissed=true; sticky.classList.remove('show'); sticky.setAttribute('aria-hidden','true'); });
+  var wmFoot=document.getElementById('wmFoot');
+  if(wmFoot && 'IntersectionObserver' in window){ var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ wmFoot.classList.remove('play'); void wmFoot.offsetWidth; wmFoot.classList.add('play'); } }); }, {threshold:0.6}); io.observe(wmFoot); }
+</script>
+
+<script data-goatcounter="https://vektor.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body></html>
