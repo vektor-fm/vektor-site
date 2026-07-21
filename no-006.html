@@ -573,10 +573,10 @@ Known mess / debt: …
   document.getElementById('ctaClose').addEventListener('click', function(){ dismissed=true; sticky.classList.remove('show'); sticky.setAttribute('aria-hidden','true'); });
   var wmFoot=document.getElementById('wmFoot');
   if(wmFoot && 'IntersectionObserver' in window){ var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ wmFoot.classList.remove('play'); void wmFoot.offsetWidth; wmFoot.classList.add('play'); } }); }, {threshold:0.6}); io.observe(wmFoot); }
-  // on-open pack popup — once per visitor (localStorage), dismissible (x / scrim / Esc)
-  (function(){ var pop=document.getElementById('packPop'); if(!pop){return;} var KEY='vektor_pack_seen';
-    try{ if(localStorage.getItem(KEY)){ return; } }catch(e){}
-    function seen(){ try{ localStorage.setItem(KEY,'1'); }catch(e){} }
+  // on-open pack popup — re-shows every 2 days (localStorage timestamp), dismissible (x / scrim / Esc)
+  (function(){ var pop=document.getElementById('packPop'); if(!pop){return;} var KEY='vektor_pack_seen', TTL=2*24*60*60*1000;
+    try{ var last=parseInt(localStorage.getItem(KEY)||'0',10); if(last && (Date.now()-last)<TTL){ return; } }catch(e){}
+    function seen(){ try{ localStorage.setItem(KEY, String(Date.now())); }catch(e){} }
     function esc(e){ if(e.key==='Escape'){ close(); } }
     function close(){ pop.setAttribute('hidden',''); seen(); document.removeEventListener('keydown',esc); }
     pop.querySelectorAll('[data-pop-close]').forEach(function(el){ el.addEventListener('click', close); });
