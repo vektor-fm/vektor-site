@@ -1,0 +1,30 @@
+{
+  "number": "020",
+  "title": "vektor /// no. 020 — the 4-subagent setup.",
+  "description": "The 4-subagent setup — four copy-paste Claude Code agent files (Explore, Plan, Implement, Review) that split one giant chat into a squad: each runs in its own context, returns only a summary, and they run in parallel. Free, no gate.",
+  "og_title": "The 4-subagent setup — vektor /// no. 020",
+  "og_description": "Stop running Claude Code in one giant chat. Four copy-paste agent files — Explore maps the code, Plan writes the steps, Implement ships one task, Review tears the diff apart — each in its own context, returning only a summary.",
+  "og_image": "https://vektor-fm.github.io/vektor-site/og/no-020.png",
+  "og_alt": "The 4-subagent setup — vektor /// no. 020",
+  "og_url": "https://vektor-fm.github.io/vektor-site/no-020.html",
+  "canonical": "https://vektor-fm.github.io/vektor-site/no-020.html",
+  "tw_title": "The 4-subagent setup — vektor /// no. 020",
+  "tw_description": "Stop running Claude Code in one giant chat. Four copy-paste agent files — Explore maps the code, Plan writes the steps, Implement ships one task, Review tears the diff apart — each in its own context, returning only a summary.",
+  "tw_image": "https://vektor-fm.github.io/vektor-site/og/no-020.png",
+  "marker": "This Week in AI · Subagents",
+  "sticky_text": "Next drop: <b>a new keyword daily on the reel</b>",
+  "backref_html": "<a href=\"./no-021.html\">No. 021 is live →</a> A new keyword drops every day — <b>catch it first on the reel</b> — follow @vektor.fm. Build your own roles: <a href=\"./no-013.html\">The agent starter kit →</a>",
+  "footer_meta": "/// no. 020 / the 4-subagent setup / 07-2026 · the frontier, by the numbers",
+  "copy_event": "no020-copy-kickoff",
+  "subscribe_track": true,
+  "slug": "no020",
+  "og_card": {
+    "accent": "#8FC5C9",
+    "kick": "This Week in AI · Subagents",
+    "h1_html": "4 subagents.<br>Not 1 chat<span class=\"dot\">.</span>",
+    "h1_size": 92,
+    "sub_mt": 18,
+    "sub_html": "Explore maps the code. Plan writes the steps. Implement ships one task. Review tears the diff apart — your main chat stays clean.",
+    "meta_html": "/// no. 020 / subagents / 07-2026 · <b>vektor-fm.github.io</b>"
+  }
+}

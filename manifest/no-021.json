@@ -1,0 +1,30 @@
+{
+  "number": "021",
+  "title": "vektor /// no. 021 — 9 open-source AI tools too good to be free",
+  "description": "The Open-Source Nine from NO. 021 — all nine tools with their real GitHub repos (including the three teased behind the comment gate). Every one free to self-host. As promised.",
+  "og_title": "9 tools too good to be free — vektor /// no. 021",
+  "og_description": "The Open-Source Nine — every real repo link, including the three I didn't show: Agent Reach, Agentic Inbox and Shepherd. 456k stars combined, all free to self-host.",
+  "og_image": "https://vektor-fm.github.io/vektor-site/og/no-021.png",
+  "og_alt": "9 tools too good to be free — vektor /// no. 021",
+  "og_url": "https://vektor-fm.github.io/vektor-site/no-021.html",
+  "canonical": "https://vektor-fm.github.io/vektor-site/no-021.html",
+  "tw_title": "9 tools too good to be free — vektor /// no. 021",
+  "tw_description": "The Open-Source Nine — every real repo link, including the three I didn't show: Agent Reach, Agentic Inbox and Shepherd. 456k stars combined, all free to self-host.",
+  "tw_image": "https://vektor-fm.github.io/vektor-site/og/no-021.png",
+  "marker": "This Week in AI · Open Source",
+  "sticky_text": "Follow <b>@vektor.fm</b> → a new keyword daily",
+  "backref_html": "A new keyword drops every day — <b>catch it first on the reel</b> — follow @vektor.fm. More free tools: <a href=\"./no-004.html\">The 5 Claude Code skills →</a>",
+  "footer_meta": "/// no. 021 / the open-source nine / 07-2026 · the frontier, by the numbers",
+  "copy_event": null,
+  "subscribe_track": true,
+  "slug": "no021",
+  "og_card": {
+    "accent": "#8FC5C9",
+    "kick": "This Week in AI · Open Source",
+    "h1_html": "9 tools too good<br>to be free<span class=\"dot\">.</span>",
+    "h1_size": 92,
+    "sub_mt": 18,
+    "sub_html": "The Open-Source Nine — every real repo link, all free to self-host. 456k GitHub stars, combined.",
+    "meta_html": "/// no. 021 / the open-source nine / 07-2026 · <b>vektor-fm.github.io</b>"
+  }
+}

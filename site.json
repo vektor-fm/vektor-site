@@ -1,9 +1,11 @@
 {
   "index": {
-    "lastmod": "2026-07-20",
-    "latest_cta": "Open the Academy hub →"
+    "lastmod": "2026-07-22",
+    "latest_cta": "Open the open-source nine →"
   },
   "issues": [
+    { "number": "021", "title_short": "9 tools too good to be free.", "section": "The Open-Source Nine", "date": "07-2026", "keyword": "Open", "lastmod": "2026-07-22", "built": true },
+    { "number": "020", "title_short": "4 subagents. Not 1 chat.", "section": "Subagents", "date": "07-2026", "keyword": "Squad", "lastmod": "2026-07-20", "built": true },
     { "number": "019", "title_short": "The Academy Series.", "section": "The Academy", "date": "07-2026", "keyword": "Academy", "lastmod": "2026-07-20", "built": true },
     { "number": "018", "title_short": "3 files. The brain, bottled.", "section": "Bottle the Brain", "date": "07-2026", "keyword": "Bottle", "lastmod": "2026-07-20", "built": true },
     { "number": "017", "title_short": "The match-predictor prompt.", "section": "AI vs the Final", "date": "07-2026", "keyword": "Final", "lastmod": "2026-07-19", "built": true },
