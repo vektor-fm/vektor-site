@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orbit · Habit tracking with gravity</title>
+<style>
+  /* ============ Tokens ============ */
+  :root {
+    --bg: #ffffff;
+    --ink: oklch(0.23 0.025 113);
+    --ink-soft: oklch(0.37 0.035 113);
+    --ink-faint: oklch(0.23 0.025 113 / 0.14);
+    --leaf: oklch(0.80 0.17 113);        /* chartreuse, the brand color */
+    --leaf-deep: oklch(0.46 0.10 113);   /* readable olive on white */
+    --moss: oklch(0.28 0.05 113);        /* dark surface */
+    --moss-edge: oklch(0.36 0.06 113);
+    --tint: oklch(0.965 0.025 113);      /* pale leaf panel tint */
+    --on-moss: oklch(0.965 0.015 113);
+    --on-moss-soft: oklch(0.82 0.03 113);
+
+    --sans: system-ui, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    --mono: ui-monospace, "Cascadia Mono", Consolas, "SF Mono", monospace;
+
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+    --ease-io: cubic-bezier(0.77, 0, 0.175, 1);
+
+    --measure: 62ch;
+    --gutter: clamp(1.25rem, 4vw, 3rem);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3 { text-wrap: balance; letter-spacing: -0.02em; line-height: 1.08; }
+  p { text-wrap: pretty; }
+
+  .shell { max-width: 72rem; margin-inline: auto; padding-inline: var(--gutter); }
+
+  ::selection { background: var(--leaf); color: var(--ink); }
+
+  /* ============ Nav ============ */
+  .nav {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 68px;
+  }
+  .wordmark {
+    display: flex; align-items: center; gap: 0.55rem;
+    font-weight: 700; font-size: 1.125rem; letter-spacing: -0.01em;
+    color: var(--ink); text-decoration: none;
+  }
+  .wordmark svg { display: block; }
+  .nav-links { display: flex; align-items: center; gap: 1.75rem; }
+  .nav-links a:not(.btn) {
+    color: var(--ink-soft); text-decoration: none; font-size: 0.95rem;
+    transition: color 150ms ease;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .nav-links a:not(.btn):hover { color: var(--ink); }
+  }
+  @media (max-width: 560px) { .nav-links a.quiet { display: none; } }
+
+  /* ============ Buttons ============ */
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-family: var(--sans); font-size: 1rem; font-weight: 600;
+    padding: 0.72rem 1.35rem; border-radius: 999px;
+    text-decoration: none; cursor: pointer; border: none;
+    transition: transform 160ms var(--ease-out), background-color 150ms ease, color 150ms ease;
+    white-space: nowrap;
+  }
+  .btn:active { transform: scale(0.97); }
+  .btn-ink { background: var(--ink); color: var(--leaf); }
+  .btn-leaf { background: var(--leaf); color: var(--ink); }
+  .btn-line {
+    background: transparent; color: var(--ink);
+    box-shadow: inset 0 0 0 1.5px var(--ink-faint);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .btn-ink:hover { background: var(--moss); }
+    .btn-leaf:hover { background: oklch(0.85 0.17 113); }
+    .btn-line:hover { box-shadow: inset 0 0 0 1.5px var(--ink); }
+  }
+  .btn.small { font-size: 0.9rem; padding: 0.5rem 1.05rem; }
+
+  /* ============ Hero ============ */
+  .hero {
+    display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 4fr);
+    gap: clamp(2rem, 5vw, 4.5rem);
+    align-items: center;
+    padding-block: clamp(2.5rem, 6vh, 5rem) clamp(1.5rem, 4vh, 2.75rem);
+  }
+  .hero h1 {
+    font-size: clamp(2.7rem, 6vw, 4.6rem);
+    font-weight: 750;
+    letter-spacing: -0.028em;
+    line-height: 1.02;
+  }
+  .hero h1 .accent { color: var(--leaf-deep); }
+  .hero .sub {
+    margin-top: 1.35rem;
+    max-width: 44ch;
+    font-size: clamp(1.05rem, 1.6vw, 1.2rem);
+    color: var(--ink-soft);
+  }
+  .hero .cta-row { margin-top: 2.1rem; display: flex; gap: 0.9rem; flex-wrap: wrap; align-items: center; }
+  .hero .cta-note {
+    margin-top: 1rem; font-family: var(--mono); font-size: 0.82rem;
+    color: var(--ink-soft); letter-spacing: 0.01em;
+  }
+
+  /* staggered load-in */
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .rise { animation: rise 450ms var(--ease-out) both; }
+  .rise.d1 { animation-delay: 60ms; }
+  .rise.d2 { animation-delay: 120ms; }
+  .rise.d3 { animation-delay: 180ms; }
+  .rise.d4 { animation-delay: 240ms; }
+
+  /* Orbit diagram */
+  .orbit-wrap { position: relative; min-width: 0; }
+  .orbit-wrap svg { display: block; width: 100%; height: auto; }
+  .spin {
+    transform-origin: 50% 50%;
+    transform-box: view-box;
+    animation: spin var(--dur, 60s) linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .orbit-label {
+    font-family: var(--mono);
+    font-size: 13.5px;
+    fill: var(--ink-soft);
+    letter-spacing: 0.02em;
+  }
+  .orbit-tick { stroke: var(--ink-soft); stroke-width: 1.25; }
+  .orbit-label.strong { fill: var(--ink); font-weight: 600; }
+
+  @media (max-width: 880px) {
+    .hero { grid-template-columns: 1fr; padding-block-start: 1.5rem; }
+    .orbit-wrap { max-width: 26rem; margin-inline: auto; }
+  }
+
+  /* ============ Sections ============ */
+  section { padding-block: clamp(3.5rem, 9vh, 6.5rem); }
+  .section-head {
+    font-size: clamp(1.8rem, 3.4vw, 2.6rem);
+    font-weight: 720;
+    letter-spacing: -0.022em;
+    max-width: 24ch;
+  }
+
+  /* Feature: month grid split */
+  .feature-split {
+    display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 5fr);
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: start;
+  }
+  .feature-split .copy { padding-top: 0.4rem; }
+  .feature-split .copy p {
+    margin-top: 1.1rem; color: var(--ink-soft); max-width: var(--measure);
+  }
+  .feature-split .copy .lede { color: var(--ink); }
+
+  .matrix-panel {
+    background: var(--tint);
+    border-radius: 14px;
+    padding: clamp(1.4rem, 3vw, 2.4rem);
+  }
+  .matrix-meta {
+    display: flex; justify-content: space-between; align-items: baseline;
+    font-family: var(--mono); font-size: 0.8rem; color: var(--ink-soft);
+    margin-bottom: 1.2rem;
+  }
+  .matrix-meta strong { color: var(--ink); font-weight: 600; }
+  .matrix {
+    display: grid; grid-template-columns: repeat(7, 1fr); gap: 9px;
+  }
+  .matrix i {
+    aspect-ratio: 1; border-radius: 50%;
+    background: var(--ink-faint);
+  }
+  .matrix i.on  { background: var(--leaf); }
+  .matrix i.deep{ background: var(--leaf-deep); }
+  .matrix i.today {
+    background: var(--ink);
+    animation: pulse 2.4s var(--ease-io) infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(0.82); }
+  }
+  .matrix-legend {
+    margin-top: 1.2rem; display: flex; gap: 1.4rem;
+    font-family: var(--mono); font-size: 0.74rem; color: var(--ink-soft);
+  }
+  .matrix-legend span { display: inline-flex; align-items: center; gap: 0.45rem; }
+  .matrix-legend b {
+    width: 10px; height: 10px; border-radius: 50%; display: inline-block;
+  }
+
+  @media (max-width: 820px) {
+    .feature-split { grid-template-columns: 1fr; }
+    .matrix-panel { max-width: 30rem; }
+  }
+
+  /* Feature trio: plain columns, no cards */
+  .trio {
+    margin-top: clamp(3.5rem, 8vh, 6rem);
+    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1.8rem, 4vw, 3.5rem);
+    border-top: 1px solid var(--ink-faint);
+    padding-top: clamp(2rem, 5vh, 3.2rem);
+  }
+  .trio h3 { font-size: 1.22rem; font-weight: 700; letter-spacing: -0.012em; }
+  .trio h3 em { font-style: normal; color: var(--leaf-deep); }
+  .trio p { margin-top: 0.7rem; color: var(--ink-soft); font-size: 0.99rem; }
+  @media (max-width: 720px) {
+    .trio { grid-template-columns: 1fr; gap: 2.2rem; }
+    .trio div { max-width: var(--measure); }
+  }
+
+  /* ============ Pricing ============ */
+  .pricing .section-head { margin-bottom: clamp(2rem, 5vh, 3.2rem); }
+  .plans {
+    display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+    align-items: stretch;
+  }
+  .plan { border-radius: 16px; padding: clamp(1.6rem, 3.5vw, 2.6rem); display: flex; flex-direction: column; }
+  .plan .tier { font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.04em; }
+  .plan .price {
+    margin-top: 0.9rem; font-weight: 750; letter-spacing: -0.03em;
+    font-size: clamp(2.2rem, 4vw, 3rem); line-height: 1;
+  }
+  .plan .price small { font-size: 0.42em; font-weight: 500; letter-spacing: 0; }
+  .plan ul { list-style: none; margin-top: 1.5rem; flex: 1; }
+  .plan li { padding-block: 0.5rem; display: flex; gap: 0.65rem; align-items: baseline; }
+  .plan li::before {
+    content: ""; flex: none; width: 8px; height: 8px; border-radius: 50%;
+    transform: translateY(-1px);
+  }
+  .plan .btn { margin-top: 1.6rem; align-self: flex-start; }
+
+  .plan-free { box-shadow: inset 0 0 0 1.5px var(--ink-faint); }
+  .plan-free .tier { color: var(--ink-soft); }
+  .plan-free li { color: var(--ink-soft); }
+  .plan-free li::before { background: var(--ink-faint); }
+
+  .plan-plus { background: var(--moss); color: var(--on-moss); }
+  .plan-plus .tier { color: var(--leaf); }
+  .plan-plus .price { color: var(--on-moss); }
+  .plan-plus .price small { color: var(--on-moss-soft); }
+  .plan-plus li { color: var(--on-moss-soft); line-height: 1.7; }
+  .plan-plus li strong { color: var(--on-moss); font-weight: 600; }
+  .plan-plus li::before { background: var(--leaf); }
+  .plan-plus ul { border-top: 1px solid var(--moss-edge); padding-top: 0.9rem; }
+
+  .pricing .fine {
+    margin-top: 1.6rem; font-size: 0.92rem; color: var(--ink-soft); max-width: var(--measure);
+  }
+
+  @media (max-width: 760px) { .plans { grid-template-columns: 1fr; } }
+
+  /* ============ CTA band ============ */
+  .band { background: var(--moss); color: var(--on-moss); }
+  .band .inner {
+    padding-block: clamp(4rem, 12vh, 7.5rem);
+    display: grid; gap: 1.4rem; justify-items: start;
+  }
+  .band h2 {
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    font-weight: 750; letter-spacing: -0.026em;
+    max-width: 18ch;
+  }
+  .band h2 .accent { color: var(--leaf); }
+  .band p { color: var(--on-moss-soft); max-width: 48ch; font-size: 1.1rem; }
+  .band .btn { margin-top: 0.6rem; }
+
+  /* ============ Footer ============ */
+  footer {
+    padding-block: 2.2rem;
+    display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+    flex-wrap: wrap;
+    font-size: 0.88rem; color: var(--ink-soft);
+  }
+  footer nav { display: flex; gap: 1.4rem; }
+  footer a { color: var(--ink-soft); text-decoration: none; transition: color 150ms ease; }
+  @media (hover: hover) and (pointer: fine) { footer a:hover { color: var(--ink); } }
+
+  /* ============ Reduced motion ============ */
+  @media (prefers-reduced-motion: reduce) {
+    .rise { animation: none; opacity: 1; transform: none; }
+    .spin { animation: none; }
+    .matrix i.today { animation: none; }
+    .btn { transition: background-color 150ms ease, color 150ms ease; }
+    .btn:active { transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="shell">
+  <div class="nav">
+    <a class="wordmark" href="#top" aria-label="Orbit home">
+      <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true">
+        <circle cx="13" cy="13" r="4.2" fill="oklch(0.23 0.025 113)"/>
+        <circle cx="13" cy="13" r="10.5" fill="none" stroke="oklch(0.23 0.025 113 / 0.25)" stroke-width="1.4"/>
+        <circle cx="13" cy="2.5" r="2.6" fill="oklch(0.80 0.17 113)"/>
+      </svg>
+      Orbit
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a class="quiet" href="#features">Features</a>
+      <a class="quiet" href="#pricing">Pricing</a>
+      <a class="btn btn-ink small" href="#start">Start free</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ============ Hero ============ -->
+  <div class="shell">
+    <section class="hero" style="padding-block-start: clamp(1.5rem, 4vh, 3.5rem);">
+      <div>
+        <h1 class="rise">Put your days<br>in <span class="accent">orbit.</span></h1>
+        <p class="sub rise d1">Track the few habits you actually repeat. One check-in a day, a pattern you can see, zero guilt mechanics.</p>
+        <div class="cta-row rise d2">
+          <a class="btn btn-ink" href="#start">Start free</a>
+          <a class="btn btn-line" href="#features">See how it works</a>
+        </div>
+        <p class="cta-note rise d3">iOS · Android · no account needed to begin</p>
+      </div>
+
+      <div class="orbit-wrap rise d2" role="img" aria-label="Diagram of three habits orbiting today: running on day 34, reading on day 12, sleep on day 8.">
+        <svg viewBox="0 0 620 560" aria-hidden="true">
+          <!-- orbital paths -->
+          <circle cx="280" cy="280" r="96"  fill="none" stroke="oklch(0.23 0.025 113 / 0.16)" stroke-width="1.5"/>
+          <circle cx="280" cy="280" r="162" fill="none" stroke="oklch(0.23 0.025 113 / 0.16)" stroke-width="1.5"/>
+          <circle cx="280" cy="280" r="228" fill="none" stroke="oklch(0.23 0.025 113 / 0.16)" stroke-width="1.5"/>
+
+          <!-- center: today -->
+          <circle cx="280" cy="280" r="13" fill="oklch(0.23 0.025 113)"/>
+          <text class="orbit-label strong" x="280" y="316" text-anchor="middle">today</text>
+
+          <!-- planets: each in its own rotating frame -->
+          <g class="spin" style="--dur: 38s;">
+            <circle cx="280" cy="184" r="11" fill="oklch(0.80 0.17 113)"/>
+          </g>
+          <g class="spin" style="--dur: 61s; animation-delay: -22s;">
+            <circle cx="280" cy="118" r="9" fill="oklch(0.46 0.10 113)"/>
+          </g>
+          <g class="spin" style="--dur: 89s; animation-delay: -47s;">
+            <circle cx="280" cy="52" r="7.5" fill="oklch(0.23 0.025 113)"/>
+          </g>
+
+          <!-- habit labels, each tied to its ring at the 45-degree point -->
+          <line class="orbit-tick" x1="348" y1="212" x2="364" y2="196"/>
+          <text class="orbit-label" x="370" y="192">Run · day 34</text>
+          <line class="orbit-tick" x1="395" y1="165" x2="411" y2="149"/>
+          <text class="orbit-label" x="417" y="145">Read · day 12</text>
+          <line class="orbit-tick" x1="441" y1="119" x2="457" y2="103"/>
+          <text class="orbit-label" x="463" y="99">Sleep · day 8</text>
+        </svg>
+      </div>
+    </section>
+  </div>
+
+  <!-- ============ Features ============ -->
+  <div class="shell">
+    <section id="features">
+      <div class="feature-split">
+        <div class="copy">
+          <h2 class="section-head">A month you can read at a glance.</h2>
+          <p class="lede">Every habit gets one dot per day. Thirty days fit in your palm, and the shape of your month is obvious before you can rationalize it.</p>
+          <p>No charts to interpret, no scores to chase. Just the honest geometry of what you did and when the pattern held.</p>
+        </div>
+        <figure class="matrix-panel" aria-label="Example month view: the habit Run, 26 of 30 days completed in June.">
+          <div class="matrix-meta"><strong>Run</strong><span>June · 26 / 30</span></div>
+          <div class="matrix" aria-hidden="true">
+            <i class="on"></i><i class="on"></i><i class="deep"></i><i class="on"></i><i class="on"></i><i></i><i class="on"></i>
+            <i class="on"></i><i class="deep"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i>
+            <i class="on"></i><i class="on"></i><i class="on"></i><i class="deep"></i><i class="on"></i><i class="on"></i><i class="on"></i>
+            <i class="on"></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="deep"></i><i class="on"></i>
+            <i class="on"></i><i class="on"></i><i class="today"></i><i></i><i></i><i></i><i></i>
+          </div>
+          <figcaption class="matrix-legend">
+            <span><b style="background: oklch(0.80 0.17 113);"></b>done</span>
+            <span><b style="background: oklch(0.46 0.10 113);"></b>done + note</span>
+            <span><b style="background: oklch(0.23 0.025 113);"></b>today</span>
+          </figcaption>
+        </figure>
+      </div>
+
+      <div class="trio">
+        <div>
+          <h3>Streaks that <em>bend</em>, not break.</h3>
+          <p>Miss a day and your orbit decays a little instead of collapsing to zero. Momentum is a curve, and Orbit treats it like one. Getting back on costs one check-in, not your whole history.</p>
+        </div>
+        <div>
+          <h3>Ten seconds a day.</h3>
+          <p>Check in from the lock-screen widget, your watch, or a notification you can answer without opening anything. The fastest habit tracker is the one that never interrupts the habit.</p>
+        </div>
+        <div>
+          <h3>Yours, not ours.</h3>
+          <p>Your data lives on your device. Sync is end-to-end encrypted, export is one tap and plain CSV, and there is no feed, no followers, and nothing to perform for.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ============ Pricing ============ -->
+  <div class="shell">
+    <section id="pricing" class="pricing">
+      <h2 class="section-head">Two plans. No decoys.</h2>
+      <div class="plans">
+        <div class="plan plan-free">
+          <span class="tier">FREE</span>
+          <p class="price">$0<small> forever</small></p>
+          <ul>
+            <li>Track up to 3 habits</li>
+            <li>Full month view and history</li>
+            <li>Widgets and reminders</li>
+            <li>One-tap CSV export</li>
+          </ul>
+          <a class="btn btn-line" href="#start">Start free</a>
+        </div>
+        <div class="plan plan-plus">
+          <span class="tier">ORBIT PLUS</span>
+          <p class="price">$4<small> / month, or $32 a year</small></p>
+          <ul>
+            <li><strong>Unlimited habits,</strong> with archived history for each</li>
+            <li><strong>Orbit view:</strong> every habit on one dial</li>
+            <li><strong>Grace days</strong> you can bank for travel</li>
+            <li><strong>Encrypted sync</strong> across devices</li>
+          </ul>
+          <a class="btn btn-leaf" href="#start">Try Plus</a>
+        </div>
+      </div>
+      <p class="fine">Everything in Free stays free. Plus exists because servers cost money, not because your streak is held hostage.</p>
+    </section>
+  </div>
+
+  <!-- ============ CTA ============ -->
+  <div class="band" id="start">
+    <div class="shell">
+      <div class="inner">
+        <h2>Start with <span class="accent">one habit.</span></h2>
+        <p>Pick the thing you keep meaning to do. Orbit will hold it in view every day until it holds itself.</p>
+        <a class="btn btn-leaf" href="#top">Start free</a>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer class="shell">
+  <span>© 2026 Orbit. Made for people who keep showing up.</span>
+  <nav aria-label="Footer">
+    <a href="#features">Features</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#top">Privacy</a>
+    <a href="#top">Support</a>
+  </nav>
+</footer>
+
+</body>
+</html>

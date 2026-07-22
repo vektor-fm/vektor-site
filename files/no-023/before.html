@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orbit — Build habits that stick</title>
+<style>
+  :root {
+    --bg: #0b0e1a;
+    --bg-soft: #12172b;
+    --card: #171d33;
+    --ink: #eef1fb;
+    --ink-dim: #9aa3c0;
+    --accent: #6c8cff;
+    --accent-2: #9d6cff;
+    --accent-soft: rgba(108, 140, 255, 0.14);
+    --border: rgba(255, 255, 255, 0.08);
+    --radius: 14px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ---------- Nav ---------- */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(11, 14, 26, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    font-size: 1.15rem;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .logo-mark {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 2px solid var(--accent);
+    position: relative;
+  }
+
+  .logo-mark::after {
+    content: "";
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent-2);
+    top: -3px;
+    right: -3px;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+
+  .nav-links a {
+    color: var(--ink-dim);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--ink); }
+
+  .btn {
+    display: inline-block;
+    padding: 12px 26px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: transform 0.15s, box-shadow 0.15s, background 0.2s;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    color: #fff;
+    box-shadow: 0 4px 20px rgba(108, 140, 255, 0.35);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(108, 140, 255, 0.45);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--border);
+  }
+
+  .btn-ghost:hover { background: var(--accent-soft); }
+
+  .btn-sm { padding: 9px 20px; font-size: 0.9rem; }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    padding: 110px 0 90px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: "";
+    position: absolute;
+    top: -220px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle, rgba(108, 140, 255, 0.18) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .eyebrow {
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    border: 1px solid rgba(108, 140, 255, 0.3);
+    color: var(--accent);
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 24px;
+  }
+
+  h1 {
+    font-size: clamp(2.4rem, 6vw, 4rem);
+    line-height: 1.12;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    max-width: 760px;
+    margin: 0 auto 22px;
+  }
+
+  h1 .grad {
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .hero p {
+    font-size: 1.2rem;
+    color: var(--ink-dim);
+    max-width: 620px;
+    margin: 0 auto 36px;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+  }
+
+  .hero-note {
+    font-size: 0.85rem;
+    color: var(--ink-dim);
+  }
+
+  /* orbit visual */
+  .orbit-visual {
+    margin: 70px auto 0;
+    width: 320px;
+    height: 320px;
+    position: relative;
+  }
+
+  .ring {
+    position: absolute;
+    inset: 0;
+    border: 1px dashed rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+  }
+
+  .ring.r2 { inset: 45px; }
+  .ring.r3 { inset: 95px; }
+
+  .core {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 70px;
+    height: 70px;
+    margin: -35px 0 0 -35px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    box-shadow: 0 0 50px rgba(124, 108, 255, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+  }
+
+  .sat {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 16px;
+    height: 16px;
+    margin: -8px 0 0 -8px;
+    border-radius: 50%;
+    background: var(--ink);
+  }
+
+  .orbit-path {
+    position: absolute;
+    inset: 0;
+    animation: spin 14s linear infinite;
+  }
+
+  .orbit-path.p2 { inset: 45px; animation-duration: 9s; animation-direction: reverse; }
+  .orbit-path.p3 { inset: 95px; animation-duration: 6s; }
+
+  .orbit-path .sat { top: 0; left: 50%; margin: -8px 0 0 -8px; }
+  .orbit-path.p2 .sat { background: var(--accent); }
+  .orbit-path.p3 .sat { background: var(--accent-2); }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .orbit-path { animation: none; }
+  }
+
+  /* ---------- Sections ---------- */
+  section { padding: 90px 0; }
+
+  .section-head {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto 56px;
+  }
+
+  h2 {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 14px;
+  }
+
+  .section-head p {
+    color: var(--ink-dim);
+    font-size: 1.05rem;
+  }
+
+  /* ---------- Features ---------- */
+  #features { background: var(--bg-soft); }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 22px;
+  }
+
+  .feature {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 30px 26px;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+
+  .feature:hover {
+    transform: translateY(-4px);
+    border-color: rgba(108, 140, 255, 0.4);
+  }
+
+  .feature-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: var(--accent-soft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    margin-bottom: 18px;
+  }
+
+  .feature h3 {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+  }
+
+  .feature p {
+    color: var(--ink-dim);
+    font-size: 0.95rem;
+  }
+
+  /* ---------- Stats strip ---------- */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 20px;
+    text-align: center;
+  }
+
+  .stat-num {
+    font-size: 2.4rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .stat-label {
+    color: var(--ink-dim);
+    font-size: 0.9rem;
+  }
+
+  /* ---------- Pricing ---------- */
+  #pricing { background: var(--bg-soft); }
+
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 22px;
+    align-items: stretch;
+    max-width: 920px;
+    margin: 0 auto;
+  }
+
+  .plan {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 34px 28px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .plan.featured {
+    border-color: var(--accent);
+    box-shadow: 0 10px 40px rgba(108, 140, 255, 0.2);
+    position: relative;
+  }
+
+  .plan-badge {
+    position: absolute;
+    top: -13px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 4px 14px;
+    border-radius: 999px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .plan h3 {
+    font-size: 1.05rem;
+    margin-bottom: 10px;
+  }
+
+  .price {
+    font-size: 2.4rem;
+    font-weight: 800;
+    margin-bottom: 4px;
+  }
+
+  .price span {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--ink-dim);
+  }
+
+  .plan-desc {
+    color: var(--ink-dim);
+    font-size: 0.9rem;
+    margin-bottom: 22px;
+  }
+
+  .plan ul {
+    list-style: none;
+    margin-bottom: 28px;
+    flex-grow: 1;
+  }
+
+  .plan li {
+    padding: 7px 0;
+    font-size: 0.95rem;
+    color: var(--ink);
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
+  }
+
+  .plan li::before {
+    content: "✓";
+    color: var(--accent);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .plan .btn { text-align: center; }
+
+  /* ---------- CTA ---------- */
+  .cta-box {
+    text-align: center;
+    background: linear-gradient(135deg, rgba(108, 140, 255, 0.15), rgba(157, 108, 255, 0.15));
+    border: 1px solid rgba(108, 140, 255, 0.3);
+    border-radius: 22px;
+    padding: 70px 30px;
+  }
+
+  .cta-box h2 { margin-bottom: 12px; }
+
+  .cta-box p {
+    color: var(--ink-dim);
+    max-width: 520px;
+    margin: 0 auto 30px;
+  }
+
+  /* ---------- Footer ---------- */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 40px 0;
+  }
+
+  .footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+    color: var(--ink-dim);
+    font-size: 0.9rem;
+  }
+
+  .footer-inner a {
+    color: var(--ink-dim);
+    text-decoration: none;
+    margin-left: 20px;
+  }
+
+  .footer-inner a:hover { color: var(--ink); }
+
+  @media (max-width: 640px) {
+    .nav-links a:not(.btn) { display: none; }
+    .hero { padding: 70px 0 60px; }
+    section { padding: 64px 0; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <nav>
+      <a class="logo" href="#">
+        <span class="logo-mark" aria-hidden="true"></span>
+        Orbit
+      </a>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#cta" class="btn btn-primary btn-sm">Get started</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <span class="eyebrow">Habit tracking, minus the guilt</span>
+      <h1>Build habits that <span class="grad">stay in orbit</span></h1>
+      <p>
+        Orbit turns your daily routines into momentum. Track streaks, see your
+        progress at a glance, and let gentle nudges keep every habit circling back —
+        day after day.
+      </p>
+      <div class="hero-ctas">
+        <a href="#pricing" class="btn btn-primary">Start free</a>
+        <a href="#features" class="btn btn-ghost">See how it works</a>
+      </div>
+      <div class="hero-note">Free forever plan · No credit card required</div>
+
+      <div class="orbit-visual" aria-hidden="true">
+        <div class="ring"></div>
+        <div class="ring r2"></div>
+        <div class="ring r3"></div>
+        <div class="orbit-path"><span class="sat"></span></div>
+        <div class="orbit-path p2"><span class="sat"></span></div>
+        <div class="orbit-path p3"><span class="sat"></span></div>
+        <div class="core">ORBIT</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="features">
+    <div class="container">
+      <div class="section-head">
+        <h2>Everything you need to stay consistent</h2>
+        <p>Small tools, thoughtfully built, that make showing up every day feel effortless.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature">
+          <div class="feature-icon" aria-hidden="true">🔥</div>
+          <h3>Streaks that motivate</h3>
+          <p>Watch your chains grow day by day. Miss a day? Streak freezes protect your progress instead of punishing you.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon" aria-hidden="true">📊</div>
+          <h3>Insightful analytics</h3>
+          <p>Weekly and monthly views reveal your patterns — best days, tough weeks, and the habits that actually stick.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon" aria-hidden="true">🔔</div>
+          <h3>Smart reminders</h3>
+          <p>Nudges that adapt to your schedule and quiet down when you're on a roll. Helpful, never nagging.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon" aria-hidden="true">🎯</div>
+          <h3>Flexible goals</h3>
+          <p>Daily, weekly, or "3 times a week" — define habits the way life actually works, not the way an app demands.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon" aria-hidden="true">🤝</div>
+          <h3>Accountability circles</h3>
+          <p>Share progress with friends or keep it private. A little friendly visibility goes a long way.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon" aria-hidden="true">🌙</div>
+          <h3>Works everywhere</h3>
+          <p>Phone, tablet, desktop — your habits sync instantly across devices, online or off.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section>
+    <div class="container">
+      <div class="stats">
+        <div>
+          <div class="stat-num">120k+</div>
+          <div class="stat-label">habits tracked daily</div>
+        </div>
+        <div>
+          <div class="stat-num">87%</div>
+          <div class="stat-label">of users keep a 30-day streak</div>
+        </div>
+        <div>
+          <div class="stat-num">4.8★</div>
+          <div class="stat-label">average app store rating</div>
+        </div>
+        <div>
+          <div class="stat-num">2 min</div>
+          <div class="stat-label">average daily check-in</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section id="pricing">
+    <div class="container">
+      <div class="section-head">
+        <h2>Simple, honest pricing</h2>
+        <p>Start free. Upgrade when you want deeper insights and unlimited habits.</p>
+      </div>
+      <div class="pricing-grid">
+        <div class="plan">
+          <h3>Free</h3>
+          <div class="price">$0 <span>/ forever</span></div>
+          <p class="plan-desc">For getting your first habits off the ground.</p>
+          <ul>
+            <li>Up to 3 habits</li>
+            <li>Daily streak tracking</li>
+            <li>Basic reminders</li>
+            <li>7-day history</li>
+          </ul>
+          <a href="#cta" class="btn btn-ghost">Get started</a>
+        </div>
+
+        <div class="plan featured">
+          <span class="plan-badge">Most popular</span>
+          <h3>Pro</h3>
+          <div class="price">$4 <span>/ month</span></div>
+          <p class="plan-desc">For building a full routine that lasts.</p>
+          <ul>
+            <li>Unlimited habits</li>
+            <li>Advanced analytics &amp; trends</li>
+            <li>Streak freezes</li>
+            <li>Smart adaptive reminders</li>
+            <li>Full history, forever</li>
+          </ul>
+          <a href="#cta" class="btn btn-primary">Start 14-day trial</a>
+        </div>
+
+        <div class="plan">
+          <h3>Teams</h3>
+          <div class="price">$3 <span>/ user / month</span></div>
+          <p class="plan-desc">For groups, clubs, and workplaces building habits together.</p>
+          <ul>
+            <li>Everything in Pro</li>
+            <li>Shared accountability circles</li>
+            <li>Group challenges</li>
+            <li>Admin dashboard</li>
+          </ul>
+          <a href="#cta" class="btn btn-ghost">Contact us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="cta">
+    <div class="container">
+      <div class="cta-box">
+        <h2>Your future self is waiting</h2>
+        <p>
+          Join thousands of people turning small daily actions into lasting change.
+          It takes two minutes to set up your first habit.
+        </p>
+        <a href="#" class="btn btn-primary">Start tracking free</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div>© 2026 Orbit. Keep good habits in motion.</div>
+      <div>
+        <a href="#features">Features</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

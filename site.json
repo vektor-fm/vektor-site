@@ -1,9 +1,27 @@
 {
   "index": {
     "lastmod": "2026-07-22",
-    "latest_cta": "Open the open-source nine →"
+    "latest_cta": "Open the mirror →"
   },
   "issues": [
+    {
+      "number": "024",
+      "title_short": "Your AI habits. Audited.",
+      "section": "The Mirror",
+      "date": "07-2026",
+      "keyword": "Mirror",
+      "lastmod": "2026-07-22",
+      "built": true
+    },
+    {
+      "number": "023",
+      "title_short": "3 skills. Taste, installed.",
+      "section": "The Design Stack",
+      "date": "07-2026",
+      "keyword": "Taste",
+      "lastmod": "2026-07-22",
+      "built": true
+    },
     {
       "number": "022",
       "title_short": "33 AI tells. Deleted.",
