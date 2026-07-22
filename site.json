@@ -4,21 +4,158 @@
     "latest_cta": "Open the open-source nine →"
   },
   "issues": [
-    { "number": "021", "title_short": "9 tools too good to be free.", "section": "The Open-Source Nine", "date": "07-2026", "keyword": "Open", "lastmod": "2026-07-22", "built": true },
-    { "number": "020", "title_short": "4 subagents. Not 1 chat.", "section": "Subagents", "date": "07-2026", "keyword": "Squad", "lastmod": "2026-07-20", "built": true },
-    { "number": "019", "title_short": "The Academy Series.", "section": "The Academy", "date": "07-2026", "keyword": "Academy", "lastmod": "2026-07-20", "built": true },
-    { "number": "018", "title_short": "3 files. The brain, bottled.", "section": "Bottle the Brain", "date": "07-2026", "keyword": "Bottle", "lastmod": "2026-07-20", "built": true },
-    { "number": "017", "title_short": "The match-predictor prompt.", "section": "AI vs the Final", "date": "07-2026", "keyword": "Final", "lastmod": "2026-07-19", "built": true },
-    { "number": "015", "title_short": "Stop prompting. Write loops.", "section": "Loops", "date": "07-2026", "keyword": "Loop", "lastmod": "2026-07-16", "built": true },
-    { "number": "013", "title_short": "Hire your first AI agent.", "section": "Agents", "date": "07-2026", "keyword": "Agent", "lastmod": "2026-07-15", "built": true },
-    { "number": "012", "title_short": "6 rules. Your repo survives.", "section": "Git Hygiene", "date": "07-2026", "keyword": "Repo", "lastmod": "2026-07-15", "built": true },
-    { "number": "011", "title_short": "Faster. Cheaper. 3 rules.", "section": "The Rules · Part 2", "date": "07-2026", "keyword": "Speed", "lastmod": "2026-07-13", "built": true },
-    { "number": "010", "title_short": "7 rules. One file.", "section": "The Rules", "date": "07-2026", "keyword": "Rules", "lastmod": "2026-07-13", "built": true },
-    { "number": "009", "title_short": "One prompt. Every carousel.", "section": "The Carousel", "date": "07-2026", "keyword": "Carousel", "lastmod": "2026-07-14", "built": true },
-    { "number": "008", "title_short": "120,000 chars. Leaked.", "section": "The Leak", "date": "07-2026", "keyword": "Steal", "lastmod": "2026-07-14", "built": true },
-    { "number": "007", "title_short": "1.6M lines. On iPhone.", "section": "The Port", "date": "07-2026", "keyword": "Generals", "lastmod": "2026-07-14", "built": true },
-    { "number": "006", "title_short": "One file. 188,000 stars.", "section": "The File", "date": "07-2026", "keyword": "Karpathy", "lastmod": "2026-07-14", "built": true },
-    { "number": "005", "title_short": "Code with AI. Keep your brain.", "section": "Four Rules", "date": "07-2026", "keyword": "Brain", "lastmod": "2026-07-14", "built": true },
-    { "number": "004", "title_short": "You only need 5 skills.", "section": "Five Skills", "date": "07-2026", "keyword": "Claude", "lastmod": "2026-07-05", "built": true }
+    {
+      "number": "022",
+      "title_short": "33 AI tells. Deleted.",
+      "section": "The Humanizer",
+      "date": "07-2026",
+      "keyword": "Human",
+      "lastmod": "2026-07-22",
+      "built": true
+    },
+    {
+      "number": "021",
+      "title_short": "9 tools too good to be free.",
+      "section": "The Open-Source Nine",
+      "date": "07-2026",
+      "keyword": "Open",
+      "lastmod": "2026-07-22",
+      "built": true
+    },
+    {
+      "number": "020",
+      "title_short": "4 subagents. Not 1 chat.",
+      "section": "Subagents",
+      "date": "07-2026",
+      "keyword": "Squad",
+      "lastmod": "2026-07-20",
+      "built": true
+    },
+    {
+      "number": "019",
+      "title_short": "The Academy Series.",
+      "section": "The Academy",
+      "date": "07-2026",
+      "keyword": "Academy",
+      "lastmod": "2026-07-20",
+      "built": true
+    },
+    {
+      "number": "018",
+      "title_short": "3 files. The brain, bottled.",
+      "section": "Bottle the Brain",
+      "date": "07-2026",
+      "keyword": "Bottle",
+      "lastmod": "2026-07-20",
+      "built": true
+    },
+    {
+      "number": "017",
+      "title_short": "The match-predictor prompt.",
+      "section": "AI vs the Final",
+      "date": "07-2026",
+      "keyword": "Final",
+      "lastmod": "2026-07-19",
+      "built": true
+    },
+    {
+      "number": "015",
+      "title_short": "Stop prompting. Write loops.",
+      "section": "Loops",
+      "date": "07-2026",
+      "keyword": "Loop",
+      "lastmod": "2026-07-16",
+      "built": true
+    },
+    {
+      "number": "013",
+      "title_short": "Hire your first AI agent.",
+      "section": "Agents",
+      "date": "07-2026",
+      "keyword": "Agent",
+      "lastmod": "2026-07-15",
+      "built": true
+    },
+    {
+      "number": "012",
+      "title_short": "6 rules. Your repo survives.",
+      "section": "Git Hygiene",
+      "date": "07-2026",
+      "keyword": "Repo",
+      "lastmod": "2026-07-15",
+      "built": true
+    },
+    {
+      "number": "011",
+      "title_short": "Faster. Cheaper. 3 rules.",
+      "section": "The Rules · Part 2",
+      "date": "07-2026",
+      "keyword": "Speed",
+      "lastmod": "2026-07-13",
+      "built": true
+    },
+    {
+      "number": "010",
+      "title_short": "7 rules. One file.",
+      "section": "The Rules",
+      "date": "07-2026",
+      "keyword": "Rules",
+      "lastmod": "2026-07-13",
+      "built": true
+    },
+    {
+      "number": "009",
+      "title_short": "One prompt. Every carousel.",
+      "section": "The Carousel",
+      "date": "07-2026",
+      "keyword": "Carousel",
+      "lastmod": "2026-07-14",
+      "built": true
+    },
+    {
+      "number": "008",
+      "title_short": "120,000 chars. Leaked.",
+      "section": "The Leak",
+      "date": "07-2026",
+      "keyword": "Steal",
+      "lastmod": "2026-07-14",
+      "built": true
+    },
+    {
+      "number": "007",
+      "title_short": "1.6M lines. On iPhone.",
+      "section": "The Port",
+      "date": "07-2026",
+      "keyword": "Generals",
+      "lastmod": "2026-07-14",
+      "built": true
+    },
+    {
+      "number": "006",
+      "title_short": "One file. 188,000 stars.",
+      "section": "The File",
+      "date": "07-2026",
+      "keyword": "Karpathy",
+      "lastmod": "2026-07-14",
+      "built": true
+    },
+    {
+      "number": "005",
+      "title_short": "Code with AI. Keep your brain.",
+      "section": "Four Rules",
+      "date": "07-2026",
+      "keyword": "Brain",
+      "lastmod": "2026-07-14",
+      "built": true
+    },
+    {
+      "number": "004",
+      "title_short": "You only need 5 skills.",
+      "section": "Five Skills",
+      "date": "07-2026",
+      "keyword": "Claude",
+      "lastmod": "2026-07-05",
+      "built": true
+    }
   ]
 }
