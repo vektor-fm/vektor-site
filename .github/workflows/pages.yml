@@ -1,0 +1,63 @@
+# Deploys vektor-site to GitHub Pages.
+#
+# Replaces the legacy branch build, which failed on 2026-08-06 with no
+# diagnostic beyond "Page build failed." on two consecutive commits. This site
+# is fully static and carries a .nojekyll, so there is nothing to build: the
+# workflow uploads the repo as-is and deploys it. The value over the legacy
+# builder is that a failure now produces a readable log.
+name: Deploy Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# GITHUB_TOKEN needs these for the deploy-pages action to mint its OIDC token.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Never let two deploys race; queue instead of cancelling, so a push that
+# lands mid-deploy still ships rather than being silently dropped.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      # A green deploy does not prove the page is reachable — the legacy
+      # builder reported success shapes while serving 404s. Assert the pages
+      # the DM funnel actually points at.
+      - name: Verify the funnel's pages resolve
+        run: |
+          base="${{ steps.deployment.outputs.page_url }}"
+          base="${base%/}"
+          fail=0
+          for p in index.html no-026.html no-030.html no-031.html \
+                   og/no-026.png files/analyst-skill/SKILL.md; do
+            code=$(curl -s -o /dev/null -w '%{http_code}' -L --retry 5 --retry-delay 5 "$base/$p")
+            printf '%-40s %s\n' "$p" "$code"
+            [ "$code" = "200" ] || fail=1
+          done
+          exit $fail
