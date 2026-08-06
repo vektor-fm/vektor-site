@@ -2,24 +2,24 @@
 <html lang="en" id="top"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>vektor /// no. 025 — the council: stop using Claude as a yes-man</title>
-<meta name="description" content="The Council from NO. 025 — the Claude skill that runs your question through 5 adversarial agents, 5 peer reviewers and a chairman verdict. The real SKILL.md, install steps, and the run we did on our own decision. As promised.">
+<title>the state file — vektor /// no. 026</title>
+<meta name="description" content="The Analyst from NO. 026 - the research loop that compounds instead of restarting. A weighted framework, an append-only state file, a checker that argues back, and a schedule. The real SKILL.md and the state-file schema, free on the page.">
 
 <!-- OG / social preview (traffic arrives via DM) -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="The Council — vektor /// no. 025">
-<meta property="og:description" content="Stop using Claude as a yes-man — 5 adversarial agents, blind peer review, one chairman verdict. The real skill file + the run we did on our own decision.">
-<meta property="og:image" content="https://vektor-fm.github.io/vektor-site/og/no-025.png">
+<meta property="og:title" content="the state file — vektor /// no. 026">
+<meta property="og:description" content="Most agents research well once, then start from zero. The state file is what makes the fifth run better than the first. Real SKILL.md + schema on the page.">
+<meta property="og:image" content="https://vektor-fm.github.io/vektor-site/og/no-026.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="The Council — vektor /// no. 025">
+<meta property="og:image:alt" content="the state file - vektor /// no. 026">
 <meta property="og:site_name" content="vektor">
-<meta property="og:url" content="https://vektor-fm.github.io/vektor-site/no-025.html">
-<link rel="canonical" href="https://vektor-fm.github.io/vektor-site/no-025.html">
+<meta property="og:url" content="https://vektor-fm.github.io/vektor-site/no-026.html">
+<link rel="canonical" href="https://vektor-fm.github.io/vektor-site/no-026.html">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The Council — vektor /// no. 025">
-<meta name="twitter:description" content="Stop using Claude as a yes-man — 5 adversarial agents, blind peer review, one chairman verdict. The real skill file + our own run.">
-<meta name="twitter:image" content="https://vektor-fm.github.io/vektor-site/og/no-025.png">
+<meta name="twitter:title" content="the state file — vektor /// no. 026">
+<meta name="twitter:description" content="A weighted framework, an append-only state file, a checker that argues back, a schedule. The real SKILL.md is on the page.">
+<meta name="twitter:image" content="https://vektor-fm.github.io/vektor-site/og/no-026.png">
 <meta name="theme-color" content="#101010">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23101010'/%3E%3Ctext x='30' y='48' font-family='Arial' font-size='46' font-weight='600' text-anchor='middle' fill='%23EFEADD'%3Ev%3C/text%3E%3Ccircle cx='52' cy='44' r='5' fill='%2339FF35'/%3E%3C/svg%3E">
 <link rel="preload" href="fonts/tektur-900-latin.woff2" as="font" type="font/woff2" crossorigin>
@@ -308,14 +308,6 @@
   .wm-foot.play .ch2 .g{animation:flashG2 .07s steps(1) both; animation-delay:calc(0.10s + var(--i)*0.07s);}
   @keyframes revealL2{0%{opacity:0;}100%{opacity:1;}}
   @keyframes flashG2{0%{opacity:1;}100%{opacity:0;}}
-  /* --- legacy multi-card (Gen-A) superset: skins + decoration used by no-004..006 --- */
-  .c-orchid{background:var(--orchid); color:var(--ink);}
-  .c-orchid .goth{color:var(--ink);}
-  .c-orchid .tag{color:rgba(16,16,16,0.8);}
-  .c-orchid .btn{color:var(--ink);}
-  .c-orchid .btn:hover{background:var(--ink); color:var(--paper);}
-  .c-orchid .copy{border-color:rgba(16,16,16,0.45); color:var(--ink);}
-  .c-orchid .copybtn{background:var(--ink); color:var(--paper);}
   .c-signal{background:var(--blue-a); color:var(--paper);}
   .c-signal .tag{color:var(--blue-meta);}
   .c-signal .goth{color:var(--acid);}
@@ -324,20 +316,9 @@
   .c-signal .btn:hover{background:var(--acid); color:var(--ink);}
   .c-signal .copy{border-color:rgba(57,255,53,0.5); color:var(--paper);}
   .c-signal .copybtn{background:var(--acid); color:var(--ink);}
-  .c-signal .ascii-art{position:absolute; top:20px; right:16px; font-family:var(--mono); font-size:12px; line-height:1.02; color:var(--acid); white-space:pre; user-select:none; opacity:0.9;}
-  @media (max-width:560px){ .c-signal .ascii-art{position:static; margin:16px 0 0; font-size:11px;} }
-  .hero .ascii{position:absolute; top:30px; right:6px; font-family:var(--mono); font-size:10px; line-height:1.05; color:rgba(57,255,53,0.22); white-space:pre; user-select:none; pointer-events:none; display:none;}
-  @media (min-width:760px){ .hero .ascii{display:block;} }
-  .tpl{border:2px solid #3a3a3a; background:#141414; padding:18px 16px; overflow-x:auto; -webkit-overflow-scrolling:touch; font-family:var(--mono); font-size:13px; line-height:1.6; margin:20px 0 0; color:var(--paper); white-space:pre;}
-  .tpl code{font-family:inherit;}
-  .receipt{margin:26px var(--rail) 0; border:1px solid #2a2a2a; padding:16px 20px;}
-  .receipt a{display:inline-block; font-family:var(--mono); font-size:12.5px; letter-spacing:0.06em; text-transform:uppercase; color:var(--aqua); text-decoration:none; border-bottom:1px solid rgba(143,197,201,0.4); padding:12px 0; margin:-8px 0;}
+  .receipt{margin:16px 0 0; border:1px solid #2a2a2a; padding:16px 20px; font-family:var(--mono); font-size:13.5px; color:#8f8b80;}
+  .receipt a{display:inline-block; font-size:12.5px; letter-spacing:0.06em; text-transform:uppercase; color:var(--aqua); text-decoration:none; border-bottom:1px solid rgba(143,197,201,0.4); padding:12px 0; margin:-8px 0;}
   .receipt a:hover{border-color:var(--aqua);}
-  .receipt .credit{margin-top:14px;}
-  .receipt .credit a{color:#8f8b80; border-bottom-color:#3a3a3a;}
-  .receipt .credit a:hover{color:var(--paper); border-color:#8f8b80;}
-  #copyAll,#copyTemplate,#heroCopyTpl,#copyStarter{display:none;}
-  .js #copyAll,.js #copyTemplate,.js #heroCopyTpl,.js #copyStarter{display:inline-flex;}
 </style>
 </head>
 <body>
@@ -356,7 +337,7 @@
 
 <div class="sticky-cta" id="stickyCta" aria-hidden="true">
   <span class="t">Follow <b>@vektor.fm</b> → a new keyword daily</span>
-  <span class="r"><a class="go" data-goatcounter-click="no025-follow-sticky" href="https://www.instagram.com/vektor.fm/" target="_blank" rel="noopener">Follow →</a><button class="x" id="ctaClose" type="button" aria-label="Dismiss">×</button></span>
+  <span class="r"><a class="go" data-goatcounter-click="no026-follow-sticky" href="https://www.instagram.com/vektor.fm/" target="_blank" rel="noopener">Follow →</a><button class="x" id="ctaClose" type="button" aria-label="Dismiss">×</button></span>
 </div>
 
 <div class="weave" aria-hidden="true"></div>
@@ -377,198 +358,193 @@
 </div>
 
 <main>
+
+<main>
 <section class="hero">
-  <div class="ascii" aria-hidden="true"> ________________
-|   ____         |
-|  |####|  ===   |
-|  |####|  ===   |
-|  |____|        |
-|   -- -- -- --  |
-|________________|
-  |--|----|--|
-</div>
-  <div class="kick eye">Claude · Copy My System</div>
-  <h1 class="disp">The<br>council<span class="dot">.</span></h1>
-  <p class="sub">The Council from NO. 025 — the Claude skill that stops the yes-man: your question goes to 5 adversarial agents, their answers get torn apart by 5 blind reviewers, and a chairman hands you a verdict. The real SKILL.md is on this page, plus the run we did on our own decision. As promised.</p>
+  <div class="kick eye">Claude &middot; Copy My System</div>
+  <h1 class="disp">The<br>state file<span class="dot">.</span></h1>
+  <p class="sub">Most people build an agent that does research well <em>once</em>. The interesting version is the one whose fifth run is better than its first &mdash; and what makes that true is boring: a file it writes to and reads back. The real SKILL.md is on this page, plus the state-file schema and the install. As promised.</p>
   <div class="actions">
-    <a class="btn primary" href="#no-025">Get the skill ↓</a>
-    <a class="btn" href="#receipts">See the real run →</a>
+    <a class="btn primary" href="#install">Get the skill &darr;</a>
+    <a class="btn" href="#skillfile">Read the whole file &darr;</a>
     <button class="btn" id="shareBtn" type="button">Send to a dev friend</button>
   </div>
   <div class="rule">////////////////////////////////////////////////////////////////////////////////////////////////</div>
 </section>
 
-<!-- ======================= ISSUE DIVIDER ======================= -->
 <div class="fig">
-  <h2 class="kick">Fig. 01 ·</h2>
-  <span class="gaccent">the skill</span>
+  <h2 class="kick">Fig. 01 &middot;</h2>
+  <span class="gaccent">useful &rarr; compounding</span>
   <span class="line"></span>
 </div>
 
-<section class="issues" id="no-025">
-
-  <!-- CARD 01 — WHAT IT IS -->
+<section class="issues">
   <article class="card c-cream">
     <div class="top">
-      <span class="tag">The skill · 5 seats + 5 reviewers + 1 chairman</span>
-      <span class="goth">council</span>
+      <span class="tag">The turn &middot; memory, not intelligence</span>
+      <span class="goth">analyst</span>
     </div>
-    <h2>Ask the council.</h2>
-    <p class="one">One file turns "Claude, what do you think?" into a tribunal: five agents attack your question from five fixed angles, five blind reviewers tear their answers apart, and a chairman reads the debate and hands you a verdict, a why, and a first move. You don't get an answer — you get a call.</p>
+    <h2>An agent that starts from zero every time isn&rsquo;t a system.</h2>
+    <p class="one">Give an agent tools and a good prompt and it will research well &mdash; today, and then again from scratch tomorrow, having learned nothing. The fix isn&rsquo;t a better model. It&rsquo;s a state file: an append-only record of every run, what it surfaced, what it scored, what you actually did, and what happened after. Every run reads it first. That single file is the difference between a clever demo and something that gets sharper for as long as you keep it.</p>
     <div class="actions">
-      <a class="btn" data-goatcounter-click="no025-download-skill" href="./files/council-skill/SKILL.md" download>Download SKILL.md ↓</a>
-      <a class="btn" href="#skillfile">Read the whole file ↓</a>
+      <a class="btn" data-goatcounter-click="no026-download-skill" href="./files/analyst-skill/SKILL.md" download>Download SKILL.md &darr;</a>
+      <a class="btn" data-goatcounter-click="no026-download-state" href="./files/analyst-skill/state-file.md" download>Download state-file.md &darr;</a>
     </div>
   </article>
+</section>
 
-  <!-- CARD 02 — INSTALL -->
-  <article class="card c-aqua">
+<div class="fig">
+  <h2 class="kick">Fig. 02 &middot;</h2>
+  <span class="gaccent">the four parts</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues">
+  <article class="card c-ink">
+    <div class="top"><span class="tag">01</span><span class="goth">framework</span></div>
+    <h2>A weighted framework.</h2>
+    <p class="one">Every candidate scored the same way, on the same factors, with the same weights &mdash; including the ones you already like. A framework you apply selectively is just a preference with extra steps.</p>
+  </article>
+  <article class="card c-cream">
+    <div class="top"><span class="tag">02</span><span class="goth">state</span></div>
+    <h2>A state file. Append-only.</h2>
+    <p class="one">Never edit history; append corrections as new entries. A file you can rewrite is a file that will quietly agree with you &mdash; and then the loop is learning from a story instead of from what happened.</p>
+  </article>
+  <article class="card c-ink">
+    <div class="top"><span class="tag">03</span><span class="goth">checker</span></div>
+    <h2>A checker that argues back.</h2>
+    <p class="one">A second pass whose job is to kill the first pass&rsquo;s thesis, not confirm it: what it didn&rsquo;t look at, what contradicts its own reasoning, what the framework structurally cannot see.</p>
+  </article>
+  <article class="card c-cream">
+    <div class="top"><span class="tag">04</span><span class="goth">schedule</span></div>
+    <h2>A schedule, so it runs without you.</h2>
+    <p class="one">Weekly is enough. It pulls fresh data, scores, checks the state file for what moved, and drops a ranked shortlist with a one-page thesis. The thesis matters more than the ranking.</p>
+  </article>
+</section>
+
+<div class="fig">
+  <h2 class="kick">Fig. 03 &middot;</h2>
+  <span class="gaccent">the install</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues" id="install">
+  <article class="card c-ink">
     <div class="top">
-      <span class="tag">Install · Claude Code · 30 seconds</span>
+      <span class="tag">Two files &middot; one of them is forever</span>
       <span class="goth">install</span>
     </div>
     <h2>Two commands.</h2>
-    <p class="one">Drop the file into your repo's skills folder and it self-registers — from then on "ask the council: &lt;your question&gt;" convenes it. Works in any project; no plugin, no dependencies, just the one markdown file.</p>
+    <p class="one">Drop the skill where your agent looks for skills, then create the memory next to wherever you want it to live. <b>Set your own weights before the first run</b> &mdash; the numbers shipped are placeholders, and adopting someone else&rsquo;s weights unexamined defeats the entire mechanism. The loop corrects <em>your</em> judgement, so it needs yours to start with.</p>
     <div class="actions">
-      <div class="copy"><code>mkdir -p .claude/skills/council</code><button class="copybtn" data-copy="mkdir -p .claude/skills/council">Copy</button></div>
-      <div class="copy"><code>curl -o .claude/skills/council/SKILL.md https://vektor-fm.github.io/vektor-site/files/council-skill/SKILL.md</code><button class="copybtn" data-copy="curl -o .claude/skills/council/SKILL.md https://vektor-fm.github.io/vektor-site/files/council-skill/SKILL.md">Copy</button></div>
+      <button class="btn copybtn" type="button" data-copy="mkdir -p ~/.claude/skills/analyst &amp;&amp; curl -o ~/.claude/skills/analyst/SKILL.md https://vektor-fm.github.io/vektor-site/files/analyst-skill/SKILL.md">Copy install command</button>
+      <button class="btn copybtn" type="button" data-copy="curl -o state.md https://vektor-fm.github.io/vektor-site/files/analyst-skill/state-file.md">Copy state-file command</button>
     </div>
   </article>
 
-  <!-- CARD 03 — THE FILE ITSELF -->
-  <article class="card c-ink" id="skillfile">
+  <article class="card c-cream" id="skillfile">
     <div class="top">
-      <span class="tag">The payload · full SKILL.md · nothing held back</span>
-      <span class="goth">file</span>
+      <span class="tag">No gate &middot; no email &middot; the actual file</span>
+      <span class="goth">SKILL.md</span>
     </div>
-    <h2>The whole file, right here.</h2>
-    <p class="one">This is the exact file we run — the same one the download button serves. Copy it straight from the page if you'd rather not curl.</p>
+    <h2>The whole loop, right here.</h2>
+    <p class="one">This is the skill, not a summary of it. Read step 0 twice &mdash; it is the step everyone skips, and it is the one that makes the rest work.</p>
     <div class="snippet">
-      <div class="bar"><span class="f">.claude/skills/council/SKILL.md</span><button class="snipbtn" id="snipCopy" type="button">Copy file</button></div>
+      <div class="bar"><span class="f">.claude/skills/analyst/SKILL.md</span><button class="snipbtn" id="snipCopy" type="button">Copy file</button></div>
       <pre id="snipText">---
-name: council
-description: Ask the council — run one question through 5 adversarial perspective agents, peer review, and a chairman verdict. Use when the user says "ask the council", "/council", or wants a decision pressure-tested from multiple angles instead of a single answer.
+name: analyst
+description: Run a repeatable, self-auditing research loop over a set of
+  candidates - screen against a weighted framework, log every run to a
+  state file, challenge the first pass with a checker, and re-weight from
+  what actually happened.
 ---
 
-# The Council
+# The Analyst
 
-You are not answering the question. You are convening a council that will.
+## Step 0 - read the state file FIRST
+Before anything else, read state.md end to end. Pull out:
+  - every candidate surfaced before, and what it scored
+  - every weight adjustment made, and the run that caused it
+  - anything on the Do-not-resurface list, and why
+Never skip this because the file looks long. A run that has not read the
+state file is a first run wearing a costume.
 
-Given the user's question, run this protocol exactly:
+## Step 1 - gather
+Note the DATE and SOURCE for every figure, at the moment you record it.
+If a figure cannot be sourced, record it as `unverified` rather than
+dropping it. The gap is information.
 
-## Round 1 — five seats, five angles
+## Step 2 - score against the framework
+Score each factor 0-10, multiply by weight, sum. No exceptions, no "this
+one is obviously good". Show your working per candidate. If you cannot
+justify a raw score in one sentence, it is a guess - mark it as one.
 
-Spawn 5 agents IN PARALLEL (one Agent call each, keep them cheap/fast). Each gets
-the user's question plus ONLY its seat brief. Each returns max 120 words:
-a position + its single strongest argument.
+## Step 3 - the checker
+A second, adversarial pass over the shortlist. Its job is to try to kill
+the first pass. It looks for what the first pass did not examine, evidence
+that CONTRADICTS the reason it scored well, concentration risk, and
+anything the framework structurally cannot see.
 
-1. **THE CONTRARIAN** — "Assume this plan fails. Find the most likely way it
-   fails and argue only that. No silver linings."
-2. **THE FIRST-PRINCIPLES THINKER** — "Ignore how the question is framed.
-   Rebuild the problem from scratch: what is actually being optimized, and
-   what would you do if you'd never seen the current approach?"
-3. **THE EXPANSIONIST** — "Find the upside being missed. What is the bigger
-   version of this? What becomes possible if it works better than expected?"
-4. **THE OUTSIDER** — "You get the question stripped of all context and
-   history. Read it cold, as a smart stranger. What do you see that an
-   insider can't?"
-5. **THE EXECUTOR** — "Only the next 48 hours matter. What is the single next
-   concrete action, and what would you cut to do it today?"
+## Step 4 - write the run to the state file
+Append one row per run. Never edit history; append corrections as new
+entries. The append-only rule is what makes the file trustworthy.
 
-## Round 2 — peer review
-
-Spawn 5 reviewer agents IN PARALLEL. Reviewer N gets seat N's answer (author
-hidden) plus the original question, with the brief: "Tear this argument apart.
-Name its weakest assumption in one sentence, then say in one sentence whether
-the core point survives." Max 60 words each.
-
-## Round 3 — the chairman
-
-You are the chairman. Read all 10 outputs. Do not average them. Weigh which
-arguments survived review, name the strongest surviving case, and deliver:
-
-- **VERDICT:** one sentence — the call.
-- **WHY:** max 3 sentences — which seats carried it and which died in review.
-- **FIRST MOVE:** the one concrete action to take now.
-
-Present the full council output to the user: each seat's position (one line),
-each review (one line), then the chairman block. You give a verdict, not an
-answer.</pre>
+## Step 5 - re-weight from outcomes, not from feelings
+When something plays out, ask which FACTOR was wrong, not whether you
+were unlucky. Change that factor's weight and log the change with the run
+that caused it. Do not re-weight from a single ambiguous case: two cases
+pointing the same way is a signal, one is an anecdote.</pre>
+    </div>
+    <div class="actions">
+      <a class="btn" data-goatcounter-click="no026-download-skill-2" href="./files/analyst-skill/SKILL.md" download>Download SKILL.md &darr;</a>
+      <a class="btn" data-goatcounter-click="no026-download-readme" href="./files/analyst-skill/README.md" download>README &darr;</a>
     </div>
   </article>
-
 </section>
 
 <div class="fig">
-  <h2 class="kick">Fig. 02 ·</h2>
-  <span class="gaccent">we ran it on ourselves</span>
+  <h2 class="kick">Fig. 04 &middot;</h2>
+  <span class="gaccent">the honest part</span>
   <span class="line"></span>
 </div>
 
-<section class="issues" id="receipts">
-  <article class="card c-signal">
+<section class="issues" id="honest">
+  <article class="card c-ink">
     <div class="top">
-      <span class="tag">proof · our own run · 2026-07-27</span>
-      <span class="goth">proof</span>
+      <span class="tag">What this does not do</span>
+      <span class="goth">honest</span>
     </div>
-    <h2>We asked it about our own next post.</h2>
-    <p class="one">Live question: we had 7 finished-but-unposted videos on the shelf and kept building fresh ones anyway. The run below is real — five seats, five blind reviews, one verdict.</p>
-    <div class="snippet">
-      <div class="bar"><span class="f">claude code · session · own run</span></div>
-      <pre>$ ask the council: "ship the 7-video backlog, or build fresh?"
-[1/5] CONTRARIAN....... stale flood breaks momentum
-[2/5] FIRST-PRINCIPLES. backlog = velocity buffer
-[3/5] EXPANSIONIST..... 14 experiments, not 7
-[4/5] OUTSIDER......... inventory but no velocity
-[5/5] EXECUTOR......... post one today, read the funnel
-&gt; peer review: 5 blind reviewers. contrarian's staleness case DIED
-&gt; CHAIRMAN VERDICT: ship the backlog, one a day. don't pause builds
-&gt; FIRST MOVE: gate the newest shelf video tonight. post tomorrow.</pre>
-    </div>
-    <p class="one">The honest part: the video announcing this skill was a fresh build — the council's verdict argued against building it. We published the verdict anyway. That's what a not-a-yes-man looks like.</p>
+    <h2>It is a research loop. It is not financial advice.</h2>
+    <p class="one">The reel uses stock screening as the worked example because it is a domain with a lot of public data and an obvious feedback signal &mdash; but the architecture is the point, and it transfers to suppliers, candidates, papers, or anything else you rank repeatedly. This produces a ranked shortlist and the reasoning behind it. It does not tell you what to do, and nothing in it is a recommendation to buy or sell anything. If you point it at markets: a scoring framework organises your judgement, it does not replace it, and past outcomes do not predict future ones. Figures it cannot source stay labelled <code>unverified</code> &mdash; a research system that hides its gaps is worse than none, because you will trust it.</p>
   </article>
 </section>
-
-<div class="fig">
-  <h2 class="kick">Fig. 03 ·</h2>
-  <span class="gaccent">the five seats</span>
-  <span class="line"></span>
-</div>
-
-<div class="ledger" aria-label="The five seats">
-  <div class="lrow"><span class="n">01</span><span class="t">The contrarian — only hunts for what will break.</span></div>
-  <div class="lrow"><span class="n">02</span><span class="t">The first-principles thinker — throws out your framing, rebuilds from zero.</span></div>
-  <div class="lrow"><span class="n">03</span><span class="t">The expansionist — finds the upside you're missing.</span></div>
-  <div class="lrow"><span class="n">04</span><span class="t">The outsider — reads the problem cold, zero context.</span></div>
-  <div class="lrow"><span class="n">05</span><span class="t">The executor — only the next move matters.</span></div>
-</div>
 
 <section class="midcap" aria-label="Get the weekly pack">
-  <span class="k">One email a week · the working setup</span>
+  <span class="k">One email a week &middot; the working setup</span>
   <h2>Keep the whole toolkit.</h2>
-  <p>The Teardown sends the config pack and one working AI setup a week — the same rig behind this channel. Free, and you can unsubscribe anytime.</p>
+  <p>The Teardown sends the config pack and one working AI setup a week &mdash; the same rig behind this channel. Free, and you can unsubscribe anytime.</p>
   <form action="https://buttondown.com/api/emails/embed-subscribe/vektor" method="post">
     <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
-    <button class="btn" type="submit">Get the weekly pack →</button>
+    <button class="btn" type="submit">Get the weekly pack &rarr;</button>
   </form>
   <div class="note">Free. The config pack lands after you confirm your email. Unsubscribe anytime.</div>
 </section>
 
 <section class="issues">
-  <!-- FOLLOW ASK — the reciprocity moment -->
   <article class="card c-ink">
     <div class="top">
-      <span class="tag">No catch · all three free</span>
+      <span class="tag">No catch &middot; all of it free</span>
       <span class="goth">follow</span>
     </div>
-    <h2>That's the council. Follow for the next system.</h2>
-    <p class="one">This page exists because people follow — a new Claude system drops daily, and followers catch the keyword first. If your next decision gets a verdict instead of a nod, the follow is the thank-you.</p>
+    <h2>That&rsquo;s the state file. Follow for the next system.</h2>
+    <p class="one">This page exists because people follow &mdash; a new Claude system drops daily, and followers catch the keyword first. If your agent stops starting from zero from now on, the follow is the thank-you.</p>
     <div class="actions">
-      <a class="btn primary" data-goatcounter-click="no025-follow-instagram" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Follow @vektor.fm →</a>
+      <a class="btn primary" data-goatcounter-click="no026-follow-instagram" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Follow @vektor.fm &rarr;</a>
     </div>
   </article>
 </section>
-<!-- ===================== END ISSUE BLOCK — NO. 025 ===================== -->
+<!-- ===================== END ISSUE BLOCK - NO. 026 ===================== -->
+<!-- ===================== END ISSUE BLOCK — NO. 026 ===================== -->
 </main>
 
 <footer>
@@ -587,18 +563,18 @@ answer.</pre>
   </div>
 
   <nav class="socials" aria-label="Social links">
-    <a data-goatcounter-click="no025-follow-tiktok-foot" href="https://tiktok.com/@vektor.fm" target="_blank" rel="noopener">TikTok · @vektor.fm</a>
-    <a data-goatcounter-click="no025-follow-instagram-foot" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Instagram · @vektor.fm</a>
-    <a data-goatcounter-click="no025-follow-youtube-foot" href="https://youtube.com/@vektorfm" target="_blank" rel="noopener">YouTube · @vektorfm</a>
-    <a data-goatcounter-click="no025-follow-x-foot" href="https://x.com/vektordotfm" target="_blank" rel="noopener">X · @vektordotfm</a>
+    <a data-goatcounter-click="no026-follow-tiktok-foot" href="https://tiktok.com/@vektor.fm" target="_blank" rel="noopener">TikTok · @vektor.fm</a>
+    <a data-goatcounter-click="no026-follow-instagram-foot" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Instagram · @vektor.fm</a>
+    <a data-goatcounter-click="no026-follow-youtube-foot" href="https://youtube.com/@vektorfm" target="_blank" rel="noopener">YouTube · @vektorfm</a>
+    <a data-goatcounter-click="no026-follow-x-foot" href="https://x.com/vektordotfm" target="_blank" rel="noopener">X · @vektordotfm</a>
     <a href="./privacy.html">Privacy</a>
   </nav>
 
-  <div class="backref">A new keyword drops every day — <b>catch it first on the reel</b> — follow @vektor.fm. More like this: <a href="./no-024.html">The Mirror →</a></div>
+  <div class="backref">A new keyword drops every day — <b>catch it first on the reel</b> — follow @vektor.fm. More like this: <a href="./no-031.html">Tax the Agents →</a></div>
 
   <div class="wordmark-foot">
     <span class="wm-foot" id="wmFoot" aria-label="vektor"><span class="ch2" style="--i:0"><span class="g">%</span><span class="l">v</span></span><span class="ch2" style="--i:1"><span class="g">#</span><span class="l">e</span></span><span class="ch2" style="--i:2"><span class="g">Z</span><span class="l">k</span></span><span class="ch2" style="--i:3"><span class="g">8</span><span class="l">t</span></span><span class="ch2" style="--i:4"><span class="g">@</span><span class="l">o</span></span><span class="ch2" style="--i:5"><span class="g">W</span><span class="l">r</span></span></span>
-    <span class="m">/// no. 025 / the council / 07-2026 · the frontier, by the numbers</span>
+    <span class="m">/// no. 026 / the state file / 08-2026 · the frontier, by the numbers</span>
   </div>
 </footer>
 
@@ -606,22 +582,19 @@ answer.</pre>
   function fallback(text){ var t=document.createElement('textarea'); t.value=text; t.style.position='fixed'; t.style.opacity='0'; document.body.appendChild(t); t.focus(); t.select(); try{ document.execCommand('copy'); }catch(e){} document.body.removeChild(t); }
   function copyText(text, btn, doneLabel){ var o=btn.textContent, done=function(){ btn.textContent=doneLabel; setTimeout(function(){btn.textContent=o;},1600); }; if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(done).catch(function(){ fallback(text); done(); }); } else { fallback(text); done(); } }
   function gcEvent(name){ if(name && window.goatcounter && goatcounter.count){ goatcounter.count({path:name, event:true}); } }
-  var COPY_EVENT=null;
+  var COPY_EVENT='no026-copy-install';
   document.querySelectorAll('.copybtn').forEach(function(btn){ btn.addEventListener('click', function(){ copyText(btn.getAttribute('data-copy'), btn, 'Copied ✓'); gcEvent(COPY_EVENT); }); });
   var snip=document.getElementById('snipCopy');
-  if(snip){ snip.addEventListener('click', function(){ var el=document.getElementById('snipText'); copyText(el.textContent, snip, 'Copied ✓'); gcEvent(COPY_EVENT); }); }
-  // generic copy hook (legacy multi-card pages): data-copy-target="all" | "#id"; optional data-copy-event
-  document.querySelectorAll('[data-copy-target]').forEach(function(btn){ btn.addEventListener('click', function(){ var t=btn.getAttribute('data-copy-target'), text; if(t==='all'){ text=[].slice.call(document.querySelectorAll('.copybtn')).map(function(b){return b.getAttribute('data-copy');}).join('\n'); } else { var el=document.querySelector(t); text=el?el.textContent:''; } copyText(text, btn, 'Copied ✓'); gcEvent(btn.getAttribute('data-copy-event')); }); });
+  if(snip){ snip.addEventListener('click', function(){ var el=document.getElementById('snipText'); copyText(el.textContent, snip, 'Copied ✓'); gcEvent('no026-copy-skill'); }); }
   var camp=(location.pathname.split('/').pop()||'index').replace(/\.html$/,'')||'index';
   document.querySelectorAll('a[href^="http"]').forEach(function(a){ try{ var u=new URL(a.href); if(u.hostname==='github.com'){return;} if(!u.searchParams.has('utm_source')){ u.searchParams.set('utm_source','vektor'); u.searchParams.set('utm_medium','dm'); u.searchParams.set('utm_campaign',camp); a.href=u.toString(); } }catch(e){} });
   var sh=document.getElementById('shareBtn');
-  if(sh){ sh.addEventListener('click', function(){ gcEvent('no025-share'); if(navigator.share){ navigator.share({title:document.title, url:location.href}).catch(function(){}); } else { copyText(location.href, sh, 'Link copied — paste it ✓'); } }); }
+  if(sh){ sh.addEventListener('click', function(){ gcEvent('no026-share'); if(navigator.share){ navigator.share({title:document.title, url:location.href}).catch(function(){}); } else { copyText(location.href, sh, 'Link copied — paste it ✓'); } }); }
   var sticky=document.getElementById('stickyCta'), sub=document.getElementById('subscribe'), dismissed=false;
   var midcap=document.querySelector('.midcap'), cards=document.querySelectorAll('.issues .card'), lastCard=cards[cards.length-1];
   // show once the reader has scrolled PAST the mid-page capture (peak intent handled),
   // hide while a subscribe form intersects the bar's own strip (bottom 130px) so the bar
-  // never covers or competes with a form CTA. The old rule (last card above 60vh AND
-  // footer form fully off-screen) was geometrically unsatisfiable — the bar never showed.
+  // never covers or competes with a form CTA.
   function inBarZone(el){ if(!el){return false;} var r=el.getBoundingClientRect(); return r.top<window.innerHeight && r.bottom>window.innerHeight-130; }
   function updCta(){ if(dismissed){return;} var gate=midcap||lastCard; var passed=!!gate && gate.getBoundingClientRect().bottom<0; var show=passed && !inBarZone(midcap) && !inBarZone(sub); sticky.classList.toggle('show', show); sticky.setAttribute('aria-hidden', show?'false':'true'); }
   window.addEventListener('scroll',updCta,{passive:true}); window.addEventListener('resize',updCta); updCta();
@@ -638,7 +611,7 @@ answer.</pre>
     var f=pop.querySelector('form'); if(f){ f.addEventListener('submit', seen); }
     setTimeout(function(){ pop.removeAttribute('hidden'); document.addEventListener('keydown',esc); var x=pop.querySelector('.pop-x'); if(x){ try{ x.focus(); }catch(e){} } }, 900);
   })();
-  document.querySelectorAll('form').forEach(function(f){ f.addEventListener('submit', function(){ gcEvent('no025-subscribe-submit'); }); });
+  document.querySelectorAll('form').forEach(function(f){ f.addEventListener('submit', function(){ gcEvent('no026-subscribe-submit'); }); });
 </script>
 
 <script data-goatcounter="https://vektor.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
