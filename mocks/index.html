@@ -21,13 +21,20 @@
   src:url(fonts/archivo-400.woff2) format('woff2');
   font-weight:400; font-style:normal; font-display:swap;
 }
-/* Archivo ExtraBold — the EXISTING vektor logo is set in this, at -.045em,
-   with a teal caret block. Confirmed from brand/logo/export/_base.css.
-   The logo is not up for redesign; this reproduces it exactly. */
+/* Archivo ExtraBold — retained for the type system, NOT for the logo.
+   brand/logo/export/ is the ORIGINAL, retired mark and must not be used.
+   The shipping wordmark is Inter Tight 600 — see THE LOGO below. */
 @font-face{
   font-family:'Archivo Text';
   src:url(fonts/archivo-800.woff2) format('woff2');
   font-weight:800; font-style:normal; font-display:swap;
+}
+/* Inter Tight 600 — the LIVE wordmark's face. Taken from the shipping site,
+   not the old brand/logo/ export. */
+@font-face{
+  font-family:'Inter Tight';
+  src:url(fonts/inter-tight-600-latin.woff2) format('woff2');
+  font-weight:600; font-style:normal; font-display:swap;
 }
 /* Printvetica — the films' face. Commercial licence purchased (guaschetti,
    Gumroad, 2026-07-29) per canon.yml. Caps-only subset: 200 KB vs 739 KB for
@@ -87,11 +94,12 @@
   --dim:#B4B4B4;
   --surface:#0A0A0A;
   --nav-h:80px;
+  --paper:#EFEADD;       /* wordmark ink — live site --paper */
+  --acid-mark:#39FF35;   /* wordmark registration plate A — NOT the UI accent */
+  --orchid:#C77BC9;      /* wordmark registration plate B */
 
   --accent:#0E9C86;               /* caretTeal — founder 2026-08-07: ONE green,
                                      the logo's. Acid #39FF35 stays in the films. */
-  --caret:#0E9C86;                /* canon color.accents.caretTeal — LOGO ONLY,
-                                     never repointed at the accent toggle */
 
   --font-extended:'Archivo Expanded','Archivo','Helvetica Neue',Helvetica,Arial,sans-serif;
   --font-sans:'Archivo Text','Archivo','Helvetica Neue',Helvetica,Arial,sans-serif;
@@ -105,7 +113,8 @@
    C  pv-meta    Archivo Expanded display + Printvetica on meta/kickers/dates.
                  Printvetica becomes the technical label layer.
    D  pv-max     Printvetica on display AND meta. Maximum film continuity.
-   The LOGO never changes in any mode — it is Archivo 800 + teal caret. */
+   The LOGO never changes in any mode — it is the Inter Tight 600
+   registration wordmark, independent of every toggle. */
 html.pv-display .heading0,
 html.pv-display .heading1,
 html.pv-max .heading0,
@@ -202,19 +211,49 @@ img{ display:block; max-width:100%; }
   display:flex; justify-content:space-between; align-items:center;
   padding:var(--p-s) var(--p-m); border-bottom:1px solid var(--rule);
 }
-/* THE LOGO — reproduced from brand/logo/export/_base.css, unchanged:
-   Archivo 800, letter-spacing -.045em, caret block .12em x .98em in
-   caretTeal #0E9C86 (canon: color.accents.caretTeal). */
-.logo{
-  font-family:'Archivo Text',Helvetica,Arial,sans-serif;
-  font-weight:800; letter-spacing:-.045em; line-height:1;
-  display:inline-flex; align-items:center; text-transform:none;
+/* ======================= THE LOGO — THE REAL ONE =======================
+   Lifted verbatim from the shipping site (partials/head.html:174-186).
+   NOT the brand/logo/ export, which is the original and now retired.
+
+   A print-registration glitch-decode: Inter Tight 600 at -.045em in cream,
+   with two chromatic misregistration plates (acid + orchid) that slide into
+   alignment and fade out over 1.15s, while each character flashes a mono
+   glyph before resolving. Glyph sequence % # Z 8 @ W -> v e k t o r.
+   ===================================================================== */
+.wm{
+  position:relative; display:inline-flex; text-decoration:none;
+  font-family:'Inter Tight',system-ui,sans-serif; font-weight:600;
+  letter-spacing:-0.045em; color:var(--paper); line-height:1;
 }
-.logo .caret{
-  display:inline-block; width:.12em; height:.98em;
-  margin-left:.14em; background:var(--caret);
+.wm-main{ position:relative; z-index:2; display:inline-flex; }
+.wm-main .ch{ position:relative; display:inline-block; }
+.wm-main .ch .l{
+  opacity:0; animation:showL .01s steps(1) forwards;
+  animation-delay:calc(0.20s + var(--i)*0.075s);
 }
-.bar .wm{ font-size:var(--fs-xl); line-height:1; }
+.wm-main .ch .g{
+  position:absolute; left:0; top:0;
+  font-family:'Printvetica',ui-monospace,monospace; color:var(--acid-mark);
+  opacity:0; animation:flashG .075s steps(1) forwards;
+  animation-delay:calc(0.14s + var(--i)*0.075s);
+}
+@keyframes showL{ to{ opacity:1; } }
+@keyframes flashG{ 0%{opacity:1;} 100%{opacity:0;} }
+.wm-plate{
+  position:absolute; left:0; top:0; z-index:1;
+  mix-blend-mode:screen; pointer-events:none;
+}
+.wm-acid{ color:var(--acid-mark); animation:regA 1.15s steps(1) forwards; }
+.wm-orchid{ color:var(--orchid); animation:regB 1.15s steps(1) forwards; }
+@keyframes regA{ 0%{transform:translate(7px,4px);opacity:.85} 30%{transform:translate(4px,2px)}
+  55%{transform:translate(2px,1px)} 78%{transform:translate(0,0);opacity:.5} 100%{transform:translate(0,0);opacity:0} }
+@keyframes regB{ 0%{transform:translate(-6px,-4px);opacity:.85} 30%{transform:translate(-4px,-2px)}
+  55%{transform:translate(-2px,-1px)} 78%{transform:translate(0,0);opacity:.5} 100%{transform:translate(0,0);opacity:0} }
+@media (prefers-reduced-motion:reduce){
+  .wm-main .ch .l{ opacity:1; animation:none; }
+  .wm-main .ch .g,.wm-plate{ display:none; }
+}
+.bar .wm{ font-size:30px; }
 .bar .mid{ font-size:var(--fs-s); text-transform:uppercase; letter-spacing:.025em; }
 .bar .util{ display:flex; align-items:center; gap:var(--p-m); }
 .bar .util a{ font-size:var(--fs-s); text-transform:uppercase; letter-spacing:.025em; color:var(--dim); }
@@ -270,9 +309,7 @@ main{ padding-top:var(--nav-h); }
   display:flex; flex-direction:column; justify-content:flex-end; align-items:center;
   padding:var(--p-l) var(--p-2xl) var(--p-4_5xl); gap:var(--p-xl);
 }
-.intro .bigmark{
-  font-size:clamp(56px,11.8vw,170px); line-height:.86; text-align:center;
-}
+.intro .bigmark{ font-size:clamp(40px,11vw,84px); line-height:.95; }
 
 
 .intro h1{ text-align:center; text-transform:uppercase; max-width:24ch; }
@@ -406,7 +443,7 @@ footer{ display:grid; gap:1px; }
 
 <div class="menu">
   <div class="bar">
-    <a class="wm logo" href="#top">vektor<span class="caret"></span></a>
+    <a class="wm" href="#top" aria-label="vektor"><span class="wm-plate wm-acid" aria-hidden="true">vektor</span><span class="wm-plate wm-orchid" aria-hidden="true">vektor</span><span class="wm-main"><span class="ch" style="--i:0"><span class="g">%</span><span class="l">v</span></span><span class="ch" style="--i:1"><span class="g">#</span><span class="l">e</span></span><span class="ch" style="--i:2"><span class="g">Z</span><span class="l">k</span></span><span class="ch" style="--i:3"><span class="g">8</span><span class="l">t</span></span><span class="ch" style="--i:4"><span class="g">@</span><span class="l">o</span></span><span class="ch" style="--i:5"><span class="g">W</span><span class="l">r</span></span></span></a>
     <span class="mid">The Index</span>
     <div class="util"><a href="#" class="on">Start</a><a href="#subscribe">Subscribe</a></div>
   </div>
@@ -459,7 +496,7 @@ footer{ display:grid; gap:1px; }
       <!-- sprind's first screen is dominated by a ~170px wordmark, with the
            h1 as a secondary line beneath it. Two candidates for that slot:
            set type, or the Brik liquid-chrome render. Toggle bottom-right. -->
-      <div class="bigmark logo" >vektor<span class="caret"></span></div>
+      <a class="wm bigmark" href="#top" aria-label="vektor"><span class="wm-plate wm-acid" aria-hidden="true">vektor</span><span class="wm-plate wm-orchid" aria-hidden="true">vektor</span><span class="wm-main"><span class="ch" style="--i:0"><span class="g">%</span><span class="l">v</span></span><span class="ch" style="--i:1"><span class="g">#</span><span class="l">e</span></span><span class="ch" style="--i:2"><span class="g">Z</span><span class="l">k</span></span><span class="ch" style="--i:3"><span class="g">8</span><span class="l">t</span></span><span class="ch" style="--i:4"><span class="g">@</span><span class="l">o</span></span><span class="ch" style="--i:5"><span class="g">W</span><span class="l">r</span></span></span></a>
       <h1 class="heading1">The AI frontier, cut to what ships</h1>
       <p class="lede copyL">Every issue is one short film and one working pack. Watch it, comment the keyword, and the files land in your DMs — config, prompts, links, nothing held back.</p>
     </div>
@@ -522,7 +559,7 @@ footer{ display:grid; gap:1px; }
 <footer>
   <div class="lattice foot-top">
     <div class="foot-social">
-      <a class="logo" href="#top" style="font-size:var(--fs-2xl);margin-right:auto">vektor<span class="caret"></span></a>
+      <a class="wm" href="#top" aria-label="vektor"  style="font-size:34px;margin-right:auto"><span class="wm-plate wm-acid" aria-hidden="true">vektor</span><span class="wm-plate wm-orchid" aria-hidden="true">vektor</span><span class="wm-main"><span class="ch" style="--i:0"><span class="g">%</span><span class="l">v</span></span><span class="ch" style="--i:1"><span class="g">#</span><span class="l">e</span></span><span class="ch" style="--i:2"><span class="g">Z</span><span class="l">k</span></span><span class="ch" style="--i:3"><span class="g">8</span><span class="l">t</span></span><span class="ch" style="--i:4"><span class="g">@</span><span class="l">o</span></span><span class="ch" style="--i:5"><span class="g">W</span><span class="l">r</span></span></span></a>
       <a href="#">TikTok</a><a href="#">Instagram</a><a href="#">YouTube</a><a href="#">X</a><a href="#">GitHub</a>
     </div>
     <div class="lattice">
