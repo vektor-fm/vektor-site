@@ -212,13 +212,19 @@ img{ display:block; max-width:100%; }
   padding:var(--p-s) var(--p-m); border-bottom:1px solid var(--rule);
 }
 /* ======================= THE LOGO — THE REAL ONE =======================
-   Lifted verbatim from the shipping site (partials/head.html:174-186).
-   NOT the brand/logo/ export, which is the original and now retired.
+   The shipping wordmark, from partials/head.html:174-186. NOT the retired
+   brand/logo/export/ mark (Archivo 800 + teal caret).
 
-   A print-registration glitch-decode: Inter Tight 600 at -.045em in cream,
-   with two chromatic misregistration plates (acid + orchid) that slide into
-   alignment and fade out over 1.15s, while each character flashes a mono
-   glyph before resolving. Glyph sequence % # Z 8 @ W -> v e k t o r.
+   Inter Tight 600 at -.045em in cream #EFEADD.
+
+   The live site animates this: two chromatic misregistration plates (acid +
+   orchid) slide into alignment and fade over 1.15s while each character
+   flashes a mono glyph before resolving. Founder retired that animation for
+   the redesign (2026-08-08) — sprind is restrained and the glitch-decode
+   fought it. The markup keeps the plate and glyph spans so the motion can be
+   restored by deleting the three rules below, but by default the mark is
+   STATIC: letters visible, glyphs and plates hidden. This is exactly the
+   live site's prefers-reduced-motion state, promoted to the default.
    ===================================================================== */
 .wm{
   position:relative; display:inline-flex; text-decoration:none;
@@ -227,32 +233,9 @@ img{ display:block; max-width:100%; }
 }
 .wm-main{ position:relative; z-index:2; display:inline-flex; }
 .wm-main .ch{ position:relative; display:inline-block; }
-.wm-main .ch .l{
-  opacity:0; animation:showL .01s steps(1) forwards;
-  animation-delay:calc(0.20s + var(--i)*0.075s);
-}
-.wm-main .ch .g{
-  position:absolute; left:0; top:0;
-  font-family:'Printvetica',ui-monospace,monospace; color:var(--acid-mark);
-  opacity:0; animation:flashG .075s steps(1) forwards;
-  animation-delay:calc(0.14s + var(--i)*0.075s);
-}
-@keyframes showL{ to{ opacity:1; } }
-@keyframes flashG{ 0%{opacity:1;} 100%{opacity:0;} }
-.wm-plate{
-  position:absolute; left:0; top:0; z-index:1;
-  mix-blend-mode:screen; pointer-events:none;
-}
-.wm-acid{ color:var(--acid-mark); animation:regA 1.15s steps(1) forwards; }
-.wm-orchid{ color:var(--orchid); animation:regB 1.15s steps(1) forwards; }
-@keyframes regA{ 0%{transform:translate(7px,4px);opacity:.85} 30%{transform:translate(4px,2px)}
-  55%{transform:translate(2px,1px)} 78%{transform:translate(0,0);opacity:.5} 100%{transform:translate(0,0);opacity:0} }
-@keyframes regB{ 0%{transform:translate(-6px,-4px);opacity:.85} 30%{transform:translate(-4px,-2px)}
-  55%{transform:translate(-2px,-1px)} 78%{transform:translate(0,0);opacity:.5} 100%{transform:translate(0,0);opacity:0} }
-@media (prefers-reduced-motion:reduce){
-  .wm-main .ch .l{ opacity:1; animation:none; }
-  .wm-main .ch .g,.wm-plate{ display:none; }
-}
+.wm-main .ch .l{ opacity:1; }          /* animation retired */
+.wm-main .ch .g{ display:none; }       /* glyph flash retired */
+.wm-plate{ display:none; }             /* registration plates retired */
 .bar .wm{ font-size:30px; }
 .bar .mid{ font-size:var(--fs-s); text-transform:uppercase; letter-spacing:.025em; }
 .bar .util{ display:flex; align-items:center; gap:var(--p-m); }
