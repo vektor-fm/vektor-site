@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en" class="acc-teal pv-meta"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MOCK E — sprind dark 1:1 · vektor</title>
+<link rel="preload" href="fonts/archivo-expanded-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/archivo-400.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+/* Self-hosted, SIL Open Font License 1.1 — commercial use and redistribution
+   permitted. Subset to latin + arrows, 14 KB each. No third-party request, no
+   CORS surprise: mock D hotlinked GT America and silently fell back to a
+   narrow face because sprind's server sends no Access-Control-Allow-Origin.
+   Archivo_Expanded-Regular is a TRUE expanded cut, not a variable-axis fake. */
+@font-face{
+  font-family:'Archivo Expanded';
+  src:url(fonts/archivo-expanded-400.woff2) format('woff2');
+  font-weight:400; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:'Archivo Text';
+  src:url(fonts/archivo-400.woff2) format('woff2');
+  font-weight:400; font-style:normal; font-display:swap;
+}
+/* Archivo ExtraBold — the EXISTING vektor logo is set in this, at -.045em,
+   with a teal caret block. Confirmed from brand/logo/export/_base.css.
+   The logo is not up for redesign; this reproduces it exactly. */
+@font-face{
+  font-family:'Archivo Text';
+  src:url(fonts/archivo-800.woff2) format('woff2');
+  font-weight:800; font-style:normal; font-display:swap;
+}
+/* Printvetica — the films' face. Commercial licence purchased (guaschetti,
+   Gumroad, 2026-07-29) per canon.yml. Caps-only subset: 200 KB vs 739 KB for
+   the full face and 14 KB for Archivo. Display use only — never body copy. */
+@font-face{
+  font-family:'Printvetica';
+  src:url(fonts/printvetica-caps.woff2) format('woff2');
+  font-weight:400; font-style:normal; font-display:swap;
+}
+/* =========================================================================
+   MOCK E — SPRIND, DARK, 1:1, EXTRAPOLATED TO VEKTOR
+   -------------------------------------------------------------------------
+   Corrected against measurements taken from the live sprind.org in a browser,
+   not from reading their CSS alone. What changed from mock D:
+
+     · Their hero and nav are BLACK, white type. The first screen is dominated
+       by a ~170px wordmark; the 52px h1 sits BELOW it as a secondary line.
+       Mock D had no wordmark at all and opened on a light page.
+     · Their teaser is 700x234 — image 350px on the LEFT at 3:2, text 350px
+       on the right, padding 16px 0 0 16px. Title 18px/22 UPPERCASE. Body
+       18px/22 — the SAME SIZE as the title. Date 15px uppercase #676767.
+       Mock D ran 32px titles over 15px copy in 600px-tall cards: inverted
+       hierarchy at half the density.
+     · Teasers carry a full-width hairline across the TOP, spanning image and
+       text together, as well as the left hairline.
+     · Arrow links read "-> LABEL" — arrow FIRST, uppercase, 18px.
+     · Footer cells are 506x128 (padding 48px 0), 18px uppercase, arrow first.
+       The newsletter CTA is an UNFILLED cell bounded by hairlines, never a
+       filled button.
+     · Body line-height is 22px, not 20px.
+
+   Typeface: SOLVED, and free. Archivo_Expanded-Regular is a true expanded cut
+   under the SIL Open Font License — commercial use and self-hosting permitted.
+   Subset to woff2 at 14 KB per face and served from this folder. GT America
+   Extended is no longer required; buying it is now a preference, not a need.
+   ========================================================================= */
+
+:root{
+  /* ---- sprind type scale, fluid vw above 1600 ---- */
+  --fs-4xl:5.73vw;   --lh-4xl:7.29vw;
+  --fs-3xl:3.128vw;  --lh-3xl:2.813vw;
+  --fs-2xl:1.665vw;  --lh-2xl:1.77vw;
+  --fs-xl:1.043vw;   --lh-xl:1.148vw;
+  --fs-m:.938vw;     --lh-m:1.148vw;
+  --fs-s:.78vw;      --lh-s:.99vw;
+  --fs-xs:.623vw;    --lh-xs:.728vw;
+
+  --p-xs:.21vw; --p-s:.42vw; --p-m:.832vw; --p-l:1.253vw; --p-xl:1.665vw;
+  --p-2xl:2.085vw; --p-3xl:2.498vw; --p-4xl:4.17vw; --p-4_5xl:6.25vw;
+
+  /* ---- dark inversion of sprind's palette ---- */
+  --bg:#000000;
+  --fg:#FFFFFF;
+  --rule:rgba(255,255,255,.22);   /* their #c9c9c9 hairline, inverted */
+  --rule-strong:rgba(255,255,255,.34);
+  --meta:#999999;                 /* their #676767, lifted for dark */
+  --dim:#B4B4B4;
+  --surface:#0A0A0A;
+  --nav-h:80px;
+
+  --accent:#0E9C86;               /* caretTeal — founder 2026-08-07: ONE green,
+                                     the logo's. Acid #39FF35 stays in the films. */
+  --caret:#0E9C86;                /* canon color.accents.caretTeal — LOGO ONLY,
+                                     never repointed at the accent toggle */
+
+  --font-extended:'Archivo Expanded','Archivo','Helvetica Neue',Helvetica,Arial,sans-serif;
+  --font-sans:'Archivo Text','Archivo','Helvetica Neue',Helvetica,Arial,sans-serif;
+}
+/* ============ TYPE PAIRING MODES — the open question ============
+   A  archivo    Archivo Expanded display + Archivo body. Printvetica absent.
+                 Site and films stay separate faces (status quo).
+   B  pv-display Printvetica on the big display type (hero + section heads),
+                 Archivo Expanded on card titles, Archivo body. Films and site
+                 share the loudest voice; body stays readable and light.
+   C  pv-meta    Archivo Expanded display + Printvetica on meta/kickers/dates.
+                 Printvetica becomes the technical label layer.
+   D  pv-max     Printvetica on display AND meta. Maximum film continuity.
+   The LOGO never changes in any mode — it is Archivo 800 + teal caret. */
+html.pv-display .heading0,
+html.pv-display .heading1,
+html.pv-max .heading0,
+html.pv-max .heading1,
+html.pv-max .heading2,
+html.pv-max .heading3{
+  font-family:'Printvetica',Helvetica,Arial,sans-serif;
+  text-transform:uppercase; letter-spacing:.005em;
+}
+html.pv-meta .meta, html.pv-meta .bar .mid, html.pv-meta .navgrid .top,
+html.pv-max .meta,  html.pv-max .bar .mid,  html.pv-max .navgrid .top,
+html.pv-meta .colophon, html.pv-max .colophon{
+  font-family:'Printvetica',Helvetica,Arial,sans-serif; letter-spacing:.04em;
+}
+html.acc-teal { --accent:#0E9C86; }
+html.acc-acid { --accent:#39FF35; }
+html.acc-gold { --accent:#FFCC00; }   /* sprind's own dark-mode accent */
+html.acc-none { --accent:#FFFFFF; }
+
+@media (max-width:1600px){
+  :root{
+    --fs-4xl:132px; --lh-4xl:140px; --fs-3xl:52px; --lh-3xl:54px;
+    --fs-2xl:32px;  --lh-2xl:34px;  --fs-xl:20px;  --lh-xl:22px;
+    --fs-m:18px;    --lh-m:22px;    --fs-s:15px;   --lh-s:19px;
+    --fs-xs:12px;   --lh-xs:14px;
+    --p-xs:4px; --p-s:8px; --p-m:16px; --p-l:24px; --p-xl:32px;
+    --p-2xl:40px; --p-3xl:48px; --p-4xl:80px; --p-4_5xl:120px;
+  }
+}
+@media (max-width:1023px){
+  :root{
+    --fs-4xl:40px; --lh-4xl:42px; --fs-3xl:32px; --lh-3xl:34px;
+    --fs-2xl:24px; --lh-2xl:26px; --fs-xl:18px;  --lh-xl:20px;
+    --fs-m:16px;   --lh-m:19px;   --fs-s:14px;   --lh-s:18px;
+    --p-m:12px; --p-l:16px; --p-xl:24px; --p-2xl:32px; --p-3xl:40px; --p-4xl:64px; --p-4_5xl:80px;
+    --nav-h:76px;
+  }
+}
+@media (max-width:767px){
+  :root{
+    --fs-4xl:28px; --lh-4xl:32px; --fs-3xl:24px; --lh-3xl:28px;
+    --fs-2xl:20px; --lh-2xl:22px; --fs-xl:16px;  --lh-xl:18px;
+    --fs-m:14px;   --lh-m:18px;
+    --p-m:8px; --p-l:12px; --p-xl:16px; --p-2xl:24px; --p-3xl:32px; --p-4xl:48px; --p-4_5xl:64px;
+    --nav-h:73px;
+  }
+}
+
+*{ box-sizing:border-box; margin:0; padding:0; }
+html{ -webkit-font-smoothing:antialiased; background:var(--bg); }
+body{
+  background:var(--bg); color:var(--fg);
+  font-family:var(--font-sans); 
+  font-size:var(--fs-m); line-height:var(--lh-m);
+  overflow-x:hidden;
+}
+a{ color:inherit; text-decoration:none; }
+img{ display:block; max-width:100%; }
+
+/* sprind type classes — extended face, weight 400, uppercase, no tracking */
+.heading0,.heading1,.heading2,.heading3,.wm{
+  font-family:var(--font-extended);
+  font-weight:400;
+}
+.heading0{ font-size:var(--fs-4xl); line-height:var(--lh-4xl); text-transform:uppercase; }
+.heading1{ font-size:var(--fs-3xl); line-height:var(--lh-3xl); }
+.heading2{ font-size:var(--fs-2xl); line-height:var(--lh-2xl); }
+.heading3{ font-size:var(--fs-xl);  line-height:var(--lh-xl); }
+.copyL{ font-size:var(--fs-m); line-height:var(--lh-xl); }
+.copyS{ font-size:var(--fs-s); line-height:var(--lh-s); }
+.up{ text-transform:uppercase; }
+.meta{
+  font-size:var(--fs-s); line-height:var(--lh-s); text-transform:uppercase;
+  letter-spacing:.025em; color:var(--meta); font-variant-numeric:proportional-nums;
+}
+
+/* arrow-first link — sprind writes "-> ZU DEN PROJEKTEN" */
+.alink{
+  display:inline-flex; align-items:baseline; gap:.55em;
+  font-size:var(--fs-m); line-height:var(--lh-xl); text-transform:uppercase;
+}
+.alink .a{ display:inline-block; transition:transform .25s ease; }
+.alink:hover{ color:var(--accent); }
+.alink:hover .a{ transform:translateX(5px); }
+.alink.u span:last-child{ border-bottom:1px solid currentColor; }
+
+/* ================================ NAV ================================
+   Black bar. Row 1: wordmark | centred label | utilities.
+   Row 2: three equal cells, 38px tall, 15px uppercase, vertical hairlines,
+   hover expands a panel.
+   ===================================================================== */
+.menu{ position:fixed; inset:0 0 auto 0; z-index:60; background:var(--bg); }
+.menu .bar{
+  display:flex; justify-content:space-between; align-items:center;
+  padding:var(--p-s) var(--p-m); border-bottom:1px solid var(--rule);
+}
+/* THE LOGO — reproduced from brand/logo/export/_base.css, unchanged:
+   Archivo 800, letter-spacing -.045em, caret block .12em x .98em in
+   caretTeal #0E9C86 (canon: color.accents.caretTeal). */
+.logo{
+  font-family:'Archivo Text',Helvetica,Arial,sans-serif;
+  font-weight:800; letter-spacing:-.045em; line-height:1;
+  display:inline-flex; align-items:center; text-transform:none;
+}
+.logo .caret{
+  display:inline-block; width:.12em; height:.98em;
+  margin-left:.14em; background:var(--caret);
+}
+.bar .wm{ font-size:var(--fs-xl); line-height:1; }
+.bar .mid{ font-size:var(--fs-s); text-transform:uppercase; letter-spacing:.025em; }
+.bar .util{ display:flex; align-items:center; gap:var(--p-m); }
+.bar .util a{ font-size:var(--fs-s); text-transform:uppercase; letter-spacing:.025em; color:var(--dim); }
+.bar .util a:hover,.bar .util a.on{ color:var(--fg); }
+
+.navgrid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--rule); list-style:none; }
+.navgrid > li{ background:var(--bg); display:flex; flex-direction:column; }
+.navgrid .top{
+  height:38px; display:flex; align-items:center; justify-content:center;
+  font-size:var(--fs-s); text-transform:uppercase; letter-spacing:.025em;
+}
+.navgrid > li:hover .top{ color:var(--accent); }
+.navgrid .panel{
+  border-top:1px solid var(--rule);
+  display:grid; gap:var(--p-xl); padding:0 var(--p-m);
+  max-height:0; opacity:0; overflow:hidden;
+  transition:max-height .35s ease, opacity .25s ease, padding .35s ease;
+}
+.navgrid > li:hover .panel{ max-height:320px; opacity:1; padding:var(--p-m); }
+.navgrid .panel ul{ display:flex; flex-direction:column; gap:2px; list-style:none; }
+.navgrid .panel a{ font-size:var(--fs-s); }
+.navgrid .panel a span{ border-bottom:1px solid transparent; }
+.navgrid .panel li:hover a span{ border-bottom-color:var(--fg); }
+.navgrid .panel .info{ color:var(--meta); font-size:var(--fs-s); line-height:var(--lh-s); }
+@media (max-width:767px){ .navgrid .panel{ display:none; } }
+
+/* ============================== MODULES ============================== */
+main{ padding-top:var(--nav-h); }
+/* the nav is fixed, so anchor targets must clear it or the heading lands behind it */
+#top,#latest,#archive,#subscribe{ scroll-margin-top:var(--nav-h); }
+.stack > *{ border-top:1px solid var(--rule); }
+.stack > *:first-child{ border-top:none; }
+.module{ padding:var(--p-2xl) var(--p-2xl) var(--p-4xl); display:grid; gap:var(--p-4xl); }
+.module-flush{ padding:0; }
+.modhead{ display:flex; justify-content:space-between; align-items:flex-start; gap:var(--p-l); flex-wrap:wrap; }
+.modhead h2{ text-transform:uppercase; }
+
+/* ============================ HERO / INTRO ===========================
+   sprind: full-bleed media, min-height 70svh (100svh lg), a scrim rising
+   from the bottom, content bottom-centred. The giant wordmark is the
+   single largest object on the first screen; the h1 is secondary.
+   ===================================================================== */
+.intro{ position:relative; width:100%; min-height:70svh; overflow:hidden; display:flex; }
+@media (min-width:1024px){ .intro{ min-height:100svh; } }
+.intro .media{ position:absolute; inset:0; }
+.intro .media img{ width:100%; height:100%; object-fit:cover; }
+.intro .scrim{
+  position:absolute; inset:0; z-index:10;
+  background:linear-gradient(to top,#000 16%,rgba(0,0,0,.72) 44%,rgba(0,0,0,.28) 72%,rgba(0,0,0,.45) 100%);
+}
+.intro .content{
+  position:relative; z-index:30; width:100%;
+  display:flex; flex-direction:column; justify-content:flex-end; align-items:center;
+  padding:var(--p-l) var(--p-2xl) var(--p-4_5xl); gap:var(--p-xl);
+}
+.intro .bigmark{
+  font-size:clamp(56px,11.8vw,170px); line-height:.86; text-align:center;
+}
+
+
+.intro h1{ text-align:center; text-transform:uppercase; max-width:24ch; }
+.intro .lede{ text-align:center; max-width:64ch; color:var(--dim); }
+.intro .cue{
+  position:absolute; right:var(--p-l); bottom:var(--p-l); z-index:40;
+  font-size:var(--fs-xs); text-transform:uppercase; letter-spacing:.025em; color:var(--dim);
+}
+
+/* ============================== TEASERS ==============================
+   Measured on sprind: card 700x234. Image 350 left at 3:2. Text 350 right,
+   padding 16px 0 0 16px. Title 18/22 uppercase, body 18/22, date 15 uppercase.
+   Hairline across the top spanning both halves, plus the left hairline.
+   ===================================================================== */
+.cards{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); column-gap:var(--p-2xl); row-gap:var(--p-3xl); }
+@media (max-width:1023px){ .cards{ grid-template-columns:minmax(0,1fr); } }
+
+.teaser{
+  display:flex; min-width:0;
+  border-top:1px solid var(--rule);
+  border-left:1px solid var(--rule);
+}
+.teaser .img{ flex:0 0 50%; aspect-ratio:3/2; overflow:hidden; background:var(--surface); }
+.teaser .img img{ width:100%; height:100%; object-fit:cover; transition:transform .6s cubic-bezier(.2,.7,.3,1), opacity .3s ease; opacity:.92; }
+.teaser:hover .img img{ transform:scale(1.04); opacity:1; }
+.teaser .body{
+  flex:1 1 50%; min-width:0;
+  padding:var(--p-m) 0 0 var(--p-m);
+  display:flex; flex-direction:column; gap:var(--p-s);
+}
+.teaser .date{ padding-bottom:var(--p-s); }
+.teaser h3{ text-transform:uppercase; font-size:var(--fs-m); line-height:var(--lh-xl); font-family:var(--font-extended); }
+.teaser p{ font-size:var(--fs-m); line-height:var(--lh-xl); color:var(--dim); }
+.teaser .more{ margin-top:auto; padding-top:var(--p-m); }
+.teaser .more span:last-child{ border-bottom:1px solid currentColor; }
+.teaser:hover .more{ color:var(--accent); }
+@media (max-width:600px){
+  .teaser{ flex-direction:column; }
+  .teaser .img{ flex:none; width:100%; }
+  .teaser .body{ padding:var(--p-m) var(--p-m) var(--p-m) var(--p-m); }
+}
+
+/* ============================= ACCORDION ============================= */
+.split{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--p-xl); }
+@media (max-width:1023px){ .split{ grid-template-columns:minmax(0,1fr); } }
+.acc .row{ border-bottom:1px solid var(--rule); }
+.acc .row:last-child{ border-bottom:0; }
+.acc button{
+  width:100%; min-width:0; background:none; border:0; cursor:pointer; text-align:left; color:var(--fg);
+  display:flex; justify-content:space-between; align-items:center; gap:var(--p-s);
+  padding:14px 0; font-family:var(--font-extended);
+  font-size:var(--fs-xl); line-height:var(--lh-xl); text-transform:uppercase;
+}
+.acc button:hover{ color:var(--accent); }
+.acc .sign{ font-family:var(--font-sans); transition:transform .25s ease; flex:0 0 auto; }
+.acc button > :first-child{ min-width:0; overflow-wrap:anywhere; }
+.acc .row.open .sign{ transform:rotate(45deg); }
+.acc .panel{ max-height:0; overflow:hidden; transition:max-height .22s ease-out; }
+.acc .row.open .panel{ max-height:280px; }
+.acc .panel p{ padding:0 0 var(--p-m); color:var(--dim); }
+
+/* =========================== FULL-BLEED FILM ========================= */
+.film{ position:relative; aspect-ratio:16/9; overflow:hidden; background:#000; }
+.film img{ width:100%; height:100%; object-fit:cover; opacity:.8; }
+.film .veil{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,.35); transition:backdrop-filter .3s ease; }
+.film:hover .veil{ backdrop-filter:blur(5px); }
+.film .play{
+  color:#fff; background:none; border:1px solid #fff; cursor:pointer;
+  font-family:var(--font-sans); font-size:var(--fs-s); text-transform:uppercase;
+  letter-spacing:.025em; padding:var(--p-s) var(--p-l);
+}
+.film .play:hover{ background:#fff; color:#000; }
+.film .scrub{ position:absolute; left:var(--p-m); right:var(--p-m); bottom:var(--p-l); }
+.film .track{ position:relative; height:1px; background:rgba(255,255,255,.25); transition:height .2s ease; }
+.film:hover .track{ height:4px; }
+.film .track i{ position:absolute; inset:0 62% 0 0; background:#fff; }
+.film .times{ display:flex; justify-content:space-between; color:#fff; font-size:var(--fs-xs); padding-top:8px; font-variant-numeric:tabular-nums; }
+
+/* ============================== FOOTER ===============================
+   Lattice: gap:1px, every cell 1px-outlined. Cells 128px tall
+   (padding 48px 0), 18px uppercase, arrow FIRST. The newsletter CTA is an
+   unfilled cell bounded by hairlines — never a filled button.
+   ===================================================================== */
+footer{ display:grid; gap:1px; }
+.lattice{ display:grid; gap:1px; }
+.lattice > *{ outline:1px solid var(--rule); }
+.foot-top{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+@media (max-width:1023px){ .foot-top{ grid-template-columns:minmax(0,1fr); } }
+.foot-social{ display:flex; align-items:center; justify-content:center; gap:var(--p-l); padding:var(--p-3xl) var(--p-l); flex-wrap:wrap; }
+.foot-social a{ font-size:var(--fs-s); text-transform:uppercase; letter-spacing:.025em; color:var(--dim); }
+.foot-social a:hover{ color:var(--accent); }
+.nl-title{ padding:var(--p-3xl); text-align:center; text-transform:uppercase; }
+.nl-form{ padding:var(--p-l); }
+.nl-form label{ display:block; font-size:var(--fs-s); text-transform:uppercase; letter-spacing:.025em; color:var(--meta); padding-bottom:8px; }
+.nl-form input{
+  width:100%; background:transparent; color:var(--fg);
+  border:0; border-bottom:1px solid var(--rule); border-radius:0;
+  padding:10px 0; font-family:var(--font-sans); font-size:var(--fs-m); outline:none;
+}
+.nl-form input:focus{ border-bottom-color:var(--fg); }
+.nl-cta{
+  display:flex; align-items:center; justify-content:center;
+  padding:var(--p-3xl) 0; font-size:var(--fs-m); text-transform:uppercase;
+  color:var(--meta); cursor:pointer; background:none; border:0; width:100%;
+  font-family:var(--font-sans); letter-spacing:.025em;
+}
+.nl-cta:hover{ color:var(--accent); }
+.nl-note{ padding:var(--p-l); color:var(--meta); }
+.nl-note a{ text-decoration:underline; }
+.foot-links{ grid-template-columns:repeat(3,minmax(0,1fr)); }
+@media (max-width:1023px){ .foot-links{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media (max-width:640px){ .foot-links{ grid-template-columns:minmax(0,1fr); } }
+.foot-links a{
+  display:flex; align-items:center; justify-content:center; gap:.55em;
+  padding:var(--p-3xl) var(--p-l); font-size:var(--fs-m); text-transform:uppercase;
+  min-height:128px;
+}
+.foot-links a:hover{ background:rgba(255,255,255,.05); color:var(--accent); }
+.colophon{ padding:var(--p-m); text-align:center; text-transform:uppercase; letter-spacing:.025em; color:var(--meta); }
+
+/* ------------------------------ toggles ------------------------------ */
+.toggles{ position:fixed; right:12px; bottom:12px; z-index:90; display:flex; flex-direction:column; gap:6px; align-items:flex-end; }
+.toggles button{
+  background:#fff; color:#000; border:0; cursor:pointer;
+  font:12px/1.2 ui-monospace,monospace; padding:9px 12px; letter-spacing:.06em;
+}
+.toggles button:hover{ background:var(--accent); }
+</style>
+</head>
+<body>
+
+<div class="menu">
+  <div class="bar">
+    <a class="wm logo" href="#top">vektor<span class="caret"></span></a>
+    <span class="mid">The Index</span>
+    <div class="util"><a href="#" class="on">Start</a><a href="#subscribe">Subscribe</a></div>
+  </div>
+  <ul class="navgrid">
+    <li>
+      <a class="top" href="#latest">Issues</a>
+      <div class="panel">
+        <ul>
+          <li><a href="#latest"><span>Latest</span></a></li>
+          <li><a href="#archive"><span>The archive</span></a></li>
+          <li><a href="#"><span>Series</span></a></li>
+          <li><a href="#"><span>Submit a topic</span></a></li>
+        </ul>
+        <p class="info">Every issue is one short film and one working pack — config, prompts, links.</p>
+      </div>
+    </li>
+    <li>
+      <a class="top" href="#">Packs</a>
+      <div class="panel">
+        <ul>
+          <li><a href="#"><span>Skills</span></a></li>
+          <li><a href="#"><span>Agent starter kit</span></a></li>
+          <li><a href="#"><span>Loops</span></a></li>
+          <li><a href="#"><span>CLAUDE.md files</span></a></li>
+        </ul>
+        <p class="info">The files behind the films. Free, no signup wall.</p>
+      </div>
+    </li>
+    <li>
+      <a class="top" href="#">About</a>
+      <div class="panel">
+        <ul>
+          <li><a href="#"><span>What vektor is</span></a></li>
+          <li><a href="#subscribe"><span>The Teardown</span></a></li>
+          <li><a href="#"><span>Watch</span></a></li>
+          <li><a href="#"><span>Privacy</span></a></li>
+        </ul>
+        <p class="info">Daily shorts on the Claude and AI tooling that actually matters.</p>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<main id="top"><div class="stack">
+
+  <section class="intro">
+    <div class="media"><img id="heroplate" src="plates/v3-a-hero.webp" alt=""></div>
+    <div class="scrim"></div>
+    <div class="content">
+      <!-- sprind's first screen is dominated by a ~170px wordmark, with the
+           h1 as a secondary line beneath it. Two candidates for that slot:
+           set type, or the Brik liquid-chrome render. Toggle bottom-right. -->
+      <div class="bigmark logo" >vektor<span class="caret"></span></div>
+      <h1 class="heading1">The AI frontier, cut to what ships</h1>
+      <p class="lede copyL">Every issue is one short film and one working pack. Watch it, comment the keyword, and the files land in your DMs — config, prompts, links, nothing held back.</p>
+    </div>
+    <div class="cue">Scroll</div>
+  </section>
+
+  <section class="module" id="latest">
+    <div class="modhead">
+      <h2 class="heading1">Latest</h2>
+      <a class="alink u" href="#archive"><span class="a">→</span><span>All 22 issues</span></a>
+    </div>
+    <div class="cards" id="latestgrid"></div>
+  </section>
+
+  <section class="module-flush">
+    <div class="film">
+      <img src="plates/v3-c-hero.webp" alt="">
+      <div class="veil"><button class="play">Play the reel</button></div>
+      <div class="scrub">
+        <div class="track"><i></i></div>
+        <div class="times"><span>00:24</span><span>00:38</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="module">
+    <div class="split">
+      <h2 class="heading1 up">How it works</h2>
+      <div class="acc">
+        <div class="row open">
+          <button type="button">Watch the reel <span class="sign">+</span></button>
+          <div class="panel"><p class="copyS">One short a day, on TikTok, Instagram, YouTube and X. Sixty seconds, no intro, no outro.</p></div>
+        </div>
+        <div class="row">
+          <button type="button">Comment the keyword <span class="sign">+</span></button>
+          <div class="panel"><p class="copyS">Every film ends on a single word. Comment it and the bot picks it up.</p></div>
+        </div>
+        <div class="row">
+          <button type="button">The links land in your DMs <span class="sign">+</span></button>
+          <div class="panel"><p class="copyS">The pack arrives as working links — the config, the prompts, the repo. No signup, no gate.</p></div>
+        </div>
+        <div class="row">
+          <button type="button">Everything stays free <span class="sign">+</span></button>
+          <div class="panel"><p class="copyS">The archive is public and permanent. The newsletter is the only thing you sign up for, and it is also free.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="module" id="archive">
+    <div class="modhead">
+      <h2 class="heading1">The archive</h2>
+      <a class="alink u" href="#"><span class="a">→</span><span>Issues 001–003 lived in the DMs</span></a>
+    </div>
+    <div class="cards" id="archgrid"></div>
+  </section>
+
+</div></main>
+
+<footer>
+  <div class="lattice foot-top">
+    <div class="foot-social">
+      <a class="logo" href="#top" style="font-size:var(--fs-2xl);margin-right:auto">vektor<span class="caret"></span></a>
+      <a href="#">TikTok</a><a href="#">Instagram</a><a href="#">YouTube</a><a href="#">X</a><a href="#">GitHub</a>
+    </div>
+    <div class="lattice">
+      <div class="nl-title heading1" id="subscribe">The Teardown</div>
+      <div class="nl-form">
+        <form onsubmit="return false">
+          <label for="em">Email address *</label>
+          <input id="em" type="email" placeholder="you@email.com">
+        </form>
+      </div>
+      <button class="nl-cta" type="button">Subscribe</button>
+      <div class="nl-note copyS">One email a week — the current drop's pack plus one teardown. Free, unsubscribe anytime. See the <a href="#">privacy notice</a>.</div>
+    </div>
+  </div>
+
+  <div class="lattice foot-links">
+    <a href="#"><span>→</span><span>The archive</span></a>
+    <a href="#"><span>→</span><span>Packs</span></a>
+    <a href="#"><span>→</span><span>About</span></a>
+    <a href="#"><span>→</span><span>Watch</span></a>
+    <a href="#"><span>→</span><span>Contact</span></a>
+    <a href="#"><span>→</span><span>Privacy</span></a>
+  </div>
+
+  <div class="colophon copyS">vektor /// the index · 08-2026 · the frontier, by the numbers</div>
+</footer>
+
+<div class="toggles">
+  <button id="tAccent">ACCENT: CARET TEAL #0E9C86</button>
+  <button id="tPlate">HERO PLATE: V3-A</button>
+  <button id="tType">TYPE: C · PRINTVETICA META</button>
+</div>
+
+<script>
+/* plates generated by slitscan.py from the founder's own films */
+const PLATES = ['v3-a','v3-b','v3-c','v3-d','v3-e','v3-f'];
+
+const LATEST = [
+ ["026","Your agent starts from zero every time","The State File — the three-file pattern that gives an agent memory between runs.","30.7.2026"],
+ ["031","The government runs on paychecks","Tax the agents — what happens to public finance when the payroll stops being human.","23.7.2026"],
+ ["030","5 advisors. 0 yes-men","The Council — five subagents that argue with you instead of agreeing.","26.7.2026"],
+ ["024","Your AI habits. Audited","The Mirror — point it at your own transcripts and find out how you actually work.","20.5.2026"]
+];
+const ARCHIVE = [
+ ["023","3 skills. Taste, installed","The Design Stack","22.7.2026"],
+ ["022","33 AI tells. Deleted","The Humanizer","22.7.2026"],
+ ["021","9 tools too good to be free","The Open-Source Nine","19.7.2026"],
+ ["020","4 subagents. Not 1 chat","Subagents","18.7.2026"],
+ ["019","The Academy Series","The Academy","17.7.2026"],
+ ["018","3 files. The brain, bottled","Bottle the Brain","16.7.2026"],
+ ["017","The match-predictor prompt","AI vs the Final","15.7.2026"],
+ ["015","Stop prompting. Write loops","Loops","12.7.2026"],
+ ["013","Hire your first AI agent","Agents","10.7.2026"],
+ ["012","6 rules. Your repo survives","Git Hygiene","9.7.2026"],
+ ["011","Faster. Cheaper. 3 rules","The Rules · Part 2","8.7.2026"],
+ ["010","7 rules. One file","The Rules","7.7.2026"],
+ ["009","One prompt. Every carousel","The Carousel","6.7.2026"],
+ ["008","120,000 chars. Leaked","The Leak","5.7.2026"],
+ ["007","1.6M lines. On iPhone","The Port","4.7.2026"],
+ ["006","One file. 188,000 stars","The File","3.7.2026"],
+ ["005","Code with AI. Keep your brain","Four Rules","2.7.2026"],
+ ["004","You only need 5 skills","Five Skills","1.7.2026"]
+];
+
+const card = ([n,t,s,d],i) => `
+  <a class="teaser" href="#">
+    <div class="img"><img loading="lazy" decoding="async" width="700" height="467" src="plates/${PLATES[i % PLATES.length]}-card.webp" alt=""></div>
+    <div class="body">
+      <div class="date meta">${d}</div>
+      <h3>${t}</h3>
+      <p>${s}</p>
+      <span class="more alink"><span class="a">→</span><span>Open the pack</span></span>
+    </div>
+  </a>`;
+
+document.getElementById('latestgrid').innerHTML = LATEST.map(card).join('');
+document.getElementById('archgrid').innerHTML = ARCHIVE.map((r,i)=>card(r,i+2)).join('');
+
+document.querySelectorAll('.acc .row button').forEach(b=>{
+  b.addEventListener('click',()=> b.parentElement.classList.toggle('open'));
+});
+
+/* accent toggle — the three options up for decision */
+const ACCENTS = [['acc-teal','CARET TEAL #0E9C86'],['acc-gold','SPRIND GOLD #FFCC00'],['acc-none','NONE — MONOCHROME'],['acc-acid','ACID #39FF35 (films)']];
+let ai = 0;
+const tA = document.getElementById('tAccent');
+tA.addEventListener('click',()=>{
+  document.documentElement.classList.remove(ACCENTS[ai][0]);
+  ai = (ai+1) % ACCENTS.length;
+  document.documentElement.classList.add(ACCENTS[ai][0]);
+  tA.textContent = 'ACCENT: ' + ACCENTS[ai][1];
+});
+
+/* type-pairing toggle — Archivo alone vs three ways of folding in Printvetica */
+const TYPES=[['','A · ARCHIVO ONLY'],
+             ['pv-display','B · PRINTVETICA DISPLAY'],
+             ['pv-meta','C · PRINTVETICA META'],
+             ['pv-max','D · PRINTVETICA MAX']];
+let ti=2;   // C — founder-selected 2026-08-07
+const tT=document.getElementById('tType');
+tT.addEventListener('click',()=>{
+  if(TYPES[ti][0]) document.documentElement.classList.remove(TYPES[ti][0]);
+  ti=(ti+1)%TYPES.length;
+  if(TYPES[ti][0]) document.documentElement.classList.add(TYPES[ti][0]);
+  tT.textContent='TYPE: '+TYPES[ti][1];
+});
+
+
+/* hero plate toggle — cycle the six generated plates */
+let pi = 0;
+const tP = document.getElementById('tPlate');
+tP.addEventListener('click',()=>{
+  pi = (pi+1) % PLATES.length;
+  document.getElementById('heroplate').src = 'plates/' + PLATES[pi] + '-hero.webp';
+  tP.textContent = 'HERO PLATE: ' + PLATES[pi].toUpperCase();
+});
+</script>
+</body></html>
