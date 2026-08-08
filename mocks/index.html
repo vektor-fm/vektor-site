@@ -88,11 +88,22 @@
   /* ---- dark inversion of sprind's palette ---- */
   --bg:#000000;
   --fg:#FFFFFF;
-  --rule:rgba(255,255,255,.22);   /* their #c9c9c9 hairline, inverted */
-  --rule-strong:rgba(255,255,255,.34);
+  /* sprind's hairline is #c9c9c9 in BOTH themes — their .darkmode class swaps
+     --white/--black but deliberately leaves --color-silver-300 alone. Measured
+     on their own dark bands 2026-08-08. Founder-approved: use their value, not
+     an inversion of it and not full white. */
+  --rule:#C9C9C9;
+  --rule-strong:#C9C9C9;
   --meta:#999999;                 /* their #676767, lifted for dark */
   --dim:#B4B4B4;
   --surface:#0A0A0A;
+
+  /* BANDING (founder-approved 2026-08-08): sprind alternates light and dark
+     bands; we keep the alternation and invert it. Their white band becomes our
+     black; their black band becomes this lifted near-black. The exact lift is
+     not settled — far enough from #000 to read as a band, close enough to stay
+     dark. Decide it on the render. */
+  --band:#0E0E0E;
   --nav-h:80px;
   --paper:#EFEADD;       /* wordmark ink — live site --paper */
   --acid-mark:#39FF35;   /* wordmark registration plate A — NOT the UI accent */
@@ -191,25 +202,65 @@ img{ display:block; max-width:100%; }
   letter-spacing:.025em; color:var(--meta); font-variant-numeric:proportional-nums;
 }
 
-/* arrow-first link — sprind writes "-> ZU DEN PROJEKTEN" */
+/* ===================== ARROW LINKS — CORRECTED 2026-08-08 =====================
+   A previous pass recorded "arrow FIRST" as sprind's measured anatomy. It is
+   wrong. Measured on the live site, every PAGE-level control is `LABEL →`:
+   a 17x11 SVG after the label, align-items:baseline, gap 4px. The hover state
+   IS the gap widening 4px -> 8px, which slides the arrow right and grows the
+   element (177.8 -> 181.8px measured). No colour change.
+
+   Arrow-FIRST survives in exactly one place: the nav submenu panels. See
+   .navgrid .panel below.
+
+   The small card CTA (.defaultS on sprind) has NO arrow at all — a bare label
+   with a 1px #767676 underline that goes to full white on hover.
+   ============================================================================ */
 .alink{
-  display:inline-flex; align-items:baseline; gap:.55em;
+  display:inline-flex; align-items:baseline; gap:4px;
   font-size:var(--fs-m); line-height:var(--lh-xl); text-transform:uppercase;
+  letter-spacing:.025em;
+  transition:gap .15s cubic-bezier(.4,0,.2,1), color .15s cubic-bezier(.4,0,.2,1);
 }
-.alink .a{ display:inline-block; transition:transform .25s ease; }
-.alink:hover{ color:var(--accent); }
+.alink:hover{ gap:8px; }
+.alink .a{ display:inline-block; order:2; }   /* order:2 puts the arrow AFTER */
+
+/* sprind's small card CTA: underlined label, no arrow, grey to white */
+.defaultS{
+  display:inline-flex; font-size:var(--fs-m); line-height:var(--lh-xl);
+  color:#767676; border-bottom:1px solid #767676;
+  transition:color .15s cubic-bezier(.4,0,.2,1), border-color .15s cubic-bezier(.4,0,.2,1);
+}
+.defaultS:hover{ color:var(--fg); border-bottom-color:var(--fg); }
 .alink:hover .a{ transform:translateX(5px); }
 .alink.u span:last-child{ border-bottom:1px solid currentColor; }
 
 /* ================================ NAV ================================
-   Black bar. Row 1: wordmark | centred label | utilities.
-   Row 2: three equal cells, 38px tall, 15px uppercase, vertical hairlines,
-   hover expands a panel.
+   MEASURED ON SPRIND 2026-08-08. The header is OFF-SCREEN by default:
+   transform:translate3d(0,-100%,0). It is revealed by mouseenter on an
+   invisible 24px-tall full-width strip pinned to the top of the viewport, or
+   by focus (keyboard). Scrolling never reveals it — verified at scrollY
+   0/200/400/800/1600. Once revealed it is sticky.
+
+   Three states: off-screen -> bar only (81.8px) -> fully open (326.8px).
+   Bar 44px + 1px grid gap + submenu row 36.8px.
+   Reveal is transform .4s ease; open is max-height .5s ease-out.
+   Desktop does NOT scroll-lock (body stays overflow:visible). Mobile does.
    ===================================================================== */
-.menu{ position:fixed; inset:0 0 auto 0; z-index:60; background:var(--bg); }
+.navreveal{                       /* the invisible 24px trigger strip */
+  position:fixed; top:0; left:0; right:0; height:24px; z-index:70;
+  cursor:default;
+}
+.menu{
+  position:fixed; inset:0 0 auto 0; z-index:60; background:transparent;
+  display:grid; gap:1px;
+  transform:translate3d(0,-100%,0);
+  transition:transform .4s ease;
+}
+.menu.nav-visible, .menu:focus-within{ transform:translateZ(0); }
 .menu .bar{
   display:flex; justify-content:space-between; align-items:center;
-  padding:var(--p-s) var(--p-m); border-bottom:1px solid var(--rule);
+  padding:var(--p-s); height:44px; background:var(--bg);
+  outline:1px solid var(--rule);   /* outline, not border — sprind surrounds the bar */
 }
 /* ======================= THE LOGO — THE REAL ONE =======================
    The shipping wordmark, from partials/head.html:174-186. NOT the retired
@@ -242,33 +293,100 @@ img{ display:block; max-width:100%; }
 .bar .util a{ font-size:var(--fs-s); text-transform:uppercase; letter-spacing:.025em; color:var(--dim); }
 .bar .util a:hover,.bar .util a.on{ color:var(--fg); }
 
-.navgrid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--rule); list-style:none; }
-.navgrid > li{ background:var(--bg); display:flex; flex-direction:column; }
-.navgrid .top{
-  height:38px; display:flex; align-items:center; justify-content:center;
-  font-size:var(--fs-s); text-transform:uppercase; letter-spacing:.025em;
+/* Submenu row — Technique C lattice: 1px grid gap plus a 1px OUTLINE on every
+   cell. Outlines paint outside the border box and take no layout space, so two
+   neighbours' outlines meet inside the gutter and read as one hairline. */
+.navgrid{
+  display:grid; grid-auto-flow:column; grid-auto-columns:minmax(0,1fr);
+  gap:1px; background:var(--bg); list-style:none;
 }
-.navgrid > li:hover .top{ color:var(--accent); }
+.navgrid > li{ display:flex; flex-direction:column; outline:1px solid var(--rule); }
+.nav-submenu{ display:grid; }   /* no gap: .navbottom carries margin-top:-1px */
+.navgrid .top{
+  height:37px; display:flex; align-items:center; justify-content:center;
+  font-size:var(--fs-s); line-height:var(--lh-s);
+  text-transform:uppercase; letter-spacing:normal; text-align:center;
+  transition:background-color .15s cubic-bezier(.4,0,.2,1);
+}
+/* sprind fills the cell 20% white on dark, and does NOT change the text colour */
+.navgrid > li:hover .top{ background-color:rgba(255,255,255,.2); }
 .navgrid .panel{
   border-top:1px solid var(--rule);
+  margin-bottom:-1px;              /* swallows the doubled hairline, as sprind does */
   display:grid; gap:var(--p-xl); padding:0 var(--p-m);
   max-height:0; opacity:0; overflow:hidden;
-  transition:max-height .35s ease, opacity .25s ease, padding .35s ease;
+  transition:max-height .5s ease-out, opacity .5s ease-out, padding .5s ease-out;
 }
-.navgrid > li:hover .panel{ max-height:320px; opacity:1; padding:var(--p-m); }
+.menu:hover .navgrid .panel,
+.menu:focus-within .navgrid .panel{ max-height:384px; opacity:1; padding:var(--p-m); }
 .navgrid .panel ul{ display:flex; flex-direction:column; gap:2px; list-style:none; }
-.navgrid .panel a{ font-size:var(--fs-s); }
+/* Panel links are the ONE place sprind puts the arrow first — 15/19,
+   SENTENCE CASE (not uppercase), 8px gap. */
+.navgrid .panel a{
+  display:flex; gap:var(--p-s);
+  font-size:var(--fs-s); line-height:var(--lh-s); text-transform:none;
+}
 .navgrid .panel a span{ border-bottom:1px solid transparent; }
-.navgrid .panel li:hover a span{ border-bottom-color:var(--fg); }
+/* Hover DIMS THE SIBLINGS rather than highlighting the target: every other
+   link goes to #767676 while the hovered one stays white. */
+.navgrid .panel ul:hover li a{ color:#767676; }
+.navgrid .panel ul li a{ transition:color .1s ease-in-out; }
+.navgrid .panel ul li a:hover{ color:var(--fg); }
 .navgrid .panel .info{ color:var(--meta); font-size:var(--fs-s); line-height:var(--lh-s); }
-@media (max-width:767px){ .navgrid .panel{ display:none; } }
+/* Staggered reveal: child n gets .1n s duration, .02n s delay */
+.navgrid .panel ul li{ opacity:0; }
+.menu:hover .navgrid .panel ul li,
+.menu:focus-within .navgrid .panel ul li{ opacity:1; }
+.navgrid .panel ul li:nth-child(1){ transition:opacity .1s ease-in-out 0s; }
+.navgrid .panel ul li:nth-child(2){ transition:opacity .2s ease-in-out .02s; }
+.navgrid .panel ul li:nth-child(3){ transition:opacity .3s ease-in-out .04s; }
+.navgrid .panel ul li:nth-child(4){ transition:opacity .4s ease-in-out .06s; }
+.navgrid .panel ul li:nth-child(5){ transition:opacity .5s ease-in-out .08s; }
+.navgrid .panel .info{ transition:opacity .5s ease-out .1s; }
+
+/* Full-width bottom row spanning all three columns, 36px */
+.navbottom{
+  display:flex; justify-content:space-between; flex-wrap:wrap;
+  background:var(--bg); outline:1px solid var(--rule);
+  margin-top:-1px;                 /* swallow the doubled hairline, as sprind does */
+  max-height:0; overflow:hidden;
+  transition:max-height .5s ease-out;
+}
+.menu:hover .navbottom, .menu:focus-within .navbottom{ max-height:96px; }
+.navbottom ul{ display:flex; list-style:none; padding:var(--p-s) var(--p-m); }
+.navbottom .social{ gap:var(--p-s); }
+.navbottom .legal{ gap:var(--p-xl); }
+.navbottom a{ font-size:var(--fs-s); line-height:var(--lh-s); display:flex; gap:var(--p-s); }
+.navbottom .legal:hover a{ color:#767676; }
+.navbottom .legal a{ transition:color .1s ease-in-out; }
+.navbottom .legal a:hover{ color:var(--fg); }
+
+/* Below 768 sprind drops the hover gating entirely: the drawer opens from the
+   bar and ALL panels are expanded at once. */
+@media (max-width:767px){
+  .navgrid{ grid-auto-flow:row; }
+  .navgrid .panel{ max-height:none; opacity:1; padding:var(--p-m); }
+  .navgrid .panel ul li{ opacity:1; }
+  .navbottom{ max-height:none; }
+}
 
 /* ============================== MODULES ============================== */
-main{ padding-top:var(--nav-h); }
-/* the nav is fixed, so anchor targets must clear it or the heading lands behind it */
+/* No top offset: the nav sits off-screen until revealed, so the page starts at
+   y=0 exactly as sprind's does. Anchor targets still clear the bar in case it
+   is showing when a jump happens. */
+main{ padding-top:0; }
 #top,#latest,#archive,#subscribe{ scroll-margin-top:var(--nav-h); }
-.stack > *{ border-top:1px solid var(--rule); }
-.stack > *:first-child{ border-top:none; }
+
+/* Technique A — every section carries its own bottom hairline and they abut.
+   Measured section-to-section gap on sprind: 0.00px across all 11 pairs. */
+.stack > *{ border-bottom:1px solid var(--rule); }
+.stack > *:last-child{ border-bottom:none; }
+
+/* BANDING, inverted. sprind: S0/S1/S2 black, S3/S4/S5 white, S6 black,
+   S7 white, S8 black, S9/S10 white, footer white.
+   Ours flips it — their white is our black, their black is our lifted band. */
+.band-lift{ background:var(--band); }
+.band-base{ background:var(--bg); }
 .module{ padding:var(--p-2xl) var(--p-2xl) var(--p-4xl); display:grid; gap:var(--p-4xl); }
 .module-flush{ padding:0; }
 .modhead{ display:flex; justify-content:space-between; align-items:flex-start; gap:var(--p-l); flex-wrap:wrap; }
@@ -279,24 +397,43 @@ main{ padding-top:var(--nav-h); }
    from the bottom, content bottom-centred. The giant wordmark is the
    single largest object on the first screen; the h1 is secondary.
    ===================================================================== */
-.intro{ position:relative; width:100%; min-height:70svh; overflow:hidden; display:flex; }
+/* Founder-approved 2026-08-08: DROP THE HERO IMAGE. sprind's hero carries no
+   image and no video — it is the ground colour, a gradient, and a wordmark
+   that is the single largest object on the first screen. Their wordmark SVG is
+   w-2/3, a 960x361 box at 1440. Ours is set type sized to match that width.
+   Content column is justify-between with the eyebrow on top. Fade-in 0.3s on
+   mount is the only load-time motion on their whole page. */
+.intro{
+  position:relative; width:100%; min-height:70svh; overflow:hidden; display:flex;
+  background:var(--band);
+}
 @media (min-width:1024px){ .intro{ min-height:100svh; } }
-.intro .media{ position:absolute; inset:0; }
-.intro .media img{ width:100%; height:100%; object-fit:cover; }
 .intro .scrim{
   position:absolute; inset:0; z-index:10;
-  background:linear-gradient(to top,#000 16%,rgba(0,0,0,.72) 44%,rgba(0,0,0,.28) 72%,rgba(0,0,0,.45) 100%);
+  background:linear-gradient(to top,var(--band) 20%,rgba(0,0,0,.3) 80%);
 }
 .intro .content{
   position:relative; z-index:30; width:100%;
-  display:flex; flex-direction:column; justify-content:flex-end; align-items:center;
-  padding:var(--p-l) var(--p-2xl) var(--p-4_5xl); gap:var(--p-xl);
+  display:flex; flex-direction:column; justify-content:space-between; align-items:center;
+  padding:0 var(--p-2xl) var(--p-4_5xl); gap:var(--p-4xl);
+  animation:hero-fade .3s ease-in-out 1;
 }
-.intro .bigmark{ font-size:clamp(40px,11vw,84px); line-height:.95; }
-
+@keyframes hero-fade{ from{ opacity:0 } to{ opacity:1 } }
+.intro .eyebrow{
+  padding:var(--p-l); text-align:center;
+  font-size:var(--fs-s); line-height:var(--lh-s);
+  text-transform:uppercase; letter-spacing:normal; color:var(--fg);
+}
+/* sprind's hero wordmark is an SVG at w-2/3 — a 960x361 box at 1440. Ours is
+   set type, so the size is derived, not guessed: 11.6vw measured at 30.8% of
+   the content width, so 11.6 x (66/30.8) = 24.9vw lands on two-thirds. At 1440
+   that is a 359px face, and line-height .95 gives ~341px — within a rounding
+   error of their 361px box. */
+.intro .bigmark{ font-size:24.9vw; line-height:.95; }
 
 .intro h1{ text-align:center; text-transform:uppercase; max-width:24ch; }
 .intro .lede{ text-align:center; max-width:64ch; color:var(--dim); }
+.intro .headline{ display:grid; gap:var(--p-2xl); justify-items:center; }
 .intro .cue{
   position:absolute; right:var(--p-l); bottom:var(--p-l); z-index:40;
   font-size:var(--fs-xs); text-transform:uppercase; letter-spacing:.025em; color:var(--dim);
@@ -310,10 +447,15 @@ main{ padding-top:var(--nav-h); }
 .cards{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); column-gap:var(--p-2xl); row-gap:var(--p-3xl); }
 @media (max-width:1023px){ .cards{ grid-template-columns:minmax(0,1fr); } }
 
+/* ONE edge, not two. sprind's news teasers carry border-top at >=1024 and flip
+   to border-left below it. We were drawing both at every width, which reads as
+   an L instead of a rule — measured and corrected 2026-08-08. */
 .teaser{
   display:flex; min-width:0;
   border-top:1px solid var(--rule);
-  border-left:1px solid var(--rule);
+}
+@media (max-width:1023px){
+  .teaser{ border-top:0; border-left:1px solid var(--rule); }
 }
 .teaser .img{ flex:0 0 50%; aspect-ratio:3/2; overflow:hidden; background:var(--surface); }
 .teaser .img img{ width:100%; height:100%; object-fit:cover; transition:transform .6s cubic-bezier(.2,.7,.3,1), opacity .3s ease; opacity:.92; }
@@ -326,9 +468,10 @@ main{ padding-top:var(--nav-h); }
 .teaser .date{ padding-bottom:var(--p-s); }
 .teaser h3{ text-transform:uppercase; font-size:var(--fs-m); line-height:var(--lh-xl); font-family:var(--font-extended); }
 .teaser p{ font-size:var(--fs-m); line-height:var(--lh-xl); color:var(--dim); }
-.teaser .more{ margin-top:auto; padding-top:var(--p-m); }
-.teaser .more span:last-child{ border-bottom:1px solid currentColor; }
-.teaser:hover .more{ color:var(--accent); }
+/* sprind's card CTA is .defaultS — an underlined label with NO arrow, #767676
+   going to full white on card hover. */
+.teaser .more{ margin-top:auto; margin-right:auto; }
+.teaser:hover .more{ color:var(--fg); border-bottom-color:var(--fg); }
 @media (max-width:600px){
   .teaser{ flex-direction:column; }
   .teaser .img{ flex:none; width:100%; }
@@ -376,7 +519,8 @@ main{ padding-top:var(--nav-h); }
    (padding 48px 0), 18px uppercase, arrow FIRST. The newsletter CTA is an
    unfilled cell bounded by hairlines — never a filled button.
    ===================================================================== */
-footer{ display:grid; gap:1px; }
+/* sprind's footer is a WHITE band; inverted, ours is the base black. */
+footer{ display:grid; gap:1px; background:var(--bg); }
 .lattice{ display:grid; gap:1px; }
 .lattice > *{ outline:1px solid var(--rule); }
 .foot-top{ grid-template-columns:repeat(2,minmax(0,1fr)); }
@@ -424,21 +568,30 @@ footer{ display:grid; gap:1px; }
 </head>
 <body>
 
+<!-- The 24px invisible strip that reveals the nav. sprind pins one of these to
+     the top of the viewport; mouseenter adds .nav-visible to the header. -->
+<div class="navreveal" aria-hidden="true"></div>
+
 <div class="menu">
   <div class="bar">
     <a class="wm" href="#top" aria-label="vektor"><span class="wm-plate wm-acid" aria-hidden="true">vektor</span><span class="wm-plate wm-orchid" aria-hidden="true">vektor</span><span class="wm-main"><span class="ch" style="--i:0"><span class="g">%</span><span class="l">v</span></span><span class="ch" style="--i:1"><span class="g">#</span><span class="l">e</span></span><span class="ch" style="--i:2"><span class="g">Z</span><span class="l">k</span></span><span class="ch" style="--i:3"><span class="g">8</span><span class="l">t</span></span><span class="ch" style="--i:4"><span class="g">@</span><span class="l">o</span></span><span class="ch" style="--i:5"><span class="g">W</span><span class="l">r</span></span></span></a>
     <span class="mid">The Index</span>
     <div class="util"><a href="#" class="on">Start</a><a href="#subscribe">Subscribe</a></div>
   </div>
+  <!-- sprind nests the lattice and the bottom row inside ONE #nav-submenu, so
+       the header grid has two children and therefore one 1px gap. Flattening
+       them into .menu adds a second gap and overshoots the 81.8px closed
+       height by 2px. -->
+  <div class="nav-submenu">
   <ul class="navgrid">
     <li>
       <a class="top" href="#latest">Issues</a>
       <div class="panel">
         <ul>
-          <li><a href="#latest"><span>Latest</span></a></li>
-          <li><a href="#archive"><span>The archive</span></a></li>
-          <li><a href="#"><span>Series</span></a></li>
-          <li><a href="#"><span>Submit a topic</span></a></li>
+          <li><a href="#latest"><span class="a">→</span><span>Latest</span></a></li>
+          <li><a href="#archive"><span class="a">→</span><span>The archive</span></a></li>
+          <li><a href="#"><span class="a">→</span><span>Series</span></a></li>
+          <li><a href="#"><span class="a">→</span><span>Submit a topic</span></a></li>
         </ul>
         <p class="info">Every issue is one short film and one working pack — config, prompts, links.</p>
       </div>
@@ -447,10 +600,10 @@ footer{ display:grid; gap:1px; }
       <a class="top" href="#">Packs</a>
       <div class="panel">
         <ul>
-          <li><a href="#"><span>Skills</span></a></li>
-          <li><a href="#"><span>Agent starter kit</span></a></li>
-          <li><a href="#"><span>Loops</span></a></li>
-          <li><a href="#"><span>CLAUDE.md files</span></a></li>
+          <li><a href="#"><span class="a">→</span><span>Skills</span></a></li>
+          <li><a href="#"><span class="a">→</span><span>Agent starter kit</span></a></li>
+          <li><a href="#"><span class="a">→</span><span>Loops</span></a></li>
+          <li><a href="#"><span class="a">→</span><span>CLAUDE.md files</span></a></li>
         </ul>
         <p class="info">The files behind the films. Free, no signup wall.</p>
       </div>
@@ -459,34 +612,52 @@ footer{ display:grid; gap:1px; }
       <a class="top" href="#">About</a>
       <div class="panel">
         <ul>
-          <li><a href="#"><span>What vektor is</span></a></li>
-          <li><a href="#subscribe"><span>The Teardown</span></a></li>
-          <li><a href="#"><span>Watch</span></a></li>
-          <li><a href="#"><span>Privacy</span></a></li>
+          <li><a href="#"><span class="a">→</span><span>What vektor is</span></a></li>
+          <li><a href="#subscribe"><span class="a">→</span><span>The Teardown</span></a></li>
+          <li><a href="#"><span class="a">→</span><span>Watch</span></a></li>
+          <li><a href="#"><span class="a">→</span><span>Privacy</span></a></li>
         </ul>
         <p class="info">Daily shorts on the Claude and AI tooling that actually matters.</p>
       </div>
     </li>
   </ul>
+  <!-- Full-width row spanning all three columns, 36px on sprind: social left,
+       legal links right at gap 32. Same dim-the-siblings hover as the panels. -->
+  <div class="navbottom">
+    <ul class="social">
+      <li><a href="#"><span>YT</span></a></li>
+      <li><a href="#"><span>IG</span></a></li>
+      <li><a href="#"><span>LI</span></a></li>
+      <li><a href="#"><span>X</span></a></li>
+    </ul>
+    <ul class="legal">
+      <li><a href="#subscribe"><span class="a">→</span><span>Subscribe</span></a></li>
+      <li><a href="../privacy.html"><span class="a">→</span><span>Privacy</span></a></li>
+      <li><a href="#"><span class="a">→</span><span>Contact</span></a></li>
+    </ul>
+  </div>
+  </div>
 </div>
 
 <main id="top"><div class="stack">
 
-  <section class="intro">
-    <div class="media"><img id="heroplate" src="plates/v3-a-hero.webp" alt=""></div>
+  <section class="intro band-lift">
     <div class="scrim"></div>
     <div class="content">
-      <!-- sprind's first screen is dominated by a ~170px wordmark, with the
-           h1 as a secondary line beneath it. Two candidates for that slot:
-           set type, or the Brik liquid-chrome render. Toggle bottom-right. -->
+      <!-- No image. sprind's first screen is ground colour + gradient + a
+           wordmark at 2/3 of the viewport width, with the h1 secondary beneath
+           it and a small uppercase eyebrow on top. -->
+      <div class="eyebrow">The frontier, by the numbers</div>
       <a class="wm bigmark" href="#top" aria-label="vektor"><span class="wm-plate wm-acid" aria-hidden="true">vektor</span><span class="wm-plate wm-orchid" aria-hidden="true">vektor</span><span class="wm-main"><span class="ch" style="--i:0"><span class="g">%</span><span class="l">v</span></span><span class="ch" style="--i:1"><span class="g">#</span><span class="l">e</span></span><span class="ch" style="--i:2"><span class="g">Z</span><span class="l">k</span></span><span class="ch" style="--i:3"><span class="g">8</span><span class="l">t</span></span><span class="ch" style="--i:4"><span class="g">@</span><span class="l">o</span></span><span class="ch" style="--i:5"><span class="g">W</span><span class="l">r</span></span></span></a>
-      <h1 class="heading1">The AI frontier, cut to what ships</h1>
-      <p class="lede copyL">Every issue is one short film and one working pack. Watch it, comment the keyword, and the files land in your DMs — config, prompts, links, nothing held back.</p>
+      <div class="headline">
+        <h1 class="heading1">The AI frontier, cut to what ships</h1>
+        <p class="lede copyL">Every issue is one short film and one working pack. Watch it, comment the keyword, and the files land in your DMs — config, prompts, links, nothing held back.</p>
+      </div>
     </div>
     <div class="cue">Scroll</div>
   </section>
 
-  <section class="module" id="latest">
+  <section class="module band-lift" id="latest">
     <div class="modhead">
       <h2 class="heading1">Latest</h2>
       <a class="alink u" href="#archive"><span class="a">→</span><span>All 22 issues</span></a>
@@ -494,7 +665,7 @@ footer{ display:grid; gap:1px; }
     <div class="cards" id="latestgrid"></div>
   </section>
 
-  <section class="module-flush">
+  <section class="module-flush band-lift">
     <div class="film">
       <img src="plates/v3-c-hero.webp" alt="">
       <div class="veil"><button class="play">Play the reel</button></div>
@@ -505,7 +676,7 @@ footer{ display:grid; gap:1px; }
     </div>
   </section>
 
-  <section class="module">
+  <section class="module band-base">
     <div class="split">
       <h2 class="heading1 up">How it works</h2>
       <div class="acc">
@@ -529,7 +700,7 @@ footer{ display:grid; gap:1px; }
     </div>
   </section>
 
-  <section class="module" id="archive">
+  <section class="module band-base" id="archive">
     <div class="modhead">
       <h2 class="heading1">The archive</h2>
       <a class="alink u" href="#"><span class="a">→</span><span>Issues 001–003 lived in the DMs</span></a>
@@ -572,13 +743,18 @@ footer{ display:grid; gap:1px; }
 
 <div class="toggles">
   <button id="tAccent">ACCENT: CARET TEAL #0E9C86</button>
-  <button id="tPlate">HERO PLATE: V3-A</button>
   <button id="tType">TYPE: C · PRINTVETICA META</button>
 </div>
 
 <script>
-/* plates generated by slitscan.py from the founder's own films */
+/* One generated plate per issue, built by ingest-plates.mjs into ../og/.
+   Issues with no plate yet fall back to a slit-scan placeholder so a gap in
+   the set is visible as a mismatch rather than a broken image. */
 const PLATES = ['v3-a','v3-b','v3-c','v3-d','v3-e','v3-f'];
+const NO_PLATE = new Set(['026','030']);
+const plateSrc = (n,i) => NO_PLATE.has(n)
+  ? `plates/${PLATES[i % PLATES.length]}-card.webp`
+  : `../og/plate-no-${n}-card.webp`;
 
 const LATEST = [
  ["026","Your agent starts from zero every time","The State File — the three-file pattern that gives an agent memory between runs.","30.7.2026"],
@@ -609,12 +785,12 @@ const ARCHIVE = [
 
 const card = ([n,t,s,d],i) => `
   <a class="teaser" href="#">
-    <div class="img"><img loading="lazy" decoding="async" width="700" height="467" src="plates/${PLATES[i % PLATES.length]}-card.webp" alt=""></div>
+    <div class="img"><img loading="lazy" decoding="async" width="700" height="467" src="${plateSrc(n,i)}" alt=""></div>
     <div class="body">
       <div class="date meta">${d}</div>
       <h3>${t}</h3>
       <p>${s}</p>
-      <span class="more alink"><span class="a">→</span><span>Open the pack</span></span>
+      <span class="more defaultS">Open the pack</span>
     </div>
   </a>`;
 
@@ -651,13 +827,17 @@ tT.addEventListener('click',()=>{
 });
 
 
-/* hero plate toggle — cycle the six generated plates */
-let pi = 0;
-const tP = document.getElementById('tPlate');
-tP.addEventListener('click',()=>{
-  pi = (pi+1) % PLATES.length;
-  document.getElementById('heroplate').src = 'plates/' + PLATES[pi] + '-hero.webp';
-  tP.textContent = 'HERO PLATE: ' + PLATES[pi].toUpperCase();
-});
+/* ===================== NAV REVEAL — sprind's behaviour =====================
+   The header sits off-screen at translate3d(0,-100%,0). mouseenter on the
+   invisible 24px strip pinned to the top of the viewport adds .nav-visible.
+   Scroll does NOT reveal it — verified on the live site at scrollY 0/200/400/
+   800/1600. Once revealed it is sticky: mouseleave and further scrolling both
+   leave it in place. The hero's menu button is the second trigger.
+   ========================================================================= */
+const menu = document.querySelector('.menu');
+const revealNav = () => menu.classList.add('nav-visible');
+document.querySelector('.navreveal').addEventListener('mouseenter', revealNav);
+/* keyboard: :focus-within handles the visual, this keeps the class in sync */
+menu.addEventListener('focusin', revealNav);
 </script>
 </body></html>

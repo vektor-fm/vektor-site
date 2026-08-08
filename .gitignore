@@ -1,0 +1,12 @@
+# Dependencies — sharp pulls in platform binaries; never commit them.
+node_modules/
+
+# Generated plate source art. These are the raw 1536x1024 model outputs
+# (~2.7 MB each, ~60 MB for the set). Only the derived variants that the site
+# actually serves — og/plate-no-XXX-card.webp and -hero.webp, built by
+# ingest-plates.mjs — belong in the repo.
+plates-src/
+
+# Secrets
+.env
+.env.*
