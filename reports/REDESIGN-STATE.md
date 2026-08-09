@@ -17,8 +17,8 @@ had no `develop`). Nothing merged. The live site is untouched.
 | Display face | **Archivo Expanded Regular (400)** | SIL OFL, self-hosted, 14 KB. Weight 400 only — sprind uses no bold anywhere |
 | Body face | **Archivo Regular (400)** | SIL OFL, self-hosted, 14 KB |
 | Meta / label face | **Printvetica** — mode C | Founder-selected 2026-08-07. Retires IBM Plex Mono from the site |
-| Accent | Toggleable: acid `#39FF35` / gold `#FFCC00` / mono | Not yet locked |
-| **Logo** | **Unchanged.** Archivo 800, `letter-spacing:-.045em`, caret block `.12em x .98em` in caretTeal `#0E9C86` | Reproduced from `vektor/brand/logo/export/_base.css`. NOT up for redesign |
+| Accent | **caret teal `#0E9C86`** | Founder-locked 2026-08-09. Toggle removed from the mock. Note: sprind itself uses NO accent — every hover there is achromatic — so this is a deliberate Vektor addition on top of the 1:1 |
+| **Logo** | **Inter Tight 600**, `letter-spacing:-.045em`, cream `#EFEADD`, rendered static | From `partials/head.html:174-186`, the SHIPPING wordmark. The Archivo 800 + caretTeal mark in `vektor/brand/logo/export/` is RETIRED — a previous session was misled by it |
 | Page IA | nav → hero → LATEST → film → HOW IT WORKS → ARCHIVE → footer | Founder-approved |
 | Card imagery | Generated 3:2 plates, one per issue | Recipe in `PLATE-PROMPTS.md`; **not yet produced** |
 | Hero wordmark | Set type (Archivo 800 logo) | Cavalry route dropped as inefficient; Brik rejected on licence + non-uniqueness |
@@ -59,7 +59,7 @@ the numbers the mock implements.
 | Archive grid | 2 x 700.4px, gap `48px 40px` |
 | Nav cells | 506 x 38, 15px uppercase |
 | Footer cells | 506 x 128 (`padding:48px 0`), 18px uppercase |
-| Arrow links | arrow **FIRST**: `→ LABEL`, uppercase |
+| Arrow links | arrow **AFTER** the label: `LABEL →`. Hover widens the gap 4px→8px |
 | Newsletter CTA | **unfilled** cell bounded by hairlines — never a filled button |
 | Hairline colour | `#c9c9c9`; lattices use `gap:1px` + a 1px **outline** per cell |
 | Spacing ramp | 4 8 16 24 32 40 48 80 120 240 |

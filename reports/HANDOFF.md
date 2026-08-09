@@ -88,7 +88,7 @@ Measured in a browser on the live sprind site, not inferred from their CSS.
 | Card title | 18px/22 uppercase — **same size as the body under it** |
 | Meta | 15px uppercase, `.025em`, `#676767` (lifted to `#999` on dark) |
 | Module padding | `40px 40px 80px` |
-| Footer cells | 506 x 128 (`padding:48px 0`), 18px uppercase, **arrow first** |
+| Footer cells | 506 x 128 (`padding:48px 0`), 18px uppercase, **arrow AFTER the label** |
 | Newsletter CTA | unfilled cell bounded by hairlines — never a filled button |
 | Hairlines | `gap:1px` + a 1px **outline** per cell (outlines take no space) |
 | Type ramp | 132 / 52 / 32 / 20 / 18 / 15 / 12, fluid vw above 1600 |
