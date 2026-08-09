@@ -1,0 +1,113 @@
+<section class="hero">
+  <div class="ascii" aria-hidden="true">  ____________________
+ |  >                 |
+ |  > _               |
+ |____________________|
+      \  installing
+       \___________
+</div>
+  <div class="kick eye">This Week in AI · Setup</div>
+  <h1 class="disp">Five free setups.<br>Every install line<span class="dot">.</span></h1>
+  <p class="sub">Most people open Claude Code and start typing. A few set it up first. These are the five free things that go in before anything else — with the exact command for each, and the two hooks that make a rules file actually enforce itself. As promised.</p>
+  <div class="actions">
+    <a class="btn primary" href="#setups">Get the five ↓</a>
+    <a class="btn" href="#hooks">Jump to the hooks →</a>
+    <button class="btn" id="shareBtn" type="button">Send to a dev friend</button>
+  </div>
+  <div class="rule">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+</section>
+
+<!-- ======================= THE FIVE ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 01 ·</h2>
+  <span class="gaccent">the five, in order</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues" id="setups">
+  <p class="note">Star counts read from the GitHub API on <b>9 August 2026</b>. They move; the install lines don't.</p>
+
+  <article class="issue">
+    <h3><span class="num">1.</span> Anthropic's own skills repository</h3>
+    <p>Seventeen example skills, written by Anthropic, sitting in a public repo — document work, design, data analysis, and more. If you have never opened it, this is the fastest upgrade available to you today. <b>167,145 stars.</b></p>
+    <pre class="code"><code>git clone https://github.com/anthropics/skills</code></pre>
+    <p class="meta">The seventeen: algorithmic-art, brand-guidelines, canvas-design, claude-api, doc-coauthoring, docx, frontend-design, internal-comms, mcp-builder, pdf, pptx, skill-creator, slack-gif-creator, theme-factory, web-artifacts-builder, webapp-testing, xlsx.</p>
+  </article>
+
+  <article class="issue">
+    <h3><span class="num">2.</span> The official plugin marketplace</h3>
+    <p>Not a single tool — a curated storefront. Claude Code adds Anthropic's official marketplace the first time you start it interactively, and inclusion in it is at Anthropic's discretion. <b>33,300 stars.</b></p>
+    <pre class="code"><code>/plugin marketplace add anthropics/claude-plugins-official
+/plugin install github@claude-plugins-official</code></pre>
+    <p class="meta">The <b>community</b> marketplace is a different thing and you add it by hand — third-party plugins that passed automated validation, each pinned to a commit SHA: <code>/plugin marketplace add anthropics/claude-plugins-community</code>. Plenty of write-ups merge the two. They are separate.</p>
+  </article>
+
+  <article class="issue">
+    <h3><span class="num">3.</span> superpowers</h3>
+    <p>The one that makes Claude work like a disciplined dev team — a full development methodology shipped as skills. It stops Claude jumping straight into code and makes it brainstorm, spec, plan and drive the work through tests, with sub-agents doing and reviewing. <b>269,521 stars.</b></p>
+    <pre class="code"><code>/plugin marketplace add obra/superpowers</code></pre>
+  </article>
+
+  <article class="issue">
+    <h3><span class="num">4.</span> claude-mem</h3>
+    <p>Solves the memory problem. Every session ends and Claude forgets everything. This records what happened, compresses it into summaries, and injects the relevant pieces back into future sessions. <b>90,145 stars.</b></p>
+    <pre class="code"><code>npm install -g claude-mem &amp;&amp; claude-mem install</code></pre>
+  </article>
+
+  <article class="issue">
+    <h3><span class="num">5.</span> wshobson/agents</h3>
+    <p>A marketplace for specialised sub-agents — one for reviewing, one for testing, one for architecture. A specialist beats a generalist guessing, every time. <b>38,638 stars.</b></p>
+    <pre class="code"><code>/plugin marketplace add wshobson/agents</code></pre>
+  </article>
+</section>
+
+<!-- ======================= THE HOOKS ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 02 ·</h2>
+  <span class="gaccent">rules that actually bite</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues" id="hooks">
+  <p class="note">A markdown file full of laws is a suggestion until something enforces it. These two hooks are what enforce mine. Drop them in <code>.claude/hooks/</code> and register them in <code>.claude/settings.json</code>.</p>
+
+  <article class="issue">
+    <h3>One: nothing lands on <code>main</code> by accident</h3>
+    <p>A <code>PreToolUse</code> hook on Bash. It reads the command about to run and refuses a commit straight to the trunk <em>before</em> it happens, rather than telling you afterwards.</p>
+    <pre class="code"><code>{
+  "hooks": {
+    "PreToolUse": [
+      { "matcher": "Bash|PowerShell",
+        "hooks": [{ "type": "command", "command": "node .claude/hooks/git-flow-guard.mjs" }] }
+    ]
+  }
+}</code></pre>
+  </article>
+
+  <article class="issue">
+    <h3>Two: the design canon rebuilds itself</h3>
+    <p>A <code>PostToolUse</code> hook on Edit and Write. The moment a design token changes, the human-readable board regenerates — so the documentation cannot drift from the source, because nobody has to remember to rebuild it.</p>
+    <pre class="code"><code>{
+  "hooks": {
+    "PostToolUse": [
+      { "matcher": "Edit|Write",
+        "hooks": [{ "type": "command", "command": "node .claude/hooks/canon-regen.mjs" }] }
+    ]
+  }
+}</code></pre>
+  </article>
+</section>
+
+<div class="fig">
+  <h2 class="kick">Fig. 03 ·</h2>
+  <span class="gaccent">and the sixth</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues">
+  <article class="issue">
+    <h3>Build your own marketplace</h3>
+    <p>The five above are other people's. The one that changed the most for me was the private one — a marketplace nobody else can see, holding the skills this channel actually runs on. A marketplace is just a repo with a <code>.claude-plugin/marketplace.json</code> in it.</p>
+    <pre class="code"><code>/plugin marketplace add ./my-marketplace</code></pre>
+  </article>
+</section>
