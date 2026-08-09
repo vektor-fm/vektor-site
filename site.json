@@ -5,6 +5,15 @@
   },
   "issues": [
     {
+      "number": "033",
+      "title_short": "Five free setups.",
+      "section": "Five Setups",
+      "date": "08-2026",
+      "keyword": "STACK",
+      "lastmod": "2026-08-09",
+      "built": true
+    },
+    {
       "number": "024",
       "title_short": "Your AI habits. Audited.",
       "section": "The Mirror",
