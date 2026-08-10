@@ -162,3 +162,74 @@ Four vertical light columns of uneven width, warm to cool across the frame. Abst
 ```
 Five tapered blades radiating from an origin below the frame, teal into pale gold. Abstract editorial hero artwork, 3:2 landscape. ONE single clear form with large calm negative space around it — at least 40% of the frame is quiet, uninterrupted field. Real optical behaviour: genuine depth of field, sharp focus in one region falling to heavy defocus at one edge, fine film grain throughout, soft lens falloff. A continuous directional colour journey across the frame, never a flat fill and never a simple two-stop gradient. Deep true blacks and clean bright highlights in the same frame. Composition deliberately off-centre and cropped by at least one edge so the form continues beyond it. NO text, NO letters, NO numbers, NO logos, NO watermark, NO UI, NO interface, NO charts, NO people, NO product shots.
 ```
+
+---
+
+# CORRECTED RECIPE — 2026-08-09
+
+**The colour rule above is wrong and produced off-set plates.** It was written as
+"teal and amber", a two-colour scheme. Judged against the plates that actually
+work: in `019` the green is a **shadow tint** — the dark side is a desaturated
+green-black, not a green subject — and `031` contains no green at all.
+
+The real rule is:
+
+> **Warm light, cool-green shadows, black ground.**
+> Teal is what the darks are made of, never a second subject colour.
+
+The set tolerates a wide range of intensity — `031` is the extreme end (pure
+black field, blown white core, hot orange corona, heavy grain) and `019` the
+quiet end (gold rather than orange, fine texture, little grain). Both read as
+the same photographer. Aim between them.
+
+## What happened to the four off-set plates
+
+| Plate | Action | Why |
+|---|---|---|
+| `024` | **Graded, kept** | Tone curve only. Now among the best in the set — true black, cream-gold hot edge, teal rim. No damage: gradients clean, glass texture intact. |
+| `023` | **Graded + desaturated, kept** | Curve swung the hue past amber into scarlet and left a maroon cast on the dark panel. Saturation pulled 0.867 to 0.721. Loud but seated. |
+| `022` | **Left alone** | Not a tonal outlier (mean 100.4, below `004` and `009`). Its problems are busyness and chartreuse hue — a grade cannot fix either. |
+| `015` | **Regenerate** | Unsalvageable by grading, and the grade made it worse. |
+
+### Why `015` could not be graded
+
+85% of the frame is a featureless white cyclorama lit by a large soft source
+with a **soft** cast shadow. There is no dark region anywhere in the source to
+pull to black, so any curve that darkens the subject darkens the backdrop
+equally — and a darkened white backdrop is grey, never black. The solver hit its
+gamma ceiling of 4.0 and still landed at mean 108 against a target of 82: not a
+weak curve, an impossible ask. Gamma that steep then amplified the noise floor
+of the flat wall into visible magenta-green mottling.
+
+**The tell, for next time: a plate with no true black in the source cannot be
+graded into the set. Check `p1` before reaching for a curve.**
+
+## Prompts still to run
+
+`015`, `026` and `030`. Each is the subject line plus the corrected style block.
+
+### no-015 — Loops
+
+```
+One continuous ribbon looping back on itself, lit by a single hard raking light from the left, its outer face catching a warm amber-to-white highlight while the interior falls into cool green-black shadow. Abstract editorial hero artwork, 3:2 landscape. Warm light — amber through to a white-hot core — raking in from one side; the shadows are a cool desaturated green-black; the ground is true black. Teal appears ONLY as the colour of the darks, never as a subject. ONE single clear form with large calm negative space around it — at least 40% of the frame is quiet, uninterrupted field. Genuine depth of field — one region crisply in focus with resolved fine detail, falling away to heavy defocus at one edge. Not an all-soft bokeh study. Fine film grain throughout. Deep true blacks and clean bright highlights in the same frame. Composition deliberately off-centre and cropped by at least one edge. NO text, NO letters, NO numbers, NO logos, NO watermark, NO UI, NO charts, NO people, NO product shots.
+```
+
+### no-026 — The State File
+
+```
+Vertical slit-scan light bands falling across a dark field, one warm amber mass dissolving at the centre into a white-hot core, the surrounding bands cooling to green-black. Abstract editorial hero artwork, 3:2 landscape. Warm light — amber through to a white-hot core — raking in from one side; the shadows are a cool desaturated green-black; the ground is true black. Teal appears ONLY as the colour of the darks, never as a subject. ONE single clear form with large calm negative space around it — at least 40% of the frame is quiet, uninterrupted field. Genuine depth of field — one region crisply in focus with resolved fine detail, falling away to heavy defocus at one edge. Not an all-soft bokeh study. Fine film grain throughout. Deep true blacks and clean bright highlights in the same frame. Composition deliberately off-centre and cropped by at least one edge. NO text, NO letters, NO numbers, NO logos, NO watermark, NO UI, NO charts, NO people, NO product shots.
+```
+
+### no-030 — The Council
+
+```
+Five nested translucent ribbons curving through a shallow arc, the near edges catching a hard amber highlight, the recesses between them falling to cool green-black. Abstract editorial hero artwork, 3:2 landscape. Warm light — amber through to a white-hot core — raking in from one side; the shadows are a cool desaturated green-black; the ground is true black. Teal appears ONLY as the colour of the darks, never as a subject. ONE single clear form with large calm negative space around it — at least 40% of the frame is quiet, uninterrupted field. Genuine depth of field — one region crisply in focus with resolved fine detail, falling away to heavy defocus at one edge. Not an all-soft bokeh study. Fine film grain throughout. Deep true blacks and clean bright highlights in the same frame. Composition deliberately off-centre and cropped by at least one edge. NO text, NO letters, NO numbers, NO logos, NO watermark, NO UI, NO charts, NO people, NO product shots.
+```
+
+## If generating on Gemini (free tier)
+
+Nano Banana stamps a **Google sparkle watermark** into the lower-right of every
+output, at roughly 91% x 86% of the frame. It is opaque and vector-crisp, so it
+survives downscaling and is legible on a card. Crop it out before ingesting:
+take the top-left 88% x 84% of the frame, then re-crop to 3:2. `ingest-plates.mjs`
+handles the 3:2 crop; the watermark crop must happen first — `dewatermark.mjs`.

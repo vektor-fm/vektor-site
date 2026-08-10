@@ -25,7 +25,12 @@ const SRC = join(ROOT, 'plates-src');
 const KEY = process.env.OPENAI_API_KEY;
 if (!KEY) { console.error('OPENAI_API_KEY is not set.'); process.exit(1); }
 
-const STYLE = ' Abstract editorial hero artwork, 3:2 landscape. ONE single clear form with large calm negative space around it — at least 40% of the frame is quiet, uninterrupted field. Real optical behaviour: genuine depth of field — one region of the form must be crisply IN FOCUS with resolved fine detail and hard micro-edges, falling away to heavy defocus at one edge. Not an all-soft bokeh study. Fine film grain throughout, soft lens falloff. A continuous directional colour journey across the frame, never a flat fill and never a simple two-stop gradient. Deep true blacks and clean bright highlights in the same frame. Composition deliberately off-centre and cropped by at least one edge so the form continues beyond it. NO text, NO letters, NO numbers, NO logos, NO watermark, NO UI, NO interface, NO charts, NO people, NO product shots.';
+// COLOUR RULE, corrected 2026-08-09 against the plates that actually work.
+// The set was originally described as "teal and amber", which is wrong and
+// produced off-set plates: in 019 the green is a SHADOW TINT, and 031 has no
+// green at all. The real rule is warm light, cool-green shadows, black ground —
+// teal is what the darks are made of, not a second subject colour.
+const STYLE = ' Abstract editorial hero artwork, 3:2 landscape. Warm light — amber through to a white-hot core — raking in from one side; the shadows are a cool desaturated green-black; the ground is true black. Teal appears ONLY as the colour of the darks, never as a subject. ONE single clear form with large calm negative space around it — at least 40% of the frame is quiet, uninterrupted field. Real optical behaviour: genuine depth of field — one region of the form must be crisply IN FOCUS with resolved fine detail and hard micro-edges, falling away to heavy defocus at one edge. Not an all-soft bokeh study. Fine film grain throughout, soft lens falloff. A continuous directional colour journey across the frame, never a flat fill and never a simple two-stop gradient. Deep true blacks and clean bright highlights in the same frame. Composition deliberately off-centre and cropped by at least one edge so the form continues beyond it. NO text, NO letters, NO numbers, NO logos, NO watermark, NO UI, NO interface, NO charts, NO people, NO product shots.';
 
 const SUBJECTS = {
   '004': 'Five tapered blades radiating from an origin below the frame, teal into pale gold.',

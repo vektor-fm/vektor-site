@@ -249,6 +249,17 @@ img{ display:block; max-width:100%; }
    Reveal is transform .4s ease; open is max-height .5s ease-out.
    Desktop does NOT scroll-lock (body stays overflow:visible). Mobile does.
    ===================================================================== */
+/* Skip link — sprind's, and the one piece of their nav furniture that is real
+   function rather than shape. Parked above the viewport, slides in on focus. */
+.skip-link{
+  position:fixed; top:0; left:0; z-index:80;
+  transform:translateY(-120%); transition:transform .2s ease-out;
+  background:var(--fg); color:var(--bg);
+  padding:12px var(--p-m); font-size:var(--fs-s); line-height:var(--lh-s);
+  font-weight:500; text-decoration:underline;
+}
+.skip-link:focus{ transform:translateY(0); outline:2px solid var(--fg); outline-offset:2px; }
+
 .navreveal{                       /* the invisible 24px trigger strip */
   position:fixed; top:0; left:0; right:0; height:24px; z-index:70;
   cursor:default;
@@ -763,6 +774,8 @@ footer{ display:grid; gap:1px; background:var(--bg); }
 </head>
 <body>
 
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
 <!-- The 24px invisible strip that reveals the nav. sprind pins one of these to
      the top of the viewport; mouseenter adds .nav-visible to the header. -->
 <div class="navreveal" aria-hidden="true"></div>
@@ -839,7 +852,7 @@ footer{ display:grid; gap:1px; background:var(--bg); }
   </div>
 </div>
 
-<main id="top"><div class="stack">
+<main id="top"><div class="stack" id="main-content">
 
   <section class="intro band-lift">
     <div class="scrim"></div>
