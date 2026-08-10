@@ -100,10 +100,12 @@
 
   /* BANDING (founder-approved 2026-08-08): sprind alternates light and dark
      bands; we keep the alternation and invert it. Their white band becomes our
-     black; their black band becomes this lifted near-black. The exact lift is
-     not settled — far enough from #000 to read as a band, close enough to stay
-     dark. Decide it on the render. */
-  --band:#0E0E0E;
+     black; their black band becomes this lifted near-black.
+     Founder-picked 2026-08-10 on reports/BAND-HERO.html, which showed six
+     candidates as real abutting sections. #0E0E0E was only a 5.5% luminance
+     step and disappeared on a dimmer panel; #141414 reads as a deliberate band
+     without lifting off black. */
+  --band:#141414;
   --nav-h:80px;
   --paper:#EFEADD;       /* wordmark ink — live site --paper */
   --acid-mark:#39FF35;   /* wordmark registration plate A — NOT the UI accent */
@@ -472,6 +474,16 @@ main{ padding-top:0; }
   animation:hero-fade .3s ease-in-out 1;
 }
 @keyframes hero-fade{ from{ opacity:0 } to{ opacity:1 } }
+/* Shrinking the wordmark is necessary but not sufficient: the hero's fixed
+   chrome — eyebrow 67, two 80px gaps, headline ~192, bottom padding 120 —
+   comes to 539px before the wordmark is drawn at all, which alone overflows a
+   674px laptop. Scale the spacing to viewport height too, but only once the
+   screen is actually short, so 900px-and-taller keeps sprind's exact rhythm. */
+@media (max-height:820px){
+  .intro .content{ gap:5svh; padding-bottom:8svh; }
+  .intro .eyebrow{ padding:2svh; }
+}
+
 .intro .eyebrow{
   padding:var(--p-l); text-align:center;
   font-size:var(--fs-s); line-height:var(--lh-s);
@@ -482,7 +494,13 @@ main{ padding-top:0; }
    the content width, so 11.6 x (66/30.8) = 24.9vw lands on two-thirds. At 1440
    that is a 359px face, and line-height .95 gives ~341px — within a rounding
    error of their 361px box. */
-.intro .bigmark{ font-size:24.9vw; line-height:.95; }
+/* Bounded by HEIGHT as well as width (founder, 2026-08-10). Width alone made
+   the hero content 903px tall, so on a 674px laptop the h1 fell below the fold
+   and the first screen was eyebrow + wordmark only. 40svh is the share of the
+   viewport their wordmark occupies at 1440x900, so at that size and taller this
+   changes nothing — min() engages only when height is the binding constraint.
+   Fixes the short-screen case without touching sprind's 80px spacing rhythm. */
+.intro .bigmark{ font-size:min(24.9vw, 40svh); line-height:.95; }
 
 .intro h1{ text-align:center; text-transform:uppercase; max-width:24ch; }
 .intro .lede{ text-align:center; max-width:64ch; color:var(--dim); }
