@@ -25,6 +25,12 @@ const read = (p) => norm(readFileSync(join(ROOT, p), 'utf8'));
 const exists = (p) => existsSync(join(ROOT, p));
 
 const site = JSON.parse(read('site.json'));
+
+// The nav is one component shared by the landing page and all 20 issue pages.
+// It lives in partials/nav.html + partials/nav-css.html and is injected into
+// both via {{NAV}} / {{NAV_CSS}}. Keeping two copies is how they drift.
+const NAV = read('partials/nav.html');
+const NAV_CSS = read('partials/nav-css.html');
 const BUILT = site.issues.filter((i) => i.built);
 
 // ---- template fill: {{TOKEN}} -> value (uppercase tokens only) ----
@@ -55,6 +61,7 @@ function renderIssue(num) {
     : `the ${meta.section} setup`;
 
   const map = {
+    NAV, NAV_CSS,
     MAGNET: magnet,
     MAGNET_TITLE: hasPayload
       ? `Take ${meta.section} with you.`
@@ -153,6 +160,7 @@ function renderIndex() {
   const inLatest = BUILT.slice(0, 4);
   const inArchive = BUILT.slice(4);
   const map = {
+    NAV, NAV_CSS,
     LATEST_CARDS: inLatest.map(teaserCard).join('\n'),
     ARCHIVE_CARDS: inArchive.map(magCard).join('\n'),
     ARCHIVE_COUNT: String(inArchive.length),

@@ -61,6 +61,30 @@
     }
     window.addEventListener('scroll',maybe,{passive:true});
   })();{{SUBSCRIBE_BLOCK}}
+
+  // ---- shared nav: reveal + mobile drawer ----
+  // The header sits off-screen until a 24px hover strip is entered (desktop) or
+  // the Menu word is tapped (mobile). Touch devices never hover, so the bar is
+  // shown from the start there or the nav would be unreachable.
+  (function(){
+    var menu=document.querySelector('.menu'); if(!menu){return;}
+    var reveal=function(){ menu.classList.add('nav-visible'); };
+    var strip=document.querySelector('.navreveal'); if(strip){ strip.addEventListener('mouseenter',reveal); }
+    menu.addEventListener('focusin',reveal);
+    var word=document.querySelector('.menu-word');
+    if(word){
+      word.addEventListener('click',function(){
+        reveal();
+        var open=menu.classList.toggle('drawer-open');
+        word.setAttribute('aria-expanded',String(open));
+        word.setAttribute('aria-label',open?'Close menu':'Open menu');
+        word.textContent=open?'Close':'Menu';
+        document.body.style.overflow=open?'hidden':'';
+      });
+    }
+    if(window.matchMedia('(hover: none)').matches){ reveal(); }
+  })();
+
   // Instrumentation before optimisation. Every capture point reports its own
   // event, so we can see which of the four actually earns its place instead of
   // guessing. Previously all of them fired one shared 'subscribe-submit'.

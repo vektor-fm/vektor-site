@@ -255,6 +255,9 @@ img{ display:block; max-width:100%; }
 .alink:hover .a{ transform:translateX(5px); }
 .alink.u span:last-child{ border-bottom:1px solid currentColor; }
 
+<!-- SHARED NAV STYLES — injected into both partials/head.html (the 20 issue
+     pages) and src/index.body.html (the landing page) by build.mjs via
+     the NAV_CSS token. Edit here only; a second copy is how the two drift apart. -->
 /* ================================ NAV ================================
    MEASURED ON SPRIND 2026-08-08. The header is OFF-SCREEN by default:
    transform:translate3d(0,-100%,0). It is revealed by mouseenter on an
@@ -409,22 +412,30 @@ img{ display:block; max-width:100%; }
 .navbottom .legal a{ transition:color .1s ease-in-out; }
 .navbottom .legal a:hover{ color:var(--fg); }
 
-/* Hamburger — desktop has no menu button at all (sprind's is display:none at
-   >=768); below 768 it is the ONLY way to open the drawer. */
-.burger{
-  display:none; background:none; border:0; padding:0; cursor:pointer;
-  color:var(--fg); width:44px; height:44px;   /* 44 so it is a real touch target */
-  align-items:center; justify-content:center;
+/* MENU TRIGGER — a word, not a glyph.
+   sprind's own nav is word-triggers (TATEN / WORTE / WIR) and never an icon,
+   and this system is typographic throughout: weight 400, uppercase, hairline
+   underlines. Three 15x1px lines read as a fleck at arm's length and were the
+   last generic control left on the site. The word states what it does, toggles
+   to CLOSE so the state is legible rather than inferred, and gives the largest
+   tap target of the options considered. Desktop has no trigger at all — the
+   hover strip reveals the nav there, exactly as sprind does. */
+.menu-word{
+  display:none; align-items:center; height:44px; padding:0 2px;
+  background:none; border:0; cursor:pointer; color:var(--fg);
+  font-family:var(--font-label); font-size:var(--fs-s); line-height:var(--lh-s);
+  letter-spacing:.025em; text-transform:uppercase;
+  border-bottom:1px solid transparent;
+  transition:border-color .15s cubic-bezier(.4,0,.2,1);
 }
-.burger span{ display:block; width:16px; height:1px; background:currentColor; }
-.burger span + span{ margin-top:3px; }
+.menu-word:hover,.menu-word[aria-expanded="true"]{ border-bottom-color:var(--fg); }
 
 /* Below 768 sprind drops the hover gating entirely: the drawer opens from the
    bar and ALL panels are expanded at once. Without a toggle that would leave a
    ~700px nav permanently open, so the drawer is gated behind the hamburger and
    scrolls internally — a nav taller than the viewport is otherwise unusable. */
 @media (max-width:767px){
-  .burger{ display:flex; }
+  .menu-word{ display:inline-flex; }
   .nav-submenu{
     max-height:0; overflow:hidden; visibility:hidden;
     transition:max-height .4s ease, visibility linear .4s;
@@ -440,6 +451,19 @@ img{ display:block; max-width:100%; }
   /* hover must not open anything on touch — the drawer class is the only gate */
   .menu:hover .navgrid .panel, .menu:hover .navbottom{ max-height:none; }
 }
+
+/* ---- touch targets, owned by the nav itself ----
+   These lived in the landing page's stylesheet, so when the nav became shared
+   the 20 issue pages inherited the markup without the fixes: the wordmark came
+   back at 30px tall and the single-glyph social links at 10-17px wide. Rules
+   that belong to a component belong in the component. */
+.bar .wm{min-height:44px; display:inline-flex; align-items:center;}
+.bar .util a{min-height:44px; display:inline-flex; align-items:center;}
+.navgrid .top{min-height:44px;}
+.navgrid .panel a,
+.navbottom a{min-height:44px; display:inline-flex; align-items:center;}
+.navbottom .social a,
+.navbottom .social li{min-width:44px; justify-content:center;}
 
 /* ============================== MODULES ============================== */
 /* No top offset: the nav sits off-screen until revealed, so the page starts at
@@ -854,6 +878,8 @@ input,select,textarea{font-size:16px !important;}   /* iOS zooms below 16 */
 
 <a class="skip-link" href="#main-content">Skip to main content</a>
 
+<!-- SHARED NAV MARKUP — injected into masthead.html and index.body.html by
+     build.mjs via the NAV token. Edit here only. -->
 <!-- The 24px invisible strip that reveals the nav. sprind pins one of these to
      the top of the viewport; mouseenter adds .nav-visible to the header. -->
 <div class="navreveal" aria-hidden="true"></div>
@@ -863,10 +889,7 @@ input,select,textarea{font-size:16px !important;}   /* iOS zooms below 16 */
     <a class="wm" href="#top" aria-label="vektor"><span class="wm-plate wm-acid" aria-hidden="true">vektor</span><span class="wm-plate wm-orchid" aria-hidden="true">vektor</span><span class="wm-main"><span class="ch" style="--i:0"><span class="g">%</span><span class="l">v</span></span><span class="ch" style="--i:1"><span class="g">#</span><span class="l">e</span></span><span class="ch" style="--i:2"><span class="g">Z</span><span class="l">k</span></span><span class="ch" style="--i:3"><span class="g">8</span><span class="l">t</span></span><span class="ch" style="--i:4"><span class="g">@</span><span class="l">o</span></span><span class="ch" style="--i:5"><span class="g">W</span><span class="l">r</span></span></span></a>
     <span class="mid">The Index</span>
     <div class="util">
-      <a href="#top" class="on">Start</a><a href="#subscribe">Subscribe</a>
-      <button class="burger" type="button" aria-label="Open menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
+      <button class="menu-word" type="button" aria-label="Open menu" aria-expanded="false">Menu</button>
     </div>
   </div>
   <!-- sprind nests the lattice and the bottom row inside ONE #nav-submenu, so
@@ -928,6 +951,7 @@ input,select,textarea{font-size:16px !important;}   /* iOS zooms below 16 */
   </div>
   </div>
 </div>
+
 
 <main id="top"><div class="stack" id="main-content">
 
@@ -1319,25 +1343,28 @@ document.querySelectorAll('.copylink').forEach(b => {
   });
 });
 
-const menu = document.querySelector('.menu');
-const revealNav = () => menu.classList.add('nav-visible');
-document.querySelector('.navreveal').addEventListener('mouseenter', revealNav);
-/* keyboard: :focus-within handles the visual, this keeps the class in sync */
-menu.addEventListener('focusin', revealNav);
-
-/* Mobile drawer. Below 768 there is no hover, so the bar is revealed and the
-   drawer toggled by the hamburger. sprind scroll-locks the body while the
-   mobile drawer is open (desktop does not), so we do the same. */
-const burger = document.querySelector('.burger');
-burger.addEventListener('click', () => {
-  revealNav();
-  const open = menu.classList.toggle('drawer-open');
-  burger.setAttribute('aria-expanded', String(open));
-  burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-  document.body.style.overflow = open ? 'hidden' : '';
-});
-/* On a touch device nothing reveals the bar, so show it from the start there. */
-if (window.matchMedia('(hover: none)').matches) revealNav();
+// ---- shared nav: reveal + mobile drawer ----
+  // The header sits off-screen until a 24px hover strip is entered (desktop) or
+  // the Menu word is tapped (mobile). Touch devices never hover, so the bar is
+  // shown from the start there or the nav would be unreachable.
+  (function(){
+    var menu=document.querySelector('.menu'); if(!menu){return;}
+    var reveal=function(){ menu.classList.add('nav-visible'); };
+    var strip=document.querySelector('.navreveal'); if(strip){ strip.addEventListener('mouseenter',reveal); }
+    menu.addEventListener('focusin',reveal);
+    var word=document.querySelector('.menu-word');
+    if(word){
+      word.addEventListener('click',function(){
+        reveal();
+        var open=menu.classList.toggle('drawer-open');
+        word.setAttribute('aria-expanded',String(open));
+        word.setAttribute('aria-label',open?'Close menu':'Open menu');
+        word.textContent=open?'Close':'Menu';
+        document.body.style.overflow=open?'hidden':'';
+      });
+    }
+    if(window.matchMedia('(hover: none)').matches){ reveal(); }
+  })();
 </script>
 
 <script data-goatcounter="https://vektor.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>

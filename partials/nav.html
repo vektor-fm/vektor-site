@@ -1,0 +1,73 @@
+<!-- SHARED NAV MARKUP — injected into masthead.html and index.body.html by
+     build.mjs via the NAV token. Edit here only. -->
+<!-- The 24px invisible strip that reveals the nav. sprind pins one of these to
+     the top of the viewport; mouseenter adds .nav-visible to the header. -->
+<div class="navreveal" aria-hidden="true"></div>
+
+<div class="menu">
+  <div class="bar">
+    <a class="wm" href="#top" aria-label="vektor"><span class="wm-plate wm-acid" aria-hidden="true">vektor</span><span class="wm-plate wm-orchid" aria-hidden="true">vektor</span><span class="wm-main"><span class="ch" style="--i:0"><span class="g">%</span><span class="l">v</span></span><span class="ch" style="--i:1"><span class="g">#</span><span class="l">e</span></span><span class="ch" style="--i:2"><span class="g">Z</span><span class="l">k</span></span><span class="ch" style="--i:3"><span class="g">8</span><span class="l">t</span></span><span class="ch" style="--i:4"><span class="g">@</span><span class="l">o</span></span><span class="ch" style="--i:5"><span class="g">W</span><span class="l">r</span></span></span></a>
+    <span class="mid">The Index</span>
+    <div class="util">
+      <button class="menu-word" type="button" aria-label="Open menu" aria-expanded="false">Menu</button>
+    </div>
+  </div>
+  <!-- sprind nests the lattice and the bottom row inside ONE #nav-submenu, so
+       the header grid has two children and therefore one 1px gap. Flattening
+       them into .menu adds a second gap and overshoots the 81.8px closed
+       height by 2px. -->
+  <div class="nav-submenu">
+  <ul class="navgrid">
+    <li>
+      <a class="top" href="#latest">Issues</a>
+      <div class="panel">
+        <ul>
+          <li><a href="#latest"><span class="a">→</span><span>Latest</span></a></li>
+          <li><a href="#archive"><span class="a">→</span><span>The archive</span></a></li>
+          <li><a href="https://instagram.com/vektor.fm" target="_blank" rel="noopener"><span class="a">→</span><span>Submit a topic</span></a></li>
+        </ul>
+        <p class="info">Every issue is one short film and one working pack — config, prompts, links.</p>
+      </div>
+    </li>
+    <li>
+      <a class="top" href="./pack.html">Packs</a>
+      <div class="panel">
+        <ul>
+          <li><a href="./no-004.html"><span class="a">→</span><span>Skills</span></a></li>
+          <li><a href="./no-013.html"><span class="a">→</span><span>Agent starter kit</span></a></li>
+          <li><a href="./no-015.html"><span class="a">→</span><span>Loops</span></a></li>
+          <li><a href="./no-010.html"><span class="a">→</span><span>CLAUDE.md files</span></a></li>
+        </ul>
+        <p class="info">The files behind the films. Free, no signup wall.</p>
+      </div>
+    </li>
+    <li>
+      <a class="top" href="#about">About</a>
+      <div class="panel">
+        <ul>
+          <li><a href="#about"><span class="a">→</span><span>What vektor is</span></a></li>
+          <li><a href="#subscribe"><span class="a">→</span><span>The Teardown</span></a></li>
+          <li><a href="https://youtube.com/@vektorfm" target="_blank" rel="noopener"><span class="a">→</span><span>Watch</span></a></li>
+          <li><a href="./privacy.html"><span class="a">→</span><span>Privacy</span></a></li>
+        </ul>
+        <p class="info">Daily shorts on the Claude and AI tooling that actually matters.</p>
+      </div>
+    </li>
+  </ul>
+  <!-- Full-width row spanning all three columns, 36px on sprind: social left,
+       legal links right at gap 32. Same dim-the-siblings hover as the panels. -->
+  <div class="navbottom">
+    <ul class="social">
+      <li><a href="https://youtube.com/@vektorfm" target="_blank" rel="noopener"><span>YT</span></a></li>
+      <li><a href="https://instagram.com/vektor.fm" target="_blank" rel="noopener"><span>IG</span></a></li>
+      <li><a href="https://tiktok.com/@vektor.fm" target="_blank" rel="noopener"><span>TT</span></a></li>
+      <li><a href="https://x.com/vektordotfm" target="_blank" rel="noopener"><span>X</span></a></li>
+    </ul>
+    <ul class="legal">
+      <li><a href="#subscribe"><span class="a">→</span><span>Subscribe</span></a></li>
+      <li><a href="./privacy.html"><span class="a">→</span><span>Privacy</span></a></li>
+      <li><a href="./thanks.html"><span class="a">→</span><span>Contact</span></a></li>
+    </ul>
+  </div>
+  </div>
+</div>

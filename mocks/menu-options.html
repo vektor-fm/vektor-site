@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Menu button — three options</title>
+<style>
+@font-face{font-family:'Archivo Expanded';src:url('fonts/archivo-expanded-400.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Archivo Text';src:url('fonts/archivo-400.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Inter Tight';src:url('fonts/inter-tight-600-latin.woff2') format('woff2');font-weight:600;font-display:swap}
+@font-face{font-family:'Printvetica';src:url('fonts/printvetica-caps.woff2') format('woff2');font-weight:400;font-display:swap}
+:root{
+  --bg:#000; --fg:#fff; --rule:#C9C9C9; --meta:#999; --dim:#b4b4b4;
+  --accent:#0E9C86; --paper:#EFEADD;
+  --ext:'Archivo Expanded',system-ui,sans-serif;
+  --sans:'Archivo Text',system-ui,sans-serif;
+  --label:'Printvetica','Archivo Text',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#000;color:var(--fg);font-family:var(--sans);font-size:15px;line-height:19px;-webkit-font-smoothing:antialiased;padding:32px 20px 80px}
+h1{font-family:var(--ext);font-weight:400;font-size:32px;line-height:34px;text-transform:uppercase;margin-bottom:8px}
+h2{font-family:var(--ext);font-weight:400;font-size:20px;line-height:22px;text-transform:uppercase;margin:0 0 6px}
+p{font-size:15px;line-height:20px;color:var(--dim);max-width:64ch}
+.note{color:var(--meta);font-size:14px;line-height:19px;margin-top:8px}
+.opt{border-top:1px solid var(--rule);padding:28px 0 8px;margin-top:8px}
+.tag{display:inline-block;font-family:var(--label);font-size:13px;letter-spacing:.025em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+
+/* a real 390px bar, so each option is judged at the size it ships at */
+.phone{width:390px;max-width:100%;border:1px solid var(--rule);margin:18px 0 6px;background:#000}
+.bar{display:flex;justify-content:space-between;align-items:center;height:44px;padding:8px;outline:1px solid var(--rule)}
+.wm{font-family:'Inter Tight',system-ui,sans-serif;font-weight:600;letter-spacing:-.045em;color:var(--paper);font-size:30px;line-height:1}
+.util{display:flex;align-items:center;gap:8px}
+.util a{font-family:var(--label);font-size:14px;letter-spacing:.025em;text-transform:uppercase;color:var(--meta);text-decoration:none}
+
+/* ---------- CURRENT ---------- */
+.burger-now{display:flex;flex-direction:column;justify-content:center;align-items:center;width:44px;height:44px;background:none;border:0;cursor:pointer;color:#fff}
+.burger-now span{display:block;width:15px;height:1px;background:currentColor}
+.burger-now span+span{margin-top:3px}
+
+/* ---------- A · the word ---------- */
+.menu-word{
+  display:inline-flex;align-items:center;height:44px;padding:0 2px;
+  background:none;border:0;cursor:pointer;color:var(--fg);
+  font-family:var(--label);font-size:14px;letter-spacing:.025em;text-transform:uppercase;
+  border-bottom:1px solid transparent;transition:border-color .15s cubic-bezier(.4,0,.2,1),color .15s;
+}
+.menu-word:hover,.menu-word[aria-expanded=true]{border-bottom-color:var(--fg)}
+.menu-word[aria-expanded=true]::after{content:'';}
+
+/* ---------- B · two long rules ---------- */
+.burger-rules{display:flex;flex-direction:column;justify-content:center;align-items:flex-end;width:44px;height:44px;background:none;border:0;cursor:pointer;gap:7px}
+.burger-rules i{display:block;width:24px;height:1px;background:var(--rule);transition:transform .3s cubic-bezier(.4,0,.2,1),width .3s}
+.burger-rules[aria-expanded=true] i:first-child{transform:translateY(4px) rotate(45deg)}
+.burger-rules[aria-expanded=true] i:last-child{transform:translateY(-4px) rotate(-45deg)}
+
+/* ---------- C · word + rule stack ---------- */
+.menu-stack{display:inline-flex;align-items:center;gap:8px;height:44px;background:none;border:0;cursor:pointer;color:var(--fg);font-family:var(--label);font-size:14px;letter-spacing:.025em;text-transform:uppercase}
+.menu-stack .rules{display:flex;flex-direction:column;gap:5px}
+.menu-stack .rules i{display:block;width:18px;height:1px;background:currentColor;transition:transform .3s cubic-bezier(.4,0,.2,1)}
+.menu-stack[aria-expanded=true] .rules i:first-child{transform:translateY(3px) rotate(45deg)}
+.menu-stack[aria-expanded=true] .rules i:last-child{transform:translateY(-3px) rotate(-45deg)}
+</style>
+</head>
+<body>
+
+<h1>Menu button</h1>
+<p>Each shown in a real 390&times;44 bar, at the size it ships at. Tap any of them — they toggle so you can see the open state.</p>
+<p class="note">Why the current one reads weak: three 15&times;1px hairlines with 3px gaps is a fleck at arm's length, and it sits beside two text links that already compete for the same corner. It is also the only generic component left in a system that has removed filled buttons, bold weights and default controls everywhere else.</p>
+
+<div class="opt">
+  <span class="tag">current</span>
+  <h2>Three short hairlines</h2>
+  <div class="phone"><div class="bar">
+    <span class="wm">vektor</span>
+    <span class="util"><a href="#">Start</a><a href="#">Subscribe</a>
+      <button class="burger-now" aria-label="Menu"><span></span><span></span><span></span></button></span>
+  </div></div>
+  <p class="note">15px wide, 1px tall, 3px apart, beside two labels. Crowded and faint.</p>
+</div>
+
+<div class="opt">
+  <span class="tag">option A &middot; recommended</span>
+  <h2>The word</h2>
+  <div class="phone"><div class="bar">
+    <span class="wm">vektor</span>
+    <button class="menu-word" aria-expanded="false" onclick="t(this)">Menu</button>
+  </div></div>
+  <p>sprind's own nav is word-triggers — TATEN, WORTE, WIR — never a glyph. The whole system is typographic: weight 400, uppercase, hairline underlines. A word in Printvetica is the only option that belongs to it natively, and it toggles to CLOSE so the state is legible rather than inferred.</p>
+  <p class="note">Start and Subscribe move into the drawer, which is where they belong on a phone — that is what clears the crowding. Biggest tap target of the three, and the only one that says what it does.</p>
+</div>
+
+<div class="opt">
+  <span class="tag">option B</span>
+  <h2>Two long rules</h2>
+  <div class="phone"><div class="bar">
+    <span class="wm">vektor</span>
+    <span class="util"><a href="#">Start</a>
+      <button class="burger-rules" aria-label="Menu" aria-expanded="false" onclick="t(this)"><i></i><i></i></button></span>
+  </div></div>
+  <p>Two rules rather than three, 24px rather than 15, drawn in <code>#C9C9C9</code> — the site's exact hairline colour. It stops reading as an icon and starts reading as part of the rule system. Rotates into an X on open.</p>
+  <p class="note">Keeps a glyph, so it stays language-neutral and compact. Quieter than A, and still needs one text link removed to breathe.</p>
+</div>
+
+<div class="opt">
+  <span class="tag">option C</span>
+  <h2>Word plus rules</h2>
+  <div class="phone"><div class="bar">
+    <span class="wm">vektor</span>
+    <button class="menu-stack" aria-expanded="false" onclick="t(this)"><span class="rules"><i></i><i></i></span>Menu</button>
+  </div></div>
+  <p>Both signals at once. Most explicit, and the animation reads clearly at a glance.</p>
+  <p class="note">Costs the most horizontal room in a 390px bar, which is the constraint that made the current version feel cramped in the first place.</p>
+</div>
+
+<script>
+function t(b){ const o=b.getAttribute('aria-expanded')==='true'; b.setAttribute('aria-expanded',String(!o));
+  if(b.classList.contains('menu-word')) b.textContent = o?'Menu':'Close';
+  if(b.classList.contains('menu-stack')) b.lastChild.textContent = o?'Menu':'Close'; }
+</script>
+</body>
+</html>

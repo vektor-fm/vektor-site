@@ -40,6 +40,222 @@
 @font-face{font-family:'Inter Tight';src:url(fonts/inter-tight-600-latin.woff2) format('woff2');font-weight:600;font-style:normal;font-display:swap}
 @font-face{font-family:'Printvetica';src:url(fonts/printvetica-caps.woff2) format('woff2');font-weight:400;font-style:normal;font-display:swap}
 @font-face{font-family:'IBM Plex Mono';src:url(fonts/ibm-plex-mono-400-latin.woff2) format('woff2');font-weight:400;font-style:normal;font-display:swap}
+/* the per-issue marker, previously inside the sticky .chrome masthead */
+.issue-marker{
+  padding:var(--p-s) var(--rail); border-bottom:1px solid var(--rule);
+  font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em;
+  font-size:var(--fs-s); line-height:var(--lh-s); color:var(--meta);
+}
+<!-- SHARED NAV STYLES — injected into both partials/head.html (the 20 issue
+     pages) and src/index.body.html (the landing page) by build.mjs via
+     the NAV_CSS token. Edit here only; a second copy is how the two drift apart. -->
+/* ================================ NAV ================================
+   MEASURED ON SPRIND 2026-08-08. The header is OFF-SCREEN by default:
+   transform:translate3d(0,-100%,0). It is revealed by mouseenter on an
+   invisible 24px-tall full-width strip pinned to the top of the viewport, or
+   by focus (keyboard). Scrolling never reveals it — verified at scrollY
+   0/200/400/800/1600. Once revealed it is sticky.
+
+   Three states: off-screen -> bar only (81.8px) -> fully open (326.8px).
+   Bar 44px + 1px grid gap + submenu row 36.8px.
+   Reveal is transform .4s ease; open is max-height .5s ease-out.
+   Desktop does NOT scroll-lock (body stays overflow:visible). Mobile does.
+   ===================================================================== */
+/* Skip link — sprind's, and the one piece of their nav furniture that is real
+   function rather than shape. Parked above the viewport, slides in on focus. */
+.skip-link{
+  position:fixed; top:0; left:0; z-index:80;
+  transform:translateY(-120%); transition:transform .2s ease-out;
+  background:var(--fg); color:var(--bg);
+  padding:12px var(--p-m); font-size:var(--fs-s); line-height:var(--lh-s);
+  font-weight:500; text-decoration:underline;
+}
+.skip-link:focus{ transform:translateY(0); outline:2px solid var(--fg); outline-offset:2px; }
+
+.navreveal{                       /* the invisible 24px trigger strip */
+  position:fixed; top:0; left:0; right:0; height:24px; z-index:70;
+  cursor:default;
+}
+.menu{
+  position:fixed; inset:0 0 auto 0; z-index:60; background:transparent;
+  display:grid; gap:1px;
+  transform:translate3d(0,-100%,0);
+  transition:transform .4s ease;
+}
+.menu.nav-visible, .menu:focus-within{ transform:translateZ(0); }
+.menu .bar{
+  display:flex; justify-content:space-between; align-items:center;
+  padding:var(--p-s); height:44px; background:var(--bg);
+  outline:1px solid var(--rule);   /* outline, not border — sprind surrounds the bar */
+}
+/* ======================= THE LOGO — THE REAL ONE =======================
+   The shipping wordmark, from partials/head.html:174-186. NOT the retired
+   brand/logo/export/ mark (Archivo 800 + teal caret).
+
+   Inter Tight 600 at -.045em in cream #EFEADD.
+
+   The live site animates this: two chromatic misregistration plates (acid +
+   orchid) slide into alignment and fade over 1.15s while each character
+   flashes a mono glyph before resolving. Founder retired that animation for
+   the redesign (2026-08-08) — sprind is restrained and the glitch-decode
+   fought it. The markup keeps the plate and glyph spans so the motion can be
+   restored by deleting the three rules below, but by default the mark is
+   STATIC: letters visible, glyphs and plates hidden. This is exactly the
+   live site's prefers-reduced-motion state, promoted to the default.
+   ===================================================================== */
+.wm{
+  position:relative; display:inline-flex; text-decoration:none;
+  font-family:'Inter Tight',system-ui,sans-serif; font-weight:600;
+  letter-spacing:-0.045em; color:var(--paper); line-height:1;
+}
+.wm-main{ position:relative; z-index:2; display:inline-flex; }
+.wm-main .ch{ position:relative; display:inline-block; }
+.wm-main .ch .l{ opacity:1; }          /* animation retired */
+.wm-main .ch .g{ display:none; }       /* glyph flash retired */
+.wm-plate{ display:none; }             /* registration plates retired */
+.bar .wm{ font-size:30px; }
+.bar .mid{ font-size:var(--fs-s); text-transform:uppercase; letter-spacing:.025em; }
+.bar .util{ display:flex; align-items:center; gap:var(--p-m); }
+.bar .util a{ font-size:var(--fs-s); text-transform:uppercase; letter-spacing:.025em; color:var(--dim); }
+.bar .util a:hover,.bar .util a.on{ color:var(--fg); }
+
+/* Submenu row — Technique C lattice: 1px grid gap plus a 1px OUTLINE on every
+   cell. Outlines paint outside the border box and take no layout space, so two
+   neighbours' outlines meet inside the gutter and read as one hairline. */
+.navgrid{
+  display:grid; grid-auto-flow:column; grid-auto-columns:minmax(0,1fr);
+  gap:1px; background:var(--bg); list-style:none;
+}
+.navgrid > li{ display:flex; flex-direction:column; outline:1px solid var(--rule); }
+.nav-submenu{ display:grid; }   /* no gap: .navbottom carries margin-top:-1px */
+/* 38px, not 37. At 37 the bottom rule lands on a half device pixel and splits
+   50/75% across two grey rows — it reads soft rather than crisp. Measured. */
+.navgrid .top{
+  height:38px; display:flex; align-items:center; justify-content:center;
+  font-size:var(--fs-s); line-height:var(--lh-s);
+  text-transform:uppercase; letter-spacing:normal; text-align:center;
+  transition:background-color .15s cubic-bezier(.4,0,.2,1);
+}
+/* sprind fills the cell 20% white on dark, and does NOT change the text colour */
+.navgrid > li:hover .top{ background-color:rgba(255,255,255,.2); }
+.navgrid .panel{
+  border-top:1px solid var(--rule);
+  margin-bottom:-1px;              /* swallows the doubled hairline, as sprind does */
+  display:grid; gap:var(--p-xl); padding:0 var(--p-m);
+  max-height:0; opacity:0; overflow:hidden;
+  transition:max-height .5s ease-out, opacity .5s ease-out, padding .5s ease-out;
+}
+.menu:hover .navgrid .panel,
+.menu:focus-within .navgrid .panel{ max-height:384px; opacity:1; padding:var(--p-m); }
+.navgrid .panel ul{ display:flex; flex-direction:column; gap:2px; list-style:none; }
+/* Panel links are the ONE place sprind puts the arrow first — 15/19,
+   SENTENCE CASE (not uppercase), 8px gap. */
+.navgrid .panel a{
+  display:flex; gap:var(--p-s);
+  font-size:var(--fs-s); line-height:var(--lh-s); text-transform:none;
+}
+.navgrid .panel a span{ border-bottom:1px solid transparent; }
+/* Hover DIMS THE SIBLINGS rather than highlighting the target: every other
+   link goes to #767676 while the hovered one stays white. */
+.navgrid .panel ul:hover li a{ color:#767676; }
+.navgrid .panel ul li a{ transition:color .1s ease-in-out; }
+.navgrid .panel ul li a:hover{ color:var(--fg); }
+.navgrid .panel .info{ color:var(--meta); font-size:var(--fs-s); line-height:var(--lh-s); }
+/* Staggered reveal: child n gets .1n s duration, .02n s delay */
+.navgrid .panel ul li{ opacity:0; }
+.menu:hover .navgrid .panel ul li,
+.menu:focus-within .navgrid .panel ul li{ opacity:1; }
+.navgrid .panel ul li:nth-child(1){ transition:opacity .1s ease-in-out 0s; }
+.navgrid .panel ul li:nth-child(2){ transition:opacity .2s ease-in-out .02s; }
+.navgrid .panel ul li:nth-child(3){ transition:opacity .3s ease-in-out .04s; }
+.navgrid .panel ul li:nth-child(4){ transition:opacity .4s ease-in-out .06s; }
+.navgrid .panel ul li:nth-child(5){ transition:opacity .5s ease-in-out .08s; }
+.navgrid .panel .info{ transition:opacity .5s ease-out .1s; }
+
+/* Full-width bottom row spanning all three columns, 36px */
+/* visibility:hidden is load-bearing, not decoration. overflow:hidden does NOT
+   clip an element's own outline, so a 1px outline around a max-height:0 box
+   paints its top AND bottom edges as one solid 2px band — which margin-top:-1px
+   then stacks onto the panel's border-top and the li's outline-bottom. Measured
+   at 4 lit device rows against sprind's 2, 2.67x the ink. sprind's own .slider
+   rule carries `visibility:hidden` alongside `max-height:0` for exactly this
+   reason; we had copied the max-height and dropped the visibility. */
+.navbottom{
+  display:flex; justify-content:space-between; flex-wrap:wrap;
+  background:var(--bg); outline:1px solid var(--rule);
+  /* Closed header totals 82.8px against sprind's 81.8. Adding their -mb-[1px]
+     was tried and had no effect — the grid track floors at 0 — so the 1px is
+     left standing rather than papered over with CSS that does nothing. It is
+     total height only: both hairlines render pixel-identical to theirs. */
+  margin-top:-1px;
+  max-height:0; overflow:hidden; visibility:hidden;
+  transition:max-height .5s ease-out, visibility linear .5s;
+}
+.menu:hover .navbottom, .menu:focus-within .navbottom{
+  max-height:96px; visibility:visible;
+  transition:max-height .5s ease-out, visibility linear;
+}
+.navbottom ul{ display:flex; list-style:none; padding:var(--p-s) var(--p-m); }
+.navbottom .social{ gap:var(--p-s); }
+.navbottom .legal{ gap:var(--p-xl); }
+.navbottom a{ font-size:var(--fs-s); line-height:var(--lh-s); display:flex; gap:var(--p-s); }
+.navbottom .legal:hover a{ color:#767676; }
+.navbottom .legal a{ transition:color .1s ease-in-out; }
+.navbottom .legal a:hover{ color:var(--fg); }
+
+/* MENU TRIGGER — a word, not a glyph.
+   sprind's own nav is word-triggers (TATEN / WORTE / WIR) and never an icon,
+   and this system is typographic throughout: weight 400, uppercase, hairline
+   underlines. Three 15x1px lines read as a fleck at arm's length and were the
+   last generic control left on the site. The word states what it does, toggles
+   to CLOSE so the state is legible rather than inferred, and gives the largest
+   tap target of the options considered. Desktop has no trigger at all — the
+   hover strip reveals the nav there, exactly as sprind does. */
+.menu-word{
+  display:none; align-items:center; height:44px; padding:0 2px;
+  background:none; border:0; cursor:pointer; color:var(--fg);
+  font-family:var(--font-label); font-size:var(--fs-s); line-height:var(--lh-s);
+  letter-spacing:.025em; text-transform:uppercase;
+  border-bottom:1px solid transparent;
+  transition:border-color .15s cubic-bezier(.4,0,.2,1);
+}
+.menu-word:hover,.menu-word[aria-expanded="true"]{ border-bottom-color:var(--fg); }
+
+/* Below 768 sprind drops the hover gating entirely: the drawer opens from the
+   bar and ALL panels are expanded at once. Without a toggle that would leave a
+   ~700px nav permanently open, so the drawer is gated behind the hamburger and
+   scrolls internally — a nav taller than the viewport is otherwise unusable. */
+@media (max-width:767px){
+  .menu-word{ display:inline-flex; }
+  .nav-submenu{
+    max-height:0; overflow:hidden; visibility:hidden;
+    transition:max-height .4s ease, visibility linear .4s;
+  }
+  .menu.drawer-open .nav-submenu{
+    max-height:calc(100svh - 44px); overflow-y:auto; visibility:visible;
+    transition:max-height .4s ease, visibility linear;
+  }
+  .navgrid{ grid-auto-flow:row; }
+  .navgrid .panel{ max-height:none; opacity:1; padding:var(--p-m); }
+  .navgrid .panel ul li{ opacity:1; }
+  .navbottom{ max-height:none; visibility:visible; }
+  /* hover must not open anything on touch — the drawer class is the only gate */
+  .menu:hover .navgrid .panel, .menu:hover .navbottom{ max-height:none; }
+}
+
+/* ---- touch targets, owned by the nav itself ----
+   These lived in the landing page's stylesheet, so when the nav became shared
+   the 20 issue pages inherited the markup without the fixes: the wordmark came
+   back at 30px tall and the single-glyph social links at 10-17px wide. Rules
+   that belong to a component belong in the component. */
+.bar .wm{min-height:44px; display:inline-flex; align-items:center;}
+.bar .util a{min-height:44px; display:inline-flex; align-items:center;}
+.navgrid .top{min-height:44px;}
+.navgrid .panel a,
+.navbottom a{min-height:44px; display:inline-flex; align-items:center;}
+.navbottom .social a,
+.navbottom .social li{min-width:44px; justify-content:center;}
+
 </style>
 <style>
 /* =========================================================================
@@ -452,16 +668,83 @@ pre.code code{font-size:inherit;}
 /* the decorative slash rule carries text content that is invisible but still
    in the accessibility tree; hide it from assistive tech */
 .rule{speak:never;}
-</style><header class="chrome">
-  <a class="wm" href="./index.html" aria-label="vektor">
-    <span class="wm-plate wm-acid" aria-hidden="true">vektor</span>
-    <span class="wm-plate wm-orchid" aria-hidden="true">vektor</span>
-    <span class="wm-main">
-      <span class="ch" style="--i:0"><span class="g">%</span><span class="l">v</span></span><span class="ch" style="--i:1"><span class="g">#</span><span class="l">e</span></span><span class="ch" style="--i:2"><span class="g">Z</span><span class="l">k</span></span><span class="ch" style="--i:3"><span class="g">8</span><span class="l">t</span></span><span class="ch" style="--i:4"><span class="g">@</span><span class="l">o</span></span><span class="ch" style="--i:5"><span class="g">W</span><span class="l">r</span></span>
-    </span>
-  </a>
-  <span class="marker">This Week in AI · The Carousel</span>
-</header>
+</style><!-- SHARED NAV MARKUP — injected into masthead.html and index.body.html by
+     build.mjs via the NAV token. Edit here only. -->
+<!-- The 24px invisible strip that reveals the nav. sprind pins one of these to
+     the top of the viewport; mouseenter adds .nav-visible to the header. -->
+<div class="navreveal" aria-hidden="true"></div>
+
+<div class="menu">
+  <div class="bar">
+    <a class="wm" href="#top" aria-label="vektor"><span class="wm-plate wm-acid" aria-hidden="true">vektor</span><span class="wm-plate wm-orchid" aria-hidden="true">vektor</span><span class="wm-main"><span class="ch" style="--i:0"><span class="g">%</span><span class="l">v</span></span><span class="ch" style="--i:1"><span class="g">#</span><span class="l">e</span></span><span class="ch" style="--i:2"><span class="g">Z</span><span class="l">k</span></span><span class="ch" style="--i:3"><span class="g">8</span><span class="l">t</span></span><span class="ch" style="--i:4"><span class="g">@</span><span class="l">o</span></span><span class="ch" style="--i:5"><span class="g">W</span><span class="l">r</span></span></span></a>
+    <span class="mid">The Index</span>
+    <div class="util">
+      <button class="menu-word" type="button" aria-label="Open menu" aria-expanded="false">Menu</button>
+    </div>
+  </div>
+  <!-- sprind nests the lattice and the bottom row inside ONE #nav-submenu, so
+       the header grid has two children and therefore one 1px gap. Flattening
+       them into .menu adds a second gap and overshoots the 81.8px closed
+       height by 2px. -->
+  <div class="nav-submenu">
+  <ul class="navgrid">
+    <li>
+      <a class="top" href="#latest">Issues</a>
+      <div class="panel">
+        <ul>
+          <li><a href="#latest"><span class="a">→</span><span>Latest</span></a></li>
+          <li><a href="#archive"><span class="a">→</span><span>The archive</span></a></li>
+          <li><a href="https://instagram.com/vektor.fm" target="_blank" rel="noopener"><span class="a">→</span><span>Submit a topic</span></a></li>
+        </ul>
+        <p class="info">Every issue is one short film and one working pack — config, prompts, links.</p>
+      </div>
+    </li>
+    <li>
+      <a class="top" href="./pack.html">Packs</a>
+      <div class="panel">
+        <ul>
+          <li><a href="./no-004.html"><span class="a">→</span><span>Skills</span></a></li>
+          <li><a href="./no-013.html"><span class="a">→</span><span>Agent starter kit</span></a></li>
+          <li><a href="./no-015.html"><span class="a">→</span><span>Loops</span></a></li>
+          <li><a href="./no-010.html"><span class="a">→</span><span>CLAUDE.md files</span></a></li>
+        </ul>
+        <p class="info">The files behind the films. Free, no signup wall.</p>
+      </div>
+    </li>
+    <li>
+      <a class="top" href="#about">About</a>
+      <div class="panel">
+        <ul>
+          <li><a href="#about"><span class="a">→</span><span>What vektor is</span></a></li>
+          <li><a href="#subscribe"><span class="a">→</span><span>The Teardown</span></a></li>
+          <li><a href="https://youtube.com/@vektorfm" target="_blank" rel="noopener"><span class="a">→</span><span>Watch</span></a></li>
+          <li><a href="./privacy.html"><span class="a">→</span><span>Privacy</span></a></li>
+        </ul>
+        <p class="info">Daily shorts on the Claude and AI tooling that actually matters.</p>
+      </div>
+    </li>
+  </ul>
+  <!-- Full-width row spanning all three columns, 36px on sprind: social left,
+       legal links right at gap 32. Same dim-the-siblings hover as the panels. -->
+  <div class="navbottom">
+    <ul class="social">
+      <li><a href="https://youtube.com/@vektorfm" target="_blank" rel="noopener"><span>YT</span></a></li>
+      <li><a href="https://instagram.com/vektor.fm" target="_blank" rel="noopener"><span>IG</span></a></li>
+      <li><a href="https://tiktok.com/@vektor.fm" target="_blank" rel="noopener"><span>TT</span></a></li>
+      <li><a href="https://x.com/vektordotfm" target="_blank" rel="noopener"><span>X</span></a></li>
+    </ul>
+    <ul class="legal">
+      <li><a href="#subscribe"><span class="a">→</span><span>Subscribe</span></a></li>
+      <li><a href="./privacy.html"><span class="a">→</span><span>Privacy</span></a></li>
+      <li><a href="./thanks.html"><span class="a">→</span><span>Contact</span></a></li>
+    </ul>
+  </div>
+  </div>
+</div>
+
+
+<!-- the issue marker, kept: it is the only per-page label in the bar -->
+<div class="issue-marker">This Week in AI · The Carousel</div>
 
 <!-- Sticky ask. This used to be a Follow link back to Instagram, which spent
      an IG click to win a visit and then returned the visitor to IG without
@@ -699,6 +982,30 @@ No lorem ipsum, no placeholder images, no "great question". Ship the entire thin
     window.addEventListener('scroll',maybe,{passive:true});
   })();
   document.querySelectorAll('form').forEach(function(f){ f.addEventListener('submit', function(){ gcEvent('no009-subscribe-submit'); }); });
+
+  // ---- shared nav: reveal + mobile drawer ----
+  // The header sits off-screen until a 24px hover strip is entered (desktop) or
+  // the Menu word is tapped (mobile). Touch devices never hover, so the bar is
+  // shown from the start there or the nav would be unreachable.
+  (function(){
+    var menu=document.querySelector('.menu'); if(!menu){return;}
+    var reveal=function(){ menu.classList.add('nav-visible'); };
+    var strip=document.querySelector('.navreveal'); if(strip){ strip.addEventListener('mouseenter',reveal); }
+    menu.addEventListener('focusin',reveal);
+    var word=document.querySelector('.menu-word');
+    if(word){
+      word.addEventListener('click',function(){
+        reveal();
+        var open=menu.classList.toggle('drawer-open');
+        word.setAttribute('aria-expanded',String(open));
+        word.setAttribute('aria-label',open?'Close menu':'Open menu');
+        word.textContent=open?'Close':'Menu';
+        document.body.style.overflow=open?'hidden':'';
+      });
+    }
+    if(window.matchMedia('(hover: none)').matches){ reveal(); }
+  })();
+
   // Instrumentation before optimisation. Every capture point reports its own
   // event, so we can see which of the four actually earns its place instead of
   // guessing. Previously all of them fired one shared 'subscribe-submit'.
