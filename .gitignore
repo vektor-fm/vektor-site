@@ -1,0 +1,20 @@
+# Dependencies — sharp pulls in platform binaries; never commit them.
+node_modules/
+
+# Generated plate source art. These are the raw 1536x1024 model outputs
+# (~2.7 MB each, ~60 MB for the set). Only the derived variants that the site
+# actually serves — og/plate-no-XXX-card.webp and -hero.webp, built by
+# ingest-plates.mjs — belong in the repo.
+plates-src/
+
+# Printvetica is a PURCHASED commercial font (guaschetti, Gumroad 2026-07-29).
+# This repo is public and deploys to GitHub Pages, so committing the file is
+# REDISTRIBUTION — a different grant from webfont embedding, and one most
+# commercial licences withhold. Until the licence is confirmed it stays local:
+# the page references it, and live simply falls back to Helvetica.
+# Rebuild with: python mocks/subset-printvetica.py
+fonts/printvetica-caps.woff2
+
+# Secrets
+.env
+.env.*

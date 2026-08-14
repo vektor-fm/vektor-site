@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SPRIND-GAP — visual</title>
+<style>
+@font-face{font-family:'Archivo Expanded';src:url('../mocks/fonts/archivo-expanded-400.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Archivo Text';src:url('../mocks/fonts/archivo-400.woff2') format('woff2');font-weight:400;font-display:swap}
+
+:root{
+  --bg:#000; --fg:#fff;
+  --silver:#c9c9c9;              /* sprind's hairline, both themes */
+  --old:rgba(255,255,255,.22);   /* what we shipped */
+  --meta:#999;
+  --dim:#b4b4b4;
+  --surface:#0e0e0e;             /* the "lifted near-black" for inverted bands */
+  --ext:'Archivo Expanded','Archivo Text',system-ui,sans-serif;
+  --sans:'Archivo Text',system-ui,sans-serif;
+  --gut:40px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:15px;line-height:19px;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--ext);font-weight:400;letter-spacing:normal}
+h1{font-size:52px;line-height:54px;text-transform:uppercase}
+h2{font-size:32px;line-height:34px;text-transform:uppercase}
+h3{font-size:20px;line-height:22px;text-transform:uppercase}
+p{font-size:18px;line-height:22px}
+code{font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:.86em;background:#141414;padding:1px 5px;color:#d8d8d8}
+a{color:inherit}
+
+.wrap{padding:var(--gut) var(--gut) 80px}
+section{border-bottom:1px solid var(--silver);padding:40px 0 80px}
+section:first-of-type{padding-top:0}
+.lede{color:var(--dim);max-width:70ch;margin-top:16px}
+.note{color:var(--meta);font-size:15px;line-height:19px;max-width:74ch;margin-top:12px}
+.kicker{font-size:15px;line-height:19px;text-transform:uppercase;letter-spacing:.025em;color:var(--meta);margin-bottom:16px}
+
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:40px;margin-top:32px}
+@media(max-width:900px){.two{grid-template-columns:minmax(0,1fr)}}
+.panel{border-top:1px solid var(--silver);padding-top:16px}
+.panel h3{margin-bottom:4px}
+.tag{display:inline-block;font-size:12px;line-height:16px;letter-spacing:.3px;text-transform:uppercase;padding:2px 8px;margin-bottom:12px}
+.t-them{background:#fff;color:#000}
+.t-us{background:#3a1111;color:#ff8f8f}
+.t-fix{background:#0f2a12;color:#7ee08a}
+
+table{width:100%;border-collapse:collapse;margin-top:24px;font-size:15px;line-height:19px}
+th,td{text-align:left;padding:10px 12px 10px 0;border-bottom:1px solid rgba(201,201,201,.35);vertical-align:top}
+th{text-transform:uppercase;letter-spacing:.025em;color:var(--meta);font-weight:400;white-space:nowrap}
+td.good{color:#7ee08a}
+td.bad{color:#ff8f8f}
+
+/* ---------- demo: hairline swatches ---------- */
+.swatch{margin-top:24px}
+.swatch .row{display:grid;grid-template-columns:190px 1fr;gap:24px;align-items:center;padding:18px 0}
+.swatch .bar{height:1px;width:100%}
+.s-old{background:rgba(255,255,255,.22)}
+.s-silver{background:#c9c9c9}
+.s-white{background:#fff}
+.swatch .lbl{font-size:15px;color:var(--meta);text-transform:uppercase;letter-spacing:.025em}
+.swatch .lbl b{display:block;color:var(--fg);font-weight:400;letter-spacing:normal;text-transform:none}
+
+/* ---------- demo: the three lattice techniques ---------- */
+.demo{margin-top:24px}
+.cellbox{min-height:78px;display:flex;align-items:center;justify-content:center;font-size:15px;color:var(--dim);text-align:center;padding:12px}
+
+/* A — section dividers: border-bottom per module */
+.techA > div{border-bottom:1px solid var(--silver)}
+.techA > div:last-child{border-bottom:0}
+
+/* B — one edge only */
+.techB{display:grid;grid-template-columns:repeat(2,1fr);column-gap:40px;row-gap:48px}
+.techB > div{border-top:1px solid var(--silver)}
+.techB-us > div{border-top:1px solid var(--silver);border-left:1px solid var(--silver)}
+
+/* C — true lattice: 1px gap + outline on every child */
+.techC{display:grid;grid-template-columns:repeat(3,1fr);gap:1px}
+.techC > div{outline:1px solid var(--silver)}
+
+/* ---------- demo: arrows ---------- */
+.alink{display:inline-flex;align-items:baseline;gap:4px;font-size:18px;line-height:22px;text-transform:uppercase;letter-spacing:.45px;transition:gap .15s cubic-bezier(.4,0,.2,1)}
+.alink:hover{gap:8px}
+.alink .arw{transition:transform .15s cubic-bezier(.4,0,.2,1)}
+.defaultS{display:inline-flex;font-size:18px;line-height:22px;color:#767676;border-bottom:1px solid #767676;transition:color .15s cubic-bezier(.4,0,.2,1)}
+.defaultS:hover{color:#fff}
+.tryme{font-size:15px;color:var(--meta);margin-top:10px}
+
+/* ---------- demo: banding ---------- */
+.band{display:grid;grid-template-columns:120px 1fr;gap:0;border:1px solid var(--silver);margin-top:24px}
+.band .name{padding:14px 16px;font-size:15px;text-transform:uppercase;letter-spacing:.025em;border-bottom:1px solid var(--silver);border-right:1px solid var(--silver)}
+.band .fill{padding:14px 16px;font-size:15px;border-bottom:1px solid var(--silver);display:flex;align-items:center;gap:12px}
+.band > div:nth-last-child(-n+2){border-bottom:0}
+.chip{width:34px;height:16px;flex:0 0 auto;outline:1px solid var(--silver)}
+.c-black{background:#000}
+.c-white{background:#fff}
+.c-surface{background:#0e0e0e}
+
+/* ---------- demo: nav states ---------- */
+.navdemo{margin-top:24px;position:relative;border:1px solid var(--silver);height:360px;overflow:hidden;background:#050505}
+.navdemo .page{position:absolute;inset:0;padding:24px;color:#2a2a2a;font-family:var(--ext);font-size:52px;line-height:54px;text-transform:uppercase}
+.fakenav{position:absolute;top:0;left:0;right:0;display:grid;gap:1px;transition:transform .4s ease}
+.fakenav .bar{height:44px;display:flex;align-items:center;justify-content:space-between;padding:8px;background:#000;outline:1px solid var(--silver);font-size:15px}
+.fakenav .subrow{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:1px;background:#000}
+.fakenav .subrow > div{outline:1px solid var(--silver);display:flex;flex-direction:column}
+.fakenav .hdr{height:38px;display:flex;align-items:center;justify-content:center;font-size:15px;text-transform:uppercase}
+.fakenav .pnl{border-top:1px solid var(--silver);max-height:0;overflow:hidden;transition:max-height .5s ease-out;padding:0 16px}
+.fakenav .pnl ul{list-style:none;display:flex;flex-direction:column;gap:2px;padding:16px 0}
+.fakenav .pnl li{font-size:15px;line-height:19px;color:#fff;display:flex;gap:8px}
+.fakenav .btm{height:36px;outline:1px solid var(--silver);background:#000;display:flex;align-items:center;padding:8px 16px;gap:32px;font-size:15px;max-height:0;overflow:hidden;transition:max-height .5s ease-out}
+.navdemo.s-hidden .fakenav{transform:translate3d(0,-100%,0)}
+.navdemo.s-open .pnl{max-height:384px}
+.navdemo.s-open .btm{max-height:96px}
+.strip{position:absolute;top:0;left:0;right:0;height:24px;background:repeating-linear-gradient(45deg,rgba(126,224,138,.16) 0 6px,transparent 6px 12px);border-bottom:1px dashed rgba(126,224,138,.5);z-index:5;pointer-events:none}
+.striplbl{position:absolute;top:26px;left:8px;font-size:12px;color:#7ee08a;letter-spacing:.3px;text-transform:uppercase;z-index:6}
+.ctrls{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+.ctrls button{font-family:var(--sans);font-size:15px;line-height:19px;text-transform:uppercase;letter-spacing:.025em;background:none;color:var(--fg);border:0;outline:1px solid var(--silver);padding:10px 16px;cursor:pointer;transition:background .15s cubic-bezier(.4,0,.2,1)}
+.ctrls button:hover{background:rgba(255,255,255,.06)}
+.ctrls button[aria-pressed=true]{background:rgba(255,255,255,.2)}
+
+/* ---------- demo: hero ---------- */
+.herodemo{margin-top:24px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:40px}
+@media(max-width:900px){.herodemo{grid-template-columns:minmax(0,1fr)}}
+.hero{position:relative;aspect-ratio:16/10;overflow:hidden;outline:1px solid var(--silver);display:flex;flex-direction:column;justify-content:space-between;align-items:center;padding:16px 16px 28px}
+.hero .eyebrow{font-size:11px;letter-spacing:.4px;text-transform:uppercase;color:#fff;opacity:.9;text-align:center}
+.hero .mark{font-family:var(--ext);font-weight:400;letter-spacing:-.045em;color:#EFEADD;line-height:.9}
+.hero .h1{font-family:var(--ext);font-size:13px;line-height:15px;text-transform:uppercase;text-align:center;max-width:24ch}
+.hero-them{background:#000}
+.hero-them .mark{font-size:clamp(28px,9.4vw,64px)}
+.hero-them .grad{position:absolute;inset:0;background:linear-gradient(to top,#000 20%,rgba(0,0,0,.3) 80%);z-index:1}
+.hero-them > *{position:relative;z-index:2}
+.hero-us{background:#101418}
+.hero-us .plate{position:absolute;inset:0;background:
+  radial-gradient(120% 90% at 74% 62%, rgba(255,176,74,.85) 0%, rgba(190,92,20,.5) 26%, rgba(0,0,0,0) 62%),
+  linear-gradient(105deg,#05070c 0%,#0d1a2e 46%,#03060b 100%);z-index:0}
+.hero-us .scrim{position:absolute;inset:0;background:linear-gradient(to top,#000 16%,rgba(0,0,0,.72) 44%,rgba(0,0,0,.28) 72%,rgba(0,0,0,.45) 100%);z-index:1}
+.hero-us > *{position:relative;z-index:2}
+.hero-us .mark{font-size:clamp(16px,3.4vw,26px)}
+.scalebar{margin-top:10px;font-size:12px;color:var(--meta);letter-spacing:.3px;text-transform:uppercase}
+
+.open{border-top:1px solid var(--silver);margin-top:40px;padding-top:24px}
+.open ol{margin:16px 0 0 20px}
+.open li{font-size:18px;line-height:26px;margin-bottom:12px}
+.decided{color:#7ee08a}
+.pending{color:#ffd479}
+.foot{padding:32px var(--gut) 64px;color:var(--meta);font-size:15px;line-height:19px;border-top:1px solid var(--silver)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<section>
+  <div class="kicker">vektor-site · redesign audit · 2026-08-08</div>
+  <h1>sprind.org vs our mock</h1>
+  <p class="lede">Everything below is measured from the live site in a browser at a forced 1440px layout viewport, not inferred from their CSS. The demos are real CSS doing the real thing &mdash; hover them.</p>
+  <p class="note">Companion to <code>reports/SPRIND-GAP.md</code>, which carries the full numbers. Nothing here is implemented yet.</p>
+</section>
+
+<!-- ============ 1. HAIRLINE ============ -->
+<section>
+  <h2>1 &nbsp; The hairline</h2>
+  <p class="lede">You asked why the white rectangles aren&rsquo;t visible. Two independent causes &mdash; and fixing only the colour would not have worked.</p>
+
+  <div class="swatch">
+    <div class="row">
+      <div class="lbl">What we shipped<b>rgba(255,255,255,.22)</b></div>
+      <div class="bar s-old"></div>
+    </div>
+    <div class="row">
+      <div class="lbl">sprind, both themes<b>#c9c9c9 &nbsp;&larr; your choice</b></div>
+      <div class="bar s-silver"></div>
+    </div>
+    <div class="row">
+      <div class="lbl">Full white<b>#ffffff</b></div>
+      <div class="bar s-white"></div>
+    </div>
+  </div>
+
+  <p class="note">Against black these read at roughly 56, 201 and 255 out of 255. sprind&rsquo;s dark class swaps <code>--white</code> and <code>--black</code> but deliberately leaves <code>--color-silver-300</code> alone, so <code>#c9c9c9</code> is literally what their own dark bands use.</p>
+
+  <div class="open" style="margin-top:32px">
+    <h3>Cause two: closed rectangles barely exist in our markup</h3>
+    <p class="note">The technique that actually draws a rectangle is used only in our footer. Everywhere else we draw single borders, so at <em>any</em> colour most of the page would draw L-shapes. See section 2.</p>
+  </div>
+</section>
+
+<!-- ============ 2. LATTICE ============ -->
+<section>
+  <h2>2 &nbsp; Three lattice techniques</h2>
+  <p class="lede">They are not interchangeable. sprind uses all three, in different places.</p>
+
+  <div class="two">
+    <div class="panel">
+      <span class="tag t-them">Technique A &middot; section dividers</span>
+      <h3>border-bottom per module</h3>
+      <p class="note">Every section carries its own 1px bottom border. Section-to-section gap measures <b>0.00px</b> &mdash; they abut. Our <code>.stack &gt; * { border-top }</code> is equivalent.</p>
+      <div class="demo techA">
+        <div class="cellbox">Section</div>
+        <div class="cellbox">Section</div>
+        <div class="cellbox">Section</div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <span class="tag t-them">Technique C &middot; the true lattice</span>
+      <h3>gap:1px + outline on every cell</h3>
+      <p class="note">Outlines paint outside the border box and take no layout space, so two neighbours&rsquo; outlines meet inside the 1px gutter and read as one continuous line. <b>Footer and nav only.</b></p>
+      <div class="demo techC">
+        <div class="cellbox">Cell</div><div class="cellbox">Cell</div><div class="cellbox">Cell</div>
+        <div class="cellbox">Cell</div><div class="cellbox">Cell</div><div class="cellbox">Cell</div>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="margin-top:48px">Technique B &middot; card hairlines &mdash; one edge, not two</h3>
+  <div class="two">
+    <div class="panel">
+      <span class="tag t-them">sprind</span>
+      <p class="note">A single rule. News teasers use <code>border-top</code> at &ge;1024 and flip to <code>border-left</code> below it.</p>
+      <div class="demo techB">
+        <div class="cellbox">Card</div><div class="cellbox">Card</div>
+      </div>
+    </div>
+    <div class="panel">
+      <span class="tag t-us">ours &mdash; wrong</span>
+      <p class="note"><code>border-top</code> <em>and</em> <code>border-left</code> on every card, at every width, no flip. Draws an L instead of a rule.</p>
+      <div class="demo techB techB-us">
+        <div class="cellbox">Card</div><div class="cellbox">Card</div>
+      </div>
+    </div>
+  </div>
+  <p class="note" style="margin-top:24px">Worth being precise: most of sprind&rsquo;s page draws single rules too. Rectangles across the whole page would be a departure from sprind, not a correction toward it.</p>
+</section>
+
+<!-- ============ 3. ARROWS ============ -->
+<section>
+  <h2>3 &nbsp; The arrow points the other way</h2>
+  <p class="lede"><code>HANDOFF.md</code> records &ldquo;arrow FIRST&rdquo; as measured anatomy and our mock implements it. That is wrong for every page-level control.</p>
+
+  <div class="two">
+    <div class="panel">
+      <span class="tag t-them">sprind &middot; page CTAs</span>
+      <h3>label, then arrow</h3>
+      <div style="margin-top:20px"><span class="alink">Mehr erfahren <span class="arw">&rarr;</span></span></div>
+      <div class="tryme">Hover it &mdash; the gap goes 4px &rarr; 8px and the element grows 177.8 &rarr; 181.8px. That widening <em>is</em> the hover state.</div>
+      <div style="margin-top:28px"><span class="defaultS">Mehr erfahren</span></div>
+      <div class="tryme">Small card CTA: no arrow at all, just an underlined label at <code>#767676</code> going to white.</div>
+    </div>
+    <div class="panel">
+      <span class="tag t-us">ours &mdash; wrong</span>
+      <h3>arrow, then label</h3>
+      <div style="margin-top:20px"><span class="alink"><span class="arw">&rarr;</span> Mehr erfahren</span></div>
+      <div class="tryme">Applied everywhere, including on the small card CTAs that should have no arrow.</div>
+      <div style="margin-top:28px" class="note"><b>Where arrow-first is right:</b> inside the nav submenu panels only, at 15/19 sentence case with an 8px gap.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4. BANDING ============ -->
+<section>
+  <h2>4 &nbsp; Banding &mdash; inverted <span style="color:#7ee08a">&check; decided</span></h2>
+  <p class="lede">sprind is not a dark site. It alternates. You chose to keep the alternation and invert it: their white becomes our black, their black becomes a lifted near-black surface.</p>
+
+  <div class="two">
+    <div class="panel">
+      <span class="tag t-them">sprind, as measured</span>
+      <div class="band">
+        <div class="name">S0 Hero</div><div class="fill"><span class="chip c-black"></span> black</div>
+        <div class="name">S1 Themen</div><div class="fill"><span class="chip c-black"></span> black</div>
+        <div class="name">S2 Video</div><div class="fill"><span class="chip c-black"></span> black</div>
+        <div class="name">S3 Glauben</div><div class="fill"><span class="chip c-white"></span> white</div>
+        <div class="name">S4 Taten</div><div class="fill"><span class="chip c-white"></span> white</div>
+        <div class="name">S5 Projekte</div><div class="fill"><span class="chip c-white"></span> white</div>
+        <div class="name">S6 Podcast</div><div class="fill"><span class="chip c-black"></span> black</div>
+        <div class="name">S7 Magazin</div><div class="fill"><span class="chip c-white"></span> white</div>
+        <div class="name">S8 Events</div><div class="fill"><span class="chip c-black"></span> black</div>
+        <div class="name">S9 Mitarbeit</div><div class="fill"><span class="chip c-white"></span> white</div>
+        <div class="name">S10 Über uns</div><div class="fill"><span class="chip c-white"></span> white</div>
+        <div class="name">Footer</div><div class="fill"><span class="chip c-white"></span> white</div>
+      </div>
+    </div>
+    <div class="panel">
+      <span class="tag t-fix">our plan &mdash; inverted</span>
+      <div class="band">
+        <div class="name">S0 Hero</div><div class="fill"><span class="chip c-surface"></span> lifted #0e0e0e</div>
+        <div class="name">S1 Latest</div><div class="fill"><span class="chip c-surface"></span> lifted</div>
+        <div class="name">S2 Film</div><div class="fill"><span class="chip c-surface"></span> lifted</div>
+        <div class="name">S3 How it works</div><div class="fill"><span class="chip c-black"></span> black</div>
+        <div class="name">S4</div><div class="fill"><span class="chip c-black"></span> black</div>
+        <div class="name">S5</div><div class="fill"><span class="chip c-black"></span> black</div>
+        <div class="name">S6</div><div class="fill"><span class="chip c-surface"></span> lifted</div>
+        <div class="name">S7 Archive</div><div class="fill"><span class="chip c-black"></span> black</div>
+        <div class="name">S8</div><div class="fill"><span class="chip c-surface"></span> lifted</div>
+        <div class="name">S9</div><div class="fill"><span class="chip c-black"></span> black</div>
+        <div class="name">S10</div><div class="fill"><span class="chip c-black"></span> black</div>
+        <div class="name">Footer</div><div class="fill"><span class="chip c-black"></span> black</div>
+      </div>
+      <p class="note">The exact lift value is not settled &mdash; <code>#0e0e0e</code> is a starting point. It has to be far enough from pure black to read as a band, close enough to stay dark.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 5. NAV ============ -->
+<section>
+  <h2>5 &nbsp; The nav is invisible by default</h2>
+  <p class="lede">This is the largest single gap. At scroll 0 the whole header sits off-screen at <code>translate3d(0,-100%,0)</code>. It is revealed by hovering a 24px-tall invisible strip pinned to the top of the viewport &mdash; the green band below. Scrolling never reveals it. Once shown, it stays.</p>
+
+  <div class="ctrls">
+    <button data-state="s-hidden" aria-pressed="true">1 &middot; off-screen</button>
+    <button data-state="s-bar" aria-pressed="false">2 &middot; bar only &mdash; 81.8px</button>
+    <button data-state="s-open" aria-pressed="false">3 &middot; open &mdash; 326.8px</button>
+  </div>
+
+  <div class="navdemo s-hidden" id="navdemo">
+    <div class="page">Page content<br>underneath</div>
+    <div class="strip"></div>
+    <div class="striplbl">24px hover strip &mdash; mouseenter reveals the bar</div>
+    <div class="fakenav">
+      <div class="bar"><span style="font-family:var(--ext)">VEKTOR</span><span style="color:#767676">DE&nbsp;&nbsp;EN</span></div>
+      <div class="subrow">
+        <div><div class="hdr">Taten</div><div class="pnl"><ul><li>&rarr; <span>Übersicht</span></li><li>&rarr; <span>Projekte</span></li><li>&rarr; <span>Challenges und Funken</span></li></ul></div></div>
+        <div><div class="hdr">Worte</div><div class="pnl"><ul><li>&rarr; <span>Übersicht</span></li><li>&rarr; <span>Magazin</span></li><li>&rarr; <span>Podcast</span></li></ul></div></div>
+        <div><div class="hdr">Wir</div><div class="pnl"><ul><li>&rarr; <span>SPRIND</span></li><li>&rarr; <span>Mitarbeit</span></li><li>&rarr; <span>Partnerschaften</span></li></ul></div></div>
+      </div>
+      <div class="btm"><span>Kontakt</span><span>Impressum</span><span>Barrierefreiheit</span></div>
+    </div>
+  </div>
+  <p class="note">Bar 44px, 1px grid gap, submenu row 36.8px. Open adds panels at <code>max-height 0 &rarr; 24rem</code> over <code>0.5s ease-out</code>, plus a full-width bottom row. Reveal is <code>transform 0.4s ease</code>. Desktop does <b>not</b> scroll-lock; mobile does.</p>
+  <p class="note">Ours is a permanently visible bar. Panel links are also wrong: theirs are 15/19 <b>sentence case</b>, and hovering one <em>dims the siblings</em> to <code>#767676</code> rather than highlighting the target.</p>
+</section>
+
+<!-- ============ 6. HERO ============ -->
+<section>
+  <h2>6 &nbsp; Hero &mdash; drop the image <span style="color:#7ee08a">&check; decided</span></h2>
+  <p class="lede">sprind&rsquo;s hero has no image and no video. It is black, a gradient, and a wordmark that is the single largest object on the first screen.</p>
+
+  <div class="herodemo">
+    <div>
+      <span class="tag t-them">sprind &middot; and our new direction</span>
+      <div class="hero hero-them">
+        <div class="grad"></div>
+        <div class="eyebrow">The frontier, by the numbers</div>
+        <div class="mark">vektor</div>
+        <div class="h1">A headline sits here at 52/54</div>
+      </div>
+      <div class="scalebar">wordmark = 2/3 of viewport width &middot; 960&times;361 box at 1440</div>
+    </div>
+    <div>
+      <span class="tag t-us">ours &mdash; being dropped</span>
+      <div class="hero hero-us">
+        <div class="plate"></div>
+        <div class="scrim"></div>
+        <div class="eyebrow">The frontier, by the numbers</div>
+        <div class="mark">vektor</div>
+        <div class="h1">A headline sits here at 52/54</div>
+      </div>
+      <div class="scalebar">plate image + scrim &middot; wordmark clamp(40px,11vw,84px) &mdash; about 1/5 their size</div>
+    </div>
+  </div>
+  <p class="note">Their hero is <code>min-height:100svh</code> at &ge;1024 and <code>70svh</code> below. Eyebrow 15/19 uppercase, headline block <code>padding: 0 40px 120px</code>, everything centred. Content fades in once on mount at <code>0.3s ease-in-out</code> &mdash; the only load-time motion on the page.</p>
+</section>
+
+<!-- ============ 7. MATCHES ============ -->
+<section>
+  <h2>7 &nbsp; What already matches</h2>
+  <p class="lede">Confirmed identical. No work needed on any of this.</p>
+  <table>
+    <tr><th>Element</th><th>sprind</th><th>ours</th></tr>
+    <tr><td>Type ladder &le;1920</td><td>132 / 52 / 32 / 20 / 18 / 15 / 12</td><td class="good">identical</td></tr>
+    <tr><td>Type ladder &le;1024</td><td>40 / 32 / 24 / 18 / 16 / 14 / 12</td><td class="good">identical</td></tr>
+    <tr><td>Type ladder &le;640</td><td>28 / 24 / 20 / 16 / 14 / 14 / 12</td><td class="good">identical</td></tr>
+    <tr><td>Space ladder</td><td>4 8 16 24 32 40 48 80 120</td><td class="good">identical, incl. breakpoint steps</td></tr>
+    <tr><td>Page gutter</td><td>40px, content 1360, no max-width</td><td class="good">identical</td></tr>
+    <tr><td>Section padding</td><td>40 / 40 / 80 / 40</td><td class="good">identical</td></tr>
+    <tr><td>Header &rarr; content gap</td><td>80px</td><td class="good">identical</td></tr>
+    <tr><td>Heading weight</td><td>400, zero exceptions across 10 headings</td><td class="good">identical</td></tr>
+    <tr><td>Heading letter-spacing</td><td><code>normal</code>, always</td><td class="good">identical</td></tr>
+    <tr><td>Meta letter-spacing</td><td>0.025em (0.45px @18, 0.375px @15)</td><td class="good">identical</td></tr>
+    <tr><td>Filled buttons</td><td>none anywhere &mdash; even the newsletter submit</td><td class="good">identical</td></tr>
+    <tr><td>Card geometry</td><td>700&times;234, image 350 left @3:2, pad 16/0/0/16</td><td class="good">identical, 22/22 measured</td></tr>
+    <tr><td>Scroll animation</td><td>none at all</td><td class="good">identical</td></tr>
+  </table>
+  <p class="note">Two exceptions to &ldquo;weight 400 everywhere&rdquo;, both theirs: the two podcast episode titles are 500, and the active language in the nav is 500.</p>
+</section>
+
+<!-- ============ 8. DECISIONS ============ -->
+<section style="border-bottom:0">
+  <h2>8 &nbsp; Decisions</h2>
+  <div class="open" style="border-top:0;padding-top:8px">
+    <ol>
+      <li><span class="decided">&check; Hairline &mdash; <b>#c9c9c9</b>,</span> sprind&rsquo;s own dark-theme value.</li>
+      <li><span class="pending">? Accent</span> &mdash; sprind has <b>none</b>. Gold and red are defined in their tokens and used zero times; every hover is achromatic. Keep acid <code>#39FF35</code> as a Vektor addition, or go fully achromatic and use their gap-widening + grey-to-white pattern?</li>
+      <li><span class="decided">&check; Banding &mdash; keep it, inverted.</span></li>
+      <li><span class="decided">&check; Hero &mdash; drop the image,</span> go black + wordmark at their scale.</li>
+      <li><span class="pending">? Section inventory</span> &mdash; match their section <em>types</em> (adding their stacked-card slider, podcast band, big-card modules, and rebuilding ARCHIVE as their 4-column grid with a 2&times;2 feature), or keep our IA and copy only the shared components 1:1?</li>
+    </ol>
+  </div>
+</section>
+
+</div>
+<div class="foot">
+  Full numbers: <code>reports/SPRIND-GAP.md</code> &middot; mock: <code>mocks/index.html</code> &middot; measured 2026-08-08 at 1440px
+</div>
+
+<script>
+const demo = document.getElementById('navdemo');
+document.querySelectorAll('.ctrls button').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('.ctrls button').forEach(x=>x.setAttribute('aria-pressed','false'));
+    b.setAttribute('aria-pressed','true');
+    demo.className = 'navdemo ' + b.dataset.state;
+  });
+});
+</script>
+</body>
+</html>

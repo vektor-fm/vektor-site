@@ -1,0 +1,30 @@
+{
+  "number": "033",
+  "title": "vektor /// no. 033 — five free Claude Code setups, with the install line for each",
+  "description": "The five free setups from NO. 033: Anthropic's 17 example skills, the official plugin marketplace, superpowers, claude-mem and a sub-agent marketplace — every install command, plus the two hooks that make a rules file actually enforce itself. As promised.",
+  "og_title": "Five free setups. Every install line. — vektor /// no. 033",
+  "og_description": "17 example skills, the official plugin marketplace, superpowers, claude-mem, a sub-agent marketplace — and the two hooks that make your rules file bite.",
+  "og_image": "https://vektor-fm.github.io/vektor-site/og/no-033.png",
+  "og_alt": "Five free setups. Every install line. — vektor /// no. 033",
+  "og_url": "https://vektor-fm.github.io/vektor-site/no-033.html",
+  "canonical": "https://vektor-fm.github.io/vektor-site/no-033.html",
+  "tw_title": "Five free setups. Every install line. — vektor /// no. 033",
+  "tw_description": "17 example skills, the official plugin marketplace, superpowers, claude-mem, a sub-agent marketplace — and the two hooks that make your rules file bite.",
+  "tw_image": "https://vektor-fm.github.io/vektor-site/og/no-033.png",
+  "marker": "This Week in AI · Setup",
+  "sticky_text": "Follow <b>@vektor.fm</b> → a new keyword daily",
+  "backref_html": "A new keyword drops every day — <b>catch it first on the reel</b> — follow @vektor.fm. More like this: <a href=\"./no-012.html\">The CLAUDE.md that stops Claude breaking your repo →</a>",
+  "footer_meta": "/// no. 033 / five setups / 08-2026 · the frontier, by the numbers",
+  "copy_event": "copy-install",
+  "subscribe_track": true,
+  "slug": "no033",
+  "og_card": {
+    "accent": "#E7371A",
+    "kick": "This Week in AI · Setup",
+    "h1_html": "Five free setups.<br>Every install line<span class=\"dot\">.</span>",
+    "h1_size": 84,
+    "sub_mt": 18,
+    "sub_html": "The five things that go into Claude Code before you type anything — and the two hooks that make your rules file actually bite.",
+    "meta_html": "/// no. 033 / five setups / 08-2026 · <b>vektor-fm.github.io</b>"
+  }
+}
