@@ -20,7 +20,7 @@
 //
 // Requires sharp:  npm i -D sharp
 
-import { readdirSync, existsSync, mkdirSync, statSync } from 'node:fs';
+import { readdirSync, existsSync, mkdirSync, statSync, readFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -29,10 +29,12 @@ const SRC = join(ROOT, 'plates-src');
 const OUT = join(ROOT, 'og');
 const CHECK = process.argv.includes('--check');
 
-// every issue the site renders a card for
-const ISSUES = ['004','005','006','007','008','009','010','011','012','013',
-                '015','017','018','019','020','021','022','023','024',
-                '026','030','031'];
+// every issue the site renders a card for — read from site.json, never
+// hardcoded. A hardcoded list is what produced 20 plates for the wrong issues:
+// it carried the mock's invented numbers (026/030/031, none of which are built)
+// and omitted 033, the newest issue, which then rendered as an empty cell.
+const ISSUES = JSON.parse(readFileSync(join(ROOT, 'site.json'), 'utf8'))
+  .issues.filter((i) => i.built).map((i) => i.number);
 
 const CARD = { w: 700,  h: 467,  q: 82 };
 const HERO = { w: 2000, h: 1333, q: 80 };

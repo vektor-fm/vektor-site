@@ -150,13 +150,13 @@ html.pv-max .heading0,
 html.pv-max .heading1,
 html.pv-max .heading2,
 html.pv-max .heading3{
-  font-family:'Printvetica',Helvetica,Arial,sans-serif;
+  font-family:'Printvetica','Archivo Text',system-ui,sans-serif;
   text-transform:uppercase; letter-spacing:.005em;
 }
 html.pv-meta .meta, html.pv-meta .bar .mid, html.pv-meta .navgrid .top,
 html.pv-max .meta,  html.pv-max .bar .mid,  html.pv-max .navgrid .top,
 html.pv-meta .colophon, html.pv-max .colophon{
-  font-family:'Printvetica',Helvetica,Arial,sans-serif; letter-spacing:.04em;
+  font-family:'Printvetica','Archivo Text',system-ui,sans-serif; letter-spacing:.04em;
 }
 html.acc-teal { --accent:#0E9C86; }
 html.acc-acid { --accent:#39FF35; }
@@ -777,6 +777,13 @@ footer{ display:grid; gap:1px; background:var(--bg); }
   padding:10px 0; font-family:var(--font-sans); font-size:var(--fs-m); outline:none;
 }
 .nl-form input:focus{ border-bottom-color:var(--fg); }
+.nl-inline{display:flex; gap:var(--p-s); flex-wrap:wrap; align-items:stretch;}
+.nl-inline input{flex:1 1 220px; min-width:0; min-height:48px; background:transparent; border:0; border-bottom:1px solid var(--rule); color:var(--fg); font-family:var(--font-sans); font-size:var(--fs-m); padding:0;}
+.nl-inline input:focus{outline:none; border-bottom-color:var(--fg);}
+.nl-inline .btn{display:inline-flex; align-items:center; min-height:48px; padding:0 var(--p-m); border:1px solid var(--rule); background:transparent; color:var(--fg); font-family:var(--font-sans); font-size:var(--fs-s); text-transform:uppercase; letter-spacing:.025em; cursor:pointer; transition:background-color .15s cubic-bezier(.4,0,.2,1), color .15s cubic-bezier(.4,0,.2,1);}
+.nl-inline .btn.primary{border-color:var(--accent); color:var(--accent);}
+.nl-inline .btn.primary:hover{background:var(--accent); color:var(--bg);}
+.sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0;}
 .nl-cta{
   display:flex; align-items:center; justify-content:center;
   padding:var(--p-3xl) 0; font-size:var(--fs-m); text-transform:uppercase;
@@ -837,7 +844,6 @@ footer{ display:grid; gap:1px; background:var(--bg); }
         <ul>
           <li><a href="#latest"><span class="a">→</span><span>Latest</span></a></li>
           <li><a href="#archive"><span class="a">→</span><span>The archive</span></a></li>
-          <li><a href="#series"><span class="a">→</span><span>Series</span></a></li>
           <li><a href="https://instagram.com/vektor.fm" target="_blank" rel="noopener"><span class="a">→</span><span>Submit a topic</span></a></li>
         </ul>
         <p class="info">Every issue is one short film and one working pack — config, prompts, links.</p>
@@ -975,55 +981,6 @@ footer{ display:grid; gap:1px; background:var(--bg); }
     </div>
   </section>
 
-  <!-- S5 — stacked-card slider, scale .95^n and 48n down -->
-  <section class="module band-base" id="series">
-    <div class="modhead">
-      <h2 class="heading1">The series<button class="copylink" type="button" aria-label="Copy link to this section">#</button></h2>
-      <a class="alink u" href="#series"><span class="a">→</span><span>Every series</span></a>
-    </div>
-    <div class="stackwrap">
-      <div class="stackdeck" id="stackdeck">
-        <article class="stackcard" data-i="0">
-          <div class="shot"><img loading="lazy" src="og/plate-no-019-hero.webp" alt=""></div>
-          <h3 class="heading2 plain">The Academy</h3>
-          <div>
-            <p class="lede copyS">Six issues on learning the tools properly instead of collecting them. Starts at prompt structure, ends at a repo that runs itself.</p>
-            <span class="defaultS copyS">Watch the series</span>
-          </div>
-        </article>
-        <article class="stackcard" data-i="1">
-          <div class="shot"><img loading="lazy" src="og/plate-no-010-hero.webp" alt=""></div>
-          <h3 class="heading2 plain">The Rules</h3>
-          <div>
-            <p class="lede copyS">Seven rules in one file. The config that stopped the rewrites, and what each line is actually defending against.</p>
-            <span class="defaultS copyS">Watch the series</span>
-          </div>
-        </article>
-        <article class="stackcard" data-i="2">
-          <div class="shot"><img loading="lazy" src="og/plate-no-013-hero.webp" alt=""></div>
-          <h3 class="heading2 plain">Agents</h3>
-          <div>
-            <p class="lede copyS">From one delegated task to a standing crew. What to hand over, what never to, and how to tell the difference early.</p>
-            <span class="defaultS copyS">Watch the series</span>
-          </div>
-        </article>
-        <article class="stackcard" data-i="3">
-          <div class="shot"><img loading="lazy" src="og/plate-no-021-hero.webp" alt=""></div>
-          <h3 class="heading2 plain">Open Source</h3>
-          <div>
-            <p class="lede copyS">Nine tools too good to be free, and the honest reason each one is. Licences read, not assumed.</p>
-            <span class="defaultS copyS">Watch the series</span>
-          </div>
-        </article>
-      </div>
-      <div class="stackctrls">
-        <button class="prev" type="button" aria-label="Previous">←</button>
-        <div class="count" id="stackcount">1/4</div>
-        <button class="next" type="button" aria-label="Next">→</button>
-      </div>
-    </div>
-  </section>
-
   <!-- S6 — dark band, background image, two episode rows -->
   <section class="podcast band-lift" id="teardown">
     <div class="bgshot"><img loading="lazy" src="og/plate-no-008-hero.webp" alt=""></div>
@@ -1046,22 +1003,12 @@ footer{ display:grid; gap:1px; background:var(--bg); }
           </ul>
         </div>
         <div class="eplist">
-          <article class="episode">
-            <button class="play-ep" type="button" aria-label="Play">▶</button>
-            <div class="epbody">
-              <div class="ephead"><h4>The state file that gave an agent memory</h4><div class="dur">24:10</div></div>
-              <p class="copyS">Three files, no database, and the moment it stopped starting from zero every run.</p>
-              <div class="epacts"><button type="button">Transcript</button><button type="button">Share</button></div>
-            </div>
-          </article>
-          <article class="episode">
-            <button class="play-ep" type="button" aria-label="Play">▶</button>
-            <div class="epbody">
-              <div class="ephead"><h4>What a 120,000-character leak actually taught us</h4><div class="dur">31:47</div></div>
-              <p class="copyS">The prompt got out. Reading it changed how we write every config since.</p>
-              <div class="epacts"><button type="button">Transcript</button><button type="button">Share</button></div>
-            </div>
-          </article>
+          <form class="nl-inline" method="post" action="https://buttondown.com/api/emails/embed-subscribe/vektor" data-capture="lp-teardown">
+            <label class="sr-only" for="tdEmail">Email address</label>
+            <input id="tdEmail" name="email" type="email" placeholder="you@email.com" autocomplete="email" required>
+            <button class="btn primary" type="submit">Get the next one &rarr;</button>
+          </form>
+          <p class="copyS" style="color:var(--meta);padding-top:var(--p-m)">Free. Unsubscribe anytime. No wall on any pack.</p>
         </div>
       </div>
     </div>
@@ -1093,20 +1040,6 @@ footer{ display:grid; gap:1px; background:var(--bg); }
     </a>
   </section>
 
-  <section class="module band-base" id="work">
-    <div class="modhead">
-      <h2 class="heading1">Work with vektor<button class="copylink" type="button" aria-label="Copy link to this section">#</button></h2>
-      <a class="alink u" href="./thanks.html"><span class="a">→</span><span>What we take on</span></a>
-    </div>
-    <a class="bigrow" href="./thanks.html">
-      <div class="img"><img loading="lazy" decoding="async" src="og/plate-no-023-card.webp" alt=""></div>
-      <div class="side">
-        <h3 class="heading2">Build the thing the film is about. We take a small number of engagements a quarter, and we publish what we learn from each one.</h3>
-        <span class="cta">Start a conversation</span>
-      </div>
-    </a>
-  </section>
-
   <section class="module band-base" id="about">
     <div class="modhead">
       <h2 class="heading1">About<button class="copylink" type="button" aria-label="Copy link to this section">#</button></h2>
@@ -1115,7 +1048,7 @@ footer{ display:grid; gap:1px; background:var(--bg); }
     <a class="bigrow" href="#about">
       <div class="img"><img loading="lazy" decoding="async" src="og/plate-no-006-card.webp" alt=""></div>
       <div class="side">
-        <h3 class="heading2">Vektor is one person, a render farm and a standing refusal to publish anything that has not been measured first.</h3>
+        <h3 class="heading2">Daily shorts on the Claude and AI tooling that actually matters — and every issue ships the working files behind it, free.</h3>
         <span class="cta">Read more</span>
       </div>
     </a>
