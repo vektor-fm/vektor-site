@@ -203,23 +203,28 @@
 .navbottom .legal a{ transition:color .1s ease-in-out; }
 .navbottom .legal a:hover{ color:var(--fg); }
 
-/* MENU TRIGGER — a word, not a glyph.
-   sprind's own nav is word-triggers (TATEN / WORTE / WIR) and never an icon,
-   and this system is typographic throughout: weight 400, uppercase, hairline
-   underlines. Three 15x1px lines read as a fleck at arm's length and were the
-   last generic control left on the site. The word states what it does, toggles
-   to CLOSE so the state is legible rather than inferred, and gives the largest
-   tap target of the options considered. Desktop has no trigger at all — the
-   hover strip reveals the nav there, exactly as sprind does. */
+/* MENU TRIGGER — two rules plus the word (founder choice, option C).
+   Both signals at once: the rules read at a glance and animate into an X so the
+   state is visible, and the label says what it does. The rules are 18px and
+   drawn in currentColor rather than three 15px hairlines, so the mark reads as
+   part of the site's rule system instead of as a stock hamburger. Desktop has
+   no trigger at all — the hover strip reveals the nav there, as sprind does. */
 .menu-word{
-  display:none; align-items:center; height:44px; padding:0 2px;
+  display:none; align-items:center; gap:var(--p-s); height:44px; padding:0 2px;
   background:none; border:0; cursor:pointer; color:var(--fg);
   font-family:var(--font-label); font-size:var(--fs-s); line-height:var(--lh-s);
   letter-spacing:.025em; text-transform:uppercase;
-  border-bottom:1px solid transparent;
-  transition:border-color .15s cubic-bezier(.4,0,.2,1);
 }
-.menu-word:hover,.menu-word[aria-expanded="true"]{ border-bottom-color:var(--fg); }
+.menu-word .rules{ display:flex; flex-direction:column; gap:5px; flex:0 0 auto; }
+.menu-word .rules i{
+  display:block; width:18px; height:1px; background:currentColor;
+  transition:transform .3s cubic-bezier(.4,0,.2,1);
+}
+.menu-word .lbl{ border-bottom:1px solid transparent; transition:border-color .15s cubic-bezier(.4,0,.2,1); }
+.menu-word:hover .lbl,.menu-word[aria-expanded="true"] .lbl{ border-bottom-color:var(--fg); }
+/* the two rules cross into an X on open */
+.menu-word[aria-expanded="true"] .rules i:first-child{ transform:translateY(3px) rotate(45deg); }
+.menu-word[aria-expanded="true"] .rules i:last-child{ transform:translateY(-3px) rotate(-45deg); }
 
 /* Below 768 sprind drops the hover gating entirely: the drawer opens from the
    bar and ALL panels are expanded at once. Without a toggle that would leave a
@@ -679,7 +684,7 @@ pre.code code{font-size:inherit;}
     <a class="wm" href="#top" aria-label="vektor"><span class="wm-plate wm-acid" aria-hidden="true">vektor</span><span class="wm-plate wm-orchid" aria-hidden="true">vektor</span><span class="wm-main"><span class="ch" style="--i:0"><span class="g">%</span><span class="l">v</span></span><span class="ch" style="--i:1"><span class="g">#</span><span class="l">e</span></span><span class="ch" style="--i:2"><span class="g">Z</span><span class="l">k</span></span><span class="ch" style="--i:3"><span class="g">8</span><span class="l">t</span></span><span class="ch" style="--i:4"><span class="g">@</span><span class="l">o</span></span><span class="ch" style="--i:5"><span class="g">W</span><span class="l">r</span></span></span></a>
     <span class="mid">The Index</span>
     <div class="util">
-      <button class="menu-word" type="button" aria-label="Open menu" aria-expanded="false">Menu</button>
+      <button class="menu-word" type="button" aria-label="Open menu" aria-expanded="false"><span class="rules" aria-hidden="true"><i></i><i></i></span><span class="lbl">Menu</span></button>
     </div>
   </div>
   <!-- sprind nests the lattice and the bottom row inside ONE #nav-submenu, so
@@ -999,7 +1004,7 @@ No lorem ipsum, no placeholder images, no "great question". Ship the entire thin
         var open=menu.classList.toggle('drawer-open');
         word.setAttribute('aria-expanded',String(open));
         word.setAttribute('aria-label',open?'Close menu':'Open menu');
-        word.textContent=open?'Close':'Menu';
+        var lbl=word.querySelector('.lbl'); if(lbl){ lbl.textContent=open?'Close':'Menu'; }
         document.body.style.overflow=open?'hidden':'';
       });
     }

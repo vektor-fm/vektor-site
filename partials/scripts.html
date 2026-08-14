@@ -78,7 +78,7 @@
         var open=menu.classList.toggle('drawer-open');
         word.setAttribute('aria-expanded',String(open));
         word.setAttribute('aria-label',open?'Close menu':'Open menu');
-        word.textContent=open?'Close':'Menu';
+        var lbl=word.querySelector('.lbl'); if(lbl){ lbl.textContent=open?'Close':'Menu'; }
         document.body.style.overflow=open?'hidden':'';
       });
     }
