@@ -1,211 +1,115 @@
-# HANDOFF — vektor-site sprind redesign
+# HANDOFF — vektor-site
 
-The paste block is at the bottom. Everything above it is what that block refers to.
+Rewritten 2026-08-14. **The redesign is finished and live.** Everything below
+describes the shipped state, not a plan.
 
-Written 2026-08-08. Branch `feature/sprind-redesign`, head `5d7056b`. Nothing pushed.
+Live: <https://vektor-fm.github.io/vektor-site/> — and the bare domain
+<https://vektor-fm.github.io/> now redirects there.
 
----
-
-## Start here
-
-```
-cd C:/Users/julia/projects/vektor-site
-git checkout feature/sprind-redesign
-python -m http.server 4322 --directory C:/Users/julia/projects/vektor-site
-```
-Open **http://localhost:4322/mocks/**
-
-Four dev toggles sit bottom-right (accent / hero plate / type pairing). They are
-review furniture — **do not port them**.
-
-Read `reports/REDESIGN-STATE.md` for sprind's measured anatomy and the imagery
-post-mortem. This file is the operating brief.
+`main` and `develop` are in sync. Nothing is unpushed. Pages deploys from `main`.
 
 ---
 
-## THE LOGO — read this before touching anything visual
+## What shipped
 
-**`vektor/brand/logo/export/` is the RETIRED original mark. Do not use it.**
-It is Archivo 800 + a teal `#0E9C86` caret block. A previous session mistook it
-for the current logo, built it into the mock, and derived the site's accent
-colour from its teal. All of that was wrong and has been reverted.
-
-**The real wordmark** is defined in `partials/head.html:174-186` and ships on
-<https://vektor-fm.github.io/vektor-site/>:
-
-- **Inter Tight 600**, `letter-spacing:-0.045em`, cream `#EFEADD`
-- Markup: two `.wm-plate` spans (`.wm-acid` `#39FF35`, `.wm-orchid` `#C77BC9`)
-  plus `.wm-main` containing six `.ch` spans, each with a `.g` glyph and a `.l`
-  letter. Glyph sequence `% # Z 8 @ W` → `v e k t o r`.
-- Sizes: 30px masthead, 34px footer, `clamp(40px,11vw,84px)` hero.
-- On the live site it animates: chromatic plates slide from `translate(7px,4px)`
-  and `translate(-6px,-4px)` into alignment and fade over 1.15s while each
-  character flashes its glyph.
-
-**The animation is RETIRED in the redesign** (founder, 2026-08-08) — it fought
-sprind's restraint. The mock renders it static: letters visible, glyphs and
-plates `display:none`. That is the live site's `prefers-reduced-motion` state
-promoted to default. The spans are retained so it can be restored by deleting
-three CSS rules.
-
-`vektor-site/partials/head.html` is the source of truth for the wordmark.
-
----
-
-## Locked — do not relitigate
-
-| Area | Decision |
+| | |
 |---|---|
-| Direction | sprind.org copied 1:1 in structure, dimensions, rhythm |
-| Theme | Dark — black ground, white type |
-| Display face | Archivo Expanded Regular **400** (SIL OFL, self-hosted, 14 KB) |
-| Body face | Archivo Regular 400 (SIL OFL, 14 KB) |
-| Meta / labels | Printvetica, caps-only subset (type mode C) — retires IBM Plex Mono |
-| Wordmark | Inter Tight 600, static, per above |
-| IA | nav → hero → LATEST → film → HOW IT WORKS → ARCHIVE → footer |
-| Card imagery | Generated 3:2 plates, one per issue |
-| Order | Plates first, then port |
+| Landing page | sprind structure, dark, 9 sections, cards generated from `site.json` |
+| Issue pages | all 20 re-skinned from one stylesheet, zero body rewrites |
+| Nav | one shared component, hidden until summoned, drawer on mobile |
+| Funnel | email-first, popup at 50% scroll, per-issue ungated offer |
+| Plates | 20/20 |
 
-sprind uses **weight 400 everywhere** — no bold anywhere on that site, and no
-letter-spacing on headings. Size does all the work. Three mocks were rejected
-partly for getting this wrong.
+## The five rules the design actually follows
 
-## OPEN — needs a decision next session
+Measured off sprind in a browser, not inferred. Get these wrong and the copy
+stops being 1:1.
 
-**The accent colour.** Founder will decide on the render. The toggle cycles
-teal `#0E9C86` → gold `#FFCC00` → mono → acid `#39FF35`. Current default is
-teal, but *only* because of the retired-logo error — treat it as unset. The live
-logo uses acid `#39FF35` and orchid `#C77BC9`, so acid is the natural candidate.
+1. **Hairline is `#c9c9c9` in both themes.** sprind's dark class swaps
+   `--white`/`--black` and deliberately leaves the hairline alone. Do not
+   "invert" it.
+2. **Weight 400 everywhere, `letter-spacing: normal` on every heading.** Their
+   only exceptions are two podcast titles at 500. Browser-default `<h2>` bold is
+   the trap — there is a global reset for it.
+3. **The arrow goes AFTER the label** on page controls (`LABEL →`), and the
+   hover state *is* the gap widening 4px → 8px. Arrow-first survives only in the
+   nav submenu panels. An earlier version of this file recorded the opposite and
+   the mistake shipped.
+4. **Nothing is ever a filled button.** Every control is an unfilled cell
+   bounded by hairlines.
+5. **Cards carry ONE edge, not two** — `border-top` at ≥1024, flipping to
+   `border-left` below.
 
-## Anatomy the mock implements
+## How the build works
 
-Measured in a browser on the live sprind site, not inferred from their CSS.
+`node build.mjs` → 42 outputs. `node build.mjs --check` is the pre-merge gate.
 
-| Element | Value |
-|---|---|
-| h1 / section h2 | 52px / 54px, weight 400, uppercase, no letter-spacing |
-| Card | **700 x 234** — image 350 LEFT at 3:2, text right, `padding:16px 0 0 16px` |
-| Card title | 18px/22 uppercase — **same size as the body under it** |
-| Meta | 15px uppercase, `.025em`, `#676767` (lifted to `#999` on dark) |
-| Module padding | `40px 40px 80px` |
-| Footer cells | 506 x 128 (`padding:48px 0`), 18px uppercase, **arrow AFTER the label** |
-| Newsletter CTA | unfilled cell bounded by hairlines — never a filled button |
-| Hairlines | `gap:1px` + a 1px **outline** per cell (outlines take no space) |
-| Type ramp | 132 / 52 / 32 / 20 / 18 / 15 / 12, fluid vw above 1600 |
-| Space ramp | 4 8 16 24 32 40 48 80 120 240 |
+- `index.html` comes from `src/index.body.html` **alone**.
+- Issue pages are `head + masthead + body + footer + scripts`.
+- The nav is injected into both from `partials/nav.html` + `partials/nav-css.html`.
+  **Edit the component, never a copy** — the moment the issue pages inherited the
+  shared markup they also inherited touch-target bugs that had been fixed in the
+  landing page's stylesheet instead of the component's.
+- Card grids and the per-issue lead magnet are generated from `site.json` and the
+  manifests. Adding an issue to `site.json` is the only edit needed to publish it.
+- `ingest-plates.mjs` reads `site.json`. It used to carry a hardcoded list, which
+  produced 20 plates for issues that did not exist while the newest had none.
 
-Verified in-browser: no horizontal overflow at 1440 / 1536 / 900 / 500, all
-fonts load, cards measure 2.99:1, console clean.
+## Verification harness
 
----
+The MCP browser stalled six times in one session; **headless Chrome via
+Puppeteer is the tool that works.** The scripts live in the session scratchpad —
+recreate them if gone, they are short:
 
-## Next steps, in order
+- all 20 pages at 1440 and 390 → overflow, heavy headings, failed requests
+- link crawl → dead links, missing files, unresolved anchors
+- deep mobile audit at 390×844 DPR 2 touch → touch targets, iOS zoom, inner
+  scroll, contrast, layout shift
 
-1. **Generate the 22 card plates.** Paste each block from
-   `reports/PLATE-PROMPTS.md` into a free image model — Google AI Studio's
-   browser free tier. Local generation is impossible here: Intel integrated
-   graphics, 2 GB VRAM. Save into `plates-src/` named by issue number, then
-   `npm i -D sharp && node ingest-plates.mjs`.
-2. **Review the real card grid** before porting. The card is the most repeated
-   element on the page.
-3. **Lock the accent** on the render.
-4. **Port into `partials/head.html`** — one file drives all 19 built pages. Copy
-   the Archivo woff2 files into `fonts/`, keep `inter-tight-600` (the wordmark
-   needs it), drop the six IBM Plex Mono files, remove the dev toggles, then
-   `npm run build`.
-5. **Port the 5 orphan pages** — `no-014, 026, 028, 030, 031` have no
-   `src/*.body.html` and will not move with the redesign.
-6. **`npm run check`** — verifies outputs are in sync and every link and asset
-   resolves. Pre-merge gate.
-7. Merge to `develop`, then `main`. Pages deploys from `main`.
+Run with `NODE_PATH="C:/Users/julia/AppData/Roaming/npm/node_modules"` —
+puppeteer and sharp are installed globally, not in this repo.
 
-## Open items
-
-- [ ] **Accent colour** — unset, decide on the render.
-- [ ] **Printvetica webfont licence.** Commercial licence purchased (guaschetti,
-      Gumroad, 2026-07-29, in `vektor/canon/canon.yml`). Confirm it covers
-      *webfont embedding*, not desktop use alone — Gumroad commercial tiers
-      frequently exclude it. Type mode C puts it on every page. The font is
-      **gitignored**: this repo is public, and committing it is redistribution,
-      a different grant again. Rebuild with `python mocks/subset-printvetica.py`.
-- [ ] Free image model's real daily limit is **unverified** — the "100/day at
-      2048px" figure came from a comparison listicle, not from Google.
-- [ ] `no-014` and `no-028` have no OG card and no plate.
-- [ ] `vektor/brand/logo/export/README.md` was written marking that folder
-      retired, but is **uncommitted** — that repo sits on `feature/funnel-d1`,
-      apparently another workstream, so it was left alone.
-- [ ] **Nothing is pushed.** `develop` and `feature/sprind-redesign` exist only
-      on this laptop.
-
-## Tried and rejected — do not redo
-
-- **Three looser interpretations** of sprind (Instrument / Prism / Press) —
-  founder wants 1:1.
-- **A light-background 1:1** — wrong; sprind's own hero and nav are black.
-- **Slit-scan plates as hero art** — four rounds, `REDESIGN-STATE.md` §4.
-  Structural failure, not tuning: the references are one clear form in generous
-  negative space; a smeared screenshot is destroyed form. Round 3 was tuned
-  against a metric that turned out to measure grain. Kept only as texture.
-- **Brik (brik.space)** — Wix-owned. Output is monochrome kinetic typography,
-  not the reference genre. Cropping its watermark is grey under Wix ToU §2.3 and
-  §5.2 says output "may not be unique to you" — disqualifying for a brand mark.
-- **GT America Extended** — sprind's real face. Cannot be hotlinked (no CORS
-  header; this silently broke an earlier mock). Archivo Expanded is the free
-  self-hostable stand-in.
-- **Cavalry for the hero wordmark** — founder ruled it out as inefficient.
-
-## Standing context
-
-Vektor's visual identity is **in open discovery** — see the project memory
-`vektor-visual-discovery-mode`. Nothing is settled, including the video look.
-The founder wants the possibility left open that the films adopt site decisions
-(sprind structure, Archivo Expanded, dark palette) as a test to iterate on.
-Printvetica being the films' only face does not make it permanent. Propose
-convergence, never impose it.
+**Never read images into the main thread.** Delegate visual judgement to a
+subagent; it returns a text verdict.
 
 ---
 
-## PASTE THIS INTO THE FRESH SESSION
+## Open
 
-```
-Continuing the vektor-site redesign. Read these two files first, in order:
+Nothing blocking. In rough order of value:
 
-  C:/Users/julia/projects/vektor-site/reports/HANDOFF.md
-  C:/Users/julia/projects/vektor-site/reports/REDESIGN-STATE.md
+- **14 of 20 issues have no downloadable pack**, so their email ask falls back to
+  the vaguer "the *X* setup" wording. This is the biggest remaining conversion
+  lever and it is a content job, not a code one.
+- **Capture-point data.** All four points (`sticky`, `popup`, `midcap`, `footer`)
+  now report separately to GoatCounter, plus `popup-view` / `popup-dismiss` /
+  `sticky-view` for denominators. After a week or two, cut whatever is not
+  earning its place and test an inline capture under the hero against a real
+  baseline. Do not tune on benchmarks once real numbers exist.
+- **5 orphan pages** — `no-014`, `026`, `028`, `030`, `031` exist as built HTML
+  but have no `src/*.body.html` and are absent from `site.json`, so they are
+  unreachable from the archive and did not move with the redesign. They need a
+  source file or deletion.
+- **Landing page accordion: 5px of phantom inner overflow** on `.split`/`.acc`/
+  `.row`. Four attempts did not clear it and it detached from the element that
+  originally caused it. No page-level overflow, sits inside 24px of padding,
+  invisible to users. Unresolved, not hidden.
+- **A custom domain** would make `vektor-fm/vektor-fm.github.io` redundant —
+  point the domain at the site repo instead.
 
-Goal: redesign https://vektor-fm.github.io/vektor-site/ to copy
-https://www.sprind.org/ 1:1 in structure, dimensions and rhythm, but dark.
-Landing page first; the other pages follow via partials/head.html.
+## Decisions, so they are not relitigated
 
-State: branch feature/sprind-redesign, head 5d7056b, nothing pushed, live
-site untouched. The mock is mocks/index.html — serve the repo root with
-`python -m http.server 4322` and open http://localhost:4322/mocks/. It is
-browser-verified: no overflow at 1440/1536/900/500, all fonts load, cards
-measure 2.99:1.
+Dark, with sprind's banding inverted (`--band:#141414`). Hairline `#c9c9c9`.
+Accent caret teal `#0E9C86` — note sprind itself has **no** accent, so this is a
+deliberate Vektor addition. Archivo Expanded + Archivo; Printvetica on labels and
+carrying the retired Jacquard accent role; IBM Plex Mono at one weight for code
+only. Hero has no image. Menu trigger is two rules plus the word. Conversion
+furniture (sticky bar, pop-up, weave) kept and rebuilt rather than deleted. Packs
+stay free and ungated — the site promises that in writing.
 
-LOCKED, do not relitigate: dark theme; Archivo Expanded 400 display +
-Archivo 400 body, self-hosted; Printvetica on meta/labels only; sprind's
-weight-400-everywhere and no-letter-spacing rules.
+Printvetica ships in the repo (founder, 2026-08-14; commercial licence purchased
+from guaschetti via Gumroad 2026-07-29).
 
-THE LOGO: vektor/brand/logo/export/ is the RETIRED original mark (Archivo
-800 + teal caret) — do NOT use it, a previous session was misled by it. The
-real wordmark is Inter Tight 600 at -.045em in cream #EFEADD, defined in
-partials/head.html:174-186. Its glitch-decode animation is retired for this
-redesign; it renders static.
-
-OPEN, needs deciding on the render: the site accent colour. The toggle
-cycles teal / gold / mono / acid. It currently defaults to teal only because
-of the retired-logo error — treat it as unset. The live logo uses acid
-#39FF35, so acid is the natural candidate.
-
-NEXT: generate the 22 card plates using the paste-ready prompts in
-reports/PLATE-PROMPTS.md, run `npm i -D sharp && node ingest-plates.mjs`,
-review the real card grid, lock the accent, then port into
-partials/head.html.
-
-Do NOT re-attempt the slit-scan plate pipeline or Brik — both evaluated and
-rejected, reasons in REDESIGN-STATE.md §4 and HANDOFF.md.
-
-Check HANDOFF.md's open items before acting. The Printvetica webfont licence
-is unconfirmed and that font is deliberately gitignored.
-```
+Superseded but kept for the measurements in them: `REDESIGN-STATE.md` (pre-port
+state), `SPRIND-GAP.md` (the gap list, now closed), `ISSUE-PAGES-AUDIT.md` (the
+audit, now executed).
