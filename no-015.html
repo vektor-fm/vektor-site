@@ -270,7 +270,7 @@ img{display:block; max-width:100%;}
   color:var(--fg); white-space:pre-wrap; word-break:break-word;
 }
 .snippet .snipbtn{
-  flex:none; min-height:36px; padding:0 var(--p-m);
+  flex:none; min-height:44px; padding:0 var(--p-m);
   font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em;
   font-size:var(--fs-xs); border:1px solid var(--rule); background:transparent;
   color:var(--fg); cursor:pointer;
@@ -320,6 +320,10 @@ footer{margin-top:var(--p-4xl); padding:var(--p-2xl) var(--rail) var(--p-4xl); b
 .hero .actions{display:flex; flex-wrap:wrap; gap:var(--p-s); margin-top:var(--p-l);}
 
 /* ---- sticky follow CTA (kept per founder) ---- */
+/* the bar is fixed, so the page must reserve room or it covers the footer's
+   last rows — measured 83-101px of occlusion on 20 pages */
+body{padding-bottom:120px;}
+@media (min-width:640px){ body{padding-bottom:96px;} }
 .sticky-cta{
   position:fixed; left:0; right:0; bottom:0; z-index:60;
   display:flex; align-items:center; justify-content:space-between; gap:var(--p-m);
@@ -340,9 +344,18 @@ footer{margin-top:var(--p-4xl); padding:var(--p-2xl) var(--rail) var(--p-4xl); b
 }
 .sticky-form input:focus{outline:none; border-bottom-color:var(--fg);}
 .sticky-form .btn{min-height:40px; padding:0 var(--p-m); white-space:nowrap;}
+/* iOS Safari zooms the whole page when an input under 16px is focused. Every
+   email field was 14px, so tapping the primary conversion control zoomed and
+   re-laid-out the page. 16px is the floor; it is a functional value, not a
+   typographic one. */
+input,select,textarea{font-size:16px !important;}
+
+/* .sr-only with white-space:nowrap + clip leaves a wide box in the layout —
+   measured 109px of inner overflow on every issue page. The clip-path form
+   collapses to zero and cannot scroll. */
 .sr-only{
   position:absolute; width:1px; height:1px; padding:0; margin:-1px;
-  overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0;
+  overflow:hidden; clip-path:inset(50%); border:0;
 }
 /* below 640 the label would push the form to a second line for no gain */
 @media (max-width:639px){
@@ -417,8 +430,29 @@ pre.code code{font-size:inherit;}
 .meta{font-size:var(--fs-s); line-height:var(--lh-s); color:var(--meta);}
 .meta b{color:var(--dim); font-weight:400;}
 .c-fog{color:var(--dim);}
-</style>
-<header class="chrome">
+
+/* ---- touch targets ----
+   Everything tappable gets a 44px hit area. Several controls measured 15-42px
+   tall, including the footer social links, the copy buttons and both dismiss
+   controls. Padding is used rather than height so the visual size is unchanged
+   where the design depends on it. */
+.socials a,
+.backref a,
+.pack span a{min-height:44px; display:inline-flex; align-items:center;}
+.copybtn,.snippet .snipbtn{min-height:44px;}
+.pop-x,.sticky-cta .x{min-width:48px; min-height:48px; display:inline-flex; align-items:center; justify-content:center;}
+.sticky-form input,.sticky-form .btn{min-height:48px;}
+.btn{min-height:48px;}
+.chrome .wm{min-height:44px; display:inline-flex; align-items:center;}
+/* inline arrow links inside prose sit at line-height; give them a real target */
+.card .one a,.hero .sub a,.midcap p a,.note a{
+  display:inline-block; padding:11px 0; margin:-11px 0;
+}
+
+/* the decorative slash rule carries text content that is invisible but still
+   in the accessibility tree; hide it from assistive tech */
+.rule{speak:never;}
+</style><header class="chrome">
   <a class="wm" href="./index.html" aria-label="vektor">
     <span class="wm-plate wm-acid" aria-hidden="true">vektor</span>
     <span class="wm-plate wm-orchid" aria-hidden="true">vektor</span>
@@ -502,7 +536,7 @@ echo "✗ hit the cap — tighten your TASK or CHECK, not the count." >&2; exit 
     <a class="btn" href="#kit">The 3 pieces ↓</a>
     <button class="btn" id="shareBtn" type="button">Send to a builder</button>
   </div>
-  <div class="rule">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+  <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
 </section>
 
 <div class="fig">
@@ -625,7 +659,7 @@ echo "✗ hit the cap — tighten your TASK or CHECK, not the count." >&2; exit 
 </main>
 
 <footer>
-  <div class="rule foot-rule">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+  <div class="rule foot-rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
 
   <div class="news" id="subscribe">
     <h2 class="kick" style="color:var(--acid);">Get the pack — the working setup, one config</h2>

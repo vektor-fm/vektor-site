@@ -783,7 +783,8 @@ footer{ display:grid; gap:1px; background:var(--bg); }
 .nl-inline .btn{display:inline-flex; align-items:center; min-height:48px; padding:0 var(--p-m); border:1px solid var(--rule); background:transparent; color:var(--fg); font-family:var(--font-sans); font-size:var(--fs-s); text-transform:uppercase; letter-spacing:.025em; cursor:pointer; transition:background-color .15s cubic-bezier(.4,0,.2,1), color .15s cubic-bezier(.4,0,.2,1);}
 .nl-inline .btn.primary{border-color:var(--accent); color:var(--accent);}
 .nl-inline .btn.primary:hover{background:var(--accent); color:var(--bg);}
-.sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0;}
+input,select,textarea{font-size:16px !important;}   /* iOS zooms below 16 */
+.sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip-path:inset(50%); border:0;}
 .nl-cta{
   display:flex; align-items:center; justify-content:center;
   padding:var(--p-3xl) 0; font-size:var(--fs-m); text-transform:uppercase;
@@ -811,6 +812,42 @@ footer{ display:grid; gap:1px; background:var(--bg); }
   font:12px/1.2 ui-monospace,monospace; padding:9px 12px; letter-spacing:.06em;
 }
 .toggles button:hover{ background:var(--accent); }
+
+/* ---- touch targets (mobile audit, 2026-08-14) ----
+   Nav utilities, footer socials and the nav-bottom links all measured 15-18px
+   tall. 44px is the floor for anything tappable; padding gives the hit area
+   without changing how any of it looks. */
+/* single-glyph social labels (X, YT, IG, TT) were 10-17px WIDE — tall enough
+   after the last pass but still a sliver to hit. Width floor as well. */
+.navbottom .social a,.navbottom .social li,.foot-social a{min-width:44px; justify-content:center;}
+.navbottom .social a{display:inline-flex; align-items:center;}
+.alink,.film .play,.defaultS{min-height:44px; display:inline-flex; align-items:center;}
+.foot-social .wm,.bar .wm{min-height:44px; display:inline-flex; align-items:center;}
+.podcast .split ul a.defaultS{min-width:44px; justify-content:center;}
+.nl-note a,.colophon a,.lede a{display:inline-block; padding:13px 0; margin:-13px 0;}
+.bar .util a,
+.navbottom a,
+.foot-social a,
+.foot-links a,
+.navgrid .panel a,
+.colophon a,
+.skip-link{min-height:44px; display:inline-flex; align-items:center;}
+.navgrid .top{min-height:44px;}
+.nl-inline input,.nl-inline .btn,.nl-form input,.nl-cta{min-height:48px;}
+.copylink{width:44px; height:44px; margin-left:0;}
+.stackctrls button{width:48px; height:48px;}
+/* gap participates in the flex line but the sign's min-width:auto stops it
+   shrinking, so the row overran its column by 5px. Move the spacing into the
+   label's own padding and take it out of the flex calculation entirely. */
+.acc button{min-height:48px; gap:0;}
+/* flex-basis auto sizes from content, so the label never shrank and pushed
+   the row 5px past its column. Basis 0 makes it size from the flex line. */
+.acc button .lbl{min-width:0; flex:1 1 0; overflow-wrap:anywhere; text-align:left; padding-right:var(--p-s);}
+.acc .sign{flex:0 0 auto;}
+.split,.acc,.acc .row{min-width:0;}
+.teaser .more,.mag .defaultS,.bigcard .defaultS,.bigrow .cta{
+  min-height:44px; display:inline-flex; align-items:center;
+}
 </style>
 </head>
 <body>
@@ -936,19 +973,19 @@ footer{ display:grid; gap:1px; background:var(--bg); }
       <h2 class="heading1 up">How it works</h2>
       <div class="acc">
         <div class="row open">
-          <button type="button">Watch the reel <span class="sign">+</span></button>
+          <button type="button"><span class="lbl">Watch the reel</span><span class="sign">+</span></button>
           <div class="panel"><p class="copyS">One short a day, on TikTok, Instagram, YouTube and X. Sixty seconds, no intro, no outro.</p></div>
         </div>
         <div class="row">
-          <button type="button">Comment the keyword <span class="sign">+</span></button>
+          <button type="button"><span class="lbl">Comment the keyword</span><span class="sign">+</span></button>
           <div class="panel"><p class="copyS">Every film ends on a single word. Comment it and the bot picks it up.</p></div>
         </div>
         <div class="row">
-          <button type="button">The links land in your DMs <span class="sign">+</span></button>
+          <button type="button"><span class="lbl">The links land in your DMs</span><span class="sign">+</span></button>
           <div class="panel"><p class="copyS">The pack arrives as working links — the config, the prompts, the repo. No signup, no gate.</p></div>
         </div>
         <div class="row">
-          <button type="button">Everything stays free <span class="sign">+</span></button>
+          <button type="button"><span class="lbl">Everything stays free</span><span class="sign">+</span></button>
           <div class="panel"><p class="copyS">The archive is public and permanent. The newsletter is the only thing you sign up for, and it is also free.</p></div>
         </div>
       </div>
@@ -1032,7 +1069,7 @@ footer{ display:grid; gap:1px; background:var(--bg); }
       <a class="alink u" href="https://youtube.com/@vektorfm" target="_blank" rel="noopener"><span class="a">→</span><span>Every channel</span></a>
     </div>
     <a class="bigrow" href="https://youtube.com/@vektorfm" target="_blank" rel="noopener">
-      <div class="img"><img loading="lazy" decoding="async" src="og/plate-no-009-card.webp" alt=""></div>
+      <div class="img"><img loading="lazy" decoding="async" width="700" height="467" src="og/plate-no-009-card.webp" alt=""></div>
       <div class="side">
         <h3 class="heading2">One short a day, on every platform that will carry it — no intro, no outro, no sixty seconds of throat-clearing.</h3>
         <span class="cta">Watch the latest</span>
@@ -1046,7 +1083,7 @@ footer{ display:grid; gap:1px; background:var(--bg); }
       <a class="alink u" href="#about"><span class="a">→</span><span>The long version</span></a>
     </div>
     <a class="bigrow" href="#about">
-      <div class="img"><img loading="lazy" decoding="async" src="og/plate-no-006-card.webp" alt=""></div>
+      <div class="img"><img loading="lazy" decoding="async" width="700" height="467" src="og/plate-no-006-card.webp" alt=""></div>
       <div class="side">
         <h3 class="heading2">Daily shorts on the Claude and AI tooling that actually matters — and every issue ships the working files behind it, free.</h3>
         <span class="cta">Read more</span>

@@ -1,8 +1,4 @@
-# Printvetica is a PURCHASED commercial font (guaschetti, Gumroad 2026-07-29).
-# This repo is public and deploys to GitHub Pages. Committing the font file is
-# REDISTRIBUTION, which most commercial font licences prohibit even when they
-# permit webfont embedding on your own site. Kept local only until the licence
-# terms are confirmed.
-# Rebuild it with:
-#   python mocks/subset-printvetica.py
-fonts/printvetica-caps.woff2
+# Printvetica ships with the site. Founder decision, 2026-08-14 — the commercial
+# licence was purchased from guaschetti via Gumroad on 2026-07-29, so the file
+# belongs in the repo and the production 404 stops.
+# Rebuild the caps subset with: python mocks/subset-printvetica.py
