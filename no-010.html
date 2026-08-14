@@ -330,6 +330,26 @@ footer{margin-top:var(--p-4xl); padding:var(--p-2xl) var(--rail) var(--p-4xl); b
 }
 .sticky-cta.show{transform:none;}
 .sticky-cta .r{display:flex; align-items:center; gap:var(--p-s);}
+.sticky-cta .t{flex:0 1 auto; color:var(--dim); min-width:0;}
+/* the bar carries a real capture now, not a Follow link */
+.sticky-form{display:flex; align-items:stretch; gap:var(--p-s); flex:1 1 260px; min-width:0;}
+.sticky-form input{
+  flex:1 1 auto; min-width:0; min-height:40px; background:transparent;
+  border:0; border-bottom:1px solid var(--rule); color:var(--fg);
+  font-family:var(--font-sans); font-size:var(--fs-s); padding:0;
+}
+.sticky-form input:focus{outline:none; border-bottom-color:var(--fg);}
+.sticky-form .btn{min-height:40px; padding:0 var(--p-m); white-space:nowrap;}
+.sr-only{
+  position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+  overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0;
+}
+/* below 640 the label would push the form to a second line for no gain */
+@media (max-width:639px){
+  .sticky-cta{flex-wrap:wrap; gap:var(--p-xs) var(--p-s);}
+  .sticky-cta .t{flex:1 0 100%; font-size:var(--fs-xs);}
+  .sticky-form{flex:1 1 auto;}
+}
 .sticky-cta .go{color:var(--accent);}
 .sticky-cta .x{background:none; border:0; color:var(--meta); font-size:22px; line-height:1; min-width:44px; min-height:44px; cursor:pointer;}
 .sticky-cta .x:hover{color:var(--fg);}
@@ -348,6 +368,17 @@ footer{margin-top:var(--p-4xl); padding:var(--p-2xl) var(--rail) var(--p-4xl); b
 .pop-card input{min-height:48px; background:transparent; border:0; border-bottom:1px solid var(--rule); color:var(--fg); font-family:var(--font-sans); font-size:var(--fs-m); padding:0;}
 .pop-card input:focus{outline:none; border-bottom-color:var(--fg);}
 .pop-card .note{font-size:var(--fs-s); color:var(--meta); margin-top:var(--p-s);}
+/* Google's safe harbour for a post-engagement popup is under 30% of the mobile
+   viewport with a visible close control. At the default padding this measured
+   37%, so the phone case tightens up rather than relying on the engagement
+   rule alone. */
+@media (max-width:639px){
+  .pop{padding:var(--p-s); align-items:flex-end;}
+  .pop-card{padding:var(--p-l) var(--p-m) var(--p-m);}
+  .pop-card p{font-size:var(--fs-s); line-height:var(--lh-s); margin-bottom:var(--p-s);}
+  .pop-card .k{font-size:var(--fs-xs); margin-bottom:var(--p-xs);}
+  .pop-card .note{display:none;}
+}
 .midcap .btn,.news .btn,.pop-card .btn{justify-content:center;}
 
 .note{font-size:var(--fs-s); line-height:var(--lh-s); color:var(--meta);}
@@ -398,9 +429,18 @@ pre.code code{font-size:inherit;}
   <span class="marker">This Week in AI · The Rules</span>
 </header>
 
+<!-- Sticky ask. This used to be a Follow link back to Instagram, which spent
+     an IG click to win a visit and then returned the visitor to IG without
+     capturing anything. The goal is the email address, so the persistent ask
+     is now the email. Follow demotes to the footer. -->
 <div class="sticky-cta" id="stickyCta" aria-hidden="true">
-  <span class="t"><b>Part 2 is live</b> → rules 5–7, and the follow</span>
-  <span class="r"><a class="go" data-goatcounter-click="no010-follow-sticky" href="https://www.instagram.com/vektor.fm/" target="_blank" rel="noopener">Follow →</a><button class="x" id="ctaClose" type="button" aria-label="Dismiss">×</button></span>
+  <span class="t">the The Rules pack + one working setup a week</span>
+  <form class="sticky-form" method="post" action="https://buttondown.com/api/emails/embed-subscribe/vektor" data-capture="sticky">
+    <label class="sr-only" for="stickyEmail">Email address</label>
+    <input id="stickyEmail" name="email" type="email" placeholder="you@email.com" autocomplete="email" required>
+    <button class="btn primary" type="submit">Get it &rarr;</button>
+  </form>
+  <button class="x" id="ctaClose" type="button" aria-label="Dismiss">&times;</button>
 </div>
 
 <div class="weave" aria-hidden="true"></div>
@@ -410,9 +450,9 @@ pre.code code{font-size:inherit;}
   <div class="pop-card" role="dialog" aria-modal="true" aria-labelledby="popH">
     <button class="pop-x" type="button" data-pop-close aria-label="Close">×</button>
     <span class="k">One email a week · the working setup</span>
-    <h2 id="popH">Keep the whole toolkit.</h2>
-    <p>The Teardown sends the config pack and one working AI setup a week — the same rig behind this channel. Free, and you can unsubscribe anytime.</p>
-    <form action="https://buttondown.com/api/emails/embed-subscribe/vektor" method="post">
+    <h2 id="popH">Take The Rules with you.</h2>
+    <p>Free, no wall. Add your email and The Teardown sends the The Rules pack plus one working AI setup a week.</p>
+    <form action="https://buttondown.com/api/emails/embed-subscribe/vektor" method="post" data-capture="popup">
       <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
       <button class="btn" type="submit">Get the weekly pack →</button>
     </form>
@@ -482,7 +522,7 @@ pre.code code{font-size:inherit;}
   <span class="k">One email a week · the working setup</span>
   <h2>Keep the whole toolkit.</h2>
   <p>The Teardown sends the config pack and one working AI setup a week — the same rig behind this channel. Free, and you can unsubscribe anytime.</p>
-  <form action="https://buttondown.com/api/emails/embed-subscribe/vektor" method="post">
+  <form action="https://buttondown.com/api/emails/embed-subscribe/vektor" method="post" data-capture="midcap">
     <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
     <button class="btn" type="submit">Get the weekly pack →</button>
   </form>
@@ -532,7 +572,7 @@ pre.code code{font-size:inherit;}
     <div class="pack">
       <span>The config pack</span><span>Claude Code settings</span><span>One teardown / week</span>
     </div>
-    <form action="https://buttondown.com/api/emails/embed-subscribe/vektor" method="post">
+    <form action="https://buttondown.com/api/emails/embed-subscribe/vektor" method="post" data-capture="footer">
       <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
       <button class="btn" type="submit">Send me the pack →</button>
     </form>
@@ -581,17 +621,57 @@ pre.code code{font-size:inherit;}
   document.getElementById('ctaClose').addEventListener('click', function(){ dismissed=true; sticky.classList.remove('show'); sticky.setAttribute('aria-hidden','true'); });
   var wmFoot=document.getElementById('wmFoot');
   if(wmFoot && 'IntersectionObserver' in window){ var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ wmFoot.classList.remove('play'); void wmFoot.offsetWidth; wmFoot.classList.add('play'); } }); }, {threshold:0.6}); io.observe(wmFoot); }
-  // on-open pack popup — re-shows every 2 days (localStorage timestamp), dismissible (x / scrim / Esc)
+  // Pack popup — fires at 50% SCROLL DEPTH, never on a timer.
+  //
+  // It used to open on a 900ms setTimeout, which covered the whole mobile
+  // viewport before the visitor had read a word. That is the exact pattern
+  // Google penalises on mobile (an interstitial blocking content before any
+  // engagement), and popups shown inside the first 5 seconds are measured to
+  // raise bounce by up to 5x. Scroll depth is the engagement signal: it only
+  // fires for someone already reading, and scroll-triggered popups catch
+  // people mid-interest rather than mid-exit.
+  //
+  // Still re-shows every 2 days, still dismissible by x / scrim / Esc.
   (function(){ var pop=document.getElementById('packPop'); if(!pop){return;} var KEY='vektor_pack_seen', TTL=2*24*60*60*1000;
     try{ var last=parseInt(localStorage.getItem(KEY)||'0',10); if(last && (Date.now()-last)<TTL){ return; } }catch(e){}
     function seen(){ try{ localStorage.setItem(KEY, String(Date.now())); }catch(e){} }
     function esc(e){ if(e.key==='Escape'){ close(); } }
-    function close(){ pop.setAttribute('hidden',''); seen(); document.removeEventListener('keydown',esc); }
+    function close(){ pop.setAttribute('hidden',''); seen(); document.removeEventListener('keydown',esc); gcEvent('no010-popup-dismiss'); }
     pop.querySelectorAll('[data-pop-close]').forEach(function(el){ el.addEventListener('click', close); });
     var f=pop.querySelector('form'); if(f){ f.addEventListener('submit', seen); }
-    setTimeout(function(){ pop.removeAttribute('hidden'); document.addEventListener('keydown',esc); var x=pop.querySelector('.pop-x'); if(x){ try{ x.focus(); }catch(e){} } }, 900);
+    var fired=false;
+    function depth(){
+      var doc=document.documentElement;
+      var scrollable=doc.scrollHeight-window.innerHeight;
+      return scrollable>0 ? (window.scrollY/scrollable) : 1;
+    }
+    function maybe(){
+      if(fired || depth()<0.5){ return; }
+      fired=true;
+      window.removeEventListener('scroll',maybe);
+      pop.removeAttribute('hidden');
+      document.addEventListener('keydown',esc);
+      gcEvent('no010-popup-view');
+      var x=pop.querySelector('.pop-x'); if(x){ try{ x.focus(); }catch(e){} }
+    }
+    window.addEventListener('scroll',maybe,{passive:true});
   })();
   document.querySelectorAll('form').forEach(function(f){ f.addEventListener('submit', function(){ gcEvent('no010-subscribe-submit'); }); });
+  // Instrumentation before optimisation. Every capture point reports its own
+  // event, so we can see which of the four actually earns its place instead of
+  // guessing. Previously all of them fired one shared 'subscribe-submit'.
+  document.querySelectorAll('form[data-capture]').forEach(function(f){
+    f.addEventListener('submit', function(){
+      gcEvent('no010-sub-' + f.getAttribute('data-capture'));
+    });
+  });
+  // sticky bar impression, once per page view, to give the submits a denominator
+  (function(){ var seen=false, bar=document.getElementById('stickyCta');
+    if(!bar){return;}
+    new MutationObserver(function(){
+      if(!seen && bar.classList.contains('show')){ seen=true; gcEvent('no010-sticky-view'); }
+    }).observe(bar,{attributes:true,attributeFilter:['class']});
+  })();
 </script>
 
 <script data-goatcounter="https://vektor.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>

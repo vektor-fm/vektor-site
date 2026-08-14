@@ -330,6 +330,26 @@ footer{margin-top:var(--p-4xl); padding:var(--p-2xl) var(--rail) var(--p-4xl); b
 }
 .sticky-cta.show{transform:none;}
 .sticky-cta .r{display:flex; align-items:center; gap:var(--p-s);}
+.sticky-cta .t{flex:0 1 auto; color:var(--dim); min-width:0;}
+/* the bar carries a real capture now, not a Follow link */
+.sticky-form{display:flex; align-items:stretch; gap:var(--p-s); flex:1 1 260px; min-width:0;}
+.sticky-form input{
+  flex:1 1 auto; min-width:0; min-height:40px; background:transparent;
+  border:0; border-bottom:1px solid var(--rule); color:var(--fg);
+  font-family:var(--font-sans); font-size:var(--fs-s); padding:0;
+}
+.sticky-form input:focus{outline:none; border-bottom-color:var(--fg);}
+.sticky-form .btn{min-height:40px; padding:0 var(--p-m); white-space:nowrap;}
+.sr-only{
+  position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+  overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0;
+}
+/* below 640 the label would push the form to a second line for no gain */
+@media (max-width:639px){
+  .sticky-cta{flex-wrap:wrap; gap:var(--p-xs) var(--p-s);}
+  .sticky-cta .t{flex:1 0 100%; font-size:var(--fs-xs);}
+  .sticky-form{flex:1 1 auto;}
+}
 .sticky-cta .go{color:var(--accent);}
 .sticky-cta .x{background:none; border:0; color:var(--meta); font-size:22px; line-height:1; min-width:44px; min-height:44px; cursor:pointer;}
 .sticky-cta .x:hover{color:var(--fg);}
@@ -348,6 +368,17 @@ footer{margin-top:var(--p-4xl); padding:var(--p-2xl) var(--rail) var(--p-4xl); b
 .pop-card input{min-height:48px; background:transparent; border:0; border-bottom:1px solid var(--rule); color:var(--fg); font-family:var(--font-sans); font-size:var(--fs-m); padding:0;}
 .pop-card input:focus{outline:none; border-bottom-color:var(--fg);}
 .pop-card .note{font-size:var(--fs-s); color:var(--meta); margin-top:var(--p-s);}
+/* Google's safe harbour for a post-engagement popup is under 30% of the mobile
+   viewport with a visible close control. At the default padding this measured
+   37%, so the phone case tightens up rather than relying on the engagement
+   rule alone. */
+@media (max-width:639px){
+  .pop{padding:var(--p-s); align-items:flex-end;}
+  .pop-card{padding:var(--p-l) var(--p-m) var(--p-m);}
+  .pop-card p{font-size:var(--fs-s); line-height:var(--lh-s); margin-bottom:var(--p-s);}
+  .pop-card .k{font-size:var(--fs-xs); margin-bottom:var(--p-xs);}
+  .pop-card .note{display:none;}
+}
 .midcap .btn,.news .btn,.pop-card .btn{justify-content:center;}
 
 .note{font-size:var(--fs-s); line-height:var(--lh-s); color:var(--meta);}

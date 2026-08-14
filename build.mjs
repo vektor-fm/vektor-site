@@ -43,7 +43,22 @@ function renderIssue(num) {
     if (man[k] == null) throw new Error(`no-${num}: missing ${k} (issue pages require twitter tags)`);
   }
   const body = read(`src/no-${num}.body.html`);
+
+  // Per-issue lead magnet. The packs stay FREE and ungated — the site says so
+  // in writing ("the files behind the films. Free, no signup wall.") — so the
+  // email ask is framed as "this pack plus one a week", not as a paywall.
+  // Contextual relevance without breaking the promise.
+  const meta = site.issues.find((i) => i.number === num) || {};
+  const hasPayload = /(?:href|src)="\.\/files\//.test(body);
+  const magnet = hasPayload
+    ? `the ${meta.section} pack`
+    : `the ${meta.section} setup`;
+
   const map = {
+    MAGNET: magnet,
+    MAGNET_TITLE: hasPayload
+      ? `Take ${meta.section} with you.`
+      : `Keep the whole toolkit.`,
     TITLE: man.title, DESCRIPTION: man.description,
     OG_TITLE: man.og_title, OG_DESCRIPTION: man.og_description, OG_IMAGE: man.og_image,
     OG_ALT: man.og_alt, OG_URL: man.og_url, CANONICAL: man.canonical,
