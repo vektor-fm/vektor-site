@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" id="top"><head>
+<html lang="en" id="top" class="pv-meta"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>vektor /// the index — the AI frontier, cut to what ships</title>
@@ -16,581 +16,1380 @@
 <meta property="og:url" content="https://vektor-fm.github.io/vektor-site/">
 <link rel="canonical" href="https://vektor-fm.github.io/vektor-site/">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#101010">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23101010'/%3E%3Ctext x='30' y='48' font-family='Arial' font-size='46' font-weight='600' text-anchor='middle' fill='%23EFEADD'%3Ev%3C/text%3E%3Ccircle cx='52' cy='44' r='5' fill='%2339FF35'/%3E%3C/svg%3E">
-<link rel="preload" href="fonts/tektur-900-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000000'/%3E%3Ctext x='32' y='47' font-family='Arial' font-size='46' font-weight='600' text-anchor='middle' fill='%23EFEADD'%3Ev%3C/text%3E%3C/svg%3E">
+<link rel="preload" href="fonts/archivo-expanded-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/archivo-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/inter-tight-600-latin.woff2" as="font" type="font/woff2" crossorigin>
-
-<style>/* latin-ext */
-@font-face {
-  font-family: 'IBM Plex Mono';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("fonts/ibm-plex-mono-400-latin-ext.woff2") format('woff2');
-  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-/* latin */
-@font-face {
-  font-family: 'IBM Plex Mono';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("fonts/ibm-plex-mono-400-latin.woff2") format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-/* latin-ext */
-@font-face {
-  font-family: 'IBM Plex Mono';
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url("fonts/ibm-plex-mono-500-latin-ext.woff2") format('woff2');
-  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-/* latin */
-@font-face {
-  font-family: 'IBM Plex Mono';
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url("fonts/ibm-plex-mono-500-latin.woff2") format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-/* latin-ext */
-@font-face {
-  font-family: 'IBM Plex Mono';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url("fonts/ibm-plex-mono-600-latin-ext.woff2") format('woff2');
-  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-/* latin */
-@font-face {
-  font-family: 'IBM Plex Mono';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url("fonts/ibm-plex-mono-600-latin.woff2") format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-/* latin-ext */
-@font-face {
-  font-family: 'Inter Tight';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url("fonts/inter-tight-600-latin-ext.woff2") format('woff2');
-  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-/* latin */
-@font-face {
-  font-family: 'Inter Tight';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url("fonts/inter-tight-600-latin.woff2") format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-/* latin-ext */
-@font-face {
-  font-family: 'Jacquard 24';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("fonts/jacquard-24-400-latin-ext.woff2") format('woff2');
-  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-/* latin */
-@font-face {
-  font-family: 'Jacquard 24';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("fonts/jacquard-24-400-latin.woff2") format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-/* latin-ext */
-@font-face {
-  font-family: 'Tektur';
-  font-style: normal;
-  font-weight: 900;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url("fonts/tektur-900-latin-ext.woff2") format('woff2');
-  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-/* latin */
-@font-face {
-  font-family: 'Tektur';
-  font-style: normal;
-  font-weight: 900;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url("fonts/tektur-900-latin.woff2") format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-/* latin */
-@font-face {
-  font-family: 'Workbench';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("fonts/workbench-400-latin.woff2") format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-</style>
-
 <style>
+/* Self-hosted, SIL Open Font License 1.1 — commercial use and redistribution
+   permitted. Subset to latin + arrows, 14 KB each. No third-party request, no
+   CORS surprise: mock D hotlinked GT America and silently fell back to a
+   narrow face because sprind's server sends no Access-Control-Allow-Origin.
+   Archivo_Expanded-Regular is a TRUE expanded cut, not a variable-axis fake. */
+@font-face{
+  font-family:'Archivo Expanded';
+  src:url(fonts/archivo-expanded-400.woff2) format('woff2');
+  font-weight:400; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:'Archivo Text';
+  src:url(fonts/archivo-400.woff2) format('woff2');
+  font-weight:400; font-style:normal; font-display:swap;
+}
+/* Archivo ExtraBold — retained for the type system, NOT for the logo.
+   brand/logo/export/ is the ORIGINAL, retired mark and must not be used.
+   The shipping wordmark is Inter Tight 600 — see THE LOGO below. */
+@font-face{
+  font-family:'Archivo Text';
+  src:url(fonts/archivo-800.woff2) format('woff2');
+  font-weight:800; font-style:normal; font-display:swap;
+}
+/* Inter Tight 600 — the LIVE wordmark's face. Taken from the shipping site,
+   not the old brand/logo/ export. */
+@font-face{
+  font-family:'Inter Tight';
+  src:url(fonts/inter-tight-600-latin.woff2) format('woff2');
+  font-weight:600; font-style:normal; font-display:swap;
+}
+/* Printvetica — the films' face. Commercial licence purchased (guaschetti,
+   Gumroad, 2026-07-29) per canon.yml. Caps-only subset: 200 KB vs 739 KB for
+   the full face and 14 KB for Archivo. Display use only — never body copy. */
+@font-face{
+  font-family:'Printvetica';
+  src:url(fonts/printvetica-caps.woff2) format('woff2');
+  font-weight:400; font-style:normal; font-display:swap;
+}
+/* =========================================================================
+   MOCK E — SPRIND, DARK, 1:1, EXTRAPOLATED TO VEKTOR
+   -------------------------------------------------------------------------
+   Corrected against measurements taken from the live sprind.org in a browser,
+   not from reading their CSS alone. What changed from mock D:
+
+     · Their hero and nav are BLACK, white type. The first screen is dominated
+       by a ~170px wordmark; the 52px h1 sits BELOW it as a secondary line.
+       Mock D had no wordmark at all and opened on a light page.
+     · Their teaser is 700x234 — image 350px on the LEFT at 3:2, text 350px
+       on the right, padding 16px 0 0 16px. Title 18px/22 UPPERCASE. Body
+       18px/22 — the SAME SIZE as the title. Date 15px uppercase #676767.
+       Mock D ran 32px titles over 15px copy in 600px-tall cards: inverted
+       hierarchy at half the density.
+     · Teasers carry a full-width hairline across the TOP, spanning image and
+       text together, as well as the left hairline.
+     · Arrow links read "-> LABEL" — arrow FIRST, uppercase, 18px.
+     · Footer cells are 506x128 (padding 48px 0), 18px uppercase, arrow first.
+       The newsletter CTA is an UNFILLED cell bounded by hairlines, never a
+       filled button.
+     · Body line-height is 22px, not 20px.
+
+   Typeface: SOLVED, and free. Archivo_Expanded-Regular is a true expanded cut
+   under the SIL Open Font License — commercial use and self-hosting permitted.
+   Subset to woff2 at 14 KB per face and served from this folder. GT America
+   Extended is no longer required; buying it is now a preference, not a need.
+   ========================================================================= */
+
+:root{
+  /* ---- sprind type scale, fluid vw above 1600 ---- */
+  --fs-4xl:5.73vw;   --lh-4xl:7.29vw;
+  --fs-3xl:3.128vw;  --lh-3xl:2.813vw;
+  --fs-2xl:1.665vw;  --lh-2xl:1.77vw;
+  --fs-xl:1.043vw;   --lh-xl:1.148vw;
+  --fs-m:.938vw;     --lh-m:1.148vw;
+  --fs-s:.78vw;      --lh-s:.99vw;
+  --fs-xs:.623vw;    --lh-xs:.728vw;
+
+  --p-xs:.21vw; --p-s:.42vw; --p-m:.832vw; --p-l:1.253vw; --p-xl:1.665vw;
+  --p-2xl:2.085vw; --p-3xl:2.498vw; --p-4xl:4.17vw; --p-4_5xl:6.25vw;
+
+  /* ---- dark inversion of sprind's palette ---- */
+  --bg:#000000;
+  --fg:#FFFFFF;
+  /* sprind's hairline is #c9c9c9 in BOTH themes — their .darkmode class swaps
+     --white/--black but deliberately leaves --color-silver-300 alone. Measured
+     on their own dark bands 2026-08-08. Founder-approved: use their value, not
+     an inversion of it and not full white. */
+  --rule:#C9C9C9;
+  --rule-strong:#C9C9C9;
+  --meta:#999999;                 /* their #676767, lifted for dark */
+  --dim:#B4B4B4;
+  --surface:#0A0A0A;
+
+  /* BANDING (founder-approved 2026-08-08): sprind alternates light and dark
+     bands; we keep the alternation and invert it. Their white band becomes our
+     black; their black band becomes this lifted near-black.
+     Founder-picked 2026-08-10 on reports/BAND-HERO.html, which showed six
+     candidates as real abutting sections. #0E0E0E was only a 5.5% luminance
+     step and disappeared on a dimmer panel; #141414 reads as a deliberate band
+     without lifting off black. */
+  --band:#141414;
+  --nav-h:80px;
+  --paper:#EFEADD;       /* wordmark ink — live site --paper */
+  --acid-mark:#39FF35;   /* wordmark registration plate A — NOT the UI accent */
+  --orchid:#C77BC9;      /* wordmark registration plate B */
+
+  --accent:#0E9C86;               /* caretTeal — founder 2026-08-07: ONE green,
+                                     the logo's. Acid #39FF35 stays in the films. */
+
+  --font-extended:'Archivo Expanded','Archivo','Helvetica Neue',Helvetica,Arial,sans-serif;
+  --font-sans:'Archivo Text','Archivo','Helvetica Neue',Helvetica,Arial,sans-serif;
+}
+/* ============ TYPE PAIRING MODES — the open question ============
+   A  archivo    Archivo Expanded display + Archivo body. Printvetica absent.
+                 Site and films stay separate faces (status quo).
+   B  pv-display Printvetica on the big display type (hero + section heads),
+                 Archivo Expanded on card titles, Archivo body. Films and site
+                 share the loudest voice; body stays readable and light.
+   C  pv-meta    Archivo Expanded display + Printvetica on meta/kickers/dates.
+                 Printvetica becomes the technical label layer.
+   D  pv-max     Printvetica on display AND meta. Maximum film continuity.
+   The LOGO never changes in any mode — it is the Inter Tight 600
+   registration wordmark, independent of every toggle. */
+html.pv-display .heading0,
+html.pv-display .heading1,
+html.pv-max .heading0,
+html.pv-max .heading1,
+html.pv-max .heading2,
+html.pv-max .heading3{
+  font-family:'Printvetica',Helvetica,Arial,sans-serif;
+  text-transform:uppercase; letter-spacing:.005em;
+}
+html.pv-meta .meta, html.pv-meta .bar .mid, html.pv-meta .navgrid .top,
+html.pv-max .meta,  html.pv-max .bar .mid,  html.pv-max .navgrid .top,
+html.pv-meta .colophon, html.pv-max .colophon{
+  font-family:'Printvetica',Helvetica,Arial,sans-serif; letter-spacing:.04em;
+}
+html.acc-teal { --accent:#0E9C86; }
+html.acc-acid { --accent:#39FF35; }
+html.acc-gold { --accent:#FFCC00; }   /* sprind's own dark-mode accent */
+html.acc-none { --accent:#FFFFFF; }
+
+@media (max-width:1600px){
   :root{
-    --ink:#101010; --paper:#EFEADD; --cream:#F4EFDF; --fog:#E8ECEA;
-    --orchid:#C77BC9; --aqua:#8FC5C9; --acid:#39FF35; --teal:#0E9C86;
-    --blue-a:#1B4FA0; --blue-b:#2B6BC4; --blue-c:#153A78; --blue-meta:#BFD9FF;
-    --disp:'Tektur',system-ui,sans-serif;
-    --kick:'Workbench','IBM Plex Mono',monospace;
-    --mono:'IBM Plex Mono',ui-monospace,monospace;
-    --goth:'Jacquard 24',serif;
-    --wm:'Inter Tight',system-ui,sans-serif;
-    --rail:clamp(18px,5.5vw,72px);
+    --fs-4xl:132px; --lh-4xl:140px; --fs-3xl:52px; --lh-3xl:54px;
+    --fs-2xl:32px;  --lh-2xl:34px;  --fs-xl:20px;  --lh-xl:22px;
+    --fs-m:18px;    --lh-m:22px;    --fs-s:15px;   --lh-s:19px;
+    --fs-xs:12px;   --lh-xs:14px;
+    --p-xs:4px; --p-s:8px; --p-m:16px; --p-l:24px; --p-xl:32px;
+    --p-2xl:40px; --p-3xl:48px; --p-4xl:80px; --p-4_5xl:120px;
   }
-  *{box-sizing:border-box;}
-  :focus-visible{outline:2px solid var(--acid); outline-offset:2px;}
-  html,body{margin:0;}
-  body{background:var(--ink); color:var(--paper); font-family:var(--mono); line-height:1.5; -webkit-font-smoothing:antialiased; overflow-x:hidden;}
-  a{color:inherit;}
-  ::selection{background:var(--acid); color:var(--ink);}
-  .kick{font-family:var(--kick); text-transform:uppercase; letter-spacing:0.14em; font-size:13px; line-height:1.4;}
-  .rule{font-family:var(--mono); color:rgba(239,234,221,0.4); overflow:hidden; white-space:nowrap; user-select:none;}
-
-  /* ---------- chrome bar (matches the issue pages) ---------- */
-  .chrome{position:sticky; top:0; z-index:50; background:var(--ink); border-bottom:1px solid #262626;
-    display:flex; align-items:center; justify-content:space-between; height:64px; padding:0 var(--rail);}
-  .chrome .marker{font-family:var(--kick); text-transform:uppercase; letter-spacing:0.1em; font-size:13px; color:#8f8b80;}
-  @media (max-width:520px){ .chrome .marker{display:none;} }
-  .wm{position:relative; display:inline-flex; text-decoration:none; font-family:var(--wm); font-weight:600; letter-spacing:-0.045em; color:var(--paper); font-size:30px; line-height:1;}
-  .wm-main{position:relative; z-index:2; display:inline-flex;}
-  .wm-main .ch{position:relative; display:inline-block;}
-  .wm-main .ch .l{opacity:0; animation:showL .01s steps(1) forwards; animation-delay:calc(0.20s + var(--i)*0.075s);}
-  .wm-main .ch .g{position:absolute; left:0; top:0; font-family:var(--mono); color:var(--acid); opacity:0; animation:flashG .075s steps(1) forwards; animation-delay:calc(0.14s + var(--i)*0.075s);}
-  @keyframes showL{to{opacity:1;}}
-  @keyframes flashG{0%{opacity:1;}100%{opacity:0;}}
-  .wm-plate{position:absolute; left:0; top:0; z-index:1; mix-blend-mode:screen; pointer-events:none;}
-  .wm-acid{color:var(--acid); animation:regA 1.15s steps(1) forwards;}
-  .wm-orchid{color:var(--orchid); animation:regB 1.15s steps(1) forwards;}
-  @keyframes regA{0%{transform:translate(7px,4px);opacity:.85}30%{transform:translate(4px,2px)}55%{transform:translate(2px,1px)}78%{transform:translate(0,0);opacity:.5}100%{transform:translate(0,0);opacity:0}}
-  @keyframes regB{0%{transform:translate(-6px,-4px);opacity:.85}30%{transform:translate(-4px,-2px)}55%{transform:translate(-2px,-1px)}78%{transform:translate(0,0);opacity:.5}100%{transform:translate(0,0);opacity:0}}
-  @media (prefers-reduced-motion:reduce){
-    .wm-main .ch .l{opacity:1; animation:none;}
-    .wm-main .ch .g,.wm-plate{display:none;}
+}
+@media (max-width:1023px){
+  :root{
+    --fs-4xl:40px; --lh-4xl:42px; --fs-3xl:32px; --lh-3xl:34px;
+    --fs-2xl:24px; --lh-2xl:26px; --fs-xl:18px;  --lh-xl:20px;
+    --fs-m:16px;   --lh-m:19px;   --fs-s:14px;   --lh-s:18px;
+    --p-m:12px; --p-l:16px; --p-xl:24px; --p-2xl:32px; --p-3xl:40px; --p-4xl:64px; --p-4_5xl:80px;
+    --nav-h:76px;
   }
+}
+@media (max-width:767px){
+  :root{
+    --fs-4xl:28px; --lh-4xl:32px; --fs-3xl:24px; --lh-3xl:28px;
+    --fs-2xl:20px; --lh-2xl:22px; --fs-xl:16px;  --lh-xl:18px;
+    --fs-m:14px;   --lh-m:18px;
+    --p-m:8px; --p-l:12px; --p-xl:16px; --p-2xl:24px; --p-3xl:32px; --p-4xl:48px; --p-4_5xl:64px;
+    --nav-h:73px;
+  }
+}
 
-  /* woven brand band */
-  .weave{height:26px; width:100%; margin:0;
-    background-color:var(--orchid);
-    background-image:
-      repeating-linear-gradient(90deg, rgba(16,16,16,.55) 0 3px, transparent 3px 9px),
-      repeating-linear-gradient(0deg, rgba(16,16,16,.55) 0 3px, transparent 3px 9px),
-      repeating-linear-gradient(90deg, rgba(255,255,255,.25) 0 1px, transparent 1px 9px);
-    background-blend-mode:multiply;}
+*{ box-sizing:border-box; margin:0; padding:0; }
+html{ -webkit-font-smoothing:antialiased; background:var(--bg); }
+body{
+  background:var(--bg); color:var(--fg);
+  font-family:var(--font-sans); 
+  font-size:var(--fs-m); line-height:var(--lh-m);
+  overflow-x:hidden;
+}
+a{ color:inherit; text-decoration:none; }
+img{ display:block; max-width:100%; }
 
-  /* ---------- HERO (cover) ---------- */
-  .hero{padding:30px var(--rail) 46px; position:relative;}
-  .wordmark{font-family:var(--wm); font-weight:600; letter-spacing:-0.045em; font-size:clamp(40px,11vw,84px); line-height:0.95; color:var(--paper);}
-  .hero .eye{color:var(--acid); margin:26px 0 18px;}
-  .hero h1{font-family:var(--disp); font-weight:900; text-transform:uppercase; line-height:1.0; letter-spacing:0.005em; margin:0; font-size:clamp(38px,8.6vw,92px);}
-  .hero h1 .dot{color:var(--acid);}
-  .hero .sub{max-width:42ch; margin-top:22px; font-size:16px; line-height:1.55; color:var(--paper);}
-  .hero .ascii{position:absolute; top:34px; right:10px; font-family:var(--mono); font-size:10px; line-height:1.05; color:rgba(57,255,53,0.20); white-space:pre; user-select:none; pointer-events:none; display:none;}
-  @media (min-width:820px){ .hero .ascii{display:block;} }
+/* sprind type classes — extended face, weight 400, uppercase, no tracking */
+.heading0,.heading1,.heading2,.heading3,.wm{
+  font-family:var(--font-extended);
+  font-weight:400;
+}
+.heading0{ font-size:var(--fs-4xl); line-height:var(--lh-4xl); text-transform:uppercase; }
+.heading1{ font-size:var(--fs-3xl); line-height:var(--lh-3xl); }
+.heading2{ font-size:var(--fs-2xl); line-height:var(--lh-2xl); }
+.heading3{ font-size:var(--fs-xl);  line-height:var(--lh-xl); }
+.copyL{ font-size:var(--fs-m); line-height:var(--lh-xl); }
+.copyS{ font-size:var(--fs-s); line-height:var(--lh-s); }
+.up{ text-transform:uppercase; }
+.meta{
+  font-size:var(--fs-s); line-height:var(--lh-s); text-transform:uppercase;
+  letter-spacing:.025em; color:var(--meta); font-variant-numeric:proportional-nums;
+}
 
-  /* newsletter (primary action, in-hero) */
-  .capture{margin-top:36px; background:#141414; border:2px solid var(--aqua); padding:30px 26px 28px;}
-  .capture .ck{display:block; color:var(--acid); font-family:var(--kick); text-transform:uppercase; letter-spacing:0.14em; font-size:13px; margin-bottom:10px;}
-  .capture h2.d{font-family:var(--disp); font-weight:900; text-transform:uppercase; line-height:1.02; letter-spacing:0.005em; font-size:clamp(28px,7.5vw,48px); margin:0 0 12px;}
-  .capture p.s{font-size:15.5px; line-height:1.5; max-width:52ch; margin:0 0 20px; color:var(--paper);}
-  .capture .ok{display:none; margin-top:14px; font-family:var(--kick); text-transform:uppercase; letter-spacing:0.1em; font-size:13px; color:var(--acid);}
-  .capture.done form{display:none;}
-  .capture.done .ok{display:block;}
-  .capture form{display:flex; gap:10px; flex-wrap:wrap;}
-  .capture input{flex:1 1 240px; min-height:52px; background:transparent; border:2px solid #6a6a6a; color:var(--paper); font-family:var(--mono); font-size:16px; padding:0 16px;}
-  .capture input:focus{outline:none; border-color:var(--acid);}
-  .capture .btn{min-height:52px; padding:0 24px; display:inline-flex; align-items:center; font-family:var(--kick); text-transform:uppercase; letter-spacing:0.08em; font-size:14px; background:var(--acid); color:var(--ink); border:2px solid var(--acid); cursor:pointer; text-decoration:none;}
-  .capture .btn:hover{background:#5cff59;}
-  .capture .note{font-size:12px; color:#8f8b80; margin-top:12px; letter-spacing:0.03em;}
+/* ===================== ARROW LINKS — CORRECTED 2026-08-08 =====================
+   A previous pass recorded "arrow FIRST" as sprind's measured anatomy. It is
+   wrong. Measured on the live site, every PAGE-level control is `LABEL →`:
+   a 17x11 SVG after the label, align-items:baseline, gap 4px. The hover state
+   IS the gap widening 4px -> 8px, which slides the arrow right and grows the
+   element (177.8 -> 181.8px measured). No colour change.
 
-  /* ---------- generic btn ---------- */
-  .btn{display:inline-flex; align-items:center; gap:8px; min-height:48px; padding:0 22px; font-family:var(--kick); text-transform:uppercase; letter-spacing:0.08em; font-size:14px; text-decoration:none; border:2px solid currentColor; background:transparent; cursor:pointer;}
+   Arrow-FIRST survives in exactly one place: the nav submenu panels. See
+   .navgrid .panel below.
 
-  /* ---------- section divider ---------- */
-  .fig{padding:20px var(--rail) 6px; display:flex; align-items:center; gap:16px;}
-  .fig .kick{color:#8f8b80; white-space:nowrap;}
-  .fig .gaccent{font-family:var(--goth); font-size:34px; color:var(--paper); line-height:0.7;}
-  .fig .line{flex:1; height:1px; background:#2a2a2a;}
+   The small card CTA (.defaultS on sprind) has NO arrow at all — a bare label
+   with a 1px #767676 underline that goes to full white on hover.
+   ============================================================================ */
+.alink{
+  display:inline-flex; align-items:baseline; gap:4px;
+  font-size:var(--fs-m); line-height:var(--lh-xl); text-transform:uppercase;
+  letter-spacing:.025em;
+  transition:gap .15s cubic-bezier(.4,0,.2,1), color .15s cubic-bezier(.4,0,.2,1);
+}
+/* sprind's own hover is achromatic — the gap widening IS the state. Founder
+   chose caret teal 2026-08-09, so we keep their gap behaviour AND add colour.
+   That is a deliberate Vektor addition on top of the 1:1, not a copy of it. */
+.alink:hover{ gap:8px; color:var(--accent); }
+.alink .a{ display:inline-block; order:2; }   /* order:2 puts the arrow AFTER */
 
-  /* ---------- LATEST issue (featured card) ---------- */
-  .latest{padding:14px var(--rail) 0;}
-  .lcard{background:var(--orchid); color:var(--ink); padding:30px 26px 28px; position:relative; overflow:hidden;}
-  .lcard .tag{font-family:var(--kick); text-transform:uppercase; letter-spacing:0.12em; font-size:13px; color:var(--ink);}
-  .lcard h2{font-family:var(--disp); font-weight:900; text-transform:uppercase; line-height:1.0; letter-spacing:0.005em; font-size:clamp(40px,11vw,78px); margin:16px 0 0;}
-  .lcard .lactions{display:flex; flex-wrap:wrap; gap:12px 24px; align-items:center; margin-top:26px;}
-  .lcard .get{min-height:50px; padding:0 24px; display:inline-flex; align-items:center; font-family:var(--kick); text-transform:uppercase; letter-spacing:0.08em; font-size:15px; background:var(--ink); color:var(--paper); text-decoration:none; border:0;}
-  .lcard .get:hover{background:#000;}
-  .lcard .watch{font-family:var(--mono); font-size:13px; color:var(--ink); letter-spacing:0.04em;}
-  .lcard .watch a{color:var(--ink); text-decoration:underline; text-decoration-color:rgba(16,16,16,0.4); text-underline-offset:3px; display:inline-flex; justify-content:center; min-width:24px; padding:12px 0; margin:-12px 0;}
-  .lcard .watch a:hover{text-decoration-color:var(--ink);}
-  .lcard .watch .wi{white-space:nowrap;}
+/* sprind's small card CTA: underlined label, no arrow, grey to white */
+.defaultS{
+  display:inline-flex; font-size:var(--fs-m); line-height:var(--lh-xl);
+  color:#767676; border-bottom:1px solid #767676;
+  transition:color .15s cubic-bezier(.4,0,.2,1), border-color .15s cubic-bezier(.4,0,.2,1);
+}
+.defaultS:hover{ color:var(--accent); border-bottom-color:var(--accent); }
+.alink:hover .a{ transform:translateX(5px); }
+.alink.u span:last-child{ border-bottom:1px solid currentColor; }
 
-  /* ---------- RITUAL strip ---------- */
-  .ritual{padding:40px var(--rail); }
-  .ritual .h{font-family:var(--kick); text-transform:uppercase; letter-spacing:0.12em; font-size:13px; font-weight:400; color:#8f8b80; margin:0 0 20px;}
-  .fig h2{margin:0;}
-  .steps{display:grid; grid-template-columns:1fr; gap:0;}
-  @media (min-width:720px){ .steps{grid-template-columns:repeat(3,1fr);} }
-  .step{border-top:2px solid #2a2a2a; padding:20px 0; display:flex; gap:18px; align-items:baseline;}
-  .step .n{font-family:var(--disp); font-weight:900; font-size:40px; color:var(--acid); flex:none; line-height:1;}
-  .step .t{font-family:var(--mono); font-size:15px; text-transform:uppercase; letter-spacing:0.04em; line-height:1.4;}
+/* ================================ NAV ================================
+   MEASURED ON SPRIND 2026-08-08. The header is OFF-SCREEN by default:
+   transform:translate3d(0,-100%,0). It is revealed by mouseenter on an
+   invisible 24px-tall full-width strip pinned to the top of the viewport, or
+   by focus (keyboard). Scrolling never reveals it — verified at scrollY
+   0/200/400/800/1600. Once revealed it is sticky.
 
-  /* ---------- ARCHIVE (ledger) ---------- */
-  .archive{padding:14px var(--rail) 10px;}
-  .row{display:grid; grid-template-columns:auto 1fr auto; gap:16px 20px; align-items:center; border-top:2px solid #2a2a2a; padding:22px 0; text-decoration:none; color:var(--paper);}
-  .row:last-of-type{border-bottom:2px solid #2a2a2a;}
-  .row:hover{background:#161616;}
-  .row .no{font-family:var(--disp); font-weight:900; font-size:clamp(28px,7vw,44px); color:var(--paper); line-height:1;}
-  .row .mid .t{font-family:var(--disp); font-weight:900; text-transform:uppercase; font-size:clamp(20px,4.4vw,30px); line-height:1.02;}
-  .row .mid .k{font-family:var(--mono); font-size:12.5px; color:#8f8b80; text-transform:uppercase; letter-spacing:0.08em; margin-top:6px;}
-  .row .k-chip{font-family:var(--kick); text-transform:uppercase; letter-spacing:0.06em; font-size:12px; background:var(--acid); color:var(--ink); padding:6px 10px; white-space:nowrap;}
-  .row .go{font-family:var(--kick); text-transform:uppercase; letter-spacing:0.08em; font-size:13px; color:var(--acid); white-space:nowrap;}
-  @media (max-width:560px){ .row{grid-template-columns:auto 1fr;} .row .go{display:none;} }
+   Three states: off-screen -> bar only (81.8px) -> fully open (326.8px).
+   Bar 44px + 1px grid gap + submenu row 36.8px.
+   Reveal is transform .4s ease; open is max-height .5s ease-out.
+   Desktop does NOT scroll-lock (body stays overflow:visible). Mobile does.
+   ===================================================================== */
+/* Skip link — sprind's, and the one piece of their nav furniture that is real
+   function rather than shape. Parked above the viewport, slides in on focus. */
+.skip-link{
+  position:fixed; top:0; left:0; z-index:80;
+  transform:translateY(-120%); transition:transform .2s ease-out;
+  background:var(--fg); color:var(--bg);
+  padding:12px var(--p-m); font-size:var(--fs-s); line-height:var(--lh-s);
+  font-weight:500; text-decoration:underline;
+}
+.skip-link:focus{ transform:translateY(0); outline:2px solid var(--fg); outline-offset:2px; }
 
-  /* ---------- FOOTER ---------- */
-  footer{margin-top:26px; padding:44px var(--rail) 60px; border-top:1px solid #262626;}
-  .foot-rule{font-size:15px; margin-bottom:32px;}
-  .socials{display:flex; flex-wrap:wrap; gap:22px;}
-  .socials a{font-family:var(--kick); text-transform:uppercase; letter-spacing:0.1em; font-size:13px; color:#8f8b80; text-decoration:none; padding:12px 0; margin:-12px 0; display:inline-flex; align-items:center; justify-content:center; min-width:44px;}
-  .socials a:hover{color:var(--acid);}
-  .backref{margin-top:32px; font-family:var(--kick); text-transform:uppercase; letter-spacing:0.1em; font-size:13px; color:var(--paper);}
-  .wordmark-foot{display:flex; align-items:center; gap:14px; margin-top:38px; flex-wrap:wrap;}
-  .wm-foot{position:relative; display:inline-flex; font-family:var(--wm); font-weight:600; letter-spacing:-0.045em; font-size:34px; color:var(--paper);}
-  .wm-foot .ch2{position:relative; display:inline-block;}
-  .wm-foot .ch2 .l{opacity:1;}
-  .wm-foot .ch2 .g{position:absolute; left:0; top:0; font-family:var(--mono); color:var(--acid); opacity:0;}
-  .wm-foot.play .ch2 .l{animation:revealL2 .01s steps(1) both; animation-delay:calc(0.16s + var(--i)*0.07s);}
-  .wm-foot.play .ch2 .g{animation:flashG2 .07s steps(1) both; animation-delay:calc(0.10s + var(--i)*0.07s);}
-  @keyframes revealL2{0%{opacity:0;}100%{opacity:1;}}
-  @keyframes flashG2{0%{opacity:1;}100%{opacity:0;}}
-  @media (prefers-reduced-motion:reduce){ .wm-foot.play .ch2 .l{animation:none;} .wm-foot .ch2 .g{display:none;} }
-  .wordmark-foot .m{font-family:var(--mono); font-size:12px; color:#8f8b80;}
+.navreveal{                       /* the invisible 24px trigger strip */
+  position:fixed; top:0; left:0; right:0; height:24px; z-index:70;
+  cursor:default;
+}
+.menu{
+  position:fixed; inset:0 0 auto 0; z-index:60; background:transparent;
+  display:grid; gap:1px;
+  transform:translate3d(0,-100%,0);
+  transition:transform .4s ease;
+}
+.menu.nav-visible, .menu:focus-within{ transform:translateZ(0); }
+.menu .bar{
+  display:flex; justify-content:space-between; align-items:center;
+  padding:var(--p-s); height:44px; background:var(--bg);
+  outline:1px solid var(--rule);   /* outline, not border — sprind surrounds the bar */
+}
+/* ======================= THE LOGO — THE REAL ONE =======================
+   The shipping wordmark, from partials/head.html:174-186. NOT the retired
+   brand/logo/export/ mark (Archivo 800 + teal caret).
+
+   Inter Tight 600 at -.045em in cream #EFEADD.
+
+   The live site animates this: two chromatic misregistration plates (acid +
+   orchid) slide into alignment and fade over 1.15s while each character
+   flashes a mono glyph before resolving. Founder retired that animation for
+   the redesign (2026-08-08) — sprind is restrained and the glitch-decode
+   fought it. The markup keeps the plate and glyph spans so the motion can be
+   restored by deleting the three rules below, but by default the mark is
+   STATIC: letters visible, glyphs and plates hidden. This is exactly the
+   live site's prefers-reduced-motion state, promoted to the default.
+   ===================================================================== */
+.wm{
+  position:relative; display:inline-flex; text-decoration:none;
+  font-family:'Inter Tight',system-ui,sans-serif; font-weight:600;
+  letter-spacing:-0.045em; color:var(--paper); line-height:1;
+}
+.wm-main{ position:relative; z-index:2; display:inline-flex; }
+.wm-main .ch{ position:relative; display:inline-block; }
+.wm-main .ch .l{ opacity:1; }          /* animation retired */
+.wm-main .ch .g{ display:none; }       /* glyph flash retired */
+.wm-plate{ display:none; }             /* registration plates retired */
+.bar .wm{ font-size:30px; }
+.bar .mid{ font-size:var(--fs-s); text-transform:uppercase; letter-spacing:.025em; }
+.bar .util{ display:flex; align-items:center; gap:var(--p-m); }
+.bar .util a{ font-size:var(--fs-s); text-transform:uppercase; letter-spacing:.025em; color:var(--dim); }
+.bar .util a:hover,.bar .util a.on{ color:var(--fg); }
+
+/* Submenu row — Technique C lattice: 1px grid gap plus a 1px OUTLINE on every
+   cell. Outlines paint outside the border box and take no layout space, so two
+   neighbours' outlines meet inside the gutter and read as one hairline. */
+.navgrid{
+  display:grid; grid-auto-flow:column; grid-auto-columns:minmax(0,1fr);
+  gap:1px; background:var(--bg); list-style:none;
+}
+.navgrid > li{ display:flex; flex-direction:column; outline:1px solid var(--rule); }
+.nav-submenu{ display:grid; }   /* no gap: .navbottom carries margin-top:-1px */
+/* 38px, not 37. At 37 the bottom rule lands on a half device pixel and splits
+   50/75% across two grey rows — it reads soft rather than crisp. Measured. */
+.navgrid .top{
+  height:38px; display:flex; align-items:center; justify-content:center;
+  font-size:var(--fs-s); line-height:var(--lh-s);
+  text-transform:uppercase; letter-spacing:normal; text-align:center;
+  transition:background-color .15s cubic-bezier(.4,0,.2,1);
+}
+/* sprind fills the cell 20% white on dark, and does NOT change the text colour */
+.navgrid > li:hover .top{ background-color:rgba(255,255,255,.2); }
+.navgrid .panel{
+  border-top:1px solid var(--rule);
+  margin-bottom:-1px;              /* swallows the doubled hairline, as sprind does */
+  display:grid; gap:var(--p-xl); padding:0 var(--p-m);
+  max-height:0; opacity:0; overflow:hidden;
+  transition:max-height .5s ease-out, opacity .5s ease-out, padding .5s ease-out;
+}
+.menu:hover .navgrid .panel,
+.menu:focus-within .navgrid .panel{ max-height:384px; opacity:1; padding:var(--p-m); }
+.navgrid .panel ul{ display:flex; flex-direction:column; gap:2px; list-style:none; }
+/* Panel links are the ONE place sprind puts the arrow first — 15/19,
+   SENTENCE CASE (not uppercase), 8px gap. */
+.navgrid .panel a{
+  display:flex; gap:var(--p-s);
+  font-size:var(--fs-s); line-height:var(--lh-s); text-transform:none;
+}
+.navgrid .panel a span{ border-bottom:1px solid transparent; }
+/* Hover DIMS THE SIBLINGS rather than highlighting the target: every other
+   link goes to #767676 while the hovered one stays white. */
+.navgrid .panel ul:hover li a{ color:#767676; }
+.navgrid .panel ul li a{ transition:color .1s ease-in-out; }
+.navgrid .panel ul li a:hover{ color:var(--fg); }
+.navgrid .panel .info{ color:var(--meta); font-size:var(--fs-s); line-height:var(--lh-s); }
+/* Staggered reveal: child n gets .1n s duration, .02n s delay */
+.navgrid .panel ul li{ opacity:0; }
+.menu:hover .navgrid .panel ul li,
+.menu:focus-within .navgrid .panel ul li{ opacity:1; }
+.navgrid .panel ul li:nth-child(1){ transition:opacity .1s ease-in-out 0s; }
+.navgrid .panel ul li:nth-child(2){ transition:opacity .2s ease-in-out .02s; }
+.navgrid .panel ul li:nth-child(3){ transition:opacity .3s ease-in-out .04s; }
+.navgrid .panel ul li:nth-child(4){ transition:opacity .4s ease-in-out .06s; }
+.navgrid .panel ul li:nth-child(5){ transition:opacity .5s ease-in-out .08s; }
+.navgrid .panel .info{ transition:opacity .5s ease-out .1s; }
+
+/* Full-width bottom row spanning all three columns, 36px */
+/* visibility:hidden is load-bearing, not decoration. overflow:hidden does NOT
+   clip an element's own outline, so a 1px outline around a max-height:0 box
+   paints its top AND bottom edges as one solid 2px band — which margin-top:-1px
+   then stacks onto the panel's border-top and the li's outline-bottom. Measured
+   at 4 lit device rows against sprind's 2, 2.67x the ink. sprind's own .slider
+   rule carries `visibility:hidden` alongside `max-height:0` for exactly this
+   reason; we had copied the max-height and dropped the visibility. */
+.navbottom{
+  display:flex; justify-content:space-between; flex-wrap:wrap;
+  background:var(--bg); outline:1px solid var(--rule);
+  /* Closed header totals 82.8px against sprind's 81.8. Adding their -mb-[1px]
+     was tried and had no effect — the grid track floors at 0 — so the 1px is
+     left standing rather than papered over with CSS that does nothing. It is
+     total height only: both hairlines render pixel-identical to theirs. */
+  margin-top:-1px;
+  max-height:0; overflow:hidden; visibility:hidden;
+  transition:max-height .5s ease-out, visibility linear .5s;
+}
+.menu:hover .navbottom, .menu:focus-within .navbottom{
+  max-height:96px; visibility:visible;
+  transition:max-height .5s ease-out, visibility linear;
+}
+.navbottom ul{ display:flex; list-style:none; padding:var(--p-s) var(--p-m); }
+.navbottom .social{ gap:var(--p-s); }
+.navbottom .legal{ gap:var(--p-xl); }
+.navbottom a{ font-size:var(--fs-s); line-height:var(--lh-s); display:flex; gap:var(--p-s); }
+.navbottom .legal:hover a{ color:#767676; }
+.navbottom .legal a{ transition:color .1s ease-in-out; }
+.navbottom .legal a:hover{ color:var(--fg); }
+
+/* Hamburger — desktop has no menu button at all (sprind's is display:none at
+   >=768); below 768 it is the ONLY way to open the drawer. */
+.burger{
+  display:none; background:none; border:0; padding:0; cursor:pointer;
+  color:var(--fg); width:44px; height:44px;   /* 44 so it is a real touch target */
+  align-items:center; justify-content:center;
+}
+.burger span{ display:block; width:16px; height:1px; background:currentColor; }
+.burger span + span{ margin-top:3px; }
+
+/* Below 768 sprind drops the hover gating entirely: the drawer opens from the
+   bar and ALL panels are expanded at once. Without a toggle that would leave a
+   ~700px nav permanently open, so the drawer is gated behind the hamburger and
+   scrolls internally — a nav taller than the viewport is otherwise unusable. */
+@media (max-width:767px){
+  .burger{ display:flex; }
+  .nav-submenu{
+    max-height:0; overflow:hidden; visibility:hidden;
+    transition:max-height .4s ease, visibility linear .4s;
+  }
+  .menu.drawer-open .nav-submenu{
+    max-height:calc(100svh - 44px); overflow-y:auto; visibility:visible;
+    transition:max-height .4s ease, visibility linear;
+  }
+  .navgrid{ grid-auto-flow:row; }
+  .navgrid .panel{ max-height:none; opacity:1; padding:var(--p-m); }
+  .navgrid .panel ul li{ opacity:1; }
+  .navbottom{ max-height:none; visibility:visible; }
+  /* hover must not open anything on touch — the drawer class is the only gate */
+  .menu:hover .navgrid .panel, .menu:hover .navbottom{ max-height:none; }
+}
+
+/* ============================== MODULES ============================== */
+/* No top offset: the nav sits off-screen until revealed, so the page starts at
+   y=0 exactly as sprind's does. Anchor targets still clear the bar in case it
+   is showing when a jump happens. */
+main{ padding-top:0; }
+#top,#latest,#archive,#subscribe{ scroll-margin-top:var(--nav-h); }
+
+/* Technique A — every section carries its own bottom hairline and they abut.
+   Measured section-to-section gap on sprind: 0.00px across all 11 pairs. */
+.stack > *{ border-bottom:1px solid var(--rule); }
+.stack > *:last-child{ border-bottom:none; }
+
+/* BANDING, inverted. sprind: S0/S1/S2 black, S3/S4/S5 white, S6 black,
+   S7 white, S8 black, S9/S10 white, footer white.
+   Ours flips it — their white is our black, their black is our lifted band. */
+.band-lift{ background:var(--band); }
+.band-base{ background:var(--bg); }
+.module{ padding:var(--p-2xl) var(--p-2xl) var(--p-4xl); display:grid; gap:var(--p-4xl); }
+.module-flush{ padding:0; }
+.modhead{ display:flex; justify-content:space-between; align-items:flex-start; gap:var(--p-l); flex-wrap:wrap; }
+.modhead h2{ text-transform:uppercase; }
+
+/* ============================ HERO / INTRO ===========================
+   sprind: full-bleed media, min-height 70svh (100svh lg), a scrim rising
+   from the bottom, content bottom-centred. The giant wordmark is the
+   single largest object on the first screen; the h1 is secondary.
+   ===================================================================== */
+/* Founder-approved 2026-08-08: DROP THE HERO IMAGE. sprind's hero carries no
+   image and no video — it is the ground colour, a gradient, and a wordmark
+   that is the single largest object on the first screen. Their wordmark SVG is
+   w-2/3, a 960x361 box at 1440. Ours is set type sized to match that width.
+   Content column is justify-between with the eyebrow on top. Fade-in 0.3s on
+   mount is the only load-time motion on their whole page. */
+.intro{
+  position:relative; width:100%; min-height:70svh; overflow:hidden; display:flex;
+  background:var(--band);
+}
+@media (min-width:1024px){ .intro{ min-height:100svh; } }
+.intro .scrim{
+  position:absolute; inset:0; z-index:10;
+  background:linear-gradient(to top,var(--band) 20%,rgba(0,0,0,.3) 80%);
+}
+.intro .content{
+  position:relative; z-index:30; width:100%;
+  display:flex; flex-direction:column; justify-content:space-between; align-items:center;
+  padding:0 var(--p-2xl) var(--p-4_5xl); gap:var(--p-4xl);
+  animation:hero-fade .3s ease-in-out 1;
+}
+@keyframes hero-fade{ from{ opacity:0 } to{ opacity:1 } }
+/* Shrinking the wordmark is necessary but not sufficient: the hero's fixed
+   chrome — eyebrow 67, two 80px gaps, headline ~192, bottom padding 120 —
+   comes to 539px before the wordmark is drawn at all, which alone overflows a
+   674px laptop. Scale the spacing to viewport height too, but only once the
+   screen is actually short, so 900px-and-taller keeps sprind's exact rhythm. */
+@media (max-height:820px){
+  .intro .content{ gap:5svh; padding-bottom:8svh; }
+  .intro .eyebrow{ padding:2svh; }
+}
+
+.intro .eyebrow{
+  padding:var(--p-l); text-align:center;
+  font-size:var(--fs-s); line-height:var(--lh-s);
+  text-transform:uppercase; letter-spacing:normal; color:var(--fg);
+}
+/* sprind's hero wordmark is an SVG at w-2/3 — a 960x361 box at 1440. Ours is
+   set type, so the size is derived, not guessed: 11.6vw measured at 30.8% of
+   the content width, so 11.6 x (66/30.8) = 24.9vw lands on two-thirds. At 1440
+   that is a 359px face, and line-height .95 gives ~341px — within a rounding
+   error of their 361px box. */
+/* Bounded by HEIGHT as well as width (founder, 2026-08-10). Width alone made
+   the hero content 903px tall, so on a 674px laptop the h1 fell below the fold
+   and the first screen was eyebrow + wordmark only. 40svh is the share of the
+   viewport their wordmark occupies at 1440x900, so at that size and taller this
+   changes nothing — min() engages only when height is the binding constraint.
+   Fixes the short-screen case without touching sprind's 80px spacing rhythm. */
+.intro .bigmark{ font-size:min(24.9vw, 40svh); line-height:.95; }
+
+.intro h1{ text-align:center; text-transform:uppercase; max-width:24ch; }
+.intro .lede{ text-align:center; max-width:64ch; color:var(--dim); }
+.intro .headline{ display:grid; gap:var(--p-2xl); justify-items:center; }
+.intro .cue{
+  position:absolute; right:var(--p-l); bottom:var(--p-l); z-index:40;
+  font-size:var(--fs-xs); text-transform:uppercase; letter-spacing:.025em; color:var(--dim);
+}
+
+/* ============================== TEASERS ==============================
+   Measured on sprind: card 700x234. Image 350 left at 3:2. Text 350 right,
+   padding 16px 0 0 16px. Title 18/22 uppercase, body 18/22, date 15 uppercase.
+   Hairline across the top spanning both halves, plus the left hairline.
+   ===================================================================== */
+.cards{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); column-gap:var(--p-2xl); row-gap:var(--p-3xl); }
+@media (max-width:1023px){ .cards{ grid-template-columns:minmax(0,1fr); } }
+
+/* ONE edge, not two. sprind's news teasers carry border-top at >=1024 and flip
+   to border-left below it. We were drawing both at every width, which reads as
+   an L instead of a rule — measured and corrected 2026-08-08. */
+.teaser{
+  display:flex; min-width:0;
+  border-top:1px solid var(--rule);
+}
+@media (max-width:1023px){
+  .teaser{ border-top:0; border-left:1px solid var(--rule); }
+}
+.teaser .img{ flex:0 0 50%; aspect-ratio:3/2; overflow:hidden; background:var(--surface); }
+.teaser .img img{ width:100%; height:100%; object-fit:cover; transition:transform .6s cubic-bezier(.2,.7,.3,1), opacity .3s ease; opacity:.92; }
+.teaser:hover .img img{ transform:scale(1.04); opacity:1; }
+.teaser .body{
+  flex:1 1 50%; min-width:0;
+  padding:var(--p-m) 0 0 var(--p-m);
+  display:flex; flex-direction:column; gap:var(--p-s);
+}
+.teaser .date{ padding-bottom:var(--p-s); }
+.teaser h3{ text-transform:uppercase; font-size:var(--fs-m); line-height:var(--lh-xl); font-family:var(--font-extended); }
+.teaser p{ font-size:var(--fs-m); line-height:var(--lh-xl); color:var(--dim); }
+/* sprind's card CTA is .defaultS — an underlined label with NO arrow, #767676
+   going to full white on card hover. */
+.teaser .more{ margin-top:auto; margin-right:auto; }
+.teaser:hover .more{ color:var(--accent); border-bottom-color:var(--accent); }
+/* sprind flips the teaser to a column at 1023, in the SAME breakpoint that
+   flips its hairline from top to left — not at 600. We had them at different
+   widths, so between 601 and 1023 our card was a left-ruled row where theirs
+   is a left-ruled column. Measured 2026-08-09. */
+@media (max-width:1023px){
+  .teaser{ flex-direction:column; }
+  .teaser .img{ flex:none; width:100%; }
+  .teaser .body{ padding:var(--p-m); }
+}
+
+/* ============================= ACCORDION ============================= */
+.split{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--p-xl); }
+@media (max-width:1023px){ .split{ grid-template-columns:minmax(0,1fr); } }
+.acc .row{ border-bottom:1px solid var(--rule); }
+.acc .row:last-child{ border-bottom:0; }
+.acc button{
+  width:100%; min-width:0; background:none; border:0; cursor:pointer; text-align:left; color:var(--fg);
+  display:flex; justify-content:space-between; align-items:center; gap:var(--p-s);
+  padding:14px 0; font-family:var(--font-extended);
+  font-size:var(--fs-xl); line-height:var(--lh-xl); text-transform:uppercase;
+}
+.acc button:hover{ color:var(--accent); }
+.acc .sign{ font-family:var(--font-sans); transition:transform .25s ease; flex:0 0 auto; }
+.acc button > :first-child{ min-width:0; overflow-wrap:anywhere; }
+.acc .row.open .sign{ transform:rotate(45deg); }
+.acc .panel{ max-height:0; overflow:hidden; transition:max-height .22s ease-out; }
+.acc .row.open .panel{ max-height:280px; }
+.acc .panel p{ padding:0 0 var(--p-m); color:var(--dim); }
+
+/* =========================== FULL-BLEED FILM ========================= */
+.film{ position:relative; aspect-ratio:16/9; overflow:hidden; background:#000; }
+.film img{ width:100%; height:100%; object-fit:cover; opacity:.8; }
+.film .veil{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,.35); transition:backdrop-filter .3s ease; }
+.film:hover .veil{ backdrop-filter:blur(5px); }
+.film .play{
+  color:#fff; background:none; border:1px solid #fff; cursor:pointer;
+  font-family:var(--font-sans); font-size:var(--fs-s); text-transform:uppercase;
+  letter-spacing:.025em; padding:var(--p-s) var(--p-l);
+}
+.film .play:hover{ background:#fff; color:#000; }
+.film .scrub{ position:absolute; left:var(--p-m); right:var(--p-m); bottom:var(--p-l); }
+.film .track{ position:relative; height:1px; background:rgba(255,255,255,.25); transition:height .2s ease; }
+.film:hover .track{ height:4px; }
+.film .track i{ position:absolute; inset:0 62% 0 0; background:#fff; }
+.film .times{ display:flex; justify-content:space-between; color:#fff; font-size:var(--fs-xs); padding-top:8px; font-variant-numeric:tabular-nums; }
+
+/* ===================== SECTION-HEADER COPY-LINK ======================
+   sprind puts a 24x24 copy-link button beside every section h2 at #676767,
+   opacity 0 until the heading is hovered. */
+.modhead h2{ display:inline-flex; align-items:flex-start; }
+.copylink{
+  width:24px; height:24px; margin-left:var(--p-s); flex:0 0 auto;
+  background:none; border:0; cursor:pointer; color:#676767;
+  font-family:var(--font-sans); font-size:var(--fs-s); line-height:1;
+  opacity:0; transition:opacity .15s cubic-bezier(.4,0,.2,1);
+  align-self:center;
+}
+.modhead h2:hover .copylink, .copylink:focus-visible{ opacity:1; }
+
+/* ======================= BIG CARDS — their S4 ========================
+   Two large cards, gap 24, each bounded by a LEFT hairline. Image is
+   full-width 3:2 above the text, not beside it. Text padding 16/0/0/16,
+   internal gap 24, heading2 at 32/34. */
+.bigcards{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--p-l); }
+@media (max-width:1023px){ .bigcards{ grid-template-columns:minmax(0,1fr); } }
+.bigcard{ border-left:1px solid var(--rule); display:flex; flex-direction:column; min-width:0; }
+.bigcard .img{ aspect-ratio:3/2; overflow:hidden; background:var(--surface); }
+.bigcard .img img{ width:100%; height:100%; object-fit:cover; opacity:.92; transition:opacity .3s ease; }
+.bigcard:hover .img img{ opacity:1; }
+.bigcard .body{ padding:var(--p-m) 0 0 var(--p-m); display:grid; gap:var(--p-l); }
+.bigcard h3{ text-transform:uppercase; }
+.bigcard h3.plain{ text-transform:none; }
+.bigcard:hover .defaultS{ color:var(--accent); border-bottom-color:var(--accent); }
+
+/* ==================== STACKED SLIDER — their S5 ======================
+   Four cards stacked back-to-front, each scaled 0.95^n and pushed down 48n.
+   Controls are 40x40 transparent round buttons with a counter between. */
+.stackwrap{ position:relative; }
+.stackdeck{ position:relative; height:740px; }
+@media (max-width:1023px){ .stackdeck{ height:560px; } }
+.stackcard{
+  position:absolute; left:50%; top:0; width:100%; padding:var(--p-2xl);
+  display:flex; flex-direction:column; justify-content:space-between; gap:var(--p-l);
+  min-height:600px; overflow:hidden; outline:1px solid var(--rule);
+  background:var(--surface);
+  transition:transform .3s cubic-bezier(.4,0,.2,1), opacity .5s cubic-bezier(.25,1,.5,1);
+}
+.stackcard .shot{ position:absolute; inset:0; z-index:0; }
+.stackcard .shot img{ width:100%; height:100%; object-fit:cover; opacity:.55; }
+.stackcard > *:not(.shot){ position:relative; z-index:2; }
+.stackcard[data-i="0"]{ transform:translateX(-50%) scale(1)    translateY(0);    z-index:4; }
+.stackcard[data-i="1"]{ transform:translateX(-50%) scale(.95)  translateY(48px); z-index:3; }
+.stackcard[data-i="2"]{ transform:translateX(-50%) scale(.9)   translateY(96px); z-index:2; }
+.stackcard[data-i="3"]{ transform:translateX(-50%) scale(.85)  translateY(144px);z-index:1; }
+.stackcard .lede{ max-width:52ch; }
+.stackctrls{ display:grid; grid-template-columns:1fr auto 1fr; align-items:center; margin-top:var(--p-l); }
+.stackctrls button{
+  width:40px; height:40px; border-radius:9999px; border:0; background:none;
+  color:var(--fg); cursor:pointer; font-family:var(--font-sans); font-size:var(--fs-m);
+  transition:color .15s cubic-bezier(.4,0,.2,1);
+}
+.stackctrls button:hover{ color:var(--accent); }
+.stackctrls .prev{ justify-self:start; }
+.stackctrls .next{ justify-self:end; }
+.stackctrls .count{ min-width:56px; text-align:center; font-size:var(--fs-s); line-height:var(--lh-xl); }
+
+/* Below 1024 the stack stops being a stack. The cards are position:absolute
+   with min-height 600 and are pushed down up to 144px, so against a 560px deck
+   they would spill out of the section and overlap what follows. Showing only
+   the active card removes the overlap risk entirely and is the more usable
+   pattern on a phone anyway. */
+@media (max-width:1023px){
+  .stackdeck{ height:auto; }
+  .stackcard{ position:static; width:100%; min-height:0; transform:none !important; }
+  .stackcard:not([data-i="0"]){ display:none; }
+}
+
+/* ====================== PODCAST BAND — their S6 ======================
+   Full-bleed dark band with a background image and a corner gradient. The
+   inner module restores the 40px gutter. Episode rows carry a TOP hairline
+   and 32/16 padding. */
+.podcast{ position:relative; padding:0; overflow:hidden; }
+.podcast .bgshot{ position:absolute; inset:0; z-index:0; }
+.podcast .bgshot img{ width:100%; height:100%; object-fit:cover; }
+.podcast .veilgrad{
+  position:absolute; inset:0; z-index:1;
+  background:linear-gradient(to top left, rgba(0,0,0,.7) 0%, var(--band) 70%);
+}
+.podcast .module{ position:relative; z-index:2; }
+.podcast .eplist{ display:grid; }
+.episode{
+  border-top:1px solid var(--rule); padding:var(--p-xl) var(--p-m);
+  display:flex; gap:var(--p-m); align-items:flex-start;
+}
+.episode .play-ep{
+  background:none; border:0; color:var(--fg); cursor:pointer; flex:0 0 auto;
+  font-size:var(--fs-m); line-height:var(--lh-xl); padding:0;
+}
+.episode .epbody{ display:grid; gap:var(--p-s); min-width:0; flex:1 1 auto; }
+.episode .ephead{ display:flex; justify-content:space-between; gap:var(--p-m); flex-wrap:wrap; }
+/* the ONE place sprind uses a non-400 weight on the homepage */
+.episode h4{ font-family:var(--font-sans); font-weight:500; font-size:var(--fs-m); line-height:var(--lh-xl); }
+.episode .dur{ font-variant-numeric:tabular-nums; font-size:var(--fs-m); line-height:var(--lh-xl); }
+.episode .epacts{ display:flex; gap:var(--p-m); padding-top:var(--p-s); }
+.episode .epacts button{
+  background:none; border:0; cursor:pointer; color:#767676;
+  font-family:var(--font-sans); font-size:var(--fs-m); line-height:var(--lh-xl);
+  transition:color .15s cubic-bezier(.4,0,.2,1);
+}
+.episode .epacts button:hover{ color:var(--accent); }
+
+/* ======================= BIG ROW — their S8/S9/S10 ===================
+   One full-width link: 3:2 image left, heading and CTA right, gap 24. */
+.bigrow{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--p-l); }
+@media (max-width:1023px){ .bigrow{ grid-template-columns:minmax(0,1fr); } }
+.bigrow .img{ aspect-ratio:3/2; overflow:hidden; background:var(--surface); }
+.bigrow .img img{ width:100%; height:100%; object-fit:cover; opacity:.92; transition:opacity .3s ease; }
+.bigrow:hover .img img{ opacity:1; }
+.bigrow .side{ display:flex; flex-direction:column; justify-content:space-between; gap:var(--p-l); }
+.bigrow h3{ text-transform:none; }
+/* sprind's only #dfdfdf: this CTA underline, which does NOT change on hover */
+.bigrow .cta{
+  display:inline-flex; align-self:flex-start;
+  font-size:var(--fs-m); line-height:var(--lh-xl); color:#767676;
+  border-bottom:1px solid #dfdfdf;
+  transition:color .15s cubic-bezier(.4,0,.2,1);
+}
+.bigrow:hover .cta{ color:var(--accent); }
+
+/* ===================== MAGAZINE GRID — their S7 ======================
+   Four columns, gap 32, and the first card spans 2x2 as a feature. Each
+   card is bounded by a LEFT hairline. Below 1024 it stops being a lattice
+   entirely and becomes a horizontal snap carousel. */
+.magazine{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:var(--p-xl); }
+.magazine > *:first-child{ grid-area:span 2 / span 2; }
+.magazine .mag{ border-left:1px solid var(--rule); display:flex; flex-direction:column; min-width:0; }
+.magazine .mag .img{ aspect-ratio:3/2; overflow:hidden; background:var(--surface); }
+.magazine > *:first-child .img{ aspect-ratio:auto; flex:1 1 auto; }
+.magazine .mag .img img{ width:100%; height:100%; object-fit:cover; opacity:.92; transition:opacity .3s ease; }
+.magazine .mag:hover .img img{ opacity:1; }
+.magazine .mag .body{ padding:var(--p-m) 0 0 var(--p-m); display:grid; gap:var(--p-m); }
+.magazine .mag h3{ text-transform:uppercase; font-size:var(--fs-m); line-height:var(--lh-xl); font-family:var(--font-extended); }
+.magazine .mag p{ font-size:var(--fs-m); line-height:var(--lh-xl); color:var(--dim); }
+.magazine .mag:hover .defaultS{ color:var(--accent); border-bottom-color:var(--accent); }
+@media (max-width:1023px){
+  .magazine{
+    display:flex; overflow-x:auto; scroll-snap-type:x mandatory;
+    margin:0 calc(var(--p-l) * -1); padding:0 var(--p-l) var(--p-l);
+    gap:var(--p-m);
+  }
+  .magazine > *{ flex:0 0 95%; scroll-snap-align:start; }
+  .magazine > *:first-child{ grid-area:auto; }
+  .magazine > *:first-child .img{ aspect-ratio:3/2; flex:none; }
+}
+
+/* ============================== FOOTER ===============================
+   Lattice: gap:1px, every cell 1px-outlined. Cells 128px tall
+   (padding 48px 0), 18px uppercase, arrow FIRST. The newsletter CTA is an
+   unfilled cell bounded by hairlines — never a filled button.
+   ===================================================================== */
+/* sprind's footer is a WHITE band; inverted, ours is the base black. */
+footer{ display:grid; gap:1px; background:var(--bg); }
+.lattice{ display:grid; gap:1px; }
+.lattice > *{ outline:1px solid var(--rule); }
+.foot-top{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+@media (max-width:1023px){ .foot-top{ grid-template-columns:minmax(0,1fr); } }
+.foot-social{ display:flex; align-items:center; justify-content:center; gap:var(--p-l); padding:var(--p-3xl) var(--p-l); flex-wrap:wrap; }
+.foot-social a{ font-size:var(--fs-s); text-transform:uppercase; letter-spacing:.025em; color:var(--dim); }
+.foot-social a:hover{ color:var(--accent); }
+.nl-title{ padding:var(--p-3xl); text-align:center; text-transform:uppercase; }
+.nl-form{ padding:var(--p-l); }
+.nl-form label{ display:block; font-size:var(--fs-s); text-transform:uppercase; letter-spacing:.025em; color:var(--meta); padding-bottom:8px; }
+.nl-form input{
+  width:100%; background:transparent; color:var(--fg);
+  border:0; border-bottom:1px solid var(--rule); border-radius:0;
+  padding:10px 0; font-family:var(--font-sans); font-size:var(--fs-m); outline:none;
+}
+.nl-form input:focus{ border-bottom-color:var(--fg); }
+.nl-cta{
+  display:flex; align-items:center; justify-content:center;
+  padding:var(--p-3xl) 0; font-size:var(--fs-m); text-transform:uppercase;
+  color:var(--meta); cursor:pointer; background:none; border:0; width:100%;
+  font-family:var(--font-sans); letter-spacing:.025em;
+}
+.nl-cta:hover{ color:var(--accent); }
+.nl-note{ padding:var(--p-l); color:var(--meta); }
+.nl-note a{ text-decoration:underline; }
+.foot-links{ grid-template-columns:repeat(3,minmax(0,1fr)); }
+@media (max-width:1023px){ .foot-links{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media (max-width:640px){ .foot-links{ grid-template-columns:minmax(0,1fr); } }
+.foot-links a{
+  display:flex; align-items:center; justify-content:center; gap:.55em;
+  padding:var(--p-3xl) var(--p-l); font-size:var(--fs-m); text-transform:uppercase;
+  min-height:128px;
+}
+.foot-links a:hover{ background:rgba(255,255,255,.05); color:var(--accent); }
+.colophon{ padding:var(--p-m); text-align:center; text-transform:uppercase; letter-spacing:.025em; color:var(--meta); }
+
+/* ------------------------------ toggles ------------------------------ */
+.toggles{ position:fixed; right:12px; bottom:12px; z-index:90; display:flex; flex-direction:column; gap:6px; align-items:flex-end; }
+.toggles button{
+  background:#fff; color:#000; border:0; cursor:pointer;
+  font:12px/1.2 ui-monospace,monospace; padding:9px 12px; letter-spacing:.06em;
+}
+.toggles button:hover{ background:var(--accent); }
 </style>
 </head>
 <body>
 
-<script>document.documentElement.className='js';</script>
+<a class="skip-link" href="#main-content">Skip to main content</a>
 
-<!-- ======================= CHROME ======================= -->
-<header class="chrome">
-  <a class="wm" href="#top" aria-label="vektor">
-    <span class="wm-plate wm-acid" aria-hidden="true">vektor</span>
-    <span class="wm-plate wm-orchid" aria-hidden="true">vektor</span>
-    <span class="wm-main">
-      <span class="ch" style="--i:0"><span class="g">%</span><span class="l">v</span></span><span class="ch" style="--i:1"><span class="g">#</span><span class="l">e</span></span><span class="ch" style="--i:2"><span class="g">Z</span><span class="l">k</span></span><span class="ch" style="--i:3"><span class="g">8</span><span class="l">t</span></span><span class="ch" style="--i:4"><span class="g">@</span><span class="l">o</span></span><span class="ch" style="--i:5"><span class="g">W</span><span class="l">r</span></span>
-    </span>
-  </a>
-  <span class="marker">The Index</span>
-</header>
+<!-- The 24px invisible strip that reveals the nav. sprind pins one of these to
+     the top of the viewport; mouseenter adds .nav-visible to the header. -->
+<div class="navreveal" aria-hidden="true"></div>
 
-<main>
-<div class="weave" aria-hidden="true"></div>
-
-<!-- ============================ HERO / COVER ============================ -->
-<section class="hero">
-  <div class="ascii" aria-hidden="true">   .:;!ii!;:.
- .;itfLCCLfti;.
-;tLG08@@@80GLt;
-!fG8W%#**#%W8Gf!
-;tLG08@@@80GLt;
- .;itfLCCLfti;.
-   .:;!ii!;:.</div>
-
-  <div class="wordmark">vektor</div>
-  <div class="kick eye">Vektor /// The Index</div>
-  <h1>The AI frontier,<br>cut to what<br>ships<span class="dot">.</span></h1>
-  <p class="sub">Daily shorts on the Claude &amp; AI tooling that actually matters — and every issue delivers the goods.</p>
-  <p class="sub" style="margin-top:10px; font-size:14px; color:#8f8b80;">One short a day. Every video ends in working links — comment the keyword, get the goods.</p>
-</section>
-
-<!-- ============================ LATEST ISSUE ============================ -->
-<div class="fig"><span class="kick">Latest issue</span><span class="line"></span></div>
-<section class="latest">
-  <article class="lcard" id="no-033">
-    <div class="tag">Latest · No. 033 / Five Setups / 08-2026</div>
-    <h2>Five free setups.</h2>
-    <div class="lactions">
-      <a class="get" data-goatcounter-click="hub-open-latest" href="./no-033.html">Open the mirror →</a>
-      <span class="watch">Watch:
-        <span class="wi"><a data-goatcounter-click="hub-follow-tiktok" href="https://tiktok.com/@vektor.fm" target="_blank" rel="noopener">TikTok</a> /</span>
-        <span class="wi"><a data-goatcounter-click="hub-follow-instagram" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Instagram</a> /</span>
-        <span class="wi"><a data-goatcounter-click="hub-follow-youtube" href="https://youtube.com/@vektorfm" target="_blank" rel="noopener">YouTube</a> /</span>
-        <span class="wi"><a data-goatcounter-click="hub-follow-x" href="https://x.com/vektordotfm" target="_blank" rel="noopener">X</a></span>
-      </span>
+<div class="menu">
+  <div class="bar">
+    <a class="wm" href="#top" aria-label="vektor"><span class="wm-plate wm-acid" aria-hidden="true">vektor</span><span class="wm-plate wm-orchid" aria-hidden="true">vektor</span><span class="wm-main"><span class="ch" style="--i:0"><span class="g">%</span><span class="l">v</span></span><span class="ch" style="--i:1"><span class="g">#</span><span class="l">e</span></span><span class="ch" style="--i:2"><span class="g">Z</span><span class="l">k</span></span><span class="ch" style="--i:3"><span class="g">8</span><span class="l">t</span></span><span class="ch" style="--i:4"><span class="g">@</span><span class="l">o</span></span><span class="ch" style="--i:5"><span class="g">W</span><span class="l">r</span></span></span></a>
+    <span class="mid">The Index</span>
+    <div class="util">
+      <a href="#top" class="on">Start</a><a href="#subscribe">Subscribe</a>
+      <button class="burger" type="button" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
     </div>
-  </article>
-</section>
-
-<!-- ============================ NEWSLETTER (primary conversion) ============================ -->
-<section style="padding:12px var(--rail) 0;">
-  <div class="capture" id="subscribe">
-    <span class="ck">The Teardown — one email / week</span>
-    <h2 class="d">Get every drop's pack.</h2>
-    <p class="s">The current drop's config pack + one teardown a week, straight to your inbox.</p>
-    <form method="post" action="https://buttondown.com/api/emails/embed-subscribe/vektor">
-      <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required="">
-      <button class="btn" type="submit">Subscribe →</button>
-    </form>
-    <div class="note">Free. Unsubscribe anytime.</div>
   </div>
-</section>
-
-<!-- ============================ RITUAL STRIP ============================ -->
-<section class="ritual">
-  <h2 class="h">How it works</h2>
-  <div class="steps">
-    <div class="step"><span class="n">01</span><span class="t">Watch the reel</span></div>
-    <div class="step"><span class="n">02</span><span class="t">Comment the keyword</span></div>
-    <div class="step"><span class="n">03</span><span class="t">The links land in your DMs</span></div>
+  <!-- sprind nests the lattice and the bottom row inside ONE #nav-submenu, so
+       the header grid has two children and therefore one 1px gap. Flattening
+       them into .menu adds a second gap and overshoots the 81.8px closed
+       height by 2px. -->
+  <div class="nav-submenu">
+  <ul class="navgrid">
+    <li>
+      <a class="top" href="#latest">Issues</a>
+      <div class="panel">
+        <ul>
+          <li><a href="#latest"><span class="a">→</span><span>Latest</span></a></li>
+          <li><a href="#archive"><span class="a">→</span><span>The archive</span></a></li>
+          <li><a href="#series"><span class="a">→</span><span>Series</span></a></li>
+          <li><a href="https://instagram.com/vektor.fm" target="_blank" rel="noopener"><span class="a">→</span><span>Submit a topic</span></a></li>
+        </ul>
+        <p class="info">Every issue is one short film and one working pack — config, prompts, links.</p>
+      </div>
+    </li>
+    <li>
+      <a class="top" href="./pack.html">Packs</a>
+      <div class="panel">
+        <ul>
+          <li><a href="./no-004.html"><span class="a">→</span><span>Skills</span></a></li>
+          <li><a href="./no-013.html"><span class="a">→</span><span>Agent starter kit</span></a></li>
+          <li><a href="./no-015.html"><span class="a">→</span><span>Loops</span></a></li>
+          <li><a href="./no-010.html"><span class="a">→</span><span>CLAUDE.md files</span></a></li>
+        </ul>
+        <p class="info">The files behind the films. Free, no signup wall.</p>
+      </div>
+    </li>
+    <li>
+      <a class="top" href="#about">About</a>
+      <div class="panel">
+        <ul>
+          <li><a href="#about"><span class="a">→</span><span>What vektor is</span></a></li>
+          <li><a href="#subscribe"><span class="a">→</span><span>The Teardown</span></a></li>
+          <li><a href="https://youtube.com/@vektorfm" target="_blank" rel="noopener"><span class="a">→</span><span>Watch</span></a></li>
+          <li><a href="./privacy.html"><span class="a">→</span><span>Privacy</span></a></li>
+        </ul>
+        <p class="info">Daily shorts on the Claude and AI tooling that actually matters.</p>
+      </div>
+    </li>
+  </ul>
+  <!-- Full-width row spanning all three columns, 36px on sprind: social left,
+       legal links right at gap 32. Same dim-the-siblings hover as the panels. -->
+  <div class="navbottom">
+    <ul class="social">
+      <li><a href="https://youtube.com/@vektorfm" target="_blank" rel="noopener"><span>YT</span></a></li>
+      <li><a href="https://instagram.com/vektor.fm" target="_blank" rel="noopener"><span>IG</span></a></li>
+      <li><a href="https://tiktok.com/@vektor.fm" target="_blank" rel="noopener"><span>TT</span></a></li>
+      <li><a href="https://x.com/vektordotfm" target="_blank" rel="noopener"><span>X</span></a></li>
+    </ul>
+    <ul class="legal">
+      <li><a href="#subscribe"><span class="a">→</span><span>Subscribe</span></a></li>
+      <li><a href="./privacy.html"><span class="a">→</span><span>Privacy</span></a></li>
+      <li><a href="./thanks.html"><span class="a">→</span><span>Contact</span></a></li>
+    </ul>
   </div>
-</section>
-
-<!-- ============================ ARCHIVE ============================ -->
-<div class="fig"><h2 class="kick">Fig. 01 ·</h2><span class="gaccent">archive</span><span class="line"></span></div>
-<section class="archive">
-
-  <!-- ===== ARCHIVE ROW — copy this <a.row> block for each new issue (newest first) ===== -->
-  <a class="row" href="./no-033.html">
-    <span class="no">033</span>
-    <span class="mid">
-      <span class="t">Five free setups.</span>
-      <span class="k">Five Setups · 08-2026</span>
-    </span>
-    <span class="k-chip">Keyword: STACK</span>
-    <span class="go">Open →</span>
-  </a>
-  <a class="row" href="./no-024.html">
-    <span class="no">024</span>
-    <span class="mid">
-      <span class="t">Your AI habits. Audited.</span>
-      <span class="k">The Mirror · 07-2026</span>
-    </span>
-    <span class="k-chip">Keyword: Mirror</span>
-    <span class="go">Open →</span>
-  </a>
-  <a class="row" href="./no-023.html">
-    <span class="no">023</span>
-    <span class="mid">
-      <span class="t">3 skills. Taste, installed.</span>
-      <span class="k">The Design Stack · 07-2026</span>
-    </span>
-    <span class="k-chip">Keyword: Taste</span>
-    <span class="go">Open →</span>
-  </a>
-  <a class="row" href="./no-022.html">
-    <span class="no">022</span>
-    <span class="mid">
-      <span class="t">33 AI tells. Deleted.</span>
-      <span class="k">The Humanizer · 07-2026</span>
-    </span>
-    <span class="k-chip">Keyword: Human</span>
-    <span class="go">Open →</span>
-  </a>
-  <a class="row" href="./no-021.html">
-    <span class="no">021</span>
-    <span class="mid">
-      <span class="t">9 tools too good to be free.</span>
-      <span class="k">The Open-Source Nine · 07-2026</span>
-    </span>
-    <span class="k-chip">Keyword: Open</span>
-    <span class="go">Open →</span>
-  </a>
-  <a class="row" href="./no-020.html">
-    <span class="no">020</span>
-    <span class="mid">
-      <span class="t">4 subagents. Not 1 chat.</span>
-      <span class="k">Subagents · 07-2026</span>
-    </span>
-    <span class="k-chip">Keyword: Squad</span>
-    <span class="go">Open →</span>
-  </a>
-  <a class="row" href="./no-019.html">
-    <span class="no">019</span>
-    <span class="mid">
-      <span class="t">The Academy Series.</span>
-      <span class="k">The Academy · 07-2026</span>
-    </span>
-    <span class="k-chip">Keyword: Academy</span>
-    <span class="go">Open →</span>
-  </a>
-  <a class="row" href="./no-018.html">
-    <span class="no">018</span>
-    <span class="mid">
-      <span class="t">3 files. The brain, bottled.</span>
-      <span class="k">Bottle the Brain · 07-2026</span>
-    </span>
-    <span class="k-chip">Keyword: Bottle</span>
-    <span class="go">Open →</span>
-  </a>
-  <a class="row" href="./no-017.html">
-    <span class="no">017</span>
-    <span class="mid">
-      <span class="t">The match-predictor prompt.</span>
-      <span class="k">AI vs the Final · 07-2026</span>
-    </span>
-    <span class="k-chip">Keyword: Final</span>
-    <span class="go">Open →</span>
-  </a>
-  <a class="row" href="./no-015.html">
-    <span class="no">015</span>
-    <span class="mid">
-      <span class="t">Stop prompting. Write loops.</span>
-      <span class="k">Loops · 07-2026</span>
-    </span>
-    <span class="k-chip">Keyword: Loop</span>
-    <span class="go">Open →</span>
-  </a>
-  <a class="row" href="./no-013.html">
-    <span class="no">013</span>
-    <span class="mid">
-      <span class="t">Hire your first AI agent.</span>
-      <span class="k">Agents · 07-2026</span>
-    </span>
-    <span class="k-chip">Keyword: Agent</span>
-    <span class="go">Open →</span>
-  </a>
-  <a class="row" href="./no-012.html">
-    <span class="no">012</span>
-    <span class="mid">
-      <span class="t">6 rules. Your repo survives.</span>
-      <span class="k">Git Hygiene · 07-2026</span>
-    </span>
-    <span class="k-chip">Keyword: Repo</span>
-    <span class="go">Open →</span>
-  </a>
-  <a class="row" href="./no-011.html">
-    <span class="no">011</span>
-    <span class="mid">
-      <span class="t">Faster. Cheaper. 3 rules.</span>
-      <span class="k">The Rules · Part 2 · 07-2026</span>
-    </span>
-    <span class="k-chip">Keyword: Speed</span>
-    <span class="go">Open →</span>
-  </a>
-  <a class="row" href="./no-010.html">
-    <span class="no">010</span>
-    <span class="mid">
-      <span class="t">7 rules. One file.</span>
-      <span class="k">The Rules · 07-2026</span>
-    </span>
-    <span class="k-chip">Keyword: Rules</span>
-    <span class="go">Open →</span>
-  </a>
-  <a class="row" href="./no-009.html">
-    <span class="no">009</span>
-    <span class="mid">
-      <span class="t">One prompt. Every carousel.</span>
-      <span class="k">The Carousel · 07-2026</span>
-    </span>
-    <span class="k-chip">Keyword: Carousel</span>
-    <span class="go">Open →</span>
-  </a>
-  <a class="row" href="./no-008.html">
-    <span class="no">008</span>
-    <span class="mid">
-      <span class="t">120,000 chars. Leaked.</span>
-      <span class="k">The Leak · 07-2026</span>
-    </span>
-    <span class="k-chip">Keyword: Steal</span>
-    <span class="go">Open →</span>
-  </a>
-  <a class="row" href="./no-007.html">
-    <span class="no">007</span>
-    <span class="mid">
-      <span class="t">1.6M lines. On iPhone.</span>
-      <span class="k">The Port · 07-2026</span>
-    </span>
-    <span class="k-chip">Keyword: Generals</span>
-    <span class="go">Open →</span>
-  </a>
-  <a class="row" href="./no-006.html">
-    <span class="no">006</span>
-    <span class="mid">
-      <span class="t">One file. 188,000 stars.</span>
-      <span class="k">The File · 07-2026</span>
-    </span>
-    <span class="k-chip">Keyword: Karpathy</span>
-    <span class="go">Open →</span>
-  </a>
-  <a class="row" href="./no-005.html">
-    <span class="no">005</span>
-    <span class="mid">
-      <span class="t">Code with AI. Keep your brain.</span>
-      <span class="k">Four Rules · 07-2026</span>
-    </span>
-    <span class="k-chip">Keyword: Brain</span>
-    <span class="go">Open →</span>
-  </a>
-  <a class="row" href="./no-004.html">
-    <span class="no">004</span>
-    <span class="mid">
-      <span class="t">You only need 5 skills.</span>
-      <span class="k">Five Skills · 07-2026</span>
-    </span>
-    <span class="k-chip">Keyword: Claude</span>
-    <span class="go">Open →</span>
-  </a>
-  <!-- ===== END ARCHIVE ROW ===== -->
-
-  <div class="row" aria-hidden="false">
-    <span class="no" style="color:#8f8b80;">001–003</span>
-    <span class="mid">
-      <span class="t" style="color:#8f8b80;">Pre-site era.</span>
-      <span class="k">Lived in the DMs</span>
-    </span>
   </div>
+</div>
 
-</section>
-</main>
+<main id="top"><div class="stack" id="main-content">
 
-<!-- ============================ FOOTER ============================ -->
+  <section class="intro band-lift">
+    <div class="scrim"></div>
+    <div class="content">
+      <!-- No image. sprind's first screen is ground colour + gradient + a
+           wordmark at 2/3 of the viewport width, with the h1 secondary beneath
+           it and a small uppercase eyebrow on top. -->
+      <div class="eyebrow">The frontier, by the numbers</div>
+      <a class="wm bigmark" href="#top" aria-label="vektor"><span class="wm-plate wm-acid" aria-hidden="true">vektor</span><span class="wm-plate wm-orchid" aria-hidden="true">vektor</span><span class="wm-main"><span class="ch" style="--i:0"><span class="g">%</span><span class="l">v</span></span><span class="ch" style="--i:1"><span class="g">#</span><span class="l">e</span></span><span class="ch" style="--i:2"><span class="g">Z</span><span class="l">k</span></span><span class="ch" style="--i:3"><span class="g">8</span><span class="l">t</span></span><span class="ch" style="--i:4"><span class="g">@</span><span class="l">o</span></span><span class="ch" style="--i:5"><span class="g">W</span><span class="l">r</span></span></span></a>
+      <div class="headline">
+        <h1 class="heading1">The AI frontier, cut to what ships</h1>
+        <p class="lede copyL">Every issue is one short film and one working pack. Watch it, comment the keyword, and the files land in your DMs — config, prompts, links, nothing held back.</p>
+      </div>
+    </div>
+    <div class="cue">Scroll</div>
+  </section>
+
+  <section class="module band-lift" id="latest">
+    <div class="modhead">
+      <h2 class="heading1">Latest</h2>
+      <a class="alink u" href="#archive"><span class="a">→</span><span>All 22 issues</span></a>
+    </div>
+    <div class="cards">
+      <a class="teaser" href="./no-033.html">
+        <div class="img noplate" aria-hidden="true"></div>
+        <div class="body">
+          <div class="date meta">08-2026 &middot; Five Setups</div>
+          <h3>Five free setups.</h3>
+          <p>17 example skills, the official plugin marketplace, superpowers, claude-mem, a sub-agent marketplace — and the two hooks that make your rules file bite.</p>
+          <span class="more defaultS">Open the pack</span>
+        </div>
+      </a>
+      <a class="teaser" href="./no-024.html">
+        <div class="img"><img loading="lazy" decoding="async" width="700" height="467" src="og/plate-no-024-card.webp" alt=""></div>
+        <div class="body">
+          <div class="date meta">07-2026 &middot; The Mirror</div>
+          <h3>Your AI habits. Audited.</h3>
+          <p>The Mirror — Claude's Reflect set up honestly, plus 10 copy-paste prompts that audit what you delegate, what you avoid, and what you should learn yourself.</p>
+          <span class="more defaultS">Open the pack</span>
+        </div>
+      </a>
+      <a class="teaser" href="./no-023.html">
+        <div class="img"><img loading="lazy" decoding="async" width="700" height="467" src="og/plate-no-023-card.webp" alt=""></div>
+        <div class="body">
+          <div class="date meta">07-2026 &middot; The Design Stack</div>
+          <h3>3 skills. Taste, installed.</h3>
+          <p>3 skills that fix generic Claude Code sites — taste-skill (66.2k★), impeccable (48.6k★), Emil's motion rules (19.7k★). Real installs + a same-prompt before/after.</p>
+          <span class="more defaultS">Open the pack</span>
+        </div>
+      </a>
+      <a class="teaser" href="./no-022.html">
+        <div class="img"><img loading="lazy" decoding="async" width="700" height="467" src="og/plate-no-022-card.webp" alt=""></div>
+        <div class="body">
+          <div class="date meta">07-2026 &middot; The Humanizer</div>
+          <h3>33 AI tells. Deleted.</h3>
+          <p>The Humanizer install guide — blader/humanizer (30k★, MIT): every install method, the two-pass flow, and the 33 named AI-writing tells, from Wikipedia's own guide.</p>
+          <span class="more defaultS">Open the pack</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <section class="module-flush band-lift">
+    <div class="film">
+      <img src="og/plate-no-017-hero.webp" alt="">
+      <div class="veil"><button class="play">Play the reel</button></div>
+      <div class="scrub">
+        <div class="track"><i></i></div>
+        <div class="times"><span>00:24</span><span>00:38</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="module band-base">
+    <div class="split">
+      <h2 class="heading1 up">How it works</h2>
+      <div class="acc">
+        <div class="row open">
+          <button type="button">Watch the reel <span class="sign">+</span></button>
+          <div class="panel"><p class="copyS">One short a day, on TikTok, Instagram, YouTube and X. Sixty seconds, no intro, no outro.</p></div>
+        </div>
+        <div class="row">
+          <button type="button">Comment the keyword <span class="sign">+</span></button>
+          <div class="panel"><p class="copyS">Every film ends on a single word. Comment it and the bot picks it up.</p></div>
+        </div>
+        <div class="row">
+          <button type="button">The links land in your DMs <span class="sign">+</span></button>
+          <div class="panel"><p class="copyS">The pack arrives as working links — the config, the prompts, the repo. No signup, no gate.</p></div>
+        </div>
+        <div class="row">
+          <button type="button">Everything stays free <span class="sign">+</span></button>
+          <div class="panel"><p class="copyS">The archive is public and permanent. The newsletter is the only thing you sign up for, and it is also free.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- S4 — two large cards, image 3:2 ABOVE the text, left hairline -->
+  <section class="module band-base" id="packs">
+    <div class="modhead">
+      <h2 class="heading1">The packs<button class="copylink" type="button" aria-label="Copy link to this section">#</button></h2>
+      <a class="alink u" href="./pack.html"><span class="a">→</span><span>Browse every pack</span></a>
+    </div>
+    <div class="bigcards">
+      <a class="bigcard" href="./no-004.html">
+        <div class="img"><img loading="lazy" decoding="async" width="700" height="467" src="og/plate-no-004-card.webp" alt=""></div>
+        <div class="body">
+          <h3 class="heading2">Skills</h3>
+          <h3 class="heading2 plain">Five that carry the rest of the toolchain</h3>
+          <span class="defaultS">Open the pack</span>
+        </div>
+      </a>
+      <a class="bigcard" href="./no-020.html">
+        <div class="img"><img loading="lazy" decoding="async" width="700" height="467" src="og/plate-no-020-card.webp" alt=""></div>
+        <div class="body">
+          <h3 class="heading2">Subagents</h3>
+          <h3 class="heading2 plain">Four working in parallel, not one long chat</h3>
+          <span class="defaultS">Open the pack</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- S5 — stacked-card slider, scale .95^n and 48n down -->
+  <section class="module band-base" id="series">
+    <div class="modhead">
+      <h2 class="heading1">The series<button class="copylink" type="button" aria-label="Copy link to this section">#</button></h2>
+      <a class="alink u" href="#series"><span class="a">→</span><span>Every series</span></a>
+    </div>
+    <div class="stackwrap">
+      <div class="stackdeck" id="stackdeck">
+        <article class="stackcard" data-i="0">
+          <div class="shot"><img loading="lazy" src="og/plate-no-019-hero.webp" alt=""></div>
+          <h3 class="heading2 plain">The Academy</h3>
+          <div>
+            <p class="lede copyS">Six issues on learning the tools properly instead of collecting them. Starts at prompt structure, ends at a repo that runs itself.</p>
+            <span class="defaultS copyS">Watch the series</span>
+          </div>
+        </article>
+        <article class="stackcard" data-i="1">
+          <div class="shot"><img loading="lazy" src="og/plate-no-010-hero.webp" alt=""></div>
+          <h3 class="heading2 plain">The Rules</h3>
+          <div>
+            <p class="lede copyS">Seven rules in one file. The config that stopped the rewrites, and what each line is actually defending against.</p>
+            <span class="defaultS copyS">Watch the series</span>
+          </div>
+        </article>
+        <article class="stackcard" data-i="2">
+          <div class="shot"><img loading="lazy" src="og/plate-no-013-hero.webp" alt=""></div>
+          <h3 class="heading2 plain">Agents</h3>
+          <div>
+            <p class="lede copyS">From one delegated task to a standing crew. What to hand over, what never to, and how to tell the difference early.</p>
+            <span class="defaultS copyS">Watch the series</span>
+          </div>
+        </article>
+        <article class="stackcard" data-i="3">
+          <div class="shot"><img loading="lazy" src="og/plate-no-021-hero.webp" alt=""></div>
+          <h3 class="heading2 plain">Open Source</h3>
+          <div>
+            <p class="lede copyS">Nine tools too good to be free, and the honest reason each one is. Licences read, not assumed.</p>
+            <span class="defaultS copyS">Watch the series</span>
+          </div>
+        </article>
+      </div>
+      <div class="stackctrls">
+        <button class="prev" type="button" aria-label="Previous">←</button>
+        <div class="count" id="stackcount">1/4</div>
+        <button class="next" type="button" aria-label="Next">→</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- S6 — dark band, background image, two episode rows -->
+  <section class="podcast band-lift" id="teardown">
+    <div class="bgshot"><img loading="lazy" src="og/plate-no-008-hero.webp" alt=""></div>
+    <div class="veilgrad"></div>
+    <div class="module">
+      <div class="split">
+        <h2 class="heading1 up">The Teardown<button class="copylink" type="button" aria-label="Copy link to this section">#</button></h2>
+        <div style="display:flex;justify-content:flex-end;align-items:flex-start">
+          <a class="alink u" href="#subscribe"><span class="a">→</span><span>Subscribe</span></a>
+        </div>
+      </div>
+      <div class="split">
+        <div>
+          <p class="copyL">One long-form teardown a week: an automation pulled apart, costed, and rebuilt in public. What it replaced, what it broke, what it actually saved.</p>
+          <ul style="display:flex;flex-wrap:wrap;gap:var(--p-m);list-style:none;padding-top:var(--p-l)">
+            <li><a class="defaultS" href="https://youtube.com/@vektorfm" target="_blank" rel="noopener">YouTube</a></li>
+            <li><a class="defaultS" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Instagram</a></li>
+            <li><a class="defaultS" href="https://tiktok.com/@vektor.fm" target="_blank" rel="noopener">TikTok</a></li>
+            <li><a class="defaultS" href="https://x.com/vektordotfm" target="_blank" rel="noopener">X</a></li>
+          </ul>
+        </div>
+        <div class="eplist">
+          <article class="episode">
+            <button class="play-ep" type="button" aria-label="Play">▶</button>
+            <div class="epbody">
+              <div class="ephead"><h4>The state file that gave an agent memory</h4><div class="dur">24:10</div></div>
+              <p class="copyS">Three files, no database, and the moment it stopped starting from zero every run.</p>
+              <div class="epacts"><button type="button">Transcript</button><button type="button">Share</button></div>
+            </div>
+          </article>
+          <article class="episode">
+            <button class="play-ep" type="button" aria-label="Play">▶</button>
+            <div class="epbody">
+              <div class="ephead"><h4>What a 120,000-character leak actually taught us</h4><div class="dur">31:47</div></div>
+              <p class="copyS">The prompt got out. Reading it changed how we write every config since.</p>
+              <div class="epacts"><button type="button">Transcript</button><button type="button">Share</button></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- S7 — magazine grid: 4 columns, feature spans 2x2 -->
+  <section class="module band-base" id="archive">
+    <div class="modhead">
+      <h2 class="heading1">The archive<button class="copylink" type="button" aria-label="Copy link to this section">#</button></h2>
+      <a class="alink u" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener"><span class="a">→</span><span>Issues 001–003 lived in the DMs</span></a>
+    </div>
+    <div class="magazine">
+      <a class="mag" href="./no-021.html">
+        <div class="img"><img loading="lazy" decoding="async" width="700" height="467" src="og/plate-no-021-card.webp" alt=""></div>
+        <div class="body">
+          <div class="date meta">07-2026 &middot; The Open-Source Nine</div>
+          <h3>9 tools too good to be free.</h3>
+          <p>The Open-Source Nine — every real repo link, including the three I didn't show: Agent Reach, Agentic Inbox and Shepherd. 456k stars combined, all free to self-host.</p>
+          <span class="defaultS">Open the pack</span>
+        </div>
+      </a>
+      <a class="mag" href="./no-020.html">
+        <div class="img"><img loading="lazy" decoding="async" width="700" height="467" src="og/plate-no-020-card.webp" alt=""></div>
+        <div class="body">
+          <div class="date meta">07-2026 &middot; Subagents</div>
+          <h3>4 subagents. Not 1 chat.</h3>
+          <span class="defaultS">Open the pack</span>
+        </div>
+      </a>
+      <a class="mag" href="./no-019.html">
+        <div class="img"><img loading="lazy" decoding="async" width="700" height="467" src="og/plate-no-019-card.webp" alt=""></div>
+        <div class="body">
+          <div class="date meta">07-2026 &middot; The Academy</div>
+          <h3>The Academy Series.</h3>
+          <span class="defaultS">Open the pack</span>
+        </div>
+      </a>
+      <a class="mag" href="./no-018.html">
+        <div class="img"><img loading="lazy" decoding="async" width="700" height="467" src="og/plate-no-018-card.webp" alt=""></div>
+        <div class="body">
+          <div class="date meta">07-2026 &middot; Bottle the Brain</div>
+          <h3>3 files. The brain, bottled.</h3>
+          <span class="defaultS">Open the pack</span>
+        </div>
+      </a>
+      <a class="mag" href="./no-017.html">
+        <div class="img"><img loading="lazy" decoding="async" width="700" height="467" src="og/plate-no-017-card.webp" alt=""></div>
+        <div class="body">
+          <div class="date meta">07-2026 &middot; AI vs the Final</div>
+          <h3>The match-predictor prompt.</h3>
+          <span class="defaultS">Open the pack</span>
+        </div>
+      </a>
+      <a class="mag" href="./no-015.html">
+        <div class="img"><img loading="lazy" decoding="async" width="700" height="467" src="og/plate-no-015-card.webp" alt=""></div>
+        <div class="body">
+          <div class="date meta">07-2026 &middot; Loops</div>
+          <h3>Stop prompting. Write loops.</h3>
+          <span class="defaultS">Open the pack</span>
+        </div>
+      </a>
+      <a class="mag" href="./no-013.html">
+        <div class="img"><img loading="lazy" decoding="async" width="700" height="467" src="og/plate-no-013-card.webp" alt=""></div>
+        <div class="body">
+          <div class="date meta">07-2026 &middot; Agents</div>
+          <h3>Hire your first AI agent.</h3>
+          <span class="defaultS">Open the pack</span>
+        </div>
+      </a>
+      <a class="mag" href="./no-012.html">
+        <div class="img"><img loading="lazy" decoding="async" width="700" height="467" src="og/plate-no-012-card.webp" alt=""></div>
+        <div class="body">
+          <div class="date meta">07-2026 &middot; Git Hygiene</div>
+          <h3>6 rules. Your repo survives.</h3>
+          <span class="defaultS">Open the pack</span>
+        </div>
+      </a>
+      <a class="mag" href="./no-011.html">
+        <div class="img"><img loading="lazy" decoding="async" width="700" height="467" src="og/plate-no-011-card.webp" alt=""></div>
+        <div class="body">
+          <div class="date meta">07-2026 &middot; The Rules · Part 2</div>
+          <h3>Faster. Cheaper. 3 rules.</h3>
+          <span class="defaultS">Open the pack</span>
+        </div>
+      </a>
+      <a class="mag" href="./no-010.html">
+        <div class="img"><img loading="lazy" decoding="async" width="700" height="467" src="og/plate-no-010-card.webp" alt=""></div>
+        <div class="body">
+          <div class="date meta">07-2026 &middot; The Rules</div>
+          <h3>7 rules. One file.</h3>
+          <span class="defaultS">Open the pack</span>
+        </div>
+      </a>
+      <a class="mag" href="./no-009.html">
+        <div class="img"><img loading="lazy" decoding="async" width="700" height="467" src="og/plate-no-009-card.webp" alt=""></div>
+        <div class="body">
+          <div class="date meta">07-2026 &middot; The Carousel</div>
+          <h3>One prompt. Every carousel.</h3>
+          <span class="defaultS">Open the pack</span>
+        </div>
+      </a>
+      <a class="mag" href="./no-008.html">
+        <div class="img"><img loading="lazy" decoding="async" width="700" height="467" src="og/plate-no-008-card.webp" alt=""></div>
+        <div class="body">
+          <div class="date meta">07-2026 &middot; The Leak</div>
+          <h3>120,000 chars. Leaked.</h3>
+          <span class="defaultS">Open the pack</span>
+        </div>
+      </a>
+      <a class="mag" href="./no-007.html">
+        <div class="img"><img loading="lazy" decoding="async" width="700" height="467" src="og/plate-no-007-card.webp" alt=""></div>
+        <div class="body">
+          <div class="date meta">07-2026 &middot; The Port</div>
+          <h3>1.6M lines. On iPhone.</h3>
+          <span class="defaultS">Open the pack</span>
+        </div>
+      </a>
+      <a class="mag" href="./no-006.html">
+        <div class="img"><img loading="lazy" decoding="async" width="700" height="467" src="og/plate-no-006-card.webp" alt=""></div>
+        <div class="body">
+          <div class="date meta">07-2026 &middot; The File</div>
+          <h3>One file. 188,000 stars.</h3>
+          <span class="defaultS">Open the pack</span>
+        </div>
+      </a>
+      <a class="mag" href="./no-005.html">
+        <div class="img"><img loading="lazy" decoding="async" width="700" height="467" src="og/plate-no-005-card.webp" alt=""></div>
+        <div class="body">
+          <div class="date meta">07-2026 &middot; Four Rules</div>
+          <h3>Code with AI. Keep your brain.</h3>
+          <span class="defaultS">Open the pack</span>
+        </div>
+      </a>
+      <a class="mag" href="./no-004.html">
+        <div class="img"><img loading="lazy" decoding="async" width="700" height="467" src="og/plate-no-004-card.webp" alt=""></div>
+        <div class="body">
+          <div class="date meta">07-2026 &middot; Five Skills</div>
+          <h3>You only need 5 skills.</h3>
+          <span class="defaultS">Open the pack</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- S8/S9/S10 — one full-width link each: 3:2 image left, heading right -->
+  <section class="module band-lift" id="watch">
+    <div class="modhead">
+      <h2 class="heading1">Watch<button class="copylink" type="button" aria-label="Copy link to this section">#</button></h2>
+      <a class="alink u" href="https://youtube.com/@vektorfm" target="_blank" rel="noopener"><span class="a">→</span><span>Every channel</span></a>
+    </div>
+    <a class="bigrow" href="https://youtube.com/@vektorfm" target="_blank" rel="noopener">
+      <div class="img"><img loading="lazy" decoding="async" src="og/plate-no-009-card.webp" alt=""></div>
+      <div class="side">
+        <h3 class="heading2">One short a day, on every platform that will carry it — no intro, no outro, no sixty seconds of throat-clearing.</h3>
+        <span class="cta">Watch the latest</span>
+      </div>
+    </a>
+  </section>
+
+  <section class="module band-base" id="work">
+    <div class="modhead">
+      <h2 class="heading1">Work with vektor<button class="copylink" type="button" aria-label="Copy link to this section">#</button></h2>
+      <a class="alink u" href="./thanks.html"><span class="a">→</span><span>What we take on</span></a>
+    </div>
+    <a class="bigrow" href="./thanks.html">
+      <div class="img"><img loading="lazy" decoding="async" src="og/plate-no-023-card.webp" alt=""></div>
+      <div class="side">
+        <h3 class="heading2">Build the thing the film is about. We take a small number of engagements a quarter, and we publish what we learn from each one.</h3>
+        <span class="cta">Start a conversation</span>
+      </div>
+    </a>
+  </section>
+
+  <section class="module band-base" id="about">
+    <div class="modhead">
+      <h2 class="heading1">About<button class="copylink" type="button" aria-label="Copy link to this section">#</button></h2>
+      <a class="alink u" href="#about"><span class="a">→</span><span>The long version</span></a>
+    </div>
+    <a class="bigrow" href="#about">
+      <div class="img"><img loading="lazy" decoding="async" src="og/plate-no-006-card.webp" alt=""></div>
+      <div class="side">
+        <h3 class="heading2">Vektor is one person, a render farm and a standing refusal to publish anything that has not been measured first.</h3>
+        <span class="cta">Read more</span>
+      </div>
+    </a>
+  </section>
+
+</div></main>
+
 <footer>
-  <div class="rule foot-rule">////////////////////////////////////////////////////////////////////////////////////////////////</div>
-  <nav class="socials" aria-label="Social links">
-    <a data-goatcounter-click="hub-follow-tiktok-foot" href="https://tiktok.com/@vektor.fm" target="_blank" rel="noopener">TikTok · @vektor.fm</a>
-    <a data-goatcounter-click="hub-follow-instagram-foot" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Instagram · @vektor.fm</a>
-    <a data-goatcounter-click="hub-follow-youtube-foot" href="https://youtube.com/@vektorfm" target="_blank" rel="noopener">YouTube · @vektorfm</a>
-    <a data-goatcounter-click="hub-follow-x-foot" href="https://x.com/vektordotfm" target="_blank" rel="noopener">X · @vektordotfm</a>
-    <a href="./privacy.html">Privacy</a>
-  </nav>
-  <div class="backref">Comment the keyword on the latest reel.</div>
-  <div class="wordmark-foot">
-    <span class="wm-foot" id="wmFoot" aria-label="vektor"><span class="ch2" style="--i:0"><span class="g">%</span><span class="l">v</span></span><span class="ch2" style="--i:1"><span class="g">#</span><span class="l">e</span></span><span class="ch2" style="--i:2"><span class="g">Z</span><span class="l">k</span></span><span class="ch2" style="--i:3"><span class="g">8</span><span class="l">t</span></span><span class="ch2" style="--i:4"><span class="g">@</span><span class="l">o</span></span><span class="ch2" style="--i:5"><span class="g">W</span><span class="l">r</span></span></span>
-    <span class="m">/// index / 07-2026 · the frontier, by the numbers</span>
+  <div class="lattice foot-top">
+    <div class="foot-social">
+      <a class="wm" href="#top" aria-label="vektor"  style="font-size:34px;margin-right:auto"><span class="wm-plate wm-acid" aria-hidden="true">vektor</span><span class="wm-plate wm-orchid" aria-hidden="true">vektor</span><span class="wm-main"><span class="ch" style="--i:0"><span class="g">%</span><span class="l">v</span></span><span class="ch" style="--i:1"><span class="g">#</span><span class="l">e</span></span><span class="ch" style="--i:2"><span class="g">Z</span><span class="l">k</span></span><span class="ch" style="--i:3"><span class="g">8</span><span class="l">t</span></span><span class="ch" style="--i:4"><span class="g">@</span><span class="l">o</span></span><span class="ch" style="--i:5"><span class="g">W</span><span class="l">r</span></span></span></a>
+      <a data-goatcounter-click="hub-follow-tiktok-foot" href="https://tiktok.com/@vektor.fm" target="_blank" rel="noopener">TikTok</a><a data-goatcounter-click="hub-follow-instagram-foot" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Instagram</a><a data-goatcounter-click="hub-follow-youtube-foot" href="https://youtube.com/@vektorfm" target="_blank" rel="noopener">YouTube</a><a data-goatcounter-click="hub-follow-x-foot" href="https://x.com/vektordotfm" target="_blank" rel="noopener">X</a>
+    </div>
+    <div class="lattice">
+      <div class="nl-title heading1" id="subscribe">The Teardown</div>
+      <form class="nl-form" method="post" action="https://buttondown.com/api/emails/embed-subscribe/vektor">
+        <label for="em">Email address *</label>
+        <input id="em" name="email" type="email" placeholder="you@email.com" autocomplete="email" required>
+        <button class="nl-cta" type="submit">Subscribe</button>
+      </form>
+      <div class="nl-note copyS">One email a week — the current drop's pack plus one teardown. Free, unsubscribe anytime. See the <a href="./privacy.html">privacy notice</a>.</div>
+    </div>
   </div>
+
+  <div class="lattice foot-links">
+    <a href="#archive"><span>→</span><span>The archive</span></a>
+    <a href="./no-033.html"><span>→</span><span>Latest issue</span></a>
+    <a href="./pack.html"><span>→</span><span>Packs</span></a>
+    <a href="https://youtube.com/@vektorfm" target="_blank" rel="noopener"><span>→</span><span>Watch</span></a>
+    <a href="./thanks.html"><span>→</span><span>Contact</span></a>
+    <a href="./privacy.html"><span>→</span><span>Privacy</span></a>
+  </div>
+
+  <div class="colophon copyS">vektor /// the index · 08-2026 · the frontier, by the numbers</div>
 </footer>
 
+<!-- The accent and type toggles are gone: both are locked as of 2026-08-09.
+     Accent = caret teal #0E9C86. Type = mode C, Printvetica on meta and
+     labels only. Both are set on <html> and are no longer switchable. -->
 
+<script>
+document.querySelectorAll('.acc .row button').forEach(b=>{
+  b.addEventListener('click',()=> b.parentElement.classList.toggle('open'));
+});
+
+/* Stacked slider — rotate which card sits at data-i="0". The transforms live
+   in CSS keyed off data-i, so stepping is just a re-index. */
+const deck = document.getElementById('stackdeck');
+if (deck) {
+  const cards = [...deck.children];
+  let head = 0;
+  const paint = () => {
+    cards.forEach((c, n) => c.dataset.i = (n - head + cards.length) % cards.length);
+    document.getElementById('stackcount').textContent = (head + 1) + '/' + cards.length;
+  };
+  const step = d => { head = (head + d + cards.length) % cards.length; paint(); };
+  document.querySelector('.stackctrls .next').addEventListener('click', () => step(1));
+  document.querySelector('.stackctrls .prev').addEventListener('click', () => step(-1));
+  paint();
+}
+
+/* Section copy-link buttons — sprind's pattern, revealed on heading hover */
+document.querySelectorAll('.copylink').forEach(b => {
+  b.addEventListener('click', e => {
+    e.preventDefault();
+    const id = b.closest('section')?.id;
+    if (id) navigator.clipboard?.writeText(location.href.split('#')[0] + '#' + id);
+  });
+});
+
+const menu = document.querySelector('.menu');
+const revealNav = () => menu.classList.add('nav-visible');
+document.querySelector('.navreveal').addEventListener('mouseenter', revealNav);
+/* keyboard: :focus-within handles the visual, this keeps the class in sync */
+menu.addEventListener('focusin', revealNav);
+
+/* Mobile drawer. Below 768 there is no hover, so the bar is revealed and the
+   drawer toggled by the hamburger. sprind scroll-locks the body while the
+   mobile drawer is open (desktop does not), so we do the same. */
+const burger = document.querySelector('.burger');
+burger.addEventListener('click', () => {
+  revealNav();
+  const open = menu.classList.toggle('drawer-open');
+  burger.setAttribute('aria-expanded', String(open));
+  burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+/* On a touch device nothing reveals the bar, so show it from the start there. */
+if (window.matchMedia('(hover: none)').matches) revealNav();
+</script>
 
 <script data-goatcounter="https://vektor.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 <script>
-  // GoatCounter subscribe event + non-blocking Buttondown submit + UTM tagging.
-  // Page works fully without JS (form falls back to a normal POST redirect).
-  document.querySelectorAll('form').forEach(function(f){ f.addEventListener('submit', function(){ if(window.goatcounter && goatcounter.count){ goatcounter.count({path:'hub-subscribe-submit', event:true}); } }); });
-  var wmFoot=document.getElementById('wmFoot');
-  if(wmFoot && 'IntersectionObserver' in window){ var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ wmFoot.classList.remove('play'); void wmFoot.offsetWidth; wmFoot.classList.add('play'); } }); }, {threshold:0.6}); io.observe(wmFoot); }
-  // Form submits as a plain navigation POST — Buttondown interposes a one-click
-  // verification page, so an AJAX submit silently drops the signup (tested 2026-07-05).
+  // Subscribe event + outbound UTM tagging, carried over from the previous
+  // index. The form is a plain navigation POST and the page works without JS.
+  document.querySelectorAll('form').forEach(function(f){
+    f.addEventListener('submit', function(){
+      if (window.goatcounter && goatcounter.count) goatcounter.count({ path:'hub-subscribe-submit', event:true });
+    });
+  });
   document.querySelectorAll('a[href^="http"]').forEach(function(a){
-    try{ var u=new URL(a.href); if(u.hostname==='github.com'){return;}
-      if(!u.searchParams.has('utm_source')){ u.searchParams.set('utm_source','vektor'); u.searchParams.set('utm_medium','bio'); u.searchParams.set('utm_campaign','index'); a.href=u.toString(); } }catch(e){}
+    try {
+      var u = new URL(a.href);
+      if (u.hostname === 'github.com') return;
+      if (!u.searchParams.has('utm_source')) {
+        u.searchParams.set('utm_source','vektor');
+        u.searchParams.set('utm_medium','bio');
+        u.searchParams.set('utm_campaign','index');
+        a.href = u.toString();
+      }
+    } catch (e) {}
   });
 </script>
 </body></html>

@@ -83,24 +83,67 @@ function renderOgCard(num, card) {
 }
 
 // ---- index.html ----
-function rowHtml(i) {
-  return `  <a class="row" href="./no-${i.number}.html">\n`
-    + `    <span class="no">${i.number}</span>\n`
-    + `    <span class="mid">\n`
-    + `      <span class="t">${i.title_short}</span>\n`
-    + `      <span class="k">${i.section} · ${i.date}</span>\n`
-    + `    </span>\n`
-    + `    <span class="k-chip">Keyword: ${i.keyword}</span>\n`
-    + `    <span class="go">Open →</span>\n`
-    + `  </a>`;
+// The landing page is the sprind-structure redesign. Its two card grids are
+// generated from site.json + the per-issue manifests rather than hand-written,
+// so adding an issue to site.json is the only edit needed to publish it.
+//
+// Card art: og/plate-no-<num>-card.webp, built by ingest-plates.mjs. An issue
+// with no plate yet renders an empty cell rather than a broken image — the gap
+// should be visible as a gap, not as a 404.
+
+const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+function plateHtml(num) {
+  const card = `og/plate-no-${num}-card.webp`;
+  return exists(card)
+    ? `<div class="img"><img loading="lazy" decoding="async" width="700" height="467" src="${card}" alt=""></div>`
+    : `<div class="img noplate" aria-hidden="true"></div>`;
 }
+
+// teaser copy comes from the manifest's og_description — the same sentence the
+// share card uses, so the grid and the social preview never drift apart
+function teaserText(num) {
+  const man = JSON.parse(read(`manifest/no-${num}.json`));
+  return (man.og_description || '').replace(/\s+/g, ' ').trim();
+}
+
+function teaserCard(i) {
+  return `      <a class="teaser" href="./no-${i.number}.html">\n`
+    + `        ${plateHtml(i.number)}\n`
+    + `        <div class="body">\n`
+    + `          <div class="date meta">${esc(i.date)} &middot; ${esc(i.section)}</div>\n`
+    + `          <h3>${esc(i.title_short)}</h3>\n`
+    + `          <p>${esc(teaserText(i.number))}</p>\n`
+    + `          <span class="more defaultS">Open the pack</span>\n`
+    + `        </div>\n`
+    + `      </a>`;
+}
+
+// the magazine grid's first cell spans 2x2 as a feature and is the only one
+// that carries body copy — the rest are date + title, as sprind's are
+function magCard(i, idx) {
+  return `      <a class="mag" href="./no-${i.number}.html">\n`
+    + `        ${plateHtml(i.number)}\n`
+    + `        <div class="body">\n`
+    + `          <div class="date meta">${esc(i.date)} &middot; ${esc(i.section)}</div>\n`
+    + `          <h3>${esc(i.title_short)}</h3>\n`
+    + (idx === 0 ? `          <p>${esc(teaserText(i.number))}</p>\n` : '')
+    + `          <span class="defaultS">Open the pack</span>\n`
+    + `        </div>\n`
+    + `      </a>`;
+}
+
 function renderIndex() {
   const latest = BUILT[0];
+  const inLatest = BUILT.slice(0, 4);
+  const inArchive = BUILT.slice(4);
   const map = {
-    ARCHIVE_ROWS: site.issues.map(rowHtml).join('\n'),
+    LATEST_CARDS: inLatest.map(teaserCard).join('\n'),
+    ARCHIVE_CARDS: inArchive.map(magCard).join('\n'),
+    ARCHIVE_COUNT: String(inArchive.length),
+    TOTAL_COUNT: String(BUILT.length),
     LATEST_NUM: latest.number,
-    LATEST_TAG: `Latest · No. ${latest.number} / ${latest.section} / ${latest.date}`,
-    LATEST_TITLE: latest.title_short,
+    LATEST_TITLE: esc(latest.title_short),
     LATEST_CTA: site.index.latest_cta,
   };
   const out = fill(read('src/index.body.html'), map);

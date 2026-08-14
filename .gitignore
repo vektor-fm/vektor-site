@@ -7,6 +7,14 @@ node_modules/
 # ingest-plates.mjs — belong in the repo.
 plates-src/
 
+# Printvetica is a PURCHASED commercial font (guaschetti, Gumroad 2026-07-29).
+# This repo is public and deploys to GitHub Pages, so committing the file is
+# REDISTRIBUTION — a different grant from webfont embedding, and one most
+# commercial licences withhold. Until the licence is confirmed it stays local:
+# the page references it, and live simply falls back to Helvetica.
+# Rebuild with: python mocks/subset-printvetica.py
+fonts/printvetica-caps.woff2
+
 # Secrets
 .env
 .env.*
