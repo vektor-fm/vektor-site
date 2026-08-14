@@ -1,0 +1,333 @@
+/* =========================================================================
+   ISSUE PAGES — sprind structure, Vektor voice. Candidate replacement for the
+   196-line block in partials/head.html.
+
+   Every class name from the existing bodies is preserved, so all 20 pages
+   re-skin from this file with zero edits to any src/*.body.html.
+
+   Decisions baked in (founder, 2026-08-14):
+     · Jacquard 24 retired; Printvetica takes the .goth role, so the accent
+       survives, the site unifies with the films, and no fifth face is added.
+     · Headlines are weight 400. Size does the work — .disp was 900.
+     · Sticky CTA, newsletter pop-up and the weave are KEPT, rebuilt in the
+       new language rather than deleted.
+     · Card colour is the open question — see the two variants at the bottom.
+   ========================================================================= */
+
+:root{
+  /* type ramp — sprind's, identical to the landing page */
+  --fs-4xl:132px; --lh-4xl:140px; --fs-3xl:52px; --lh-3xl:54px;
+  --fs-2xl:32px;  --lh-2xl:34px;  --fs-xl:20px;  --lh-xl:22px;
+  --fs-m:18px;    --lh-m:22px;    --fs-s:15px;   --lh-s:19px;
+  --fs-xs:12px;   --lh-xs:14px;
+  --p-xs:4px; --p-s:8px; --p-m:16px; --p-l:24px; --p-xl:32px;
+  --p-2xl:40px; --p-3xl:48px; --p-4xl:80px;
+
+  --bg:#000000;
+  --fg:#FFFFFF;
+  --band:#141414;
+  --rule:#C9C9C9;
+  --meta:#999999;
+  --dim:#B4B4B4;
+  --accent:#0E9C86;          /* caret teal — locked */
+  --paper:#EFEADD;           /* wordmark ink */
+  --acid:#39FF35;            /* wordmark plate only, never UI */
+  --orchid:#C77BC9;
+
+  --font-extended:'Archivo Expanded','Archivo Text',system-ui,sans-serif;
+  --font-sans:'Archivo Text',system-ui,sans-serif;
+  --font-label:'Printvetica','Archivo Text',system-ui,sans-serif;
+  --font-code:'IBM Plex Mono',ui-monospace,monospace;
+  --wm:'Inter Tight',system-ui,sans-serif;
+
+  --rail:var(--p-2xl);       /* sprind's 40px page gutter */
+}
+@media (max-width:1023px){
+  :root{
+    --fs-4xl:40px; --lh-4xl:42px; --fs-3xl:32px; --lh-3xl:34px;
+    --fs-2xl:24px; --lh-2xl:26px; --fs-xl:18px;  --lh-xl:20px;
+    --fs-m:16px;   --lh-m:19px;   --fs-s:14px;   --lh-s:18px;
+    --p-m:12px; --p-l:16px; --p-xl:24px; --p-2xl:32px; --p-3xl:40px; --p-4xl:64px;
+  }
+}
+@media (max-width:767px){
+  :root{
+    --fs-4xl:28px; --lh-4xl:32px; --fs-3xl:24px; --lh-3xl:28px;
+    --fs-2xl:20px; --lh-2xl:22px; --fs-xl:16px;  --lh-xl:18px;
+    --fs-m:14px;   --lh-m:18px;
+    --p-m:8px; --p-l:12px; --p-xl:16px; --p-2xl:24px; --p-3xl:32px; --p-4xl:48px;
+  }
+}
+
+*{box-sizing:border-box;}
+html,body{margin:0;}
+body{
+  background:var(--bg); color:var(--fg);
+  font-family:var(--font-sans); font-size:var(--fs-m); line-height:var(--lh-m);
+  -webkit-font-smoothing:antialiased; overflow-x:hidden;
+}
+a{color:inherit; text-decoration:none;}
+:focus-visible{outline:2px solid var(--fg); outline-offset:2px;}
+::selection{background:var(--accent); color:var(--bg);}
+img{display:block; max-width:100%;}
+
+/* ---- shared type ---- */
+.kick{
+  font-family:var(--font-label); text-transform:uppercase;
+  letter-spacing:.025em; font-size:var(--fs-s); line-height:var(--lh-s);
+}
+.disp{
+  font-family:var(--font-extended); font-weight:400;   /* was 900 */
+  text-transform:uppercase; letter-spacing:normal; line-height:var(--lh-3xl);
+}
+/* the rule was an ASCII line in mono; it becomes an actual hairline */
+.rule{
+  font-size:0; line-height:0; color:transparent; user-select:none;
+  height:1px; background:var(--rule); overflow:hidden;
+}
+
+/* ---- masthead: static wordmark, hairline, no shadow ---- */
+.chrome{
+  position:sticky; top:0; z-index:50; background:var(--bg);
+  border-bottom:1px solid var(--rule);
+  display:flex; align-items:center; justify-content:space-between;
+  height:44px; padding:0 var(--rail);
+}
+.chrome .marker{
+  font-family:var(--font-label); text-transform:uppercase;
+  letter-spacing:.025em; font-size:var(--fs-s); color:var(--meta);
+}
+@media (max-width:520px){ .chrome .marker{display:none;} }
+
+.wm{
+  position:relative; display:inline-flex; font-family:var(--wm); font-weight:600;
+  letter-spacing:-0.045em; color:var(--paper); font-size:30px; line-height:1;
+}
+.wm-main{position:relative; z-index:2; display:inline-flex;}
+.wm-main .ch{position:relative; display:inline-block;}
+/* animation retired for the redesign, matching the landing page */
+.wm-main .ch .l{opacity:1;}
+.wm-main .ch .g{display:none;}
+.wm-plate{display:none;}
+.wm-foot{font-family:var(--wm); font-weight:600; letter-spacing:-0.045em; color:var(--paper); font-size:34px; line-height:1; display:inline-flex;}
+.wm-foot .ch2{position:relative; display:inline-block;}
+.wm-foot .ch2 .g{display:none;}
+
+/* the weave survives, but as a hairline-bounded teal band rather than a
+   full-bleed woven texture — kept per founder, restyled to the new language */
+.weave{
+  height:8px; width:100%;
+  background:repeating-linear-gradient(90deg, var(--accent) 0 2px, transparent 2px 10px);
+  border-bottom:1px solid var(--rule);
+}
+
+/* ---- hero ---- */
+.hero{padding:var(--p-2xl) var(--rail) var(--p-4xl); position:relative;}
+.hero .eye{color:var(--meta); margin-bottom:var(--p-m);}
+.hero h1{margin:0; font-size:var(--fs-3xl); line-height:var(--lh-3xl);}
+.hero h1 .dot{color:var(--accent);}
+.hero .sub{max-width:64ch; margin-top:var(--p-l); font-size:var(--fs-m); line-height:var(--lh-xl); color:var(--dim);}
+.hero .rule{margin-top:var(--p-xl);}
+
+/* ---- figure / section head ---- */
+.fig{padding:var(--p-2xl) var(--rail) var(--p-m); display:flex; align-items:baseline; gap:var(--p-m);}
+.fig .kick{color:var(--meta); white-space:nowrap;}
+.fig .line{flex:1; height:1px; background:var(--rule);}
+.fig h2{margin:0; font-size:var(--fs-3xl); line-height:var(--lh-3xl);}
+/* .goth was Jacquard 24 blackletter — Printvetica now carries the accent */
+.fig .gaccent{
+  font-family:var(--font-label); font-size:var(--fs-2xl); line-height:1;
+  color:var(--paper); text-transform:uppercase; letter-spacing:.025em;
+}
+
+/* ---- cards ---- */
+.issues{padding:var(--p-m) var(--rail) 0;}
+.card{position:relative; margin:var(--p-l) 0; padding:var(--p-l); overflow:hidden;}
+.card .top{display:flex; align-items:flex-start; justify-content:space-between; gap:var(--p-m);}
+.card .tag{
+  font-family:var(--font-label); text-transform:uppercase;
+  letter-spacing:.025em; font-size:var(--fs-s); color:var(--meta);
+}
+.card .goth{
+  font-family:var(--font-label); font-size:var(--fs-2xl); line-height:1;
+  text-transform:uppercase; letter-spacing:.025em; color:var(--paper);
+}
+.card h2{
+  font-family:var(--font-extended); font-weight:400; text-transform:uppercase;
+  letter-spacing:normal; font-size:var(--fs-2xl); line-height:var(--lh-2xl);
+  margin:var(--p-m) 0 0; overflow-wrap:break-word;
+}
+.card .one{font-size:var(--fs-m); line-height:var(--lh-xl); margin-top:var(--p-s); max-width:64ch; color:var(--dim);}
+.card .proof{
+  display:inline-block; margin-top:var(--p-m); font-family:var(--font-code);
+  font-size:var(--fs-s); padding:var(--p-s) var(--p-m);
+  color:var(--accent); border:1px solid var(--rule);
+}
+.card .stars{
+  display:inline-block; margin-top:var(--p-m); font-family:var(--font-label);
+  text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s);
+  padding:var(--p-s) var(--p-m); border:1px solid var(--rule); color:var(--dim);
+}
+.card .actions{display:flex; flex-wrap:wrap; gap:var(--p-s); margin-top:var(--p-l); align-items:stretch;}
+
+/* ---- controls: unfilled cells bounded by hairlines, as sprind's are ---- */
+.btn{
+  display:inline-flex; align-items:center; gap:var(--p-xs);
+  min-height:48px; padding:0 var(--p-m);
+  font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em;
+  font-size:var(--fs-s); border:1px solid var(--rule); background:transparent;
+  color:var(--fg); cursor:pointer;
+  transition:background-color .15s cubic-bezier(.4,0,.2,1), color .15s cubic-bezier(.4,0,.2,1);
+}
+.btn:hover{background:rgba(255,255,255,.06);}
+.btn.primary{border-color:var(--accent); color:var(--accent);}
+.btn.primary:hover{background:var(--accent); color:var(--bg);}
+
+.copy{
+  display:flex; align-items:center; min-height:48px;
+  border:1px solid var(--rule); padding:0 var(--p-xs) 0 var(--p-m); gap:var(--p-s);
+  font-family:var(--font-code); font-size:var(--fs-s);
+  flex:1 1 240px; min-width:0; justify-content:space-between;
+}
+.copy code{overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+.copybtn{
+  display:none; flex:none; align-items:center; min-height:40px; padding:0 var(--p-m);
+  font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em;
+  font-size:var(--fs-xs); border:1px solid var(--rule); background:transparent;
+  color:var(--fg); cursor:pointer;
+}
+.js .copybtn{display:inline-flex;}
+.copybtn:hover{background:var(--accent); color:var(--bg); border-color:var(--accent);}
+
+/* ---- code snippet: no sprind analogue, so designed to their logic —
+        a hairline-bounded cell, mono only inside the pre ---- */
+.snippet{position:relative; margin-top:var(--p-m); border:1px solid var(--rule); background:var(--band);}
+.snippet .bar{
+  display:flex; align-items:center; justify-content:space-between; gap:var(--p-s);
+  padding:var(--p-s) var(--p-s) var(--p-s) var(--p-m); border-bottom:1px solid var(--rule);
+}
+.snippet .bar .f{
+  font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em;
+  font-size:var(--fs-xs); color:var(--meta);
+}
+.snippet pre{
+  margin:0; padding:var(--p-m); overflow-x:auto; max-height:60vh; overflow-y:auto;
+  font-family:var(--font-code); font-size:var(--fs-s); line-height:1.55;
+  color:var(--fg); white-space:pre-wrap; word-break:break-word;
+}
+.snippet .snipbtn{
+  flex:none; min-height:36px; padding:0 var(--p-m);
+  font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em;
+  font-size:var(--fs-xs); border:1px solid var(--rule); background:transparent;
+  color:var(--fg); cursor:pointer;
+}
+.snippet .snipbtn:hover{background:var(--accent); color:var(--bg); border-color:var(--accent);}
+#shareBtn{display:none;}
+.js #shareBtn{display:inline-flex;}
+
+/* ---- ledger ---- */
+.ledger{padding:var(--p-s) var(--rail) var(--p-m);}
+.lrow{display:flex; gap:var(--p-l); align-items:baseline; border-top:1px solid var(--rule); padding:var(--p-l) 0;}
+.lrow:last-of-type{border-bottom:1px solid var(--rule);}
+.lrow .n{font-family:var(--font-extended); font-weight:400; font-size:var(--fs-2xl); color:var(--accent); flex:none; line-height:1;}
+.lrow .t{font-family:var(--font-sans); font-size:var(--fs-m); line-height:var(--lh-xl); text-transform:uppercase; letter-spacing:normal;}
+
+/* ---- mid-page newsletter capture (kept per founder) ---- */
+.midcap{margin:var(--p-2xl) var(--rail); padding:var(--p-l); border:1px solid var(--rule); background:var(--band);}
+.midcap .k{display:block; color:var(--accent); font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); margin-bottom:var(--p-s);}
+.midcap h2{font-family:var(--font-extended); font-weight:400; text-transform:uppercase; letter-spacing:normal; font-size:var(--fs-2xl); line-height:var(--lh-2xl); margin:0 0 var(--p-s);}
+.midcap p{font-size:var(--fs-m); line-height:var(--lh-xl); max-width:64ch; margin:0 0 var(--p-m); color:var(--dim);}
+.midcap form{display:flex; gap:var(--p-s); flex-wrap:wrap; max-width:540px;}
+.midcap input{flex:1 1 240px; min-height:48px; background:transparent; border:0; border-bottom:1px solid var(--rule); color:var(--fg); font-family:var(--font-sans); font-size:var(--fs-m); padding:0;}
+.midcap input:focus{outline:none; border-bottom-color:var(--fg);}
+.midcap .btn{min-height:48px;}
+.midcap .note{font-size:var(--fs-s); color:var(--meta); margin-top:var(--p-s);}
+
+/* ---- footer ---- */
+footer{margin-top:var(--p-4xl); padding:var(--p-2xl) var(--rail) var(--p-4xl); border-top:1px solid var(--rule);}
+.foot-rule{margin-bottom:var(--p-xl);}
+.news label{display:block; color:var(--accent); margin-bottom:var(--p-s); font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s);}
+.news h2{margin:0 0 var(--p-s); font-family:var(--font-extended); font-weight:400; text-transform:uppercase; font-size:var(--fs-2xl); line-height:var(--lh-2xl);}
+.news form{display:flex; gap:var(--p-s); flex-wrap:wrap; max-width:520px;}
+.news input{flex:1 1 220px; min-height:48px; background:transparent; border:0; border-bottom:1px solid var(--rule); color:var(--fg); font-family:var(--font-sans); font-size:var(--fs-m); padding:0;}
+.news input:focus{outline:none; border-bottom-color:var(--fg);}
+.news .note{font-size:var(--fs-s); color:var(--meta); margin-top:var(--p-s);}
+.pack{display:flex; flex-wrap:wrap; gap:var(--p-s) var(--p-l); margin:var(--p-s) 0 var(--p-m);}
+.pack span{font-family:var(--font-sans); font-size:var(--fs-s); color:var(--meta);}
+.pack span::before{content:"\2192 "; color:var(--accent);}
+.socials{display:flex; flex-wrap:wrap; gap:var(--p-l); margin-top:var(--p-xl);}
+.socials a{font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); color:var(--meta); padding:12px 0; margin:-12px 0;}
+.socials a:hover{color:var(--accent);}
+.backref{margin-top:var(--p-xl); font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); color:var(--dim);}
+.backref b,.backref a{color:var(--accent);}
+.wordmark-foot{display:flex; align-items:center; gap:var(--p-m); margin-top:var(--p-xl); flex-wrap:wrap;}
+.wordmark-foot .m{font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); color:var(--meta);}
+
+.hero .actions{display:flex; flex-wrap:wrap; gap:var(--p-s); margin-top:var(--p-l);}
+
+/* ---- sticky follow CTA (kept per founder) ---- */
+.sticky-cta{
+  position:fixed; left:0; right:0; bottom:0; z-index:60;
+  display:flex; align-items:center; justify-content:space-between; gap:var(--p-m);
+  padding:var(--p-s) var(--rail); background:var(--bg);
+  border-top:1px solid var(--rule);
+  font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s);
+  transform:translateY(110%); transition:transform .3s ease;
+}
+.sticky-cta.show{transform:none;}
+.sticky-cta .r{display:flex; align-items:center; gap:var(--p-s);}
+.sticky-cta .go{color:var(--accent);}
+.sticky-cta .x{background:none; border:0; color:var(--meta); font-size:22px; line-height:1; min-width:44px; min-height:44px; cursor:pointer;}
+.sticky-cta .x:hover{color:var(--fg);}
+
+/* ---- newsletter pop-up (kept per founder) ---- */
+.pop[hidden]{display:none;}
+.pop{position:fixed; inset:0; z-index:100; display:flex; align-items:center; justify-content:center; padding:var(--p-l);}
+.pop-scrim{position:absolute; inset:0; background:rgba(0,0,0,.72); backdrop-filter:blur(8px); cursor:pointer;}
+.pop-card{position:relative; z-index:1; width:100%; max-width:480px; background:var(--bg); border:1px solid var(--rule); padding:var(--p-xl) var(--p-l) var(--p-l);}
+.pop-x{position:absolute; top:0; right:0; background:none; border:0; color:var(--meta); font-size:24px; line-height:1; min-width:44px; min-height:44px; cursor:pointer;}
+.pop-x:hover{color:var(--fg);}
+.pop-card .k{display:block; color:var(--accent); font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); margin-bottom:var(--p-s); padding-right:48px;}
+.pop-card h2{font-family:var(--font-extended); font-weight:400; text-transform:uppercase; letter-spacing:normal; font-size:var(--fs-2xl); line-height:var(--lh-2xl); margin:0 0 var(--p-s);}
+.pop-card p{font-size:var(--fs-m); line-height:var(--lh-xl); margin:0 0 var(--p-m); color:var(--dim);}
+.pop-card form{display:flex; flex-direction:column; gap:var(--p-s);}
+.pop-card input{min-height:48px; background:transparent; border:0; border-bottom:1px solid var(--rule); color:var(--fg); font-family:var(--font-sans); font-size:var(--fs-m); padding:0;}
+.pop-card input:focus{outline:none; border-bottom-color:var(--fg);}
+.pop-card .note{font-size:var(--fs-s); color:var(--meta); margin-top:var(--p-s);}
+.midcap .btn,.news .btn,.pop-card .btn{justify-content:center;}
+
+.note{font-size:var(--fs-s); line-height:var(--lh-s); color:var(--meta);}
+.midcap .k,.pop-card .k{font-family:var(--font-label);}
+.ascii,.ascii-art,.tpl{font-family:var(--font-code); font-size:var(--fs-s); line-height:1.4; color:var(--dim); white-space:pre-wrap;}
+
+/* =========================================================================
+   THE OPEN QUESTION — card colour. Exactly one of these ships.
+   ========================================================================= */
+
+/* VARIANT A — MONOCHROME. Cards are unfilled cells bounded by a single
+   hairline, identical to the landing page's teasers. The six tints collapse
+   to nothing; hierarchy comes from type and space alone. Most sprind. */
+html.card-mono .card{background:transparent; border-top:1px solid var(--rule); padding:var(--p-l) 0;}
+html.card-mono .c-cream,
+html.card-mono .c-aqua,
+html.card-mono .c-ink,
+html.card-mono .c-orchid,
+html.card-mono .c-signal,
+html.card-mono .c-fog{background:transparent; color:var(--fg); border:0; border-top:1px solid var(--rule);}
+html.card-mono .card .goth{color:var(--paper);}
+html.card-mono .card .tag{color:var(--meta);}
+
+/* VARIANT B — BAND + ACCENT. Cards alternate black and the #141414 band, each
+   outlined by a hairline, and the tag carries caret teal. Colour survives as a
+   system rather than a palette, and the rhythm matches the landing page's
+   alternating sections. */
+html.card-band .card{background:var(--bg); outline:1px solid var(--rule); padding:var(--p-l);}
+html.card-band .c-cream,
+html.card-band .c-aqua,
+html.card-band .c-ink,
+html.card-band .c-orchid,
+html.card-band .c-signal,
+html.card-band .c-fog{color:var(--fg); border:0;}
+html.card-band .issues .card:nth-of-type(even){background:var(--band);}
+html.card-band .card .tag{color:var(--accent);}
+html.card-band .card .goth{color:var(--paper);}
