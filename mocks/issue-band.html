@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en" class="js card-band"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ISSUE MOCK B — band + accent — no.012</title>
+<link rel="preload" href="../fonts/archivo-expanded-400.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:'Archivo Expanded';src:url(fonts/archivo-expanded-400.woff2) format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Archivo Text';src:url(fonts/archivo-400.woff2) format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Inter Tight';src:url(fonts/inter-tight-600-latin.woff2) format('woff2');font-weight:600;font-display:swap}
+@font-face{font-family:'Printvetica';src:url(fonts/printvetica-caps.woff2) format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'IBM Plex Mono';src:url(../fonts/ibm-plex-mono-400-latin.woff2) format('woff2');font-weight:400;font-display:swap}
+</style>
+<link rel="stylesheet" href="issue.css">
+</head>
+<body>
+<header class="chrome">
+  <a class="wm" href="./index.html" aria-label="vektor">
+    <span class="wm-plate wm-acid" aria-hidden="true">vektor</span>
+    <span class="wm-plate wm-orchid" aria-hidden="true">vektor</span>
+    <span class="wm-main">
+      <span class="ch" style="--i:0"><span class="g">%</span><span class="l">v</span></span><span class="ch" style="--i:1"><span class="g">#</span><span class="l">e</span></span><span class="ch" style="--i:2"><span class="g">Z</span><span class="l">k</span></span><span class="ch" style="--i:3"><span class="g">8</span><span class="l">t</span></span><span class="ch" style="--i:4"><span class="g">@</span><span class="l">o</span></span><span class="ch" style="--i:5"><span class="g">W</span><span class="l">r</span></span>
+    </span>
+  </a>
+  <span class="marker">This Week in AI Â· Git Hygiene</span>
+</header>
+
+<div class="sticky-cta" id="stickyCta" aria-hidden="true">
+  <span class="t">Next drop: <b>the keyword only lives on the reel</b></span>
+  <span class="r"><a class="go" data-goatcounter-click="no012-follow-sticky" href="https://www.instagram.com/vektor.fm/" target="_blank" rel="noopener">Follow →</a><button class="x" id="ctaClose" type="button" aria-label="Dismiss">×</button></span>
+</div>
+
+<div class="weave" aria-hidden="true"></div>
+
+<div class="pop" id="packPop" hidden>
+  <div class="pop-scrim" data-pop-close></div>
+  <div class="pop-card" role="dialog" aria-modal="true" aria-labelledby="popH">
+    <button class="pop-x" type="button" data-pop-close aria-label="Close">×</button>
+    <span class="k">One email a week · the working setup</span>
+    <h2 id="popH">Keep the whole toolkit.</h2>
+    <p>The Teardown sends the config pack and one working AI setup a week — the same rig behind this channel. Free, and you can unsubscribe anytime.</p>
+    <form action="https://buttondown.com/api/emails/embed-subscribe/vektor" method="post">
+      <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
+      <button class="btn" type="submit">Get the weekly pack →</button>
+    </form>
+    <div class="note">Free. The config pack lands after you confirm your email. Unsubscribe anytime.</div>
+  </div>
+</div>
+
+<main>
+<section class="hero">
+  <div class="kick eye">This Week in AI · Git Hygiene</div>
+  <h1 class="disp">Repo.<br>Guarded<span class="dot">.</span></h1>
+  <p class="sub">The moment you run a coding agent next to your own editor — or two Claude sessions at once — the working tree stops being yours. One broad <code>git add -A</code> sweeps someone else's half-done work into your commit. These six rules stop that. We run them in production every day; here's the file, free, no gate. As promised.</p>
+  <div class="snippet" id="file">
+    <div class="bar"><span class="f">CLAUDE.md · git hygiene · the six rules</span><button class="snipbtn" id="snipCopy" type="button">Copy rules</button></div>
+    <pre id="snipText"># CLAUDE.md — git hygiene for AI coding agents
+# Paste this section into your CLAUDE.md. Claude Code reads it every session,
+# BEFORE it runs a single git command.
+
+## Git hygiene — always
+1. Stage explicit paths only — `git add &lt;specific files&gt;`, NEVER
+   `git add -A`, `git add .`, or `git commit -a`.
+2. Check for a second session — if `git status` shows changes you didn't
+   make, do NOT stage them. Unrecognized files are a stop sign.
+3. Push after you commit — "committed" is not "backed up". Never end a
+   session with silent unpushed commits.
+4. Never commit secrets or junk — .gitignore first: .env, node_modules/,
+   weights, build outputs. No remote at all? Flag it.
+5. Write meaningful messages — one commit = one coherent change,
+   never "wip".
+6. Parallel work goes in worktrees — two sessions means two working
+   trees, not a fight over one checkout.
+
+# ↓ The download is the full template: every rule with the WHY comment —
+#   the real production failure each line exists to prevent.</pre>
+  </div>
+  <div class="actions">
+    <a class="btn primary" data-goatcounter-click="no012-download-file" href="./files/CLAUDE-git-hygiene.md" download="CLAUDE-git-hygiene.md">Download the file ↓</a>
+    <a class="btn" href="#rules">Why these 3 ↓</a>
+    <button class="btn" id="shareBtn" type="button">Send to a builder</button>
+  </div>
+  <div class="rule">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+</section>
+
+<div class="fig">
+  <h2 class="kick">Fig. 01 ·</h2>
+  <span class="gaccent">the big three</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues" id="rules">
+
+  <article class="card c-cream">
+    <div class="top">
+      <span class="tag">Rule 1 · explicit paths</span>
+      <span class="goth">add</span>
+    </div>
+    <h2>Never <span style="white-space:nowrap;">add&nbsp;-A</span> again.</h2>
+    <p class="one">A broad add doesn't know which changes are its own — it stages everything it finds, including another session's half-finished edits. The commit "works", the history looks clean, and someone else's broken change just shipped inside yours. Explicit paths make that impossible.</p>
+    <span class="proof">git add &lt;file&gt; · never -A · never commit -a</span>
+  </article>
+
+  <article class="card c-aqua">
+    <div class="top">
+      <span class="tag">Rule 3 · push after commit</span>
+      <span class="goth">push</span>
+    </div>
+    <h2>Committed is not backed up.</h2>
+    <p class="one">Until it's pushed, a commit exists on exactly one machine — and local-only commits fail in silence. Nothing looks wrong until the laptop is gone. The rule: commit, then push, and if pushing isn't possible, <b>say so out loud</b> so a human can finish the job.</p>
+    <span class="proof">one machine ≠ a backup</span>
+  </article>
+
+  <article class="card c-ink">
+    <div class="top">
+      <span class="tag">Rule 6 · worktrees</span>
+      <span class="goth">split</span>
+    </div>
+    <h2>Two sessions. Two trees.</h2>
+    <p class="one">Rules 1–2 reduce the damage of a collision; worktrees remove the collision. <code>git worktree</code> (in Claude Code: <code>claude --worktree &lt;name&gt;</code>) gives every parallel session its own isolated folder and branch — instead of two agents fighting over one checkout.</p>
+    <span class="proof">git worktree · isolated folder + branch</span>
+  </article>
+
+</section>
+
+<div class="fig">
+  <h2 class="kick">Fig. 02 ·</h2>
+  <span class="gaccent">the file</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues">
+  <article class="card c-cream" id="howto">
+    <div class="top">
+      <span class="tag">How to use it · 3 steps</span>
+      <span class="goth">setup</span>
+    </div>
+    <h2>One section. Every session.</h2>
+    <p class="one">Claude Code reads CLAUDE.md at the start of every session, automatically — no plugin, no setting. This file is a drop-in section: paste it into your project's CLAUDE.md (or <code>~/.claude/CLAUDE.md</code> for every repo you own). The download keeps the WHY comment on every rule — each one exists because removing it caused a real mistake.</p>
+    <span class="stars">6 rules · every WHY included · drop-in section · no gate</span>
+  </article>
+</section>
+
+<section class="ledger" aria-label="How to use the file">
+  <div class="lrow"><span class="n">01</span><span class="t">Download the file above (or copy the six rules)</span></div>
+  <div class="lrow"><span class="n">02</span><span class="t">Paste the section into your project's CLAUDE.md — or ~/.claude/CLAUDE.md for all repos</span></div>
+  <div class="lrow"><span class="n">03</span><span class="t">Start a new Claude Code session · the rules apply before the first git command</span></div>
+</section>
+
+<section class="midcap" aria-label="Get the weekly pack">
+  <span class="k">One email a week · the working setup</span>
+  <h2>Keep the whole toolkit.</h2>
+  <p>The Teardown sends the config pack and one working AI setup a week — the same rig behind this channel. Free, and you can unsubscribe anytime.</p>
+  <form action="https://buttondown.com/api/emails/embed-subscribe/vektor" method="post">
+    <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
+    <button class="btn" type="submit">Get the weekly pack →</button>
+  </form>
+  <div class="note">Free. The config pack lands after you confirm your email. Unsubscribe anytime.</div>
+</section>
+
+<div class="fig">
+  <h2 class="kick">Fig. 03 ·</h2>
+  <span class="gaccent">what's next</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues">
+  <article class="card c-ink" id="next">
+    <div class="top">
+      <span class="tag">Next drop · daily</span>
+      <span class="goth">soon</span>
+    </div>
+    <h2>New keyword. Every day.</h2>
+    <p class="one">One AI teardown a day, and every issue delivers the goods — a new keyword drops daily on the reel, and followers catch it first.</p>
+    <div class="actions">
+      <a class="btn primary" data-goatcounter-click="no012-follow-next" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Follow @vektor.fm for the next one →</a>
+    </div>
+  </article>
+
+  <article class="card c-ink">
+    <div class="top">
+      <span class="tag">Want the operating rules too?</span>
+      <span class="goth">the seven</span>
+    </div>
+    <h2>The seven-rule CLAUDE.md.</h2>
+    <p class="one">Git hygiene keeps your repo safe; the seven operating rules keep Claude's output tight — smallest change, plan first, search before read, show the diff. Same format, one page each.</p>
+    <div class="actions">
+      <a class="btn" data-goatcounter-click="no012-part1" href="./no-010.html">Rules 1–4 →</a>
+      <a class="btn" data-goatcounter-click="no012-part2" href="./no-011.html">Rules 5–7 →</a>
+    </div>
+  </article>
+</section>
+
+</main>
+
+<footer>
+  <div class="rule foot-rule">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+
+  <div class="news" id="subscribe">
+    <h2 class="kick" style="color:var(--acid);">Get the pack — the working setup, one config</h2>
+    <div class="pack">
+      <span>The config pack</span><span>Claude Code settings</span><span>One teardown / week</span>
+    </div>
+    <form action="https://buttondown.com/api/emails/embed-subscribe/vektor" method="post">
+      <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
+      <button class="btn" type="submit">Send me the pack →</button>
+    </form>
+    <div class="note">Free. The config pack lands after you confirm your email. Unsubscribe anytime.</div>
+  </div>
+
+  <nav class="socials" aria-label="Social links">
+    <a data-goatcounter-click="no012-follow-tiktok-foot" href="https://tiktok.com/@vektor.fm" target="_blank" rel="noopener">TikTok · @vektor.fm</a>
+    <a data-goatcounter-click="no012-follow-instagram-foot" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Instagram · @vektor.fm</a>
+    <a data-goatcounter-click="no012-follow-youtube-foot" href="https://youtube.com/@vektorfm" target="_blank" rel="noopener">YouTube · @vektorfm</a>
+    <a data-goatcounter-click="no012-follow-x-foot" href="https://x.com/vektordotfm" target="_blank" rel="noopener">X · @vektordotfm</a>
+    <a href="./privacy.html">Privacy</a>
+  </nav>
+
+  <div class="backref">A new keyword drops every day â€” <b>it only lives on the reel</b> â€” follow @vektor.fm to catch it. Want the operating rules? <a href="./no-010.html">Rules 1â€“4 â†’</a> Â· <a href="./no-011.html">Rules 5â€“7 â†’</a></div>
+
+  <div class="wordmark-foot">
+    <span class="wm-foot" id="wmFoot" aria-label="vektor"><span class="ch2" style="--i:0"><span class="g">%</span><span class="l">v</span></span><span class="ch2" style="--i:1"><span class="g">#</span><span class="l">e</span></span><span class="ch2" style="--i:2"><span class="g">Z</span><span class="l">k</span></span><span class="ch2" style="--i:3"><span class="g">8</span><span class="l">t</span></span><span class="ch2" style="--i:4"><span class="g">@</span><span class="l">o</span></span><span class="ch2" style="--i:5"><span class="g">W</span><span class="l">r</span></span></span>
+    <span class="m">/// no. 012 / git hygiene / 07-2026 Â· the frontier, by the numbers</span>
+  </div>
+</footer>
+
+<script>
+  function fallback(text){ var t=document.createElement('textarea'); t.value=text; t.style.position='fixed'; t.style.opacity='0'; document.body.appendChild(t); t.focus(); t.select(); try{ document.execCommand('copy'); }catch(e){} document.body.removeChild(t); }
+  function copyText(text, btn, doneLabel){ var o=btn.textContent, done=function(){ btn.textContent=doneLabel; setTimeout(function(){btn.textContent=o;},1600); }; if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(done).catch(function(){ fallback(text); done(); }); } else { fallback(text); done(); } }
+  function gcEvent(name){ if(name && window.goatcounter && goatcounter.count){ goatcounter.count({path:name, event:true}); } }
+  var COPY_EVENT='no012-copy-file';
+  document.querySelectorAll('.copybtn').forEach(function(btn){ btn.addEventListener('click', function(){ copyText(btn.getAttribute('data-copy'), btn, 'Copied ✓'); gcEvent(COPY_EVENT); }); });
+  var snip=document.getElementById('snipCopy');
+  if(snip){ snip.addEventListener('click', function(){ var el=document.getElementById('snipText'); copyText(el.textContent, snip, 'Copied ✓'); gcEvent(COPY_EVENT); }); }
+  // generic copy hook (legacy multi-card pages): data-copy-target="all" | "#id"; optional data-copy-event
+  document.querySelectorAll('[data-copy-target]').forEach(function(btn){ btn.addEventListener('click', function(){ var t=btn.getAttribute('data-copy-target'), text; if(t==='all'){ text=[].slice.call(document.querySelectorAll('.copybtn')).map(function(b){return b.getAttribute('data-copy');}).join('\n'); } else { var el=document.querySelector(t); text=el?el.textContent:''; } copyText(text, btn, 'Copied ✓'); gcEvent(btn.getAttribute('data-copy-event')); }); });
+  var camp=(location.pathname.split('/').pop()||'index').replace(/\.html$/,'')||'index';
+  document.querySelectorAll('a[href^="http"]').forEach(function(a){ try{ var u=new URL(a.href); if(u.hostname==='github.com'){return;} if(!u.searchParams.has('utm_source')){ u.searchParams.set('utm_source','vektor'); u.searchParams.set('utm_medium','dm'); u.searchParams.set('utm_campaign',camp); a.href=u.toString(); } }catch(e){} });
+  var sh=document.getElementById('shareBtn');
+  if(sh){ sh.addEventListener('click', function(){ gcEvent('no012-share'); if(navigator.share){ navigator.share({title:document.title, url:location.href}).catch(function(){}); } else { copyText(location.href, sh, 'Link copied — paste it ✓'); } }); }
+  var sticky=document.getElementById('stickyCta'), sub=document.getElementById('subscribe'), dismissed=false;
+  var midcap=document.querySelector('.midcap'), cards=document.querySelectorAll('.issues .card'), lastCard=cards[cards.length-1];
+  // show once the reader has scrolled PAST the mid-page capture (peak intent handled),
+  // hide while a subscribe form intersects the bar's own strip (bottom 130px) so the bar
+  // never covers or competes with a form CTA. The old rule (last card above 60vh AND
+  // footer form fully off-screen) was geometrically unsatisfiable — the bar never showed.
+  function inBarZone(el){ if(!el){return false;} var r=el.getBoundingClientRect(); return r.top<window.innerHeight && r.bottom>window.innerHeight-130; }
+  function updCta(){ if(dismissed){return;} var gate=midcap||lastCard; var passed=!!gate && gate.getBoundingClientRect().bottom<0; var show=passed && !inBarZone(midcap) && !inBarZone(sub); sticky.classList.toggle('show', show); sticky.setAttribute('aria-hidden', show?'false':'true'); }
+  window.addEventListener('scroll',updCta,{passive:true}); window.addEventListener('resize',updCta); updCta();
+  document.getElementById('ctaClose').addEventListener('click', function(){ dismissed=true; sticky.classList.remove('show'); sticky.setAttribute('aria-hidden','true'); });
+  var wmFoot=document.getElementById('wmFoot');
+  if(wmFoot && 'IntersectionObserver' in window){ var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ wmFoot.classList.remove('play'); void wmFoot.offsetWidth; wmFoot.classList.add('play'); } }); }, {threshold:0.6}); io.observe(wmFoot); }
+  // on-open pack popup — re-shows every 2 days (localStorage timestamp), dismissible (x / scrim / Esc)
+  (function(){ var pop=document.getElementById('packPop'); if(!pop){return;} var KEY='vektor_pack_seen', TTL=2*24*60*60*1000;
+    try{ var last=parseInt(localStorage.getItem(KEY)||'0',10); if(last && (Date.now()-last)<TTL){ return; } }catch(e){}
+    function seen(){ try{ localStorage.setItem(KEY, String(Date.now())); }catch(e){} }
+    function esc(e){ if(e.key==='Escape'){ close(); } }
+    function close(){ pop.setAttribute('hidden',''); seen(); document.removeEventListener('keydown',esc); }
+    pop.querySelectorAll('[data-pop-close]').forEach(function(el){ el.addEventListener('click', close); });
+    var f=pop.querySelector('form'); if(f){ f.addEventListener('submit', seen); }
+    setTimeout(function(){ pop.removeAttribute('hidden'); document.addEventListener('keydown',esc); var x=pop.querySelector('.pop-x'); if(x){ try{ x.focus(); }catch(e){} } }, 900);
+  })();
+</script>
+
+<script data-goatcounter="https://vektor.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body></html>

@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Band lift + hero fold — pick one of each</title>
+<style>
+@font-face{font-family:'Archivo Expanded';src:url('../mocks/fonts/archivo-expanded-400.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Archivo Text';src:url('../mocks/fonts/archivo-400.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Inter Tight';src:url('../mocks/fonts/inter-tight-600-latin.woff2') format('woff2');font-weight:600;font-display:swap}
+:root{
+  --rule:#C9C9C9; --fg:#fff; --meta:#999; --dim:#b4b4b4;
+  --ext:'Archivo Expanded',system-ui,sans-serif; --sans:'Archivo Text',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#000;color:var(--fg);font-family:var(--sans);font-size:15px;line-height:19px;-webkit-font-smoothing:antialiased}
+h1{font-family:var(--ext);font-weight:400;font-size:52px;line-height:54px;text-transform:uppercase}
+h2{font-family:var(--ext);font-weight:400;font-size:32px;line-height:34px;text-transform:uppercase}
+p{font-size:18px;line-height:22px;color:var(--dim);max-width:70ch}
+code{font-family:ui-monospace,Menlo,monospace;font-size:.86em;background:#141414;padding:1px 5px}
+.wrap{padding:40px 40px 80px}
+section{border-bottom:1px solid var(--rule);padding:40px 0 60px}
+.kicker{font-size:15px;text-transform:uppercase;letter-spacing:.025em;color:var(--meta);margin-bottom:16px}
+.note{color:var(--meta);margin-top:12px;max-width:74ch;font-size:15px;line-height:19px}
+
+/* ---------- band comparison: real abutting sections with a hairline ---------- */
+.bands{margin-top:28px}
+.pair{display:grid;grid-template-columns:130px 1fr;align-items:stretch;margin-bottom:2px}
+.pair .lab{padding:14px 16px 14px 0;font-size:15px;color:var(--meta);text-transform:uppercase;letter-spacing:.025em}
+.pair .lab b{display:block;color:var(--fg);text-transform:none;letter-spacing:normal;font-weight:400;font-family:ui-monospace,Menlo,monospace;font-size:13px}
+.stack{border:1px solid var(--rule)}
+.stack > div{padding:22px 20px;font-size:15px}
+.stack > div + div{border-top:1px solid var(--rule)}
+.b0{background:#000}
+.l0{background:#000}     .l1{background:#0A0A0A}  .l2{background:#0E0E0E}
+.l3{background:#141414}  .l4{background:#1A1A1A}  .l5{background:#222}
+
+/* ---------- hero fold: three options in a fixed short viewport ---------- */
+.heros{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-top:28px}
+@media(max-width:1100px){.heros{grid-template-columns:minmax(0,1fr)}}
+.hbox{border:1px solid var(--rule)}
+.hbox .cap{padding:12px 14px;border-bottom:1px solid var(--rule);font-size:13px;color:var(--meta);text-transform:uppercase;letter-spacing:.025em}
+.hbox .cap b{color:var(--fg);font-weight:400}
+/* the viewport being simulated: a 1440x674 laptop, scaled to fit the column */
+.vp{position:relative;height:300px;overflow:hidden;background:#0E0E0E}
+.vp .fold{position:absolute;left:0;right:0;bottom:0;height:1px;background:#ff5f5f;z-index:5}
+.vp .foldlab{position:absolute;right:4px;bottom:4px;font-size:10px;color:#ff5f5f;letter-spacing:.4px;z-index:6;text-transform:uppercase}
+.hero{display:flex;flex-direction:column;align-items:center;justify-content:space-between;height:100%;padding:0 14px 18px;text-align:center}
+.hero .eb{padding:9px;font-size:8px;text-transform:uppercase;color:#fff;letter-spacing:.3px}
+.mark{font-family:'Inter Tight',system-ui,sans-serif;font-weight:600;letter-spacing:-.045em;color:#EFEADD;line-height:.95}
+.hl{display:grid;gap:8px;justify-items:center}
+.hl h3{font-family:var(--ext);font-weight:400;font-size:11px;line-height:13px;text-transform:uppercase;max-width:24ch}
+.hl p{font-size:8px;line-height:10px;color:var(--dim);max-width:46ch}
+/* A: as shipped — content 903px in a 674 viewport, so it overflows */
+.hA .hero{height:auto;min-height:134%}
+.hA .mark{font-size:74px}
+/* B: wordmark bounded by height as well as width */
+.hB .mark{font-size:56px}
+/* C: spacing tightened, wordmark unchanged */
+.hC .hero{padding:0 14px 8px}
+.hC .mark{font-size:74px}
+.hC .eb{padding:4px}
+.hC .hl{gap:4px}
+.verdict{margin-top:10px;font-size:13px;line-height:17px;color:var(--meta);padding:0 2px}
+.verdict b{color:#7ee08a;font-weight:400}
+.verdict .bad{color:#ff8f8f}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<section>
+  <div class="kicker">vektor-site · two decisions · 2026-08-10</div>
+  <h1>Band lift &amp; hero fold</h1>
+  <p>Both are things I picked as placeholders and neither should be settled by measurement. Pick one from each row and I'll set it.</p>
+</section>
+
+<section>
+  <h2>1 &nbsp; The band lift</h2>
+  <p>sprind alternates white and black sections. Inverted, their white becomes our black and their black becomes a lighter near-black. How light is the question — it has to read as a band without stopping being dark.</p>
+  <div class="bands">
+    <div class="pair"><div class="lab">none<b>#000000</b></div>
+      <div class="stack"><div class="b0">black section</div><div class="l0">band section</div><div class="b0">black section</div></div></div>
+    <div class="pair"><div class="lab">very subtle<b>#0A0A0A</b></div>
+      <div class="stack"><div class="b0">black section</div><div class="l1">band section</div><div class="b0">black section</div></div></div>
+    <div class="pair"><div class="lab">current<b>#0E0E0E</b></div>
+      <div class="stack"><div class="b0">black section</div><div class="l2">band section</div><div class="b0">black section</div></div></div>
+    <div class="pair"><div class="lab">clear<b>#141414</b></div>
+      <div class="stack"><div class="b0">black section</div><div class="l3">band section</div><div class="b0">black section</div></div></div>
+    <div class="pair"><div class="lab">strong<b>#1A1A1A</b></div>
+      <div class="stack"><div class="b0">black section</div><div class="l4">band section</div><div class="b0">black section</div></div></div>
+    <div class="pair"><div class="lab">too much?<b>#222222</b></div>
+      <div class="stack"><div class="b0">black section</div><div class="l5">band section</div><div class="b0">black section</div></div></div>
+  </div>
+  <p class="note">Judge this on your actual screen, not a screenshot — the steps are 4&ndash;10 luminance levels apart and panel calibration changes which ones separate. If the middle three look identical to you, that itself is the answer: go to <code>#141414</code> or higher.</p>
+</section>
+
+<section style="border-bottom:0">
+  <h2>2 &nbsp; The hero fold</h2>
+  <p>The hero is <code>min-height:100svh</code>, copied from sprind. Its content now runs 903px tall, so on a 674px-high laptop the headline drops below the fold — the first screen is eyebrow and wordmark only. Each box below simulates that short laptop; the red line is the fold.</p>
+
+  <div class="heros">
+    <div>
+      <div class="hbox hA">
+        <div class="cap"><b>A</b> &middot; as shipped</div>
+        <div class="vp">
+          <div class="hero"><div class="eb">The frontier, by the numbers</div><div class="mark">vektor</div>
+            <div class="hl"><h3>The AI frontier, cut to what ships</h3><p>Every issue is one short film and one working pack.</p></div></div>
+          <div class="fold"></div><div class="foldlab">fold</div>
+        </div>
+      </div>
+      <div class="verdict"><span class="bad">Headline is cut off.</span> Most faithful to sprind — theirs does the same at this height.</div>
+    </div>
+
+    <div>
+      <div class="hbox hB">
+        <div class="cap"><b>B</b> &middot; wordmark bounded by height</div>
+        <div class="vp">
+          <div class="hero"><div class="eb">The frontier, by the numbers</div><div class="mark">vektor</div>
+            <div class="hl"><h3>The AI frontier, cut to what ships</h3><p>Every issue is one short film and one working pack.</p></div></div>
+          <div class="fold"></div><div class="foldlab">fold</div>
+        </div>
+      </div>
+      <div class="verdict"><b>Recommended.</b> <code>min(24.9vw, 40svh)</code> — identical to A on a normal screen, shrinks only when the screen is too short to fit. Nothing is ever cut off.</div>
+    </div>
+
+    <div>
+      <div class="hbox hC">
+        <div class="cap"><b>C</b> &middot; spacing tightened</div>
+        <div class="vp">
+          <div class="hero"><div class="eb">The frontier, by the numbers</div><div class="mark">vektor</div>
+            <div class="hl"><h3>The AI frontier, cut to what ships</h3><p>Every issue is one short film and one working pack.</p></div></div>
+          <div class="fold"></div><div class="foldlab">fold</div>
+        </div>
+      </div>
+      <div class="verdict">Wordmark stays full size, gaps shrink instead. Fits, but breaks sprind's 80px rhythm on <em>every</em> screen to fix a problem that only exists on short ones.</div>
+    </div>
+  </div>
+
+  <p class="note">B changes nothing at 1440&times;900 or taller &mdash; the wordmark is 359px either way. It only engages when height, not width, is the binding constraint.</p>
+</section>
+
+</div>
+</body>
+</html>

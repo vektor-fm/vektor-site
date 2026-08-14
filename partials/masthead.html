@@ -9,9 +9,18 @@
   <span class="marker">{{MARKER}}</span>
 </header>
 
+<!-- Sticky ask. This used to be a Follow link back to Instagram, which spent
+     an IG click to win a visit and then returned the visitor to IG without
+     capturing anything. The goal is the email address, so the persistent ask
+     is now the email. Follow demotes to the footer. -->
 <div class="sticky-cta" id="stickyCta" aria-hidden="true">
-  <span class="t">{{STICKY_TEXT}}</span>
-  <span class="r"><a class="go" data-goatcounter-click="{{SLUG}}-follow-sticky" href="https://www.instagram.com/vektor.fm/" target="_blank" rel="noopener">Follow →</a><button class="x" id="ctaClose" type="button" aria-label="Dismiss">×</button></span>
+  <span class="t">{{MAGNET}} + one working setup a week</span>
+  <form class="sticky-form" method="post" action="https://buttondown.com/api/emails/embed-subscribe/vektor" data-capture="sticky">
+    <label class="sr-only" for="stickyEmail">Email address</label>
+    <input id="stickyEmail" name="email" type="email" placeholder="you@email.com" autocomplete="email" required>
+    <button class="btn primary" type="submit">Get it &rarr;</button>
+  </form>
+  <button class="x" id="ctaClose" type="button" aria-label="Dismiss">&times;</button>
 </div>
 
 <div class="weave" aria-hidden="true"></div>
@@ -21,9 +30,9 @@
   <div class="pop-card" role="dialog" aria-modal="true" aria-labelledby="popH">
     <button class="pop-x" type="button" data-pop-close aria-label="Close">×</button>
     <span class="k">One email a week · the working setup</span>
-    <h2 id="popH">Keep the whole toolkit.</h2>
-    <p>The Teardown sends the config pack and one working AI setup a week — the same rig behind this channel. Free, and you can unsubscribe anytime.</p>
-    <form action="https://buttondown.com/api/emails/embed-subscribe/vektor" method="post">
+    <h2 id="popH">{{MAGNET_TITLE}}</h2>
+    <p>Free, no wall. Add your email and The Teardown sends {{MAGNET}} plus one working AI setup a week.</p>
+    <form action="https://buttondown.com/api/emails/embed-subscribe/vektor" method="post" data-capture="popup">
       <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
       <button class="btn" type="submit">Get the weekly pack →</button>
     </form>
