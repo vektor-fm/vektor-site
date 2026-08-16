@@ -184,5 +184,13 @@
       "lastmod": "2026-07-05",
       "built": true
     }
+  ],
+  "teardowns": [
+    {
+      "number": "001",
+      "title": "The agent that remembers what it got wrong",
+      "date": "2026-08-16",
+      "subject": "The agent that remembers what it got wrong"
+    }
   ]
 }

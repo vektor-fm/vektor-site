@@ -1,0 +1,154 @@
+<section class="hero">
+  <div class="kick eye">The Teardown · 001</div>
+  <h1 class="disp">The agent that<br>remembers what it<br>got wrong<span class="dot">.</span></h1>
+  <p class="sub">An agent researches something brilliantly on Monday. On Tuesday you ask again and it starts from zero. That is not a memory problem you fix with a bigger context window — it is a process problem, and the fix is four files.</p>
+  <div class="actions">
+    <a class="btn primary" href="#parts">The four parts ↓</a>
+    <a class="btn" href="./no-026.html">Get the skill file →</a>
+    <button class="btn" id="shareBtn" type="button">Send to a dev friend</button>
+  </div>
+  <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+</section>
+
+<!-- ======================= THE DIAGRAM ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 01 ·</h2>
+  <span class="gaccent">the loop, end to end</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues">
+  <article class="issue">
+    <p><img src="./diagrams/teardown-001.png" alt="The loop that remembers: framework, checker, act and schedule across the top, each writing down into one append-only state file, which is read first by every run." width="1200" height="750" loading="lazy"></p>
+    <p class="meta">Every step writes to the state file. Every run reads it before doing anything else. That single relationship is the difference between a loop that compounds and four prompts in a trenchcoat.</p>
+  </article>
+</section>
+
+<!-- ======================= THE PROBLEM ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 02 ·</h2>
+  <span class="gaccent">why a bigger context window is not the fix</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues">
+  <article class="issue">
+    <p>The obvious reading of "my agent forgets" is that it needs more room. It usually does not. Anthropic's own guidance on context engineering treats the context window as a budget to be curated rather than filled, and Claude Code's memory system is built the same way — instructions that must survive a session go in a file that gets re-read, not into an ever-longer conversation.<sup><a href="#s1">[1]</a></sup><sup><a href="#s2">[2]</a></sup></p>
+    <p>So the question stops being "how do I make it remember more" and becomes "what should it write down, and what should it read before it starts". Those are process questions, and you answer them with files.</p>
+  </article>
+</section>
+
+<!-- ======================= THE FOUR PARTS ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 03 ·</h2>
+  <span class="gaccent">the four parts</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues" id="parts">
+  <article class="issue">
+    <h3>01 · A weighted framework</h3>
+    <p>Every candidate gets scored on the same factors, each factor multiplied by a weight you set. No exceptions, no "this one's obviously good". The whole value of a framework is that it gets applied identically to things you like and things you don't.</p>
+    <p>Show the working per candidate: factor, raw score, weight, contribution. If a raw score cannot be justified in one sentence, it is a guess, and it gets marked as one.</p>
+  </article>
+
+  <article class="issue">
+    <h3>02 · An append-only state file</h3>
+    <p>Every run records what it surfaced, what it scored, what you did, and what happened next. Every run after that reads the file before it does anything else. This is the part that makes it compound, and it is the one people skip.</p>
+    <p>It is also not a new idea. The decision journal — write down your reasoning at the moment you decide, then read it back when the outcome lands — comes out of Kahneman's work on calibration and was popularised by Farnam Street.<sup><a href="#s3">[3]</a></sup> The reason it works is hindsight bias: once you know how something turned out, you sincerely misremember having expected it, an effect documented well enough to have its own review literature.<sup><a href="#s4">[4]</a></sup> A file written before the outcome is the only honest record of what you actually thought.</p>
+    <pre class="code"><code>## Run 2026-08-10
+| candidate | factor        | raw | weight | contribution |
+|-----------|---------------|-----|--------|--------------|
+| ACME      | insider buys  |   8 |   0.25 |         2.00 |
+| ACME      | fcf trend     |   4 |   0.30 |         1.20 |
+Action: watchlist, no position.
+Source: filings pulled 2026-08-10. Sentiment: unverified.</code></pre>
+    <p class="meta">Append-only means never editing history. Corrections go in as new entries. That rule is what makes the file trustworthy six months later.</p>
+  </article>
+
+  <article class="issue">
+    <h3>03 · A checker that argues back</h3>
+    <p>A second pass over the shortlist whose job is to try to kill the first one. It looks for what the first pass did not examine, evidence that <em>contradicts</em> the reason something scored well, concentration risk, and anything the framework structurally cannot see.</p>
+    <p>The reason this is a separate pass and not an instruction is that a model asked to "be critical" while producing an answer will defend the answer it is producing. Give the critique its own run and its own input, and it has nothing to defend.</p>
+  </article>
+
+  <article class="issue">
+    <h3>04 · A schedule</h3>
+    <p>It runs Monday morning whether or not you remember it exists. A loop you have to remember to start is a loop that runs three times and then stops, and three runs is not enough state to be worth reading.</p>
+  </article>
+</section>
+
+<!-- ======================= HOW IT IS SET UP ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 04 ·</h2>
+  <span class="gaccent">how I set it up</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues">
+  <article class="issue">
+    <p>A skill file, plus a <code>state.md</code> that starts empty. Three tools attached: something that reads the open web, something that drives a real browser for anything the web reader cannot reach, and read/write access to wherever your notes live.</p>
+    <pre class="code"><code>mkdir -p ~/.claude/skills/analyst &amp;&amp; curl -o ~/.claude/skills/analyst/SKILL.md https://vektor-fm.github.io/vektor-site/files/analyst-skill/SKILL.md</code></pre>
+    <p>The first instruction in the loop is <em>read the state file end to end</em>. Not skim, not summarise. A run that has not read the state file is a first run wearing a costume.</p>
+    <p>The second is that every figure gets its date and its source recorded at the moment it is written down. If a number cannot be sourced it goes in as <code>unverified</code> rather than being dropped — the gap is information. Six months later you will not remember which was which, and a number whose provenance you cannot reconstruct is not evidence.</p>
+  </article>
+</section>
+
+<!-- ======================= WHERE IT BREAKS ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 05 ·</h2>
+  <span class="gaccent">where it breaks</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues">
+  <article class="issue">
+    <h3>The weights are the whole thing</h3>
+    <p>The ones shipped in the file are placeholders. If you adopt someone else's weights without examining them you have learned nothing and the loop has nothing of yours to correct. Set your own, badly, and let the state file fix them.</p>
+  </article>
+  <article class="issue">
+    <h3>The state file is a single point of failure</h3>
+    <p>Everything else here is replaceable. Back it up.</p>
+  </article>
+  <article class="issue">
+    <h3>One case is not a signal</h3>
+    <p>Re-weight from outcomes, not from feelings, and not from a single ambiguous case. Two cases pointing the same way is a signal; one is an anecdote. This is the rule most likely to be broken in month one, because month one is when you most want the loop to have taught you something.</p>
+  </article>
+  <article class="issue">
+    <h3>It is not financial advice</h3>
+    <p>The worked example screens companies because that is a domain with a lot of public data and an obvious feedback signal. It is not a stock picker. The architecture is the point, and it transfers to suppliers, job candidates, papers, grants, or anything else you rank more than once.</p>
+  </article>
+</section>
+
+<!-- ======================= VERDICT ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 06 ·</h2>
+  <span class="gaccent">does it earn a slot?</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues">
+  <article class="issue">
+    <p><b>Yes, but not on week one.</b> On week one it is slower than just asking. It starts paying somewhere around week four, when the file is long enough that the agent catches something it got wrong before you do.</p>
+    <p>If you only take one thing: point any recurring agent task at an append-only log and make reading it step zero. That works without the rest of this.</p>
+  </article>
+</section>
+
+<!-- ======================= SOURCES ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 07 ·</h2>
+  <span class="gaccent">sources</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues" id="sources">
+  <article class="issue">
+    <ol class="ledger">
+      <li id="s1"><b>[1]</b> Anthropic — <a href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents" target="_blank" rel="noopener">Effective context engineering for AI agents</a>. On treating the context window as a budget to curate rather than fill.</li>
+      <li id="s2"><b>[2]</b> Claude Code docs — <a href="https://code.claude.com/docs/en/memory" target="_blank" rel="noopener">How Claude remembers your project</a>. Persistent instructions belong in a file that is re-read each session, not in conversation history.</li>
+      <li id="s3"><b>[3]</b> Farnam Street — <a href="https://fs.blog/decision-journal/" target="_blank" rel="noopener">How a decision journal changed the way I make decisions</a>. The practice, and its origin in Kahneman's answer on improving investor performance.</li>
+      <li id="s4"><b>[4]</b> Roese &amp; Vohs (2012) — <a href="https://journals.sagepub.com/doi/10.1177/1745691612454303" target="_blank" rel="noopener">Hindsight Bias</a>, <i>Perspectives on Psychological Science</i>. The review literature on believing an outcome was predictable once you know it.</li>
+    </ol>
+    <p class="meta">Every claim in this issue that is not my own measurement is either sourced above or marked as opinion. If something here is wrong, reply and tell me — corrections go out in the next issue.</p>
+  </article>
+</section>

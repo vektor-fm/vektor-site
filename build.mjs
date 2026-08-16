@@ -32,6 +32,9 @@ const site = JSON.parse(read('site.json'));
 const NAV = read('partials/nav.html');
 const NAV_CSS = read('partials/nav-css.html');
 const BUILT = site.issues.filter((i) => i.built);
+// Newsletter issues. Separate from site.issues[] because a Teardown is not a
+// reel landing page: it has no keyword, no funnel, and no OG plate art.
+const TEARDOWNS = site.teardowns ?? [];
 
 // ---- template fill: {{TOKEN}} -> value (uppercase tokens only) ----
 function fill(tpl, map) {
@@ -183,6 +186,44 @@ function renderSitemap() {
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join('\n')}\n</urlset>\n`;
 }
 
+// ---- newsletter issue page (the web version of an emailed Teardown) ----
+// Same partials as an issue page, so it inherits the design system rather than
+// drifting the way thanks.html and pack.html did. Flat at the repo root
+// (teardown-001.html, not teardown/001.html) because head.html loads fonts by
+// relative path — a subdirectory silently breaks every @font-face.
+//
+// The email carries one PNG and ~500 words; the full piece, with footnotes and
+// sources, lives here. That split exists because email will not render SVG and
+// punishes link-heavy first sends, while a web page has neither limit.
+function renderTeardown(num) {
+  const man = JSON.parse(read(`manifest/teardown-${num}.json`));
+  for (const k of ['tw_title', 'tw_description']) {
+    if (man[k] == null) throw new Error(`teardown-${num}: missing ${k}`);
+  }
+  const map = {
+    NAV, NAV_CSS,
+    MAGNET: 'the config pack',
+    MAGNET_TITLE: 'Keep the whole toolkit.',
+    TITLE: man.title, DESCRIPTION: man.description,
+    OG_TITLE: man.og_title, OG_DESCRIPTION: man.og_description, OG_IMAGE: man.og_image,
+    OG_ALT: man.og_alt, OG_URL: man.og_url, CANONICAL: man.canonical,
+    TW_TITLE: man.tw_title, TW_DESCRIPTION: man.tw_description, TW_IMAGE: man.tw_image,
+    MARKER: man.marker, STICKY_TEXT: man.sticky_text, SLUG: man.slug,
+    BACKREF_HTML: man.backref_html, FOOTER_META: man.footer_meta,
+    COPY_EVENT_JS: man.copy_event ? `'${man.copy_event}'` : 'null',
+    SUBSCRIBE_BLOCK: man.subscribe_track
+      ? `\n  document.querySelectorAll('form').forEach(function(f){ f.addEventListener('submit', function(){ gcEvent('${man.slug}-subscribe-submit'); }); });`
+      : '',
+  };
+  const out = fill(read('partials/head.html'), map)
+    + fill(read('partials/masthead.html'), map)
+    + read(`src/teardown-${num}.body.html`)
+    + fill(read('partials/footer.html'), map)
+    + fill(read('partials/scripts.html'), map);
+  assertNoTokens(out, `teardown-${num}`);
+  return out;
+}
+
 // ---- outputs map ----
 function outputs() {
   const o = {};
@@ -191,6 +232,7 @@ function outputs() {
     const man = JSON.parse(read(`manifest/no-${i.number}.json`));
     if (man.og_card) o[`og-src-no-${i.number}.html`] = renderOgCard(i.number, man.og_card);
   }
+  for (const t of TEARDOWNS) o[`teardown-${t.number}.html`] = renderTeardown(t.number);
   o['index.html'] = renderIndex();
   o['sitemap.xml'] = renderSitemap();
   return o;
@@ -211,6 +253,22 @@ function guardrail() {
     const body = read(`src/no-${i.number}.body.html`);
     for (const m of body.matchAll(/(?:href|src)="\.\/(files\/[^"?#]+)"/g)) {
       if (!exists(m[1])) errs.push(`no-${i.number}: payload -> missing ${m[1]}`);
+    }
+  }
+  // Teardowns: the diagram and any local asset must exist, and every footnote
+  // marker must point at a source entry that is actually on the page. A dangling
+  // [3] is worse than no citation — it looks sourced and is not.
+  for (const t of TEARDOWNS) {
+    const man = JSON.parse(read(`manifest/teardown-${t.number}.json`));
+    const og = man.og_image.replace(/^https?:\/\/[^/]+\/[^/]+\//, '');
+    if (!exists(og)) errs.push(`teardown-${t.number}: og:image -> missing ${og}`);
+    const body = read(`src/teardown-${t.number}.body.html`);
+    for (const m of body.matchAll(/(?:href|src)="\.\/((?:files|diagrams)\/[^"?#]+)"/g)) {
+      if (!exists(m[1])) errs.push(`teardown-${t.number}: asset -> missing ${m[1]}`);
+    }
+    const anchors = new Set([...body.matchAll(/id="(s\d+)"/g)].map((m) => m[1]));
+    for (const m of body.matchAll(/href="#(s\d+)"/g)) {
+      if (!anchors.has(m[1])) errs.push(`teardown-${t.number}: footnote -> no source entry #${m[1]}`);
     }
   }
   return errs;
