@@ -1,0 +1,29 @@
+{
+  "number": "028",
+  "title": "vektor /// no. 028 — superpowers: the 250,000-star workflow for your coding agent",
+  "description": "Superpowers from NO. 028 — the one-command install and the 4-move workflow (brainstorm → plan → test-first → two-stage review) that 250,000+ GitHub stars point at. The install, the moves, the honest caveat, and the one-pager. As promised.",
+  "og_title": "Superpowers — vektor /// no. 028",
+  "og_description": "One command installs it. Then 14 skills force the workflow: brainstorm → plan → test-first → two-stage review. The install + the 4 moves + the honest part, on one page.",
+  "og_image": "https://vektor-fm.github.io/vektor-site/og/no-028.png",
+  "og_alt": "Superpowers — vektor /// no. 028",
+  "og_url": "https://vektor-fm.github.io/vektor-site/no-028.html",
+  "canonical": "https://vektor-fm.github.io/vektor-site/no-028.html",
+  "tw_title": "Superpowers — vektor /// no. 028",
+  "tw_description": "One command installs it. Then 14 skills force the workflow: brainstorm → plan → test-first → two-stage review. Install + moves + the honest part.",
+  "tw_image": "https://vektor-fm.github.io/vektor-site/og/no-028.png",
+  "marker": "Claude · Copy My System",
+  "sticky_text": "Follow <b>@vektor.fm</b> → a new keyword daily",
+  "backref_html": "A new keyword drops every day — <b>catch it first on the reel</b> — follow @vektor.fm. More like this: <a href=\"./no-025.html\">The Council →</a>",
+  "footer_meta": "/// no. 028 / superpowers / 07-2026 · the frontier, by the numbers",
+  "slug": "no028",
+  "subscribe_track": true,
+  "copy_event": "no028-copy-install",
+  "og_card": {
+    "kick": "Claude · Copy My System",
+    "h1_html": "Superpowers<span class=\"dot\">.</span>",
+    "h1_size": 84,
+    "sub_mt": 18,
+    "sub_html": "The plugin that makes Claude plan properly and check its own work — with the one install line.",
+    "meta_html": "/// no. 028 / superpowers / 08-2026 · <b>vektor.fm</b>"
+  }
+}

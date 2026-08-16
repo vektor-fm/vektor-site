@@ -14,6 +14,42 @@
       "built": true
     },
     {
+      "number": "031",
+      "title_short": "tax the agents",
+      "section": "Setup",
+      "date": "2026-08-01",
+      "keyword": "",
+      "lastmod": "2026-08-16",
+      "built": true
+    },
+    {
+      "number": "030",
+      "title_short": "the council",
+      "section": "Setup",
+      "date": "2026-08-01",
+      "keyword": "",
+      "lastmod": "2026-08-16",
+      "built": true
+    },
+    {
+      "number": "028",
+      "title_short": "Superpowers",
+      "section": "Setup",
+      "date": "2026-08-01",
+      "keyword": "",
+      "lastmod": "2026-08-16",
+      "built": true
+    },
+    {
+      "number": "026",
+      "title_short": "the state file",
+      "section": "Setup",
+      "date": "2026-08-01",
+      "keyword": "",
+      "lastmod": "2026-08-16",
+      "built": true
+    },
+    {
       "number": "024",
       "title_short": "Your AI habits. Audited.",
       "section": "The Mirror",
@@ -92,6 +128,15 @@
       "date": "07-2026",
       "keyword": "Loop",
       "lastmod": "2026-07-16",
+      "built": true
+    },
+    {
+      "number": "014",
+      "title_short": "Give Claude Code a memory.",
+      "section": "Setup",
+      "date": "2026-08-01",
+      "keyword": "",
+      "lastmod": "2026-08-16",
       "built": true
     },
     {

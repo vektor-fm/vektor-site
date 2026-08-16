@@ -1,0 +1,29 @@
+{
+  "number": "030",
+  "title": "the council — vektor /// no. 030",
+  "description": "The Council from NO. 030 — the Claude skill that runs your question through 5 adversarial advisors, blind peer review, and a chairman verdict. The real SKILL.md, the install, the roster, the honest cost. As promised.",
+  "og_title": "the council — vektor /// no. 030",
+  "og_description": "You use Claude like a yes-man. The council fixes that: 5 advisors, blind peer review, a chairman verdict. The real SKILL.md is on the page — two commands install it.",
+  "og_image": "https://vektor-fm.github.io/vektor-site/og/no-030.png",
+  "og_alt": "the council — vektor /// no. 030",
+  "og_url": "https://vektor-fm.github.io/vektor-site/no-030.html",
+  "canonical": "https://vektor-fm.github.io/vektor-site/no-030.html",
+  "tw_title": "the council — vektor /// no. 030",
+  "tw_description": "5 advisors, blind peer review, a chairman verdict. The real SKILL.md + two-command install — and the honest cost is on the page.",
+  "tw_image": "https://vektor-fm.github.io/vektor-site/og/no-030.png",
+  "marker": "Claude · Copy My System",
+  "sticky_text": "Follow <b>@vektor.fm</b> → a new keyword daily",
+  "backref_html": "A new keyword drops every day — <b>catch it first on the reel</b> — follow @vektor.fm. More like this: <a href=\"./no-028.html\">Superpowers →</a>",
+  "footer_meta": "/// no. 030 / the council / 08-2026 · the frontier, by the numbers",
+  "slug": "no030",
+  "subscribe_track": true,
+  "copy_event": "no030-copy-install",
+  "og_card": {
+    "kick": "Claude · Copy My System",
+    "h1_html": "The council<span class=\"dot\">.</span>",
+    "h1_size": 84,
+    "sub_mt": 18,
+    "sub_html": "Several models argue, one decides. The skill, the prompt, and where it beats asking once.",
+    "meta_html": "/// no. 030 / the council / 08-2026 · <b>vektor.fm</b>"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "number": "031",
+  "title": "tax the agents — vektor /// no. 031",
+  "description": "Tax the agents from NO. 031 — taxes on human work are 84% of US federal revenue. If AI agents take the work, the pipe empties. The per-agent levy sounds clean; it has two technical holes. The full read, with every source.",
+  "og_title": "tax the agents — vektor /// no. 031",
+  "og_description": "The US federal government runs on wage taxes — 84% of revenue. An agent that replaces a $70k salary pays none of it. The obvious fix is a per-agent levy. It has two holes. Read both.",
+  "og_image": "https://vektor-fm.github.io/vektor-site/og/no-031.png",
+  "og_alt": "tax the agents — vektor /// no. 031",
+  "og_url": "https://vektor-fm.github.io/vektor-site/no-031.html",
+  "canonical": "https://vektor-fm.github.io/vektor-site/no-031.html",
+  "tw_title": "tax the agents — vektor /// no. 031",
+  "tw_description": "84% of US federal revenue is taxed off human work. Agents pay none of it. The per-agent levy has two holes — jurisdiction shopping and local inference. The full read.",
+  "tw_image": "https://vektor-fm.github.io/vektor-site/og/no-031.png",
+  "marker": "AI Policy · The Read",
+  "sticky_text": "Follow <b>@vektor.fm</b> → a new keyword daily",
+  "backref_html": "Tomorrow's keyword drops for followers first — <b>catch it on the reel</b> — follow @vektor.fm. More like this: <a href=\"./no-030.html\">The Council →</a>",
+  "footer_meta": "/// no. 031 / tax the agents / 08-2026 · the frontier, by the numbers",
+  "slug": "no031",
+  "subscribe_track": true,
+  "og_card": {
+    "kick": "AI Policy · The Read",
+    "h1_html": "Tax the agents<span class=\"dot\">.</span>",
+    "h1_size": 84,
+    "sub_mt": 18,
+    "sub_html": "What an agent tax would actually hit, who pays it, and the part of the proposal nobody costs out.",
+    "meta_html": "/// no. 031 / tax the agents / 08-2026 · <b>vektor.fm</b>"
+  }
+}
