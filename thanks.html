@@ -2,8 +2,8 @@
 <html lang="en" id="top"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>vektor /// you're in — The Teardown confirmed</title>
-<meta name="description" content="You're confirmed. Your first Teardown + the config pack are on the way.">
+<title>vektor /// you're in — the config pack</title>
+<meta name="description" content="You're on the list. The config pack is on this page — no inbox trip.">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#101010">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23101010'/%3E%3Ctext x='30' y='48' font-family='Arial' font-size='46' font-weight='600' text-anchor='middle' fill='%23EFEADD'%3Ev%3C/text%3E%3Ccircle cx='52' cy='44' r='5' fill='%2339FF35'/%3E%3C/svg%3E">
@@ -64,6 +64,23 @@
   .btn:hover{background:var(--paper); color:var(--ink);}
   .btn.primary{background:var(--acid); color:var(--ink); border-color:var(--acid);}
   .btn.primary:hover{background:#5cff59;}
+  /* The pack lives on THIS page. Buttondown's welcome email does not fire for
+     API-created subscribers and automations are paid, so the payoff cannot
+     depend on an inbox — see vektor/reports/2026-08-16-buttondown-audit.md. */
+  .pack{padding:44px var(--rail) 0; max-width:760px;}
+  .pack h2{margin:0 0 6px; font-family:var(--disp); font-weight:900; text-transform:uppercase; font-size:clamp(24px,6vw,38px); line-height:1.05;}
+  .pack .lede{color:#c9c4b6; font-size:15px; margin:0 0 26px; max-width:56ch;}
+  .skill{border-top:2px solid #2a2a2a; padding:20px 0;}
+  .skill:last-of-type{border-bottom:2px solid #2a2a2a;}
+  .skill .hd{display:flex; gap:14px; align-items:baseline;}
+  .skill .n{font-family:var(--disp); font-weight:900; font-size:22px; color:var(--aqua); flex:none; line-height:1;}
+  .skill .nm{font-family:var(--kick); text-transform:uppercase; letter-spacing:0.08em; font-size:14px;}
+  .skill .ds{color:#a8a397; font-size:14px; margin:6px 0 12px; padding-left:36px;}
+  .cmd{display:flex; gap:10px; align-items:stretch; margin-left:36px;}
+  .cmd code{flex:1; min-width:0; overflow-x:auto; white-space:pre; background:#181816; border:1px solid #2f2f2c; color:var(--acid); font-family:var(--mono); font-size:13px; padding:11px 12px;}
+  .cmd button{flex:none; font-family:var(--kick); text-transform:uppercase; letter-spacing:0.08em; font-size:11px; padding:0 12px; border:1px solid #2f2f2c; background:transparent; color:#a8a397; cursor:pointer;}
+  .cmd button:hover{color:var(--ink); background:var(--acid); border-color:var(--acid);}
+  @media (max-width:560px){ .skill .ds,.cmd{margin-left:0; padding-left:0;} }
   footer{margin-top:56px; padding:36px var(--rail) 56px; border-top:1px solid #262626; font-family:var(--kick); text-transform:uppercase; letter-spacing:0.1em; font-size:13px; color:#8f8b80;}
   footer a{color:#8f8b80; text-decoration:none; padding:12px 0; margin:-12px 0; display:inline-block;}
   footer a:hover{color:var(--acid);}
@@ -79,7 +96,7 @@
       <span class="ch" style="--i:0"><span class="g">%</span><span class="l">v</span></span><span class="ch" style="--i:1"><span class="g">#</span><span class="l">e</span></span><span class="ch" style="--i:2"><span class="g">Z</span><span class="l">k</span></span><span class="ch" style="--i:3"><span class="g">8</span><span class="l">t</span></span><span class="ch" style="--i:4"><span class="g">@</span><span class="l">o</span></span><span class="ch" style="--i:5"><span class="g">W</span><span class="l">r</span></span>
     </span>
   </a>
-  <span class="marker">The Teardown · Confirmed</span>
+  <span class="marker">The Teardown · You're in</span>
 </header>
 
 <div class="weave" aria-hidden="true"></div>
@@ -87,17 +104,53 @@
 <section class="hero">
   <div class="kick eye">The Teardown</div>
   <h1>You're in<span class="dot">.</span></h1>
-  <p class="sub">Your email's confirmed. The config pack + your first weekly Teardown are on the way — check your inbox (and your promotions tab, just in case). One email a week, the working setup, nothing else.</p>
+  <p class="sub" id="sub">You're on the list — no confirmation email to hunt down. The config pack is right here on this page. One email a week from now on, the working setup, nothing else.</p>
+</section>
+
+<section class="pack" aria-label="The config pack">
+  <h2>The config pack</h2>
+  <p class="lede">Five Claude Code skills, with the exact install lines — verified against each repo, not guessed. Run them from a terminal, except where noted.</p>
+
+  <div class="skill">
+    <div class="hd"><span class="n">01</span><span class="nm">Find Skills</span></div>
+    <p class="ds">The one that finds the other four.</p>
+    <div class="cmd"><code>npx skills add vercel-labs/agent-skills -a claude-code</code><button type="button" data-copy>Copy</button></div>
+  </div>
+
+  <div class="skill">
+    <div class="hd"><span class="n">02</span><span class="nm">Superpowers</span></div>
+    <p class="ds">Plans properly, checks its own work. Run this one inside Claude Code.</p>
+    <div class="cmd"><code>/plugin install superpowers@claude-plugins-official</code><button type="button" data-copy>Copy</button></div>
+  </div>
+
+  <div class="skill">
+    <div class="hd"><span class="n">03</span><span class="nm">Claude-Mem</span></div>
+    <p class="ds">Remembers your project between sessions.</p>
+    <div class="cmd"><code>npx claude-mem install</code><button type="button" data-copy>Copy</button></div>
+  </div>
+
+  <div class="skill">
+    <div class="hd"><span class="n">04</span><span class="nm">Impeccable</span></div>
+    <p class="ds">Front-end taste on tap. Kills AI-slop UI.</p>
+    <div class="cmd"><code>npx impeccable install</code><button type="button" data-copy>Copy</button></div>
+  </div>
+
+  <div class="skill">
+    <div class="hd"><span class="n">05</span><span class="nm">Task Observer</span></div>
+    <p class="ds">Watches how you work and improves your other skills.</p>
+    <div class="cmd"><code>npx -y skills add rebelytics/one-skill-to-rule-them-all --skill task-observer --agent claude-code</code><button type="button" data-copy>Copy</button></div>
+  </div>
 </section>
 
 <section class="steps" aria-label="What happens next">
-  <div class="srow"><span class="n">01</span><span class="t">The config pack lands in your inbox</span></div>
+  <div class="srow"><span class="n">01</span><span class="t">The full pack — same five plus a starter settings.json that cuts the permission prompts</span></div>
   <div class="srow"><span class="n">02</span><span class="t">One Teardown a week — the AI tooling that actually ships</span></div>
   <div class="srow"><span class="n">03</span><span class="t">A new keyword drops daily on the reel — followers catch it first</span></div>
 </section>
 
 <div class="actions">
-  <a class="btn primary" href="./index.html">Read a past issue →</a>
+  <a class="btn primary" href="./pack.html">Get the full pack →</a>
+  <a class="btn" href="./index.html">Read a past issue →</a>
   <a class="btn" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Follow @vektor.fm →</a>
 </div>
 
@@ -106,9 +159,43 @@
 </footer>
 
 <script>
-  // Fire the double-opt-in CONFIRMED signal (Buttondown redirects here post-confirmation).
+  // Fire the SUBSCRIBED signal. Deliberately a new event path rather than the old
+  // 'subscribe-confirmed': that series counted people who clicked a confirmation
+  // link, and this one counts everyone who submits, so keeping the old name would
+  // silently change what the metric means halfway through its history.
+  // An ?e= parameter means the Worker could not record the subscriber, so it is
+  // tracked separately rather than being counted as a success.
   // count.js loads async, so retry until it's ready rather than racing it on load.
-  (function fire(tries){ if(window.goatcounter && goatcounter.count){ goatcounter.count({path:'subscribe-confirmed', event:true}); } else if(tries<40){ setTimeout(function(){ fire(tries+1); }, 150); } })(0);
+  (function fire(tries){
+    if(window.goatcounter && goatcounter.count){
+      var err = new URLSearchParams(location.search).get('e');
+      goatcounter.count({path: err ? 'subscribe-failed-' + err : 'subscribe-complete', event:true});
+    } else if(tries<40){ setTimeout(function(){ fire(tries+1); }, 150); }
+  })(0);
+
+  // Never tell someone they are on the list when they are not. The Worker sets
+  // ?e= when the subscribe failed; say so, and give them the pack anyway.
+  (function(){
+    var e = new URLSearchParams(location.search).get('e');
+    if(!e) return;
+    var sub = document.getElementById('sub');
+    var h1 = document.querySelector('.hero h1');
+    if(h1) h1.innerHTML = 'Almost<span class="dot">.</span>';
+    if(sub) sub.textContent = e === 'blocked'
+      ? "Our spam filter blocked that address, so you're not subscribed. If you used a +alias, try again with the plain address. The config pack is below either way — it's yours."
+      : "Something went wrong adding you to the list, so you're not subscribed yet. Please try the form again in a minute. The config pack is below either way — it's yours.";
+  })();
+
+  // Copy buttons on the install lines.
+  document.querySelectorAll('.cmd button[data-copy]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var code = b.parentNode.querySelector('code');
+      navigator.clipboard.writeText(code.textContent).then(function(){
+        var was = b.textContent; b.textContent = 'Copied';
+        setTimeout(function(){ b.textContent = was; }, 1400);
+      });
+    });
+  });
 </script>
 <script data-goatcounter="https://vektor.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </body></html>
