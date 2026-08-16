@@ -9,7 +9,9 @@
      is now the email. Follow demotes to the footer. -->
 <div class="sticky-cta" id="stickyCta" aria-hidden="true">
   <span class="t">{{MAGNET}} + one working setup a week</span>
-  <form class="sticky-form" method="post" action="https://buttondown.com/api/emails/embed-subscribe/vektor" data-capture="sticky">
+  <form class="sticky-form" method="post" action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" data-capture="sticky">
+      <input type="hidden" name="tag" value="masthead-sticky">
+      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
     <label class="sr-only" for="stickyEmail">Email address</label>
     <input id="stickyEmail" name="email" type="email" placeholder="you@email.com" autocomplete="email" required>
     <button class="btn primary" type="submit">Get it &rarr;</button>
@@ -26,11 +28,13 @@
     <span class="k">One email a week · the working setup</span>
     <h2 id="popH">{{MAGNET_TITLE}}</h2>
     <p>Free, no wall. Add your email and The Teardown sends {{MAGNET}} plus one working AI setup a week.</p>
-    <form action="https://buttondown.com/api/emails/embed-subscribe/vektor" method="post" data-capture="popup">
+    <form action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="popup">
+      <input type="hidden" name="tag" value="masthead-popup">
+      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
       <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
       <button class="btn" type="submit">Get the weekly pack →</button>
     </form>
-    <div class="note">Free. The config pack lands after you confirm your email. Unsubscribe anytime.</div>
+    <div class="note">Free. The config pack lands in your inbox straight away. Unsubscribe anytime.</div>
   </div>
 </div>
 
