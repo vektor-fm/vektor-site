@@ -1,0 +1,28 @@
+{
+  "number": "014",
+  "title": "vektor /// no. 014 — give claude code a memory.",
+  "description": "The claude-mem quick-start — the exact install steps and the real hook config, straight from the shipped hooks.json. Claude Code forgets everything when you close it; this fixes that. Free, no gate.",
+  "og_title": "Give Claude Code a memory. — vektor /// no. 014",
+  "og_description": "Claude Code forgets everything when you close it. claude-mem gives it memory across sessions. The exact install steps + the real hook config, with the traps. No gate.",
+  "og_image": "https://vektor-fm.github.io/vektor-site/og/no-014.png",
+  "og_alt": "Give Claude Code a memory. — vektor /// no. 014",
+  "og_url": "https://vektor-fm.github.io/vektor-site/no-014.html",
+  "canonical": "https://vektor-fm.github.io/vektor-site/no-014.html",
+  "tw_title": "Give Claude Code a memory. — vektor /// no. 014",
+  "tw_description": "Claude Code forgets everything when you close it. claude-mem gives it memory across sessions. The exact install steps + the real hook config, with the traps. No gate.",
+  "tw_image": "https://vektor-fm.github.io/vektor-site/og/no-014.png",
+  "marker": "This Week in AI · Memory",
+  "sticky_text": "Next drop: <b>the keyword only lives on the reel</b>",
+  "backref_html": "A new keyword drops every day — <b>it only lives on the reel</b> — follow @vektor.fm to catch it. Give the memory something to do: <a href=\"./no-015.html\">The starter loop →</a> · <a href=\"./no-013.html\">The agent starter kit →</a>",
+  "footer_meta": "/// no. 014 / memory / 07-2026 · the frontier, by the numbers",
+  "slug": "no014",
+  "subscribe_track": true,
+  "og_card": {
+    "kick": "This Week in AI · Memory",
+    "h1_html": "Give Claude Code<br>a memory<span class=\"dot\">.</span>",
+    "h1_size": 84,
+    "sub_mt": 18,
+    "sub_html": "The file it reads at the start of every session, the auto-memory it writes itself, and the two hooks that make either one actually bite.",
+    "meta_html": "/// no. 014 / memory / 08-2026 · <b>vektor.fm</b>"
+  }
+}

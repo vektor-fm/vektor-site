@@ -6,11 +6,10 @@
 <title>vektor /// the 5-skill config pack</title>
 <meta name="description" content="The Teardown welcome pack — five Claude Code skills, verified install lines, starter settings.">
 <style>
-@font-face { font-family: 'Tektur'; font-weight: 900; font-display: swap; src: url("fonts/tektur-900-latin.woff2") format('woff2'); }
 @font-face { font-family: 'IBM Plex Mono'; font-weight: 400; font-display: swap; src: url("fonts/ibm-plex-mono-400-latin.woff2") format('woff2'); }
 @font-face { font-family: 'IBM Plex Mono'; font-weight: 600; font-display: swap; src: url("fonts/ibm-plex-mono-600-latin.woff2") format('woff2'); }
 @font-face { font-family: 'Inter Tight'; font-weight: 600; font-display: swap; src: url("fonts/inter-tight-600-latin.woff2") format('woff2'); }
-:root { --ink:#101010; --paper:#EFEADD; --orchid:#C77BC9; --aqua:#8FC5C9; --cream:#F4EFDF; --fog:#E8ECEA; --acid:#39FF35; --mono:'IBM Plex Mono',ui-monospace,monospace; --disp:'Tektur',system-ui,sans-serif; }
+:root { --ink:#000000; --paper:#EFEADD; --orchid:#0E9C86; --aqua:#0E9C86; --cream:#FFFFFF; --fog:#B4B4B4; --acid:#0E9C86; --mono:'IBM Plex Mono',ui-monospace,monospace; --disp:'Archivo Expanded','Archivo Text',system-ui,sans-serif; }
 * { margin:0; padding:0; box-sizing:border-box; }
 body { background:var(--ink); color:var(--paper); font-family:var(--mono); font-size:16px; line-height:1.55; }
 .wrap { max-width:760px; margin:0 auto; padding:clamp(24px,6vw,64px) clamp(18px,5vw,40px) 80px; }
@@ -31,6 +30,18 @@ pre code { font-family:var(--mono); color:var(--acid); }
 .settings pre code { color:var(--fog); }
 .foot { margin-top:56px; padding-top:22px; border-top:2px solid rgba(239,234,221,0.18); font-size:13px; text-transform:uppercase; letter-spacing:0.1em; color:rgba(239,234,221,0.6); }
 .foot a { color:var(--acid); text-decoration:none; }
+
+  /* --- current design system, ported 2026-08-16 -------------------------
+     The retired skin used a 900-weight display face, an animated wordmark and
+     acid green as a UI accent. All three are gone: weight 400 everywhere, the
+     registration animation is retired, and teal is the only accent. */
+  h1,h2,h3,h4,h5,h6,.disp{font-weight:400 !important; letter-spacing:normal !important;}
+  .wm-plate{display:none !important;}
+  .wm-main .ch .l{opacity:1 !important; animation:none !important;}
+  .wm-main .ch .g{display:none !important;}
+  .weave{display:none !important;}
+  .rule,.foot-rule{height:1px !important; background:#C9C9C9 !important; font-size:0 !important; line-height:0 !important; color:transparent !important; overflow:hidden !important;}
+  .srow,.skill{border-color:#C9C9C9 !important;}
 </style></head>
 <body>
 <div class="wrap">

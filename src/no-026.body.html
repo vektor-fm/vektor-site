@@ -1,0 +1,187 @@
+<section class="hero">
+  <div class="kick eye">Claude &middot; Copy My System</div>
+  <h1 class="disp">The<br>state file<span class="dot">.</span></h1>
+  <p class="sub">Most people build an agent that does research well <em>once</em>. The interesting version is the one whose fifth run is better than its first &mdash; and what makes that true is boring: a file it writes to and reads back. The real SKILL.md is on this page, plus the state-file schema and the install. As promised.</p>
+  <div class="actions">
+    <a class="btn primary" href="#install">Get the skill &darr;</a>
+    <a class="btn" href="#skillfile">Read the whole file &darr;</a>
+    <button class="btn" id="shareBtn" type="button">Send to a dev friend</button>
+  </div>
+  <div class="rule">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+</section>
+
+<div class="fig">
+  <h2 class="kick">Fig. 01 &middot;</h2>
+  <span class="gaccent">useful &rarr; compounding</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues">
+  <article class="card c-cream">
+    <div class="top">
+      <span class="tag">The turn &middot; memory, not intelligence</span>
+      <span class="goth">analyst</span>
+    </div>
+    <h2>An agent that starts from zero every time isn&rsquo;t a system.</h2>
+    <p class="one">Give an agent tools and a good prompt and it will research well &mdash; today, and then again from scratch tomorrow, having learned nothing. The fix isn&rsquo;t a better model. It&rsquo;s a state file: an append-only record of every run, what it surfaced, what it scored, what you actually did, and what happened after. Every run reads it first. That single file is the difference between a clever demo and something that gets sharper for as long as you keep it.</p>
+    <div class="actions">
+      <a class="btn" data-goatcounter-click="no026-download-skill" href="./files/analyst-skill/SKILL.md" download>Download SKILL.md &darr;</a>
+      <a class="btn" data-goatcounter-click="no026-download-state" href="./files/analyst-skill/state-file.md" download>Download state-file.md &darr;</a>
+    </div>
+  </article>
+</section>
+
+<div class="fig">
+  <h2 class="kick">Fig. 02 &middot;</h2>
+  <span class="gaccent">the four parts</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues">
+  <article class="card c-ink">
+    <div class="top"><span class="tag">01</span><span class="goth">framework</span></div>
+    <h2>A weighted framework.</h2>
+    <p class="one">Every candidate scored the same way, on the same factors, with the same weights &mdash; including the ones you already like. A framework you apply selectively is just a preference with extra steps.</p>
+  </article>
+  <article class="card c-cream">
+    <div class="top"><span class="tag">02</span><span class="goth">state</span></div>
+    <h2>A state file. Append-only.</h2>
+    <p class="one">Never edit history; append corrections as new entries. A file you can rewrite is a file that will quietly agree with you &mdash; and then the loop is learning from a story instead of from what happened.</p>
+  </article>
+  <article class="card c-ink">
+    <div class="top"><span class="tag">03</span><span class="goth">checker</span></div>
+    <h2>A checker that argues back.</h2>
+    <p class="one">A second pass whose job is to kill the first pass&rsquo;s thesis, not confirm it: what it didn&rsquo;t look at, what contradicts its own reasoning, what the framework structurally cannot see.</p>
+  </article>
+  <article class="card c-cream">
+    <div class="top"><span class="tag">04</span><span class="goth">schedule</span></div>
+    <h2>A schedule, so it runs without you.</h2>
+    <p class="one">Weekly is enough. It pulls fresh data, scores, checks the state file for what moved, and drops a ranked shortlist with a one-page thesis. The thesis matters more than the ranking.</p>
+  </article>
+</section>
+
+<div class="fig">
+  <h2 class="kick">Fig. 03 &middot;</h2>
+  <span class="gaccent">the install</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues" id="install">
+  <article class="card c-ink">
+    <div class="top">
+      <span class="tag">Two files &middot; one of them is forever</span>
+      <span class="goth">install</span>
+    </div>
+    <h2>Two commands.</h2>
+    <p class="one">Drop the skill where your agent looks for skills, then create the memory next to wherever you want it to live. <b>Set your own weights before the first run</b> &mdash; the numbers shipped are placeholders, and adopting someone else&rsquo;s weights unexamined defeats the entire mechanism. The loop corrects <em>your</em> judgement, so it needs yours to start with.</p>
+    <div class="actions">
+      <button class="btn copybtn" type="button" data-copy="mkdir -p ~/.claude/skills/analyst &amp;&amp; curl -o ~/.claude/skills/analyst/SKILL.md https://vektor-fm.github.io/vektor-site/files/analyst-skill/SKILL.md">Copy install command</button>
+      <button class="btn copybtn" type="button" data-copy="curl -o state.md https://vektor-fm.github.io/vektor-site/files/analyst-skill/state-file.md">Copy state-file command</button>
+    </div>
+  </article>
+
+  <article class="card c-cream" id="skillfile">
+    <div class="top">
+      <span class="tag">No gate &middot; no email &middot; the actual file</span>
+      <span class="goth">SKILL.md</span>
+    </div>
+    <h2>The whole loop, right here.</h2>
+    <p class="one">This is the skill, not a summary of it. Read step 0 twice &mdash; it is the step everyone skips, and it is the one that makes the rest work.</p>
+    <div class="snippet">
+      <div class="bar"><span class="f">.claude/skills/analyst/SKILL.md</span><button class="snipbtn" id="snipCopy" type="button">Copy file</button></div>
+      <pre id="snipText">---
+name: analyst
+description: Run a repeatable, self-auditing research loop over a set of
+  candidates - screen against a weighted framework, log every run to a
+  state file, challenge the first pass with a checker, and re-weight from
+  what actually happened.
+---
+
+# The Analyst
+
+## Step 0 - read the state file FIRST
+Before anything else, read state.md end to end. Pull out:
+  - every candidate surfaced before, and what it scored
+  - every weight adjustment made, and the run that caused it
+  - anything on the Do-not-resurface list, and why
+Never skip this because the file looks long. A run that has not read the
+state file is a first run wearing a costume.
+
+## Step 1 - gather
+Note the DATE and SOURCE for every figure, at the moment you record it.
+If a figure cannot be sourced, record it as `unverified` rather than
+dropping it. The gap is information.
+
+## Step 2 - score against the framework
+Score each factor 0-10, multiply by weight, sum. No exceptions, no "this
+one is obviously good". Show your working per candidate. If you cannot
+justify a raw score in one sentence, it is a guess - mark it as one.
+
+## Step 3 - the checker
+A second, adversarial pass over the shortlist. Its job is to try to kill
+the first pass. It looks for what the first pass did not examine, evidence
+that CONTRADICTS the reason it scored well, concentration risk, and
+anything the framework structurally cannot see.
+
+## Step 4 - write the run to the state file
+Append one row per run. Never edit history; append corrections as new
+entries. The append-only rule is what makes the file trustworthy.
+
+## Step 5 - re-weight from outcomes, not from feelings
+When something plays out, ask which FACTOR was wrong, not whether you
+were unlucky. Change that factor's weight and log the change with the run
+that caused it. Do not re-weight from a single ambiguous case: two cases
+pointing the same way is a signal, one is an anecdote.</pre>
+    </div>
+    <div class="actions">
+      <a class="btn" data-goatcounter-click="no026-download-skill-2" href="./files/analyst-skill/SKILL.md" download>Download SKILL.md &darr;</a>
+      <a class="btn" data-goatcounter-click="no026-download-readme" href="./files/analyst-skill/README.md" download>README &darr;</a>
+    </div>
+  </article>
+</section>
+
+<div class="fig">
+  <h2 class="kick">Fig. 04 &middot;</h2>
+  <span class="gaccent">the honest part</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues" id="honest">
+  <article class="card c-ink">
+    <div class="top">
+      <span class="tag">What this does not do</span>
+      <span class="goth">honest</span>
+    </div>
+    <h2>It is a research loop. It is not financial advice.</h2>
+    <p class="one">The reel uses stock screening as the worked example because it is a domain with a lot of public data and an obvious feedback signal &mdash; but the architecture is the point, and it transfers to suppliers, candidates, papers, or anything else you rank repeatedly. This produces a ranked shortlist and the reasoning behind it. It does not tell you what to do, and nothing in it is a recommendation to buy or sell anything. If you point it at markets: a scoring framework organises your judgement, it does not replace it, and past outcomes do not predict future ones. Figures it cannot source stay labelled <code>unverified</code> &mdash; a research system that hides its gaps is worse than none, because you will trust it.</p>
+  </article>
+</section>
+
+<section class="midcap" aria-label="Get the weekly pack">
+  <span class="k">One email a week &middot; the working setup</span>
+  <h2>Keep the whole toolkit.</h2>
+  <p>The Teardown sends the config pack and one working AI setup a week &mdash; the same rig behind this channel. Free, and you can unsubscribe anytime.</p>
+  <form action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post">
+      <input type="hidden" name="tag" value="no-026-2">
+      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+    <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
+    <button class="btn" type="submit">Get the weekly pack &rarr;</button>
+  </form>
+  <div class="note">Free. The config pack lands in your inbox straight away. Unsubscribe anytime.</div>
+</section>
+
+<section class="issues">
+  <article class="card c-ink">
+    <div class="top">
+      <span class="tag">No catch &middot; all of it free</span>
+      <span class="goth">follow</span>
+    </div>
+    <h2>That&rsquo;s the state file. Follow for the next system.</h2>
+    <p class="one">This page exists because people follow &mdash; a new Claude system drops daily, and followers catch the keyword first. If your agent stops starting from zero from now on, the follow is the thank-you.</p>
+    <div class="actions">
+      <a class="btn primary" data-goatcounter-click="no026-follow-instagram" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Follow @vektor.fm &rarr;</a>
+    </div>
+  </article>
+</section>
+<!-- ===================== END ISSUE BLOCK - NO. 026 ===================== -->
+<!-- ===================== END ISSUE BLOCK — NO. 026 ===================== -->

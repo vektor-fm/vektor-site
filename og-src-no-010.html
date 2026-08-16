@@ -1,30 +1,74 @@
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="utf-8">
+<!-- Share-card source. Rendered to og/no-<num>.png at 1200x630 by render-og.mjs.
+     Brought onto the current design system 2026-08-16: black on white, teal as
+     the only accent, Archivo Expanded at weight 400, hairline rules. The old
+     card was still Tektur 900 on #101010 with a per-issue accent stripe and the
+     acid-green dot — which meant every shared vektor link showed a design the
+     site had already retired.
+
+     PER-ISSUE ACCENTS ARE GONE. #8FC5C9 is no longer read: the system has
+     one accent and head.html marks --acid as wordmark-plate only, never UI.
+     Manifests may still carry an `accent` key; it is simply ignored.
+
+     HEADLINE SIZES ARE SCALED. The sizes in the manifests were tuned for Tektur
+     900, and Archivo Expanded is a materially wider face at the same px, so
+     they are multiplied by 0.78 here rather than re-tuned across 25 manifests.
+     The container clips, so a headline that still runs long gets caught by eye
+     at render time instead of silently reflowing the card. -->
 <style>
-@font-face { font-family:'Tektur'; font-weight:900; src:url("fonts/tektur-900-latin.woff2") format('woff2'); }
+@font-face { font-family:'Archivo Expanded'; font-weight:400; src:url("fonts/archivo-expanded-400.woff2") format('woff2'); }
+@font-face { font-family:'Archivo Text'; font-weight:400; src:url("fonts/archivo-400.woff2") format('woff2'); }
+@font-face { font-family:'Printvetica'; font-weight:400; src:url("fonts/printvetica-caps.woff2") format('woff2'); }
 @font-face { font-family:'IBM Plex Mono'; font-weight:400; src:url("fonts/ibm-plex-mono-400-latin.woff2") format('woff2'); }
-@font-face { font-family:'Workbench'; font-weight:400; src:url("fonts/workbench-400-latin.woff2") format('woff2'); }
 @font-face { font-family:'Inter Tight'; font-weight:600; src:url("fonts/inter-tight-600-latin.woff2") format('woff2'); }
+
+:root{
+  --bg:#000000; --fg:#FFFFFF; --rule:#C9C9C9; --meta:#999999; --dim:#B4B4B4;
+  --accent:#0E9C86; --paper:#EFEADD;
+}
 *{box-sizing:border-box;margin:0;}
 html,body{width:1200px;height:630px;overflow:hidden;}
-body{background:#101010;color:#EFEADD;font-family:'IBM Plex Mono',monospace;position:relative;padding:56px 64px;}
-.weave{position:absolute;top:0;left:0;height:26px;width:100%;background-color:#8FC5C9;background-image:repeating-linear-gradient(90deg,rgba(16,16,16,.55) 0 3px,transparent 3px 9px),repeating-linear-gradient(0deg,rgba(16,16,16,.55) 0 3px,transparent 3px 9px),repeating-linear-gradient(90deg,rgba(255,255,255,.25) 0 1px,transparent 1px 9px);background-blend-mode:multiply;}
-.wm{font-family:'Inter Tight',sans-serif;font-weight:600;letter-spacing:-0.045em;font-size:44px;margin-top:26px;}
-.kick{font-family:'Workbench',monospace;text-transform:uppercase;letter-spacing:0.14em;font-size:20px;color:#8FC5C9;margin-top:44px;}
-h1{font-family:'Tektur',sans-serif;font-weight:900;text-transform:uppercase;line-height:0.98;letter-spacing:0.005em;font-size:104px;margin-top:18px;}
-h1 .dot{color:#39FF35;}
-.sub{font-size:23px;line-height:1.5;margin-top:18px;max-width:48ch;color:#EFEADD;}
-.rule{position:absolute;left:64px;right:64px;bottom:88px;color:rgba(239,234,221,0.4);font-size:20px;white-space:nowrap;overflow:hidden;}
-.meta{position:absolute;left:64px;bottom:40px;font-size:18px;color:#8f8b80;}
-.meta b{color:#39FF35;font-weight:400;}
+body{
+  background:var(--bg); color:var(--fg);
+  font-family:'Archivo Text',system-ui,sans-serif;
+  position:relative; padding:44px 64px; display:flex; flex-direction:column;
+}
+
+.top{display:flex; align-items:baseline; justify-content:space-between; padding-bottom:18px; border-bottom:1px solid var(--rule);}
+.wm{font-family:'Inter Tight',sans-serif; font-weight:600; letter-spacing:-0.045em; font-size:38px; color:var(--paper); line-height:1;}
+.kick{font-family:'Printvetica','Archivo Text',sans-serif; text-transform:uppercase; letter-spacing:.025em; font-size:19px; color:var(--accent);}
+
+h1{
+  font-family:'Archivo Expanded','Archivo Text',sans-serif; font-weight:400;
+  text-transform:uppercase; line-height:1.02; letter-spacing:normal;
+  font-size:calc(104px * 0.78);
+  margin-top:calc(18px + 30px);
+  overflow:hidden;
+}
+/* The acid dot belonged to the retired skin; the period carries the accent now. */
+h1 .dot{color:var(--accent);}
+
+.sub{
+  font-size:22px; line-height:1.45; color:var(--dim);
+  margin-top:18px; max-width:48ch;
+}
+
+.foot{margin-top:auto; padding-top:16px; border-top:1px solid var(--rule); display:flex; justify-content:space-between; align-items:baseline;}
+.meta{font-family:'IBM Plex Mono',monospace; font-size:17px; color:var(--meta);}
+.meta b{color:var(--fg); font-weight:400;}
+.host{font-family:'Printvetica','Archivo Text',sans-serif; text-transform:uppercase; letter-spacing:.025em; font-size:17px; color:var(--fg);}
 </style></head>
 <body>
-<div class="weave"></div>
-<div class="wm">vektor</div>
-<div class="kick">This Week in AI · The Rules</div>
+<div class="top">
+  <span class="wm">vektor</span>
+  <span class="kick">This Week in AI · The Rules</span>
+</div>
 <h1>7 rules.<br>One file<span class="dot">.</span></h1>
 <p class="sub">The CLAUDE.md that fixed Claude Code — all seven rules, the redacted three included. No gate.</p>
-<div class="rule">////////////////////////////////////////////////////////////////////////////////////////////////////////////////</div>
-<div class="meta">/// no. 010 / the rules / 07-2026 · <b>vektor-fm.github.io</b></div>
+<div class="foot">
+  <span class="meta">/// no. 010 / the rules / 07-2026 · <b>vektor-fm.github.io</b></span>
+  <span class="host">vektor.fm</span>
+</div>
 </body></html>

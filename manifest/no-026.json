@@ -1,0 +1,29 @@
+{
+  "number": "026",
+  "title": "the state file — vektor /// no. 026",
+  "description": "The Analyst from NO. 026 - the research loop that compounds instead of restarting. A weighted framework, an append-only state file, a checker that argues back, and a schedule. The real SKILL.md and the state-file schema, free on the page.",
+  "og_title": "the state file — vektor /// no. 026",
+  "og_description": "Most agents research well once, then start from zero. The state file is what makes the fifth run better than the first. Real SKILL.md + schema on the page.",
+  "og_image": "https://vektor-fm.github.io/vektor-site/og/no-026.png",
+  "og_alt": "the state file - vektor /// no. 026",
+  "og_url": "https://vektor-fm.github.io/vektor-site/no-026.html",
+  "canonical": "https://vektor-fm.github.io/vektor-site/no-026.html",
+  "tw_title": "the state file — vektor /// no. 026",
+  "tw_description": "A weighted framework, an append-only state file, a checker that argues back, a schedule. The real SKILL.md is on the page.",
+  "tw_image": "https://vektor-fm.github.io/vektor-site/og/no-026.png",
+  "marker": "Claude · Copy My System",
+  "sticky_text": "Follow <b>@vektor.fm</b> → a new keyword daily",
+  "backref_html": "A new keyword drops every day — <b>catch it first on the reel</b> — follow @vektor.fm. More like this: <a href=\"./no-031.html\">Tax the Agents →</a>",
+  "footer_meta": "/// no. 026 / the state file / 08-2026 · the frontier, by the numbers",
+  "slug": "no026",
+  "subscribe_track": true,
+  "copy_event": "no026-copy-install",
+  "og_card": {
+    "kick": "Claude · Copy My System",
+    "h1_html": "The research loop<br>that remembers<span class=\"dot\">.</span>",
+    "h1_size": 84,
+    "sub_mt": 18,
+    "sub_html": "A weighted framework, an append-only state file, a checker that argues back, and a schedule. The SKILL.md is free on the page.",
+    "meta_html": "/// no. 026 / the state file / 08-2026 · <b>vektor.fm</b>"
+  }
+}
