@@ -1,0 +1,21 @@
+{
+  "number": "001",
+  "title": "The Teardown 001 — the agent that remembers what it got wrong",
+  "description": "A research loop that compounds instead of restarting: a weighted framework, an append-only state file, a checker that argues with the first pass, and a schedule. What it does, how it is set up, where it breaks, and whether it earns a slot.",
+  "og_title": "The agent that remembers what it got wrong — The Teardown 001",
+  "og_description": "Four parts. A weighted framework, an append-only state file, a checker, a schedule. Remove any one and you are back to a chatbot that starts from zero.",
+  "og_image": "https://vektor-fm.github.io/vektor-site/diagrams/teardown-001.png",
+  "og_alt": "The loop that remembers — framework, checker, act, schedule, all reading and writing one append-only state file",
+  "og_url": "https://vektor-fm.github.io/vektor-site/teardown-001.html",
+  "canonical": "https://vektor-fm.github.io/vektor-site/teardown-001.html",
+  "tw_title": "The agent that remembers what it got wrong — The Teardown 001",
+  "tw_description": "Four parts. A weighted framework, an append-only state file, a checker, a schedule. Remove any one and you are back to a chatbot that starts from zero.",
+  "tw_image": "https://vektor-fm.github.io/vektor-site/diagrams/teardown-001.png",
+  "marker": "The Teardown · 001",
+  "sticky_text": "One teardown a week — <b>the working setup</b>",
+  "backref_html": "One teardown a week, the AI tooling that actually ships. The skill this issue tears down is free and ungated: <a href=\"./no-026.html\">The Analyst — SKILL.md and the state-file schema →</a>",
+  "footer_meta": "/// the teardown / 001 / 08-2026 · the frontier, by the numbers",
+  "copy_event": "teardown-001-copy",
+  "subscribe_track": true,
+  "slug": "teardown001"
+}

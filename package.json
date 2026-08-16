@@ -2,11 +2,12 @@
   "name": "vektor-site",
   "private": true,
   "type": "module",
-  "description": "Vektor landing pages — static, built from partials + per-issue manifests (see build.mjs).",
+  "description": "Vektor landing pages \u2014 static, built from partials + per-issue manifests (see build.mjs).",
   "scripts": {
     "build": "node build.mjs",
     "check": "node build.mjs --check",
-    "og:render": "node render-og.mjs"
+    "og:render": "node render-og.mjs",
+    "diagram:render": "node render-diagram.mjs"
   },
   "devDependencies": {
     "sharp": "^0.35.3"
