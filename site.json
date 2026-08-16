@@ -228,6 +228,15 @@
       "keyword": "Claude",
       "lastmod": "2026-07-05",
       "built": true
+    },
+    {
+      "number": "034",
+      "title_short": "One repo showed its working.",
+      "section": "Tooling",
+      "date": "08-2026",
+      "keyword": "CONTEXT",
+      "lastmod": "2026-08-16",
+      "built": true
     }
   ],
   "teardowns": [

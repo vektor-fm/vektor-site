@@ -1,0 +1,73 @@
+<section class="hero">
+  <div class="kick eye">This Week in AI · Tooling</div>
+  <h1 class="disp">One repo showed<br>its working<span class="dot">.</span></h1>
+  <p class="sub">Five repos promise to cut your Claude Code token bill. Exactly one of them published a measurement you can check. Here is the setup, the two things it costs you, and — the part nobody else prints — what that measurement actually says, and what it doesn't. As promised.</p>
+  <div class="actions">
+    <a class="btn primary" href="#setup">Set it up ↓</a>
+    <a class="btn" href="#evidence">What the evaluation says →</a>
+    <button class="btn" id="shareBtn" type="button">Send to a dev friend</button>
+  </div>
+  <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+</section>
+
+<!-- ======================= THE SETUP ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 01 ·</h2>
+  <span class="gaccent">the setup, in order</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues" id="setup">
+  <p class="note">Repository metadata read from the GitHub API on <b>16 August 2026</b>. Stars move; the install line doesn't.</p>
+
+  <article class="issue">
+    <h3><span class="num">1.</span> claude-context</h3>
+    <p>Semantic search over your whole codebase, wired into Claude Code as an MCP server. Instead of grep reading every file that matches and pushing all of it into the context window, it reads the part that actually relates to what you asked and hands the model that. <b>12,405 stars. MIT licence.</b></p>
+    <pre class="code"><code>claude mcp add claude-context</code></pre>
+    <p class="meta">Repository: <a href="https://github.com/zilliztech/claude-context">github.com/zilliztech/claude-context</a>. Built by Zilliz, the company behind the Milvus vector database — which is worth knowing before you read their evaluation of their own tool, further down.</p>
+  </article>
+
+  <article class="issue">
+    <h3><span class="num">2.</span> It is not free. Here are the two things it costs.</h3>
+    <p>Every write-up we found skipped this. The tool needs an embedding model and somewhere to put the vectors, and both are yours to supply:</p>
+    <pre class="code"><code>export OPENAI_API_KEY=sk-...
+export MILVUS_ADDRESS=...</code></pre>
+    <p class="meta"><b>OPENAI_API_KEY</b> — every file in your repo gets embedded, and re-embedded as it changes. That is a metered API bill that scales with how big your codebase is and how often it moves. <b>MILVUS_ADDRESS</b> — a Milvus or Zilliz Cloud vector store to hold them. Zilliz Cloud has a free tier; self-hosting Milvus is a service you now run.</p>
+    <p class="meta">Neither is a dealbreaker. Both are things you should know before you install it, not after.</p>
+  </article>
+</section>
+
+<!-- ======================= THE EVIDENCE ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 02 ·</h2>
+  <span class="gaccent">what the evaluation actually says</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues" id="evidence">
+  <p class="note">Every figure below is quoted from the repository's own <code>evaluation/README.md</code>, read at source on <b>15 August 2026</b>.</p>
+
+  <article class="issue">
+    <h3><span class="num">3.</span> The numbers they published</h3>
+    <p>They ran 30 instances from Princeton NLP's SWE-bench Verified dataset — real bug fixes in real repositories — twice over: once with grep, once with semantic search. Then they printed the difference.</p>
+    <pre class="code"><code>average tokens      73,373  →  44,449     −39.4%
+average tool calls     8.3  →     5.3     −36.3%
+answer quality (F1)   0.40  →    0.40     comparable</code></pre>
+    <p class="meta">28,924 tokens saved per instance. The quality row is the one that matters: a tool that cuts tokens by finding less is not a win, and their own numbers say the answers came out the same.</p>
+  </article>
+
+  <article class="issue">
+    <h3><span class="num">4.</span> What it doesn't say — read this part</h3>
+    <p>We are recommending this repo <em>because</em> it published a measurement, which is more than anything else in the category did. That is not the same as the measurement being independent. Four caveats, all from their own document:</p>
+    <p class="meta"><b>They ran it on their own tool.</b> Zilliz evaluated Zilliz. No third party has reproduced this.</p>
+    <p class="meta"><b>n = 30.</b> Thirty instances, filtered to 15–60 minutes of estimated difficulty and exactly two file modifications. That is a narrow, tidy slice of the work you actually do.</p>
+    <p class="meta"><b>One model, chosen for price.</b> GPT-4o-mini, picked in their words for cost-effectiveness. Whether the gap holds on a frontier model is untested.</p>
+    <p class="meta"><b>Six runs, not two.</b> The video says the benchmark was run twice — meaning the two arms, grep and search. Their document is more rigorous than that: each method was run <b>three times independently, six runs in total</b>. We are correcting ourselves upward here, which felt worth doing in public.</p>
+  </article>
+
+  <article class="issue">
+    <h3><span class="num">5.</span> Where the "90%" claims come from</h3>
+    <p>The reason this issue exists is that the category is full of much bigger numbers with nothing behind them. One repo advertises cutting token usage by 90%+, with a benchmark run against its own codebase — 51 files, 5 queries. Another claims up to 71.5× fewer tokens per session and gives no benchmark at all. A third, widely cited at 60–85%, returns a 404: the repository is gone.</p>
+    <p class="meta">We are not printing those repo names or their figures as if they were findings. A number with no method behind it isn't a small number or a big one — it isn't a measurement. That is the whole point of this issue.</p>
+  </article>
+</section>
