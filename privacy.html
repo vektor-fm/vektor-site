@@ -6,12 +6,24 @@
 <title>vektor /// privacy</title>
 <meta name="robots" content="noindex">
 <style>
-  body { background:#101010; color:#EFEADD; font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; max-width:640px; margin:0 auto; padding:48px 20px; line-height:1.6; }
+  body { background:#000000; color:#FFFFFF; font-family:'Archivo Text',system-ui,sans-serif; max-width:640px; margin:0 auto; padding:48px 20px; line-height:1.6; }
   h1 { font-size:1.4rem; letter-spacing:.08em; text-transform:uppercase; }
   h2 { font-size:1rem; letter-spacing:.06em; text-transform:uppercase; margin-top:2em; color:#8FC5C9; }
   p { color:#b8b4a8; }
-  a { color:#39FF35; }
+  a { color:#0E9C86; }
   .tag { color:#8f8b80; font-size:.8rem; letter-spacing:.15em; }
+
+  /* --- current design system, ported 2026-08-16 -------------------------
+     The retired skin used a 900-weight display face, an animated wordmark and
+     acid green as a UI accent. All three are gone: weight 400 everywhere, the
+     registration animation is retired, and teal is the only accent. */
+  h1,h2,h3,h4,h5,h6,.disp{font-weight:400 !important; letter-spacing:normal !important;}
+  .wm-plate{display:none !important;}
+  .wm-main .ch .l{opacity:1 !important; animation:none !important;}
+  .wm-main .ch .g{display:none !important;}
+  .weave{display:none !important;}
+  .rule,.foot-rule{height:1px !important; background:#C9C9C9 !important; font-size:0 !important; line-height:0 !important; color:transparent !important; overflow:hidden !important;}
+  .srow,.skill{border-color:#C9C9C9 !important;}
 </style>
 </head>
 <body>
