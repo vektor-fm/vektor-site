@@ -877,11 +877,82 @@ input,select,textarea{font-size:16px !important;}   /* iOS zooms below 16 */
 .teaser .more,.mag .defaultS,.bigcard .defaultS,.bigrow .cta{
   min-height:44px; display:inline-flex; align-items:center;
 }
+
+/* ---- newsletter pop-up ----
+   Ported verbatim from partials/head.html so the bio landing page and the
+   issue pages wear ONE popup, not two that drift. Only the fade-in and the
+   .done / .errored states are new here: the issue pages submit by navigation
+   and so never need an inline confirmation. */
+.pop[hidden]{display:none;}
+.pop{position:fixed; inset:0; z-index:100; display:flex; align-items:center; justify-content:center; padding:var(--p-l);}
+.pop-scrim{position:absolute; inset:0; background:rgba(0,0,0,.72); backdrop-filter:blur(8px); cursor:pointer;}
+.pop-card{position:relative; z-index:1; width:100%; max-width:480px; background:var(--bg); border:1px solid var(--rule); padding:var(--p-xl) var(--p-l) var(--p-l);}
+.pop-x{position:absolute; top:0; right:0; background:none; border:0; color:var(--meta); font-size:24px; line-height:1; min-width:44px; min-height:44px; cursor:pointer;}
+.pop-x:hover{color:var(--fg);}
+/* The issue pages set this in --font-label; this page has no such token and
+   labels every eyebrow in --font-sans uppercase, so it follows the local rule. */
+.pop-card .k{display:block; color:var(--accent); font-family:var(--font-sans); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); margin-bottom:var(--p-s); padding-right:48px;}
+.pop-card h2{font-family:var(--font-extended); font-weight:400; text-transform:uppercase; letter-spacing:normal; font-size:var(--fs-2xl); line-height:var(--lh-2xl); margin:0 0 var(--p-s);}
+.pop-card p{font-size:var(--fs-m); line-height:var(--lh-xl); margin:0 0 var(--p-m); color:var(--dim);}
+.pop-card form{display:flex; flex-direction:column; gap:var(--p-s);}
+.pop-card input[type=email]{min-height:48px; background:transparent; border:0; border-bottom:1px solid var(--rule); color:var(--fg); font-family:var(--font-sans); font-size:var(--fs-m); padding:0;}
+.pop-card input[type=email]:focus{outline:none; border-bottom-color:var(--fg);}
+.pop-card .btn{display:inline-flex; align-items:center; justify-content:center; min-height:48px; padding:0 var(--p-m); border:1px solid var(--accent); background:transparent; color:var(--accent); font-family:var(--font-sans); font-size:var(--fs-s); text-transform:uppercase; letter-spacing:.025em; cursor:pointer; transition:background-color .15s cubic-bezier(.4,0,.2,1), color .15s cubic-bezier(.4,0,.2,1);}
+.pop-card .btn:hover{background:var(--accent); color:var(--bg);}
+.pop-card .btn[disabled]{opacity:.55; cursor:default;}
+.pop-card .note{font-size:var(--fs-s); color:var(--meta); margin-top:var(--p-s);}
+/* Fades in over the page rather than hard-cutting. 160ms sits under the point
+   where a delay starts to read as sluggishness. */
+.pop{opacity:0; transition:opacity .16s ease;}
+.pop.in{opacity:1;}
+@media (prefers-reduced-motion:reduce){ .pop{transition:none; opacity:1;} }
+/* Inline success — the form is replaced in place and the visitor keeps the
+   page, rather than being thrown to thanks.html and losing the issue list. */
+.pop-done,.pop-err{display:none;}
+.pop-card.done form,.pop-card.done p,.pop-card.done .note{display:none;}
+.pop-card.done .pop-done{display:block; font-size:var(--fs-m); line-height:var(--lh-xl); color:var(--dim);}
+.pop-card.errored .pop-err{display:block; font-size:var(--fs-s); line-height:var(--lh-s); color:var(--accent); margin-top:var(--p-s);}
+/* Google's safe harbour for a popup is under 30% of the mobile viewport with a
+   visible close control. At the default padding this measured 37%, so the
+   phone case tightens up. It matters MORE here than on an issue page, because
+   this popup can fire before the visitor has scrolled at all. */
+@media (max-width:639px){
+  .pop{padding:var(--p-s); align-items:flex-end;}
+  .pop-card{padding:var(--p-l) var(--p-m) var(--p-m);}
+  .pop-card p{font-size:var(--fs-s); line-height:var(--lh-s); margin-bottom:var(--p-s);}
+  .pop-card .k{font-size:var(--fs-xs); margin-bottom:var(--p-xs);}
+  .pop-card .note{display:none;}
+}
 </style>
 </head>
 <body>
 
 <a class="skip-link" href="#main-content">Skip to main content</a>
+
+<!-- The bio-link ask. This page IS the link in bio: the visitor clicked a link
+     whose only promise is the newsletter, so there is no article being covered
+     up and the modal can fire on arrival rather than on scroll. Issue pages
+     keep their 50%-scroll trigger (partials/scripts.html) — arriving to READ
+     something and being interrupted is a different, worse thing. -->
+<div class="pop" id="bioPop" hidden>
+  <div class="pop-scrim" data-pop-close></div>
+  <div class="pop-card" role="dialog" aria-modal="true" aria-labelledby="bioPopH">
+    <button class="pop-x" type="button" data-pop-close aria-label="Close">&times;</button>
+    <span class="k">One email a week &middot; the working setup</span>
+    <h2 id="bioPopH">Take the config pack with you.</h2>
+    <p>Free, no wall. Add your email and The Teardown sends the config pack plus one working AI setup a week.</p>
+    <form method="post" action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" data-capture="bio-popup">
+      <input type="hidden" name="tag" value="bio-popup">
+      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+      <label class="sr-only" for="bioPopEmail">Email address</label>
+      <input id="bioPopEmail" type="email" name="email" placeholder="you@email.com" autocomplete="email" required>
+      <button class="btn" type="submit">Get the weekly pack &rarr;</button>
+    </form>
+    <div class="note">Free. The config pack lands in your inbox straight away. Unsubscribe anytime.</div>
+    <p class="pop-done" role="status">Done &mdash; the pack is on its way to your inbox. Close this and have a look around.</p>
+    <p class="pop-err" role="alert">That didn&rsquo;t send. <a href="#subscribe">Use the form further down</a> instead.</p>
+  </div>
+</div>
 
 <!-- SHARED NAV MARKUP — injected into masthead.html and index.body.html by
      build.mjs via the NAV token. Edit here only. -->
@@ -1445,5 +1516,122 @@ document.querySelectorAll('.copylink').forEach(b => {
       }
     } catch (e) {}
   });
+
+  // ---- bio-link newsletter pop-up ----
+  //
+  // WHY ON ARRIVAL HERE, WHEN THE ISSUE PAGES WAIT FOR 50% SCROLL.
+  // An issue page is arrived at to read a specific thing, so covering it before
+  // the visitor has read a word is both hostile and the exact pattern Google
+  // penalises. This page is different: it IS the link in bio. The click was
+  // spent on a link whose only promise is the newsletter, so the ask is not an
+  // interruption of anything — it is the thing they came for, moved earlier.
+  //
+  // The one carve-out is SEARCH traffic. index.html is the site root and wants
+  // to rank; a searcher who lands here and is covered before engaging is the
+  // textbook intrusive interstitial. Those visitors fall through to the same
+  // 50%-scroll trigger the issue pages use.
+  (function(){
+    var pop = document.getElementById('bioPop');
+    if (!pop) { return; }
+    var card = pop.querySelector('.pop-card');
+    var form = pop.querySelector('form');
+    var btn  = form.querySelector('button[type=submit]');
+    var btnLabel = btn.innerHTML;
+
+    // Shared with the issue-page popup (partials/scripts.html) on purpose: a
+    // visitor who dismissed it there yesterday does not get hit again here.
+    var KEY = 'vektor_pack_seen', TTL = 2*24*60*60*1000;
+    try {
+      var last = parseInt(localStorage.getItem(KEY) || '0', 10);
+      if (last && (Date.now() - last) < TTL) { return; }
+    } catch (e) {}
+    function seen(){ try { localStorage.setItem(KEY, String(Date.now())); } catch (e) {} }
+    function ev(name){ if (window.goatcounter && goatcounter.count) { goatcounter.count({ path:name, event:true }); } }
+
+    var SEARCH = /(^|\.)(google|bing|duckduckgo|yahoo|ecosia|baidu|yandex|search\.brave)\./i;
+    var fromSearch = false;
+    try {
+      fromSearch = !!document.referrer && SEARCH.test(new URL(document.referrer).hostname);
+    } catch (e) {}
+
+    var opened = false;
+    function open(){
+      if (opened) { return; }
+      opened = true;
+      pop.removeAttribute('hidden');
+      // Forced reflow, not requestAnimationFrame, to commit the opacity:0
+      // starting value before the transition runs. rAF does not fire in a
+      // BACKGROUND tab, so "open in new tab" would otherwise leave the card at
+      // opacity 0 while the scrim still blocked the page — an invisible modal
+      // holding the scroll lock. Same idiom as the footer wordmark replay.
+      void pop.offsetWidth;
+      pop.classList.add('in');
+      document.body.style.overflow = 'hidden';
+      document.addEventListener('keydown', esc);
+      ev('hub-bio-popup-view');
+      var x = pop.querySelector('.pop-x'); if (x) { try { x.focus({preventScroll:true}); } catch (e) { x.focus(); } }
+    }
+    function close(){
+      pop.classList.remove('in');
+      pop.setAttribute('hidden','');
+      document.body.style.overflow = '';
+      document.removeEventListener('keydown', esc);
+      seen();
+      if (!card.classList.contains('done')) { ev('hub-bio-popup-dismiss'); }
+    }
+    function esc(e){ if (e.key === 'Escape') { close(); } }
+    pop.querySelectorAll('[data-pop-close]').forEach(function(el){ el.addEventListener('click', close); });
+
+    // THE SUBMIT IS DELIBERATELY OPAQUE. The signup Worker
+    // (vektor/funnel/ig-dm-webhook/src/signup.js) answers with a 303 to
+    // thanks.html and sends no Access-Control-Allow-Origin, so a normal
+    // cross-origin fetch would deliver the signup and THEN throw on reading the
+    // reply — and any "retry natively" fallback would post the address twice.
+    // A urlencoded POST is a CORS-simple request, so mode:'no-cors' still
+    // reaches the Worker and still creates the subscriber; we just cannot read
+    // the outcome. The catch therefore means "the request never left", which is
+    // the only failure worth telling the visitor about. A Buttondown-side
+    // rejection reads as success here — exactly as it does in the native flow,
+    // which redirects to thanks.html for those cases too.
+    form.addEventListener('submit', function(e){
+      if (!form.checkValidity()) { return; }
+      e.preventDefault();
+      var email = String(form.email.value || '').trim();
+      if (!email) { return; }
+      card.classList.remove('errored');
+      btn.disabled = true; btn.textContent = 'Sending…';
+      seen();
+      ev('hub-sub-bio-popup');
+      fetch(form.action, {
+        method: 'POST',
+        mode: 'no-cors',
+        body: new URLSearchParams({ email: email, tag: 'bio-popup', company: '' })
+      }).then(function(){
+        card.classList.add('done');
+        btn.disabled = false; btn.innerHTML = btnLabel;
+      }).catch(function(){
+        card.classList.add('errored');
+        btn.disabled = false; btn.innerHTML = btnLabel;
+      });
+    });
+
+    if (fromSearch) {
+      // Same rule the issue pages use: fire once past the halfway mark.
+      var fired = false;
+      var onScroll = function(){
+        var scrollable = document.documentElement.scrollHeight - window.innerHeight;
+        var depth = scrollable > 0 ? (window.scrollY / scrollable) : 1;
+        if (fired || depth < 0.5) { return; }
+        fired = true;
+        window.removeEventListener('scroll', onScroll);
+        open();
+      };
+      window.addEventListener('scroll', onScroll, { passive:true });
+    } else {
+      // 700ms: long enough that the page paints and the brand registers first,
+      // short enough to still be "on open" rather than a delayed nag.
+      setTimeout(open, 700);
+    }
+  })();
 </script>
 </body></html>
