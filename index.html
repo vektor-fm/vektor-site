@@ -1521,6 +1521,39 @@ document.querySelectorAll('.copylink').forEach(b => {
     } catch (e) {}
   });
 
+  // ---- which door did they come through? ----
+  //
+  // Three ways into this page went live in the same week (bio popup, Story link
+  // sticker, broadcast channel), which would normally make the next reading
+  // uninterpretable — a rise in signups with no way to say what caused it.
+  //
+  // GoatCounter's path reporting does not reliably split on a query string, so
+  // ?s= is turned into an EVENT instead, which the /report debug dump lists
+  // separately and which we already know works (it is how every other capture
+  // point on the site reports). Any unknown value is bucketed rather than
+  // passed through, so a stray or hand-typed ?s= cannot invent a source.
+  (function(){
+    var KNOWN = { story:1, bc:1, bio:1, yt:1, tt:1 };
+    try {
+      var v = new URLSearchParams(location.search).get('s');
+      if (!v) { return; }
+      v = String(v).toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 12);
+      if (!v) { return; }
+      var name = 'hub-src-' + (KNOWN[v] ? v : 'other');
+      if (window.goatcounter && goatcounter.count) {
+        goatcounter.count({ path: name, event: true });
+      } else {
+        // count.js is async and may not have landed yet; queue one retry rather
+        // than losing the very visits this exists to measure.
+        setTimeout(function(){
+          if (window.goatcounter && goatcounter.count) {
+            goatcounter.count({ path: name, event: true });
+          }
+        }, 1200);
+      }
+    } catch (e) {}
+  })();
+
   // ---- bio-link newsletter pop-up ----
   //
   // WHY ON ARRIVAL HERE, WHEN THE ISSUE PAGES WAIT FOR 50% SCROLL.
