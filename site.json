@@ -1,7 +1,15 @@
 {
   "index": {
-    "lastmod": "2026-07-22",
-    "latest_cta": "Open the mirror →"
+    "lastmod": "2026-08-17",
+    "latest_cta": "Open the mirror →",
+    "og_card": {
+      "kick": "The index",
+      "h1_html": "The AI frontier,<br>cut to what ships<span class=\"dot\">.</span>",
+      "h1_size": 84,
+      "sub_mt": 18,
+      "sub_html": "Every issue is one short film and one working pack — config, prompts, install lines, nothing held back. Plus The Teardown, one working setup a week.",
+      "meta_html": "/// the index · <b>vektor-fm.github.io</b>"
+    }
   },
   "issues": [
     {

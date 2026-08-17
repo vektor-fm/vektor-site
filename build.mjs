@@ -89,8 +89,14 @@ function renderIssue(num) {
   return out;
 }
 
-// ---- OG share-card source (og-src-no-<num>.html, rendered to og/no-<num>.png) ----
-function renderOgCard(num, card) {
+// ---- OG share-card source (og-src-<slug>.html, rendered to og/<slug>.png) ----
+// Slug-keyed rather than number-keyed since 2026-08-17. The issue cards were all
+// re-rendered onto the current system on 08-16, but the HUB card was not — it had
+// no manifest and no og-src, so nothing generated it and og/vektor-og.png sat
+// untouched from 2026-07-05, on the retired skin. Every share of the site root,
+// which is the Instagram bio link, was showing a design the site had abandoned.
+// Issue slugs stay `no-<num>`; the hub is `index`, from site.json's index.og_card.
+function renderOgCard(slug, card) {
   const map = {
     OG_ACCENT: card.accent,
     OG_HEADLINE_SIZE: String(card.h1_size),
@@ -103,7 +109,7 @@ function renderOgCard(num, card) {
     OG_META: card.meta_html,
   };
   const out = fill(read('partials/og-card.html'), map);
-  assertNoTokens(out, `og-src-no-${num}`);
+  assertNoTokens(out, `og-src-${slug}`);
   return out;
 }
 
@@ -230,10 +236,13 @@ function outputs() {
   for (const i of BUILT) {
     o[`no-${i.number}.html`] = renderIssue(i.number);
     const man = JSON.parse(read(`manifest/no-${i.number}.json`));
-    if (man.og_card) o[`og-src-no-${i.number}.html`] = renderOgCard(i.number, man.og_card);
+    if (man.og_card) o[`og-src-no-${i.number}.html`] = renderOgCard(`no-${i.number}`, man.og_card);
   }
   for (const t of TEARDOWNS) o[`teardown-${t.number}.html`] = renderTeardown(t.number);
   o['index.html'] = renderIndex();
+  // The hub's card lives in site.json rather than a manifest, because the hub
+  // has no manifest — it is configured entirely from site.json.
+  if (site.index.og_card) o['og-src-index.html'] = renderOgCard('index', site.index.og_card);
   o['sitemap.xml'] = renderSitemap();
   return o;
 }
