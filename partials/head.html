@@ -393,7 +393,11 @@ input,select,textarea{font-size:16px !important;}
    37%, so the phone case tightens up rather than relying on the engagement
    rule alone. */
 @media (max-width:639px){
-  .pop{padding:var(--p-s); align-items:flex-end;}
+  /* Centred, not a bottom sheet (founder, 2026-08-17). The card sat flush to
+     the bottom edge on phones, which read as a system tray rather than as the
+     page's own ask. The height work above is what keeps it inside the safe
+     harbour — the alignment never did any of that job. */
+  .pop{padding:var(--p-m); align-items:center;}
   .pop-card{padding:var(--p-l) var(--p-m) var(--p-m);}
   .pop-card p{font-size:var(--fs-s); line-height:var(--lh-s); margin-bottom:var(--p-s);}
   .pop-card .k{font-size:var(--fs-xs); margin-bottom:var(--p-xs);}

@@ -607,7 +607,11 @@ input,select,textarea{font-size:16px !important;}
    37%, so the phone case tightens up rather than relying on the engagement
    rule alone. */
 @media (max-width:639px){
-  .pop{padding:var(--p-s); align-items:flex-end;}
+  /* Centred, not a bottom sheet (founder, 2026-08-17). The card sat flush to
+     the bottom edge on phones, which read as a system tray rather than as the
+     page's own ask. The height work above is what keeps it inside the safe
+     harbour — the alignment never did any of that job. */
+  .pop{padding:var(--p-m); align-items:center;}
   .pop-card{padding:var(--p-l) var(--p-m) var(--p-m);}
   .pop-card p{font-size:var(--fs-s); line-height:var(--lh-s); margin-bottom:var(--p-s);}
   .pop-card .k{font-size:var(--fs-xs); margin-bottom:var(--p-xs);}
@@ -1023,7 +1027,13 @@ echo "✗ hit the cap — tighten your TASK or CHECK, not the count." >&2; exit 
   //
   // Still re-shows every 2 days, still dismissible by x / scrim / Esc.
   (function(){ var pop=document.getElementById('packPop'); if(!pop){return;} var KEY='vektor_pack_seen', TTL=2*24*60*60*1000;
-    try{ var last=parseInt(localStorage.getItem(KEY)||'0',10); if(last && (Date.now()-last)<TTL){ return; } }catch(e){}
+    // ?pop=1 forces it open regardless of the cooldown. Without this the popup
+    // is untestable for anyone who has already seen it: on 2026-08-17 this page
+    // looked broken for two days straight when the real cause was a dismissal
+    // 21 hours earlier. A test affordance, not a feature — it does nothing for
+    // a visitor who never types it.
+    var force=false; try{ force=new URLSearchParams(location.search).get('pop')==='1'; }catch(e){}
+    if(!force){ try{ var last=parseInt(localStorage.getItem(KEY)||'0',10); if(last && (Date.now()-last)<TTL){ return; } }catch(e){} }
     function seen(){ try{ localStorage.setItem(KEY, String(Date.now())); }catch(e){} }
     function esc(e){ if(e.key==='Escape'){ close(); } }
     function close(){ pop.setAttribute('hidden',''); seen(); document.removeEventListener('keydown',esc); gcEvent('no015-popup-dismiss'); }
@@ -1035,8 +1045,8 @@ echo "✗ hit the cap — tighten your TASK or CHECK, not the count." >&2; exit 
       var scrollable=doc.scrollHeight-window.innerHeight;
       return scrollable>0 ? (window.scrollY/scrollable) : 1;
     }
-    function maybe(){
-      if(fired || depth()<0.5){ return; }
+    function open(){
+      if(fired){ return; }
       fired=true;
       window.removeEventListener('scroll',maybe);
       pop.removeAttribute('hidden');
@@ -1044,7 +1054,11 @@ echo "✗ hit the cap — tighten your TASK or CHECK, not the count." >&2; exit 
       gcEvent('no015-popup-view');
       var x=pop.querySelector('.pop-x'); if(x){ try{ x.focus(); }catch(e){} }
     }
+    function maybe(){ if(depth()>=0.5){ open(); } }
     window.addEventListener('scroll',maybe,{passive:true});
+    // ?pop=1 skips the scroll gate too, or testing still means scrolling half
+    // the page to find out whether a CSS change landed.
+    if(force){ open(); }
   })();
   document.querySelectorAll('form').forEach(function(f){ f.addEventListener('submit', function(){ gcEvent('no015-subscribe-submit'); }); });
 
