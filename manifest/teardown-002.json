@@ -1,0 +1,21 @@
+{
+  "number": "002",
+  "title": "The Teardown 002 — five repos promise to cut your token bill",
+  "description": "Five repos claim to cut Claude Code's token usage by 40% to 98.9%. All five publish a number. Only one measured it on a task set it did not write, with a quality control alongside the saving. What the evidence actually says, what the tool actually does, what it actually costs, and whether it earns a slot.",
+  "og_title": "Five token claims, one real benchmark — The Teardown 002",
+  "og_description": "40%. 90%+. 71.5x. 98.9%. Every repo in the category publishes a number. Only one measured it on a public task set, with an answer-quality control next to the saving.",
+  "og_image": "https://vektor-fm.github.io/vektor-site/diagrams/teardown-002.png",
+  "og_alt": "Before and after: 73,373 tokens down to 44,449 and 8.3 tool calls down to 5.3, while answer quality F1 stays at 0.40",
+  "og_url": "https://vektor-fm.github.io/vektor-site/teardown-002.html",
+  "canonical": "https://vektor-fm.github.io/vektor-site/teardown-002.html",
+  "tw_title": "Five token claims, one real benchmark — The Teardown 002",
+  "tw_description": "40%. 90%+. 71.5x. 98.9%. Every repo in the category publishes a number. Only one measured it on a public task set, with an answer-quality control next to the saving.",
+  "tw_image": "https://vektor-fm.github.io/vektor-site/diagrams/teardown-002.png",
+  "marker": "The Teardown · 002",
+  "sticky_text": "One teardown a week — <b>the working setup</b>",
+  "backref_html": "One teardown a week, the AI tooling that actually ships. The 60-second version of this issue is on Instagram: <a href=\"https://instagram.com/vektor.fm\">@vektor.fm →</a>",
+  "footer_meta": "/// the teardown / 002 / 08-2026 · the frontier, by the numbers",
+  "copy_event": "teardown-002-copy",
+  "subscribe_track": true,
+  "slug": "teardown002"
+}

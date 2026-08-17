@@ -245,6 +245,12 @@
       "title": "The agent that remembers what it got wrong",
       "date": "2026-08-16",
       "subject": "The agent that remembers what it got wrong"
+    },
+    {
+      "number": "002",
+      "title": "Five token claims. One of them was measured.",
+      "date": "2026-08-18",
+      "subject": "Five token claims, one benchmark"
     }
   ]
 }
