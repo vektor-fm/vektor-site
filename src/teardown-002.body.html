@@ -1,0 +1,181 @@
+<section class="hero">
+  <div class="kick eye">The Teardown · 002</div>
+  <h1 class="disp">Five token claims.<br>One of them was<br>measured<span class="dot">.</span></h1>
+  <p class="sub">40%. 90%+. 71.5x. 98.9%. Five repos promise to cut what Claude Code spends reading your codebase, and every one of them publishes a number. The numbers are not the problem. What they were measured against is.</p>
+  <div class="actions">
+    <a class="btn primary" href="#ledger">The five claims ↓</a>
+    <a class="btn" href="#cost">What it actually costs →</a>
+    <button class="btn" id="shareBtn" type="button">Send to a dev friend</button>
+  </div>
+  <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+</section>
+
+<!-- ======================= THE DIAGRAM ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 01 ·</h2>
+  <span class="gaccent">the one claim with a control next to it</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues">
+  <article class="issue">
+    <p><img src="./diagrams/teardown-002.png" alt="Before and after: tokens per task 73,373 down to 44,449, tool calls 8.3 down to 5.3, and answer quality F1 unchanged at 0.40 — from the repository's own evaluation on 30 SWE-bench Verified instances with GPT-4o-mini." width="1200" height="750" loading="lazy"></p>
+    <p class="meta">Two numbers went down and one stayed still. The one that stayed still is the reason the other two are worth reading — a tool that halves your token bill by answering worse has not saved you anything, it has just failed more cheaply.<sup><a href="#s1">[1]</a></sup></p>
+  </article>
+</section>
+
+<!-- ======================= A CORRECTION ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 02 ·</h2>
+  <span class="gaccent">a correction, first</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues">
+  <article class="issue">
+    <p>The 60-second version of this, which went out on Instagram on 16 August, says of the repo it recommends: <i>"It's so good they put the benchmark in the repo. Nobody else in this category did that."</i></p>
+    <p>That second sentence does not survive a careful read. Going back through the other four repositories at source on 17 August, two of them do publish measurements in the repo: <code>token-reducer</code> ships a <code>BENCHMARK.md</code> with a full methodology section,<sup><a href="#s7">[7]</a></sup> and <code>claude_memory</code> ships an entire benchmark suite called DevMemBench that measures retrieval quality and uplift over a hand-written <code>CLAUDE.md</code> baseline.<sup><a href="#s9">[9]</a></sup> Saying nobody else did that was wrong, and it was wrong in the direction that flattered the recommendation.</p>
+    <p>The claim that <em>does</em> hold is narrower and, I think, more useful: only one of the five measured its saving on a task set it did not write itself, and reported an answer-quality number beside the saving. That is the distinction the rest of this issue is about.</p>
+  </article>
+</section>
+
+<!-- ======================= THE LEDGER ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 03 ·</h2>
+  <span class="gaccent">five claims, and what is behind each</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues" id="ledger">
+  <article class="issue">
+    <p>Star counts and licence read from the GitHub API on 17 August 2026. Every claim below is quoted from the repository's own documentation, read the same day. None of these numbers has been independently reproduced — including the one this issue ends up recommending.</p>
+
+    <h3>zilliztech/claude-context · 12,405 ★ · MIT</h3>
+    <p><b>Claims</b> "~40% token reduction under the condition of equivalent retrieval quality".<sup><a href="#s3">[3]</a></sup> <b>Behind it:</b> 30 instances drawn from Princeton NLP's SWE-bench Verified, filtered to 15–60 minute problems with exactly two file modifications, each method run three times independently for six runs total, on GPT-4o-mini. Result: 73,373 → 44,449 tokens (−39.4%), 8.3 → 5.3 tool calls (−36.3%), F1 0.40 either way.<sup><a href="#s1">[1]</a></sup></p>
+    <p class="meta">SWE-bench Verified is a 500-instance, human-validated subset of SWE-bench built from real issue and pull-request pairs in Python repositories.<sup><a href="#s2">[2]</a></sup> Thirty of five hundred is a small slice, and the filter selects for the easier end of it. But it is a public task set with a known provenance, and the tool's authors did not get to choose what the questions were.</p>
+
+    <h3>Madhan230205/token-reducer · 43 ★</h3>
+    <p><b>Claims</b> "Cut Claude API costs by 90%+", and elsewhere "Reduces tokens by 90-98%".<sup><a href="#s7">[7]</a></sup> <b>Behind it:</b> a <code>BENCHMARK.md</code> reporting 98.9% token savings — measured on the token-reducer codebase itself, 51 files indexed, 5 queries benchmarked.</p>
+    <p>Two things to notice. The corpus is the tool's own repository, so the questions and the material were both chosen by the same person. And the same summary table reports a "5.83x average compression ratio" beside the 98.9% saving; 5.83x is roughly an 83% reduction, and the document does not say how the two relate. They may well measure different things. I have not established that they contradict each other — only that a reader cannot reconcile them from what is published.</p>
+
+    <h3>lucasrosati/claude-code-memory-setup · 937 ★</h3>
+    <p><b>Claims</b> "71.5x fewer tokens per session" in the title.<sup><a href="#s8">[8]</a></sup> <b>Behind it:</b> a "Real Results" table from one React and Supabase project of 126 TypeScript files, which reports "Token reduction per query: 499x". The two headline multipliers, 71.5x and 499x, are different numbers for different units, and no run count is given for either.</p>
+    <p>The underlying comparison is an arithmetic one — re-reading roughly 40 files at about 20,000 tokens, versus querying one graph at about 280 tokens. That is a reasonable estimate of a best case. It is not a measurement of what happened across a set of tasks.</p>
+
+    <h3>codenamev/claude_memory · 24 ★</h3>
+    <p><b>Claims</b> "10x reduction in memory queries with progressive disclosure".<sup><a href="#s9">[9]</a></sup> <b>Behind it:</b> DevMemBench, a benchmark suite shipped inside the repo that measures retrieval quality, truth-maintenance accuracy, negative-fact harm, and uplift over a hand-written <code>CLAUDE.md</code> baseline. Offline runs are local and free; the end-to-end runs cost roughly $5–15 of real Claude usage per full run, which the repo states plainly.</p>
+    <p>This is the most self-aware documentation in the group, and the harm benchmark is something nobody else in the category attempts. What it does not do is tie the headline "10x" to a specific published run, so the claim and the benchmark sit next to each other rather than the second supporting the first.</p>
+
+    <h3>apolloraines/ClaudeSlim</h3>
+    <p><b>Claims,</b> according to third-party listicles and a search-indexed description, 60–85% savings or 6.5x. <b>Behind it:</b> the GitHub API returns HTTP 404 for the repository, on 14 August and again on 17 August 2026. Deleted, renamed and made private are all consistent with that; what is verified is only that it is not there.</p>
+  </article>
+</section>
+
+<!-- ======================= WHAT IT ACTUALLY DOES ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 04 ·</h2>
+  <span class="gaccent">it is not semantic search instead of grep</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues">
+  <article class="issue">
+    <p>The framing everyone repeats is that these tools swap keyword search for semantic search, so the agent finds the right file by meaning instead of by string match. The recommended one does not do that. Its own README describes "hybrid search (BM25 + dense vector)" — BM25 being the classic keyword ranking function.<sup><a href="#s3">[3]</a></sup> Keyword matching did not get replaced. It got an index built next to it, and a second retriever voting alongside it.</p>
+    <p>That detail matters more than it sounds, because embeddings alone are not clearly better at this. Anthropic's own retrieval work measured a standard embeddings-only setup failing to surface the relevant chunk in the top twenty 5.7% of the time. Adding contextualisation to the chunks brought that to 3.7%; adding a contextual BM25 pass on top brought it to 2.9%; adding a reranking step brought it to 1.9%.<sup><a href="#s4">[4]</a></sup> The single largest structural gain in that sequence comes from keeping keyword search in the loop, not from dropping it.</p>
+    <p>So the honest description of what you are buying is not "the agent understands your code now". It is: <b>the expensive part of an agentic search — reading whole files into context to find out whether they are relevant — happens once, at index time, instead of on every question.</b> The saving is the re-reading, and that is exactly what the token and tool-call numbers in Fig. 01 show going down.</p>
+    <p class="meta">One number in that evaluation deserves saying out loud: F1 0.40, for both arms. Retrieval quality is <em>equal</em>, and in absolute terms it is not good — most of what should have been retrieved was not, either way. The claim is that indexing costs you nothing in quality, not that it makes retrieval good.</p>
+  </article>
+</section>
+
+<!-- ======================= WHAT IT COSTS ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 05 ·</h2>
+  <span class="gaccent">what it actually costs</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues" id="cost">
+  <article class="issue">
+    <p>The install the documentation leads with wants two accounts:<sup><a href="#s3">[3]</a></sup></p>
+    <pre class="code"><code>claude mcp add claude-context \
+  -e OPENAI_API_KEY=sk-your-openai-api-key \
+  -e MILVUS_ADDRESS=your-zilliz-cloud-public-endpoint \
+  -e MILVUS_TOKEN=your-zilliz-cloud-api-key \
+  -- npx @zilliz/claude-context-mcp@latest</code></pre>
+    <p>Which is the obvious objection to the whole category: you are spending someone else's tokens to save your own, and you are shipping your codebase to a vector database you do not run.</p>
+    <p>Except that neither of those two credentials is actually mandatory. The MCP package documents four embedding providers — OpenAI, VoyageAI, Gemini and Ollama — and the Ollama path runs the embedding model on your own machine: <i>"Ollama allows you to run embeddings locally without sending data to external services."</i> The same document lists the vector store as "Milvus vector database (local or cloud)".<sup><a href="#s5">[5]</a></sup> Both halves have a local option, and the setup that sends nothing anywhere is three lines of configuration:</p>
+    <pre class="code"><code>EMBEDDING_PROVIDER=Ollama
+EMBEDDING_MODEL=nomic-embed-text
+OLLAMA_HOST=http://127.0.0.1:11434</code></pre>
+    <p>If you do take the default cloud path, the embedding spend is smaller than the objection implies. The default model is <code>text-embedding-3-small</code>, priced at $0.02 per million tokens.<sup><a href="#s6">[6]</a></sup> Indexing a million tokens of source code once therefore costs about two cents — arithmetic on that price, not a measured bill, and it excludes re-indexing as the code changes. The meaningful cost of the cloud path is not the money. It is that your code leaves your machine.</p>
+  </article>
+</section>
+
+<!-- ======================= WHERE IT BREAKS ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 06 ·</h2>
+  <span class="gaccent">where it breaks</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues">
+  <article class="issue">
+    <h3>The evaluation is the vendor's own</h3>
+    <p>They ran it, on their tool, and chose the 30 instances and the filter. That is not independence and the repo does not claim it is. It is still a public dataset and a published method, which is the whole reason this issue points at it rather than at a bigger number.</p>
+  </article>
+  <article class="issue">
+    <h3>It was measured on GPT-4o-mini, not on Claude</h3>
+    <p>Chosen "for cost-effective considerations".<sup><a href="#s1">[1]</a></sup> A cheaper model with a smaller working style is exactly the case where re-reading files hurts most, so the saving on a stronger model is an open question. Nobody has published that run.</p>
+  </article>
+  <article class="issue">
+    <h3>Thirty instances, filtered to the easy end</h3>
+    <p>15–60 minute problems with exactly two file modifications, from a 500-instance set.<sup><a href="#s1">[1]</a></sup><sup><a href="#s2">[2]</a></sup> A sprawling ten-file refactor is not what was tested, and that is the case where retrieval matters most.</p>
+  </article>
+  <article class="issue">
+    <h3>An index is a thing that goes stale</h3>
+    <p>Everything above measures a static repository. Whatever it costs to keep the index current against a branch you are actively changing is not in the published evaluation, and it is the number I would most want before adopting this on a busy codebase.</p>
+  </article>
+  <article class="issue">
+    <h3>The repository has been quiet</h3>
+    <p>The GitHub API reports the last push as 14 July 2026, read on 17 August 2026 — a month without a commit. Not damning for a tool that works, worth knowing before you build a workflow on it.</p>
+  </article>
+</section>
+
+<!-- ======================= VERDICT ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 07 ·</h2>
+  <span class="gaccent">does it earn a slot?</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues">
+  <article class="issue">
+    <p><b>Conditionally, and the condition is your repo size.</b> If your codebase is small enough that the agent can grep and read its way around it in a few calls, an index is machinery you are maintaining for a saving you will not notice. The measured gain was three fewer tool calls on a two-file bug fix. Below some size, that is noise.</p>
+    <p>If your repo is large enough that "which file is this even in" routinely burns tens of thousands of tokens before any work starts, then a persistent hybrid index is the right shape of fix, and this is the one implementation in the category that has published a number you can argue with. Install it on the local path — Ollama embeddings, local Milvus — and you have given up nothing but disk.</p>
+    <p>If you only take one thing from this issue, take the test rather than the tool: <b>a token-saving claim without a quality number beside it is not a result.</b> Any tool can cut your token usage to zero by answering nothing. Four of the five repositories here report what they saved. One reports what it cost to save it.</p>
+  </article>
+</section>
+
+<!-- ======================= SOURCES ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 08 ·</h2>
+  <span class="gaccent">sources</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues" id="sources">
+  <article class="issue">
+    <ol class="ledger">
+      <li id="s1"><b>[1]</b> zilliztech/claude-context — <a href="https://github.com/zilliztech/claude-context/blob/master/evaluation/README.md" target="_blank" rel="noopener">evaluation/README.md</a>. The benchmark itself: 30 SWE-bench Verified instances, 3 runs per method, GPT-4o-mini, 73,373 → 44,449 tokens, 8.3 → 5.3 tool calls, F1 0.40 vs 0.40. Read at source 2026-08-17.</li>
+      <li id="s2"><b>[2]</b> Princeton NLP — <a href="https://huggingface.co/datasets/princeton-nlp/SWE-bench_Verified" target="_blank" rel="noopener">SWE-bench Verified</a> dataset card. 500 human-validated issue and pull-request pairs from Python repositories. Read at source 2026-08-17.</li>
+      <li id="s3"><b>[3]</b> zilliztech/claude-context — <a href="https://github.com/zilliztech/claude-context" target="_blank" rel="noopener">README</a>. The "~40% token reduction" claim, "hybrid search (BM25 + dense vector)", and the install command with its two cloud credentials. Read at source 2026-08-17.</li>
+      <li id="s4"><b>[4]</b> Anthropic — <a href="https://www.anthropic.com/news/contextual-retrieval" target="_blank" rel="noopener">Introducing Contextual Retrieval</a>. Top-20 retrieval failure rate: 5.7% for embeddings alone, 3.7% with contextual embeddings, 2.9% adding contextual BM25, 1.9% adding reranking.</li>
+      <li id="s5"><b>[5]</b> zilliztech/claude-context — <a href="https://github.com/zilliztech/claude-context/blob/master/packages/mcp/README.md" target="_blank" rel="noopener">packages/mcp/README.md</a>. The four embedding providers, the local Ollama configuration, and Milvus "local or cloud". Read at source 2026-08-17.</li>
+      <li id="s6"><b>[6]</b> OpenAI — <a href="https://developers.openai.com/api/docs/pricing" target="_blank" rel="noopener">API pricing</a>. <code>text-embedding-3-small</code> at $0.02 per 1M tokens, <code>text-embedding-3-large</code> at $0.13. Read 2026-08-17.</li>
+      <li id="s7"><b>[7]</b> Madhan230205/token-reducer — <a href="https://github.com/Madhan230205/token-reducer/blob/main/BENCHMARK.md" target="_blank" rel="noopener">BENCHMARK.md</a> and README. 98.9% savings, 5.83x average compression ratio, 51 files, 5 queries, measured on its own codebase. Read at source 2026-08-17.</li>
+      <li id="s8"><b>[8]</b> lucasrosati/claude-code-memory-setup — <a href="https://github.com/lucasrosati/claude-code-memory-setup" target="_blank" rel="noopener">README</a>. "71.5x fewer tokens per session", and the "Real Results" table reporting 499x per query on one 126-file project. Read at source 2026-08-17.</li>
+      <li id="s9"><b>[9]</b> codenamev/claude_memory — <a href="https://github.com/codenamev/claude_memory" target="_blank" rel="noopener">README</a>. The "10x reduction in memory queries" claim and the DevMemBench suite. Read at source 2026-08-17.</li>
+    </ol>
+    <p class="meta">Star counts, licence and the 404 were read from the GitHub API on 2026-08-17. No claim in this issue has been independently reproduced — every number here is a published claim, attributed to whoever published it. If something is wrong, reply and tell me; corrections go out in the next issue, named as corrections, the way this one opens.</p>
+  </article>
+</section>
