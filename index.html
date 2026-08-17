@@ -917,7 +917,11 @@ input,select,textarea{font-size:16px !important;}   /* iOS zooms below 16 */
    phone case tightens up. It matters MORE here than on an issue page, because
    this popup can fire before the visitor has scrolled at all. */
 @media (max-width:639px){
-  .pop{padding:var(--p-s); align-items:flex-end;}
+  /* Centred, not a bottom sheet (founder, 2026-08-17). Matches the issue-page
+     popup in partials/head.html — the two must not drift on looks, only on
+     when they fire. The height rules below are what keep the card inside the
+     safe harbour; the alignment never did any of that job. */
+  .pop{padding:var(--p-m); align-items:center;}
   .pop-card{padding:var(--p-l) var(--p-m) var(--p-m);}
   .pop-card p{font-size:var(--fs-s); line-height:var(--lh-s); margin-bottom:var(--p-s);}
   .pop-card .k{font-size:var(--fs-xs); margin-bottom:var(--p-xs);}
@@ -1538,13 +1542,22 @@ document.querySelectorAll('.copylink').forEach(b => {
     var btn  = form.querySelector('button[type=submit]');
     var btnLabel = btn.innerHTML;
 
+    // ?pop=1 forces it open past the cooldown AND past the search-referrer
+    // gate. Without it the popup is untestable for anyone who has already seen
+    // it — on 2026-08-17 the issue-page popup looked broken for two days when
+    // the real cause was a dismissal 21 hours earlier. Test affordance only.
+    var force = false;
+    try { force = new URLSearchParams(location.search).get('pop') === '1'; } catch (e) {}
+
     // Shared with the issue-page popup (partials/scripts.html) on purpose: a
     // visitor who dismissed it there yesterday does not get hit again here.
     var KEY = 'vektor_pack_seen', TTL = 2*24*60*60*1000;
-    try {
-      var last = parseInt(localStorage.getItem(KEY) || '0', 10);
-      if (last && (Date.now() - last) < TTL) { return; }
-    } catch (e) {}
+    if (!force) {
+      try {
+        var last = parseInt(localStorage.getItem(KEY) || '0', 10);
+        if (last && (Date.now() - last) < TTL) { return; }
+      } catch (e) {}
+    }
     function seen(){ try { localStorage.setItem(KEY, String(Date.now())); } catch (e) {} }
     function ev(name){ if (window.goatcounter && goatcounter.count) { goatcounter.count({ path:name, event:true }); } }
 
@@ -1615,7 +1628,9 @@ document.querySelectorAll('.copylink').forEach(b => {
       });
     });
 
-    if (fromSearch) {
+    if (force) {
+      open();
+    } else if (fromSearch) {
       // Same rule the issue pages use: fire once past the halfway mark.
       var fired = false;
       var onScroll = function(){
