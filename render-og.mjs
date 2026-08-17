@@ -1,11 +1,12 @@
 #!/usr/bin/env node
-// Render og/no-<num>.png from the generated og-src-no-<num>.html card sources.
+// Render og/<slug>.png from the generated og-src-<slug>.html card sources.
 // Serves the repo on an ephemeral localhost port (headless capture can't load
 // file:// fonts) and captures via ../reel-engine/scripts/capture-url.mjs at
 // exactly 1200x630.
 //
-//   npm run og:render             render every issue that has an og_card block
-//   npm run og:render -- 007 013  render specific issues
+//   npm run og:render               render every card configured with an og_card
+//   npm run og:render -- 007 013    render specific issues
+//   npm run og:render -- index      render just the hub card
 //
 // Run `node build.mjs` first — this renders the BUILT og-src outputs.
 import { createServer } from 'node:http';
@@ -23,16 +24,24 @@ const MIME = {
 };
 
 const site = JSON.parse(readFileSync(join(ROOT, 'site.json'), 'utf8'));
+
+// Slugs, not bare numbers, since 2026-08-17 — the hub needed a card and it has no
+// manifest and no issue number. `index` is the only non-issue slug today; the
+// shape generalises if another utility page ever wants one.
 const withCard = site.issues.filter((i) => {
   const p = join(ROOT, 'manifest', `no-${i.number}.json`);
   return i.built && existsSync(p) && JSON.parse(readFileSync(p, 'utf8')).og_card;
-}).map((i) => i.number);
+}).map((i) => `no-${i.number}`);
+if (site.index.og_card) withCard.push('index');
 
-const asked = process.argv.slice(2).map((a) => a.replace(/^no-?/, '').padStart(3, '0'));
-const nums = asked.length ? asked : withCard;
-for (const n of nums) {
-  if (!withCard.includes(n)) throw new Error(`no-${n}: no og_card block in manifest (nothing to render)`);
-  if (!existsSync(join(ROOT, `og-src-no-${n}.html`))) throw new Error(`og-src-no-${n}.html missing — run: node build.mjs`);
+// `007`, `no-007` and `no007` all still mean the issue; `index` means the hub.
+const asked = process.argv.slice(2).map((a) => (
+  /^\d+$/.test(a.replace(/^no-?/, '')) ? `no-${a.replace(/^no-?/, '').padStart(3, '0')}` : a
+));
+const slugs = asked.length ? asked : withCard;
+for (const s of slugs) {
+  if (!withCard.includes(s)) throw new Error(`${s}: no og_card block configured (nothing to render)`);
+  if (!existsSync(join(ROOT, `og-src-${s}.html`))) throw new Error(`og-src-${s}.html missing — run: node build.mjs`);
 }
 
 const server = createServer((req, res) => {
@@ -46,10 +55,10 @@ await new Promise((r) => server.listen(0, '127.0.0.1', r));
 const port = server.address().port;
 
 try {
-  for (const n of nums) {
-    const url = `http://127.0.0.1:${port}/og-src-no-${n}.html`;
-    const out = join(ROOT, 'og', `no-${n}.png`);
-    console.log(`og:render no-${n} -> og/no-${n}.png`);
+  for (const s of slugs) {
+    const url = `http://127.0.0.1:${port}/og-src-${s}.html`;
+    const out = join(ROOT, 'og', `${s}.png`);
+    console.log(`og:render ${s} -> og/${s}.png`);
     // async, not execFileSync — a sync child would block this process's event
     // loop and the server could never answer the headless browser's requests
     const { stdout } = await promisify(execFile)('node', [CAPTURE, url, out, '--w', '1200', '--h', '630']);
@@ -58,4 +67,4 @@ try {
 } finally {
   server.close();
 }
-console.log(`rendered ${nums.length} card(s). Verify by looking before shipping.`);
+console.log(`rendered ${slugs.length} card(s). Verify by looking before shipping.`);
