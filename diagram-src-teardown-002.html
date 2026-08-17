@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>What a real token claim looks like — diagram</title>
+<!-- Rendered to diagrams/teardown-002.png by render-diagram.mjs. Sized 1200x750
+     because email displays it at ~600px wide, so 2x keeps it sharp on retina.
+     PNG, not SVG: Microsoft pulled inline SVG from Outlook in late 2025 and
+     Gmail strips attributes, so SVG in email is not deliverable.
+
+     WHY BEFORE/AFTER AND NOT A CHART. The visual policy allows before/after only
+     with an honest measured number on BOTH sides. This is the one claim in the
+     category that has that — and the third column is the point of the graphic:
+     the number that did NOT move is what makes the other two mean anything. The
+     provenance strip is not decoration; it is the whole caveat, on the image, so
+     the number cannot travel without it. -->
+<style>
+@font-face{font-family:'Archivo Expanded';src:url(fonts/archivo-expanded-400.woff2) format('woff2');font-weight:400;font-display:block}
+@font-face{font-family:'Archivo Text';src:url(fonts/archivo-400.woff2) format('woff2');font-weight:400;font-display:block}
+@font-face{font-family:'Printvetica';src:url(fonts/printvetica-caps.woff2) format('woff2');font-weight:400;font-display:block}
+@font-face{font-family:'IBM Plex Mono';src:url(fonts/ibm-plex-mono-400-latin.woff2) format('woff2');font-weight:400;font-display:block}
+
+:root{
+  --bg:#000; --fg:#FFF; --rule:#C9C9C9; --meta:#999; --dim:#B4B4B4; --accent:#0E9C86;
+  --extended:'Archivo Expanded','Archivo Text',system-ui,sans-serif;
+  --sans:'Archivo Text',system-ui,sans-serif;
+  --label:'Printvetica','Archivo Text',system-ui,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box; margin:0}
+html,body{width:1200px; height:750px; overflow:hidden}
+body{background:var(--bg); color:var(--fg); font-family:var(--sans); padding:44px 48px; display:flex; flex-direction:column;}
+
+.head{display:flex; justify-content:space-between; align-items:baseline; padding-bottom:14px; border-bottom:1px solid var(--rule);}
+.head .t{font-family:var(--extended); font-weight:400; text-transform:uppercase; font-size:30px; line-height:1;}
+.head .m{font-family:var(--label); text-transform:uppercase; letter-spacing:.025em; font-size:15px; color:var(--meta);}
+
+.cols{display:flex; gap:0; margin-top:34px;}
+.col{flex:1; border:1px solid var(--rule); border-right:0; padding:20px 20px 22px; min-height:252px; display:flex; flex-direction:column;}
+.col:last-child{border-right:1px solid var(--rule);}
+/* The control column is the argument, so it is the only one drawn in accent. */
+.col.control{border:1px solid var(--accent);}
+.col .n{font-family:var(--label); font-size:14px; letter-spacing:.025em; color:var(--accent); display:block; margin-bottom:12px;}
+/* Fixed height, one line each. A wrapped heading in any one column pushes that
+   column's numbers off the shared baseline and the row stops being scannable —
+   which is the entire job of a three-up before/after. */
+.col .h{font-family:var(--extended); font-weight:400; text-transform:uppercase; font-size:19px; line-height:22px; height:22px; white-space:nowrap; margin-bottom:20px;}
+
+.stack{display:flex; flex-direction:column; gap:6px;}
+.leg{font-family:var(--label); text-transform:uppercase; letter-spacing:.025em; font-size:13px; color:var(--meta);}
+.before{font-family:var(--mono); font-size:30px; line-height:1; color:var(--dim);}
+.tick{font-family:var(--mono); font-size:22px; color:var(--accent); line-height:1; margin:4px 0;}
+/* The "=" is two hairlines where the other columns carry a solid arrowhead, so
+   it disappears at email thumbnail size. Sized up to match their weight. */
+.col.control .tick{font-size:32px; margin:-1px 0 -1px;}
+.after{font-family:var(--mono); font-size:44px; line-height:1; color:var(--fg);}
+.delta{margin-top:auto; padding-top:16px; font-family:var(--label); text-transform:uppercase; letter-spacing:.025em; font-size:14px; color:var(--accent);}
+
+/* The thesis gets its own band rather than living inside column 3, so all three
+   columns terminate in the same kind of thing and the bottom row resolves. */
+.why{margin-top:20px; border:1px solid var(--accent); padding:18px 20px; display:flex; align-items:center; gap:22px;}
+.why .lab{font-family:var(--label); text-transform:uppercase; letter-spacing:.025em; font-size:14px; color:var(--accent); flex:none;}
+.why .d{font-size:16px; line-height:21px; color:var(--dim);}
+
+.prov{margin-top:20px; border-top:1px solid var(--rule); padding-top:14px; padding-right:12px; display:flex; gap:26px; align-items:baseline;}
+.prov .k{font-family:var(--label); text-transform:uppercase; letter-spacing:.025em; font-size:14px; color:var(--accent); flex:none;}
+.prov .v{font-family:var(--mono); font-size:14px; line-height:20px; color:var(--dim);}
+
+.foot{margin-top:auto; padding-top:18px; border-top:1px solid var(--rule); display:flex; justify-content:space-between; align-items:baseline;}
+.foot .k{font-family:var(--label); text-transform:uppercase; letter-spacing:.025em; font-size:14px; color:var(--meta);}
+.foot .w{font-family:var(--label); text-transform:uppercase; letter-spacing:.025em; font-size:14px; color:var(--fg);}
+</style>
+</head>
+<body>
+
+<div class="head">
+  <div class="t">What a real token claim looks like</div>
+  <div class="m">The Teardown &middot; 002</div>
+</div>
+
+<div class="cols">
+  <div class="col">
+    <span class="n">01</span>
+    <div class="h">Tokens per task</div>
+    <div class="stack">
+      <span class="leg">grep</span>
+      <span class="before">73,373</span>
+      <span class="tick">&darr;</span>
+      <span class="leg">indexed search</span>
+      <span class="after">44,449</span>
+    </div>
+    <div class="delta">&minus;39.4%</div>
+  </div>
+
+  <div class="col">
+    <span class="n">02</span>
+    <div class="h">Tool calls per task</div>
+    <div class="stack">
+      <span class="leg">grep</span>
+      <span class="before">8.3</span>
+      <span class="tick">&darr;</span>
+      <span class="leg">indexed search</span>
+      <span class="after">5.3</span>
+    </div>
+    <div class="delta">&minus;36.3%</div>
+  </div>
+
+  <div class="col control">
+    <span class="n">03 &middot; the control</span>
+    <div class="h">Answer quality</div>
+    <div class="stack">
+      <span class="leg">grep &middot; F1</span>
+      <span class="before">0.40</span>
+      <span class="tick">=</span>
+      <span class="leg">indexed search &middot; F1</span>
+      <span class="after">0.40</span>
+    </div>
+    <div class="delta">unchanged</div>
+  </div>
+</div>
+
+<div class="why">
+  <span class="lab">Why the third column is the point</span>
+  <div class="d">The number that did <span style="color:#FFF">not</span> move is what makes the other two mean anything. Any tool can cut your token bill to nothing by answering nothing.</div>
+</div>
+
+<div class="prov">
+  <span class="k">Where this came from</span>
+  <span class="v">zilliztech/claude-context, <span style="color:#FFF">its own evaluation of its own tool</span> &middot; 30 of the 500 SWE-bench Verified instances, filtered to 15&ndash;60 min, 2-file fixes &middot; GPT-4o-mini &middot; 3 runs per arm &middot; read at source 2026-08-17</span>
+</div>
+
+<div class="foot">
+  <span class="k">Four other repos claim more. None of them measured it on a task set they did not write</span>
+  <span class="w">vektor.fm</span>
+</div>
+
+</body>
+</html>
