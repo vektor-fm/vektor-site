@@ -1,0 +1,30 @@
+{
+  "number": "035",
+  "title": "vektor /// no. 035 — MCP doesn't replace your API",
+  "description": "Everyone thinks MCP is a new kind of API. It isn't — the model never makes the call, and the protocol just deprecated the one feature that went around your API. The diagram, the arithmetic, and every line of the spec it rests on, quoted and linked. As promised.",
+  "og_title": "MCP doesn't replace your API. — vektor /// no. 035",
+  "og_description": "The model never makes the call. What MCP deletes is the glue — 5 apps × 10 services = 50, against 10 servers + 5 clients = 15. With the spec quoted and linked.",
+  "og_image": "https://vektor-fm.github.io/vektor-site/og/no-035.png",
+  "og_alt": "MCP doesn't replace your API. — vektor /// no. 035",
+  "og_url": "https://vektor-fm.github.io/vektor-site/no-035.html",
+  "canonical": "https://vektor-fm.github.io/vektor-site/no-035.html",
+  "tw_title": "MCP doesn't replace your API. — vektor /// no. 035",
+  "tw_description": "The model never makes the call. The protocol deprecated its one API-bypassing feature and told implementers to call the API directly.",
+  "tw_image": "https://vektor-fm.github.io/vektor-site/og/no-035.png",
+  "marker": "This Week in AI · Protocols",
+  "sticky_text": "Follow <b>@vektor.fm</b> → a new keyword daily",
+  "backref_html": "A new keyword drops every day — <b>catch it first on the reel</b> — follow @vektor.fm. More like this: <a href=\"./no-034.html\">The one token-saving repo that published a measurement →</a>",
+  "footer_meta": "/// no. 035 / mcp vs apis / 08-2026 · the frontier, by the numbers",
+  "copy_event": "copy-install",
+  "subscribe_track": true,
+  "slug": "no035",
+  "og_card": {
+    "accent": "#E7371A",
+    "kick": "This Week in AI · Protocols",
+    "h1_html": "MCP doesn't replace<br>your API<span class=\"dot\">.</span>",
+    "h1_size": 76,
+    "sub_mt": 18,
+    "sub_html": "It never touches it. What it deletes is the glue — and the protocol just proved it by removing the one feature that went around your API.",
+    "meta_html": "/// no. 035 / mcp vs apis / 08-2026 · <b>vektor-fm.github.io</b>"
+  }
+}

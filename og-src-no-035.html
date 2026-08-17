@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<!-- Share-card source. Rendered to og/no-<num>.png at 1200x630 by render-og.mjs.
+     Brought onto the current design system 2026-08-16: black on white, teal as
+     the only accent, Archivo Expanded at weight 400, hairline rules. The old
+     card was still Tektur 900 on #101010 with a per-issue accent stripe and the
+     acid-green dot — which meant every shared vektor link showed a design the
+     site had already retired.
+
+     PER-ISSUE ACCENTS ARE GONE. #E7371A is no longer read: the system has
+     one accent and head.html marks --acid as wordmark-plate only, never UI.
+     Manifests may still carry an `accent` key; it is simply ignored.
+
+     HEADLINE SIZES ARE SCALED. The sizes in the manifests were tuned for Tektur
+     900, and Archivo Expanded is a materially wider face at the same px, so
+     they are multiplied by 0.78 here rather than re-tuned across 25 manifests.
+     The container clips, so a headline that still runs long gets caught by eye
+     at render time instead of silently reflowing the card. -->
+<style>
+@font-face { font-family:'Archivo Expanded'; font-weight:400; src:url("fonts/archivo-expanded-400.woff2") format('woff2'); }
+@font-face { font-family:'Archivo Text'; font-weight:400; src:url("fonts/archivo-400.woff2") format('woff2'); }
+@font-face { font-family:'Printvetica'; font-weight:400; src:url("fonts/printvetica-caps.woff2") format('woff2'); }
+@font-face { font-family:'IBM Plex Mono'; font-weight:400; src:url("fonts/ibm-plex-mono-400-latin.woff2") format('woff2'); }
+@font-face { font-family:'Inter Tight'; font-weight:600; src:url("fonts/inter-tight-600-latin.woff2") format('woff2'); }
+
+:root{
+  --bg:#000000; --fg:#FFFFFF; --rule:#C9C9C9; --meta:#999999; --dim:#B4B4B4;
+  --accent:#0E9C86; --paper:#EFEADD;
+}
+*{box-sizing:border-box;margin:0;}
+html,body{width:1200px;height:630px;overflow:hidden;}
+body{
+  background:var(--bg); color:var(--fg);
+  font-family:'Archivo Text',system-ui,sans-serif;
+  position:relative; padding:44px 64px; display:flex; flex-direction:column;
+}
+
+.top{display:flex; align-items:baseline; justify-content:space-between; padding-bottom:18px; border-bottom:1px solid var(--rule);}
+.wm{font-family:'Inter Tight',sans-serif; font-weight:600; letter-spacing:-0.045em; font-size:38px; color:var(--paper); line-height:1;}
+.kick{font-family:'Printvetica','Archivo Text',sans-serif; text-transform:uppercase; letter-spacing:.025em; font-size:19px; color:var(--accent);}
+
+h1{
+  font-family:'Archivo Expanded','Archivo Text',sans-serif; font-weight:400;
+  text-transform:uppercase; line-height:1.02; letter-spacing:normal;
+  font-size:calc(76px * 0.78);
+  margin-top:calc(18px + 30px);
+  overflow:hidden;
+}
+/* The acid dot belonged to the retired skin; the period carries the accent now. */
+h1 .dot{color:var(--accent);}
+
+.sub{
+  font-size:22px; line-height:1.45; color:var(--dim);
+  margin-top:18px; max-width:48ch;
+}
+
+.foot{margin-top:auto; padding-top:16px; border-top:1px solid var(--rule); display:flex; justify-content:space-between; align-items:baseline;}
+.meta{font-family:'IBM Plex Mono',monospace; font-size:17px; color:var(--meta);}
+.meta b{color:var(--fg); font-weight:400;}
+.host{font-family:'Printvetica','Archivo Text',sans-serif; text-transform:uppercase; letter-spacing:.025em; font-size:17px; color:var(--fg);}
+</style></head>
+<body>
+<div class="top">
+  <span class="wm">vektor</span>
+  <span class="kick">This Week in AI · Protocols</span>
+</div>
+<h1>MCP doesn't replace<br>your API<span class="dot">.</span></h1>
+<p class="sub">It never touches it. What it deletes is the glue — and the protocol just proved it by removing the one feature that went around your API.</p>
+<div class="foot">
+  <span class="meta">/// no. 035 / mcp vs apis / 08-2026 · <b>vektor-fm.github.io</b></span>
+  <span class="host">vektor.fm</span>
+</div>
+</body></html>

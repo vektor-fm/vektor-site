@@ -245,6 +245,15 @@
       "keyword": "CONTEXT",
       "lastmod": "2026-08-16",
       "built": true
+    },
+    {
+      "number": "035",
+      "title_short": "MCP doesn't replace your API.",
+      "section": "Protocols",
+      "date": "08-2026",
+      "keyword": "MCP",
+      "lastmod": "2026-08-17",
+      "built": true
     }
   ],
   "teardowns": [
