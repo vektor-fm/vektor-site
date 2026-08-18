@@ -254,6 +254,15 @@
       "keyword": "MCP",
       "lastmod": "2026-08-17",
       "built": true
+    },
+    {
+      "number": "036",
+      "title_short": "Claude Code doesn't know your codebase.",
+      "section": "Tooling",
+      "date": "08-2026",
+      "keyword": "GRAPH",
+      "lastmod": "2026-08-18",
+      "built": true
     }
   ],
   "teardowns": [

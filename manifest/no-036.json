@@ -1,0 +1,30 @@
+{
+  "number": "036",
+  "title": "vektor /// no. 036 — Claude Code doesn't know your codebase. Graphify gives it a map.",
+  "description": "Every new session, Claude Code rebuilds its mental model — the same greps, the same file reads. Graphify builds a knowledge graph it can query instead. The two commands, our own measured run — 196 files, one real question, ≈14× fewer tokens — and the viral numbers we refused to repeat. As promised.",
+  "og_title": "Claude Code doesn't know your codebase. Graphify gives it a map. — vektor /// no. 036",
+  "og_description": "The two setup commands, and our own measured receipts: 196 files → a 1,764-node graph, one real query answered in ~2,000 tokens against ~27,184 by reading the files — ≈14×, measured. Plus the viral 70× claim, checked at source.",
+  "og_image": "https://vektor-fm.github.io/vektor-site/og/no-036.png",
+  "og_alt": "Claude Code doesn't know your codebase. Graphify gives it a map. — vektor /// no. 036",
+  "og_url": "https://vektor-fm.github.io/vektor-site/no-036.html",
+  "canonical": "https://vektor-fm.github.io/vektor-site/no-036.html",
+  "tw_title": "Claude Code doesn't know your codebase. Graphify gives it a map. — vektor /// no. 036",
+  "tw_description": "Two commands, one knowledge graph, and our own measured ≈14× on a real query — plus the viral 70× claim traced back to one user's anecdote.",
+  "tw_image": "https://vektor-fm.github.io/vektor-site/og/no-036.png",
+  "marker": "This Week in AI · Tooling",
+  "sticky_text": "Follow <b>@vektor.fm</b> → a new keyword daily",
+  "backref_html": "A new keyword drops every day — <b>catch it first on the reel</b> — follow @vektor.fm. More like this: <a href=\"./no-034.html\">The one token-saving repo that published a measurement →</a>",
+  "footer_meta": "/// no. 036 / graphify / 08-2026 · the frontier, by the numbers",
+  "copy_event": "copy-install",
+  "subscribe_track": true,
+  "slug": "no036",
+  "og_card": {
+    "accent": "#E7371A",
+    "kick": "This Week in AI · Tooling",
+    "h1_html": "Claude Code doesn't<br>know your codebase<span class=\"dot\">.</span>",
+    "h1_size": 76,
+    "sub_mt": 18,
+    "sub_html": "Graphify gives it a map. Two commands, and our own measured run: one real query, ≈14× fewer tokens — not the 70× the clips claim.",
+    "meta_html": "/// no. 036 / graphify / 08-2026 · <b>vektor-fm.github.io</b>"
+  }
+}

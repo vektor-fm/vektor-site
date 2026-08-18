@@ -1,0 +1,184 @@
+<section class="hero">
+  <div class="kick eye">This Week in AI · Tooling</div>
+  <h1 class="disp">Give Claude a map<br>of your codebase<span class="dot">.</span></h1>
+  <p class="sub">Every new session, Claude Code rebuilds its mental model from scratch — the same greps, the same file reads. Graphify scans your repo once and builds a knowledge graph it can query instead. Here is the repo, the two commands we ran, and our own measured receipts — including the numbers the viral versions got wrong. As promised.</p>
+  <div class="actions">
+    <a class="btn primary" href="#setup">The setup ↓</a>
+    <a class="btn" href="#sources">Check the sources →</a>
+    <button class="btn" id="shareBtn" type="button">Send to a dev friend</button>
+  </div>
+  <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+</section>
+
+<!-- ======================= THE PROBLEM ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 01 ·</h2>
+  <span class="gaccent">the problem, stated honestly</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues" id="problem">
+  <article class="issue">
+    <h3><span class="num">0.</span> The setup sheet, to keep</h3>
+    <p>This is the thing the reel promises. The install line, the first run, the query
+    workflow, our full measured receipts, and the two viral claims to ignore — one page.</p>
+    <p><a class="btn primary" href="./files/no-036/graphify-setup.md" download>Download the setup sheet (Markdown) ↓</a></p>
+    <p class="meta">Free, no email, no gate. It is the exact setup we ran on our own
+    render engine, not a rewrite of somebody's thread.</p>
+  </article>
+
+  <p class="note">Every number on this page was either measured by us, on our own render engine, on <b>18 August 2026</b>, or read from the repo and its documentation at source on the same day. The viral figures we refused to repeat are in <a href="#wrong">Fig. 04</a>.</p>
+
+  <article class="issue">
+    <h3><span class="num">1.</span> Every session starts from zero</h3>
+    <p>If you think Claude Code actually knows your codebase, it is pretending. Each new session it rebuilds its mental model from scratch — the same greps, the same file reads, thousands of tokens spent remembering what it already knew yesterday.</p>
+    <p>Worth being precise, because the viral clips are not: Claude Code does <em>not</em> "re-read your entire codebase" every session. It uses on-demand agentic search — it reads what it needs, when it needs it. The true, checkable version of the complaint is that it re-greps and re-reads <em>the same files</em> across sessions, and pays for them again each time. That is the cost Graphify goes after.</p>
+  </article>
+
+  <article class="issue">
+    <h3><span class="num">2.</span> What Graphify actually does</h3>
+    <p>It scans your codebase once and builds a knowledge graph — functions, connections, structure — into one output folder (<code>graphify-out/</code>). Future sessions query that graph instead of re-reading your code. Free, open source, Apache-2.0, <b>107,661 stars</b> read from the GitHub API on 18 August 2026, last push 17 August 2026.</p>
+    <pre class="code"><code>github.com/Graphify-Labs/graphify</code></pre>
+  </article>
+</section>
+
+<!-- ======================= THE SETUP ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 02 ·</h2>
+  <span class="gaccent">the exact two commands we ran</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues" id="setup">
+  <article class="issue">
+    <h3><span class="num">3.</span> Install</h3>
+    <p>One line. Mind the <b>double y</b> — <code>graphifyy</code> is the real package name, and the single-y spelling is a different package. We ran this on 18 August 2026 and it worked first try.</p>
+    <div class="snippet">
+      <div class="bar"><span class="f">terminal · install</span><button class="snipbtn" type="button" data-copy-target="#snipInstall" data-copy-event="copy-install">Copy</button></div>
+      <pre id="snipInstall">uv tool install graphifyy</pre>
+    </div>
+  </article>
+
+  <article class="issue">
+    <h3><span class="num">4.</span> Build the graph</h3>
+    <p>Run it from your repo root. It scans the codebase and writes the graph to <code>graphify-out/graph.json</code>. On our engine that took 196 files to a graph in one run.</p>
+    <div class="snippet">
+      <div class="bar"><span class="f">terminal · first run</span><button class="snipbtn" type="button" data-copy-target="#snipUpdate" data-copy-event="copy-install">Copy</button></div>
+      <pre id="snipUpdate">graphify update .</pre>
+    </div>
+    <p class="meta">The graph is a snapshot, not a live index — after your code changes, run <code>graphify update</code> again or it answers from a stale map. That caveat is from the repo's own README.</p>
+  </article>
+
+  <article class="issue">
+    <h3><span class="num">5.</span> Query it</h3>
+    <p>Then you ask it questions instead of re-reading files. This is the actual question we asked about our own render engine — the one the receipts below are measured on:</p>
+    <div class="snippet">
+      <div class="bar"><span class="f">terminal · query</span><button class="snipbtn" type="button" data-copy-target="#snipQuery" data-copy-event="copy-install">Copy</button></div>
+      <pre id="snipQuery">graphify query "how does our caption system connect to the render pipeline?"</pre>
+    </div>
+    <p class="meta">Swap the quoted question for your own. The answer comes back inside a bounded token budget rather than as a pile of file contents.</p>
+  </article>
+</section>
+
+<!-- ======================= OUR RECEIPTS ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 03 ·</h2>
+  <span class="gaccent">our receipts, measured on our own engine</span>
+  <span class="line"></span>
+</div>
+
+<div class="ledger" aria-label="Our measured Graphify run, 18 August 2026">
+  <div class="lrow"><span class="n">196</span><span class="t">files scanned in one <code>graphify update</code> run</span></div>
+  <div class="lrow"><span class="n">1,764</span><span class="t">nodes in the raw graph · 3,457 edges</span></div>
+  <div class="lrow"><span class="n">~27,184</span><span class="t">tokens to answer our question by reading the six involved files (bytes÷4 estimate)</span></div>
+  <div class="lrow"><span class="n">~2,000</span><span class="t">tokens for the graph's budgeted answer to the same question (97 of 173 relevant nodes shown)</span></div>
+  <div class="lrow"><span class="n">≈14×</span><span class="t">fewer tokens on that one query — derived from the two measured numbers above, nothing else</span></div>
+</div>
+
+<section class="issues" id="receipts">
+  <p class="note">One run, one real question, all measured by us on 18 August 2026 on our own render engine. Token figures are bytes÷4 estimates — that is why they say "about".</p>
+
+  <article class="issue">
+    <h3><span class="num">6.</span> What the answer looked like</h3>
+    <p>The question was "how does our caption system connect to the render pipeline?" and the route the graph returned is real: <code>Captions()</code> → <code>Video.tsx</code> → <code>SceneBody()</code> — <code>Video.tsx</code> is the composition root and <code>SceneBody()</code> is the scene renderer. Every edge on that route exists in <code>graphify-out/graph.json</code>; we verified the path by walking the graph ourselves on 18 August 2026.</p>
+    <p class="meta">Also worth knowing: our render <em>script</em> shares no AST edge with the source tree — it shells out to a CLI — so no path to it exists in the graph. A code graph maps code relationships; it does not see across a process boundary. Knowing what a tool cannot answer is part of knowing the tool.</p>
+  </article>
+
+  <article class="issue">
+    <h3><span class="num">7.</span> What ≈14× is, and is not</h3>
+    <p>It is one query, on one codebase, measured once. It is not a benchmark, and your number will differ with your repo and your question. We are printing it because it is the only Graphify speedup figure on this page that anyone actually measured and can check — and because fourteen times on a real codebase was enough for us to keep the tool installed.</p>
+  </article>
+</section>
+
+<!-- ======================= WHAT THE VIRAL CLIPS GOT WRONG ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 04 ·</h2>
+  <span class="gaccent">the viral numbers, checked at source</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues" id="wrong">
+  <article class="issue">
+    <h3><span class="num">8.</span> "70× fewer tokens per search"</h3>
+    <p>Both source reels carry this number. The repo's README never says it. Graphify's own blog is more honest than the clips quoting it: it calls the 71.5× figure <b>"a community-reported number rather than a benchmark"</b> — read at source on 18 August 2026. One user's anecdote, repeated until it sounded like a spec.</p>
+    <p>We replaced it with the ≈14× we measured ourselves. Smaller number, real provenance.</p>
+  </article>
+
+  <article class="issue">
+    <h3><span class="num">9.</span> "Every new session Claude re-reads your entire codebase"</h3>
+    <p>False as stated. Claude Code uses on-demand agentic search — it does not ingest your repo at session start (docs.anthropic.com, read 18 August 2026). The kernel that survives checking: it re-greps and re-reads the <em>same files</em> across sessions, and that repeated cost is real. The exaggeration was never needed to make the point.</p>
+  </article>
+
+  <article class="issue">
+    <h3><span class="num">10.</span> The one we dropped entirely</h3>
+    <p>One of the source reels claims Anthropic is upset about Graphify and that users are cancelling $250 plans over it. No source, no evidence, pure hype. It did not survive contact with a fact-check, so it appears nowhere in the film — and only here, as an example of what got cut.</p>
+  </article>
+</section>
+
+<!-- ======================= HONEST CAVEATS ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 05 ·</h2>
+  <span class="gaccent">the caveats the clips skip</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues" id="caveats">
+  <article class="issue">
+    <h3><span class="num">11.</span> The graph is bigger than your code</h3>
+    <p>On our engine, the full <code>graph.json</code> weighs about <b>403k tokens</b> against roughly <b>371k tokens</b> for the codebase itself (both bytes÷4 estimates, measured 18 August 2026). So the win is <em>per query</em> — a bounded ~2k-token answer instead of a pile of file reads — never "the graph is smaller than your code". Anyone implying whole-graph savings has not looked at the file sizes.</p>
+  </article>
+
+  <article class="issue">
+    <h3><span class="num">12.</span> It goes stale</h3>
+    <p>The graph is a snapshot of your code at scan time. Change the code, and the map is wrong until you run <code>graphify update</code> again. Cheap to re-run, easy to forget — put it wherever you already put things you forget.</p>
+  </article>
+</section>
+
+<!-- ======================= THE SOURCES ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 06 ·</h2>
+  <span class="gaccent">every claim, with somewhere to check it</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues" id="sources">
+  <p class="note">This is the part we would want if somebody sent us this page. Each line is the claim, then where it came from — measured by us, or read at primary source. Nothing quoted from another video.</p>
+
+  <article class="issue">
+    <h3><span class="num">13.</span> The sources</h3>
+    <p><b>The repo: Graphify-Labs/graphify — 107,661 stars, Apache-2.0, last push 17 August 2026</b><br>
+    <a href="https://github.com/Graphify-Labs/graphify">github.com/Graphify-Labs/graphify</a>, figures read from the GitHub API on 18 August 2026. Star counts move; check the badge, not this page.</p>
+
+    <p><b>196 files → 1,764 nodes / 3,457 edges; ~2,000-token answer vs ~27,184 tokens by reading the files; ≈14×</b><br>
+    Measured by us on our own render engine, 18 August 2026 — <code>graphify update</code> and <code>graphify query</code> output, token figures as bytes÷4 estimates. The setup sheet above contains the full table.</p>
+
+    <p><b>71.5× is "a community-reported number rather than a benchmark"</b><br>
+    Graphify's own blog, fetched 18 August 2026. The repo README makes no per-search speedup claim at all.</p>
+
+    <p><b>Claude Code searches on demand rather than ingesting your repo per session</b><br>
+    <a href="https://docs.anthropic.com">docs.anthropic.com</a>, read 18 August 2026. The basis for correcting "re-reads your entire codebase".</p>
+
+    <p><b>The graph needs <code>graphify update</code> after code changes</b><br>
+    The repo's README, read 18 August 2026 — and our own <code>graph.json</code> vs codebase size measurement, same day.</p>
+  </article>
+</section>
