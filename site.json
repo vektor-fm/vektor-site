@@ -272,6 +272,15 @@
       "keyword": "TOOLS",
       "lastmod": "2026-08-21",
       "built": true
+    },
+    {
+      "number": "039",
+      "title_short": "You hit your limit. These five fix it.",
+      "section": "Claude Code",
+      "date": "08-2026",
+      "keyword": "PLUGINS",
+      "lastmod": "2026-08-23",
+      "built": true
     }
   ],
   "teardowns": [

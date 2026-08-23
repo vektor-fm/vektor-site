@@ -1,0 +1,118 @@
+<section class="hero">
+  <div class="kick eye">Claude Code · Tooling</div>
+  <h1 class="disp">The five installs,<br>with the exact commands<span class="dot">.</span></h1>
+  <p class="sub">You hit the limit and the reset is hours away. These are the five things to put in front of Claude Code instead — one endpoint that fails over when you run out, memory that survives the session, a compressor, Anthropic's own read-only advisor, and a skill that turns your corrections into skills. Every command below was read from the project's own source on 23 August 2026. As promised.</p>
+  <div class="actions">
+    <a class="btn primary" href="#installs">The install list ↓</a>
+    <a class="btn" href="#copyall">Copy all five →</a>
+    <button class="btn" id="shareBtn" type="button">Send to someone stuck at their limit</button>
+  </div>
+  <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+</section>
+
+<!-- ======================= COPY ALL ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 01 ·</h2>
+  <span class="gaccent">all five, one block</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues" id="copyall">
+  <p class="note">Paste the lot, or take them one at a time below. Restart Claude Code after 2 and 5.</p>
+  <div class="snippet">
+    <div class="bar"><span class="f">terminal · all five</span><button class="snipbtn" type="button" data-copy-target="#snipAll" data-copy-event="copy-install">Copy</button></div>
+    <pre id="snipAll"># 1 · OmniRoute — one endpoint in front of 90+ free providers
+npx -y omniroute
+
+# 2 · claude-mem — memory that survives the session (needs Node 20+)
+npx claude-mem install
+
+# 3 · Headroom — compresses what you send before it reaches the model
+pip install "headroom-ai[all]"
+
+# 4 · Claude Code Setup — Anthropic's own, read-only
+#     install from claude.com/plugins/claude-code-setup ("Install in Claude Code")
+
+# 5 · Task Observer — turns your corrections into skills
+git clone https://github.com/iamneilroberts/claude-skills
+cp -r claude-skills/skills/* ~/.claude/skills/</pre>
+  </div>
+</section>
+
+<!-- ======================= THE FIVE ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 02 ·</h2>
+  <span class="gaccent">one at a time, with the traps</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues" id="installs">
+
+  <article class="issue">
+    <h3><span class="num">1.</span> OmniRoute — never hit the ceiling</h3>
+    <p>One endpoint that fails over to the next provider when your model runs out, so a limit stops being the end of the session. <b>MIT</b>, self-hosted, <b>53.6k stars</b>. Its README's own numbers: <b>90+ free tiers, 56 free forever, no card</b>, and <b>“~1.51B Free Tokens / Month”</b> across those documented free tiers.</p>
+    <div class="snippet">
+      <div class="bar"><span class="f">terminal · install</span><button class="snipbtn" type="button" data-copy-target="#snipOmni" data-copy-event="copy-install">Copy</button></div>
+      <pre id="snipOmni">npx -y omniroute</pre>
+    </div>
+    <p class="meta">Also <code>npm install -g omniroute</code> or <code>docker run diegosouzapw/omniroute</code>. <b>Straight about the provider count:</b> we read <b>349 providers</b> on 23 August 2026 and that is the figure in the film. The README is not internally consistent — its stats block says <b>342 (v3.8.50)</b> and its headline promise says <b>351</b>. Same page, three numbers. Take the order of magnitude, not the digit. <a href="https://github.com/diegosouzapw/OmniRoute" target="_blank" rel="noopener">Repo →</a></p>
+  </article>
+
+  <article class="issue">
+    <h3><span class="num">2.</span> claude-mem — stop re-explaining your codebase</h3>
+    <p>Persistent memory across sessions: it holds the project and the files, so a new morning doesn't start with you describing your own repo again. <b>Apache 2.0. Not an Anthropic project.</b></p>
+    <div class="snippet">
+      <div class="bar"><span class="f">terminal · install</span><button class="snipbtn" type="button" data-copy-target="#snipMem" data-copy-event="copy-install">Copy</button></div>
+      <pre id="snipMem">npx claude-mem install</pre>
+    </div>
+    <p>Or from inside Claude Code:</p>
+    <div class="snippet">
+      <div class="bar"><span class="f">claude code · marketplace</span><button class="snipbtn" type="button" data-copy-target="#snipMemPlugin" data-copy-event="copy-install">Copy</button></div>
+      <pre id="snipMemPlugin">/plugin marketplace add thedotmack/claude-mem
+/plugin install claude-mem</pre>
+    </div>
+    <p class="meta"><b>Node.js 20.0.0 or higher is a real prerequisite</b> — it is not auto-installed (Bun, uv and SQLite are). <b>Trap:</b> <code>npm install -g claude-mem</code> gets you the library and none of the behaviour — it doesn't register the hooks or start the worker. <a href="https://github.com/thedotmack/claude-mem" target="_blank" rel="noopener">Repo →</a></p>
+  </article>
+
+  <article class="issue">
+    <h3><span class="num">3.</span> Headroom — send less, get the same answer</h3>
+    <p>Sits in front of the model and compresses your context before it goes out. <b>Apache 2.0, open source, local-first.</b></p>
+    <div class="snippet">
+      <div class="bar"><span class="f">terminal · install</span><button class="snipbtn" type="button" data-copy-target="#snipHead" data-copy-event="copy-install">Copy</button></div>
+      <pre id="snipHead">pip install "headroom-ai[all]"</pre>
+    </div>
+    <p class="meta"><b>What the 77% is:</b> “77% fewer input tokens” is <b>Headroom's own traced example</b> on their own site — not an independent benchmark, and not a promise about your repo. Measure it on your own workload before you count the saving. <a href="https://headroomlabs.ai" target="_blank" rel="noopener">Site →</a></p>
+  </article>
+
+  <article class="issue">
+    <h3><span class="num">4.</span> Claude Code Setup — Anthropic's own</h3>
+    <p>It reads your repo and names the MCP servers, skills, hooks, subagents and slash commands worth adding for your specific stack. Badged <b>“Made by Anthropic”</b> and <b>“Anthropic Verified”</b>, <b>195,067 installs</b> as of 23 August 2026.</p>
+    <p class="meta">Install from the plugin page itself — it carries an <b>“Install in Claude Code”</b> button rather than a command to paste. <b>It is read-only:</b> it recommends, it never edits your files. If you've seen it described as a tool that “cleans up” or “removes the fluff” from your setup, that's wrong — it changes nothing. <a href="https://claude.com/plugins/claude-code-setup" target="_blank" rel="noopener">Plugin page →</a></p>
+  </article>
+
+  <article class="issue">
+    <h3><span class="num">5.</span> Task Observer — your corrections become skills</h3>
+    <p>Captures the corrections you make while working and turns them into skill improvements, so the same correction stops recurring. It's a <b>skill</b>, not a plugin — every skill in that repo is <code>user_invocable</code>, so it's both a <code>/slash-command</code> and something Claude can auto-invoke.</p>
+    <div class="snippet">
+      <div class="bar"><span class="f">terminal · install</span><button class="snipbtn" type="button" data-copy-target="#snipObs" data-copy-event="copy-install">Copy</button></div>
+      <pre id="snipObs">git clone https://github.com/iamneilroberts/claude-skills
+cp -r claude-skills/skills/* ~/.claude/skills/</pre>
+    </div>
+    <p class="meta"><b>Credit where it's due:</b> <code>skills/task-observer/</code> is third-party, redistributed unmodified under <b>CC BY 4.0</b>, © Eoghan Henn (rebelytics.com). <a href="https://github.com/iamneilroberts/claude-skills" target="_blank" rel="noopener">Repo →</a></p>
+  </article>
+</section>
+
+<!-- ======================= SOURCING ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 03 ·</h2>
+  <span class="gaccent">where every number came from</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues" id="sourcing">
+  <p class="note">Every quantity on this page and in the film was read from the project's own source on <b>23 August 2026</b>, and rounded down where we rounded at all. Star counts, install counts and provider counts move — check before you quote us.</p>
+  <article class="issue">
+    <h3>What we did not repeat</h3>
+    <p>This film was adapted from a creator's reel that we credit. Three of its claims did not survive our check, so we didn't carry them: it said <b>“1.6 billion free tokens”</b> (the repo says ~1.51B), <b>“over 200 free API providers”</b> (it's 90+ free tiers out of a few hundred total), and that Claude Code Setup <b>“removes the useless fluff”</b> (it's read-only and modifies nothing). We'd rather be the version you can check.</p>
+  </article>
+</section>

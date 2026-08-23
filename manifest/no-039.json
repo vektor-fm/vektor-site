@@ -1,0 +1,30 @@
+{
+  "number": "039",
+  "title": "vektor /// no. 039 — Five installs for when Claude Code hits its limit.",
+  "description": "The five installs that fix the Claude Code usage ceiling, with the exact commands: OmniRoute, claude-mem, Headroom, Anthropic's own Claude Code Setup, and Task Observer. Every command read from the project's own source on 23 August 2026. As promised.",
+  "og_title": "You hit your limit. These five installs fix it. — vektor /// no. 039",
+  "og_description": "One endpoint that fails over when you run out, memory that survives the session, a compressor, Anthropic's own read-only advisor, and a skill that turns your corrections into skills — with the exact install commands.",
+  "og_image": "https://vektor-fm.github.io/vektor-site/og/no-039.png",
+  "og_alt": "You hit your limit. These five installs fix it. — vektor /// no. 039",
+  "og_url": "https://vektor-fm.github.io/vektor-site/no-039.html",
+  "canonical": "https://vektor-fm.github.io/vektor-site/no-039.html",
+  "tw_title": "You hit your limit. These five installs fix it. — vektor /// no. 039",
+  "tw_description": "Five installs for Claude Code, with the exact commands and the traps — OmniRoute, claude-mem, Headroom, Claude Code Setup, Task Observer. Sources read 23 Aug 2026.",
+  "tw_image": "https://vektor-fm.github.io/vektor-site/og/no-039.png",
+  "marker": "Claude Code · Tooling",
+  "sticky_text": "Follow <b>@vektor.fm</b> → a new keyword daily",
+  "backref_html": "A new keyword drops every day — <b>catch it first on the reel</b> — follow @vektor.fm. More like this: <a href=\"./no-036.html\">The tool that maps your codebase before Claude reads it →</a>",
+  "footer_meta": "/// no. 039 / five installs / 08-2026 · the frontier, by the numbers",
+  "copy_event": "copy-install",
+  "subscribe_track": true,
+  "slug": "no039",
+  "og_card": {
+    "accent": "#E7371A",
+    "kick": "Claude Code · Tooling",
+    "h1_html": "You hit your limit.<br>These five fix it<span class=\"dot\">.</span>",
+    "h1_size": 76,
+    "sub_mt": 18,
+    "sub_html": "One endpoint that fails over when you run out, memory that survives the session, a compressor, Anthropic's own read-only advisor, and a skill that turns your corrections into skills.",
+    "meta_html": "/// no. 039 / five installs / 08-2026 · <b>vektor-fm.github.io</b>"
+  }
+}
