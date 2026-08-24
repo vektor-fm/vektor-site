@@ -281,6 +281,15 @@
       "keyword": "PLUGINS",
       "lastmod": "2026-08-23",
       "built": true
+    },
+    {
+      "number": "038",
+      "title_short": "Don't install a Claude skill until you read the install line.",
+      "section": "Skill Security",
+      "date": "08-2026",
+      "keyword": "SKILLS",
+      "lastmod": "2026-08-24",
+      "built": true
     }
   ],
   "teardowns": [

