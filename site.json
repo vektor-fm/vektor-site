@@ -290,6 +290,15 @@
       "keyword": "SKILLS",
       "lastmod": "2026-08-24",
       "built": true
+    },
+    {
+      "number": "041",
+      "title_short": "Clone yourself into a team.",
+      "section": "Subagents",
+      "date": "08-2026",
+      "keyword": "AGENTS",
+      "lastmod": "2026-08-25",
+      "built": true
     }
   ],
   "teardowns": [
