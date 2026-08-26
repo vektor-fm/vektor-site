@@ -3,7 +3,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>vektor /// no. 018 — bottle the brain.</title>
-<meta name="description" content="Bottle the brain — the one-run master prompt that makes your smartest model (Fable 5, any frontier model) write the 3 files every cheaper session inherits: the project overview, the gaps audit, the upgraded CLAUDE.md. Free, no gate.">
+<meta name="description" content="Bottle the brain — the one-run master prompt that makes your smartest model (Fable 5, any frontier model) write the 3 files every cheaper session inherits: the project overview, the gaps audit, the upgraded CLAUDE.md. Free — one email and it opens.">
 
 <!-- OG / social preview (traffic arrives via DM) -->
 <meta property="og:type" content="website">
@@ -16,6 +16,7 @@
 <meta property="og:site_name" content="vektor">
 <meta property="og:url" content="https://vektor-fm.github.io/vektor-site/no-018.html">
 <link rel="canonical" href="https://vektor-fm.github.io/vektor-site/no-018.html">
+
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Bottle the brain — vektor /// no. 018">
 <meta name="twitter:description" content="Fable 5 just went permanent — 50% of your Max limits. Before you burn it on chat, make it write the 3 files every cheaper session inherits: overview, gaps audit, CLAUDE.md.">
@@ -518,6 +519,59 @@ img{display:block; max-width:100%;}
 .midcap .btn{min-height:48px;}
 .midcap .note{font-size:var(--fs-s); color:var(--meta); margin-top:var(--p-s);}
 
+/* ---- the gate (2026-08-26, founder picked "paper block") ----
+   The page ends here for anyone who hasn't paid the email, so it is built as a
+   destination, not a footer widget. The block flips to PAPER on an otherwise
+   all-black site: it is the only light surface in the whole design system, which
+   is what makes it the loudest object on the page without adding decoration.
+   Colours are hard-coded near-black rather than var(--fg) because this is the
+   one inverted surface — the tokens all assume ink-on-black.
+   The manifest rows are generated from the payload (build.mjs): real file names
+   and line counts, redacted. Structure, never a readable line — a readable
+   teaser measurably lowers conversion (docs/2026-08-26-gate-ui-research.md). */
+.gate{position:relative; margin:var(--p-2xl) 0 0; padding:var(--p-2xl) var(--rail) var(--p-4xl); background:var(--bg); border-top:1px solid var(--rule);}
+.gate .inner{background:var(--paper); color:#0B0B0B; padding:var(--p-xl) var(--p-l) var(--p-l); border:1px solid #0B0B0B; max-width:720px;}
+.gate .tab{display:inline-block; margin-bottom:-1px; background:var(--accent); color:#04120F; font-family:var(--font-label); text-transform:uppercase; letter-spacing:.05em; font-size:var(--fs-s); padding:6px 14px;}
+.gate .k{display:block; color:#0B0B0B; opacity:.7; font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); margin-bottom:var(--p-s);}
+.gate h2{color:#0B0B0B; font-family:var(--font-extended); font-weight:400; text-transform:uppercase; letter-spacing:normal; font-size:var(--fs-2xl); line-height:var(--lh-2xl); margin:0 0 var(--p-s);}
+.gate .lede{color:#2A2A2A; font-size:var(--fs-m); line-height:var(--lh-xl); max-width:52ch; margin:0 0 var(--p-l);}
+
+.manifest{list-style:none; margin:0 0 var(--p-xl); padding:0;}
+.manifest li{display:flex; align-items:center; gap:var(--p-s); padding:10px 0; border-top:1px solid #0B0B0B; font-family:var(--font-code); font-size:var(--fs-s); color:#0B0B0B;}
+.manifest li:last-child{border-bottom:1px solid #0B0B0B;}
+.manifest .lk{color:#0B7A69;}
+.manifest .fn{white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+/* the redaction: it has to read as "text is here and you can't have it", so it
+   is a bar of glyph-width blocks rather than a plain rule */
+.manifest .rd{flex:1 1 30px; min-width:20px; height:10px; opacity:.35; background:repeating-linear-gradient(90deg,#0B0B0B 0 12px, transparent 12px 18px);}
+.manifest .ln{color:#4A4A4A; white-space:nowrap;}
+
+.gate-form{display:flex; gap:var(--p-s); flex-wrap:wrap; max-width:560px;}
+.gate-form input{flex:1 1 240px; min-height:52px; background:transparent; border:0; border-bottom:2px solid #0B0B0B; color:#0B0B0B; font-family:var(--font-sans); font-size:var(--fs-m); padding:0;}
+.gate-form input::placeholder{color:#6A6A6A;}
+.gate-form input:focus{outline:none; border-bottom-color:#0B7A69;}
+.gate-form .btn{min-height:52px; padding:0 var(--p-l); background:#0B0B0B; color:var(--paper); border:1px solid #0B0B0B;}
+.gate-form .btn:hover{background:#0B7A69; border-color:#0B7A69;}
+/* On a phone the field and the button stop competing for one row: mobile is
+   ~83% of the traffic and converts at about half the desktop rate, so the tap
+   target gets the full width. */
+@media (max-width:620px){
+  .gate-form input{flex:1 1 100%;}
+  .gate-form .btn{flex:1 1 100%; text-align:center; justify-content:center;}
+}
+.gate .note{font-size:var(--fs-s); color:#4A4A4A; margin-top:var(--p-m);}
+.gate .note a{color:#0B7A69;}
+/* social proof, at the decision point rather than in the footer. Real numbers
+   only — see build.mjs, they come from site.json with an as-of date. */
+.gate .proof{margin-top:var(--p-s); font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); color:#4A4A4A;}
+.gate .proof b{color:#0B7A69; font-weight:400;}
+
+/* the receipt at the top of an unlock page */
+.unlocked{margin:0; padding:var(--p-xl) var(--rail); background:var(--band); border-bottom:1px solid var(--rule);}
+.unlocked .k{display:block; color:var(--accent); font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); margin-bottom:var(--p-s);}
+.unlocked h2{font-family:var(--font-extended); font-weight:400; text-transform:uppercase; letter-spacing:normal; font-size:var(--fs-2xl); line-height:var(--lh-2xl); margin:0 0 var(--p-xs);}
+.unlocked p{font-size:var(--fs-m); line-height:var(--lh-xl); max-width:64ch; margin:0; color:var(--dim);}
+
 /* ---- footer ---- */
 footer{margin-top:var(--p-4xl); padding:var(--p-2xl) var(--rail) var(--p-4xl); border-top:1px solid var(--rule);}
 .foot-rule{margin-bottom:var(--p-xl);}
@@ -717,7 +771,7 @@ pre.code code{font-size:inherit;}
           <li><a href="./no-015.html"><span class="a">→</span><span>Loops</span></a></li>
           <li><a href="./no-010.html"><span class="a">→</span><span>CLAUDE.md files</span></a></li>
         </ul>
-        <p class="info">The files behind the films. Free, no signup wall.</p>
+        <p class="info">The files behind the films. One email opens any of them.</p>
       </div>
     </li>
     <li>
@@ -755,46 +809,47 @@ pre.code code{font-size:inherit;}
 <!-- the issue marker, kept: it is the only per-page label in the bar -->
 <div class="issue-marker">This Week in AI · Bottle the Brain</div>
 
+<!-- The capture furniture (sticky bar + pop-up) lives in partials/capture.html
+     and is injected ONLY into public pages. Unlock pages get an empty string
+     here — see build.mjs. The weave stays on both: it is structure, not an ask. -->
 <!-- Sticky ask. This used to be a Follow link back to Instagram, which spent
      an IG click to win a visit and then returned the visitor to IG without
      capturing anything. The goal is the email address, so the persistent ask
-     is now the email. Follow demotes to the footer. -->
+     is now the email. Follow demotes to the footer.
+
+     Since 2026-08-26 the form carries the PAGE's tag (no018-sticky) rather
+     than a generic one: the worker reads the tag to decide which pack to
+     unlock, so a generic tag would capture the email and then have nothing to
+     hand back. The suffix keeps per-source attribution.
+
+     THE POP-UP IS GONE (founder, 2026-08-26). It was dismissed 13 times out of
+     13 on NO.036 and 5 out of 5 on NO.039 (live /report, 2026-08-26) — it
+     converted nothing and spent goodwill on every visit. With a real gate at
+     the end of the page there are now two asks, not three. The pop-up's script
+     in partials/scripts.html no-ops on its own (`if(!pop){return;}`), so it is
+     left in place rather than ripped out; restoring the block restores it.
+
+     This whole file is omitted from unlock pages — asking a reader for the
+     email they just gave you is how a funnel reads as a machine. -->
 <div class="sticky-cta" id="stickyCta" aria-hidden="true">
   <span class="t">the Bottle the Brain setup + one working setup a week</span>
   <form class="sticky-form" method="post" action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" data-capture="sticky">
-      <input type="hidden" name="tag" value="masthead-sticky">
+      <input type="hidden" name="tag" value="no018-sticky">
       <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
     <label class="sr-only" for="stickyEmail">Email address</label>
     <input id="stickyEmail" name="email" type="email" placeholder="you@email.com" autocomplete="email" required>
-    <button class="btn primary" type="submit">Get it &rarr;</button>
+    <button class="btn primary" type="submit">Open it &rarr;</button>
   </form>
   <button class="x" id="ctaClose" type="button" aria-label="Dismiss">&times;</button>
 </div>
 
 <div class="weave" aria-hidden="true"></div>
 
-<div class="pop" id="packPop" hidden>
-  <div class="pop-scrim" data-pop-close></div>
-  <div class="pop-card" role="dialog" aria-modal="true" aria-labelledby="popH">
-    <button class="pop-x" type="button" data-pop-close aria-label="Close">×</button>
-    <span class="k">One email a week · the working setup</span>
-    <h2 id="popH">Keep the whole toolkit.</h2>
-    <p>Free, no wall. Add your email and The Teardown sends the Bottle the Brain setup plus one working AI setup a week.</p>
-    <form action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="popup">
-      <input type="hidden" name="tag" value="masthead-popup">
-      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
-      <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
-      <button class="btn" type="submit">Get the weekly pack →</button>
-    </form>
-    <div class="note">Free. The config pack lands in your inbox straight away. Unsubscribe anytime.</div>
-  </div>
-</div>
-
 <main>
 <section class="hero">
   <div class="kick eye">This Week in AI · Bottle the Brain</div>
   <h1 class="disp">Bottle<br>the brain<span class="dot">.</span></h1>
-  <p class="sub">On July 20, Fable 5 went permanent — <b>50% of your Max limits, for good</b>. Don't burn the smart half on chat. Paste the prompt below into your smartest model, once, from your repo root — it writes <b>3 files</b>: a project overview, an honest gaps audit, and an upgraded CLAUDE.md. Every cheaper session after starts with that brain already on the page. Free, no gate. As promised.</p>
+  <p class="sub">On July 20, Fable 5 went permanent — <b>50% of your Max limits, for good</b>. Don't burn the smart half on chat. Paste the prompt below into your smartest model, once, from your repo root — it writes <b>3 files</b>: a project overview, an honest gaps audit, and an upgraded CLAUDE.md. Every cheaper session after starts with that brain already on the page. Free — one email and it opens. As promised.</p>
   <div class="snippet" id="file">
     <div class="bar"><span class="f">bottle-the-brain.txt · one run, your smartest model</span><button class="snipbtn" id="snipCopy" type="button">Copy the master prompt</button></div>
     <pre id="snipText">You are the smartest model I have access to, and this is your one run
@@ -827,176 +882,60 @@ Quality bar: a cheaper model reading only these three files should
 start its next session knowing what you know right now.</pre>
   </div>
   <div class="actions">
-    <a class="btn" href="#files">The 3 files ↓</a>
+    <a class="btn" href="#gate">The 3 files ↓</a>
     <button class="btn" id="shareBtn" type="button">Send to a dev</button>
   </div>
   <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
 </section>
 
-<div class="fig">
-  <h2 class="kick">Fig. 01 ·</h2>
-  <span class="gaccent">the three files</span>
-  <span class="line"></span>
-</div>
+<!-- THE GATE. Founder decision 2026-08-26: the packs stop being free-to-scroll,
+     and the ask is the loudest object on the page. ~700 landing-page opens in 30
+     days produced 6 form clicks (live /report, 2026-08-26), so the pages were
+     handing the payload over before the ask and the ask had no leverage.
 
-<section class="issues" id="files">
+     The payload is NOT in this document. build.mjs splits the body at the first
+     <div class="fig"> and writes everything below it to a separate unlock page
+     whose URL only the funnel worker knows. There is nothing here to view-source.
 
-  <article class="card c-cream">
-    <div class="top">
-      <span class="tag">File 1 · 01-overview.md</span>
-      <span class="goth">know</span>
-    </div>
-    <h2>What the app is — and why.</h2>
-    <p class="one">A cheaper model isn't just less clever — it starts every session <b>blind</b>: no memory of your codebase, no record of how the pieces fit. The overview is the map the smart model draws once. The why-section matters most: architecture described without its trade-offs reads like a directory listing, and the next session will "improve" a decision it never understood.</p>
-    <div class="snippet">
-      <div class="bar"><span class="f">01-overview.md · the skeleton</span><button class="snipbtn" type="button" data-copy-target="#tplOverview" data-copy-event="no018-copy-overview">Copy</button></div>
-      <pre id="tplOverview"># 01-overview.md — the map
+     WHY IT LOOKS LIKE THIS (founder picked A1, "paper block", 2026-08-26):
+     - Cream on an all-black site. It is the only light surface anywhere in the
+       design system, so the eye lands on it before it reads a word. Loud through
+       contrast rather than through decoration.
+     - The manifest lists the REAL payload — file names and line counts pulled
+       from the page's own snippets at build time, redacted. Paywall CRO is
+       consistent that showing what is missing beats describing it, and a
+       manifest cannot be faked into promising something the pack doesn't hold.
+     - It shows structure, never a readable line. Behavioural data on news
+       paywalls (Journalism Studies, 2024) found a readable teaser measurably
+       LOWERS subscribe clicks — curiosity gets satisfied and the reader leaves.
+     - One field. Single-field forms benchmark at ~25.5%, and every extra field
+       is the highest-cost thing you can add.
+     - The note kills the objection single opt-in always raises: nothing to
+       confirm, nothing to wait for.
+     Evidence + sources: docs/2026-08-26-gate-ui-research.md -->
+<section class="gate paper" id="gate">
+  <div class="tab">Locked</div>
+  <div class="inner">
+    <span class="k">3 sections · locked</span>
+    <h2>The Bottle the Brain setup, in full.</h2>
+    <p class="lede">Every section below is written and sitting on the next screen. One email opens all of it.</p>
 
-## Purpose
-One paragraph: what the app does, who it serves, the job it is hired for.
+    <ul class="manifest">
+      <li><span class="lk">▣</span><span class="fn">the three files</span><span class="rd" aria-hidden="true"></span><span class="ln">locked</span></li>
+      <li><span class="lk">▣</span><span class="fn">the three scopes</span><span class="rd" aria-hidden="true"></span><span class="ln">locked</span></li>
+      <li><span class="lk">▣</span><span class="fn">what's next</span><span class="rd" aria-hidden="true"></span><span class="ln">locked</span></li>
+    </ul>
 
-## Architecture
-Each major piece — name, path, one line on its job.
-
-## Data flow
-How one request/job moves through the system, entry to exit.
-
-## Key decisions
-Why it is built this way: each decision + the constraint/trade-off behind it.
-
-## Conventions
-The naming, layout and patterns a new session must follow to fit in.</pre>
-    </div>
-    <span class="proof">purpose · architecture · data flow · key decisions · conventions</span>
-  </article>
-
-  <article class="card c-aqua">
-    <div class="top">
-      <span class="tag">File 2 · 02-gaps.md</span>
-      <span class="goth">audit</span>
-    </div>
-    <h2>Every weakness, as tickets.</h2>
-    <p class="one">Point the smart model at the whole codebase and make it list what's wrong: tech debt, untested paths, fragile edges, security holes. The format is the trick — <b>severity-tagged tickets with a file:line and a concrete fix</b>, so the cheaper model doesn't have to judge anything. The expensive brain finds the problems; the cheap one works the list, ticket by ticket.</p>
-    <div class="snippet">
-      <div class="bar"><span class="f">02-gaps.md · the skeleton</span><button class="snipbtn" type="button" data-copy-target="#tplGaps" data-copy-event="no018-copy-gaps">Copy</button></div>
-      <pre id="tplGaps"># 02-gaps.md — the honest audit
-
-Ordered by risk. One ticket per weakness — each workable as-is.
-
-## P0 · fix before shipping anything else
-### [P0] Short title of the weakness
-- Where: path/to/file.ext:line
-- What: the weakness, one or two lines
-- Why it matters: the failure it will cause
-- Fix: the concrete change
-
-## P1 · fix this week
-Same ticket format. Untested critical paths and fragile edges live here.
-
-## P2 · track it
-Same ticket format. Debt that slows you down but won't break production.</pre>
-    </div>
-    <span class="proof">P0/P1/P2 · file:line · why it matters · the concrete fix</span>
-  </article>
-
-  <article class="card c-ink">
-    <div class="top">
-      <span class="tag">File 3 · CLAUDE.md</span>
-      <span class="goth">orders</span>
-    </div>
-    <h2>Standing orders, every session.</h2>
-    <p class="one">Claude Code reads CLAUDE.md at the start of <b>every session</b> — so load it with everything the smart model learned: the exact commands, the real conventions, the never/always rules, the gotchas. This isn't a prompt trick you paste each time. The smart model writes it once, and every cheap session after starts from it — its logic, its standards, already on the page.</p>
-    <div class="snippet">
-      <div class="bar"><span class="f">CLAUDE.md · the skeleton</span><button class="snipbtn" type="button" data-copy-target="#tplClaude" data-copy-event="no018-copy-claudemd">Copy</button></div>
-      <pre id="tplClaude"># CLAUDE.md — standing orders (read at every session start)
-
-## What this is
-One line on the project + pointers to 01-overview.md and 02-gaps.md.
-
-## Commands
-Build / test / run / lint — exact commands, copy-paste ready.
-
-## Style
-The conventions actually used here, not aspirations.
-
-## Laws
-The never/always rules: "never edit X by hand", "always run tests before Y".
-
-## Gotchas
-What looks wrong but is intentional; what looks fine but bites.</pre>
-    </div>
-    <span class="proof">commands · style · laws · gotchas — read at every session start</span>
-  </article>
-
-</section>
-
-<div class="fig">
-  <h2 class="kick">Fig. 02 ·</h2>
-  <span class="gaccent">the three scopes</span>
-  <span class="line"></span>
-</div>
-
-<section class="issues">
-  <article class="card c-orchid" id="scopes">
-    <div class="top">
-      <span class="tag">The footnote · where CLAUDE.md lives</span>
-      <span class="goth">scopes</span>
-    </div>
-    <h2>There are actually three claude reads.</h2>
-    <p class="one">CLAUDE.md isn't one file — it's a hierarchy. <b>Machine</b>: <code>~/.claude/CLAUDE.md</code>, rules for every project you touch (your voice, your git habits). <b>Project</b>: the repo root — what this codebase is, its commands, its laws. That's the one the master prompt upgrades. <b>Working folder</b>: a CLAUDE.md inside a subfolder, loaded when Claude works there — rules for just that corner. They stack, and the most specific wins.</p>
-    <span class="stars">machine · project · working folder — they stack, most specific wins</span>
-  </article>
-</section>
-
-<section class="ledger" aria-label="How to run the system">
-  <div class="lrow"><span class="n">01</span><span class="t">Paste the master prompt into your smartest model — one run, from the repo root</span></div>
-  <div class="lrow"><span class="n">02</span><span class="t">Review + commit the 3 files it writes — read the gaps list before you trust it</span></div>
-  <div class="lrow"><span class="n">03</span><span class="t">Open your next cheap session — it reads CLAUDE.md and inherits the brain</span></div>
-</section>
-
-<section class="midcap" aria-label="Get the weekly pack">
-  <span class="k">One email a week · the working setup</span>
-  <h2>Keep the whole toolkit.</h2>
-  <p>The Teardown sends the config pack and one working AI setup a week — the same rig behind this channel. Free, and you can unsubscribe anytime.</p>
-  <form action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="midcap">
-      <input type="hidden" name="tag" value="no-018-midcap">
+    <form class="gate-form" action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="gate">
+      <input type="hidden" name="tag" value="no018">
       <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
-    <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
-    <button class="btn" type="submit">Get the weekly pack →</button>
-  </form>
-  <div class="note">Free. The config pack lands in your inbox straight away. Unsubscribe anytime.</div>
-</section>
-
-<div class="fig">
-  <h2 class="kick">Fig. 03 ·</h2>
-  <span class="gaccent">what's next</span>
-  <span class="line"></span>
-</div>
-
-<section class="issues">
-  <article class="card c-ink">
-    <div class="top">
-      <span class="tag">Load the CLAUDE.md right</span>
-      <span class="goth">the rules</span>
-    </div>
-    <h2>Start from the 7 rules.</h2>
-    <p class="one">The upgraded CLAUDE.md the master prompt writes is repo-specific by design. Pair it with the 7 standing rules that work in any repo — plan first, explicit adds, show the diff — and the two files together are the whole discipline. Same drop-in format.</p>
-    <div class="actions">
-      <a class="btn" data-goatcounter-click="no018-rules" href="./no-010.html">The CLAUDE.md rules →</a>
-    </div>
-  </article>
-
-  <article class="card c-ink" id="next">
-    <div class="top">
-      <span class="tag">No gate / no catch</span>
-      <span class="goth">follow</span>
-    </div>
-    <h2>That's the system. Follow for the next one.</h2>
-    <p class="one">One AI workflow you can copy, every day — a new keyword drops daily on the reel, and followers catch it first. If the brain files save your next session from starting blind, the follow is the thank-you.</p>
-    <div class="actions">
-      <a class="btn primary" data-goatcounter-click="no018-follow-instagram" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Follow @vektor.fm →</a>
-    </div>
-  </article>
+      <label class="sr-only" for="gateEmail">Email address</label>
+      <input id="gateEmail" name="email" type="email" placeholder="you@email.com" autocomplete="email" inputmode="email" required>
+      <button class="btn primary" type="submit">Open the pack &rarr;</button>
+    </form>
+    <div class="note">Opens on the next screen — no confirmation email, no waiting room. One-click unsubscribe. <a href="./privacy.html">What we do with it</a>.</div>
+    <div class="proof"><b>622</b> packs sent to people who asked · <b>1,338</b> follow @vektor.fm · one working setup a week</div>
+  </div>
 </section>
 </main>
 

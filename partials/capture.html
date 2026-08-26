@@ -1,0 +1,30 @@
+<!-- Sticky ask. This used to be a Follow link back to Instagram, which spent
+     an IG click to win a visit and then returned the visitor to IG without
+     capturing anything. The goal is the email address, so the persistent ask
+     is now the email. Follow demotes to the footer.
+
+     Since 2026-08-26 the form carries the PAGE's tag ({{SLUG}}-sticky) rather
+     than a generic one: the worker reads the tag to decide which pack to
+     unlock, so a generic tag would capture the email and then have nothing to
+     hand back. The suffix keeps per-source attribution.
+
+     THE POP-UP IS GONE (founder, 2026-08-26). It was dismissed 13 times out of
+     13 on NO.036 and 5 out of 5 on NO.039 (live /report, 2026-08-26) — it
+     converted nothing and spent goodwill on every visit. With a real gate at
+     the end of the page there are now two asks, not three. The pop-up's script
+     in partials/scripts.html no-ops on its own (`if(!pop){return;}`), so it is
+     left in place rather than ripped out; restoring the block restores it.
+
+     This whole file is omitted from unlock pages — asking a reader for the
+     email they just gave you is how a funnel reads as a machine. -->
+<div class="sticky-cta" id="stickyCta" aria-hidden="true">
+  <span class="t">{{MAGNET}} + one working setup a week</span>
+  <form class="sticky-form" method="post" action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" data-capture="sticky">
+      <input type="hidden" name="tag" value="{{SLUG}}-sticky">
+      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+    <label class="sr-only" for="stickyEmail">Email address</label>
+    <input id="stickyEmail" name="email" type="email" placeholder="you@email.com" autocomplete="email" required>
+    <button class="btn primary" type="submit">Open it &rarr;</button>
+  </form>
+  <button class="x" id="ctaClose" type="button" aria-label="Dismiss">&times;</button>
+</div>

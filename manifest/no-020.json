@@ -1,7 +1,7 @@
 {
   "number": "020",
   "title": "vektor /// no. 020 — the 4-subagent setup.",
-  "description": "The 4-subagent setup — four copy-paste Claude Code agent files (Explore, Plan, Implement, Review) that split one giant chat into a squad: each runs in its own context, returns only a summary, and they run in parallel. Free, no gate.",
+  "description": "The 4-subagent setup — four copy-paste Claude Code agent files (Explore, Plan, Implement, Review) that split one giant chat into a squad: each runs in its own context, returns only a summary, and they run in parallel. Free — one email and it opens.",
   "og_title": "The 4-subagent setup — vektor /// no. 020",
   "og_description": "Stop running Claude Code in one giant chat. Four copy-paste agent files — Explore maps the code, Plan writes the steps, Implement ships one task, Review tears the diff apart — each in its own context, returning only a summary.",
   "og_image": "https://vektor-fm.github.io/vektor-site/og/no-020.png",

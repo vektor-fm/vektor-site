@@ -16,6 +16,7 @@
 <meta property="og:site_name" content="vektor">
 <meta property="og:url" content="{{OG_URL}}">
 <link rel="canonical" href="{{CANONICAL}}">
+{{ROBOTS}}
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{{TW_TITLE}}">
 <meta name="twitter:description" content="{{TW_DESCRIPTION}}">
@@ -303,6 +304,59 @@ img{display:block; max-width:100%;}
 .midcap input:focus{outline:none; border-bottom-color:var(--fg);}
 .midcap .btn{min-height:48px;}
 .midcap .note{font-size:var(--fs-s); color:var(--meta); margin-top:var(--p-s);}
+
+/* ---- the gate (2026-08-26, founder picked "paper block") ----
+   The page ends here for anyone who hasn't paid the email, so it is built as a
+   destination, not a footer widget. The block flips to PAPER on an otherwise
+   all-black site: it is the only light surface in the whole design system, which
+   is what makes it the loudest object on the page without adding decoration.
+   Colours are hard-coded near-black rather than var(--fg) because this is the
+   one inverted surface — the tokens all assume ink-on-black.
+   The manifest rows are generated from the payload (build.mjs): real file names
+   and line counts, redacted. Structure, never a readable line — a readable
+   teaser measurably lowers conversion (docs/2026-08-26-gate-ui-research.md). */
+.gate{position:relative; margin:var(--p-2xl) 0 0; padding:var(--p-2xl) var(--rail) var(--p-4xl); background:var(--bg); border-top:1px solid var(--rule);}
+.gate .inner{background:var(--paper); color:#0B0B0B; padding:var(--p-xl) var(--p-l) var(--p-l); border:1px solid #0B0B0B; max-width:720px;}
+.gate .tab{display:inline-block; margin-bottom:-1px; background:var(--accent); color:#04120F; font-family:var(--font-label); text-transform:uppercase; letter-spacing:.05em; font-size:var(--fs-s); padding:6px 14px;}
+.gate .k{display:block; color:#0B0B0B; opacity:.7; font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); margin-bottom:var(--p-s);}
+.gate h2{color:#0B0B0B; font-family:var(--font-extended); font-weight:400; text-transform:uppercase; letter-spacing:normal; font-size:var(--fs-2xl); line-height:var(--lh-2xl); margin:0 0 var(--p-s);}
+.gate .lede{color:#2A2A2A; font-size:var(--fs-m); line-height:var(--lh-xl); max-width:52ch; margin:0 0 var(--p-l);}
+
+.manifest{list-style:none; margin:0 0 var(--p-xl); padding:0;}
+.manifest li{display:flex; align-items:center; gap:var(--p-s); padding:10px 0; border-top:1px solid #0B0B0B; font-family:var(--font-code); font-size:var(--fs-s); color:#0B0B0B;}
+.manifest li:last-child{border-bottom:1px solid #0B0B0B;}
+.manifest .lk{color:#0B7A69;}
+.manifest .fn{white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+/* the redaction: it has to read as "text is here and you can't have it", so it
+   is a bar of glyph-width blocks rather than a plain rule */
+.manifest .rd{flex:1 1 30px; min-width:20px; height:10px; opacity:.35; background:repeating-linear-gradient(90deg,#0B0B0B 0 12px, transparent 12px 18px);}
+.manifest .ln{color:#4A4A4A; white-space:nowrap;}
+
+.gate-form{display:flex; gap:var(--p-s); flex-wrap:wrap; max-width:560px;}
+.gate-form input{flex:1 1 240px; min-height:52px; background:transparent; border:0; border-bottom:2px solid #0B0B0B; color:#0B0B0B; font-family:var(--font-sans); font-size:var(--fs-m); padding:0;}
+.gate-form input::placeholder{color:#6A6A6A;}
+.gate-form input:focus{outline:none; border-bottom-color:#0B7A69;}
+.gate-form .btn{min-height:52px; padding:0 var(--p-l); background:#0B0B0B; color:var(--paper); border:1px solid #0B0B0B;}
+.gate-form .btn:hover{background:#0B7A69; border-color:#0B7A69;}
+/* On a phone the field and the button stop competing for one row: mobile is
+   ~83% of the traffic and converts at about half the desktop rate, so the tap
+   target gets the full width. */
+@media (max-width:620px){
+  .gate-form input{flex:1 1 100%;}
+  .gate-form .btn{flex:1 1 100%; text-align:center; justify-content:center;}
+}
+.gate .note{font-size:var(--fs-s); color:#4A4A4A; margin-top:var(--p-m);}
+.gate .note a{color:#0B7A69;}
+/* social proof, at the decision point rather than in the footer. Real numbers
+   only — see build.mjs, they come from site.json with an as-of date. */
+.gate .proof{margin-top:var(--p-s); font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); color:#4A4A4A;}
+.gate .proof b{color:#0B7A69; font-weight:400;}
+
+/* the receipt at the top of an unlock page */
+.unlocked{margin:0; padding:var(--p-xl) var(--rail); background:var(--band); border-bottom:1px solid var(--rule);}
+.unlocked .k{display:block; color:var(--accent); font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); margin-bottom:var(--p-s);}
+.unlocked h2{font-family:var(--font-extended); font-weight:400; text-transform:uppercase; letter-spacing:normal; font-size:var(--fs-2xl); line-height:var(--lh-2xl); margin:0 0 var(--p-xs);}
+.unlocked p{font-size:var(--fs-m); line-height:var(--lh-xl); max-width:64ch; margin:0; color:var(--dim);}
 
 /* ---- footer ---- */
 footer{margin-top:var(--p-4xl); padding:var(--p-2xl) var(--rail) var(--p-4xl); border-top:1px solid var(--rule);}

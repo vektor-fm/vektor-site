@@ -1,7 +1,7 @@
 {
   "number": "019",
   "title": "vektor /// no. 019 — the academy series.",
-  "description": "The Academy Series — Anthropic's free course catalog, decoded: one episode a day for five days, one cheat sheet per episode, all collected on this hub. Episode 1: the catalog, ranked for devs. Free, no gate.",
+  "description": "The Academy Series — Anthropic's free course catalog, decoded: one episode a day for five days, one cheat sheet per episode, all collected on this hub. Episode 1: the catalog, ranked for devs. Free — one email and it opens.",
   "og_title": "The Academy Series — vektor /// no. 019",
   "og_description": "Anthropic's free course catalog, decoded — one episode a day for five days, one cheat sheet per episode, all collected here. Ep 1: the catalog, ranked for devs.",
   "og_image": "https://vektor-fm.github.io/vektor-site/og/no-019.png",
@@ -25,5 +25,6 @@
     "sub_mt": 18,
     "sub_html": "Anthropic's free course catalog, decoded — one episode a day, one cheat sheet per episode, all collected on one page.",
     "meta_html": "/// no. 019 / the academy / 07-2026 · <b>vektor-fm.github.io</b>"
-  }
+  },
+  "gate_title": "The Academy series, in full."
 }

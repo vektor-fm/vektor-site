@@ -3,7 +3,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>vektor /// no. 020 — the 4-subagent setup.</title>
-<meta name="description" content="The 4-subagent setup — four copy-paste Claude Code agent files (Explore, Plan, Implement, Review) that split one giant chat into a squad: each runs in its own context, returns only a summary, and they run in parallel. Free, no gate.">
+<meta name="description" content="The 4-subagent setup — four copy-paste Claude Code agent files (Explore, Plan, Implement, Review) that split one giant chat into a squad: each runs in its own context, returns only a summary, and they run in parallel. Free — one email and it opens.">
 
 <!-- OG / social preview (traffic arrives via DM) -->
 <meta property="og:type" content="website">
@@ -16,6 +16,7 @@
 <meta property="og:site_name" content="vektor">
 <meta property="og:url" content="https://vektor-fm.github.io/vektor-site/no-020.html">
 <link rel="canonical" href="https://vektor-fm.github.io/vektor-site/no-020.html">
+
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="The 4-subagent setup — vektor /// no. 020">
 <meta name="twitter:description" content="Stop running Claude Code in one giant chat. Four copy-paste agent files — Explore maps the code, Plan writes the steps, Implement ships one task, Review tears the diff apart — each in its own context, returning only a summary.">
@@ -518,6 +519,59 @@ img{display:block; max-width:100%;}
 .midcap .btn{min-height:48px;}
 .midcap .note{font-size:var(--fs-s); color:var(--meta); margin-top:var(--p-s);}
 
+/* ---- the gate (2026-08-26, founder picked "paper block") ----
+   The page ends here for anyone who hasn't paid the email, so it is built as a
+   destination, not a footer widget. The block flips to PAPER on an otherwise
+   all-black site: it is the only light surface in the whole design system, which
+   is what makes it the loudest object on the page without adding decoration.
+   Colours are hard-coded near-black rather than var(--fg) because this is the
+   one inverted surface — the tokens all assume ink-on-black.
+   The manifest rows are generated from the payload (build.mjs): real file names
+   and line counts, redacted. Structure, never a readable line — a readable
+   teaser measurably lowers conversion (docs/2026-08-26-gate-ui-research.md). */
+.gate{position:relative; margin:var(--p-2xl) 0 0; padding:var(--p-2xl) var(--rail) var(--p-4xl); background:var(--bg); border-top:1px solid var(--rule);}
+.gate .inner{background:var(--paper); color:#0B0B0B; padding:var(--p-xl) var(--p-l) var(--p-l); border:1px solid #0B0B0B; max-width:720px;}
+.gate .tab{display:inline-block; margin-bottom:-1px; background:var(--accent); color:#04120F; font-family:var(--font-label); text-transform:uppercase; letter-spacing:.05em; font-size:var(--fs-s); padding:6px 14px;}
+.gate .k{display:block; color:#0B0B0B; opacity:.7; font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); margin-bottom:var(--p-s);}
+.gate h2{color:#0B0B0B; font-family:var(--font-extended); font-weight:400; text-transform:uppercase; letter-spacing:normal; font-size:var(--fs-2xl); line-height:var(--lh-2xl); margin:0 0 var(--p-s);}
+.gate .lede{color:#2A2A2A; font-size:var(--fs-m); line-height:var(--lh-xl); max-width:52ch; margin:0 0 var(--p-l);}
+
+.manifest{list-style:none; margin:0 0 var(--p-xl); padding:0;}
+.manifest li{display:flex; align-items:center; gap:var(--p-s); padding:10px 0; border-top:1px solid #0B0B0B; font-family:var(--font-code); font-size:var(--fs-s); color:#0B0B0B;}
+.manifest li:last-child{border-bottom:1px solid #0B0B0B;}
+.manifest .lk{color:#0B7A69;}
+.manifest .fn{white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+/* the redaction: it has to read as "text is here and you can't have it", so it
+   is a bar of glyph-width blocks rather than a plain rule */
+.manifest .rd{flex:1 1 30px; min-width:20px; height:10px; opacity:.35; background:repeating-linear-gradient(90deg,#0B0B0B 0 12px, transparent 12px 18px);}
+.manifest .ln{color:#4A4A4A; white-space:nowrap;}
+
+.gate-form{display:flex; gap:var(--p-s); flex-wrap:wrap; max-width:560px;}
+.gate-form input{flex:1 1 240px; min-height:52px; background:transparent; border:0; border-bottom:2px solid #0B0B0B; color:#0B0B0B; font-family:var(--font-sans); font-size:var(--fs-m); padding:0;}
+.gate-form input::placeholder{color:#6A6A6A;}
+.gate-form input:focus{outline:none; border-bottom-color:#0B7A69;}
+.gate-form .btn{min-height:52px; padding:0 var(--p-l); background:#0B0B0B; color:var(--paper); border:1px solid #0B0B0B;}
+.gate-form .btn:hover{background:#0B7A69; border-color:#0B7A69;}
+/* On a phone the field and the button stop competing for one row: mobile is
+   ~83% of the traffic and converts at about half the desktop rate, so the tap
+   target gets the full width. */
+@media (max-width:620px){
+  .gate-form input{flex:1 1 100%;}
+  .gate-form .btn{flex:1 1 100%; text-align:center; justify-content:center;}
+}
+.gate .note{font-size:var(--fs-s); color:#4A4A4A; margin-top:var(--p-m);}
+.gate .note a{color:#0B7A69;}
+/* social proof, at the decision point rather than in the footer. Real numbers
+   only — see build.mjs, they come from site.json with an as-of date. */
+.gate .proof{margin-top:var(--p-s); font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); color:#4A4A4A;}
+.gate .proof b{color:#0B7A69; font-weight:400;}
+
+/* the receipt at the top of an unlock page */
+.unlocked{margin:0; padding:var(--p-xl) var(--rail); background:var(--band); border-bottom:1px solid var(--rule);}
+.unlocked .k{display:block; color:var(--accent); font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); margin-bottom:var(--p-s);}
+.unlocked h2{font-family:var(--font-extended); font-weight:400; text-transform:uppercase; letter-spacing:normal; font-size:var(--fs-2xl); line-height:var(--lh-2xl); margin:0 0 var(--p-xs);}
+.unlocked p{font-size:var(--fs-m); line-height:var(--lh-xl); max-width:64ch; margin:0; color:var(--dim);}
+
 /* ---- footer ---- */
 footer{margin-top:var(--p-4xl); padding:var(--p-2xl) var(--rail) var(--p-4xl); border-top:1px solid var(--rule);}
 .foot-rule{margin-bottom:var(--p-xl);}
@@ -717,7 +771,7 @@ pre.code code{font-size:inherit;}
           <li><a href="./no-015.html"><span class="a">→</span><span>Loops</span></a></li>
           <li><a href="./no-010.html"><span class="a">→</span><span>CLAUDE.md files</span></a></li>
         </ul>
-        <p class="info">The files behind the films. Free, no signup wall.</p>
+        <p class="info">The files behind the films. One email opens any of them.</p>
       </div>
     </li>
     <li>
@@ -755,46 +809,47 @@ pre.code code{font-size:inherit;}
 <!-- the issue marker, kept: it is the only per-page label in the bar -->
 <div class="issue-marker">This Week in AI · Subagents</div>
 
+<!-- The capture furniture (sticky bar + pop-up) lives in partials/capture.html
+     and is injected ONLY into public pages. Unlock pages get an empty string
+     here — see build.mjs. The weave stays on both: it is structure, not an ask. -->
 <!-- Sticky ask. This used to be a Follow link back to Instagram, which spent
      an IG click to win a visit and then returned the visitor to IG without
      capturing anything. The goal is the email address, so the persistent ask
-     is now the email. Follow demotes to the footer. -->
+     is now the email. Follow demotes to the footer.
+
+     Since 2026-08-26 the form carries the PAGE's tag (no020-sticky) rather
+     than a generic one: the worker reads the tag to decide which pack to
+     unlock, so a generic tag would capture the email and then have nothing to
+     hand back. The suffix keeps per-source attribution.
+
+     THE POP-UP IS GONE (founder, 2026-08-26). It was dismissed 13 times out of
+     13 on NO.036 and 5 out of 5 on NO.039 (live /report, 2026-08-26) — it
+     converted nothing and spent goodwill on every visit. With a real gate at
+     the end of the page there are now two asks, not three. The pop-up's script
+     in partials/scripts.html no-ops on its own (`if(!pop){return;}`), so it is
+     left in place rather than ripped out; restoring the block restores it.
+
+     This whole file is omitted from unlock pages — asking a reader for the
+     email they just gave you is how a funnel reads as a machine. -->
 <div class="sticky-cta" id="stickyCta" aria-hidden="true">
   <span class="t">the Subagents setup + one working setup a week</span>
   <form class="sticky-form" method="post" action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" data-capture="sticky">
-      <input type="hidden" name="tag" value="masthead-sticky">
+      <input type="hidden" name="tag" value="no020-sticky">
       <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
     <label class="sr-only" for="stickyEmail">Email address</label>
     <input id="stickyEmail" name="email" type="email" placeholder="you@email.com" autocomplete="email" required>
-    <button class="btn primary" type="submit">Get it &rarr;</button>
+    <button class="btn primary" type="submit">Open it &rarr;</button>
   </form>
   <button class="x" id="ctaClose" type="button" aria-label="Dismiss">&times;</button>
 </div>
 
 <div class="weave" aria-hidden="true"></div>
 
-<div class="pop" id="packPop" hidden>
-  <div class="pop-scrim" data-pop-close></div>
-  <div class="pop-card" role="dialog" aria-modal="true" aria-labelledby="popH">
-    <button class="pop-x" type="button" data-pop-close aria-label="Close">×</button>
-    <span class="k">One email a week · the working setup</span>
-    <h2 id="popH">Keep the whole toolkit.</h2>
-    <p>Free, no wall. Add your email and The Teardown sends the Subagents setup plus one working AI setup a week.</p>
-    <form action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="popup">
-      <input type="hidden" name="tag" value="masthead-popup">
-      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
-      <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
-      <button class="btn" type="submit">Get the weekly pack →</button>
-    </form>
-    <div class="note">Free. The config pack lands in your inbox straight away. Unsubscribe anytime.</div>
-  </div>
-</div>
-
 <main>
 <section class="hero">
   <div class="kick eye">This Week in AI · The Subagent Squad</div>
   <h1 class="disp">4 subagents.<br>Not 1 chat<span class="dot">.</span></h1>
-  <p class="sub">One giant Claude Code chat gets confused — as the context fills it forgets what you said and redoes finished work. So split the work: <b>Explore</b> reads the codebase and returns a map, <b>Plan</b> turns the map into steps, <b>Implement</b> writes one scoped task, <b>Review</b> tears the diff apart before commit. Each runs in its own context, returns only a summary, and they run in parallel. Below: all four agent files, paste-ready into <code>.claude/agents/</code> — no plugin, no restart, Claude Code reads the folder automatically. Free, no gate. As promised.</p>
+  <p class="sub">One giant Claude Code chat gets confused — as the context fills it forgets what you said and redoes finished work. So split the work: <b>Explore</b> reads the codebase and returns a map, <b>Plan</b> turns the map into steps, <b>Implement</b> writes one scoped task, <b>Review</b> tears the diff apart before commit. Each runs in its own context, returns only a summary, and they run in parallel. Below: all four agent files, paste-ready into <code>.claude/agents/</code> — no plugin, no restart, Claude Code reads the folder automatically. Free — one email and it opens. As promised.</p>
   <div class="snippet" id="kickoff">
     <div class="bar"><span class="f">squad-kickoff.txt · paste into the main chat, with your task</span><button class="snipbtn" id="snipCopy" type="button">Copy the kickoff prompt</button></div>
     <pre id="snipText">Run this task with the subagent squad — not in this chat.
@@ -811,249 +866,61 @@ Keep this chat clean: only the summaries each agent returns —
 never their raw file reads, full diffs, or tool output.</pre>
   </div>
   <div class="actions">
-    <a class="btn" href="#files">The 4 agent files ↓</a>
+    <a class="btn" href="#gate">The 4 agent files ↓</a>
     <button class="btn" id="shareBtn" type="button">Send to a dev</button>
   </div>
   <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
 </section>
 
-<div class="fig">
-  <h2 class="kick">Fig. 01 ·</h2>
-  <span class="gaccent">the four agents</span>
-  <span class="line"></span>
-</div>
+<!-- THE GATE. Founder decision 2026-08-26: the packs stop being free-to-scroll,
+     and the ask is the loudest object on the page. ~700 landing-page opens in 30
+     days produced 6 form clicks (live /report, 2026-08-26), so the pages were
+     handing the payload over before the ask and the ask had no leverage.
 
-<section class="issues" id="files">
+     The payload is NOT in this document. build.mjs splits the body at the first
+     <div class="fig"> and writes everything below it to a separate unlock page
+     whose URL only the funnel worker knows. There is nothing here to view-source.
 
-  <article class="card c-cream">
-    <div class="top">
-      <span class="tag">Agent 1 · explore.md</span>
-      <span class="goth">map</span>
-    </div>
-    <h2>Reads the code. Returns a map.</h2>
-    <p class="one">The scout. It sweeps the codebase in its <b>own context</b> — entry points, data flow, conventions, the files that matter for this task — and hands back a compact map instead of a hundred file dumps. Your main chat never holds the raw reads, which is the whole trick: the exploration that would have burned your context burns a throwaway one.</p>
-    <div class="snippet">
-      <div class="bar"><span class="f">.claude/agents/explore.md</span><button class="snipbtn" type="button" data-copy-target="#agExplore" data-copy-event="no020-copy-explore">Copy</button></div>
-      <pre id="agExplore">---
-name: explore
-description: Read-only codebase scout. Use FIRST on any multi-file task — maps the code that matters and returns a compact report. Never edits files.
-tools: Read, Grep, Glob, Bash
----
+     WHY IT LOOKS LIKE THIS (founder picked A1, "paper block", 2026-08-26):
+     - Cream on an all-black site. It is the only light surface anywhere in the
+       design system, so the eye lands on it before it reads a word. Loud through
+       contrast rather than through decoration.
+     - The manifest lists the REAL payload — file names and line counts pulled
+       from the page's own snippets at build time, redacted. Paywall CRO is
+       consistent that showing what is missing beats describing it, and a
+       manifest cannot be faked into promising something the pack doesn't hold.
+     - It shows structure, never a readable line. Behavioural data on news
+       paywalls (Journalism Studies, 2024) found a readable teaser measurably
+       LOWERS subscribe clicks — curiosity gets satisfied and the reader leaves.
+     - One field. Single-field forms benchmark at ~25.5%, and every extra field
+       is the highest-cost thing you can add.
+     - The note kills the objection single opt-in always raises: nothing to
+       confirm, nothing to wait for.
+     Evidence + sources: docs/2026-08-26-gate-ui-research.md -->
+<section class="gate paper" id="gate">
+  <div class="tab">Locked</div>
+  <div class="inner">
+    <span class="k">4 files · 93 lines · locked</span>
+    <h2>The Subagents setup, in full.</h2>
+    <p class="lede">Every file below is written and sitting on the next screen. One email opens all of it.</p>
 
-You are the Explore agent: a read-only scout. You NEVER modify files.
+    <ul class="manifest">
+      <li><span class="lk">▣</span><span class="fn">.claude/agents/explore.md</span><span class="rd" aria-hidden="true"></span><span class="ln">21 lines</span></li>
+      <li><span class="lk">▣</span><span class="fn">.claude/agents/plan.md</span><span class="rd" aria-hidden="true"></span><span class="ln">24 lines</span></li>
+      <li><span class="lk">▣</span><span class="fn">.claude/agents/implement.md</span><span class="rd" aria-hidden="true"></span><span class="ln">24 lines</span></li>
+      <li><span class="lk">▣</span><span class="fn">.claude/agents/review.md</span><span class="rd" aria-hidden="true"></span><span class="ln">24 lines</span></li>
+    </ul>
 
-Given a task, map only the code that matters for it:
-1. Locate the entry points, key modules, and config the task will
-   touch — search first (Grep/Glob), then read only the relevant ranges.
-2. Trace how data flows between them: who calls whom, where state lives.
-3. Note the conventions (naming, layout, test patterns) an implementer
-   must follow, and the gotchas — code that looks wrong but is load-bearing.
-
-Return ONLY a summary, 40 lines max:
-- RELEVANT FILES: path — one line on its role in this task
-- FLOW: how the pieces connect, entry to exit
-- CONVENTIONS: the patterns any change must follow
-- RISKS: what could break; what not to touch
-No file dumps, no full listings — paths and conclusions only.</pre>
-    </div>
-    <span class="proof">read-only · searches before reading · returns a ≤40-line map</span>
-  </article>
-
-  <article class="card c-aqua">
-    <div class="top">
-      <span class="tag">Agent 2 · plan.md</span>
-      <span class="goth">steps</span>
-    </div>
-    <h2>Turns the map into steps.</h2>
-    <p class="one">The architect. It takes Explore's map plus your task and produces a numbered plan another agent can execute <b>without asking questions</b> — each step names its files, its change, and what "done" looks like. It spot-checks the map before trusting it, and it stops for your approval: nothing gets built until you've read the steps.</p>
-    <div class="snippet">
-      <div class="bar"><span class="f">.claude/agents/plan.md</span><button class="snipbtn" type="button" data-copy-target="#agPlan" data-copy-event="no020-copy-plan">Copy</button></div>
-      <pre id="agPlan">---
-name: plan
-description: Turns the Explore agent's map + a task into a numbered implementation plan. Read-only — designs the steps, writes no code.
-tools: Read, Grep, Glob
----
-
-You are the Plan agent. Input: a task + the Explore agent's map.
-Output: a plan another agent can execute without asking questions.
-
-Rules:
-1. Spot-check the map's key claims before building on them — open the
-   named files, read only the ranges you need.
-2. Break the task into the smallest steps that each leave the codebase
-   working; order them by dependency, and mark steps that are independent.
-3. Each step names the exact files to change and its done-check — a test
-   to run or a behavior to observe.
-4. Flag the riskiest step and say why.
-5. If the task is ambiguous, list the decision needed instead of guessing.
-
-Return ONLY the plan, 30 lines max:
-- GOAL: one sentence
-- STEPS: numbered — files to touch + the change + the done-check
-- RISK: the step most likely to go wrong, and the fallback
-Instructions, not diffs — no code in the plan.</pre>
-    </div>
-    <span class="proof">smallest working steps · files + done-check per step · stops for approval</span>
-  </article>
-
-  <article class="card c-orchid">
-    <div class="top">
-      <span class="tag">Agent 3 · implement.md</span>
-      <span class="goth">build</span>
-    </div>
-    <h2>Writes one scoped task.</h2>
-    <p class="one">The builder — and the only agent that edits files. It receives <b>one step</b>, never the whole plan: touch only the named files, match the codebase's conventions, run the step's done-check before reporting back. Because each step is scoped and independent steps don't share state, you can launch several implement agents <b>in parallel</b>.</p>
-    <div class="snippet">
-      <div class="bar"><span class="f">.claude/agents/implement.md</span><button class="snipbtn" type="button" data-copy-target="#agImplement" data-copy-event="no020-copy-implement">Copy</button></div>
-      <pre id="agImplement">---
-name: implement
-description: Writes the code for exactly ONE plan step. Scoped — touches only the files the step names. Use after plan, one launch per step.
-tools: Read, Grep, Glob, Edit, Write, Bash
----
-
-You are the Implement agent. You receive ONE step from the plan —
-never the whole plan. Execute it and nothing else.
-
-Rules:
-1. Touch only the files the step names. If the fix genuinely needs
-   another file, STOP and report that instead of expanding scope.
-2. Match the conventions from the Explore report — this codebase's
-   style wins over your preferences.
-3. Prefer editing existing files over creating new ones. No drive-by
-   refactors; do not fix unrelated code you happen to notice.
-4. Run the step's done-check (test/build) before reporting. If it fails
-   and the fix is in scope, fix it; otherwise report the failure honestly.
-
-Return ONLY a summary, 15 lines max:
-- CHANGED: each file + one line on what changed and why
-- CHECK: the command you ran and its result
-- FLAGS: anything the Review agent should look at hardest
-Never paste whole files back — the diff lives in git, not in the chat.</pre>
-    </div>
-    <span class="proof">one step per launch · scoped to named files · runs the done-check itself</span>
-  </article>
-
-  <article class="card c-ink">
-    <div class="top">
-      <span class="tag">Agent 4 · review.md</span>
-      <span class="goth">tear</span>
-    </div>
-    <h2>Tears the diff apart.</h2>
-    <p class="one">The gate. A separate agent reviews the diff <b>before commit</b> precisely because it didn't write the code — it has no attachment to the approach and no memory of the shortcuts. It hunts bugs and scope creep, separates blockers from nits, and returns a verdict: APPROVE, or REQUEST CHANGES that go straight back to Implement.</p>
-    <div class="snippet">
-      <div class="bar"><span class="f">.claude/agents/review.md</span><button class="snipbtn" type="button" data-copy-target="#agReview" data-copy-event="no020-copy-review">Copy</button></div>
-      <pre id="agReview">---
-name: review
-description: Adversarial code reviewer. Tears the current diff apart before commit — bugs, scope creep, convention breaks. Read-only, never fixes.
-tools: Read, Grep, Glob, Bash
----
-
-You are the Review agent — the last gate before a commit. Your job is
-to find problems, not to be agreeable. You NEVER edit files.
-
-Review the current diff (git diff, staged + unstaged) against the plan step:
-1. Correctness first: broken edge cases, wrong logic, unhandled errors,
-   behavior changes nobody asked for.
-2. Scope: does the diff touch anything the step didn't name? Flag every
-   extra file.
-3. Conventions: naming, patterns, and test style consistent with the
-   codebase around the change.
-4. Tests: does the done-check actually verify the change, or just pass?
-
-Return ONLY a verdict, 20 lines max:
-- VERDICT: APPROVE or REQUEST CHANGES — one line why
-- BLOCKERS: numbered — file:line, what is wrong, why it matters
-- NITS: minor items, clearly separated; a nit is never a blocker
-An empty blocker list must mean you looked and found nothing —
-not that you skimmed.</pre>
-    </div>
-    <span class="proof">didn't write the code · blockers vs nits · APPROVE / REQUEST CHANGES</span>
-  </article>
-
-</section>
-
-<div class="fig">
-  <h2 class="kick">Fig. 02 ·</h2>
-  <span class="gaccent">the handoff</span>
-  <span class="line"></span>
-</div>
-
-<section class="ledger" aria-label="How the four agents hand off">
-  <div class="lrow"><span class="n">01</span><span class="t">Explore reads the codebase → hands Plan a map: files, flow, conventions, risks</span></div>
-  <div class="lrow"><span class="n">02</span><span class="t">Plan turns the map into numbered steps → you approve before anything is built</span></div>
-  <div class="lrow"><span class="n">03</span><span class="t">Implement takes one step per launch → independent steps run in parallel</span></div>
-  <div class="lrow"><span class="n">04</span><span class="t">Review tears the diff apart → blockers go back to Implement; approve, then commit</span></div>
-</section>
-
-<section class="issues">
-
-  <article class="card c-signal">
-    <div class="top">
-      <span class="tag">The fine print · when NOT to spawn</span>
-      <span class="goth">skip</span>
-    </div>
-    <h2>Small task? One chat.</h2>
-    <p class="one">Every subagent costs a spawn, a fresh context, and a summary hop. For a single-file edit, a quick question, or anything that fits on one screen of context, that overhead beats the benefit — just do it in the main chat. Split into the squad when the task spans many files, when you want a real review gate before commit, or when independent pieces can genuinely run in parallel.</p>
-    <span class="stars">single-file edit · quick question · tiny fix — the main chat wins</span>
-  </article>
-
-  <article class="card c-ink">
-    <div class="top">
-      <span class="tag">The receipt · july 2026</span>
-      <span class="goth">patch</span>
-    </div>
-    <h2>Subagents got sharper this month.</h2>
-    <p class="one">Verified against the Claude Code changelog: v2.1.207 screens every subagent spawn with a classifier <b>before launch</b>; v2.1.210 makes agents less likely to re-delegate their whole task to another subagent; v2.1.211 adds subagent text streaming for SDK / stream-json consumers via <code>--forward-subagent-text</code>; and v2.1.202 adds a "Dynamic workflow size" guideline in <code>/config</code> — advisory, not an enforced cap.</p>
-    <div class="actions">
-      <a class="btn" data-goatcounter-click="no020-changelog" href="https://code.claude.com/docs/en/changelog" target="_blank" rel="noopener">The changelog →</a>
-    </div>
-  </article>
-
-</section>
-
-<section class="midcap" aria-label="Get the weekly pack">
-  <span class="k">One email a week · the working setup</span>
-  <h2>Keep the whole toolkit.</h2>
-  <p>The Teardown sends the config pack and one working AI setup a week — the same rig behind this channel. Free, and you can unsubscribe anytime.</p>
-  <form action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="midcap">
-      <input type="hidden" name="tag" value="no-020-midcap">
+    <form class="gate-form" action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="gate">
+      <input type="hidden" name="tag" value="no020">
       <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
-    <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
-    <button class="btn" type="submit">Get the weekly pack →</button>
-  </form>
-  <div class="note">Free. The config pack lands in your inbox straight away. Unsubscribe anytime.</div>
-</section>
-
-<div class="fig">
-  <h2 class="kick">Fig. 03 ·</h2>
-  <span class="gaccent">what's next</span>
-  <span class="line"></span>
-</div>
-
-<section class="issues">
-  <article class="card c-ink">
-    <div class="top">
-      <span class="tag">Go deeper on agents</span>
-      <span class="goth">hire</span>
-    </div>
-    <h2>One agent, one job.</h2>
-    <p class="one">The squad works because each file gives its agent exactly one job, its own tools, and a definition of done. That's the same pattern behind NO.013's agent starter kit — the fill-in-the-blanks template, the tools allowlist, and a runnable skill. Start there if you're building your own roles.</p>
-    <div class="actions">
-      <a class="btn" data-goatcounter-click="no020-agents" href="./no-013.html">The agent starter kit →</a>
-    </div>
-  </article>
-
-  <article class="card c-ink" id="next">
-    <div class="top">
-      <span class="tag">No gate / no catch</span>
-      <span class="goth">follow</span>
-    </div>
-    <h2>That's the system. Follow for the next one.</h2>
-    <p class="one">One AI workflow you can copy, every day — a new keyword drops daily on the reel, and followers catch it first. If the squad saves your next big task from one confused chat, the follow is the thank-you.</p>
-    <div class="actions">
-      <a class="btn primary" data-goatcounter-click="no020-follow-instagram" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Follow @vektor.fm →</a>
-    </div>
-  </article>
+      <label class="sr-only" for="gateEmail">Email address</label>
+      <input id="gateEmail" name="email" type="email" placeholder="you@email.com" autocomplete="email" inputmode="email" required>
+      <button class="btn primary" type="submit">Open the 4 files &rarr;</button>
+    </form>
+    <div class="note">Opens on the next screen — no confirmation email, no waiting room. One-click unsubscribe. <a href="./privacy.html">What we do with it</a>.</div>
+    <div class="proof"><b>622</b> packs sent to people who asked · <b>1,338</b> follow @vektor.fm · one working setup a week</div>
+  </div>
 </section>
 </main>
 

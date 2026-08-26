@@ -1,7 +1,7 @@
 {
   "number": "041",
   "title": "vektor /// no. 041 — The Claude Code starter team — 3 drop-in subagents.",
-  "description": "Three drop-in subagents for Claude Code — a reviewer that only reviews, a researcher that only digs, a planner that only plans. Each runs in its own context window and reports back with just the answer, so your main thread stops filling with file dumps and 'Compacting conversation' stops eating your session. Full files on the page, free.",
+  "description": "Three drop-in subagents for Claude Code — a reviewer that only reviews, a researcher that only digs, a planner that only plans. Each runs in its own context window and reports back with just the answer, so your main thread stops filling with file dumps and 'Compacting conversation' stops eating your session. Full files, one email away.",
   "og_title": "Clone yourself into a team. — vektor /// no. 041",
   "og_description": "Three drop-in subagents for Claude Code: a reviewer that only reviews, a researcher that only digs, a planner that only plans. Each gets its own context window — the noise dies with it, only the answer comes back. Install is a folder and three files.",
   "og_image": "https://vektor-fm.github.io/vektor-site/og/no-041.png",

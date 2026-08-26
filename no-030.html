@@ -16,6 +16,7 @@
 <meta property="og:site_name" content="vektor">
 <meta property="og:url" content="https://vektor-fm.github.io/vektor-site/no-030.html">
 <link rel="canonical" href="https://vektor-fm.github.io/vektor-site/no-030.html">
+
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="the council — vektor /// no. 030">
 <meta name="twitter:description" content="5 advisors, blind peer review, a chairman verdict. The real SKILL.md + two-command install — and the honest cost is on the page.">
@@ -518,6 +519,59 @@ img{display:block; max-width:100%;}
 .midcap .btn{min-height:48px;}
 .midcap .note{font-size:var(--fs-s); color:var(--meta); margin-top:var(--p-s);}
 
+/* ---- the gate (2026-08-26, founder picked "paper block") ----
+   The page ends here for anyone who hasn't paid the email, so it is built as a
+   destination, not a footer widget. The block flips to PAPER on an otherwise
+   all-black site: it is the only light surface in the whole design system, which
+   is what makes it the loudest object on the page without adding decoration.
+   Colours are hard-coded near-black rather than var(--fg) because this is the
+   one inverted surface — the tokens all assume ink-on-black.
+   The manifest rows are generated from the payload (build.mjs): real file names
+   and line counts, redacted. Structure, never a readable line — a readable
+   teaser measurably lowers conversion (docs/2026-08-26-gate-ui-research.md). */
+.gate{position:relative; margin:var(--p-2xl) 0 0; padding:var(--p-2xl) var(--rail) var(--p-4xl); background:var(--bg); border-top:1px solid var(--rule);}
+.gate .inner{background:var(--paper); color:#0B0B0B; padding:var(--p-xl) var(--p-l) var(--p-l); border:1px solid #0B0B0B; max-width:720px;}
+.gate .tab{display:inline-block; margin-bottom:-1px; background:var(--accent); color:#04120F; font-family:var(--font-label); text-transform:uppercase; letter-spacing:.05em; font-size:var(--fs-s); padding:6px 14px;}
+.gate .k{display:block; color:#0B0B0B; opacity:.7; font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); margin-bottom:var(--p-s);}
+.gate h2{color:#0B0B0B; font-family:var(--font-extended); font-weight:400; text-transform:uppercase; letter-spacing:normal; font-size:var(--fs-2xl); line-height:var(--lh-2xl); margin:0 0 var(--p-s);}
+.gate .lede{color:#2A2A2A; font-size:var(--fs-m); line-height:var(--lh-xl); max-width:52ch; margin:0 0 var(--p-l);}
+
+.manifest{list-style:none; margin:0 0 var(--p-xl); padding:0;}
+.manifest li{display:flex; align-items:center; gap:var(--p-s); padding:10px 0; border-top:1px solid #0B0B0B; font-family:var(--font-code); font-size:var(--fs-s); color:#0B0B0B;}
+.manifest li:last-child{border-bottom:1px solid #0B0B0B;}
+.manifest .lk{color:#0B7A69;}
+.manifest .fn{white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+/* the redaction: it has to read as "text is here and you can't have it", so it
+   is a bar of glyph-width blocks rather than a plain rule */
+.manifest .rd{flex:1 1 30px; min-width:20px; height:10px; opacity:.35; background:repeating-linear-gradient(90deg,#0B0B0B 0 12px, transparent 12px 18px);}
+.manifest .ln{color:#4A4A4A; white-space:nowrap;}
+
+.gate-form{display:flex; gap:var(--p-s); flex-wrap:wrap; max-width:560px;}
+.gate-form input{flex:1 1 240px; min-height:52px; background:transparent; border:0; border-bottom:2px solid #0B0B0B; color:#0B0B0B; font-family:var(--font-sans); font-size:var(--fs-m); padding:0;}
+.gate-form input::placeholder{color:#6A6A6A;}
+.gate-form input:focus{outline:none; border-bottom-color:#0B7A69;}
+.gate-form .btn{min-height:52px; padding:0 var(--p-l); background:#0B0B0B; color:var(--paper); border:1px solid #0B0B0B;}
+.gate-form .btn:hover{background:#0B7A69; border-color:#0B7A69;}
+/* On a phone the field and the button stop competing for one row: mobile is
+   ~83% of the traffic and converts at about half the desktop rate, so the tap
+   target gets the full width. */
+@media (max-width:620px){
+  .gate-form input{flex:1 1 100%;}
+  .gate-form .btn{flex:1 1 100%; text-align:center; justify-content:center;}
+}
+.gate .note{font-size:var(--fs-s); color:#4A4A4A; margin-top:var(--p-m);}
+.gate .note a{color:#0B7A69;}
+/* social proof, at the decision point rather than in the footer. Real numbers
+   only — see build.mjs, they come from site.json with an as-of date. */
+.gate .proof{margin-top:var(--p-s); font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); color:#4A4A4A;}
+.gate .proof b{color:#0B7A69; font-weight:400;}
+
+/* the receipt at the top of an unlock page */
+.unlocked{margin:0; padding:var(--p-xl) var(--rail); background:var(--band); border-bottom:1px solid var(--rule);}
+.unlocked .k{display:block; color:var(--accent); font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); margin-bottom:var(--p-s);}
+.unlocked h2{font-family:var(--font-extended); font-weight:400; text-transform:uppercase; letter-spacing:normal; font-size:var(--fs-2xl); line-height:var(--lh-2xl); margin:0 0 var(--p-xs);}
+.unlocked p{font-size:var(--fs-m); line-height:var(--lh-xl); max-width:64ch; margin:0; color:var(--dim);}
+
 /* ---- footer ---- */
 footer{margin-top:var(--p-4xl); padding:var(--p-2xl) var(--rail) var(--p-4xl); border-top:1px solid var(--rule);}
 .foot-rule{margin-bottom:var(--p-xl);}
@@ -717,7 +771,7 @@ pre.code code{font-size:inherit;}
           <li><a href="./no-015.html"><span class="a">→</span><span>Loops</span></a></li>
           <li><a href="./no-010.html"><span class="a">→</span><span>CLAUDE.md files</span></a></li>
         </ul>
-        <p class="info">The files behind the films. Free, no signup wall.</p>
+        <p class="info">The files behind the films. One email opens any of them.</p>
       </div>
     </li>
     <li>
@@ -755,40 +809,41 @@ pre.code code{font-size:inherit;}
 <!-- the issue marker, kept: it is the only per-page label in the bar -->
 <div class="issue-marker">Claude · Copy My System</div>
 
+<!-- The capture furniture (sticky bar + pop-up) lives in partials/capture.html
+     and is injected ONLY into public pages. Unlock pages get an empty string
+     here — see build.mjs. The weave stays on both: it is structure, not an ask. -->
 <!-- Sticky ask. This used to be a Follow link back to Instagram, which spent
      an IG click to win a visit and then returned the visitor to IG without
      capturing anything. The goal is the email address, so the persistent ask
-     is now the email. Follow demotes to the footer. -->
+     is now the email. Follow demotes to the footer.
+
+     Since 2026-08-26 the form carries the PAGE's tag (no030-sticky) rather
+     than a generic one: the worker reads the tag to decide which pack to
+     unlock, so a generic tag would capture the email and then have nothing to
+     hand back. The suffix keeps per-source attribution.
+
+     THE POP-UP IS GONE (founder, 2026-08-26). It was dismissed 13 times out of
+     13 on NO.036 and 5 out of 5 on NO.039 (live /report, 2026-08-26) — it
+     converted nothing and spent goodwill on every visit. With a real gate at
+     the end of the page there are now two asks, not three. The pop-up's script
+     in partials/scripts.html no-ops on its own (`if(!pop){return;}`), so it is
+     left in place rather than ripped out; restoring the block restores it.
+
+     This whole file is omitted from unlock pages — asking a reader for the
+     email they just gave you is how a funnel reads as a machine. -->
 <div class="sticky-cta" id="stickyCta" aria-hidden="true">
   <span class="t">the Setup pack + one working setup a week</span>
   <form class="sticky-form" method="post" action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" data-capture="sticky">
-      <input type="hidden" name="tag" value="masthead-sticky">
+      <input type="hidden" name="tag" value="no030-sticky">
       <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
     <label class="sr-only" for="stickyEmail">Email address</label>
     <input id="stickyEmail" name="email" type="email" placeholder="you@email.com" autocomplete="email" required>
-    <button class="btn primary" type="submit">Get it &rarr;</button>
+    <button class="btn primary" type="submit">Open it &rarr;</button>
   </form>
   <button class="x" id="ctaClose" type="button" aria-label="Dismiss">&times;</button>
 </div>
 
 <div class="weave" aria-hidden="true"></div>
-
-<div class="pop" id="packPop" hidden>
-  <div class="pop-scrim" data-pop-close></div>
-  <div class="pop-card" role="dialog" aria-modal="true" aria-labelledby="popH">
-    <button class="pop-x" type="button" data-pop-close aria-label="Close">×</button>
-    <span class="k">One email a week · the working setup</span>
-    <h2 id="popH">Take Setup with you.</h2>
-    <p>Free, no wall. Add your email and The Teardown sends the Setup pack plus one working AI setup a week.</p>
-    <form action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="popup">
-      <input type="hidden" name="tag" value="masthead-popup">
-      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
-      <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
-      <button class="btn" type="submit">Get the weekly pack →</button>
-    </form>
-    <div class="note">Free. The config pack lands in your inbox straight away. Unsubscribe anytime.</div>
-  </div>
-</div>
 
 <main>
 <section class="hero">
@@ -796,209 +851,61 @@ pre.code code{font-size:inherit;}
   <h1 class="disp">The<br>council<span class="dot">.</span></h1>
   <p class="sub">You use Claude like a yes-man: you propose, it agrees, you ship. The council fixes that: your question goes to five adversarial advisors, their answers get torn apart by five blind reviewers, and a chairman hands you a verdict — dissent included. The real SKILL.md is on this page, plus the install and the honest cost. As promised.</p>
   <div class="actions">
-    <a class="btn primary" href="#install">Get the skill ↓</a>
-    <a class="btn" href="#skillfile">Read the whole file ↓</a>
+    <a class="btn primary" href="#gate">Get the skill ↓</a>
+    <a class="btn" href="#gate">Read the whole file ↓</a>
     <button class="btn" id="shareBtn" type="button">Send to a dev friend</button>
   </div>
   <div class="rule">////////////////////////////////////////////////////////////////////////////////////////////////</div>
 </section>
 
 <!-- ======================= ISSUE DIVIDER ======================= -->
-<div class="fig">
-  <h2 class="kick">Fig. 01 ·</h2>
-  <span class="gaccent">the fix</span>
-  <span class="line"></span>
-</div>
+<!-- THE GATE. Founder decision 2026-08-26: the packs stop being free-to-scroll,
+     and the ask is the loudest object on the page. ~700 landing-page opens in 30
+     days produced 6 form clicks (live /report, 2026-08-26), so the pages were
+     handing the payload over before the ask and the ask had no leverage.
 
-<section class="issues">
+     The payload is NOT in this document. build.mjs splits the body at the first
+     <div class="fig"> and writes everything below it to a separate unlock page
+     whose URL only the funnel worker knows. There is nothing here to view-source.
 
-  <!-- CARD 01 — WHAT IT IS -->
-  <article class="card c-cream">
-    <div class="top">
-      <span class="tag">The skill · one model, five minds</span>
-      <span class="goth">council</span>
-    </div>
-    <h2>Disagreement, installed.</h2>
-    <p class="one">One model asked once tends to agree with whoever asked. The council is one markdown file that forces the argument: five agents attack your question from five fixed angles, five blind reviewers tear their answers apart, and a chairman reads the debate and hands you a verdict, a why, and a first move. What you get back isn't a vibe — it's a call with the losing arguments still attached.</p>
-    <div class="actions">
-      <a class="btn" data-goatcounter-click="no030-download-skill" href="./files/council-skill/SKILL.md" download>Download SKILL.md ↓</a>
-      <a class="btn" href="#skillfile">Read the whole file ↓</a>
-    </div>
-  </article>
+     WHY IT LOOKS LIKE THIS (founder picked A1, "paper block", 2026-08-26):
+     - Cream on an all-black site. It is the only light surface anywhere in the
+       design system, so the eye lands on it before it reads a word. Loud through
+       contrast rather than through decoration.
+     - The manifest lists the REAL payload — file names and line counts pulled
+       from the page's own snippets at build time, redacted. Paywall CRO is
+       consistent that showing what is missing beats describing it, and a
+       manifest cannot be faked into promising something the pack doesn't hold.
+     - It shows structure, never a readable line. Behavioural data on news
+       paywalls (Journalism Studies, 2024) found a readable teaser measurably
+       LOWERS subscribe clicks — curiosity gets satisfied and the reader leaves.
+     - One field. Single-field forms benchmark at ~25.5%, and every extra field
+       is the highest-cost thing you can add.
+     - The note kills the objection single opt-in always raises: nothing to
+       confirm, nothing to wait for.
+     Evidence + sources: docs/2026-08-26-gate-ui-research.md -->
+<section class="gate paper" id="gate">
+  <div class="tab">Locked</div>
+  <div class="inner">
+    <span class="k">1 file · 67 lines · locked</span>
+    <h2>The Council skill, in full.</h2>
+    <p class="lede">Every file below is written and sitting on the next screen. One email opens all of it.</p>
 
-</section>
+    <ul class="manifest">
+      <li><span class="lk">▣</span><span class="fn">.claude/skills/council/SKILL.md</span><span class="rd" aria-hidden="true"></span><span class="ln">67 lines</span></li>
+    </ul>
 
-<div class="fig">
-  <h2 class="kick">Fig. 02 ·</h2>
-  <span class="gaccent">the five advisors</span>
-  <span class="line"></span>
-</div>
-
-<div class="ledger" aria-label="The five advisors">
-  <div class="lrow"><span class="n">01</span><span class="t">The Contrarian — assumes your plan fails and argues only the most likely way it breaks.</span></div>
-  <div class="lrow"><span class="n">02</span><span class="t">The First-Principles Thinker — throws out your framing, rebuilds the problem from zero.</span></div>
-  <div class="lrow"><span class="n">03</span><span class="t">The Expansionist — finds the upside you're missing: the bigger version of this.</span></div>
-  <div class="lrow"><span class="n">04</span><span class="t">The Outsider — zero context, reads the problem cold, sees what an insider can't.</span></div>
-  <div class="lrow"><span class="n">05</span><span class="t">The Executor — only the next 48 hours matter: the single next concrete action.</span></div>
-</div>
-
-<div class="fig">
-  <h2 class="kick">Fig. 03 ·</h2>
-  <span class="gaccent">how a session runs</span>
-  <span class="line"></span>
-</div>
-
-<div class="ledger" aria-label="How a session runs">
-  <div class="lrow"><span class="n">01</span><span class="t">Ask — hand the council a question, a plan, or a piece of code.</span></div>
-  <div class="lrow"><span class="n">02</span><span class="t">Five advisors answer — in parallel, independently, no peeking at each other.</span></div>
-  <div class="lrow"><span class="n">03</span><span class="t">Blind peer review — five reviewers cross-examine each answer with the author hidden: weakest assumption named, does the core point survive.</span></div>
-  <div class="lrow"><span class="n">04</span><span class="t">Chairman verdict — no averaging: the call in one sentence, why it carried, and the first move to make now.</span></div>
-</div>
-
-<section class="issues" id="install">
-
-  <!-- CARD 02 — THE INSTALL -->
-  <article class="card c-aqua">
-    <div class="top">
-      <span class="tag">Install · Claude Code · 30 seconds</span>
-      <span class="goth">install</span>
-    </div>
-    <h2>Two commands.</h2>
-    <p class="one">Drop the file into your repo's skills folder and it self-registers — from then on "ask the council: &lt;your question&gt;" convenes it. Works in any project; no plugin, no dependencies, just the one markdown file.</p>
-    <div class="actions">
-      <div class="copy"><code>mkdir -p .claude/skills/council</code><button class="copybtn" data-copy="mkdir -p .claude/skills/council">Copy</button></div>
-      <div class="copy"><code>curl -o .claude/skills/council/SKILL.md https://vektor-fm.github.io/vektor-site/files/council-skill/SKILL.md</code><button class="copybtn" data-copy="curl -o .claude/skills/council/SKILL.md https://vektor-fm.github.io/vektor-site/files/council-skill/SKILL.md">Copy</button></div>
-    </div>
-  </article>
-
-  <!-- CARD 03 — THE FILE ITSELF -->
-  <article class="card c-ink" id="skillfile">
-    <div class="top">
-      <span class="tag">The payload · full SKILL.md · nothing held back</span>
-      <span class="goth">file</span>
-    </div>
-    <h2>The whole file, right here.</h2>
-    <p class="one">This is the exact file we run — the same one the download button serves. Copy it straight from the page if you'd rather not curl.</p>
-    <div class="snippet">
-      <div class="bar"><span class="f">.claude/skills/council/SKILL.md</span><button class="snipbtn" id="snipCopy" type="button">Copy file</button></div>
-      <pre id="snipText">---
-name: council
-description: Ask the council — run one question through 5 adversarial perspective agents, blind peer review, and a chairman verdict. Use when the user says &quot;ask the council&quot;, &quot;/council&quot;, or wants a decision pressure-tested from multiple angles instead of a single answer.
----
-
-# The Council
-
-You are not answering the question. You are convening a council that will.
-
-First, assemble THE BRIEF: the user&#x27;s question plus — verbatim — any plan,
-code, or context they supplied with it. Subagents see nothing except what you
-send them, so the brief must stand alone. If the council was invoked with no
-question, ask for one; do not convene on a guess.
-
-Then run this protocol exactly:
-
-## Round 1 — five seats, five angles
-
-Spawn 5 agents IN PARALLEL — all five Agent calls in ONE message, so no seat
-can see another&#x27;s answer. Use the cheapest/fastest model available (e.g.
-haiku); a seat needs an angle, not firepower. Each agent&#x27;s prompt is the brief
-plus ONLY its own seat instruction below — never the roster, never another
-seat&#x27;s brief. Tell every agent, in its prompt: answer from the prompt alone
-(no tools, no file reading); do NOT name, label, or describe your role or
-perspective in the answer; return max 120 words — a position plus its single
-strongest argument.
-
-1. **THE CONTRARIAN** — &quot;Assume this plan fails. Find the most likely way it
-   fails and argue only that. No silver linings.&quot;
-2. **THE FIRST-PRINCIPLES THINKER** — &quot;Ignore how the question is framed.
-   Rebuild the problem from scratch: what is actually being optimized, and
-   what would you do if you&#x27;d never seen the current approach?&quot;
-3. **THE EXPANSIONIST** — &quot;Find the upside being missed. What is the bigger
-   version of this? What becomes possible if it works better than expected?&quot;
-4. **THE OUTSIDER** — &quot;Read this cold, as a smart stranger. What do you see
-   that an insider can&#x27;t?&quot; Before spawning this seat, strip the brief of
-   project names, history, and insider shorthand — the outsider gets the bare
-   problem, nothing else.
-5. **THE EXECUTOR** — &quot;Only the next 48 hours matter. What is the single next
-   concrete action, and what would you cut to do it today?&quot;
-
-Wait for all five answers before starting Round 2.
-
-## Round 2 — blind peer review
-
-Spawn 5 reviewer agents IN PARALLEL — again, all in one message, same cheap
-model. Reviewer N gets the original question plus answer N only, with every
-trace of authorship removed: no seat name, no roster, no mention that four
-other answers exist. Each reviewer&#x27;s brief: &quot;Tear this argument apart. Name
-its weakest assumption in one sentence, then say in one sentence whether the
-core point survives.&quot; Max 60 words each.
-
-Wait for all five reviews before starting Round 3.
-
-## Round 3 — the chairman
-
-You are the chairman. Read all 10 outputs. Do not average them. Weigh which
-arguments survived review, name the strongest surviving case, and deliver:
-
-- **VERDICT:** one sentence — the call.
-- **WHY:** max 3 sentences — which seats carried it and which died in review.
-- **FIRST MOVE:** the one concrete action to take now.
-
-Present the full council output to the user, seat names restored (anonymity
-was for the reviewers, not the user): each seat&#x27;s position (one line), each
-review (one line), then the chairman block. You give a verdict, not an
-answer.</pre>
-    </div>
-  </article>
-
-</section>
-
-<div class="fig">
-  <h2 class="kick">Fig. 04 ·</h2>
-  <span class="gaccent">the honest part</span>
-  <span class="line"></span>
-</div>
-
-<section class="issues" id="honest">
-  <article class="card c-signal">
-    <div class="top">
-      <span class="tag">honesty · what a committee costs</span>
-      <span class="goth">caveat</span>
-    </div>
-    <h2>Eleven calls per question.</h2>
-    <p class="one">A full council session is 11 model calls — five answers, five peer reviews, one verdict — where a normal chat is one. That's the price of the disagreement, and it's worth paying only on decisions that deserve a committee: architecture, plans, the thing you'd regret. Don't convene the council to name a variable.</p>
-  </article>
-  <div class="receipt">Go deeper: the same idea, community-built with more machinery — <a data-goatcounter-click="no030-repo-deeper" href="https://github.com/ngmeyer/council-review" target="_blank" rel="noopener">ngmeyer/council-review →</a></div>
-</section>
-
-<section class="midcap" aria-label="Get the weekly pack">
-  <span class="k">One email a week · the working setup</span>
-  <h2>Keep the whole toolkit.</h2>
-  <p>The Teardown sends the config pack and one working AI setup a week — the same rig behind this channel. Free, and you can unsubscribe anytime.</p>
-  <form action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post">
-      <input type="hidden" name="tag" value="no-030-2">
+    <form class="gate-form" action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="gate">
+      <input type="hidden" name="tag" value="no030">
       <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
-    <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
-    <button class="btn" type="submit">Get the weekly pack →</button>
-  </form>
-  <div class="note">Free. The config pack lands in your inbox straight away. Unsubscribe anytime.</div>
+      <label class="sr-only" for="gateEmail">Email address</label>
+      <input id="gateEmail" name="email" type="email" placeholder="you@email.com" autocomplete="email" inputmode="email" required>
+      <button class="btn primary" type="submit">Open the file &rarr;</button>
+    </form>
+    <div class="note">Opens on the next screen — no confirmation email, no waiting room. One-click unsubscribe. <a href="./privacy.html">What we do with it</a>.</div>
+    <div class="proof"><b>622</b> packs sent to people who asked · <b>1,338</b> follow @vektor.fm · one working setup a week</div>
+  </div>
 </section>
-
-<section class="issues">
-  <!-- FOLLOW ASK — the reciprocity moment -->
-  <article class="card c-ink">
-    <div class="top">
-      <span class="tag">No catch · all of it free</span>
-      <span class="goth">follow</span>
-    </div>
-    <h2>That's the council. Follow for the next system.</h2>
-    <p class="one">This page exists because people follow — a new Claude system drops daily, and followers catch the keyword first. If Claude argues with you before it agrees from now on, the follow is the thank-you.</p>
-    <div class="actions">
-      <a class="btn primary" data-goatcounter-click="no030-follow-instagram" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Follow @vektor.fm →</a>
-    </div>
-  </article>
-</section>
-<!-- ===================== END ISSUE BLOCK — NO. 030 ===================== -->
 </main>
 
 <footer>
