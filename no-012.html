@@ -926,7 +926,12 @@ pre.code code{font-size:inherit;}
       <input id="gateEmail" name="email" type="email" placeholder="you@email.com" autocomplete="email" inputmode="email" required>
       <button class="btn primary" type="submit">Open the pack &rarr;</button>
     </form>
-    <div class="note">Opens on the next screen — no confirmation email, no waiting room. One-click unsubscribe. <a href="./privacy.html">What we do with it</a>.</div>
+    <!-- The last line exists because there is deliberately NO welcome email
+         (founder, 2026-08-26): the redirect is the whole delivery, so a closed
+         tab loses the pack. Retyping the same address works — an existing
+         subscriber is let straight back through (signup.js) — but nobody would
+         guess that, and a reader who thinks they've lost it doesn't come back. -->
+    <div class="note">Opens on the next screen — no confirmation email, no waiting room. Lost the tab? Type the same address again and it reopens. One-click unsubscribe. <a href="./privacy.html">What we do with it</a>.</div>
     <div class="proof"><b>622</b> packs sent to people who asked · <b>1,338</b> follow @vektor.fm · one working setup a week</div>
   </div>
 </section>
