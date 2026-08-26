@@ -16,6 +16,7 @@
 <meta property="og:site_name" content="vektor">
 <meta property="og:url" content="https://vektor-fm.github.io/vektor-site/no-009.html">
 <link rel="canonical" href="https://vektor-fm.github.io/vektor-site/no-009.html">
+
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="One prompt. Every carousel. — vektor /// no. 009">
 <meta name="twitter:description" content="The master prompt that turns any topic into an on-brand, click-through Instagram carousel in Claude. Paste-ready. No gate.">
@@ -518,6 +519,34 @@ img{display:block; max-width:100%;}
 .midcap .btn{min-height:48px;}
 .midcap .note{font-size:var(--fs-s); color:var(--meta); margin-top:var(--p-s);}
 
+/* ---- the gate (2026-08-26) ----
+   The page ends here for anyone who hasn't paid the email. It is the last
+   thing on a public issue page, so it is sized like a destination rather than
+   like a footer widget: full-width band, display type, the ask at thumb height
+   on a phone. The list is deliberately three lines — a longer one reads as
+   terms and conditions, which is the shape people close. */
+.gate{margin:var(--p-2xl) 0 0; padding:0 var(--rail) var(--p-4xl); background:var(--band); border-top:1px solid var(--rule);}
+.gate .rule{margin:0 0 var(--p-xl); padding-top:var(--p-xl);}
+.gate .k{display:block; color:var(--accent); font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); margin-bottom:var(--p-s);}
+.gate h2{font-family:var(--font-extended); font-weight:400; text-transform:uppercase; letter-spacing:normal; font-size:var(--fs-3xl); line-height:var(--lh-3xl); margin:0 0 var(--p-s);}
+.gate .lede{font-size:var(--fs-l); line-height:var(--lh-xl); max-width:56ch; margin:0 0 var(--p-l); color:var(--fg);}
+.gate-list{list-style:none; margin:0 0 var(--p-xl); padding:0; max-width:56ch;}
+.gate-list li{display:flex; gap:var(--p-m); padding:var(--p-s) 0; border-top:1px solid var(--rule); font-size:var(--fs-m); line-height:var(--lh-xl); color:var(--dim);}
+.gate-list li:last-child{border-bottom:1px solid var(--rule);}
+.gate-list .n{font-family:var(--font-label); font-size:var(--fs-s); color:var(--accent); padding-top:.25em;}
+.gate-form{display:flex; gap:var(--p-s); flex-wrap:wrap; max-width:540px;}
+.gate-form input{flex:1 1 240px; min-height:52px; background:transparent; border:0; border-bottom:1px solid var(--fg); color:var(--fg); font-family:var(--font-sans); font-size:var(--fs-m); padding:0;}
+.gate-form input:focus{outline:none; border-bottom-color:var(--accent);}
+.gate-form .btn{min-height:52px;}
+.gate .note{font-size:var(--fs-s); color:var(--meta); margin-top:var(--p-m);}
+.gate .note a{color:var(--meta);}
+
+/* the receipt at the top of an unlock page */
+.unlocked{margin:0; padding:var(--p-xl) var(--rail); background:var(--band); border-bottom:1px solid var(--rule);}
+.unlocked .k{display:block; color:var(--accent); font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); margin-bottom:var(--p-s);}
+.unlocked h2{font-family:var(--font-extended); font-weight:400; text-transform:uppercase; letter-spacing:normal; font-size:var(--fs-2xl); line-height:var(--lh-2xl); margin:0 0 var(--p-xs);}
+.unlocked p{font-size:var(--fs-m); line-height:var(--lh-xl); max-width:64ch; margin:0; color:var(--dim);}
+
 /* ---- footer ---- */
 footer{margin-top:var(--p-4xl); padding:var(--p-2xl) var(--rail) var(--p-4xl); border-top:1px solid var(--rule);}
 .foot-rule{margin-bottom:var(--p-xl);}
@@ -717,7 +746,7 @@ pre.code code{font-size:inherit;}
           <li><a href="./no-015.html"><span class="a">→</span><span>Loops</span></a></li>
           <li><a href="./no-010.html"><span class="a">→</span><span>CLAUDE.md files</span></a></li>
         </ul>
-        <p class="info">The files behind the films. Free, no signup wall.</p>
+        <p class="info">The files behind the films. One email opens any of them.</p>
       </div>
     </li>
     <li>
@@ -755,23 +784,32 @@ pre.code code{font-size:inherit;}
 <!-- the issue marker, kept: it is the only per-page label in the bar -->
 <div class="issue-marker">This Week in AI · The Carousel</div>
 
+<!-- The capture furniture (sticky bar + pop-up) lives in partials/capture.html
+     and is injected ONLY into public pages. Unlock pages get an empty string
+     here — see build.mjs. The weave stays on both: it is structure, not an ask. -->
 <!-- Sticky ask. This used to be a Follow link back to Instagram, which spent
      an IG click to win a visit and then returned the visitor to IG without
      capturing anything. The goal is the email address, so the persistent ask
-     is now the email. Follow demotes to the footer. -->
+     is now the email. Follow demotes to the footer.
+
+     Since 2026-08-26 both forms carry the PAGE's tag (no009-sticky /
+     no009-popup) rather than a generic one: the worker reads the tag to
+     decide which pack to unlock, so a generic tag would capture the email and
+     then have nothing to hand back. The suffix keeps per-source attribution.
+
+     This whole file is omitted from unlock pages — asking a reader for the
+     email they just gave you is how a funnel reads as a machine. -->
 <div class="sticky-cta" id="stickyCta" aria-hidden="true">
   <span class="t">the The Carousel setup + one working setup a week</span>
   <form class="sticky-form" method="post" action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" data-capture="sticky">
-      <input type="hidden" name="tag" value="masthead-sticky">
+      <input type="hidden" name="tag" value="no009-sticky">
       <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
     <label class="sr-only" for="stickyEmail">Email address</label>
     <input id="stickyEmail" name="email" type="email" placeholder="you@email.com" autocomplete="email" required>
-    <button class="btn primary" type="submit">Get it &rarr;</button>
+    <button class="btn primary" type="submit">Open it &rarr;</button>
   </form>
   <button class="x" id="ctaClose" type="button" aria-label="Dismiss">&times;</button>
 </div>
-
-<div class="weave" aria-hidden="true"></div>
 
 <div class="pop" id="packPop" hidden>
   <div class="pop-scrim" data-pop-close></div>
@@ -779,16 +817,18 @@ pre.code code{font-size:inherit;}
     <button class="pop-x" type="button" data-pop-close aria-label="Close">×</button>
     <span class="k">One email a week · the working setup</span>
     <h2 id="popH">Keep the whole toolkit.</h2>
-    <p>Free, no wall. Add your email and The Teardown sends the The Carousel setup plus one working AI setup a week.</p>
+    <p>Add your email and the The Carousel setup opens straight away — plus one working AI setup a week.</p>
     <form action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="popup">
-      <input type="hidden" name="tag" value="masthead-popup">
+      <input type="hidden" name="tag" value="no009-popup">
       <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
       <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
-      <button class="btn" type="submit">Get the weekly pack →</button>
+      <button class="btn" type="submit">Open the pack →</button>
     </form>
-    <div class="note">Free. The config pack lands in your inbox straight away. Unsubscribe anytime.</div>
+    <div class="note">The pack opens on the next screen. One email a week. Unsubscribe anytime.</div>
   </div>
 </div>
+
+<div class="weave" aria-hidden="true"></div>
 
 <main>
 <section class="hero">
@@ -796,112 +836,45 @@ pre.code code{font-size:inherit;}
   <h1 class="disp">One prompt.<br>Every carousel<span class="dot">.</span></h1>
   <p class="sub">The master prompt from the reel. Paste it into a Claude project, type any topic, and Claude builds a perfectly-branded Instagram carousel as an interactive preview you click through. Set your brand kit once and every slide matches. As promised.</p>
   <div class="actions">
-    <a class="btn primary" href="#prompt">Copy the master prompt ↓</a>
-    <a class="btn" href="#howto">How to use it ↓</a>
+    <a class="btn primary" href="#gate">Copy the master prompt ↓</a>
+    <a class="btn" href="#gate">How to use it ↓</a>
     <button class="btn" id="shareBtn" type="button">Send to a builder</button>
   </div>
   <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
 </section>
 
-<div class="fig">
-  <h2 class="kick">Fig. 01 ·</h2>
-  <span class="gaccent">the prompt</span>
-  <span class="line"></span>
-</div>
+<!-- THE GATE. Founder decision 2026-08-26: the packs stop being free-to-scroll.
+     The email is now the price of the payload, because ~700 page opens in 30
+     days produced 6 form clicks (live /report pull, 2026-08-26) — the pages
+     gave the asset away before the ask, so the ask never had leverage.
 
-<section class="issues" id="no-009">
+     The payload is NOT in this document. build.mjs splits the body at the first
+     <div class="fig"> and writes everything below it to a separate unlock page
+     whose URL only the funnel worker knows. There is nothing here to view-source.
 
-  <article class="card c-aqua" id="prompt">
-    <div class="top">
-      <span class="tag">The master prompt · paste-ready</span>
-      <span class="goth">the prompt</span>
-    </div>
-    <h2>The carousel master prompt.</h2>
-    <p class="one">Drop this into a Claude project's instructions. Fill in the brand kit once. Then just type a topic and Claude returns the whole carousel — an interactive, click-through preview, every slide on-brand, plus a caption and Canva-ready slide copy.</p>
-    <span class="stars">6–8 slides · on-brand · interactive preview · export to Canva</span>
-    <div class="snippet">
-      <div class="bar"><span class="f">carousel-studio.prompt</span><button class="snipbtn" id="snipCopy" type="button">Copy prompt</button></div>
-      <pre id="snipText">You are my Instagram Carousel Studio. When I give you a topic, produce a complete, on-brand carousel I can post — delivered as an interactive preview I can click through.
-
-BRAND KIT (fill this in once; reuse for every carousel)
-- Brand name: [BRAND]
-- Voice: [e.g. sharp, plain-spoken, no fluff]
-- Primary color: [#HEX]   Accent: [#HEX]
-- Background: [#HEX]   Text: [#HEX]
-- Headline font feel: [e.g. bold grotesk]   Body: [clean sans]
-- Handle: [@handle]
-
-WHAT TO BUILD
-1. Don't ask me questions — infer the sharpest angle from my topic. If it's thin, pick the most useful, specific take and commit.
-2. Write 6–8 slides:
-   - Slide 1 = a scroll-stopping hook: a bold claim, a number, or a contrarian line. Not a title.
-   - Middle slides = one idea each, <= 20 words, concrete, no filler.
-   - Second-to-last = the payoff / the "so what".
-   - Last = a clear CTA (save it, follow [@handle], or comment a keyword).
-3. Every slide uses the brand kit — colors, font feel, and voice — consistently.
-
-DELIVER AS AN INTERACTIVE PREVIEW
-Return a single self-contained HTML file (inline CSS + JS, no external assets) that renders the carousel as 1080x1350 slides I can click / arrow through (left + right, keyboard and on-screen buttons), with a slide counter and my brand colors applied. Make it look finished, not a wireframe.
-
-THEN, IN THE SAME REPLY
-- Give me the caption: first line = the hook, then the value, then the CTA + 5–10 niche hashtags.
-- List the slide copy as plain text so I can paste it straight into Canva.
-- End with: "Say 'change ___' and I'll edit the preview."
-
-RULES
-No lorem ipsum, no placeholder images, no "great question". Ship the entire thing in one reply.</pre>
-    </div>
-  </article>
-
-  <article class="card c-ink" id="howto">
-    <div class="top">
-      <span class="tag">How to use it · 3 steps</span>
-      <span class="goth">setup</span>
-    </div>
-    <h2>Set it up once.</h2>
-    <p class="one">Exactly what's in the reel — the one-time setup, then it's a topic away forever.</p>
-  </article>
-
-</section>
-
-<div class="fig">
-  <h2 class="kick">Fig. 02 ·</h2>
-  <span class="gaccent">the setup</span>
-  <span class="line"></span>
-</div>
-<section class="ledger" aria-label="How to use the master prompt">
-  <div class="lrow"><span class="n">01</span><span class="t">Open Claude → Projects → new project → name it “Instagram Carousels”</span></div>
-  <div class="lrow"><span class="n">02</span><span class="t">Paste the master prompt into the project instructions · fill in the brand kit once</span></div>
-  <div class="lrow"><span class="n">03</span><span class="t">Type your topic → click through the preview → export to Canva or ask Claude to tweak it</span></div>
-</section>
-
-<section class="midcap" aria-label="Get the weekly pack">
-  <span class="k">One email a week · the working setup</span>
+     Everything above this block stays public: the hook, the problem, the promise.
+     That is what the DM sold, and it still reads without paying. -->
+<section class="gate" id="gate">
+  <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+  <span class="k">The pack · one email</span>
   <h2>Keep the whole toolkit.</h2>
-  <p>The Teardown sends the config pack and one working AI setup a week — the same rig behind this channel. Free, and you can unsubscribe anytime.</p>
-  <form action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="midcap">
-      <input type="hidden" name="tag" value="no-009-midcap">
-      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
-    <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
-    <button class="btn" type="submit">Get the weekly pack →</button>
+  <p class="lede">The rest of this page is the The Carousel setup. Add your email and it opens — no confirmation click, no waiting.</p>
+
+  <ul class="gate-list">
+    <li><span class="n">01</span> the The Carousel setup, in full — every file, copy-paste ready</li>
+    <li><span class="n">02</span> One working AI setup a week, in your inbox</li>
+    <li><span class="n">03</span> One click to unsubscribe, and nothing else ever</li>
+  </ul>
+
+  <form class="gate-form" action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="gate">
+    <input type="hidden" name="tag" value="no009">
+    <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+    <label class="sr-only" for="gateEmail">Email address</label>
+    <input id="gateEmail" name="email" type="email" placeholder="you@email.com" autocomplete="email" required>
+    <button class="btn primary" type="submit">Open the pack &rarr;</button>
   </form>
-  <div class="note">Free. The config pack lands in your inbox straight away. Unsubscribe anytime.</div>
+  <div class="note">The pack opens on the next screen — no confirmation click, no waiting. <a href="./privacy.html">What we do with it</a>.</div>
 </section>
-
-<section class="issues">
-  <article class="card c-ink">
-    <div class="top">
-      <span class="tag">No gate / no catch</span>
-      <span class="goth">follow</span>
-    </div>
-    <h2>That's the prompt. Follow for the next one.</h2>
-    <p class="one">This page exists because people follow — a new teardown drops daily, and followers catch it first. If it made your day, the follow is the thank-you.</p>
-    <div class="actions">
-      <a class="btn primary" data-goatcounter-click="no009-follow-instagram" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Follow @vektor.fm →</a>
-    </div>
-  </article>
-</section>
-
 </main>
 
 <footer>

@@ -16,6 +16,7 @@
 <meta property="og:site_name" content="vektor">
 <meta property="og:url" content="https://vektor-fm.github.io/vektor-site/no-031.html">
 <link rel="canonical" href="https://vektor-fm.github.io/vektor-site/no-031.html">
+
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="tax the agents — vektor /// no. 031">
 <meta name="twitter:description" content="84% of US federal revenue is taxed off human work. Agents pay none of it. The per-agent levy has two holes — jurisdiction shopping and local inference. The full read.">
@@ -518,6 +519,34 @@ img{display:block; max-width:100%;}
 .midcap .btn{min-height:48px;}
 .midcap .note{font-size:var(--fs-s); color:var(--meta); margin-top:var(--p-s);}
 
+/* ---- the gate (2026-08-26) ----
+   The page ends here for anyone who hasn't paid the email. It is the last
+   thing on a public issue page, so it is sized like a destination rather than
+   like a footer widget: full-width band, display type, the ask at thumb height
+   on a phone. The list is deliberately three lines — a longer one reads as
+   terms and conditions, which is the shape people close. */
+.gate{margin:var(--p-2xl) 0 0; padding:0 var(--rail) var(--p-4xl); background:var(--band); border-top:1px solid var(--rule);}
+.gate .rule{margin:0 0 var(--p-xl); padding-top:var(--p-xl);}
+.gate .k{display:block; color:var(--accent); font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); margin-bottom:var(--p-s);}
+.gate h2{font-family:var(--font-extended); font-weight:400; text-transform:uppercase; letter-spacing:normal; font-size:var(--fs-3xl); line-height:var(--lh-3xl); margin:0 0 var(--p-s);}
+.gate .lede{font-size:var(--fs-l); line-height:var(--lh-xl); max-width:56ch; margin:0 0 var(--p-l); color:var(--fg);}
+.gate-list{list-style:none; margin:0 0 var(--p-xl); padding:0; max-width:56ch;}
+.gate-list li{display:flex; gap:var(--p-m); padding:var(--p-s) 0; border-top:1px solid var(--rule); font-size:var(--fs-m); line-height:var(--lh-xl); color:var(--dim);}
+.gate-list li:last-child{border-bottom:1px solid var(--rule);}
+.gate-list .n{font-family:var(--font-label); font-size:var(--fs-s); color:var(--accent); padding-top:.25em;}
+.gate-form{display:flex; gap:var(--p-s); flex-wrap:wrap; max-width:540px;}
+.gate-form input{flex:1 1 240px; min-height:52px; background:transparent; border:0; border-bottom:1px solid var(--fg); color:var(--fg); font-family:var(--font-sans); font-size:var(--fs-m); padding:0;}
+.gate-form input:focus{outline:none; border-bottom-color:var(--accent);}
+.gate-form .btn{min-height:52px;}
+.gate .note{font-size:var(--fs-s); color:var(--meta); margin-top:var(--p-m);}
+.gate .note a{color:var(--meta);}
+
+/* the receipt at the top of an unlock page */
+.unlocked{margin:0; padding:var(--p-xl) var(--rail); background:var(--band); border-bottom:1px solid var(--rule);}
+.unlocked .k{display:block; color:var(--accent); font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); margin-bottom:var(--p-s);}
+.unlocked h2{font-family:var(--font-extended); font-weight:400; text-transform:uppercase; letter-spacing:normal; font-size:var(--fs-2xl); line-height:var(--lh-2xl); margin:0 0 var(--p-xs);}
+.unlocked p{font-size:var(--fs-m); line-height:var(--lh-xl); max-width:64ch; margin:0; color:var(--dim);}
+
 /* ---- footer ---- */
 footer{margin-top:var(--p-4xl); padding:var(--p-2xl) var(--rail) var(--p-4xl); border-top:1px solid var(--rule);}
 .foot-rule{margin-bottom:var(--p-xl);}
@@ -717,7 +746,7 @@ pre.code code{font-size:inherit;}
           <li><a href="./no-015.html"><span class="a">→</span><span>Loops</span></a></li>
           <li><a href="./no-010.html"><span class="a">→</span><span>CLAUDE.md files</span></a></li>
         </ul>
-        <p class="info">The files behind the films. Free, no signup wall.</p>
+        <p class="info">The files behind the films. One email opens any of them.</p>
       </div>
     </li>
     <li>
@@ -755,23 +784,32 @@ pre.code code{font-size:inherit;}
 <!-- the issue marker, kept: it is the only per-page label in the bar -->
 <div class="issue-marker">AI Policy · The Read</div>
 
+<!-- The capture furniture (sticky bar + pop-up) lives in partials/capture.html
+     and is injected ONLY into public pages. Unlock pages get an empty string
+     here — see build.mjs. The weave stays on both: it is structure, not an ask. -->
 <!-- Sticky ask. This used to be a Follow link back to Instagram, which spent
      an IG click to win a visit and then returned the visitor to IG without
      capturing anything. The goal is the email address, so the persistent ask
-     is now the email. Follow demotes to the footer. -->
+     is now the email. Follow demotes to the footer.
+
+     Since 2026-08-26 both forms carry the PAGE's tag (no031-sticky /
+     no031-popup) rather than a generic one: the worker reads the tag to
+     decide which pack to unlock, so a generic tag would capture the email and
+     then have nothing to hand back. The suffix keeps per-source attribution.
+
+     This whole file is omitted from unlock pages — asking a reader for the
+     email they just gave you is how a funnel reads as a machine. -->
 <div class="sticky-cta" id="stickyCta" aria-hidden="true">
   <span class="t">the Setup setup + one working setup a week</span>
   <form class="sticky-form" method="post" action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" data-capture="sticky">
-      <input type="hidden" name="tag" value="masthead-sticky">
+      <input type="hidden" name="tag" value="no031-sticky">
       <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
     <label class="sr-only" for="stickyEmail">Email address</label>
     <input id="stickyEmail" name="email" type="email" placeholder="you@email.com" autocomplete="email" required>
-    <button class="btn primary" type="submit">Get it &rarr;</button>
+    <button class="btn primary" type="submit">Open it &rarr;</button>
   </form>
   <button class="x" id="ctaClose" type="button" aria-label="Dismiss">&times;</button>
 </div>
-
-<div class="weave" aria-hidden="true"></div>
 
 <div class="pop" id="packPop" hidden>
   <div class="pop-scrim" data-pop-close></div>
@@ -779,16 +817,18 @@ pre.code code{font-size:inherit;}
     <button class="pop-x" type="button" data-pop-close aria-label="Close">×</button>
     <span class="k">One email a week · the working setup</span>
     <h2 id="popH">Keep the whole toolkit.</h2>
-    <p>Free, no wall. Add your email and The Teardown sends the Setup setup plus one working AI setup a week.</p>
+    <p>Add your email and the Setup setup opens straight away — plus one working AI setup a week.</p>
     <form action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="popup">
-      <input type="hidden" name="tag" value="masthead-popup">
+      <input type="hidden" name="tag" value="no031-popup">
       <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
       <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
-      <button class="btn" type="submit">Get the weekly pack →</button>
+      <button class="btn" type="submit">Open the pack →</button>
     </form>
-    <div class="note">Free. The config pack lands in your inbox straight away. Unsubscribe anytime.</div>
+    <div class="note">The pack opens on the next screen. One email a week. Unsubscribe anytime.</div>
   </div>
 </div>
+
+<div class="weave" aria-hidden="true"></div>
 
 <main>
 <section class="hero">
@@ -796,8 +836,8 @@ pre.code code{font-size:inherit;}
   <h1 class="disp">Tax the<br>agents<span class="dot">.</span></h1>
   <p class="sub">The US federal government runs on taxes tied to human work — 84% of everything it collects. An AI agent that replaces a $70,000 salary pays none of it. The obvious fix is to tax the agents. This is the full argument from NO. 031: the setup, the levy, and the two technical holes that make it much harder than the slogan — with every source linked at the bottom. As promised.</p>
   <div class="actions">
-    <a class="btn primary" href="#setup">Start reading ↓</a>
-    <a class="btn" href="#sources">Jump to sources ↓</a>
+    <a class="btn primary" href="#gate">Start reading ↓</a>
+    <a class="btn" href="#gate">Jump to sources ↓</a>
     <button class="btn" id="shareBtn" type="button">Send to a friend</button>
   </div>
   <div class="rule">////////////////////////////////////////////////////////////////////////////////////////////////</div>
@@ -830,150 +870,38 @@ pre.code code{font-size:inherit;}
 
 </section>
 
-<div class="fig">
-  <h2 class="kick">Fig. 02 ·</h2>
-  <span class="gaccent">the idea</span>
-  <span class="line"></span>
-</div>
+<!-- THE GATE. Founder decision 2026-08-26: the packs stop being free-to-scroll.
+     The email is now the price of the payload, because ~700 page opens in 30
+     days produced 6 form clicks (live /report pull, 2026-08-26) — the pages
+     gave the asset away before the ask, so the ask never had leverage.
 
-<section class="issues">
+     The payload is NOT in this document. build.mjs splits the body at the first
+     <div class="fig"> and writes everything below it to a separate unlock page
+     whose URL only the funnel worker knows. There is nothing here to view-source.
 
-  <!-- CARD 02 — THE IDEA -->
-  <article class="card c-aqua">
-    <div class="top">
-      <span class="tag">The idea · count the agents, charge per head</span>
-      <span class="goth">levy</span>
-    </div>
-    <h2>Tax the agents.</h2>
-    <p class="one">The obvious answer. Bill Gates proposed exactly this in February 2017 — a "robot tax" where the robot that replaces a worker gets taxed at a similar level, funding retraining and care work. The European Parliament had considered the same idea and rejected it the day before, on the grounds it would stifle innovation.</p>
-    <p class="one">The idea is back, now with AI-specific framing. A February 2026 paper proposes an "Agent Displacement Levy" — a graduated corporate tax on firms deploying autonomous AI agents in roles previously held by humans. Senator Bernie Sanders has pushed for excise taxes on automating technology. The agentic AI market was about $7.6 billion in 2025 and is projected to reach $183 billion by 2033, so the base is growing fast.</p>
-    <span class="proof">A per-agent levy sounds clean. Two technical problems make it much harder than it sounds.</span>
-  </article>
-
-</section>
-
-<div class="fig">
-  <h2 class="kick">Fig. 03 ·</h2>
-  <span class="gaccent">hole no. 1</span>
-  <span class="line"></span>
-</div>
-
-<section class="issues">
-
-  <!-- CARD 03 — HOLE 1 -->
-  <article class="card c-ink">
-    <div class="top">
-      <span class="tag">Hole 1 · jurisdiction shopping</span>
-      <span class="goth">reroute</span>
-    </div>
-    <h2>An agent is an API call.</h2>
-    <p class="one">A factory robot is bolted to a floor in a jurisdiction. An AI agent is a network request. It can run from a server anywhere on earth, and rerouting it through a low-tax jurisdiction is a config change, not a relocation.</p>
-    <p class="one">We've run this experiment before. The OECD's BEPS project (Base Erosion and Profit Shifting) exists because digital businesses built on intangible assets shift profits easily — the assets relocate with a filing, not a moving truck. The workaround countries reached for was digital services taxes: crude levies of 2–5% on gross revenue from digital activity, taxing where the customers are because taxing where the "work" happens proved impossible. The UK's DST collected £800 million in 2024–25. The OECD's Pillar One — the coordinated fix that would allocate taxing rights to market countries — has been stuck in negotiation for years.</p>
-    <span class="proof">If the tax attaches to where the agent runs, the agent moves. If it attaches to where revenue is booked, you've rebuilt the DST fight.</span>
-  </article>
-
-</section>
-
-<div class="fig">
-  <h2 class="kick">Fig. 04 ·</h2>
-  <span class="gaccent">hole no. 2</span>
-  <span class="line"></span>
-</div>
-
-<section class="issues">
-
-  <!-- CARD 04 — HOLE 2 -->
-  <article class="card c-ink">
-    <div class="top">
-      <span class="tag">Hole 2 · unmeterable local inference</span>
-      <span class="goth">local</span>
-    </div>
-    <h2>The agents are going local.</h2>
-    <p class="one">A per-agent tax needs a count of agents. That works if inference flows through a handful of API providers who can report usage, like banks report interest.</p>
-    <p class="one">It doesn't work when the model runs on your own hardware. Open-weight models — Llama, Mistral, Qwen, DeepSeek — can be downloaded and run locally, and enterprises are doing it at scale, particularly in regulated sectors that want data on-premises. Red Hat's 2025 review reports open-source AI deployment surging and a large share of enterprise AI workloads now including a local inference component. Microsoft's Phi models run on a phone. There is no API bill, no usage log leaving the building, and no practical way for a tax authority to count "agents" on private servers.</p>
-    <span class="proof">You'd be trying to meter software execution — the thing tax systems have never been able to see.</span>
-  </article>
-
-</section>
-
-<div class="fig">
-  <h2 class="kick">Fig. 05 ·</h2>
-  <span class="gaccent">on the table</span>
-  <span class="line"></span>
-</div>
-
-<div class="ledger" aria-label="What's actually on the table">
-  <div class="lrow"><span class="n">01</span><span class="t">Tax the infrastructure — compute and data centers are physical: US states filed 300+ data-center bills in early 2026, many rolling back tax exemptions. A de facto tax increase on AI infrastructure.</span></div>
-  <div class="lrow"><span class="n">02</span><span class="t">Shift to consumption — the Tax Foundation's answer: a VAT taxes AI-produced goods and services when someone buys them, wherever the model ran.</span></div>
-  <div class="lrow"><span class="n">03</span><span class="t">Do nothing special — the IMF advised in 2024 against special AI taxes entirely, calling them hard to operationalize.</span></div>
-</div>
-
-<section class="issues" id="point">
-  <article class="card c-signal">
-    <div class="top">
-      <span class="tag">The point · slogan vs. engineering</span>
-      <span class="goth">verdict</span>
-    </div>
-    <h2>"Tax the agents" is a slogan.</h2>
-    <p class="one">Tax policy is an engineering problem, and this one has two failure modes — jurisdiction shopping and unmeterable local inference — that are visible in advance to anyone who knows how the technology works. The debate that matters isn't whether AI should contribute to the tax base. It's whether policymakers design for how agents actually run, or pass a law the technology routes around by lunchtime.</p>
-  </article>
-  <div class="receipt">The serious proposals mostly route around both holes by taxing things that can't move or hide — see the sources below for the full paper trail.</div>
-</section>
-
-<div class="fig" id="sources">
-  <h2 class="kick">Fig. 06 ·</h2>
-  <span class="gaccent">the sources</span>
-  <span class="line"></span>
-</div>
-
-<section class="sources" aria-label="Sources">
-  <ol>
-    <li><span><a data-goatcounter-click="no031-src-treasury" href="https://fiscal.treasury.gov/system/files/files/reports-statements/combined-statement/cs2025/receipt.pdf" target="_blank" rel="noopener">US Treasury, Combined Statement of Receipts FY2025</a> <span class="m">— individual $2,656.0B, corporate $452.1B, social insurance $1,748.3B, total $5,234.6B</span></span></li>
-    <li><span><a data-goatcounter-click="no031-src-cbo" href="https://www.cbo.gov/system/files/2025-11/61307-MBR-FY25-final.pdf" target="_blank" rel="noopener">CBO, Monthly Budget Review: Summary for Fiscal Year 2025</a></span></li>
-    <li><span><a data-goatcounter-click="no031-src-wef" href="https://www.weforum.org/stories/2017/02/bill-gates-this-is-why-we-should-tax-robots/" target="_blank" rel="noopener">WEF: Bill Gates — this is why we should tax robots (Feb 2017)</a></span></li>
-    <li><span><a data-goatcounter-click="no031-src-cnbc" href="https://www.cnbc.com/2017/06/02/bill-gates-robot-tax-eu.html" target="_blank" rel="noopener">CNBC: Bill Gates wants to tax robots, but the EU says no (2017)</a></span></li>
-    <li><span><a data-goatcounter-click="no031-src-fortune" href="https://fortune.com/2017/02/22/bill-gates-proposes-a-robot-tax" target="_blank" rel="noopener">Fortune: Bill Gates proposes a robot tax (Feb 2017)</a></span></li>
-    <li><span><a data-goatcounter-click="no031-src-ssrn" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6194458" target="_blank" rel="noopener">SSRN: Taxing the AI Agents — Agent Displacement Levy (Prasad Mukkamala, Feb 2026)</a></span></li>
-    <li><span><a data-goatcounter-click="no031-src-taxnotes" href="https://www.taxnotes.com/featured-analysis/robot-tax-proposals-legislative-review/2025/11/20/7t92q" target="_blank" rel="noopener">Tax Notes: 'Robot Tax' Proposals for Legislative Review (Nov 2025)</a></span></li>
-    <li><span><a data-goatcounter-click="no031-src-forbes" href="https://www.forbes.com/sites/lauraclaytonmcdonnell/2026/01/29/will-ai-agents-need-to-pay-taxes/" target="_blank" rel="noopener">Forbes: Will AI Agents Need To Pay Taxes? (Jan 2026)</a> <span class="m">— agentic AI market $7.63B (2025) → $183B (2033) projection; UK DST £800M 2024–25; IMF 2024 caution</span></span></li>
-    <li><span><a data-goatcounter-click="no031-src-bloomberg" href="https://pro.bloombergtax.com/insights/international-tax/beps-the-oecd-taxation-of-the-digital-economy/" target="_blank" rel="noopener">Bloomberg Tax: BEPS and the OECD taxation of the digital economy</a></span></li>
-    <li><span><a data-goatcounter-click="no031-src-tpc" href="https://taxpolicycenter.org/sites/default/files/2025-05/A-Primer-on-Digital-Service-Taxes-and-the-OECD's-Two-Pillars.pdf" target="_blank" rel="noopener">Tax Policy Center: A Primer on Digital Services Taxes and the OECD's Two Pillars (2025)</a> <span class="m">— DSTs at 2–5% of gross revenue</span></span></li>
-    <li><span><a data-goatcounter-click="no031-src-crs" href="https://www.congress.gov/crs-product/R47988" target="_blank" rel="noopener">CRS: The OECD/G20 Pillar 1 and Digital Services Taxes</a></span></li>
-    <li><span><a data-goatcounter-click="no031-src-redhat" href="https://developers.redhat.com/articles/2026/01/07/state-open-source-ai-models-2025" target="_blank" rel="noopener">Red Hat Developer: The state of open source AI models in 2025 (Jan 2026)</a> <span class="m">— enterprise open-weight adoption, local inference share</span></span></li>
-    <li><span><a data-goatcounter-click="no031-src-zentera" href="https://www.zentera.net/blog/why-enterprises-are-adopting-open-weight-ai" target="_blank" rel="noopener">Zentera: Why enterprises are adopting open-weight AI on premises</a></span></li>
-    <li><span><a data-goatcounter-click="no031-src-multistate" href="https://www.multistate.us/insider/2026/2/20/state-data-center-legislation-in-2026-tackles-energy-and-tax-issues" target="_blank" rel="noopener">MultiState: State Data Center Legislation in 2026 (Feb 2026)</a> <span class="m">— 300+ bills, 30+ states</span></span></li>
-    <li><span><a data-goatcounter-click="no031-src-taxfoundation" href="https://taxfoundation.org/blog/ai-tax-policy/" target="_blank" rel="noopener">Tax Foundation: AI Tax Policy Considerations (Feb 2026)</a> <span class="m">— against AI excise taxes; VAT/consumption-shift alternative</span></span></li>
-  </ol>
-</section>
-
-<section class="midcap" aria-label="Get the weekly pack">
-  <span class="k">One email a week · the working setup</span>
+     Everything above this block stays public: the hook, the problem, the promise.
+     That is what the DM sold, and it still reads without paying. -->
+<section class="gate" id="gate">
+  <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+  <span class="k">The pack · one email</span>
   <h2>Keep the whole toolkit.</h2>
-  <p>The Teardown sends the config pack and one working AI setup a week — the same rig behind this channel. Free, and you can unsubscribe anytime.</p>
-  <form action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post">
-      <input type="hidden" name="tag" value="no-031-2">
-      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
-    <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
-    <button class="btn" type="submit">Get the weekly pack →</button>
-  </form>
-  <div class="note">Free. The config pack lands in your inbox straight away. Unsubscribe anytime.</div>
-</section>
+  <p class="lede">The rest of this page is the Setup setup. Add your email and it opens — no confirmation click, no waiting.</p>
 
-<section class="issues">
-  <!-- FOLLOW ASK — the reciprocity moment -->
-  <article class="card c-ink">
-    <div class="top">
-      <span class="tag">No catch · all of it free</span>
-      <span class="goth">follow</span>
-    </div>
-    <h2>That's the read. Follow for tomorrow's.</h2>
-    <p class="one">This page exists because people follow — a new AI story drops daily, and tomorrow's keyword drops for followers first. If you know something about the agent economy you didn't ten minutes ago, the follow is the thank-you.</p>
-    <div class="actions">
-      <a class="btn primary" data-goatcounter-click="no031-follow-instagram" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Follow @vektor.fm →</a>
-    </div>
-  </article>
+  <ul class="gate-list">
+    <li><span class="n">01</span> the Setup setup, in full — every file, copy-paste ready</li>
+    <li><span class="n">02</span> One working AI setup a week, in your inbox</li>
+    <li><span class="n">03</span> One click to unsubscribe, and nothing else ever</li>
+  </ul>
+
+  <form class="gate-form" action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="gate">
+    <input type="hidden" name="tag" value="no031">
+    <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+    <label class="sr-only" for="gateEmail">Email address</label>
+    <input id="gateEmail" name="email" type="email" placeholder="you@email.com" autocomplete="email" required>
+    <button class="btn primary" type="submit">Open the pack &rarr;</button>
+  </form>
+  <div class="note">The pack opens on the next screen — no confirmation click, no waiting. <a href="./privacy.html">What we do with it</a>.</div>
 </section>
-<!-- ===================== END ISSUE BLOCK — NO. 031 ===================== -->
 </main>
 
 <footer>

@@ -16,6 +16,7 @@
 <meta property="og:site_name" content="vektor">
 <meta property="og:url" content="{{OG_URL}}">
 <link rel="canonical" href="{{CANONICAL}}">
+{{ROBOTS}}
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{{TW_TITLE}}">
 <meta name="twitter:description" content="{{TW_DESCRIPTION}}">
@@ -303,6 +304,34 @@ img{display:block; max-width:100%;}
 .midcap input:focus{outline:none; border-bottom-color:var(--fg);}
 .midcap .btn{min-height:48px;}
 .midcap .note{font-size:var(--fs-s); color:var(--meta); margin-top:var(--p-s);}
+
+/* ---- the gate (2026-08-26) ----
+   The page ends here for anyone who hasn't paid the email. It is the last
+   thing on a public issue page, so it is sized like a destination rather than
+   like a footer widget: full-width band, display type, the ask at thumb height
+   on a phone. The list is deliberately three lines — a longer one reads as
+   terms and conditions, which is the shape people close. */
+.gate{margin:var(--p-2xl) 0 0; padding:0 var(--rail) var(--p-4xl); background:var(--band); border-top:1px solid var(--rule);}
+.gate .rule{margin:0 0 var(--p-xl); padding-top:var(--p-xl);}
+.gate .k{display:block; color:var(--accent); font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); margin-bottom:var(--p-s);}
+.gate h2{font-family:var(--font-extended); font-weight:400; text-transform:uppercase; letter-spacing:normal; font-size:var(--fs-3xl); line-height:var(--lh-3xl); margin:0 0 var(--p-s);}
+.gate .lede{font-size:var(--fs-l); line-height:var(--lh-xl); max-width:56ch; margin:0 0 var(--p-l); color:var(--fg);}
+.gate-list{list-style:none; margin:0 0 var(--p-xl); padding:0; max-width:56ch;}
+.gate-list li{display:flex; gap:var(--p-m); padding:var(--p-s) 0; border-top:1px solid var(--rule); font-size:var(--fs-m); line-height:var(--lh-xl); color:var(--dim);}
+.gate-list li:last-child{border-bottom:1px solid var(--rule);}
+.gate-list .n{font-family:var(--font-label); font-size:var(--fs-s); color:var(--accent); padding-top:.25em;}
+.gate-form{display:flex; gap:var(--p-s); flex-wrap:wrap; max-width:540px;}
+.gate-form input{flex:1 1 240px; min-height:52px; background:transparent; border:0; border-bottom:1px solid var(--fg); color:var(--fg); font-family:var(--font-sans); font-size:var(--fs-m); padding:0;}
+.gate-form input:focus{outline:none; border-bottom-color:var(--accent);}
+.gate-form .btn{min-height:52px;}
+.gate .note{font-size:var(--fs-s); color:var(--meta); margin-top:var(--p-m);}
+.gate .note a{color:var(--meta);}
+
+/* the receipt at the top of an unlock page */
+.unlocked{margin:0; padding:var(--p-xl) var(--rail); background:var(--band); border-bottom:1px solid var(--rule);}
+.unlocked .k{display:block; color:var(--accent); font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); margin-bottom:var(--p-s);}
+.unlocked h2{font-family:var(--font-extended); font-weight:400; text-transform:uppercase; letter-spacing:normal; font-size:var(--fs-2xl); line-height:var(--lh-2xl); margin:0 0 var(--p-xs);}
+.unlocked p{font-size:var(--fs-m); line-height:var(--lh-xl); max-width:64ch; margin:0; color:var(--dim);}
 
 /* ---- footer ---- */
 footer{margin-top:var(--p-4xl); padding:var(--p-2xl) var(--rail) var(--p-4xl); border-top:1px solid var(--rule);}

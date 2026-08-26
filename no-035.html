@@ -16,6 +16,7 @@
 <meta property="og:site_name" content="vektor">
 <meta property="og:url" content="https://vektor-fm.github.io/vektor-site/no-035.html">
 <link rel="canonical" href="https://vektor-fm.github.io/vektor-site/no-035.html">
+
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="MCP doesn't replace your API. — vektor /// no. 035">
 <meta name="twitter:description" content="The model never makes the call. The protocol deprecated its one API-bypassing feature and told implementers to call the API directly.">
@@ -518,6 +519,34 @@ img{display:block; max-width:100%;}
 .midcap .btn{min-height:48px;}
 .midcap .note{font-size:var(--fs-s); color:var(--meta); margin-top:var(--p-s);}
 
+/* ---- the gate (2026-08-26) ----
+   The page ends here for anyone who hasn't paid the email. It is the last
+   thing on a public issue page, so it is sized like a destination rather than
+   like a footer widget: full-width band, display type, the ask at thumb height
+   on a phone. The list is deliberately three lines — a longer one reads as
+   terms and conditions, which is the shape people close. */
+.gate{margin:var(--p-2xl) 0 0; padding:0 var(--rail) var(--p-4xl); background:var(--band); border-top:1px solid var(--rule);}
+.gate .rule{margin:0 0 var(--p-xl); padding-top:var(--p-xl);}
+.gate .k{display:block; color:var(--accent); font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); margin-bottom:var(--p-s);}
+.gate h2{font-family:var(--font-extended); font-weight:400; text-transform:uppercase; letter-spacing:normal; font-size:var(--fs-3xl); line-height:var(--lh-3xl); margin:0 0 var(--p-s);}
+.gate .lede{font-size:var(--fs-l); line-height:var(--lh-xl); max-width:56ch; margin:0 0 var(--p-l); color:var(--fg);}
+.gate-list{list-style:none; margin:0 0 var(--p-xl); padding:0; max-width:56ch;}
+.gate-list li{display:flex; gap:var(--p-m); padding:var(--p-s) 0; border-top:1px solid var(--rule); font-size:var(--fs-m); line-height:var(--lh-xl); color:var(--dim);}
+.gate-list li:last-child{border-bottom:1px solid var(--rule);}
+.gate-list .n{font-family:var(--font-label); font-size:var(--fs-s); color:var(--accent); padding-top:.25em;}
+.gate-form{display:flex; gap:var(--p-s); flex-wrap:wrap; max-width:540px;}
+.gate-form input{flex:1 1 240px; min-height:52px; background:transparent; border:0; border-bottom:1px solid var(--fg); color:var(--fg); font-family:var(--font-sans); font-size:var(--fs-m); padding:0;}
+.gate-form input:focus{outline:none; border-bottom-color:var(--accent);}
+.gate-form .btn{min-height:52px;}
+.gate .note{font-size:var(--fs-s); color:var(--meta); margin-top:var(--p-m);}
+.gate .note a{color:var(--meta);}
+
+/* the receipt at the top of an unlock page */
+.unlocked{margin:0; padding:var(--p-xl) var(--rail); background:var(--band); border-bottom:1px solid var(--rule);}
+.unlocked .k{display:block; color:var(--accent); font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); margin-bottom:var(--p-s);}
+.unlocked h2{font-family:var(--font-extended); font-weight:400; text-transform:uppercase; letter-spacing:normal; font-size:var(--fs-2xl); line-height:var(--lh-2xl); margin:0 0 var(--p-xs);}
+.unlocked p{font-size:var(--fs-m); line-height:var(--lh-xl); max-width:64ch; margin:0; color:var(--dim);}
+
 /* ---- footer ---- */
 footer{margin-top:var(--p-4xl); padding:var(--p-2xl) var(--rail) var(--p-4xl); border-top:1px solid var(--rule);}
 .foot-rule{margin-bottom:var(--p-xl);}
@@ -717,7 +746,7 @@ pre.code code{font-size:inherit;}
           <li><a href="./no-015.html"><span class="a">→</span><span>Loops</span></a></li>
           <li><a href="./no-010.html"><span class="a">→</span><span>CLAUDE.md files</span></a></li>
         </ul>
-        <p class="info">The files behind the films. Free, no signup wall.</p>
+        <p class="info">The files behind the films. One email opens any of them.</p>
       </div>
     </li>
     <li>
@@ -755,23 +784,32 @@ pre.code code{font-size:inherit;}
 <!-- the issue marker, kept: it is the only per-page label in the bar -->
 <div class="issue-marker">This Week in AI · Protocols</div>
 
+<!-- The capture furniture (sticky bar + pop-up) lives in partials/capture.html
+     and is injected ONLY into public pages. Unlock pages get an empty string
+     here — see build.mjs. The weave stays on both: it is structure, not an ask. -->
 <!-- Sticky ask. This used to be a Follow link back to Instagram, which spent
      an IG click to win a visit and then returned the visitor to IG without
      capturing anything. The goal is the email address, so the persistent ask
-     is now the email. Follow demotes to the footer. -->
+     is now the email. Follow demotes to the footer.
+
+     Since 2026-08-26 both forms carry the PAGE's tag (no035-sticky /
+     no035-popup) rather than a generic one: the worker reads the tag to
+     decide which pack to unlock, so a generic tag would capture the email and
+     then have nothing to hand back. The suffix keeps per-source attribution.
+
+     This whole file is omitted from unlock pages — asking a reader for the
+     email they just gave you is how a funnel reads as a machine. -->
 <div class="sticky-cta" id="stickyCta" aria-hidden="true">
   <span class="t">the Protocols pack + one working setup a week</span>
   <form class="sticky-form" method="post" action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" data-capture="sticky">
-      <input type="hidden" name="tag" value="masthead-sticky">
+      <input type="hidden" name="tag" value="no035-sticky">
       <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
     <label class="sr-only" for="stickyEmail">Email address</label>
     <input id="stickyEmail" name="email" type="email" placeholder="you@email.com" autocomplete="email" required>
-    <button class="btn primary" type="submit">Get it &rarr;</button>
+    <button class="btn primary" type="submit">Open it &rarr;</button>
   </form>
   <button class="x" id="ctaClose" type="button" aria-label="Dismiss">&times;</button>
 </div>
-
-<div class="weave" aria-hidden="true"></div>
 
 <div class="pop" id="packPop" hidden>
   <div class="pop-scrim" data-pop-close></div>
@@ -779,16 +817,18 @@ pre.code code{font-size:inherit;}
     <button class="pop-x" type="button" data-pop-close aria-label="Close">×</button>
     <span class="k">One email a week · the working setup</span>
     <h2 id="popH">Take Protocols with you.</h2>
-    <p>Free, no wall. Add your email and The Teardown sends the Protocols pack plus one working AI setup a week.</p>
+    <p>Add your email and the Protocols pack opens straight away — plus one working AI setup a week.</p>
     <form action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="popup">
-      <input type="hidden" name="tag" value="masthead-popup">
+      <input type="hidden" name="tag" value="no035-popup">
       <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
       <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
-      <button class="btn" type="submit">Get the weekly pack →</button>
+      <button class="btn" type="submit">Open the pack →</button>
     </form>
-    <div class="note">Free. The config pack lands in your inbox straight away. Unsubscribe anytime.</div>
+    <div class="note">The pack opens on the next screen. One email a week. Unsubscribe anytime.</div>
   </div>
 </div>
+
+<div class="weave" aria-hidden="true"></div>
 
 <main>
 <section class="hero">
@@ -796,143 +836,45 @@ pre.code code{font-size:inherit;}
   <h1 class="disp">MCP doesn't replace<br>your API<span class="dot">.</span></h1>
   <p class="sub">It never touches it. What it deletes is the glue around it — and the protocol itself just proved the point by removing the one feature that let a server go around your API. Here is the diagram, the arithmetic, and every line of the spec it rests on, quoted and linked. As promised.</p>
   <div class="actions">
-    <a class="btn primary" href="#diagram">The diagram ↓</a>
-    <a class="btn" href="#sources">Check the sources →</a>
+    <a class="btn primary" href="#gate">The diagram ↓</a>
+    <a class="btn" href="#gate">Check the sources →</a>
     <button class="btn" id="shareBtn" type="button">Send to a dev friend</button>
   </div>
   <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
 </section>
 
 <!-- ======================= THE DIAGRAM ======================= -->
-<div class="fig">
-  <h2 class="kick">Fig. 01 ·</h2>
-  <span class="gaccent">what actually happens</span>
-  <span class="line"></span>
-</div>
+<!-- THE GATE. Founder decision 2026-08-26: the packs stop being free-to-scroll.
+     The email is now the price of the payload, because ~700 page opens in 30
+     days produced 6 form clicks (live /report pull, 2026-08-26) — the pages
+     gave the asset away before the ask, so the ask never had leverage.
 
-<section class="issues" id="diagram">
-  <article class="issue">
-    <h3><span class="num">0.</span> The diagram, to keep</h3>
-    <p>This is the thing the reel promises. Both halves of the argument on one
-    sheet — the four hops, and the grid collapsing to its edges.</p>
-    <p><a class="btn primary" href="./files/no-035/mcp-does-not-replace-your-api.png" download>Download the diagram (PNG) ↓</a></p>
-    <p class="meta">Free, no email, no gate. It is also the picture the film draws,
-    so if you send someone the reel and they want the still version, this is it.</p>
-  </article>
+     The payload is NOT in this document. build.mjs splits the body at the first
+     <div class="fig"> and writes everything below it to a separate unlock page
+     whose URL only the funnel worker knows. There is nothing here to view-source.
 
-  <p class="note">Every claim on this page is quoted from the Model Context Protocol's own documentation, read at source on <b>17 August 2026</b>, protocol version <code>2026-07-28</code>. Links are in <a href="#sources">the sources</a> at the bottom.</p>
+     Everything above this block stays public: the hook, the problem, the promise.
+     That is what the DM sold, and it still reads without paying. -->
+<section class="gate" id="gate">
+  <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+  <span class="k">The pack · one email</span>
+  <h2>Take Protocols with you.</h2>
+  <p class="lede">The rest of this page is the Protocols pack. Add your email and it opens — no confirmation click, no waiting.</p>
 
-  <article class="issue">
-    <h3><span class="num">1.</span> The model never makes the call</h3>
-    <p>This is the whole misconception in one line. People picture the model reaching out and hitting Slack's API directly, with MCP as some new kind of REST. That is not what happens, and the spec is explicit about it:</p>
-    <pre class="code"><code>MODEL      decides which tool to run
-   ↓
-YOUR APP   intercepts the call and routes it
-   ↓
-MCP SERVER executes it
-   ↓
-SLACK API  the same endpoint your code always called
-   ↑
-   └─────── the answer goes back as text</code></pre>
-    <p class="meta">In the documentation's own words: the AI application <b>"intercepts the tool call, routes it to the appropriate MCP server, executes it, and returns the results back to the LLM."</b> Your API is at the end of that chain, unchanged, being called the way it always was.</p>
-  </article>
+  <ul class="gate-list">
+    <li><span class="n">01</span> the Protocols pack, in full — every file, copy-paste ready</li>
+    <li><span class="n">02</span> One working AI setup a week, in your inbox</li>
+    <li><span class="n">03</span> One click to unsubscribe, and nothing else ever</li>
+  </ul>
 
-  <article class="issue">
-    <h3><span class="num">2.</span> A tool is a thing that calls your API</h3>
-    <p>If you want the shortest possible proof that MCP is not a replacement, read what the spec says a tool actually does. Tools are <b>"executable functions that AI applications can invoke to perform actions (e.g., file operations, API calls, database queries)"</b>.</p>
-    <p>An API call is listed as an example of a thing a tool <em>does</em>. A protocol whose primitives are defined in terms of calling APIs is not a protocol that removes them. MCP describes itself as <b>"a USB-C port for AI applications"</b> — a socket in front of the things you already have, not a replacement for them.</p>
-  </article>
-</section>
-
-<!-- ======================= THE ARITHMETIC ======================= -->
-<div class="fig">
-  <h2 class="kick">Fig. 02 ·</h2>
-  <span class="gaccent">the multiplication, and what replaces it</span>
-  <span class="line"></span>
-</div>
-
-<section class="issues" id="arithmetic">
-  <p class="note">This one is arithmetic, not a measurement. Nobody publishes how many integrations the average team writes, so the numbers below are an example you can check on your fingers — not a statistic, and we are not going to dress it up as one.</p>
-
-  <article class="issue">
-    <h3><span class="num">3.</span> Five apps, ten services, fifty pieces of glue</h3>
-    <p>Say you run five applications and each needs to talk to ten services — Slack, Gmail, Jira, Notion, your own database, and so on. For every pair, somebody writes the same four things: the authentication, the call, the error handling, the retries.</p>
-    <pre class="code"><code>5 apps  ×  10 services   =   50 integrations, written by hand</code></pre>
-    <p>That number is a <b>product</b>. Add one app and it grows by ten. Add one service and it grows by five. This is the thing that actually hurts, and it is not the API's fault.</p>
-  </article>
-
-  <article class="issue">
-    <h3><span class="num">4.</span> Fifteen, because it stops multiplying</h3>
-    <p>MCP's architecture is one server per service, and — quoting the spec — an application creates <b>"one MCP client for each MCP server"</b> it connects to. So the count stops being a product and becomes a sum:</p>
-    <pre class="code"><code>10 servers  +  5 clients   =   15</code></pre>
-    <p>Same five apps, same ten services, same APIs behind them. The APIs did not go anywhere. The <em>glue</em> went from a grid to two edges of it, which is the entire pitch — and it is why the film shows the middle of the grid disappearing rather than the whole thing.</p>
-    <p class="meta">Worth being precise: this is the shape of the argument, not a benchmark. Your real number depends on how many of those servers already exist (thousands do) versus how many you write yourself.</p>
-  </article>
-</section>
-
-<!-- ======================= THE PROOF ======================= -->
-<div class="fig">
-  <h2 class="kick">Fig. 03 ·</h2>
-  <span class="gaccent">the protocol agreeing, out loud</span>
-  <span class="line"></span>
-</div>
-
-<section class="issues" id="deprecation">
-  <article class="issue">
-    <h3><span class="num">5.</span> They deleted the one feature that went around your API</h3>
-    <p>MCP had a client primitive called <b>Sampling</b>. It let a server ask the host application for a model completion — so a server author could get LLM output without ever touching a provider API or shipping an SDK. It was the single place in the protocol where "MCP instead of the API" was literally true.</p>
-    <p>As of protocol version <code>2026-07-28</code> it is deprecated. The guidance underneath it reads: <b>"New implementations should integrate directly with LLM provider APIs."</b></p>
-    <p>Read that again in the context of the argument. The protocol removed its one API-bypassing feature and told implementers to call the API directly. The correction this issue makes is one the specification makes about itself.</p>
-    <p class="meta">Logging was deprecated in the same version, with implementers pointed at <code>stderr</code> or OpenTelemetry — again, the existing tool rather than a protocol-shaped substitute for it.</p>
-  </article>
-
-  <article class="issue">
-    <h3><span class="num">6.</span> Where the servers are</h3>
-    <p>The reference implementations live in one repository, and almost every one of them is a wrapper in front of something that already worked — a filesystem, a database, a git repo, somebody's REST API.</p>
-    <pre class="code"><code>github.com/modelcontextprotocol/servers</code></pre>
-    <p class="meta"><b>89,623 stars</b>, read from the GitHub API on 17 August 2026. Star counts move; the architecture doesn't.</p>
-  </article>
-</section>
-
-<!-- ======================= THE SOURCES ======================= -->
-<div class="fig">
-  <h2 class="kick">Fig. 04 ·</h2>
-  <span class="gaccent">every claim, with somewhere to check it</span>
-  <span class="line"></span>
-</div>
-
-<section class="issues" id="sources">
-  <p class="note">This is the part we would want if somebody sent us this page. Each line is the claim, then the primary source it came from — no secondary write-ups, no aggregator blogs, nothing quoted from another video.</p>
-
-  <article class="issue">
-    <h3><span class="num">7.</span> The sources</h3>
-    <p><b>"one MCP client for each MCP server"</b><br>
-    <a href="https://modelcontextprotocol.io/docs/learn/architecture">modelcontextprotocol.io/docs/learn/architecture</a> § Participants. The basis for the fifteen.</p>
-
-    <p><b>Tools perform "file operations, API calls, database queries"</b><br>
-    <a href="https://modelcontextprotocol.io/docs/learn/architecture">Same page</a>, § Primitives. The basis for "a tool is a thing that calls your API".</p>
-
-    <p><b>The application "intercepts the tool call, routes it… executes it, and returns the results back to the LLM"</b><br>
-    <a href="https://modelcontextprotocol.io/docs/learn/architecture">Same page</a>, § Tool Execution. The basis for "the model never makes the call".</p>
-
-    <p><b>"Sampling is deprecated as of protocol version 2026-07-28"</b>, with <b>"New implementations should integrate directly with LLM provider APIs"</b><br>
-    <a href="https://modelcontextprotocol.io/docs/learn/architecture">Same page</a>, § Primitives. The basis for Fig. 03.</p>
-
-    <p><b>"like a USB-C port for AI applications"</b><br>
-    <a href="https://modelcontextprotocol.io/docs/getting-started/intro">modelcontextprotocol.io/docs/getting-started/intro</a>.</p>
-
-    <p><b>89,623 stars</b><br>
-    <code>gh api repos/modelcontextprotocol/servers</code>, read 17 August 2026. Not a screenshot of somebody else's screenshot.</p>
-  </article>
-
-  <article class="issue">
-    <h3><span class="num">8.</span> Three numbers we found and did not use</h3>
-    <p>Because leaving them out silently would be the same trick everyone else is running. Each of these is floating around and each failed our own check:</p>
-    <p><b>"9,652 servers in the official registry."</b> A blog's figure, not the registry's. We walked the registry API ourselves and stopped at 20,000 because that was our own page limit — not the end of the data. A number that stops where your loop stopped is not a count, so we printed neither.</p>
-    <p><b>"100,958 servers across all registries."</b> An aggregate of aggregates. No way to check it at source.</p>
-    <p><b>"97M downloads."</b> Widely repeated, no primary reference we could find.</p>
-    <p class="meta">None of these would have changed the argument. That is exactly why using them would have been indefensible.</p>
-  </article>
+  <form class="gate-form" action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="gate">
+    <input type="hidden" name="tag" value="no035">
+    <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+    <label class="sr-only" for="gateEmail">Email address</label>
+    <input id="gateEmail" name="email" type="email" placeholder="you@email.com" autocomplete="email" required>
+    <button class="btn primary" type="submit">Open the pack &rarr;</button>
+  </form>
+  <div class="note">The pack opens on the next screen — no confirmation click, no waiting. <a href="./privacy.html">What we do with it</a>.</div>
 </section>
 </main>
 

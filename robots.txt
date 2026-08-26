@@ -1,4 +1,11 @@
 User-agent: *
 Allow: /
+# Unlock pages (u-no-NNN-*.html) are the paid-with-an-email half of an issue.
+# Nothing links to them and each one carries <meta name="robots" noindex>, which
+# is the real protection: on a project Pages site this file lives under
+# /vektor-site/ and well-behaved crawlers read the one at the domain root, so
+# treat this line as documentation rather than as a fence.
+Disallow: /vektor-site/u-
+Disallow: /u-
 
 Sitemap: https://vektor-fm.github.io/vektor-site/sitemap.xml

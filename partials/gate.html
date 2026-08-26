@@ -1,0 +1,32 @@
+<!-- THE GATE. Founder decision 2026-08-26: the packs stop being free-to-scroll.
+     The email is now the price of the payload, because ~700 page opens in 30
+     days produced 6 form clicks (live /report pull, 2026-08-26) — the pages
+     gave the asset away before the ask, so the ask never had leverage.
+
+     The payload is NOT in this document. build.mjs splits the body at the first
+     <div class="fig"> and writes everything below it to a separate unlock page
+     whose URL only the funnel worker knows. There is nothing here to view-source.
+
+     Everything above this block stays public: the hook, the problem, the promise.
+     That is what the DM sold, and it still reads without paying. -->
+<section class="gate" id="gate">
+  <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+  <span class="k">The pack · one email</span>
+  <h2>{{GATE_TITLE}}</h2>
+  <p class="lede">{{GATE_LEDE}}</p>
+
+  <ul class="gate-list">
+    <li><span class="n">01</span> {{MAGNET}}, in full — every file, copy-paste ready</li>
+    <li><span class="n">02</span> One working AI setup a week, in your inbox</li>
+    <li><span class="n">03</span> One click to unsubscribe, and nothing else ever</li>
+  </ul>
+
+  <form class="gate-form" action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="gate">
+    <input type="hidden" name="tag" value="{{SLUG}}">
+    <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+    <label class="sr-only" for="gateEmail">Email address</label>
+    <input id="gateEmail" name="email" type="email" placeholder="you@email.com" autocomplete="email" required>
+    <button class="btn primary" type="submit">Open the pack &rarr;</button>
+  </form>
+  <div class="note">The pack opens on the next screen — no confirmation click, no waiting. <a href="./privacy.html">What we do with it</a>.</div>
+</section>

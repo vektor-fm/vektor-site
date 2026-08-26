@@ -16,6 +16,7 @@
 <meta property="og:site_name" content="vektor">
 <meta property="og:url" content="https://vektor-fm.github.io/vektor-site/no-039.html">
 <link rel="canonical" href="https://vektor-fm.github.io/vektor-site/no-039.html">
+
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="You hit your limit. These five installs fix it. — vektor /// no. 039">
 <meta name="twitter:description" content="Five installs for Claude Code, with the exact commands and the traps — OmniRoute, claude-mem, Headroom, Claude Code Setup, Task Observer. Sources read 23 Aug 2026.">
@@ -518,6 +519,34 @@ img{display:block; max-width:100%;}
 .midcap .btn{min-height:48px;}
 .midcap .note{font-size:var(--fs-s); color:var(--meta); margin-top:var(--p-s);}
 
+/* ---- the gate (2026-08-26) ----
+   The page ends here for anyone who hasn't paid the email. It is the last
+   thing on a public issue page, so it is sized like a destination rather than
+   like a footer widget: full-width band, display type, the ask at thumb height
+   on a phone. The list is deliberately three lines — a longer one reads as
+   terms and conditions, which is the shape people close. */
+.gate{margin:var(--p-2xl) 0 0; padding:0 var(--rail) var(--p-4xl); background:var(--band); border-top:1px solid var(--rule);}
+.gate .rule{margin:0 0 var(--p-xl); padding-top:var(--p-xl);}
+.gate .k{display:block; color:var(--accent); font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); margin-bottom:var(--p-s);}
+.gate h2{font-family:var(--font-extended); font-weight:400; text-transform:uppercase; letter-spacing:normal; font-size:var(--fs-3xl); line-height:var(--lh-3xl); margin:0 0 var(--p-s);}
+.gate .lede{font-size:var(--fs-l); line-height:var(--lh-xl); max-width:56ch; margin:0 0 var(--p-l); color:var(--fg);}
+.gate-list{list-style:none; margin:0 0 var(--p-xl); padding:0; max-width:56ch;}
+.gate-list li{display:flex; gap:var(--p-m); padding:var(--p-s) 0; border-top:1px solid var(--rule); font-size:var(--fs-m); line-height:var(--lh-xl); color:var(--dim);}
+.gate-list li:last-child{border-bottom:1px solid var(--rule);}
+.gate-list .n{font-family:var(--font-label); font-size:var(--fs-s); color:var(--accent); padding-top:.25em;}
+.gate-form{display:flex; gap:var(--p-s); flex-wrap:wrap; max-width:540px;}
+.gate-form input{flex:1 1 240px; min-height:52px; background:transparent; border:0; border-bottom:1px solid var(--fg); color:var(--fg); font-family:var(--font-sans); font-size:var(--fs-m); padding:0;}
+.gate-form input:focus{outline:none; border-bottom-color:var(--accent);}
+.gate-form .btn{min-height:52px;}
+.gate .note{font-size:var(--fs-s); color:var(--meta); margin-top:var(--p-m);}
+.gate .note a{color:var(--meta);}
+
+/* the receipt at the top of an unlock page */
+.unlocked{margin:0; padding:var(--p-xl) var(--rail); background:var(--band); border-bottom:1px solid var(--rule);}
+.unlocked .k{display:block; color:var(--accent); font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); margin-bottom:var(--p-s);}
+.unlocked h2{font-family:var(--font-extended); font-weight:400; text-transform:uppercase; letter-spacing:normal; font-size:var(--fs-2xl); line-height:var(--lh-2xl); margin:0 0 var(--p-xs);}
+.unlocked p{font-size:var(--fs-m); line-height:var(--lh-xl); max-width:64ch; margin:0; color:var(--dim);}
+
 /* ---- footer ---- */
 footer{margin-top:var(--p-4xl); padding:var(--p-2xl) var(--rail) var(--p-4xl); border-top:1px solid var(--rule);}
 .foot-rule{margin-bottom:var(--p-xl);}
@@ -717,7 +746,7 @@ pre.code code{font-size:inherit;}
           <li><a href="./no-015.html"><span class="a">→</span><span>Loops</span></a></li>
           <li><a href="./no-010.html"><span class="a">→</span><span>CLAUDE.md files</span></a></li>
         </ul>
-        <p class="info">The files behind the films. Free, no signup wall.</p>
+        <p class="info">The files behind the films. One email opens any of them.</p>
       </div>
     </li>
     <li>
@@ -755,23 +784,32 @@ pre.code code{font-size:inherit;}
 <!-- the issue marker, kept: it is the only per-page label in the bar -->
 <div class="issue-marker">Claude Code · Tooling</div>
 
+<!-- The capture furniture (sticky bar + pop-up) lives in partials/capture.html
+     and is injected ONLY into public pages. Unlock pages get an empty string
+     here — see build.mjs. The weave stays on both: it is structure, not an ask. -->
 <!-- Sticky ask. This used to be a Follow link back to Instagram, which spent
      an IG click to win a visit and then returned the visitor to IG without
      capturing anything. The goal is the email address, so the persistent ask
-     is now the email. Follow demotes to the footer. -->
+     is now the email. Follow demotes to the footer.
+
+     Since 2026-08-26 both forms carry the PAGE's tag (no039-sticky /
+     no039-popup) rather than a generic one: the worker reads the tag to
+     decide which pack to unlock, so a generic tag would capture the email and
+     then have nothing to hand back. The suffix keeps per-source attribution.
+
+     This whole file is omitted from unlock pages — asking a reader for the
+     email they just gave you is how a funnel reads as a machine. -->
 <div class="sticky-cta" id="stickyCta" aria-hidden="true">
   <span class="t">the Claude Code pack + one working setup a week</span>
   <form class="sticky-form" method="post" action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" data-capture="sticky">
-      <input type="hidden" name="tag" value="masthead-sticky">
+      <input type="hidden" name="tag" value="no039-sticky">
       <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
     <label class="sr-only" for="stickyEmail">Email address</label>
     <input id="stickyEmail" name="email" type="email" placeholder="you@email.com" autocomplete="email" required>
-    <button class="btn primary" type="submit">Get it &rarr;</button>
+    <button class="btn primary" type="submit">Open it &rarr;</button>
   </form>
   <button class="x" id="ctaClose" type="button" aria-label="Dismiss">&times;</button>
 </div>
-
-<div class="weave" aria-hidden="true"></div>
 
 <div class="pop" id="packPop" hidden>
   <div class="pop-scrim" data-pop-close></div>
@@ -779,16 +817,18 @@ pre.code code{font-size:inherit;}
     <button class="pop-x" type="button" data-pop-close aria-label="Close">×</button>
     <span class="k">One email a week · the working setup</span>
     <h2 id="popH">Take Claude Code with you.</h2>
-    <p>Free, no wall. Add your email and The Teardown sends the Claude Code pack plus one working AI setup a week.</p>
+    <p>Add your email and the Claude Code pack opens straight away — plus one working AI setup a week.</p>
     <form action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="popup">
-      <input type="hidden" name="tag" value="masthead-popup">
+      <input type="hidden" name="tag" value="no039-popup">
       <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
       <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
-      <button class="btn" type="submit">Get the weekly pack →</button>
+      <button class="btn" type="submit">Open the pack →</button>
     </form>
-    <div class="note">Free. The config pack lands in your inbox straight away. Unsubscribe anytime.</div>
+    <div class="note">The pack opens on the next screen. One email a week. Unsubscribe anytime.</div>
   </div>
 </div>
+
+<div class="weave" aria-hidden="true"></div>
 
 <main>
 <section class="hero">
@@ -796,119 +836,46 @@ pre.code code{font-size:inherit;}
   <h1 class="disp">The five installs,<br>with the exact commands<span class="dot">.</span></h1>
   <p class="sub">You hit the limit and the reset is hours away. These are the five things to put in front of Claude Code instead — one endpoint that fails over when you run out, memory that survives the session, a compressor, Anthropic's own read-only advisor, and a skill that turns your corrections into skills. Every command below was read from the project's own source on 23 August 2026. As promised.</p>
   <div class="actions">
-    <a class="btn primary" href="#installs">The install list ↓</a>
-    <a class="btn" href="#copyall">Copy all five →</a>
-    <a class="btn" href="./files/no-039/README.md">Download the list (.md) &darr;</a>
+    <a class="btn primary" href="#gate">The install list ↓</a>
+    <a class="btn" href="#gate">Copy all five →</a>
+    <a class="btn" href="#gate">Download the list (.md) &darr;</a>
     <button class="btn" id="shareBtn" type="button">Send to someone stuck at their limit</button>
   </div>
   <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
 </section>
 
 <!-- ======================= COPY ALL ======================= -->
-<div class="fig">
-  <h2 class="kick">Fig. 01 ·</h2>
-  <span class="gaccent">all five, one block</span>
-  <span class="line"></span>
-</div>
+<!-- THE GATE. Founder decision 2026-08-26: the packs stop being free-to-scroll.
+     The email is now the price of the payload, because ~700 page opens in 30
+     days produced 6 form clicks (live /report pull, 2026-08-26) — the pages
+     gave the asset away before the ask, so the ask never had leverage.
 
-<section class="issues" id="copyall">
-  <p class="note">Paste the lot, or take them one at a time below. Restart Claude Code after 2 and 5.</p>
-  <div class="snippet">
-    <div class="bar"><span class="f">terminal · all five</span><button class="snipbtn" type="button" data-copy-target="#snipAll" data-copy-event="copy-install">Copy</button></div>
-    <pre id="snipAll"># 1 · OmniRoute — one endpoint in front of 90+ free providers
-npx -y omniroute
+     The payload is NOT in this document. build.mjs splits the body at the first
+     <div class="fig"> and writes everything below it to a separate unlock page
+     whose URL only the funnel worker knows. There is nothing here to view-source.
 
-# 2 · claude-mem — memory that survives the session (needs Node 20+)
-npx claude-mem install
+     Everything above this block stays public: the hook, the problem, the promise.
+     That is what the DM sold, and it still reads without paying. -->
+<section class="gate" id="gate">
+  <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+  <span class="k">The pack · one email</span>
+  <h2>Take Claude Code with you.</h2>
+  <p class="lede">The rest of this page is the Claude Code pack. Add your email and it opens — no confirmation click, no waiting.</p>
 
-# 3 · Headroom — compresses what you send before it reaches the model
-pip install "headroom-ai[all]"
+  <ul class="gate-list">
+    <li><span class="n">01</span> the Claude Code pack, in full — every file, copy-paste ready</li>
+    <li><span class="n">02</span> One working AI setup a week, in your inbox</li>
+    <li><span class="n">03</span> One click to unsubscribe, and nothing else ever</li>
+  </ul>
 
-# 4 · Claude Code Setup — Anthropic's own, read-only
-#     install from claude.com/plugins/claude-code-setup ("Install in Claude Code")
-
-# 5 · Task Observer — turns your corrections into skills
-git clone https://github.com/iamneilroberts/claude-skills
-cp -r claude-skills/skills/* ~/.claude/skills/</pre>
-  </div>
-</section>
-
-<!-- ======================= THE FIVE ======================= -->
-<div class="fig">
-  <h2 class="kick">Fig. 02 ·</h2>
-  <span class="gaccent">one at a time, with the traps</span>
-  <span class="line"></span>
-</div>
-
-<section class="issues" id="installs">
-
-  <article class="issue">
-    <h3><span class="num">1.</span> OmniRoute — never hit the ceiling</h3>
-    <p>One endpoint that fails over to the next provider when your model runs out, so a limit stops being the end of the session. <b>MIT</b>, self-hosted, <b>53.6k stars</b>. Its README's own numbers: <b>90+ free tiers, 56 free forever, no card</b>, and <b>“~1.51B Free Tokens / Month”</b> across those documented free tiers.</p>
-    <div class="snippet">
-      <div class="bar"><span class="f">terminal · install</span><button class="snipbtn" type="button" data-copy-target="#snipOmni" data-copy-event="copy-install">Copy</button></div>
-      <pre id="snipOmni">npx -y omniroute</pre>
-    </div>
-    <p class="meta">Also <code>npm install -g omniroute</code> or <code>docker run diegosouzapw/omniroute</code>. <b>Straight about the provider count:</b> we read <b>349 providers</b> on 23 August 2026 and that is the figure in the film. The README is not internally consistent — its stats block says <b>342 (v3.8.50)</b> and its headline promise says <b>351</b>. Same page, three numbers. Take the order of magnitude, not the digit. <a href="https://github.com/diegosouzapw/OmniRoute" target="_blank" rel="noopener">Repo →</a></p>
-  </article>
-
-  <article class="issue">
-    <h3><span class="num">2.</span> claude-mem — stop re-explaining your codebase</h3>
-    <p>Persistent memory across sessions: it holds the project and the files, so a new morning doesn't start with you describing your own repo again. <b>Apache 2.0. Not an Anthropic project.</b></p>
-    <div class="snippet">
-      <div class="bar"><span class="f">terminal · install</span><button class="snipbtn" type="button" data-copy-target="#snipMem" data-copy-event="copy-install">Copy</button></div>
-      <pre id="snipMem">npx claude-mem install</pre>
-    </div>
-    <p>Or from inside Claude Code:</p>
-    <div class="snippet">
-      <div class="bar"><span class="f">claude code · marketplace</span><button class="snipbtn" type="button" data-copy-target="#snipMemPlugin" data-copy-event="copy-install">Copy</button></div>
-      <pre id="snipMemPlugin">/plugin marketplace add thedotmack/claude-mem
-/plugin install claude-mem</pre>
-    </div>
-    <p class="meta"><b>Node.js 20.0.0 or higher is a real prerequisite</b> — it is not auto-installed (Bun, uv and SQLite are). <b>Trap:</b> <code>npm install -g claude-mem</code> gets you the library and none of the behaviour — it doesn't register the hooks or start the worker. <a href="https://github.com/thedotmack/claude-mem" target="_blank" rel="noopener">Repo →</a></p>
-  </article>
-
-  <article class="issue">
-    <h3><span class="num">3.</span> Headroom — send less, get the same answer</h3>
-    <p>Sits in front of the model and compresses your context before it goes out. <b>Apache 2.0, open source, local-first.</b></p>
-    <div class="snippet">
-      <div class="bar"><span class="f">terminal · install</span><button class="snipbtn" type="button" data-copy-target="#snipHead" data-copy-event="copy-install">Copy</button></div>
-      <pre id="snipHead">pip install "headroom-ai[all]"</pre>
-    </div>
-    <p class="meta"><b>What the 77% is:</b> “77% fewer input tokens” is <b>Headroom's own traced example</b> on their own site — not an independent benchmark, and not a promise about your repo. Measure it on your own workload before you count the saving. <a href="https://headroomlabs.ai" target="_blank" rel="noopener">Site →</a></p>
-  </article>
-
-  <article class="issue">
-    <h3><span class="num">4.</span> Claude Code Setup — Anthropic's own</h3>
-    <p>It reads your repo and names the MCP servers, skills, hooks, subagents and slash commands worth adding for your specific stack. Badged <b>“Made by Anthropic”</b> and <b>“Anthropic Verified”</b>, <b>195,067 installs</b> as of 23 August 2026.</p>
-    <p class="meta">Install from the plugin page itself — it carries an <b>“Install in Claude Code”</b> button rather than a command to paste. <b>It is read-only:</b> it recommends, it never edits your files. If you've seen it described as a tool that “cleans up” or “removes the fluff” from your setup, that's wrong — it changes nothing. <a href="https://claude.com/plugins/claude-code-setup" target="_blank" rel="noopener">Plugin page →</a></p>
-  </article>
-
-  <article class="issue">
-    <h3><span class="num">5.</span> Task Observer — your corrections become skills</h3>
-    <p>Captures the corrections you make while working and turns them into skill improvements, so the same correction stops recurring. It's a <b>skill</b>, not a plugin — every skill in that repo is <code>user_invocable</code>, so it's both a <code>/slash-command</code> and something Claude can auto-invoke.</p>
-    <div class="snippet">
-      <div class="bar"><span class="f">terminal · install</span><button class="snipbtn" type="button" data-copy-target="#snipObs" data-copy-event="copy-install">Copy</button></div>
-      <pre id="snipObs">git clone https://github.com/iamneilroberts/claude-skills
-cp -r claude-skills/skills/* ~/.claude/skills/</pre>
-    </div>
-    <p class="meta"><b>Credit where it's due:</b> <code>skills/task-observer/</code> is third-party, redistributed unmodified under <b>CC BY 4.0</b>, © Eoghan Henn (rebelytics.com). <a href="https://github.com/iamneilroberts/claude-skills" target="_blank" rel="noopener">Repo →</a></p>
-  </article>
-</section>
-
-<!-- ======================= SOURCING ======================= -->
-<div class="fig">
-  <h2 class="kick">Fig. 03 ·</h2>
-  <span class="gaccent">where every number came from</span>
-  <span class="line"></span>
-</div>
-
-<section class="issues" id="sourcing">
-  <p class="note">Every quantity on this page and in the film was read from the project's own source on <b>23 August 2026</b>, and rounded down where we rounded at all. Star counts, install counts and provider counts move — check before you quote us.</p>
-  <article class="issue">
-    <h3>What we did not repeat</h3>
-    <p>This film was adapted from a creator's reel that we credit. Three of its claims did not survive our check, so we didn't carry them: it said <b>“1.6 billion free tokens”</b> (the repo says ~1.51B), <b>“over 200 free API providers”</b> (it's 90+ free tiers out of a few hundred total), and that Claude Code Setup <b>“removes the useless fluff”</b> (it's read-only and modifies nothing). We'd rather be the version you can check.</p>
-  </article>
+  <form class="gate-form" action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="gate">
+    <input type="hidden" name="tag" value="no039">
+    <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+    <label class="sr-only" for="gateEmail">Email address</label>
+    <input id="gateEmail" name="email" type="email" placeholder="you@email.com" autocomplete="email" required>
+    <button class="btn primary" type="submit">Open the pack &rarr;</button>
+  </form>
+  <div class="note">The pack opens on the next screen — no confirmation click, no waiting. <a href="./privacy.html">What we do with it</a>.</div>
 </section>
 </main>
 

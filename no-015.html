@@ -3,7 +3,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>vektor /// no. 015 — stop prompting, write loops.</title>
-<meta name="description" content="The starter loop — a runnable plan→run→check→repeat agent loop, plus the one-page why. The head of Claude Code writes loops, not prompts. Free, no gate.">
+<meta name="description" content="The starter loop — a runnable plan→run→check→repeat agent loop, plus the one-page why. The head of Claude Code writes loops, not prompts. Free — one email and it opens.">
 
 <!-- OG / social preview (traffic arrives via DM) -->
 <meta property="og:type" content="website">
@@ -16,6 +16,7 @@
 <meta property="og:site_name" content="vektor">
 <meta property="og:url" content="https://vektor-fm.github.io/vektor-site/no-015.html">
 <link rel="canonical" href="https://vektor-fm.github.io/vektor-site/no-015.html">
+
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Stop prompting. Write loops. — vektor /// no. 015">
 <meta name="twitter:description" content="The head of Claude Code writes loops, not prompts. The starter loop: a runnable plan→run→check→repeat agent loop + the one-page why. No gate.">
@@ -518,6 +519,34 @@ img{display:block; max-width:100%;}
 .midcap .btn{min-height:48px;}
 .midcap .note{font-size:var(--fs-s); color:var(--meta); margin-top:var(--p-s);}
 
+/* ---- the gate (2026-08-26) ----
+   The page ends here for anyone who hasn't paid the email. It is the last
+   thing on a public issue page, so it is sized like a destination rather than
+   like a footer widget: full-width band, display type, the ask at thumb height
+   on a phone. The list is deliberately three lines — a longer one reads as
+   terms and conditions, which is the shape people close. */
+.gate{margin:var(--p-2xl) 0 0; padding:0 var(--rail) var(--p-4xl); background:var(--band); border-top:1px solid var(--rule);}
+.gate .rule{margin:0 0 var(--p-xl); padding-top:var(--p-xl);}
+.gate .k{display:block; color:var(--accent); font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); margin-bottom:var(--p-s);}
+.gate h2{font-family:var(--font-extended); font-weight:400; text-transform:uppercase; letter-spacing:normal; font-size:var(--fs-3xl); line-height:var(--lh-3xl); margin:0 0 var(--p-s);}
+.gate .lede{font-size:var(--fs-l); line-height:var(--lh-xl); max-width:56ch; margin:0 0 var(--p-l); color:var(--fg);}
+.gate-list{list-style:none; margin:0 0 var(--p-xl); padding:0; max-width:56ch;}
+.gate-list li{display:flex; gap:var(--p-m); padding:var(--p-s) 0; border-top:1px solid var(--rule); font-size:var(--fs-m); line-height:var(--lh-xl); color:var(--dim);}
+.gate-list li:last-child{border-bottom:1px solid var(--rule);}
+.gate-list .n{font-family:var(--font-label); font-size:var(--fs-s); color:var(--accent); padding-top:.25em;}
+.gate-form{display:flex; gap:var(--p-s); flex-wrap:wrap; max-width:540px;}
+.gate-form input{flex:1 1 240px; min-height:52px; background:transparent; border:0; border-bottom:1px solid var(--fg); color:var(--fg); font-family:var(--font-sans); font-size:var(--fs-m); padding:0;}
+.gate-form input:focus{outline:none; border-bottom-color:var(--accent);}
+.gate-form .btn{min-height:52px;}
+.gate .note{font-size:var(--fs-s); color:var(--meta); margin-top:var(--p-m);}
+.gate .note a{color:var(--meta);}
+
+/* the receipt at the top of an unlock page */
+.unlocked{margin:0; padding:var(--p-xl) var(--rail); background:var(--band); border-bottom:1px solid var(--rule);}
+.unlocked .k{display:block; color:var(--accent); font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); margin-bottom:var(--p-s);}
+.unlocked h2{font-family:var(--font-extended); font-weight:400; text-transform:uppercase; letter-spacing:normal; font-size:var(--fs-2xl); line-height:var(--lh-2xl); margin:0 0 var(--p-xs);}
+.unlocked p{font-size:var(--fs-m); line-height:var(--lh-xl); max-width:64ch; margin:0; color:var(--dim);}
+
 /* ---- footer ---- */
 footer{margin-top:var(--p-4xl); padding:var(--p-2xl) var(--rail) var(--p-4xl); border-top:1px solid var(--rule);}
 .foot-rule{margin-bottom:var(--p-xl);}
@@ -717,7 +746,7 @@ pre.code code{font-size:inherit;}
           <li><a href="./no-015.html"><span class="a">→</span><span>Loops</span></a></li>
           <li><a href="./no-010.html"><span class="a">→</span><span>CLAUDE.md files</span></a></li>
         </ul>
-        <p class="info">The files behind the films. Free, no signup wall.</p>
+        <p class="info">The files behind the films. One email opens any of them.</p>
       </div>
     </li>
     <li>
@@ -755,23 +784,32 @@ pre.code code{font-size:inherit;}
 <!-- the issue marker, kept: it is the only per-page label in the bar -->
 <div class="issue-marker">This Week in AI · Loops</div>
 
+<!-- The capture furniture (sticky bar + pop-up) lives in partials/capture.html
+     and is injected ONLY into public pages. Unlock pages get an empty string
+     here — see build.mjs. The weave stays on both: it is structure, not an ask. -->
 <!-- Sticky ask. This used to be a Follow link back to Instagram, which spent
      an IG click to win a visit and then returned the visitor to IG without
      capturing anything. The goal is the email address, so the persistent ask
-     is now the email. Follow demotes to the footer. -->
+     is now the email. Follow demotes to the footer.
+
+     Since 2026-08-26 both forms carry the PAGE's tag (no015-sticky /
+     no015-popup) rather than a generic one: the worker reads the tag to
+     decide which pack to unlock, so a generic tag would capture the email and
+     then have nothing to hand back. The suffix keeps per-source attribution.
+
+     This whole file is omitted from unlock pages — asking a reader for the
+     email they just gave you is how a funnel reads as a machine. -->
 <div class="sticky-cta" id="stickyCta" aria-hidden="true">
   <span class="t">the Loops pack + one working setup a week</span>
   <form class="sticky-form" method="post" action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" data-capture="sticky">
-      <input type="hidden" name="tag" value="masthead-sticky">
+      <input type="hidden" name="tag" value="no015-sticky">
       <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
     <label class="sr-only" for="stickyEmail">Email address</label>
     <input id="stickyEmail" name="email" type="email" placeholder="you@email.com" autocomplete="email" required>
-    <button class="btn primary" type="submit">Get it &rarr;</button>
+    <button class="btn primary" type="submit">Open it &rarr;</button>
   </form>
   <button class="x" id="ctaClose" type="button" aria-label="Dismiss">&times;</button>
 </div>
-
-<div class="weave" aria-hidden="true"></div>
 
 <div class="pop" id="packPop" hidden>
   <div class="pop-scrim" data-pop-close></div>
@@ -779,22 +817,24 @@ pre.code code{font-size:inherit;}
     <button class="pop-x" type="button" data-pop-close aria-label="Close">×</button>
     <span class="k">One email a week · the working setup</span>
     <h2 id="popH">Take Loops with you.</h2>
-    <p>Free, no wall. Add your email and The Teardown sends the Loops pack plus one working AI setup a week.</p>
+    <p>Add your email and the Loops pack opens straight away — plus one working AI setup a week.</p>
     <form action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="popup">
-      <input type="hidden" name="tag" value="masthead-popup">
+      <input type="hidden" name="tag" value="no015-popup">
       <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
       <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
-      <button class="btn" type="submit">Get the weekly pack →</button>
+      <button class="btn" type="submit">Open the pack →</button>
     </form>
-    <div class="note">Free. The config pack lands in your inbox straight away. Unsubscribe anytime.</div>
+    <div class="note">The pack opens on the next screen. One email a week. Unsubscribe anytime.</div>
   </div>
 </div>
+
+<div class="weave" aria-hidden="true"></div>
 
 <main>
 <section class="hero">
   <div class="kick eye">This Week in AI · Loops</div>
   <h1 class="disp">Write the<br>loop<span class="dot">.</span></h1>
-  <p class="sub">Boris Cherny, head of Claude Code, says the real skill now isn't a better prompt — it's <b>loop engineering</b>. Stop one-shot prompting. Write a loop that prompts the model, checks the result against a done-condition, and re-runs until it passes. Here's that loop — about 20 lines, runnable tonight — plus the one-page why. Free, no gate. As promised.</p>
+  <p class="sub">Boris Cherny, head of Claude Code, says the real skill now isn't a better prompt — it's <b>loop engineering</b>. Stop one-shot prompting. Write a loop that prompts the model, checks the result against a done-condition, and re-runs until it passes. Here's that loop — about 20 lines, runnable tonight — plus the one-page why. Free — one email and it opens. As promised.</p>
   <div class="snippet" id="file">
     <div class="bar"><span class="f">agent-loop.sh · plan → run → check → repeat</span><button class="snipbtn" id="snipCopy" type="button">Copy the loop</button></div>
     <pre id="snipText">#!/usr/bin/env bash
@@ -828,132 +868,45 @@ echo "✗ hit the cap — tighten your TASK or CHECK, not the count." >&2; exit 
 # ↓ The download has this + a Python twin + the one-page "why".</pre>
   </div>
   <div class="actions">
-    <a class="btn primary" data-goatcounter-click="no015-download-loop" href="./files/starter-loop/agent-loop.sh" download="agent-loop.sh">Download agent-loop.sh ↓</a>
-    <a class="btn" href="#kit">The 3 pieces ↓</a>
+    <a class="btn primary" data-goatcounter-click="no015-download-loop" href="#gate" download="agent-loop.sh">Download agent-loop.sh ↓</a>
+    <a class="btn" href="#gate">The 3 pieces ↓</a>
     <button class="btn" id="shareBtn" type="button">Send to a builder</button>
   </div>
   <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
 </section>
 
-<div class="fig">
-  <h2 class="kick">Fig. 01 ·</h2>
-  <span class="gaccent">the three pieces</span>
-  <span class="line"></span>
-</div>
+<!-- THE GATE. Founder decision 2026-08-26: the packs stop being free-to-scroll.
+     The email is now the price of the payload, because ~700 page opens in 30
+     days produced 6 form clicks (live /report pull, 2026-08-26) — the pages
+     gave the asset away before the ask, so the ask never had leverage.
 
-<section class="issues" id="kit">
+     The payload is NOT in this document. build.mjs splits the body at the first
+     <div class="fig"> and writes everything below it to a separate unlock page
+     whose URL only the funnel worker knows. There is nothing here to view-source.
 
-  <article class="card c-cream">
-    <div class="top">
-      <span class="tag">Piece 1 · the loop</span>
-      <span class="goth">run</span>
-    </div>
-    <h2>Plan. Run. Check. Repeat.</h2>
-    <p class="one">A one-shot prompt has no idea whether it succeeded — so the checking falls back on <em>you</em>, by hand, every time. The loop moves that into code: it prompts the model, lets it work one turn, then runs a real check and feeds any failure back in — until the check passes or it hits a cap. Two files, same 20 lines: <code>agent-loop.sh</code> for bash, <code>agent-loop.py</code> for Windows or no-bash. No framework.</p>
-    <span class="proof">for i in 1..MAX: prompt → run → check → break-on-pass</span>
-    <div class="actions">
-      <a class="btn" data-goatcounter-click="no015-download-sh" href="./files/starter-loop/agent-loop.sh" download="agent-loop.sh">agent-loop.sh ↓</a>
-      <a class="btn" data-goatcounter-click="no015-download-py" href="./files/starter-loop/agent-loop.py" download="agent-loop.py">agent-loop.py ↓</a>
-    </div>
-  </article>
+     Everything above this block stays public: the hook, the problem, the promise.
+     That is what the DM sold, and it still reads without paying. -->
+<section class="gate" id="gate">
+  <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+  <span class="k">The pack · one email</span>
+  <h2>Take Loops with you.</h2>
+  <p class="lede">The rest of this page is the Loops pack. Add your email and it opens — no confirmation click, no waiting.</p>
 
-  <article class="card c-aqua">
-    <div class="top">
-      <span class="tag">Piece 2 · the done-condition</span>
-      <span class="goth">check</span>
-    </div>
-    <h2>The one line that matters.</h2>
-    <p class="one">The whole loop lives or dies on <code>CHECK</code> — any command that exits <code>0</code> only when the work is truly done: your tests, a build, a linter, a <code>curl</code> that must return 200. If you can't write it, you don't yet know what "done" means, and neither will the model. <b>The model doesn't declare victory — the check does.</b> And never let it edit its own check, or a stuck loop "wins" by deleting the test.</p>
-    <span class="proof">CHECK="npm test" · pytest -q · npm run build · ./verify.sh</span>
-  </article>
+  <ul class="gate-list">
+    <li><span class="n">01</span> the Loops pack, in full — every file, copy-paste ready</li>
+    <li><span class="n">02</span> One working AI setup a week, in your inbox</li>
+    <li><span class="n">03</span> One click to unsubscribe, and nothing else ever</li>
+  </ul>
 
-  <article class="card c-ink">
-    <div class="top">
-      <span class="tag">Piece 3 · the why</span>
-      <span class="goth">sop</span>
-    </div>
-    <h2>Stop prompting. Write loops.</h2>
-    <p class="one">The one-page explainer: the four steps, why the done-condition is the honest core, why every loop needs a hard cap — and the honesty check on when a loop is the <em>wrong</em> tool (no real done-condition, expensive or irreversible passes, genuinely one-shot tasks). Plain English, no hype.</p>
-    <span class="proof">stop-prompting-write-loops.md · one page · read in 3 min</span>
-    <div class="actions">
-      <a class="btn" data-goatcounter-click="no015-download-why" href="./files/starter-loop/stop-prompting-write-loops.md" download="stop-prompting-write-loops.md">the why ↓</a>
-    </div>
-  </article>
-
-</section>
-
-<div class="fig">
-  <h2 class="kick">Fig. 02 ·</h2>
-  <span class="gaccent">the run</span>
-  <span class="line"></span>
-</div>
-
-<section class="issues">
-  <article class="card c-cream" id="howto">
-    <div class="top">
-      <span class="tag">How to run it · 60 seconds</span>
-      <span class="goth">setup</span>
-    </div>
-    <h2>Three knobs. One minute.</h2>
-    <p class="one">No install beyond an AI CLI that can edit your project (default: <a href="https://claude.com/claude-code" target="_blank" rel="noopener">Claude Code</a>'s <code>claude -p</code>). Point <code>CHECK</code> at a command that already tells you the truth, set a <code>TASK</code>, cap the iterations, and run. The README walks the three knobs and the one idea: the check is what turns a text generator into something that keeps working until the bar is met.</p>
-    <span class="stars">2 loops · 1 explainer · runnable tonight · no gate</span>
-    <div class="actions">
-      <a class="btn" data-goatcounter-click="no015-download-readme" href="./files/starter-loop/README.md" download="README.md">README — the 60-second run ↓</a>
-    </div>
-  </article>
-</section>
-
-<section class="ledger" aria-label="How to run the loop">
-  <div class="lrow"><span class="n">01</span><span class="t">Download the loop above — agent-loop.sh (or .py) + the one-page why</span></div>
-  <div class="lrow"><span class="n">02</span><span class="t">Set CHECK to a command that exits 0 when done · set TASK · set MAX_ITERS</span></div>
-  <div class="lrow"><span class="n">03</span><span class="t">TASK="..." CHECK="npm test" bash agent-loop.sh · watch it plan → run → check → repeat</span></div>
-</section>
-
-<section class="midcap" aria-label="Get the weekly pack">
-  <span class="k">One email a week · the working setup</span>
-  <h2>Keep the whole toolkit.</h2>
-  <p>The Teardown sends the config pack and one working AI setup a week — the same rig behind this channel. Free, and you can unsubscribe anytime.</p>
-  <form action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="midcap">
-      <input type="hidden" name="tag" value="no-015-midcap">
-      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
-    <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
-    <button class="btn" type="submit">Get the weekly pack →</button>
+  <form class="gate-form" action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="gate">
+    <input type="hidden" name="tag" value="no015">
+    <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+    <label class="sr-only" for="gateEmail">Email address</label>
+    <input id="gateEmail" name="email" type="email" placeholder="you@email.com" autocomplete="email" required>
+    <button class="btn primary" type="submit">Open the pack &rarr;</button>
   </form>
-  <div class="note">Free. The config pack lands in your inbox straight away. Unsubscribe anytime.</div>
+  <div class="note">The pack opens on the next screen — no confirmation click, no waiting. <a href="./privacy.html">What we do with it</a>.</div>
 </section>
-
-<div class="fig">
-  <h2 class="kick">Fig. 03 ·</h2>
-  <span class="gaccent">what's next</span>
-  <span class="line"></span>
-</div>
-
-<section class="issues">
-  <article class="card c-ink">
-    <div class="top">
-      <span class="tag">Give the loop a worker to run</span>
-      <span class="goth">the agents</span>
-    </div>
-    <h2>Hire your first AI agent.</h2>
-    <p class="one">A loop is the <em>how</em>; an agent is the <em>who</em> — a worker hired for one job, with its own tool keycard. The starter kit is the pattern behind the team we run a daily channel with: the agent template, the tools allowlist, one runnable skill. Same drop-in format as this loop.</p>
-    <div class="actions">
-      <a class="btn" data-goatcounter-click="no015-agents" href="./no-013.html">The agent starter kit →</a>
-    </div>
-  </article>
-
-  <article class="card c-ink" id="next">
-    <div class="top">
-      <span class="tag">No gate / no catch</span>
-      <span class="goth">follow</span>
-    </div>
-    <h2>That's the loop. Follow for the next one.</h2>
-    <p class="one">This page exists because people follow — a new keyword drops daily on the reel, and followers catch it first. If a loop closed a real task for you this week, the follow is the thank-you.</p>
-    <div class="actions">
-      <a class="btn primary" data-goatcounter-click="no015-follow-instagram" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Follow @vektor.fm →</a>
-    </div>
-  </article>
-</section>
-
 </main>
 
 <footer>

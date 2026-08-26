@@ -3,7 +3,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>vektor /// no. 041 — The Claude Code starter team — 3 drop-in subagents.</title>
-<meta name="description" content="Three drop-in subagents for Claude Code — a reviewer that only reviews, a researcher that only digs, a planner that only plans. Each runs in its own context window and reports back with just the answer, so your main thread stops filling with file dumps and 'Compacting conversation' stops eating your session. Full files on the page, free.">
+<meta name="description" content="Three drop-in subagents for Claude Code — a reviewer that only reviews, a researcher that only digs, a planner that only plans. Each runs in its own context window and reports back with just the answer, so your main thread stops filling with file dumps and 'Compacting conversation' stops eating your session. Full files, one email away.">
 
 <!-- OG / social preview (traffic arrives via DM) -->
 <meta property="og:type" content="website">
@@ -16,6 +16,7 @@
 <meta property="og:site_name" content="vektor">
 <meta property="og:url" content="https://vektor-fm.github.io/vektor-site/no-041.html">
 <link rel="canonical" href="https://vektor-fm.github.io/vektor-site/no-041.html">
+
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Clone yourself into a team. — vektor /// no. 041">
 <meta name="twitter:description" content="The Claude Code starter team: reviewer, researcher, planner — three .md files, each with its own context window, so the main thread stays clean. mkdir .claude/agents, drop them in, done. Full files on the page.">
@@ -518,6 +519,34 @@ img{display:block; max-width:100%;}
 .midcap .btn{min-height:48px;}
 .midcap .note{font-size:var(--fs-s); color:var(--meta); margin-top:var(--p-s);}
 
+/* ---- the gate (2026-08-26) ----
+   The page ends here for anyone who hasn't paid the email. It is the last
+   thing on a public issue page, so it is sized like a destination rather than
+   like a footer widget: full-width band, display type, the ask at thumb height
+   on a phone. The list is deliberately three lines — a longer one reads as
+   terms and conditions, which is the shape people close. */
+.gate{margin:var(--p-2xl) 0 0; padding:0 var(--rail) var(--p-4xl); background:var(--band); border-top:1px solid var(--rule);}
+.gate .rule{margin:0 0 var(--p-xl); padding-top:var(--p-xl);}
+.gate .k{display:block; color:var(--accent); font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); margin-bottom:var(--p-s);}
+.gate h2{font-family:var(--font-extended); font-weight:400; text-transform:uppercase; letter-spacing:normal; font-size:var(--fs-3xl); line-height:var(--lh-3xl); margin:0 0 var(--p-s);}
+.gate .lede{font-size:var(--fs-l); line-height:var(--lh-xl); max-width:56ch; margin:0 0 var(--p-l); color:var(--fg);}
+.gate-list{list-style:none; margin:0 0 var(--p-xl); padding:0; max-width:56ch;}
+.gate-list li{display:flex; gap:var(--p-m); padding:var(--p-s) 0; border-top:1px solid var(--rule); font-size:var(--fs-m); line-height:var(--lh-xl); color:var(--dim);}
+.gate-list li:last-child{border-bottom:1px solid var(--rule);}
+.gate-list .n{font-family:var(--font-label); font-size:var(--fs-s); color:var(--accent); padding-top:.25em;}
+.gate-form{display:flex; gap:var(--p-s); flex-wrap:wrap; max-width:540px;}
+.gate-form input{flex:1 1 240px; min-height:52px; background:transparent; border:0; border-bottom:1px solid var(--fg); color:var(--fg); font-family:var(--font-sans); font-size:var(--fs-m); padding:0;}
+.gate-form input:focus{outline:none; border-bottom-color:var(--accent);}
+.gate-form .btn{min-height:52px;}
+.gate .note{font-size:var(--fs-s); color:var(--meta); margin-top:var(--p-m);}
+.gate .note a{color:var(--meta);}
+
+/* the receipt at the top of an unlock page */
+.unlocked{margin:0; padding:var(--p-xl) var(--rail); background:var(--band); border-bottom:1px solid var(--rule);}
+.unlocked .k{display:block; color:var(--accent); font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); margin-bottom:var(--p-s);}
+.unlocked h2{font-family:var(--font-extended); font-weight:400; text-transform:uppercase; letter-spacing:normal; font-size:var(--fs-2xl); line-height:var(--lh-2xl); margin:0 0 var(--p-xs);}
+.unlocked p{font-size:var(--fs-m); line-height:var(--lh-xl); max-width:64ch; margin:0; color:var(--dim);}
+
 /* ---- footer ---- */
 footer{margin-top:var(--p-4xl); padding:var(--p-2xl) var(--rail) var(--p-4xl); border-top:1px solid var(--rule);}
 .foot-rule{margin-bottom:var(--p-xl);}
@@ -717,7 +746,7 @@ pre.code code{font-size:inherit;}
           <li><a href="./no-015.html"><span class="a">→</span><span>Loops</span></a></li>
           <li><a href="./no-010.html"><span class="a">→</span><span>CLAUDE.md files</span></a></li>
         </ul>
-        <p class="info">The files behind the films. Free, no signup wall.</p>
+        <p class="info">The files behind the films. One email opens any of them.</p>
       </div>
     </li>
     <li>
@@ -755,23 +784,32 @@ pre.code code{font-size:inherit;}
 <!-- the issue marker, kept: it is the only per-page label in the bar -->
 <div class="issue-marker">Claude Code · Subagents</div>
 
+<!-- The capture furniture (sticky bar + pop-up) lives in partials/capture.html
+     and is injected ONLY into public pages. Unlock pages get an empty string
+     here — see build.mjs. The weave stays on both: it is structure, not an ask. -->
 <!-- Sticky ask. This used to be a Follow link back to Instagram, which spent
      an IG click to win a visit and then returned the visitor to IG without
      capturing anything. The goal is the email address, so the persistent ask
-     is now the email. Follow demotes to the footer. -->
+     is now the email. Follow demotes to the footer.
+
+     Since 2026-08-26 both forms carry the PAGE's tag (no041-sticky /
+     no041-popup) rather than a generic one: the worker reads the tag to
+     decide which pack to unlock, so a generic tag would capture the email and
+     then have nothing to hand back. The suffix keeps per-source attribution.
+
+     This whole file is omitted from unlock pages — asking a reader for the
+     email they just gave you is how a funnel reads as a machine. -->
 <div class="sticky-cta" id="stickyCta" aria-hidden="true">
   <span class="t">the Subagents pack + one working setup a week</span>
   <form class="sticky-form" method="post" action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" data-capture="sticky">
-      <input type="hidden" name="tag" value="masthead-sticky">
+      <input type="hidden" name="tag" value="no041-sticky">
       <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
     <label class="sr-only" for="stickyEmail">Email address</label>
     <input id="stickyEmail" name="email" type="email" placeholder="you@email.com" autocomplete="email" required>
-    <button class="btn primary" type="submit">Get it &rarr;</button>
+    <button class="btn primary" type="submit">Open it &rarr;</button>
   </form>
   <button class="x" id="ctaClose" type="button" aria-label="Dismiss">&times;</button>
 </div>
-
-<div class="weave" aria-hidden="true"></div>
 
 <div class="pop" id="packPop" hidden>
   <div class="pop-scrim" data-pop-close></div>
@@ -779,185 +817,65 @@ pre.code code{font-size:inherit;}
     <button class="pop-x" type="button" data-pop-close aria-label="Close">×</button>
     <span class="k">One email a week · the working setup</span>
     <h2 id="popH">Take Subagents with you.</h2>
-    <p>Free, no wall. Add your email and The Teardown sends the Subagents pack plus one working AI setup a week.</p>
+    <p>Add your email and the Subagents pack opens straight away — plus one working AI setup a week.</p>
     <form action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="popup">
-      <input type="hidden" name="tag" value="masthead-popup">
+      <input type="hidden" name="tag" value="no041-popup">
       <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
       <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
-      <button class="btn" type="submit">Get the weekly pack →</button>
+      <button class="btn" type="submit">Open the pack →</button>
     </form>
-    <div class="note">Free. The config pack lands in your inbox straight away. Unsubscribe anytime.</div>
+    <div class="note">The pack opens on the next screen. One email a week. Unsubscribe anytime.</div>
   </div>
 </div>
+
+<div class="weave" aria-hidden="true"></div>
 
 <main>
 <section class="hero">
   <div class="kick eye">Claude Code · Subagents</div>
   <h1 class="disp">The Claude Code starter team —<br>3 drop-in subagents<span class="dot">.</span></h1>
-  <p class="sub">You know the moment: mid-task, mid-thought, and the status line says <b>“Compacting conversation”</b> — and the session comes back having forgotten the half of it that mattered. That happens because everything Claude reads lands in one context window until it overflows. Subagents fix the overflow at the source: a <b>reviewer</b> that only reviews, a <b>researcher</b> that only digs, a <b>planner</b> that only plans — each in its own separate context window, reporting back with just the answer, so your main thread stays clean. The three files are below in full, free.</p>
+  <p class="sub">You know the moment: mid-task, mid-thought, and the status line says <b>“Compacting conversation”</b> — and the session comes back having forgotten the half of it that mattered. That happens because everything Claude reads lands in one context window until it overflows. Subagents fix the overflow at the source: a <b>reviewer</b> that only reviews, a <b>researcher</b> that only digs, a <b>planner</b> that only plans — each in its own separate context window, reporting back with just the answer, so your main thread stays clean. The three files, in full, one email away.</p>
   <div class="actions">
-    <a class="btn primary" href="#install">Install in 30 seconds ↓</a>
-    <a class="btn" href="#agents">The three files →</a>
-    <a class="btn" href="./files/starter-team/README.md">Download the README (.md) &darr;</a>
+    <a class="btn primary" href="#gate">Install in 30 seconds ↓</a>
+    <a class="btn" href="#gate">The three files →</a>
+    <a class="btn" href="#gate">Download the README (.md) &darr;</a>
     <button class="btn" id="shareBtn" type="button">Send to someone mid-compaction</button>
   </div>
   <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
 </section>
 
 <!-- ======================= INSTALL ======================= -->
-<div class="fig">
-  <h2 class="kick">Fig. 01 ·</h2>
-  <span class="gaccent">install in 30 seconds</span>
-  <span class="line"></span>
-</div>
+<!-- THE GATE. Founder decision 2026-08-26: the packs stop being free-to-scroll.
+     The email is now the price of the payload, because ~700 page opens in 30
+     days produced 6 form clicks (live /report pull, 2026-08-26) — the pages
+     gave the asset away before the ask, so the ask never had leverage.
 
-<section class="issues" id="install">
-  <p class="note">One folder, three files, done. Claude Code reads each file's <code>description</code> line and delegates on its own — or ask directly: “use the researcher to find where auth tokens are validated”.</p>
-  <div class="snippet">
-    <div class="bar"><span class="f">terminal · from your repo root</span><button class="snipbtn" type="button" data-copy-target="#snipInstall" data-copy-event="no041-install-copy">Copy</button></div>
-    <pre id="snipInstall">mkdir -p .claude/agents
-cd .claude/agents
-curl -sO https://vektor-fm.github.io/vektor-site/files/starter-team/reviewer.md
-curl -sO https://vektor-fm.github.io/vektor-site/files/starter-team/researcher.md
-curl -sO https://vektor-fm.github.io/vektor-site/files/starter-team/planner.md</pre>
-  </div>
-  <p class="meta">No curl? Copy each file from the blocks below into <code>.claude/agents/&lt;name&gt;.md</code> — same result. Works in any repo, any language. Edit the <code>description</code> to match how you work — the description is what tells Claude when to hand work to the specialist.</p>
-</section>
+     The payload is NOT in this document. build.mjs splits the body at the first
+     <div class="fig"> and writes everything below it to a separate unlock page
+     whose URL only the funnel worker knows. There is nothing here to view-source.
 
-<!-- ======================= THE THREE ======================= -->
-<div class="fig">
-  <h2 class="kick">Fig. 02 ·</h2>
-  <span class="gaccent">the three files, in full</span>
-  <span class="line"></span>
-</div>
+     Everything above this block stays public: the hook, the problem, the promise.
+     That is what the DM sold, and it still reads without paying. -->
+<section class="gate" id="gate">
+  <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+  <span class="k">The pack · one email</span>
+  <h2>Take Subagents with you.</h2>
+  <p class="lede">The rest of this page is the Subagents pack. Add your email and it opens — no confirmation click, no waiting.</p>
 
-<section class="issues" id="agents">
+  <ul class="gate-list">
+    <li><span class="n">01</span> the Subagents pack, in full — every file, copy-paste ready</li>
+    <li><span class="n">02</span> One working AI setup a week, in your inbox</li>
+    <li><span class="n">03</span> One click to unsubscribe, and nothing else ever</li>
+  </ul>
 
-  <article class="issue">
-    <h3><span class="num">1.</span> reviewer.md — it only reviews, it never edits</h3>
-    <p>The last gate before “done”. It reads the diff in its own context window — the changed files, the callers, the tests — and comes back with a one-line verdict plus numbered findings, each with a concrete failure scenario. No finding without a way it breaks.</p>
-    <div class="snippet">
-      <div class="bar"><span class="f">.claude/agents/reviewer.md</span><button class="snipbtn" type="button" data-copy-target="#snipReviewer" data-copy-event="no041-reviewer-copy">Copy</button></div>
-      <pre id="snipReviewer">---
-name: reviewer
-description: Use after writing or modifying code, before considering any task done. Reviews the diff for bugs, edge cases, and simplifications — it only reviews, it never edits. Invoke proactively after every substantive change.
-tools: Read, Grep, Glob, Bash
----
-
-You are a code reviewer. You never write or edit code — you read it and report.
-
-When invoked:
-1. Run `git diff` (and `git diff --staged`) to see what changed. If the diff is
-   empty, review the files the main agent names.
-2. Read every changed file in full context — the lines around the change, the
-   callers of changed functions, the tests that cover them.
-3. Hunt in this order: real bugs (wrong logic, unhandled edge case, broken
-   contract with a caller), then risky patterns (silent failure, swallowed
-   error, race), then needless complexity (code that could be half the size).
-
-Report back with:
-- VERDICT: one line — SHIP / FIX FIRST / RETHINK.
-- FINDINGS: numbered, each with file:line, the concrete failure scenario
-  ("passing an empty list makes X return None and the caller dereferences it"),
-  and severity (bug / risk / style). No finding without a failure scenario —
-  if you can't say how it breaks, don't report it.
-- What you checked and found clean, in one line, so the main agent knows the
-  coverage.
-
-Keep the report under 30 lines. You are the last gate before "done" — be the
-reviewer you wish reviewed your code: specific, skeptical, brief.</pre>
-    </div>
-    <p class="meta"><a href="./files/starter-team/reviewer.md">View raw / download →</a></p>
-  </article>
-
-  <article class="issue">
-    <h3><span class="num">2.</span> researcher.md — it only digs</h3>
-    <p>Absorbs the noisy half of investigation — the greps, the dead ends, the 500-line files — in its own context window, and returns only the answer with file:line evidence. The 10,000 tokens it reads come back to your main thread as 100.</p>
-    <div class="snippet">
-      <div class="bar"><span class="f">.claude/agents/researcher.md</span><button class="snipbtn" type="button" data-copy-target="#snipResearcher" data-copy-event="no041-researcher-copy">Copy</button></div>
-      <pre id="snipResearcher">---
-name: researcher
-description: Use whenever a question needs digging through the codebase — where is X defined, how does Y flow, what would break if Z changed. Searches and reads in its own context and returns only the answer, keeping file dumps out of the main thread. Use for any investigation needing more than a couple of lookups.
-tools: Read, Grep, Glob, Bash
----
-
-You are a codebase researcher. Your job is to absorb the noisy part of
-investigation — the greps, the dead ends, the 500-line files — so the main
-agent's context stays clean. You never edit anything.
-
-When invoked:
-1. Restate the question in one line so a wrong assumption surfaces early.
-2. Search broad, then read narrow: Grep/Glob to locate candidates, then read
-   only the relevant ranges. Follow the chain — definition, callers, config,
-   tests — until the question is actually answered, not just addressed.
-3. If the codebase contradicts the question's premise, say so explicitly —
-   that is the most valuable finding you can return.
-
-Return ONLY:
-- ANSWER: the direct answer in 1-3 sentences.
-- EVIDENCE: the file:line references that prove it (max 8), each with a
-  half-line of what it shows.
-- CAVEATS: anything you could not verify, in one line each.
-
-Never paste file contents beyond a single load-bearing line per reference.
-Your value is that the 10,000 tokens you read come back as 100.</pre>
-    </div>
-    <p class="meta"><a href="./files/starter-team/researcher.md">View raw / download →</a></p>
-  </article>
-
-  <article class="issue">
-    <h3><span class="num">3.</span> planner.md — it only plans</h3>
-    <p>Reads the real code before any multi-file change and hands back an ordered plan: files to touch, how to verify each step, the risks with their early-warning signs, and the questions to settle before step 1. The main agent executes; this one never edits.</p>
-    <div class="snippet">
-      <div class="bar"><span class="f">.claude/agents/planner.md</span><button class="snipbtn" type="button" data-copy-target="#snipPlanner" data-copy-event="no041-planner-copy">Copy</button></div>
-      <pre id="snipPlanner">---
-name: planner
-description: Use before starting any multi-file or multi-step change — a feature, a refactor, a migration. Produces a concrete implementation plan with ordered steps, files to touch, and risks. Plans only; never writes code.
-tools: Read, Grep, Glob, Bash
----
-
-You are an implementation planner. You design the change; the main agent
-executes it. You never edit files.
-
-When invoked:
-1. Read enough of the codebase to plan honestly: entry points, the modules the
-   change touches, existing patterns the change should follow, and the tests
-   that guard the area. Prefer reading real code over assuming.
-2. Find the smallest sequence of steps that ships the change safely. Bias
-   toward: follow existing conventions, touch fewer files, keep each step
-   independently verifiable.
-3. Look for what the request missed: the config that also needs updating, the
-   second caller, the migration for existing data.
-
-Return:
-- PLAN: numbered steps, each with the files to touch and one line of what
-  changes in them. Order = execution order.
-- CHECK AFTER EACH STEP: how to verify that step worked (test command,
-  behavior to observe).
-- RISKS: the 1-3 things most likely to go wrong, each with the early-warning
-  sign.
-- OPEN QUESTIONS: decisions the human should make before step 1, if any.
-
-Under 40 lines. A plan the main agent cannot execute without asking follow-ups
-is a failed plan — name files, not vibes.</pre>
-    </div>
-    <p class="meta"><a href="./files/starter-team/planner.md">View raw / download →</a></p>
-  </article>
-</section>
-
-<!-- ======================= WHY IT WORKS ======================= -->
-<div class="fig">
-  <h2 class="kick">Fig. 03 ·</h2>
-  <span class="gaccent">why this fixes the amnesia</span>
-  <span class="line"></span>
-</div>
-
-<section class="issues" id="why">
-  <article class="issue">
-    <h3>The noise dies with the subagent</h3>
-    <p>Everything a subagent reads — the greps, the 500-line files, the test output — stays in <b>its</b> context window and dies with it. Only the final report comes back to your main thread. Three specialists can work while your main session stays small, sharp, and un-compacted — which is exactly the session that keeps remembering your decisions.</p>
-    <p class="meta">Each file is plain Markdown with a YAML header: <code>name</code>, <code>description</code>, <code>tools</code>. All three are deliberately read-only (<code>Read, Grep, Glob, Bash</code>) — they report, your main agent edits. The <code>description</code> is the routing signal: sharpen it and Claude delegates to the right specialist without being asked.</p>
-  </article>
+  <form class="gate-form" action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="gate">
+    <input type="hidden" name="tag" value="no041">
+    <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+    <label class="sr-only" for="gateEmail">Email address</label>
+    <input id="gateEmail" name="email" type="email" placeholder="you@email.com" autocomplete="email" required>
+    <button class="btn primary" type="submit">Open the pack &rarr;</button>
+  </form>
+  <div class="note">The pack opens on the next screen — no confirmation click, no waiting. <a href="./privacy.html">What we do with it</a>.</div>
 </section>
 </main>
 

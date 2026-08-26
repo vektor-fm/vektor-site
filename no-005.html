@@ -16,6 +16,7 @@
 <meta property="og:site_name" content="vektor">
 <meta property="og:url" content="https://vektor-fm.github.io/vektor-site/no-005.html">
 <link rel="canonical" href="https://vektor-fm.github.io/vektor-site/no-005.html">
+
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Code with AI. Keep your brain. — vektor /// no. 005">
 <meta name="twitter:description" content="The four rules from the reel + the brain.md template. No gate.">
@@ -518,6 +519,34 @@ img{display:block; max-width:100%;}
 .midcap .btn{min-height:48px;}
 .midcap .note{font-size:var(--fs-s); color:var(--meta); margin-top:var(--p-s);}
 
+/* ---- the gate (2026-08-26) ----
+   The page ends here for anyone who hasn't paid the email. It is the last
+   thing on a public issue page, so it is sized like a destination rather than
+   like a footer widget: full-width band, display type, the ask at thumb height
+   on a phone. The list is deliberately three lines — a longer one reads as
+   terms and conditions, which is the shape people close. */
+.gate{margin:var(--p-2xl) 0 0; padding:0 var(--rail) var(--p-4xl); background:var(--band); border-top:1px solid var(--rule);}
+.gate .rule{margin:0 0 var(--p-xl); padding-top:var(--p-xl);}
+.gate .k{display:block; color:var(--accent); font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); margin-bottom:var(--p-s);}
+.gate h2{font-family:var(--font-extended); font-weight:400; text-transform:uppercase; letter-spacing:normal; font-size:var(--fs-3xl); line-height:var(--lh-3xl); margin:0 0 var(--p-s);}
+.gate .lede{font-size:var(--fs-l); line-height:var(--lh-xl); max-width:56ch; margin:0 0 var(--p-l); color:var(--fg);}
+.gate-list{list-style:none; margin:0 0 var(--p-xl); padding:0; max-width:56ch;}
+.gate-list li{display:flex; gap:var(--p-m); padding:var(--p-s) 0; border-top:1px solid var(--rule); font-size:var(--fs-m); line-height:var(--lh-xl); color:var(--dim);}
+.gate-list li:last-child{border-bottom:1px solid var(--rule);}
+.gate-list .n{font-family:var(--font-label); font-size:var(--fs-s); color:var(--accent); padding-top:.25em;}
+.gate-form{display:flex; gap:var(--p-s); flex-wrap:wrap; max-width:540px;}
+.gate-form input{flex:1 1 240px; min-height:52px; background:transparent; border:0; border-bottom:1px solid var(--fg); color:var(--fg); font-family:var(--font-sans); font-size:var(--fs-m); padding:0;}
+.gate-form input:focus{outline:none; border-bottom-color:var(--accent);}
+.gate-form .btn{min-height:52px;}
+.gate .note{font-size:var(--fs-s); color:var(--meta); margin-top:var(--p-m);}
+.gate .note a{color:var(--meta);}
+
+/* the receipt at the top of an unlock page */
+.unlocked{margin:0; padding:var(--p-xl) var(--rail); background:var(--band); border-bottom:1px solid var(--rule);}
+.unlocked .k{display:block; color:var(--accent); font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); margin-bottom:var(--p-s);}
+.unlocked h2{font-family:var(--font-extended); font-weight:400; text-transform:uppercase; letter-spacing:normal; font-size:var(--fs-2xl); line-height:var(--lh-2xl); margin:0 0 var(--p-xs);}
+.unlocked p{font-size:var(--fs-m); line-height:var(--lh-xl); max-width:64ch; margin:0; color:var(--dim);}
+
 /* ---- footer ---- */
 footer{margin-top:var(--p-4xl); padding:var(--p-2xl) var(--rail) var(--p-4xl); border-top:1px solid var(--rule);}
 .foot-rule{margin-bottom:var(--p-xl);}
@@ -717,7 +746,7 @@ pre.code code{font-size:inherit;}
           <li><a href="./no-015.html"><span class="a">→</span><span>Loops</span></a></li>
           <li><a href="./no-010.html"><span class="a">→</span><span>CLAUDE.md files</span></a></li>
         </ul>
-        <p class="info">The files behind the films. Free, no signup wall.</p>
+        <p class="info">The files behind the films. One email opens any of them.</p>
       </div>
     </li>
     <li>
@@ -755,23 +784,32 @@ pre.code code{font-size:inherit;}
 <!-- the issue marker, kept: it is the only per-page label in the bar -->
 <div class="issue-marker">AI Coding · The Four Rules</div>
 
+<!-- The capture furniture (sticky bar + pop-up) lives in partials/capture.html
+     and is injected ONLY into public pages. Unlock pages get an empty string
+     here — see build.mjs. The weave stays on both: it is structure, not an ask. -->
 <!-- Sticky ask. This used to be a Follow link back to Instagram, which spent
      an IG click to win a visit and then returned the visitor to IG without
      capturing anything. The goal is the email address, so the persistent ask
-     is now the email. Follow demotes to the footer. -->
+     is now the email. Follow demotes to the footer.
+
+     Since 2026-08-26 both forms carry the PAGE's tag (no005-sticky /
+     no005-popup) rather than a generic one: the worker reads the tag to
+     decide which pack to unlock, so a generic tag would capture the email and
+     then have nothing to hand back. The suffix keeps per-source attribution.
+
+     This whole file is omitted from unlock pages — asking a reader for the
+     email they just gave you is how a funnel reads as a machine. -->
 <div class="sticky-cta" id="stickyCta" aria-hidden="true">
   <span class="t">the Four Rules setup + one working setup a week</span>
   <form class="sticky-form" method="post" action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" data-capture="sticky">
-      <input type="hidden" name="tag" value="masthead-sticky">
+      <input type="hidden" name="tag" value="no005-sticky">
       <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
     <label class="sr-only" for="stickyEmail">Email address</label>
     <input id="stickyEmail" name="email" type="email" placeholder="you@email.com" autocomplete="email" required>
-    <button class="btn primary" type="submit">Get it &rarr;</button>
+    <button class="btn primary" type="submit">Open it &rarr;</button>
   </form>
   <button class="x" id="ctaClose" type="button" aria-label="Dismiss">&times;</button>
 </div>
-
-<div class="weave" aria-hidden="true"></div>
 
 <div class="pop" id="packPop" hidden>
   <div class="pop-scrim" data-pop-close></div>
@@ -779,16 +817,18 @@ pre.code code{font-size:inherit;}
     <button class="pop-x" type="button" data-pop-close aria-label="Close">×</button>
     <span class="k">One email a week · the working setup</span>
     <h2 id="popH">Keep the whole toolkit.</h2>
-    <p>Free, no wall. Add your email and The Teardown sends the Four Rules setup plus one working AI setup a week.</p>
+    <p>Add your email and the Four Rules setup opens straight away — plus one working AI setup a week.</p>
     <form action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="popup">
-      <input type="hidden" name="tag" value="masthead-popup">
+      <input type="hidden" name="tag" value="no005-popup">
       <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
       <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
-      <button class="btn" type="submit">Get the weekly pack →</button>
+      <button class="btn" type="submit">Open the pack →</button>
     </form>
-    <div class="note">Free. The config pack lands in your inbox straight away. Unsubscribe anytime.</div>
+    <div class="note">The pack opens on the next screen. One email a week. Unsubscribe anytime.</div>
   </div>
 </div>
+
+<div class="weave" aria-hidden="true"></div>
 
 <main>
 <section class="hero">
@@ -797,152 +837,45 @@ pre.code code{font-size:inherit;}
   <p class="sub">The four rules from NO. 005 — plus the brain-file template. As promised.</p>
   <div class="actions">
     <button class="btn primary" id="heroCopyTpl" type="button" data-copy-target="#brainTpl" data-copy-event="no005-copy-template">Copy the brain file</button>
-    <a class="btn" href="#no-005">See the 4 rules ↓</a>
+    <a class="btn" href="#gate">See the 4 rules ↓</a>
     <button class="btn" id="shareBtn" type="button">Send to a dev friend</button>
   </div>
   <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
 </section>
 
 <!-- ======================= ISSUE DIVIDER ======================= -->
-<div class="fig">
-  <h2 class="kick">Fig. 01 ·</h2>
-  <span class="gaccent">the four rules</span>
-  <span class="line"></span>
-</div>
+<!-- THE GATE. Founder decision 2026-08-26: the packs stop being free-to-scroll.
+     The email is now the price of the payload, because ~700 page opens in 30
+     days produced 6 form clicks (live /report pull, 2026-08-26) — the pages
+     gave the asset away before the ask, so the ask never had leverage.
 
-<!-- =====================================================================
-     ISSUE BLOCK — NO. 005 · four rules + the brain.md template.
-     ===================================================================== -->
-<section class="issues" id="no-005">
+     The payload is NOT in this document. build.mjs splits the body at the first
+     <div class="fig"> and writes everything below it to a separate unlock page
+     whose URL only the funnel worker knows. There is nothing here to view-source.
 
-  <!-- RULE 01 -->
-  <article class="card c-aqua">
-    <div class="top">
-      <span class="tag">Rule 01 / 04 · the honesty test</span>
-      <span class="goth">mode</span>
-    </div>
-    <h2>Know your mode</h2>
-    <p class="one">Ship mode: it just has to exist. Learn mode: you leave better than you arrived. The honesty test: if you couldn't rebuild it without AI afterwards, you didn't learn it — you shipped it. Both are fine. Lying to yourself isn't.</p>
-  </article>
-
-  <!-- RULE 02 -->
-  <article class="card c-orchid">
-    <div class="top">
-      <span class="tag">Rule 02 / 04 · flip the tool</span>
-      <span class="goth">why</span>
-    </div>
-    <h2>Ask why. Not do.</h2>
-    <p class="one">When you're learning, flip the tool: write the code yourself — docs, not copy-paste — then bring it to the AI and ask <em>why it didn't work</em>. "Why" teaches; "do it for me" doesn't.</p>
-  </article>
-
-  <!-- RULE 03 -->
-  <article class="card c-cream">
-    <div class="top">
-      <span class="tag">Rule 03 / 04 · source of truth</span>
-      <span class="goth">brain</span>
-    </div>
-    <h2>Give your project a brain</h2>
-    <p class="one">One markdown file, the source of truth. Every new AI chat starts by reading it: the model stops guessing, and writing it keeps YOU honest — if you can't explain a decision, you never had a reason. Template below.</p>
-    <div class="actions">
-      <a class="btn" href="#template">Get the template ↓</a>
-    </div>
-  </article>
-
-  <!-- RULE 04 -->
-  <article class="card c-signal">
-    <div class="top">
-      <span class="tag">Rule 04 / 04 · the whole game</span>
-      <span class="goth">taste</span>
-    </div>
-    <h2>Steal taste</h2>
-    <p class="one">Read code by better engineers: strict open-source repos, merged PRs, and especially REJECTED PRs — working code a maintainer said no to, with the why written down. The no is the lesson.</p>
-    <p class="one">Books: <em>The Pragmatic Programmer</em> · <em>A Philosophy of Software Design</em> (Ousterhout).</p>
-  </article>
-
-  <!-- THE PROMISED ASSET — brain.md template -->
-  <article class="card c-ink" id="template">
-    <div class="top">
-      <span class="tag">The promised asset · brain.md</span>
-      <span class="goth">template</span>
-    </div>
-    <h2>The brain file</h2>
-    <p class="one">Copy it, fill it in, drop it in your repo. Every new AI chat starts by reading it — and you update it yourself, after every real decision.</p>
-<pre class="tpl" id="brainTpl"><code># brain.md — source of truth for &lt;project&gt;
-_Last updated: &lt;date&gt; — update this YOURSELF after every real decision. No AI edits._
-
-## 1 · What &amp; why
-What this is: …
-Who it's for / the job it does: …
-What "done" looks like: …
-
-## 2 · Decisions (append-only)
-- &lt;date&gt; — Chose X over Y because … (revisit if: …)
-- &lt;date&gt; — …
-
-## 3 · Right now
-Working on: …
-Next up: …
-Known mess / debt: …
-
-&lt;!-- New AI chat? Paste this file first. If a section is stale, fix it before prompting. --&gt;</code></pre>
-    <div class="actions">
-      <button class="btn" id="copyTemplate" type="button" data-copy-target="#brainTpl" data-copy-event="no005-copy-template">Copy the template</button>
-    </div>
-  </article>
-
-  <!-- THE COMBO — cross-link to NO. 006 -->
-  <article class="card c-ink">
-    <div class="top">
-      <span class="tag">The combo · NO. 005 × NO. 006</span>
-      <span class="goth">combo</span>
-    </div>
-    <h2>Half of a system.</h2>
-    <p class="one">brain.md is the context layer. NO. 006 adds the behavioral layer — the Karpathy-derived CLAUDE.md with 188,000 stars. Together they're the whole setup.</p>
-    <div class="actions">
-      <a class="btn" data-goatcounter-click="no005-see-no006" href="./no-006.html">Open NO. 006 →</a>
-    </div>
-  </article>
-
-</section>
-
-<section class="midcap" aria-label="Get the weekly pack">
-  <span class="k">One email a week · the working setup</span>
+     Everything above this block stays public: the hook, the problem, the promise.
+     That is what the DM sold, and it still reads without paying. -->
+<section class="gate" id="gate">
+  <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+  <span class="k">The pack · one email</span>
   <h2>Keep the whole toolkit.</h2>
-  <p>The Teardown sends the config pack and one working AI setup a week — the same rig behind this channel. Free, and you can unsubscribe anytime.</p>
-  <form action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="midcap">
-      <input type="hidden" name="tag" value="no-005-midcap">
-      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
-    <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
-    <button class="btn" type="submit">Get the weekly pack →</button>
+  <p class="lede">The rest of this page is the Four Rules setup. Add your email and it opens — no confirmation click, no waiting.</p>
+
+  <ul class="gate-list">
+    <li><span class="n">01</span> the Four Rules setup, in full — every file, copy-paste ready</li>
+    <li><span class="n">02</span> One working AI setup a week, in your inbox</li>
+    <li><span class="n">03</span> One click to unsubscribe, and nothing else ever</li>
+  </ul>
+
+  <form class="gate-form" action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="gate">
+    <input type="hidden" name="tag" value="no005">
+    <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+    <label class="sr-only" for="gateEmail">Email address</label>
+    <input id="gateEmail" name="email" type="email" placeholder="you@email.com" autocomplete="email" required>
+    <button class="btn primary" type="submit">Open the pack &rarr;</button>
   </form>
-  <div class="note">Free. The config pack lands in your inbox straight away. Unsubscribe anytime.</div>
+  <div class="note">The pack opens on the next screen — no confirmation click, no waiting. <a href="./privacy.html">What we do with it</a>.</div>
 </section>
-
-<section class="issues">
-  <!-- FOLLOW ASK — the reciprocity moment -->
-  <article class="card c-ink">
-    <div class="top">
-      <span class="tag">No gate / no catch</span>
-      <span class="goth">follow</span>
-    </div>
-    <h2>That's all four. Follow for the next one.</h2>
-    <p class="one">This page exists because people follow — a new teardown drops daily, and followers catch it first. If it saved you an afternoon, the follow is the thank-you.</p>
-    <div class="actions">
-      <a class="btn primary" data-goatcounter-click="no005-follow-instagram" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Follow @vektor.fm →</a>
-    </div>
-  </article>
-</section>
-
-<!-- RECEIPT STRIP — social proof for the peak number -->
-<section class="receipt">
-  <a data-goatcounter-click="no005-metr-source" href="https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/" target="_blank" rel="noopener">METR randomized trial · 2025 · 16 senior devs · 246 tasks — AI-assisted: 19% slower · believed: +20%</a>
-  <div class="credit">
-    <a data-goatcounter-click="no005-lattice-source" href="https://www.youtube.com/watch?v=FkeLbE6Q22A" target="_blank" rel="noopener">Adapted from "Computer Science in the AI Era" — Lattice (YouTube)</a>
-  </div>
-</section>
-<!-- ===================== END ISSUE BLOCK — NO. 005 ===================== -->
-
-<!-- ======================= FOOTER ======================= -->
 </main>
 
 <footer>

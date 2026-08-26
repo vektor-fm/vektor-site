@@ -1,7 +1,7 @@
 {
   "number": "014",
   "title": "vektor /// no. 014 — give claude code a memory.",
-  "description": "The claude-mem quick-start — the exact install steps and the real hook config, straight from the shipped hooks.json. Claude Code forgets everything when you close it; this fixes that. Free, no gate.",
+  "description": "The claude-mem quick-start — the exact install steps and the real hook config, straight from the shipped hooks.json. Claude Code forgets everything when you close it; this fixes that. Free — one email and it opens.",
   "og_title": "Give Claude Code a memory. — vektor /// no. 014",
   "og_description": "Claude Code forgets everything when you close it. claude-mem gives it memory across sessions. The exact install steps + the real hook config, with the traps. No gate.",
   "og_image": "https://vektor-fm.github.io/vektor-site/og/no-014.png",

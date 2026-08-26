@@ -16,6 +16,7 @@
 <meta property="og:site_name" content="vektor">
 <meta property="og:url" content="https://vektor-fm.github.io/vektor-site/no-034.html">
 <link rel="canonical" href="https://vektor-fm.github.io/vektor-site/no-034.html">
+
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="One repo showed its working. — vektor /// no. 034">
 <meta name="twitter:description" content="claude-context: the install line, the two things it costs you, and the evaluation read at source — with the four caveats nobody else prints.">
@@ -518,6 +519,34 @@ img{display:block; max-width:100%;}
 .midcap .btn{min-height:48px;}
 .midcap .note{font-size:var(--fs-s); color:var(--meta); margin-top:var(--p-s);}
 
+/* ---- the gate (2026-08-26) ----
+   The page ends here for anyone who hasn't paid the email. It is the last
+   thing on a public issue page, so it is sized like a destination rather than
+   like a footer widget: full-width band, display type, the ask at thumb height
+   on a phone. The list is deliberately three lines — a longer one reads as
+   terms and conditions, which is the shape people close. */
+.gate{margin:var(--p-2xl) 0 0; padding:0 var(--rail) var(--p-4xl); background:var(--band); border-top:1px solid var(--rule);}
+.gate .rule{margin:0 0 var(--p-xl); padding-top:var(--p-xl);}
+.gate .k{display:block; color:var(--accent); font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); margin-bottom:var(--p-s);}
+.gate h2{font-family:var(--font-extended); font-weight:400; text-transform:uppercase; letter-spacing:normal; font-size:var(--fs-3xl); line-height:var(--lh-3xl); margin:0 0 var(--p-s);}
+.gate .lede{font-size:var(--fs-l); line-height:var(--lh-xl); max-width:56ch; margin:0 0 var(--p-l); color:var(--fg);}
+.gate-list{list-style:none; margin:0 0 var(--p-xl); padding:0; max-width:56ch;}
+.gate-list li{display:flex; gap:var(--p-m); padding:var(--p-s) 0; border-top:1px solid var(--rule); font-size:var(--fs-m); line-height:var(--lh-xl); color:var(--dim);}
+.gate-list li:last-child{border-bottom:1px solid var(--rule);}
+.gate-list .n{font-family:var(--font-label); font-size:var(--fs-s); color:var(--accent); padding-top:.25em;}
+.gate-form{display:flex; gap:var(--p-s); flex-wrap:wrap; max-width:540px;}
+.gate-form input{flex:1 1 240px; min-height:52px; background:transparent; border:0; border-bottom:1px solid var(--fg); color:var(--fg); font-family:var(--font-sans); font-size:var(--fs-m); padding:0;}
+.gate-form input:focus{outline:none; border-bottom-color:var(--accent);}
+.gate-form .btn{min-height:52px;}
+.gate .note{font-size:var(--fs-s); color:var(--meta); margin-top:var(--p-m);}
+.gate .note a{color:var(--meta);}
+
+/* the receipt at the top of an unlock page */
+.unlocked{margin:0; padding:var(--p-xl) var(--rail); background:var(--band); border-bottom:1px solid var(--rule);}
+.unlocked .k{display:block; color:var(--accent); font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); margin-bottom:var(--p-s);}
+.unlocked h2{font-family:var(--font-extended); font-weight:400; text-transform:uppercase; letter-spacing:normal; font-size:var(--fs-2xl); line-height:var(--lh-2xl); margin:0 0 var(--p-xs);}
+.unlocked p{font-size:var(--fs-m); line-height:var(--lh-xl); max-width:64ch; margin:0; color:var(--dim);}
+
 /* ---- footer ---- */
 footer{margin-top:var(--p-4xl); padding:var(--p-2xl) var(--rail) var(--p-4xl); border-top:1px solid var(--rule);}
 .foot-rule{margin-bottom:var(--p-xl);}
@@ -717,7 +746,7 @@ pre.code code{font-size:inherit;}
           <li><a href="./no-015.html"><span class="a">→</span><span>Loops</span></a></li>
           <li><a href="./no-010.html"><span class="a">→</span><span>CLAUDE.md files</span></a></li>
         </ul>
-        <p class="info">The files behind the films. Free, no signup wall.</p>
+        <p class="info">The files behind the films. One email opens any of them.</p>
       </div>
     </li>
     <li>
@@ -755,23 +784,32 @@ pre.code code{font-size:inherit;}
 <!-- the issue marker, kept: it is the only per-page label in the bar -->
 <div class="issue-marker">This Week in AI · Tooling</div>
 
+<!-- The capture furniture (sticky bar + pop-up) lives in partials/capture.html
+     and is injected ONLY into public pages. Unlock pages get an empty string
+     here — see build.mjs. The weave stays on both: it is structure, not an ask. -->
 <!-- Sticky ask. This used to be a Follow link back to Instagram, which spent
      an IG click to win a visit and then returned the visitor to IG without
      capturing anything. The goal is the email address, so the persistent ask
-     is now the email. Follow demotes to the footer. -->
+     is now the email. Follow demotes to the footer.
+
+     Since 2026-08-26 both forms carry the PAGE's tag (no034-sticky /
+     no034-popup) rather than a generic one: the worker reads the tag to
+     decide which pack to unlock, so a generic tag would capture the email and
+     then have nothing to hand back. The suffix keeps per-source attribution.
+
+     This whole file is omitted from unlock pages — asking a reader for the
+     email they just gave you is how a funnel reads as a machine. -->
 <div class="sticky-cta" id="stickyCta" aria-hidden="true">
   <span class="t">the Tooling setup + one working setup a week</span>
   <form class="sticky-form" method="post" action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" data-capture="sticky">
-      <input type="hidden" name="tag" value="masthead-sticky">
+      <input type="hidden" name="tag" value="no034-sticky">
       <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
     <label class="sr-only" for="stickyEmail">Email address</label>
     <input id="stickyEmail" name="email" type="email" placeholder="you@email.com" autocomplete="email" required>
-    <button class="btn primary" type="submit">Get it &rarr;</button>
+    <button class="btn primary" type="submit">Open it &rarr;</button>
   </form>
   <button class="x" id="ctaClose" type="button" aria-label="Dismiss">&times;</button>
 </div>
-
-<div class="weave" aria-hidden="true"></div>
 
 <div class="pop" id="packPop" hidden>
   <div class="pop-scrim" data-pop-close></div>
@@ -779,16 +817,18 @@ pre.code code{font-size:inherit;}
     <button class="pop-x" type="button" data-pop-close aria-label="Close">×</button>
     <span class="k">One email a week · the working setup</span>
     <h2 id="popH">Keep the whole toolkit.</h2>
-    <p>Free, no wall. Add your email and The Teardown sends the Tooling setup plus one working AI setup a week.</p>
+    <p>Add your email and the Tooling setup opens straight away — plus one working AI setup a week.</p>
     <form action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="popup">
-      <input type="hidden" name="tag" value="masthead-popup">
+      <input type="hidden" name="tag" value="no034-popup">
       <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
       <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
-      <button class="btn" type="submit">Get the weekly pack →</button>
+      <button class="btn" type="submit">Open the pack →</button>
     </form>
-    <div class="note">Free. The config pack lands in your inbox straight away. Unsubscribe anytime.</div>
+    <div class="note">The pack opens on the next screen. One email a week. Unsubscribe anytime.</div>
   </div>
 </div>
+
+<div class="weave" aria-hidden="true"></div>
 
 <main>
 <section class="hero">
@@ -796,73 +836,45 @@ pre.code code{font-size:inherit;}
   <h1 class="disp">One repo showed<br>its working<span class="dot">.</span></h1>
   <p class="sub">Five repos promise to cut your Claude Code token bill. Exactly one of them published a measurement you can check. Here is the setup, the two things it costs you, and — the part nobody else prints — what that measurement actually says, and what it doesn't. As promised.</p>
   <div class="actions">
-    <a class="btn primary" href="#setup">Set it up ↓</a>
-    <a class="btn" href="#evidence">What the evaluation says →</a>
+    <a class="btn primary" href="#gate">Set it up ↓</a>
+    <a class="btn" href="#gate">What the evaluation says →</a>
     <button class="btn" id="shareBtn" type="button">Send to a dev friend</button>
   </div>
   <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
 </section>
 
 <!-- ======================= THE SETUP ======================= -->
-<div class="fig">
-  <h2 class="kick">Fig. 01 ·</h2>
-  <span class="gaccent">the setup, in order</span>
-  <span class="line"></span>
-</div>
+<!-- THE GATE. Founder decision 2026-08-26: the packs stop being free-to-scroll.
+     The email is now the price of the payload, because ~700 page opens in 30
+     days produced 6 form clicks (live /report pull, 2026-08-26) — the pages
+     gave the asset away before the ask, so the ask never had leverage.
 
-<section class="issues" id="setup">
-  <p class="note">Repository metadata read from the GitHub API on <b>16 August 2026</b>. Stars move; the install line doesn't.</p>
+     The payload is NOT in this document. build.mjs splits the body at the first
+     <div class="fig"> and writes everything below it to a separate unlock page
+     whose URL only the funnel worker knows. There is nothing here to view-source.
 
-  <article class="issue">
-    <h3><span class="num">1.</span> claude-context</h3>
-    <p>Semantic search over your whole codebase, wired into Claude Code as an MCP server. Instead of grep reading every file that matches and pushing all of it into the context window, it reads the part that actually relates to what you asked and hands the model that. <b>12,405 stars. MIT licence.</b></p>
-    <pre class="code"><code>claude mcp add claude-context</code></pre>
-    <p class="meta">Repository: <a href="https://github.com/zilliztech/claude-context">github.com/zilliztech/claude-context</a>. Built by Zilliz, the company behind the Milvus vector database — which is worth knowing before you read their evaluation of their own tool, further down.</p>
-  </article>
+     Everything above this block stays public: the hook, the problem, the promise.
+     That is what the DM sold, and it still reads without paying. -->
+<section class="gate" id="gate">
+  <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+  <span class="k">The pack · one email</span>
+  <h2>Keep the whole toolkit.</h2>
+  <p class="lede">The rest of this page is the Tooling setup. Add your email and it opens — no confirmation click, no waiting.</p>
 
-  <article class="issue">
-    <h3><span class="num">2.</span> It is not free. Here are the two things it costs.</h3>
-    <p>Every write-up we found skipped this. The tool needs an embedding model and somewhere to put the vectors, and both are yours to supply:</p>
-    <pre class="code"><code>export OPENAI_API_KEY=sk-...
-export MILVUS_ADDRESS=...</code></pre>
-    <p><b>OPENAI_API_KEY</b> — every file in your repo gets embedded, and re-embedded as it changes. That is a metered API bill that scales with how big your codebase is and how often it moves. <b>MILVUS_ADDRESS</b> — a Milvus or Zilliz Cloud vector store to hold them. Zilliz Cloud has a free tier; self-hosting Milvus is a service you now run.</p>
-    <p>Neither is a dealbreaker. Both are things you should know before you install it, not after.</p>
-  </article>
-</section>
+  <ul class="gate-list">
+    <li><span class="n">01</span> the Tooling setup, in full — every file, copy-paste ready</li>
+    <li><span class="n">02</span> One working AI setup a week, in your inbox</li>
+    <li><span class="n">03</span> One click to unsubscribe, and nothing else ever</li>
+  </ul>
 
-<!-- ======================= THE EVIDENCE ======================= -->
-<div class="fig">
-  <h2 class="kick">Fig. 02 ·</h2>
-  <span class="gaccent">what the evaluation actually says</span>
-  <span class="line"></span>
-</div>
-
-<section class="issues" id="evidence">
-  <p class="note">Every figure below is quoted from the repository's own <code>evaluation/README.md</code>, read at source on <b>15 August 2026</b>.</p>
-
-  <article class="issue">
-    <h3><span class="num">3.</span> The numbers they published</h3>
-    <p>They ran 30 instances from Princeton NLP's SWE-bench Verified dataset — real bug fixes in real repositories — twice over: once with grep, once with semantic search. Then they printed the difference.</p>
-    <pre class="code"><code>average tokens      73,373  →  44,449     −39.4%
-average tool calls     8.3  →     5.3     −36.3%
-answer quality (F1)   0.40  →    0.40     comparable</code></pre>
-    <p class="meta">28,924 tokens saved per instance. The quality row is the one that matters: a tool that cuts tokens by finding less is not a win, and their own numbers say the answers came out the same.</p>
-  </article>
-
-  <article class="issue">
-    <h3><span class="num">4.</span> What it doesn't say — read this part</h3>
-    <p>We are recommending this repo <em>because</em> it published a measurement, which is more than anything else in the category did. That is not the same as the measurement being independent. Four caveats, all from their own document:</p>
-    <p><b>They ran it on their own tool.</b> Zilliz evaluated Zilliz. No third party has reproduced this.</p>
-    <p><b>n = 30.</b> Thirty instances, filtered to 15–60 minutes of estimated difficulty and exactly two file modifications. That is a narrow, tidy slice of the work you actually do.</p>
-    <p><b>One model, chosen for price.</b> GPT-4o-mini, picked in their words for cost-effectiveness. Whether the gap holds on a frontier model is untested.</p>
-    <p><b>Six runs, not two.</b> The video says the benchmark was run twice — meaning the two arms, grep and search. Their document is more rigorous than that: each method was run <b>three times independently, six runs in total</b>. We are correcting ourselves upward here, which felt worth doing in public.</p>
-  </article>
-
-  <article class="issue">
-    <h3><span class="num">5.</span> Where the "90%" claims come from</h3>
-    <p>The reason this issue exists is that the category is full of much bigger numbers with nothing behind them. One repo advertises cutting token usage by 90%+, with a benchmark run against its own codebase — 51 files, 5 queries. Another claims up to 71.5× fewer tokens per session and gives no benchmark at all. A third, widely cited at 60–85%, returns a 404: the repository is gone.</p>
-    <p>We are not printing those repo names or their figures as if they were findings. A number with no method behind it isn't a small number or a big one — it isn't a measurement. That is the whole point of this issue.</p>
-  </article>
+  <form class="gate-form" action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="gate">
+    <input type="hidden" name="tag" value="no034">
+    <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+    <label class="sr-only" for="gateEmail">Email address</label>
+    <input id="gateEmail" name="email" type="email" placeholder="you@email.com" autocomplete="email" required>
+    <button class="btn primary" type="submit">Open the pack &rarr;</button>
+  </form>
+  <div class="note">The pack opens on the next screen — no confirmation click, no waiting. <a href="./privacy.html">What we do with it</a>.</div>
 </section>
 </main>
 

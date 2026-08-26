@@ -19,7 +19,8 @@
       "date": "08-2026",
       "keyword": "STACK",
       "lastmod": "2026-08-09",
-      "built": true
+      "built": true,
+      "unlock": "ee169c3dad"
     },
     {
       "number": "031",
@@ -28,7 +29,8 @@
       "date": "2026-08-01",
       "keyword": "",
       "lastmod": "2026-08-16",
-      "built": true
+      "built": true,
+      "unlock": "2bb8bdefab"
     },
     {
       "number": "030",
@@ -37,7 +39,8 @@
       "date": "2026-08-01",
       "keyword": "",
       "lastmod": "2026-08-16",
-      "built": true
+      "built": true,
+      "unlock": "ecc3a629c7"
     },
     {
       "number": "028",
@@ -46,7 +49,8 @@
       "date": "2026-08-01",
       "keyword": "",
       "lastmod": "2026-08-16",
-      "built": true
+      "built": true,
+      "unlock": "efce6fdcf8"
     },
     {
       "number": "026",
@@ -55,7 +59,8 @@
       "date": "2026-08-01",
       "keyword": "",
       "lastmod": "2026-08-16",
-      "built": true
+      "built": true,
+      "unlock": "03f1d30561"
     },
     {
       "number": "024",
@@ -64,7 +69,8 @@
       "date": "07-2026",
       "keyword": "Mirror",
       "lastmod": "2026-07-22",
-      "built": true
+      "built": true,
+      "unlock": "8bee94fe50"
     },
     {
       "number": "023",
@@ -73,7 +79,8 @@
       "date": "07-2026",
       "keyword": "Taste",
       "lastmod": "2026-07-22",
-      "built": true
+      "built": true,
+      "unlock": "251024d562"
     },
     {
       "number": "022",
@@ -82,7 +89,8 @@
       "date": "07-2026",
       "keyword": "Human",
       "lastmod": "2026-07-22",
-      "built": true
+      "built": true,
+      "unlock": "193704628a"
     },
     {
       "number": "021",
@@ -91,7 +99,8 @@
       "date": "07-2026",
       "keyword": "Open",
       "lastmod": "2026-07-22",
-      "built": true
+      "built": true,
+      "unlock": "58633af5da"
     },
     {
       "number": "020",
@@ -100,7 +109,8 @@
       "date": "07-2026",
       "keyword": "Squad",
       "lastmod": "2026-07-20",
-      "built": true
+      "built": true,
+      "unlock": "2dc9caf528"
     },
     {
       "number": "019",
@@ -109,7 +119,8 @@
       "date": "07-2026",
       "keyword": "Academy",
       "lastmod": "2026-07-20",
-      "built": true
+      "built": true,
+      "unlock": "3a5edf2599"
     },
     {
       "number": "018",
@@ -118,7 +129,8 @@
       "date": "07-2026",
       "keyword": "Bottle",
       "lastmod": "2026-07-20",
-      "built": true
+      "built": true,
+      "unlock": "a0f1bfac43"
     },
     {
       "number": "017",
@@ -127,7 +139,8 @@
       "date": "07-2026",
       "keyword": "Final",
       "lastmod": "2026-07-19",
-      "built": true
+      "built": true,
+      "unlock": "c6f57fc2ed"
     },
     {
       "number": "015",
@@ -136,7 +149,8 @@
       "date": "07-2026",
       "keyword": "Loop",
       "lastmod": "2026-07-16",
-      "built": true
+      "built": true,
+      "unlock": "c8f083eb8d"
     },
     {
       "number": "014",
@@ -145,7 +159,8 @@
       "date": "2026-08-01",
       "keyword": "",
       "lastmod": "2026-08-16",
-      "built": true
+      "built": true,
+      "unlock": "19ad0bd025"
     },
     {
       "number": "013",
@@ -154,7 +169,8 @@
       "date": "07-2026",
       "keyword": "Agent",
       "lastmod": "2026-07-15",
-      "built": true
+      "built": true,
+      "unlock": "3d9f2067f4"
     },
     {
       "number": "012",
@@ -163,7 +179,8 @@
       "date": "07-2026",
       "keyword": "Repo",
       "lastmod": "2026-07-15",
-      "built": true
+      "built": true,
+      "unlock": "f6db4fe557"
     },
     {
       "number": "011",
@@ -172,7 +189,8 @@
       "date": "07-2026",
       "keyword": "Speed",
       "lastmod": "2026-07-13",
-      "built": true
+      "built": true,
+      "unlock": "eaef415857"
     },
     {
       "number": "010",
@@ -181,7 +199,8 @@
       "date": "07-2026",
       "keyword": "Rules",
       "lastmod": "2026-07-13",
-      "built": true
+      "built": true,
+      "unlock": "c51c0011ec"
     },
     {
       "number": "009",
@@ -190,7 +209,8 @@
       "date": "07-2026",
       "keyword": "Carousel",
       "lastmod": "2026-07-14",
-      "built": true
+      "built": true,
+      "unlock": "2cea9f4cdd"
     },
     {
       "number": "008",
@@ -199,7 +219,8 @@
       "date": "07-2026",
       "keyword": "Steal",
       "lastmod": "2026-07-14",
-      "built": true
+      "built": true,
+      "unlock": "2677f56353"
     },
     {
       "number": "007",
@@ -208,7 +229,8 @@
       "date": "07-2026",
       "keyword": "Generals",
       "lastmod": "2026-07-14",
-      "built": true
+      "built": true,
+      "unlock": "b777833e47"
     },
     {
       "number": "006",
@@ -217,7 +239,8 @@
       "date": "07-2026",
       "keyword": "Karpathy",
       "lastmod": "2026-07-14",
-      "built": true
+      "built": true,
+      "unlock": "d1c9312170"
     },
     {
       "number": "005",
@@ -226,7 +249,8 @@
       "date": "07-2026",
       "keyword": "Brain",
       "lastmod": "2026-07-14",
-      "built": true
+      "built": true,
+      "unlock": "5f9f86e6c8"
     },
     {
       "number": "004",
@@ -235,7 +259,8 @@
       "date": "07-2026",
       "keyword": "Claude",
       "lastmod": "2026-07-05",
-      "built": true
+      "built": true,
+      "unlock": "790f79bfba"
     },
     {
       "number": "034",
@@ -244,7 +269,8 @@
       "date": "08-2026",
       "keyword": "CONTEXT",
       "lastmod": "2026-08-16",
-      "built": true
+      "built": true,
+      "unlock": "91ecef0095"
     },
     {
       "number": "035",
@@ -253,7 +279,8 @@
       "date": "08-2026",
       "keyword": "MCP",
       "lastmod": "2026-08-17",
-      "built": true
+      "built": true,
+      "unlock": "0164f14bd8"
     },
     {
       "number": "036",
@@ -262,7 +289,8 @@
       "date": "08-2026",
       "keyword": "GRAPH",
       "lastmod": "2026-08-18",
-      "built": true
+      "built": true,
+      "unlock": "82e7b5ac34"
     },
     {
       "number": "037",
@@ -271,7 +299,8 @@
       "date": "08-2026",
       "keyword": "TOOLS",
       "lastmod": "2026-08-21",
-      "built": true
+      "built": true,
+      "unlock": "f887324032"
     },
     {
       "number": "039",
@@ -280,7 +309,8 @@
       "date": "08-2026",
       "keyword": "PLUGINS",
       "lastmod": "2026-08-23",
-      "built": true
+      "built": true,
+      "unlock": "645383122e"
     },
     {
       "number": "038",
@@ -289,7 +319,8 @@
       "date": "08-2026",
       "keyword": "SKILLS",
       "lastmod": "2026-08-24",
-      "built": true
+      "built": true,
+      "unlock": "1605998464"
     },
     {
       "number": "041",
@@ -298,7 +329,8 @@
       "date": "08-2026",
       "keyword": "AGENTS",
       "lastmod": "2026-08-25",
-      "built": true
+      "built": true,
+      "unlock": "fd6d9b4ae0"
     }
   ],
   "teardowns": [

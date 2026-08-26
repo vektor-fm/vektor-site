@@ -15,7 +15,7 @@
 //   node build.mjs --check    verify outputs are in sync + all links/assets resolve (CI/pre-merge gate)
 //
 // All I/O is normalised to LF (the repo stores LF via core.autocrlf); outputs are LF.
-import { readFileSync, writeFileSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, existsSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join, basename } from 'node:path';
 
@@ -31,6 +31,12 @@ const site = JSON.parse(read('site.json'));
 // both via {{NAV}} / {{NAV_CSS}}. Keeping two copies is how they drift.
 const NAV = read('partials/nav.html');
 const NAV_CSS = read('partials/nav-css.html');
+// The gate (2026-08-26). CAPTURE is the sticky bar + pop-up, injected into
+// public pages only; GATE is the email wall that replaces the payload; UNLOCKED
+// is the receipt at the top of an unlock page.
+const CAPTURE = read('partials/capture.html');
+const GATE = read('partials/gate.html');
+const UNLOCKED = read('partials/unlocked.html');
 const BUILT = site.issues.filter((i) => i.built);
 // Newsletter issues. Separate from site.issues[] because a Teardown is not a
 // reel landing page: it has no keyword, no funnel, and no OG plate art.
@@ -45,18 +51,54 @@ function assertNoTokens(html, label) {
   if (left) throw new Error(`${label}: unfilled tokens ${[...new Set(left)].join(', ')}`);
 }
 
+// ---- the gate split ----
+// Everything above the FIRST <div class="fig"> is the public half: the hook,
+// the problem, the promise — i.e. what the DM already sold. Everything from
+// that marker down is the payload and moves to the unlock page.
+//
+// The marker is the same in all 33 bodies (checked 2026-08-26), so no per-page
+// annotation is needed. If a body ever lacks it the build FAILS rather than
+// guessing: a wrong guess either publishes the payload or gates the hook.
+function splitAtPayload(body, label) {
+  const at = body.indexOf('<div class="fig">');
+  if (at === -1) {
+    throw new Error(`${label}: no <div class="fig"> to split on — the gate cannot tell hook from payload`);
+  }
+  return { open: body.slice(0, at), payload: body.slice(at) };
+}
+
+// On a public page every route into the payload becomes a route into the gate:
+// in-page anchors (#install, #agents) now point at sections that are not in the
+// document, and ./files/ links are the payload itself. Rewriting rather than
+// deleting keeps the hero's buttons where the eye expects them.
+function sealPublic(html) {
+  return html
+    .replace(/href="\.\/files\/[^"]*"/g, 'href="#gate"')
+    .replace(/href="#(?!gate\b)[^"]*"/g, 'href="#gate"');
+}
+
+function unlockName(num) {
+  const meta = site.issues.find((i) => i.number === num) || {};
+  if (!meta.unlock) {
+    throw new Error(`no-${num}: site.json needs an "unlock" value (run: node new-unlock.mjs ${num})`);
+  }
+  return `u-no-${num}-${meta.unlock}.html`;
+}
+
 // ---- issue page ----
-function renderIssue(num) {
+// Two outputs per issue since 2026-08-26 (see partials/gate.html):
+//   public  — hook + the gate. No payload in the HTML at all.
+//   unlocked — the whole page, served only to a reader the worker just captured.
+function renderIssue(num, { unlocked = false } = {}) {
   const man = JSON.parse(read(`manifest/no-${num}.json`));
   for (const k of ['tw_title', 'tw_description']) {
     if (man[k] == null) throw new Error(`no-${num}: missing ${k} (issue pages require twitter tags)`);
   }
   const body = read(`src/no-${num}.body.html`);
+  const { open, payload } = splitAtPayload(body, `no-${num}`);
 
-  // Per-issue lead magnet. The packs stay FREE and ungated — the site says so
-  // in writing ("the files behind the films. Free, no signup wall.") — so the
-  // email ask is framed as "this pack plus one a week", not as a paywall.
-  // Contextual relevance without breaking the promise.
+  // Per-issue lead magnet, named in the ask so the gate is concrete ("the
+  // Subagents pack") rather than generic ("our newsletter").
   const meta = site.issues.find((i) => i.number === num) || {};
   const hasPayload = /(?:href|src)="\.\/files\//.test(body);
   const magnet = hasPayload
@@ -66,6 +108,10 @@ function renderIssue(num) {
   const map = {
     NAV, NAV_CSS,
     MAGNET: magnet,
+    GATE_TITLE: man.gate_title || (hasPayload ? `Take ${meta.section} with you.` : `Keep the whole toolkit.`),
+    GATE_LEDE: man.gate_lede
+      || `The rest of this page is ${magnet}. Add your email and it opens — no confirmation click, no waiting.`,
+    ROBOTS: unlocked ? '<meta name="robots" content="noindex,nofollow">' : '',
     MAGNET_TITLE: hasPayload
       ? `Take ${meta.section} with you.`
       : `Keep the whole toolkit.`,
@@ -80,12 +126,24 @@ function renderIssue(num) {
       ? `\n  document.querySelectorAll('form').forEach(function(f){ f.addEventListener('submit', function(){ gcEvent('${man.slug}-subscribe-submit'); }); });`
       : '',
   };
+  // capture.html carries {{SLUG}} etc, so it is filled BEFORE it is injected —
+  // fill() does not re-scan what it inserts.
+  map.CAPTURE = unlocked ? '' : fill(CAPTURE, map);
+
+  const middle = unlocked
+    ? fill(UNLOCKED, map) + open + payload
+    : sealPublic(open) + fill(GATE, map);
+
   const out = fill(read('partials/head.html'), map)
     + fill(read('partials/masthead.html'), map)
-    + body
+    + middle
     + fill(read('partials/footer.html'), map)
     + fill(read('partials/scripts.html'), map);
-  assertNoTokens(out, `no-${num}`);
+  const label = unlocked ? `${unlockName(num)}` : `no-${num}`;
+  assertNoTokens(out, label);
+  if (!unlocked && out.includes('./files/')) {
+    throw new Error(`${label}: payload link leaked onto the public page`);
+  }
   return out;
 }
 
@@ -210,6 +268,9 @@ function renderTeardown(num) {
     NAV, NAV_CSS,
     MAGNET: 'the config pack',
     MAGNET_TITLE: 'Keep the whole toolkit.',
+    // A Teardown is the newsletter itself, published on the web. It is not
+    // gated: it IS the sample. It keeps the capture furniture and stays indexed.
+    ROBOTS: '',
     TITLE: man.title, DESCRIPTION: man.description,
     OG_TITLE: man.og_title, OG_DESCRIPTION: man.og_description, OG_IMAGE: man.og_image,
     OG_ALT: man.og_alt, OG_URL: man.og_url, CANONICAL: man.canonical,
@@ -221,6 +282,7 @@ function renderTeardown(num) {
       ? `\n  document.querySelectorAll('form').forEach(function(f){ f.addEventListener('submit', function(){ gcEvent('${man.slug}-subscribe-submit'); }); });`
       : '',
   };
+  map.CAPTURE = fill(CAPTURE, map);
   const out = fill(read('partials/head.html'), map)
     + fill(read('partials/masthead.html'), map)
     + read(`src/teardown-${num}.body.html`)
@@ -230,16 +292,54 @@ function renderTeardown(num) {
   return out;
 }
 
+// ---- the bio-link page (2026-08-26) ----
+// One promise, one field, two ungated sample issues. It exists because the
+// Instagram bio link pointed at the hub, which is a magazine index: it answers
+// "what is this?" and never asks for anything. This page only asks.
+function renderNewsletter() {
+  const man = JSON.parse(read('manifest/newsletter.json'));
+  const map = {
+    NAV, NAV_CSS,
+    MAGNET: 'the newest pack',
+    MAGNET_TITLE: 'Keep the whole toolkit.',
+    ROBOTS: '',
+    // No sticky bar, no pop-up: the page IS the ask, and stacking two more asks
+    // on top of it is how a landing page starts reading like a pop-up farm.
+    CAPTURE: '',
+    TITLE: man.title, DESCRIPTION: man.description,
+    OG_TITLE: man.og_title, OG_DESCRIPTION: man.og_description, OG_IMAGE: man.og_image,
+    OG_ALT: man.og_alt, OG_URL: man.og_url, CANONICAL: man.canonical,
+    TW_TITLE: man.tw_title, TW_DESCRIPTION: man.tw_description, TW_IMAGE: man.tw_image,
+    MARKER: man.marker, STICKY_TEXT: man.sticky_text, SLUG: man.slug,
+    BACKREF_HTML: man.backref_html, FOOTER_META: man.footer_meta,
+    COPY_EVENT_JS: 'null',
+    SUBSCRIBE_BLOCK: `\n  document.querySelectorAll('form').forEach(function(f){ f.addEventListener('submit', function(){ gcEvent('${man.slug}-subscribe-submit'); }); });`,
+  };
+  const out = fill(read('partials/head.html'), map)
+    + fill(read('partials/masthead.html'), map)
+    + read('src/newsletter.body.html')
+    + fill(read('partials/footer.html'), map)
+    + fill(read('partials/scripts.html'), map);
+  assertNoTokens(out, 'newsletter');
+  return out;
+}
+
 // ---- outputs map ----
 function outputs() {
   const o = {};
   for (const i of BUILT) {
     o[`no-${i.number}.html`] = renderIssue(i.number);
+    // The unlock page. Flat at the root for the same reason teardowns are: a
+    // subdirectory breaks head.html's relative @font-face paths. The random
+    // suffix is what keeps it off the guessable path — nothing links to it, it
+    // carries noindex, and only the funnel worker knows the name.
+    o[unlockName(i.number)] = renderIssue(i.number, { unlocked: true });
     const man = JSON.parse(read(`manifest/no-${i.number}.json`));
     if (man.og_card) o[`og-src-no-${i.number}.html`] = renderOgCard(`no-${i.number}`, man.og_card);
   }
   for (const t of TEARDOWNS) o[`teardown-${t.number}.html`] = renderTeardown(t.number);
   o['index.html'] = renderIndex();
+  o['newsletter.html'] = renderNewsletter();
   // The hub's card lives in site.json rather than a manifest, because the hub
   // has no manifest — it is configured entirely from site.json.
   if (site.index.og_card) o['og-src-index.html'] = renderOgCard('index', site.index.og_card);
@@ -250,6 +350,15 @@ function outputs() {
 // ---- guardrail: link + asset resolution ----
 function guardrail() {
   const errs = [];
+  // A stale unlock page is a leak: it is the whole payload sitting at a URL the
+  // worker no longer points at and nothing else guards. Rotating an issue's
+  // "unlock" value must delete the old file, so an orphan is an error.
+  const wanted = new Set(BUILT.map((i) => unlockName(i.number)));
+  for (const f of readdirSync(ROOT)) {
+    if (/^u-no-\d+-[a-z0-9]+\.html$/.test(f) && !wanted.has(f)) {
+      errs.push(`stale unlock page -> delete ${f} (its "unlock" value changed)`);
+    }
+  }
   // every archive-row / issues[] target page exists on disk
   for (const i of site.issues) {
     if (!exists(`no-${i.number}.html`)) errs.push(`archive row -> missing page no-${i.number}.html`);
@@ -285,6 +394,18 @@ function guardrail() {
 
 // ---- run ----
 const check = process.argv.includes('--check');
+
+// `node build.mjs --map` prints the slug -> unlock-page map that the funnel
+// worker needs (funnel/ig-dm-webhook/unlock.json in the PRIVATE vektor repo).
+// It is printed, never written here: a file listing every unlock URL in one
+// place has no business in a public repo, and the worker is the only consumer.
+if (process.argv.includes('--map')) {
+  const map = {};
+  for (const i of BUILT) map[`no-${i.number}`] = unlockName(i.number);
+  console.log(JSON.stringify(map, null, 2));
+  process.exit(0);
+}
+
 const out = outputs();
 if (check) {
   let bad = 0;
