@@ -77,6 +77,65 @@ function sealPublic(html) {
     .replace(/href="#(?!gate\b)[^"]*"/g, 'href="#gate"');
 }
 
+// ---- the gate manifest ----
+// What the reader is being charged for, listed from the payload itself so it can
+// never over-promise: a page with three files says three files, with their real
+// line counts. Files first — a filename is the most concrete thing we can show.
+// Pages whose payload is a prompt, a checklist or a hub have no snippets, so
+// they fall back to their own section headings (founder call, 2026-08-26).
+function payloadManifest(payload) {
+  const files = [...payload.matchAll(/<div class="bar"><span class="f">([^<]+)<\/span>/g)].map((m) => m[1]);
+  const bodies = [...payload.matchAll(/<pre id="[^"]+">([\s\S]*?)<\/pre>/g)].map((m) => m[1].split('\n').length);
+  const rows = files
+    // Each snippet contributes one bar and one <pre>, in order, so index pairs them.
+    .map((label, i) => ({ label, lines: bodies[i] ?? 0 }))
+    // A terminal snippet is an instruction, not an asset — listing it as a file
+    // is the one way this list could lie about what the pack contains.
+    .filter((r) => r.label.includes('/') || /\.(md|json|ya?ml|txt|sh|mjs|js|ts|py)$/.test(r.label))
+    .map((r) => ({ ...r, note: r.lines ? `${r.lines} line${r.lines === 1 ? '' : 's'}` : 'locked' }));
+
+  if (rows.length) {
+    const lines = rows.reduce((n, r) => n + r.lines, 0);
+    return {
+      rows,
+      meta: `${rows.length} ${rows.length === 1 ? 'file' : 'files'} · ${lines} line${lines === 1 ? '' : 's'} · locked`,
+      noun: rows.length === 1 ? 'the file' : `the ${rows.length} files`,
+    };
+  }
+
+  const heads = [...payload.matchAll(/<span class="gaccent">([^<]+)<\/span>/g)].map((m) => m[1].trim());
+  const seen = new Set();
+  const sections = heads.filter((h) => h && !seen.has(h) && seen.add(h)).slice(0, 4);
+  return {
+    rows: sections.map((s) => ({ label: s, note: 'locked' })),
+    meta: `${sections.length} ${sections.length === 1 ? 'section' : 'sections'} · locked`,
+    noun: 'the pack',
+  };
+}
+
+function manifestHtml(rows) {
+  return rows
+    .map((r) =>
+      `      <li><span class="lk">▣</span><span class="fn">${r.label}</span>`
+      + `<span class="rd" aria-hidden="true"></span>`
+      + `<span class="ln">${r.note ?? 'locked'}</span></li>`
+    )
+    .join('\n');
+}
+
+// Social proof at the point of decision, from site.json so it can be refreshed
+// without touching code. REAL NUMBERS ONLY, with the date they were pulled —
+// the subscriber count is deliberately absent: at 53 it argues the other way,
+// and rounding it up would be the one dishonest thing on the page.
+function proofHtml() {
+  const p = site.proof ?? {};
+  const bits = [];
+  if (p.packs) bits.push(`<b>${p.packs.toLocaleString('en-US')}</b> packs sent to people who asked`);
+  if (p.followers) bits.push(`<b>${p.followers.toLocaleString('en-US')}</b> follow @vektor.fm`);
+  bits.push('one working setup a week');
+  return bits.join(' · ');
+}
+
 function unlockName(num) {
   const meta = site.issues.find((i) => i.number === num) || {};
   if (!meta.unlock) {
@@ -101,16 +160,25 @@ function renderIssue(num, { unlocked = false } = {}) {
   // Subagents pack") rather than generic ("our newsletter").
   const meta = site.issues.find((i) => i.number === num) || {};
   const hasPayload = /(?:href|src)="\.\/files\//.test(body);
+  // Sections are authored with and without a leading article ("Subagents",
+  // "The Academy"), and "the The Academy pack" is how a generated line stops
+  // sounding written by a person.
+  const section = String(meta.section ?? '').replace(/^the\s+/i, '');
   const magnet = hasPayload
-    ? `the ${meta.section} pack`
-    : `the ${meta.section} setup`;
+    ? `the ${section} pack`
+    : `the ${section} setup`;
+  const gateList = payloadManifest(payload);
 
   const map = {
     NAV, NAV_CSS,
     MAGNET: magnet,
-    GATE_TITLE: man.gate_title || (hasPayload ? `Take ${meta.section} with you.` : `Keep the whole toolkit.`),
+    GATE_META: gateList.meta,
+    GATE_TITLE: man.gate_title || `${magnet[0].toUpperCase()}${magnet.slice(1)}, in full.`,
     GATE_LEDE: man.gate_lede
-      || `The rest of this page is ${magnet}. Add your email and it opens — no confirmation click, no waiting.`,
+      || `Every ${gateList.rows[0]?.note?.includes('lines') ? 'file' : 'section'} below is written and sitting on the next screen. One email opens all of it.`,
+    GATE_MANIFEST: manifestHtml(gateList.rows),
+    GATE_BUTTON: man.gate_button || `Open ${gateList.noun} &rarr;`,
+    GATE_PROOF: proofHtml(),
     ROBOTS: unlocked ? '<meta name="robots" content="noindex,nofollow">' : '',
     MAGNET_TITLE: hasPayload
       ? `Take ${meta.section} with you.`

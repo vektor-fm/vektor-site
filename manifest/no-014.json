@@ -24,5 +24,6 @@
     "sub_mt": 18,
     "sub_html": "The file it reads at the start of every session, the auto-memory it writes itself, and the two hooks that make either one actually bite.",
     "meta_html": "/// no. 014 / memory / 08-2026 · <b>vektor.fm</b>"
-  }
+  },
+  "gate_title": "The claude-mem quick-start, in full."
 }

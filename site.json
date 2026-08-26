@@ -346,5 +346,11 @@
       "date": "2026-08-18",
       "subject": "Five token claims, one benchmark"
     }
-  ]
+  ],
+  "proof": {
+    "_comment": "Social proof on the gate. REAL numbers only, with the date they were pulled — refresh from the funnel worker: GET /report?days=400 (packs = sum of follow-gate delivered; followers = the last line). The subscriber count is deliberately not here: at 53 it argues against subscribing.",
+    "packs": 622,
+    "followers": 1338,
+    "as_of": "2026-08-26"
+  }
 }

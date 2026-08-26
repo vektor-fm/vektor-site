@@ -1,32 +1,47 @@
-<!-- THE GATE. Founder decision 2026-08-26: the packs stop being free-to-scroll.
-     The email is now the price of the payload, because ~700 page opens in 30
-     days produced 6 form clicks (live /report pull, 2026-08-26) — the pages
-     gave the asset away before the ask, so the ask never had leverage.
+<!-- THE GATE. Founder decision 2026-08-26: the packs stop being free-to-scroll,
+     and the ask is the loudest object on the page. ~700 landing-page opens in 30
+     days produced 6 form clicks (live /report, 2026-08-26), so the pages were
+     handing the payload over before the ask and the ask had no leverage.
 
      The payload is NOT in this document. build.mjs splits the body at the first
      <div class="fig"> and writes everything below it to a separate unlock page
      whose URL only the funnel worker knows. There is nothing here to view-source.
 
-     Everything above this block stays public: the hook, the problem, the promise.
-     That is what the DM sold, and it still reads without paying. -->
-<section class="gate" id="gate">
-  <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
-  <span class="k">The pack · one email</span>
-  <h2>{{GATE_TITLE}}</h2>
-  <p class="lede">{{GATE_LEDE}}</p>
+     WHY IT LOOKS LIKE THIS (founder picked A1, "paper block", 2026-08-26):
+     - Cream on an all-black site. It is the only light surface anywhere in the
+       design system, so the eye lands on it before it reads a word. Loud through
+       contrast rather than through decoration.
+     - The manifest lists the REAL payload — file names and line counts pulled
+       from the page's own snippets at build time, redacted. Paywall CRO is
+       consistent that showing what is missing beats describing it, and a
+       manifest cannot be faked into promising something the pack doesn't hold.
+     - It shows structure, never a readable line. Behavioural data on news
+       paywalls (Journalism Studies, 2024) found a readable teaser measurably
+       LOWERS subscribe clicks — curiosity gets satisfied and the reader leaves.
+     - One field. Single-field forms benchmark at ~25.5%, and every extra field
+       is the highest-cost thing you can add.
+     - The note kills the objection single opt-in always raises: nothing to
+       confirm, nothing to wait for.
+     Evidence + sources: docs/2026-08-26-gate-ui-research.md -->
+<section class="gate paper" id="gate">
+  <div class="tab">Locked</div>
+  <div class="inner">
+    <span class="k">{{GATE_META}}</span>
+    <h2>{{GATE_TITLE}}</h2>
+    <p class="lede">{{GATE_LEDE}}</p>
 
-  <ul class="gate-list">
-    <li><span class="n">01</span> {{MAGNET}}, in full — every file, copy-paste ready</li>
-    <li><span class="n">02</span> One working AI setup a week, in your inbox</li>
-    <li><span class="n">03</span> One click to unsubscribe, and nothing else ever</li>
-  </ul>
+    <ul class="manifest">
+{{GATE_MANIFEST}}
+    </ul>
 
-  <form class="gate-form" action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="gate">
-    <input type="hidden" name="tag" value="{{SLUG}}">
-    <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
-    <label class="sr-only" for="gateEmail">Email address</label>
-    <input id="gateEmail" name="email" type="email" placeholder="you@email.com" autocomplete="email" required>
-    <button class="btn primary" type="submit">Open the pack &rarr;</button>
-  </form>
-  <div class="note">The pack opens on the next screen — no confirmation click, no waiting. <a href="./privacy.html">What we do with it</a>.</div>
+    <form class="gate-form" action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="gate">
+      <input type="hidden" name="tag" value="{{SLUG}}">
+      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+      <label class="sr-only" for="gateEmail">Email address</label>
+      <input id="gateEmail" name="email" type="email" placeholder="you@email.com" autocomplete="email" inputmode="email" required>
+      <button class="btn primary" type="submit">{{GATE_BUTTON}}</button>
+    </form>
+    <div class="note">Opens on the next screen — no confirmation email, no waiting room. One-click unsubscribe. <a href="./privacy.html">What we do with it</a>.</div>
+    <div class="proof">{{GATE_PROOF}}</div>
+  </div>
 </section>
