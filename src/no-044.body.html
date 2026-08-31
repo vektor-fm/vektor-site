@@ -1,0 +1,80 @@
+<section class="hero">
+  <div class="kick eye">Deployment · Platforms</div>
+  <h1 class="disp">Vercel or Netlify?<br>Static or edge<span class="dot">?</span></h1>
+  <p class="sub">Six words that get used as if they were interchangeable, and are not. <b>Vercel</b> is built around Next.js; <b>Netlify</b> is framework-agnostic with a build-plugin ecosystem. <b>Static hosting</b> serves every visitor the same pre-built file; <b>edge functions</b> run your code near the user and can answer each request differently. A <b>preview deployment</b> is a live URL for every branch; <b>production</b> is what your users actually hit. Below: what each pair really means, and what it costs you to pick wrong.</p>
+  <div class="actions">
+    <a class="btn primary" href="#pairs">The three pairs ↓</a>
+    <a class="btn" href="#traps">The traps →</a>
+    <a class="btn" href="./files/no-044/deploy-decision-cheatsheet.md">Download the cheat sheet (.md) &darr;</a>
+    <button class="btn" id="shareBtn" type="button">Send to someone mid-deploy-argument</button>
+  </div>
+  <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+</section>
+
+<!-- ======================= THE THREE PAIRS ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 01 ·</h2>
+  <h2 class="disp">The three pairs<span class="dot">.</span></h2>
+  <p class="sub">Not “which is better” — each pair optimises for something different.</p>
+</div>
+
+<section class="issues" id="pairs">
+  <article class="issue">
+    <h3>Vercel vs Netlify</h3>
+    <p><b>Vercel</b> is a deployment platform built and optimised around Next.js: first-class support for server components, edge functions, and incremental static regeneration.</p>
+    <p><b>Netlify</b> is framework-agnostic — it works equally well across React, Vue, Svelte or plain static sites, with a strong ecosystem of build plugins.</p>
+    <p class="meta">Pick on what your app <i>is</i>, not on which brand you have heard more about.</p>
+  </article>
+
+  <article class="issue">
+    <h3>Static hosting vs edge functions</h3>
+    <p><b>Static hosting</b> serves pre-built HTML, CSS and JS files from a CDN — the same content to every user, every time.</p>
+    <p><b>Edge functions</b> run your code at data centres close to the user, letting you personalise, redirect, or fetch data on every request, without a full server round trip.</p>
+    <p class="meta">The question is only ever: does every visitor get the same thing?</p>
+  </article>
+
+  <article class="issue">
+    <h3>Preview vs production deployment</h3>
+    <p>A <b>preview deployment</b> spins up a live, shareable version of your app for every branch or pull request, so your team can review changes before they ship.</p>
+    <p><b>Production</b> is the live version your actual users hit — pushed only after that review is done.</p>
+    <p class="meta">Temporary and disposable, versus the one that matters.</p>
+  </article>
+</section>
+
+<!-- ======================= THE TRAPS ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 02 ·</h2>
+  <h2 class="disp">What it costs to pick wrong<span class="dot">.</span></h2>
+  <p class="sub">Each pair has a failure mode in both directions.</p>
+</div>
+
+<section class="issues" id="traps">
+  <article class="issue">
+    <h3>Platform</h3>
+    <p>Vercel for a non-Next app means paying for integration you never use. Netlify for a Next app means re-implementing things the other platform gives you for free.</p>
+  </article>
+
+  <article class="issue">
+    <h3>Static vs edge</h3>
+    <p>Reaching for edge functions when the page is identical for everyone: you pay per invocation for output a CDN would have served free.</p>
+    <p>The opposite trap is worse — static-generating something that needs to differ per user, then patching it with client-side JavaScript that flashes the wrong content first.</p>
+  </article>
+
+  <article class="issue">
+    <h3>Preview vs production</h3>
+    <p>Reviewing changes on a local dev server instead of the preview URL. Local hides environment differences — env vars, build flags, edge behaviour — and those are exactly what breaks in production.</p>
+  </article>
+</section>
+
+<!-- ======================= THE ONE-LINER ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 03 ·</h2>
+  <h2 class="disp">The one-line version<span class="dot">.</span></h2>
+</div>
+
+<section class="issues" id="oneline">
+  <article class="issue">
+    <p class="sub">Static when everyone gets the same thing. Edge when they don’t. Preview before production, always. And pick the platform your framework actually is.</p>
+    <p class="meta"><a href="./files/no-044/deploy-decision-cheatsheet.md">View raw / download the cheat sheet →</a></p>
+  </article>
+</section>
