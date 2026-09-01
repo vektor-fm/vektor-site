@@ -1,0 +1,25 @@
+<!-- VEKTOR EMAIL MASTHEAD — pushed to Buttondown's newsletter.header field by
+     vektor/scripts/newsletter-theme.mjs. Do not edit in the Buttondown UI: the
+     push overwrites it and the two would drift silently.
+
+     Styles are INLINE here on purpose. The css field styles the body's bare
+     markdown tags, but Gmail's clipping and some clients' <style> handling make
+     a masthead built on classes a coin flip, and a masthead is the one element
+     that must never fall back to unstyled text.
+
+     WORDMARK: lowercase `vektor`, Inter Tight 600, letter-spacing -0.045em,
+     cream #EFEADD on ink. That is the SHIPPING mark (vektor-site/partials/head.html
+     lines 174-186), not the retired Archivo-800-plus-teal-caret one in
+     vektor/brand/logo/export, which has a README saying exactly this. The site's
+     mark animates a chromatic misregistration on load; email cannot animate, so
+     this is its resolved state.
+
+     {{ email.publish_date }} and {{ email.subject }} are Django template
+     variables Buttondown fills per send. The issue number is not one of them, so
+     it is written into the body by the send script instead of guessed here. -->
+<div style="background:#0B0B0B;padding:26px 46px 22px;font-family:'Inter Tight',Inter,'Helvetica Neue',Arial,sans-serif;">
+  <div style="font-size:30px;font-weight:600;letter-spacing:-0.045em;color:#EFEADD;line-height:1;margin:0;">vektor</div>
+  <div style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#8C8C8C;margin:12px 0 0;">
+    The Teardown &nbsp;/&nbsp; <span style="color:#0E9C86;">{{ email.publish_date|date:"d M Y" }}</span>
+  </div>
+</div>
