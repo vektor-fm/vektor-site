@@ -817,30 +817,66 @@ pre.code code{font-size:inherit;}
      capturing anything. The goal is the email address, so the persistent ask
      is now the email. Follow demotes to the footer.
 
-     Since 2026-08-26 the form carries the PAGE's tag (no019-sticky) rather
-     than a generic one: the worker reads the tag to decide which pack to
-     unlock, so a generic tag would capture the email and then have nothing to
-     hand back. The suffix keeps per-source attribution.
+     THE PACK IS NO LONGER BEHIND THE EMAIL (founder, 2026-09-01). The reader
+     paid a follow in the DM; charging a second toll on the page spent funnel
+     conversion to grow a list that had sent one issue in its life. So the
+     sticky bar no longer promises to "open" anything — the payload is already
+     open, three screens down. It sells the WEEKLY, which is the only honest
+     thing left to sell. Wording that implies a lock is a lie now, not copy.
+     Full argument: vektor/reports/2026-09-01-email-gate-decision.md.
 
-     THE POP-UP IS GONE (founder, 2026-08-26). It was dismissed 13 times out of
-     13 on NO.036 and 5 out of 5 on NO.039 (live /report, 2026-08-26) — it
-     converted nothing and spent goodwill on every visit. With a real gate at
-     the end of the page there are now two asks, not three. The pop-up's script
-     in partials/scripts.html no-ops on its own (`if(!pop){return;}`), so it is
-     left in place rather than ripped out; restoring the block restores it.
+     The tag still carries the PAGE slug (no019-sticky) — the worker no
+     longer needs it to decide what to unlock, but it is the only per-source
+     attribution we get in Buttondown and in /report's count:email:<source>.
 
      This whole file is omitted from unlock pages — asking a reader for the
      email they just gave you is how a funnel reads as a machine. -->
 <div class="sticky-cta" id="stickyCta" aria-hidden="true">
-  <span class="t">the Academy setup + one working setup a week</span>
+  <span class="t">One working AI setup a week</span>
   <form class="sticky-form" method="post" action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" data-capture="sticky">
       <input type="hidden" name="tag" value="no019-sticky">
       <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
     <label class="sr-only" for="stickyEmail">Email address</label>
     <input id="stickyEmail" name="email" type="email" placeholder="you@email.com" autocomplete="email" required>
-    <button class="btn primary" type="submit">Open it &rarr;</button>
+    <button class="btn primary" type="submit">Subscribe &rarr;</button>
   </form>
   <button class="x" id="ctaClose" type="button" aria-label="Dismiss">&times;</button>
+</div>
+
+<!-- THE ASK MODAL — one markup, two triggers, running as an A/B (2026-09-01).
+     Founder call after the evidence: the pop-up in its 50%-scroll form was
+     viewed ~47 times and dismissed ~46 of those across NO.006/034/036/038/039
+     (live /report, 30 d, pulled 2026-09-01), with no signup attributable to it.
+     The founder's read is that the ask should land at PEAK ATTENTION; the
+     disagreement was only about what signals attention — a clock or an action.
+     So both are built and split 50/50 rather than argued:
+
+       arm A — 6 s timer (the founder's version)
+       arm B — fires on the download / copy action, i.e. the moment the reader
+               takes the thing they came for
+
+     The trigger is the ONLY difference. Same markup, same copy, same cooldown,
+     so a difference in the numbers is a difference in the trigger. The arm is
+     sticky per browser (localStorage) so one reader never sees both.
+
+     The copy has to be true for BOTH arms, which is why it does not say "that
+     one's yours" (arm A fires before any download) and does not say "opens on
+     the next screen" (nothing is locked any more). It sells the weekly. -->
+<div class="pop" id="askPop" hidden>
+  <div class="pop-scrim" data-pop-close></div>
+  <div class="pop-card" role="dialog" aria-modal="true" aria-labelledby="askPopH">
+    <button class="pop-x" type="button" data-pop-close aria-label="Close">×</button>
+    <span class="k">One email a week · the working setup</span>
+    <h2 id="askPopH">Where the next one comes from.</h2>
+    <p>the Academy setup is yours, free, no email needed — it is on this page. The weekly teardown is where the next one gets built: one working AI setup, every week, with the numbers checked at source.</p>
+    <form action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="ask">
+      <input type="hidden" name="tag" id="askTag" value="no019-ask">
+      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+      <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
+      <button class="btn" type="submit">Send me the weekly →</button>
+    </form>
+    <div class="note">One email a week. Unsubscribe in one click.</div>
+  </div>
 </div>
 
 <div class="weave" aria-hidden="true"></div>
@@ -851,65 +887,101 @@ pre.code code{font-size:inherit;}
   <h1 class="disp">The academy<br>series<span class="dot">.</span></h1>
   <p class="sub">Anthropic's free course catalog, decoded — <b>one episode a day, five days</b>. Every episode gets a cheat sheet, and every cheat sheet lands on this page: one keyword, one hub, the whole series. Bookmark it once — ACADEMY always brings you back here as the sheets stack up. Free — one email and it opens. As promised.</p>
   <div class="actions">
-    <a class="btn" href="#gate">The episodes ↓</a>
+    <a class="btn" href="#episodes">The episodes ↓</a>
     <button class="btn" id="shareBtn" type="button">Send to a dev</button>
   </div>
   <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
 </section>
 
-<!-- THE GATE. Founder decision 2026-08-26: the packs stop being free-to-scroll,
-     and the ask is the loudest object on the page. ~700 landing-page opens in 30
-     days produced 6 form clicks (live /report, 2026-08-26), so the pages were
-     handing the payload over before the ask and the ask had no leverage.
+<div class="fig">
+  <h2 class="kick">Fig. 01 ·</h2>
+  <span class="gaccent">the five episodes</span>
+  <span class="line"></span>
+</div>
 
-     The payload is NOT in this document. build.mjs splits the body at the first
-     <div class="fig"> and writes everything below it to a separate unlock page
-     whose URL only the funnel worker knows. There is nothing here to view-source.
+<section class="ledger" id="episodes" aria-label="The five episodes">
+  <div class="lrow"><span class="n">01</span><span class="t">The catalog, ranked for devs — cheat sheet coming with the episode</span></div>
+  <div class="lrow"><span class="n">02</span><span class="t">Coming next — drops the day after ep 1</span></div>
+  <div class="lrow"><span class="n">03</span><span class="t">Coming next</span></div>
+  <div class="lrow"><span class="n">04</span><span class="t">Coming next</span></div>
+  <div class="lrow"><span class="n">05</span><span class="t">Coming next — the series finale</span></div>
+</section>
 
-     WHY IT LOOKS LIKE THIS (founder picked A1, "paper block", 2026-08-26):
-     - Cream on an all-black site. It is the only light surface anywhere in the
-       design system, so the eye lands on it before it reads a word. Loud through
-       contrast rather than through decoration.
-     - The manifest lists the REAL payload — file names and line counts pulled
-       from the page's own snippets at build time, redacted. Paywall CRO is
-       consistent that showing what is missing beats describing it, and a
-       manifest cannot be faked into promising something the pack doesn't hold.
-     - It shows structure, never a readable line. Behavioural data on news
-       paywalls (Journalism Studies, 2024) found a readable teaser measurably
-       LOWERS subscribe clicks — curiosity gets satisfied and the reader leaves.
-     - One field. Single-field forms benchmark at ~25.5%, and every extra field
-       is the highest-cost thing you can add.
-     - The note kills the objection single opt-in always raises: nothing to
-       confirm, nothing to wait for.
-     Evidence + sources: docs/2026-08-26-gate-ui-research.md -->
-<section class="gate paper" id="gate">
-  <div class="tab">Locked</div>
-  <div class="inner">
-    <span class="k">3 sections · locked</span>
-    <h2>The Academy series, in full.</h2>
-    <p class="lede">Every section below is written and sitting on the next screen. One email opens all of it.</p>
+<div class="fig">
+  <h2 class="kick">Fig. 02 ·</h2>
+  <span class="gaccent">the cheat sheets</span>
+  <span class="line"></span>
+</div>
 
-    <ul class="manifest">
-      <li><span class="lk">▣</span><span class="fn">the five episodes</span><span class="rd" aria-hidden="true"></span><span class="ln">locked</span></li>
-      <li><span class="lk">▣</span><span class="fn">the cheat sheets</span><span class="rd" aria-hidden="true"></span><span class="ln">locked</span></li>
-      <li><span class="lk">▣</span><span class="fn">while you wait</span><span class="rd" aria-hidden="true"></span><span class="ln">locked</span></li>
-    </ul>
+<section class="issues" id="sheets">
+<!-- APPEND POINT: one card per episode, newest first. Copy the ep-1 card shape:
+     tag "Ep N · cheat sheet", a .snippet block with the sheet + copy button
+     (data-copy-target="#tplEpN"), and swap the placeholder copy for the payload. -->
 
-    <form class="gate-form" action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="gate">
-      <input type="hidden" name="tag" value="no019">
+  <article class="card c-cream" id="ep-1">
+    <div class="top">
+      <span class="tag">Ep 1 · the catalog, ranked for devs</span>
+      <span class="goth">soon</span>
+    </div>
+    <h2>Lands with the episode.</h2>
+    <p class="one">Episode 1 takes Anthropic's full free course catalog and ranks it for working developers — what to take first, what to skip, and why. The cheat sheet version of that ranking replaces this card the moment the episode drops: same page, same keyword, no re-asking.</p>
+    <span class="proof">ep 1 cheat sheet → appended here on release day</span>
+  </article>
+
+  <article class="card c-ink" id="ep-queue">
+    <div class="top">
+      <span class="tag">Eps 2–5 · in the queue</span>
+      <span class="goth">next</span>
+    </div>
+    <h2>One sheet a day, stacked here.</h2>
+    <p class="one">Each of the remaining four episodes decodes one course deep — the parts worth your hours, condensed to a sheet you can work from without watching a minute of video. They append above as they drop, newest first. Follow the reel to catch each release day.</p>
+    <span class="proof">5 episodes · 5 cheat sheets · one hub page</span>
+  </article>
+</section>
+
+<section class="midcap" aria-label="Get the weekly pack">
+  <span class="k">One email a week · the working setup</span>
+  <h2>Keep the whole toolkit.</h2>
+  <p>The Teardown sends the config pack and one working AI setup a week — the same rig behind this channel. Free, and you can unsubscribe anytime.</p>
+  <form action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="midcap">
+      <input type="hidden" name="tag" value="no-019-midcap">
       <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
-      <label class="sr-only" for="gateEmail">Email address</label>
-      <input id="gateEmail" name="email" type="email" placeholder="you@email.com" autocomplete="email" inputmode="email" required>
-      <button class="btn primary" type="submit">Open the pack &rarr;</button>
-    </form>
-    <!-- The last line exists because there is deliberately NO welcome email
-         (founder, 2026-08-26): the redirect is the whole delivery, so a closed
-         tab loses the pack. Retyping the same address works — an existing
-         subscriber is let straight back through (signup.js) — but nobody would
-         guess that, and a reader who thinks they've lost it doesn't come back. -->
-    <div class="note">Opens on the next screen — no confirmation email, no waiting room. Lost the tab? Type the same address again and it reopens. One-click unsubscribe. <a href="./privacy.html">What we do with it</a>.</div>
-    <div class="proof"><b>622</b> packs sent to people who asked · <b>1,338</b> follow @vektor.fm · one working setup a week</div>
-  </div>
+    <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
+    <button class="btn" type="submit">Get the weekly pack →</button>
+  </form>
+  <div class="note">Free. The config pack lands in your inbox straight away. Unsubscribe anytime.</div>
+</section>
+
+<div class="fig">
+  <h2 class="kick">Fig. 03 ·</h2>
+  <span class="gaccent">while you wait</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues">
+  <article class="card c-ink">
+    <div class="top">
+      <span class="tag">Yesterday's drop</span>
+      <span class="goth">the brain</span>
+    </div>
+    <h2>Bottle the brain first.</h2>
+    <p class="one">Before the coursework: the one-run master prompt that makes your smartest model write the 3 files — overview, gaps audit, upgraded CLAUDE.md — so every cheaper session inherits its brain. Ten minutes, one paste, permanent payoff.</p>
+    <div class="actions">
+      <a class="btn" data-goatcounter-click="no019-bottle" href="./no-018.html">Bottle the brain →</a>
+    </div>
+  </article>
+
+  <article class="card c-ink" id="next">
+    <div class="top">
+      <span class="tag">No gate / no catch</span>
+      <span class="goth">follow</span>
+    </div>
+    <h2>Five days. Follow to catch each one.</h2>
+    <p class="one">One AI workflow you can copy, every day — the Academy episodes drop daily on the reel, and followers catch each release first. If the cheat sheets save you the watch-time, the follow is the thank-you.</p>
+    <div class="actions">
+      <a class="btn primary" data-goatcounter-click="no019-follow-instagram" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Follow @vektor.fm →</a>
+    </div>
+  </article>
 </section>
 </main>
 
@@ -972,50 +1044,94 @@ pre.code code{font-size:inherit;}
   document.getElementById('ctaClose').addEventListener('click', function(){ dismissed=true; sticky.classList.remove('show'); sticky.setAttribute('aria-hidden','true'); });
   var wmFoot=document.getElementById('wmFoot');
   if(wmFoot && 'IntersectionObserver' in window){ var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ wmFoot.classList.remove('play'); void wmFoot.offsetWidth; wmFoot.classList.add('play'); } }); }, {threshold:0.6}); io.observe(wmFoot); }
-  // Pack popup — fires at 50% SCROLL DEPTH, never on a timer.
+  // THE ASK MODAL — an A/B on the TRIGGER, not on the copy (2026-09-01).
   //
-  // It used to open on a 900ms setTimeout, which covered the whole mobile
-  // viewport before the visitor had read a word. That is the exact pattern
-  // Google penalises on mobile (an interstitial blocking content before any
-  // engagement), and popups shown inside the first 5 seconds are measured to
-  // raise bounce by up to 5x. Scroll depth is the engagement signal: it only
-  // fires for someone already reading, and scroll-triggered popups catch
-  // people mid-interest rather than mid-exit.
+  // History, so nobody re-litigates it from memory: this started as a 900 ms
+  // setTimeout, which covered the mobile viewport before the reader had read a
+  // word — the exact pattern Google penalises on mobile. It was moved to 50%
+  // scroll depth on 2026-08-17, then removed entirely on 2026-08-26 when a hard
+  // email gate went on the end of the page instead. The gate is now gone too
+  // (founder, 2026-09-01) and the pack is free on the page, so the modal is the
+  // primary ask again.
   //
-  // Still re-shows every 2 days, still dismissible by x / scrim / Esc.
-  (function(){ var pop=document.getElementById('packPop'); if(!pop){return;} var KEY='vektor_pack_seen', TTL=2*24*60*60*1000;
-    // ?pop=1 forces it open regardless of the cooldown. Without this the popup
-    // is untestable for anyone who has already seen it: on 2026-08-17 this page
-    // looked broken for two days straight when the real cause was a dismissal
-    // 21 hours earlier. A test affordance, not a feature — it does nothing for
-    // a visitor who never types it.
-    var force=false; try{ force=new URLSearchParams(location.search).get('pop')==='1'; }catch(e){}
+  // The scroll version's record, pulled live from /report on 2026-09-01 over a
+  // 30-day window: ~47 views, ~46 dismissals, no attributable signup. The
+  // founder's position is that the ask should land at peak attention and that a
+  // half-page scroll is the wrong signal for it. Rather than argue it, both
+  // triggers ship and split 50/50:
+  //
+  //   arm a — 6 s timer            (fires on a clock, on everyone)
+  //   arm b — download/copy click  (fires on the action, after value landed)
+  //
+  // Read the result off count:email:<slug>-ask-a vs -ask-b in /report (the tag
+  // travels to Buttondown, so it survives ad-blockers that eat GoatCounter) and
+  // off no019-ask-view-a/-dismiss-a vs the -b pair for the dismissal rate.
+  // Decide after 3 films, not after one — at ~40-60 page opens per film, one
+  // film cannot separate these.
+  (function(){
+    var pop=document.getElementById('askPop'); if(!pop){return;}
+    var KEY='vektor_ask_seen', ARM_KEY='vektor_ask_arm', TTL=2*24*60*60*1000;
+
+    // ?arm=a / ?arm=b forces an arm, ?pop=1 forces it open past the cooldown.
+    // Without these the thing is untestable for anyone who has already seen it:
+    // on 2026-08-17 the page looked broken for two days when the real cause was
+    // a dismissal 21 hours earlier. Test affordances, not features.
+    var qs; try{ qs=new URLSearchParams(location.search); }catch(e){ qs=null; }
+    var force=!!qs && qs.get('pop')==='1';
+    var forcedArm=qs && (qs.get('arm')==='a' || qs.get('arm')==='b') ? qs.get('arm') : null;
+
+    // The arm is sticky per browser: a reader who saw the timer must never also
+    // see the action version, or every number here is a mixture of both.
+    var arm=forcedArm;
+    if(!arm){
+      try{ arm=localStorage.getItem(ARM_KEY); }catch(e){}
+      if(arm!=='a' && arm!=='b'){
+        arm = Math.random()<0.5 ? 'a' : 'b';
+        try{ localStorage.setItem(ARM_KEY, arm); }catch(e){}
+      }
+    }
+    var tag=document.getElementById('askTag');
+    if(tag){ tag.value='no019-ask-'+arm; }
+
     if(!force){ try{ var last=parseInt(localStorage.getItem(KEY)||'0',10); if(last && (Date.now()-last)<TTL){ return; } }catch(e){} }
     function seen(){ try{ localStorage.setItem(KEY, String(Date.now())); }catch(e){} }
     function esc(e){ if(e.key==='Escape'){ close(); } }
-    function close(){ pop.setAttribute('hidden',''); seen(); document.removeEventListener('keydown',esc); gcEvent('no019-popup-dismiss'); }
+    function close(){ pop.setAttribute('hidden',''); seen(); document.removeEventListener('keydown',esc); gcEvent('no019-ask-dismiss-'+arm); }
     pop.querySelectorAll('[data-pop-close]').forEach(function(el){ el.addEventListener('click', close); });
-    var f=pop.querySelector('form'); if(f){ f.addEventListener('submit', seen); }
+    // submit fires seen() but NOT close(), so a dismissal count is never
+    // inflated by a conversion — dismiss ≈ view is then a real read.
+    var f=pop.querySelector('form');
+    if(f){ f.addEventListener('submit', function(){ seen(); gcEvent('no019-ask-submit-'+arm); }); }
+
     var fired=false;
-    function depth(){
-      var doc=document.documentElement;
-      var scrollable=doc.scrollHeight-window.innerHeight;
-      return scrollable>0 ? (window.scrollY/scrollable) : 1;
-    }
     function open(){
       if(fired){ return; }
       fired=true;
-      window.removeEventListener('scroll',maybe);
       pop.removeAttribute('hidden');
       document.addEventListener('keydown',esc);
-      gcEvent('no019-popup-view');
+      gcEvent('no019-ask-view-'+arm);
       var x=pop.querySelector('.pop-x'); if(x){ try{ x.focus(); }catch(e){} }
     }
-    function maybe(){ if(depth()>=0.5){ open(); } }
-    window.addEventListener('scroll',maybe,{passive:true});
-    // ?pop=1 skips the scroll gate too, or testing still means scrolling half
-    // the page to find out whether a CSS change landed.
-    if(force){ open(); }
+
+    if(force){ open(); return; }
+
+    if(arm==='a'){
+      // 6 s from load. Not 3 s: under 5 s is the band the mobile-interstitial
+      // guidance treats as pre-engagement, and if this arm is going to lose it
+      // should lose on its own best showing.
+      setTimeout(open, 6000);
+    } else {
+      // Peak intent: the click that takes the payload. Covers every route the
+      // pages use — the file links, the .copybtn snippets, the single-snippet
+      // button and the legacy multi-card copy buttons. 900 ms of delay so the
+      // "Copied ✓" confirmation is seen first; a modal that lands on the same
+      // frame as the click reads as an error, not an offer.
+      document.addEventListener('click', function(ev){
+        var t=ev.target && ev.target.closest ? ev.target.closest('.copybtn, #snipCopy, [data-copy-target], a[href*="./files/"]') : null;
+        if(!t){ return; }
+        setTimeout(open, 900);
+      }, true);
+    }
   })();
   document.querySelectorAll('form').forEach(function(f){ f.addEventListener('submit', function(){ gcEvent('no019-subscribe-submit'); }); });
 

@@ -817,30 +817,66 @@ pre.code code{font-size:inherit;}
      capturing anything. The goal is the email address, so the persistent ask
      is now the email. Follow demotes to the footer.
 
-     Since 2026-08-26 the form carries the PAGE's tag (no014-sticky) rather
-     than a generic one: the worker reads the tag to decide which pack to
-     unlock, so a generic tag would capture the email and then have nothing to
-     hand back. The suffix keeps per-source attribution.
+     THE PACK IS NO LONGER BEHIND THE EMAIL (founder, 2026-09-01). The reader
+     paid a follow in the DM; charging a second toll on the page spent funnel
+     conversion to grow a list that had sent one issue in its life. So the
+     sticky bar no longer promises to "open" anything — the payload is already
+     open, three screens down. It sells the WEEKLY, which is the only honest
+     thing left to sell. Wording that implies a lock is a lie now, not copy.
+     Full argument: vektor/reports/2026-09-01-email-gate-decision.md.
 
-     THE POP-UP IS GONE (founder, 2026-08-26). It was dismissed 13 times out of
-     13 on NO.036 and 5 out of 5 on NO.039 (live /report, 2026-08-26) — it
-     converted nothing and spent goodwill on every visit. With a real gate at
-     the end of the page there are now two asks, not three. The pop-up's script
-     in partials/scripts.html no-ops on its own (`if(!pop){return;}`), so it is
-     left in place rather than ripped out; restoring the block restores it.
+     The tag still carries the PAGE slug (no014-sticky) — the worker no
+     longer needs it to decide what to unlock, but it is the only per-source
+     attribution we get in Buttondown and in /report's count:email:<source>.
 
      This whole file is omitted from unlock pages — asking a reader for the
      email they just gave you is how a funnel reads as a machine. -->
 <div class="sticky-cta" id="stickyCta" aria-hidden="true">
-  <span class="t">the Setup pack + one working setup a week</span>
+  <span class="t">One working AI setup a week</span>
   <form class="sticky-form" method="post" action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" data-capture="sticky">
       <input type="hidden" name="tag" value="no014-sticky">
       <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
     <label class="sr-only" for="stickyEmail">Email address</label>
     <input id="stickyEmail" name="email" type="email" placeholder="you@email.com" autocomplete="email" required>
-    <button class="btn primary" type="submit">Open it &rarr;</button>
+    <button class="btn primary" type="submit">Subscribe &rarr;</button>
   </form>
   <button class="x" id="ctaClose" type="button" aria-label="Dismiss">&times;</button>
+</div>
+
+<!-- THE ASK MODAL — one markup, two triggers, running as an A/B (2026-09-01).
+     Founder call after the evidence: the pop-up in its 50%-scroll form was
+     viewed ~47 times and dismissed ~46 of those across NO.006/034/036/038/039
+     (live /report, 30 d, pulled 2026-09-01), with no signup attributable to it.
+     The founder's read is that the ask should land at PEAK ATTENTION; the
+     disagreement was only about what signals attention — a clock or an action.
+     So both are built and split 50/50 rather than argued:
+
+       arm A — 6 s timer (the founder's version)
+       arm B — fires on the download / copy action, i.e. the moment the reader
+               takes the thing they came for
+
+     The trigger is the ONLY difference. Same markup, same copy, same cooldown,
+     so a difference in the numbers is a difference in the trigger. The arm is
+     sticky per browser (localStorage) so one reader never sees both.
+
+     The copy has to be true for BOTH arms, which is why it does not say "that
+     one's yours" (arm A fires before any download) and does not say "opens on
+     the next screen" (nothing is locked any more). It sells the weekly. -->
+<div class="pop" id="askPop" hidden>
+  <div class="pop-scrim" data-pop-close></div>
+  <div class="pop-card" role="dialog" aria-modal="true" aria-labelledby="askPopH">
+    <button class="pop-x" type="button" data-pop-close aria-label="Close">×</button>
+    <span class="k">One email a week · the working setup</span>
+    <h2 id="askPopH">Where the next one comes from.</h2>
+    <p>the Setup pack is yours, free, no email needed — it is on this page. The weekly teardown is where the next one gets built: one working AI setup, every week, with the numbers checked at source.</p>
+    <form action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="ask">
+      <input type="hidden" name="tag" id="askTag" value="no014-ask">
+      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+      <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
+      <button class="btn" type="submit">Send me the weekly →</button>
+    </form>
+    <div class="note">One email a week. Unsubscribe in one click.</div>
+  </div>
 </div>
 
 <div class="weave" aria-hidden="true"></div>
@@ -886,66 +922,132 @@ npx claude-mem telemetry disable
 # ↓ The download has this + the commands, the 11 hosts, the caveats.</pre>
   </div>
   <div class="actions">
-    <a class="btn primary" data-goatcounter-click="no014-download-quickstart" href="#gate" download="claude-mem-quickstart.md">Download the quick-start ↓</a>
-    <a class="btn" href="#gate">The 3 pieces ↓</a>
+    <a class="btn primary" data-goatcounter-click="no014-download-quickstart" href="./files/claude-mem-quickstart/README.md" download="claude-mem-quickstart.md">Download the quick-start ↓</a>
+    <a class="btn" href="#kit">The 3 pieces ↓</a>
     <button class="btn" id="shareBtn" type="button">Send to a builder</button>
   </div>
   <div class="rule">////////////////////////////////////////////////////////////////////////////////////////////////</div>
 </section>
 
-<!-- THE GATE. Founder decision 2026-08-26: the packs stop being free-to-scroll,
-     and the ask is the loudest object on the page. ~700 landing-page opens in 30
-     days produced 6 form clicks (live /report, 2026-08-26), so the pages were
-     handing the payload over before the ask and the ask had no leverage.
+<div class="fig">
+  <h2 class="kick">Fig. 01 ·</h2>
+  <span class="gaccent">the three pieces</span>
+  <span class="line"></span>
+</div>
 
-     The payload is NOT in this document. build.mjs splits the body at the first
-     <div class="fig"> and writes everything below it to a separate unlock page
-     whose URL only the funnel worker knows. There is nothing here to view-source.
+<section class="issues" id="kit">
 
-     WHY IT LOOKS LIKE THIS (founder picked A1, "paper block", 2026-08-26):
-     - Cream on an all-black site. It is the only light surface anywhere in the
-       design system, so the eye lands on it before it reads a word. Loud through
-       contrast rather than through decoration.
-     - The manifest lists the REAL payload — file names and line counts pulled
-       from the page's own snippets at build time, redacted. Paywall CRO is
-       consistent that showing what is missing beats describing it, and a
-       manifest cannot be faked into promising something the pack doesn't hold.
-     - It shows structure, never a readable line. Behavioural data on news
-       paywalls (Journalism Studies, 2024) found a readable teaser measurably
-       LOWERS subscribe clicks — curiosity gets satisfied and the reader leaves.
-     - One field. Single-field forms benchmark at ~25.5%, and every extra field
-       is the highest-cost thing you can add.
-     - The note kills the objection single opt-in always raises: nothing to
-       confirm, nothing to wait for.
-     Evidence + sources: docs/2026-08-26-gate-ui-research.md -->
-<section class="gate paper" id="gate">
-  <div class="tab">Locked</div>
-  <div class="inner">
-    <span class="k">3 sections · locked</span>
-    <h2>The claude-mem quick-start, in full.</h2>
-    <p class="lede">Every section below is written and sitting on the next screen. One email opens all of it.</p>
+  <article class="card c-cream">
+    <div class="top">
+      <span class="tag">Piece 1 · the install</span>
+      <span class="goth">npx</span>
+    </div>
+    <h2>One command. Then restart.</h2>
+    <p class="one"><code>npx claude-mem install</code>, then restart Claude Code. That's the whole install. <b>Node.js 20+ is a real prerequisite and is not auto-installed.</b> The installer is interactive — it multi-selects your IDEs and prompts for an LLM provider plus an API key, so don't expect it to run silently. <b>The trap:</b> <code>npm install -g claude-mem</code> installs the SDK/library only — no plugin hooks, no worker service. You'd get the package and none of the behaviour, and nothing would tell you why.</p>
+    <span class="proof">npx claude-mem install · restart · node 20+ required</span>
+    <div class="actions">
+      <a class="btn" data-goatcounter-click="no014-download-install" href="./files/claude-mem-quickstart/README.md" download="claude-mem-quickstart.md">The install steps ↓</a>
+      <a class="btn" data-goatcounter-click="no014-repo" href="https://github.com/thedotmack/claude-mem" target="_blank" rel="noopener">The repo →</a>
+    </div>
+  </article>
 
-    <ul class="manifest">
-      <li><span class="lk">▣</span><span class="fn">the three pieces</span><span class="rd" aria-hidden="true"></span><span class="ln">locked</span></li>
-      <li><span class="lk">▣</span><span class="fn">the run</span><span class="rd" aria-hidden="true"></span><span class="ln">locked</span></li>
-      <li><span class="lk">▣</span><span class="fn">what's next</span><span class="rd" aria-hidden="true"></span><span class="ln">locked</span></li>
-    </ul>
+  <article class="card c-aqua">
+    <div class="top">
+      <span class="tag">Piece 2 · the hook config</span>
+      <span class="goth">hooks</span>
+    </div>
+    <h2>Read the json, not the readme.</h2>
+    <p class="one">Five lifecycle hooks register from the shipped <code>plugin/hooks/hooks.json</code>, plus a <code>Setup</code> version-check pre-hook: <code>SessionStart</code> (matcher <code>startup|clear|compact</code>), <code>UserPromptSubmit</code>, <code>PreToolUse</code>, <code>PostToolUse</code> (matcher <code>*</code>) and <code>Stop</code>. Two things worth knowing. <b>One:</b> <code>PreToolUse</code> fires on <code>Read</code> only — not on every tool call. <b>Two:</b> the repo's own README contradicts its shipped config — it lists <code>SessionEnd</code>, which isn't registered anywhere, and omits <code>PreToolUse</code>, which is. If you're debugging hooks, read <code>hooks.json</code>.</p>
+    <span class="proof">SessionStart · UserPromptSubmit · PreToolUse(Read) · PostToolUse(*) · Stop</span>
+  </article>
 
-    <form class="gate-form" action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="gate">
-      <input type="hidden" name="tag" value="no014">
-      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
-      <label class="sr-only" for="gateEmail">Email address</label>
-      <input id="gateEmail" name="email" type="email" placeholder="you@email.com" autocomplete="email" inputmode="email" required>
-      <button class="btn primary" type="submit">Open the pack &rarr;</button>
-    </form>
-    <!-- The last line exists because there is deliberately NO welcome email
-         (founder, 2026-08-26): the redirect is the whole delivery, so a closed
-         tab loses the pack. Retyping the same address works — an existing
-         subscriber is let straight back through (signup.js) — but nobody would
-         guess that, and a reader who thinks they've lost it doesn't come back. -->
-    <div class="note">Opens on the next screen — no confirmation email, no waiting room. Lost the tab? Type the same address again and it reopens. One-click unsubscribe. <a href="./privacy.html">What we do with it</a>.</div>
-    <div class="proof"><b>622</b> packs sent to people who asked · <b>1,338</b> follow @vektor.fm · one working setup a week</div>
-  </div>
+  <article class="card c-ink">
+    <div class="top">
+      <span class="tag">Piece 3 · the caveats</span>
+      <span class="goth">read</span>
+    </div>
+    <h2>Genuinely useful. Genuinely young.</h2>
+    <p class="one">The honest half. <b>This is not an Anthropic project</b> — it's a third-party repo (Apache 2.0, last pushed 2026-07-16, actively maintained) that happens to have 87,572 stars. <b>Telemetry is on by default</b>; <code>npx claude-mem telemetry disable</code> turns it off. And the README-vs-config contradiction above is the kind of thing that costs you an evening. Read the source before you point it at anything sensitive.</p>
+    <span class="proof">apache 2.0 · not anthropic · telemetry on by default</span>
+    <div class="actions">
+      <a class="btn" data-goatcounter-click="no014-download-caveats" href="./files/claude-mem-quickstart/README.md" download="claude-mem-quickstart.md">The caveats ↓</a>
+    </div>
+  </article>
+
+</section>
+
+<div class="fig">
+  <h2 class="kick">Fig. 02 ·</h2>
+  <span class="gaccent">the run</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues">
+  <article class="card c-cream" id="howto">
+    <div class="top">
+      <span class="tag">How it works · three moves</span>
+      <span class="goth">setup</span>
+    </div>
+    <h2>Capture. Store. Restore.</h2>
+    <p class="one"><b>Capture</b> — the hooks watch the session: tool calls, decisions, file reads. <b>Store</b> — it compresses into a local SQLite database with AI-written summaries, plus a Chroma vector index for hybrid semantic + keyword search. <b>Restore</b> — next session, <code>SessionStart</code> injects the relevant slice back automatically. It runs across 11 hosts: claude-code, cursor, opencode, openclaw, windsurf, codex-cli, copilot-cli, antigravity, goose, roo-code, warp. <b>Not all equal:</b> Copilot CLI is MCP-only — you get search, but not automatic transcript capture. And <b>Gemini is not a host</b> — it's an LLM provider option, in the same slot as OpenRouter.</p>
+    <span class="stars">sqlite + chroma · 11 hosts · verified 2026-07-17 · no gate</span>
+    <div class="actions">
+      <a class="btn" data-goatcounter-click="no014-download-readme" href="./files/claude-mem-quickstart/README.md" download="claude-mem-quickstart.md">README — the 5-minute quick-start ↓</a>
+    </div>
+  </article>
+</section>
+
+<section class="ledger" aria-label="How to install claude-mem">
+  <div class="lrow"><span class="n">01</span><span class="t">Check Node 20+ · then run npx claude-mem install — not npm install -g</span></div>
+  <div class="lrow"><span class="n">02</span><span class="t">Answer the interactive prompts (IDEs, LLM provider, API key) · restart Claude Code</span></div>
+  <div class="lrow"><span class="n">03</span><span class="t">npx claude-mem status · npx claude-mem telemetry disable · read hooks.json, not the README</span></div>
+</section>
+
+<div class="fig">
+  <h2 class="kick">Fig. 03 ·</h2>
+  <span class="gaccent">what's next</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues">
+  <article class="card c-ink" id="next">
+    <div class="top">
+      <span class="tag">Next drop · daily</span>
+      <span class="goth">soon</span>
+    </div>
+    <h2>New keyword. Every day.</h2>
+    <p class="one">One AI teardown a day, and every issue delivers the goods — the keyword only lives on the reel, and followers catch it first.</p>
+    <div class="actions">
+      <a class="btn" data-goatcounter-click="no014-follow-next" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Follow @vektor.fm for the next one →</a>
+    </div>
+  </article>
+
+  <article class="card c-ink">
+    <div class="top">
+      <span class="tag">Give the memory something to remember</span>
+      <span class="goth">the loop</span>
+    </div>
+    <h2>Stop prompting. Write loops.</h2>
+    <p class="one">Memory is the <em>what it keeps</em>; a loop is the <em>what it does</em> — prompt, check the result against a real done-condition, re-run until it passes. About 20 lines, runnable tonight, plus the one-page why. Same drop-in format as this quick-start.</p>
+    <div class="actions">
+      <a class="btn" data-goatcounter-click="no014-loops" href="./no-015.html">The starter loop →</a>
+    </div>
+  </article>
+
+  <article class="card c-ink">
+    <div class="top">
+      <span class="tag">No gate / no catch</span>
+      <span class="goth">follow</span>
+    </div>
+    <h2>That's the quick-start. No gate, no catch.</h2>
+    <p class="one">This page exists because people follow. If claude-mem saves you an evening of re-explaining your project this week, the follow is the thank-you — one AI teardown, every day.</p>
+    <div class="actions">
+      <a class="btn" data-goatcounter-click="no014-follow-tiktok" href="https://tiktok.com/@vektor.fm" target="_blank" rel="noopener">TikTok →</a>
+      <a class="btn" data-goatcounter-click="no014-follow-instagram" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Instagram →</a>
+      <a class="btn" data-goatcounter-click="no014-follow-youtube" href="https://youtube.com/@vektorfm" target="_blank" rel="noopener">YouTube →</a>
+      <a class="btn" data-goatcounter-click="no014-follow-x" href="https://x.com/vektordotfm" target="_blank" rel="noopener">X →</a>
+    </div>
+  </article>
 </section>
 </main>
 
@@ -1008,50 +1110,94 @@ npx claude-mem telemetry disable
   document.getElementById('ctaClose').addEventListener('click', function(){ dismissed=true; sticky.classList.remove('show'); sticky.setAttribute('aria-hidden','true'); });
   var wmFoot=document.getElementById('wmFoot');
   if(wmFoot && 'IntersectionObserver' in window){ var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ wmFoot.classList.remove('play'); void wmFoot.offsetWidth; wmFoot.classList.add('play'); } }); }, {threshold:0.6}); io.observe(wmFoot); }
-  // Pack popup — fires at 50% SCROLL DEPTH, never on a timer.
+  // THE ASK MODAL — an A/B on the TRIGGER, not on the copy (2026-09-01).
   //
-  // It used to open on a 900ms setTimeout, which covered the whole mobile
-  // viewport before the visitor had read a word. That is the exact pattern
-  // Google penalises on mobile (an interstitial blocking content before any
-  // engagement), and popups shown inside the first 5 seconds are measured to
-  // raise bounce by up to 5x. Scroll depth is the engagement signal: it only
-  // fires for someone already reading, and scroll-triggered popups catch
-  // people mid-interest rather than mid-exit.
+  // History, so nobody re-litigates it from memory: this started as a 900 ms
+  // setTimeout, which covered the mobile viewport before the reader had read a
+  // word — the exact pattern Google penalises on mobile. It was moved to 50%
+  // scroll depth on 2026-08-17, then removed entirely on 2026-08-26 when a hard
+  // email gate went on the end of the page instead. The gate is now gone too
+  // (founder, 2026-09-01) and the pack is free on the page, so the modal is the
+  // primary ask again.
   //
-  // Still re-shows every 2 days, still dismissible by x / scrim / Esc.
-  (function(){ var pop=document.getElementById('packPop'); if(!pop){return;} var KEY='vektor_pack_seen', TTL=2*24*60*60*1000;
-    // ?pop=1 forces it open regardless of the cooldown. Without this the popup
-    // is untestable for anyone who has already seen it: on 2026-08-17 this page
-    // looked broken for two days straight when the real cause was a dismissal
-    // 21 hours earlier. A test affordance, not a feature — it does nothing for
-    // a visitor who never types it.
-    var force=false; try{ force=new URLSearchParams(location.search).get('pop')==='1'; }catch(e){}
+  // The scroll version's record, pulled live from /report on 2026-09-01 over a
+  // 30-day window: ~47 views, ~46 dismissals, no attributable signup. The
+  // founder's position is that the ask should land at peak attention and that a
+  // half-page scroll is the wrong signal for it. Rather than argue it, both
+  // triggers ship and split 50/50:
+  //
+  //   arm a — 6 s timer            (fires on a clock, on everyone)
+  //   arm b — download/copy click  (fires on the action, after value landed)
+  //
+  // Read the result off count:email:<slug>-ask-a vs -ask-b in /report (the tag
+  // travels to Buttondown, so it survives ad-blockers that eat GoatCounter) and
+  // off no014-ask-view-a/-dismiss-a vs the -b pair for the dismissal rate.
+  // Decide after 3 films, not after one — at ~40-60 page opens per film, one
+  // film cannot separate these.
+  (function(){
+    var pop=document.getElementById('askPop'); if(!pop){return;}
+    var KEY='vektor_ask_seen', ARM_KEY='vektor_ask_arm', TTL=2*24*60*60*1000;
+
+    // ?arm=a / ?arm=b forces an arm, ?pop=1 forces it open past the cooldown.
+    // Without these the thing is untestable for anyone who has already seen it:
+    // on 2026-08-17 the page looked broken for two days when the real cause was
+    // a dismissal 21 hours earlier. Test affordances, not features.
+    var qs; try{ qs=new URLSearchParams(location.search); }catch(e){ qs=null; }
+    var force=!!qs && qs.get('pop')==='1';
+    var forcedArm=qs && (qs.get('arm')==='a' || qs.get('arm')==='b') ? qs.get('arm') : null;
+
+    // The arm is sticky per browser: a reader who saw the timer must never also
+    // see the action version, or every number here is a mixture of both.
+    var arm=forcedArm;
+    if(!arm){
+      try{ arm=localStorage.getItem(ARM_KEY); }catch(e){}
+      if(arm!=='a' && arm!=='b'){
+        arm = Math.random()<0.5 ? 'a' : 'b';
+        try{ localStorage.setItem(ARM_KEY, arm); }catch(e){}
+      }
+    }
+    var tag=document.getElementById('askTag');
+    if(tag){ tag.value='no014-ask-'+arm; }
+
     if(!force){ try{ var last=parseInt(localStorage.getItem(KEY)||'0',10); if(last && (Date.now()-last)<TTL){ return; } }catch(e){} }
     function seen(){ try{ localStorage.setItem(KEY, String(Date.now())); }catch(e){} }
     function esc(e){ if(e.key==='Escape'){ close(); } }
-    function close(){ pop.setAttribute('hidden',''); seen(); document.removeEventListener('keydown',esc); gcEvent('no014-popup-dismiss'); }
+    function close(){ pop.setAttribute('hidden',''); seen(); document.removeEventListener('keydown',esc); gcEvent('no014-ask-dismiss-'+arm); }
     pop.querySelectorAll('[data-pop-close]').forEach(function(el){ el.addEventListener('click', close); });
-    var f=pop.querySelector('form'); if(f){ f.addEventListener('submit', seen); }
+    // submit fires seen() but NOT close(), so a dismissal count is never
+    // inflated by a conversion — dismiss ≈ view is then a real read.
+    var f=pop.querySelector('form');
+    if(f){ f.addEventListener('submit', function(){ seen(); gcEvent('no014-ask-submit-'+arm); }); }
+
     var fired=false;
-    function depth(){
-      var doc=document.documentElement;
-      var scrollable=doc.scrollHeight-window.innerHeight;
-      return scrollable>0 ? (window.scrollY/scrollable) : 1;
-    }
     function open(){
       if(fired){ return; }
       fired=true;
-      window.removeEventListener('scroll',maybe);
       pop.removeAttribute('hidden');
       document.addEventListener('keydown',esc);
-      gcEvent('no014-popup-view');
+      gcEvent('no014-ask-view-'+arm);
       var x=pop.querySelector('.pop-x'); if(x){ try{ x.focus(); }catch(e){} }
     }
-    function maybe(){ if(depth()>=0.5){ open(); } }
-    window.addEventListener('scroll',maybe,{passive:true});
-    // ?pop=1 skips the scroll gate too, or testing still means scrolling half
-    // the page to find out whether a CSS change landed.
-    if(force){ open(); }
+
+    if(force){ open(); return; }
+
+    if(arm==='a'){
+      // 6 s from load. Not 3 s: under 5 s is the band the mobile-interstitial
+      // guidance treats as pre-engagement, and if this arm is going to lose it
+      // should lose on its own best showing.
+      setTimeout(open, 6000);
+    } else {
+      // Peak intent: the click that takes the payload. Covers every route the
+      // pages use — the file links, the .copybtn snippets, the single-snippet
+      // button and the legacy multi-card copy buttons. 900 ms of delay so the
+      // "Copied ✓" confirmation is seen first; a modal that lands on the same
+      // frame as the click reads as an error, not an offer.
+      document.addEventListener('click', function(ev){
+        var t=ev.target && ev.target.closest ? ev.target.closest('.copybtn, #snipCopy, [data-copy-target], a[href*="./files/"]') : null;
+        if(!t){ return; }
+        setTimeout(open, 900);
+      }, true);
+    }
   })();
   document.querySelectorAll('form').forEach(function(f){ f.addEventListener('submit', function(){ gcEvent('no014-subscribe-submit'); }); });
 

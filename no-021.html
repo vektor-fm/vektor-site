@@ -817,30 +817,66 @@ pre.code code{font-size:inherit;}
      capturing anything. The goal is the email address, so the persistent ask
      is now the email. Follow demotes to the footer.
 
-     Since 2026-08-26 the form carries the PAGE's tag (no021-sticky) rather
-     than a generic one: the worker reads the tag to decide which pack to
-     unlock, so a generic tag would capture the email and then have nothing to
-     hand back. The suffix keeps per-source attribution.
+     THE PACK IS NO LONGER BEHIND THE EMAIL (founder, 2026-09-01). The reader
+     paid a follow in the DM; charging a second toll on the page spent funnel
+     conversion to grow a list that had sent one issue in its life. So the
+     sticky bar no longer promises to "open" anything — the payload is already
+     open, three screens down. It sells the WEEKLY, which is the only honest
+     thing left to sell. Wording that implies a lock is a lie now, not copy.
+     Full argument: vektor/reports/2026-09-01-email-gate-decision.md.
 
-     THE POP-UP IS GONE (founder, 2026-08-26). It was dismissed 13 times out of
-     13 on NO.036 and 5 out of 5 on NO.039 (live /report, 2026-08-26) — it
-     converted nothing and spent goodwill on every visit. With a real gate at
-     the end of the page there are now two asks, not three. The pop-up's script
-     in partials/scripts.html no-ops on its own (`if(!pop){return;}`), so it is
-     left in place rather than ripped out; restoring the block restores it.
+     The tag still carries the PAGE slug (no021-sticky) — the worker no
+     longer needs it to decide what to unlock, but it is the only per-source
+     attribution we get in Buttondown and in /report's count:email:<source>.
 
      This whole file is omitted from unlock pages — asking a reader for the
      email they just gave you is how a funnel reads as a machine. -->
 <div class="sticky-cta" id="stickyCta" aria-hidden="true">
-  <span class="t">the Open-Source Nine setup + one working setup a week</span>
+  <span class="t">One working AI setup a week</span>
   <form class="sticky-form" method="post" action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" data-capture="sticky">
       <input type="hidden" name="tag" value="no021-sticky">
       <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
     <label class="sr-only" for="stickyEmail">Email address</label>
     <input id="stickyEmail" name="email" type="email" placeholder="you@email.com" autocomplete="email" required>
-    <button class="btn primary" type="submit">Open it &rarr;</button>
+    <button class="btn primary" type="submit">Subscribe &rarr;</button>
   </form>
   <button class="x" id="ctaClose" type="button" aria-label="Dismiss">&times;</button>
+</div>
+
+<!-- THE ASK MODAL — one markup, two triggers, running as an A/B (2026-09-01).
+     Founder call after the evidence: the pop-up in its 50%-scroll form was
+     viewed ~47 times and dismissed ~46 of those across NO.006/034/036/038/039
+     (live /report, 30 d, pulled 2026-09-01), with no signup attributable to it.
+     The founder's read is that the ask should land at PEAK ATTENTION; the
+     disagreement was only about what signals attention — a clock or an action.
+     So both are built and split 50/50 rather than argued:
+
+       arm A — 6 s timer (the founder's version)
+       arm B — fires on the download / copy action, i.e. the moment the reader
+               takes the thing they came for
+
+     The trigger is the ONLY difference. Same markup, same copy, same cooldown,
+     so a difference in the numbers is a difference in the trigger. The arm is
+     sticky per browser (localStorage) so one reader never sees both.
+
+     The copy has to be true for BOTH arms, which is why it does not say "that
+     one's yours" (arm A fires before any download) and does not say "opens on
+     the next screen" (nothing is locked any more). It sells the weekly. -->
+<div class="pop" id="askPop" hidden>
+  <div class="pop-scrim" data-pop-close></div>
+  <div class="pop-card" role="dialog" aria-modal="true" aria-labelledby="askPopH">
+    <button class="pop-x" type="button" data-pop-close aria-label="Close">×</button>
+    <span class="k">One email a week · the working setup</span>
+    <h2 id="askPopH">Where the next one comes from.</h2>
+    <p>the Open-Source Nine setup is yours, free, no email needed — it is on this page. The weekly teardown is where the next one gets built: one working AI setup, every week, with the numbers checked at source.</p>
+    <form action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="ask">
+      <input type="hidden" name="tag" id="askTag" value="no021-ask">
+      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+      <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
+      <button class="btn" type="submit">Send me the weekly →</button>
+    </form>
+    <div class="note">One email a week. Unsubscribe in one click.</div>
+  </div>
 </div>
 
 <div class="weave" aria-hidden="true"></div>
@@ -851,8 +887,8 @@ pre.code code{font-size:inherit;}
   <h1 class="disp">9 tools too<br>good to be<br>free<span class="dot">.</span></h1>
   <p class="sub">The Open-Source Nine from NO. 021 — every real GitHub repo, including the three I teased behind the comment. All free to self-host. As promised.</p>
   <div class="actions">
-    <a class="btn primary" href="#gate">Jump to the 9 ↓</a>
-    <a class="btn" href="#gate">Get the config pack →</a>
+    <a class="btn primary" href="#no-021">Jump to the 9 ↓</a>
+    <a class="btn" href="#subscribe">Get the config pack →</a>
     <button class="btn" id="copyAll" type="button" data-copy-target="all" data-copy-event="no021-copy-all">Copy all 9 links</button>
     <button class="btn" id="shareBtn" type="button">Send to a dev friend</button>
   </div>
@@ -860,58 +896,177 @@ pre.code code{font-size:inherit;}
 </section>
 
 <!-- ======================= ISSUE DIVIDER ======================= -->
-<!-- THE GATE. Founder decision 2026-08-26: the packs stop being free-to-scroll,
-     and the ask is the loudest object on the page. ~700 landing-page opens in 30
-     days produced 6 form clicks (live /report, 2026-08-26), so the pages were
-     handing the payload over before the ask and the ask had no leverage.
+<div class="fig">
+  <h2 class="kick">Fig. 01 ·</h2>
+  <span class="gaccent">the open-source nine</span>
+  <span class="line"></span>
+</div>
 
-     The payload is NOT in this document. build.mjs splits the body at the first
-     <div class="fig"> and writes everything below it to a separate unlock page
-     whose URL only the funnel worker knows. There is nothing here to view-source.
+<!-- =====================================================================
+     ISSUE BLOCK — NO. 021  ·  copy this whole <section> to add a new issue.
+     Bump the anchor id, the TOOL 0X / 09 tags, the field colors, and the
+     hero above. The newest issue's hero copy always lives in <section class="hero">.
+     ===================================================================== -->
+<section class="issues" id="no-021">
 
-     WHY IT LOOKS LIKE THIS (founder picked A1, "paper block", 2026-08-26):
-     - Cream on an all-black site. It is the only light surface anywhere in the
-       design system, so the eye lands on it before it reads a word. Loud through
-       contrast rather than through decoration.
-     - The manifest lists the REAL payload — file names and line counts pulled
-       from the page's own snippets at build time, redacted. Paywall CRO is
-       consistent that showing what is missing beats describing it, and a
-       manifest cannot be faked into promising something the pack doesn't hold.
-     - It shows structure, never a readable line. Behavioural data on news
-       paywalls (Journalism Studies, 2024) found a readable teaser measurably
-       LOWERS subscribe clicks — curiosity gets satisfied and the reader leaves.
-     - One field. Single-field forms benchmark at ~25.5%, and every extra field
-       is the highest-cost thing you can add.
-     - The note kills the objection single opt-in always raises: nothing to
-       confirm, nothing to wait for.
-     Evidence + sources: docs/2026-08-26-gate-ui-research.md -->
-<section class="gate paper" id="gate">
-  <div class="tab">Locked</div>
-  <div class="inner">
-    <span class="k">1 section · locked</span>
-    <h2>The Open-Source Nine, in full.</h2>
-    <p class="lede">Every section below is written and sitting on the next screen. One email opens all of it.</p>
+  <!-- TOOL 01 -->
+  <article class="card c-orchid">
+    <div class="top">
+      <span class="tag">Tool 01 / 09 · agency agents · 135k★</span>
+      <span class="goth">agency</span>
+    </div>
+    <h2>Agency Agents</h2>
+    <p class="one">A full AI team in one repo — 200+ specialist agents you drop straight into Claude Code or Cursor. MIT.</p>
+    <div class="actions">
+      <a class="btn" data-goatcounter-click="no021-tool-agency-agents" href="https://github.com/msitarzewski/agency-agents" target="_blank" rel="noopener">Open on GitHub →</a>
+      <div class="copy"><code>github.com/msitarzewski/agency-agents</code><button class="copybtn" data-copy="https://github.com/msitarzewski/agency-agents">Copy</button></div>
+    </div>
+  </article>
 
-    <ul class="manifest">
-      <li><span class="lk">▣</span><span class="fn">the open-source nine</span><span class="rd" aria-hidden="true"></span><span class="ln">locked</span></li>
-    </ul>
+  <!-- TOOL 02 -->
+  <article class="card c-aqua">
+    <div class="top">
+      <span class="tag">Tool 02 / 09 · librechat · 41k★</span>
+      <span class="goth">chat</span>
+    </div>
+    <h2>LibreChat</h2>
+    <p class="one">Every model in one self-hosted chat UI — ChatGPT, Claude, Gemini and local models, together. MIT.</p>
+    <div class="actions">
+      <a class="btn" data-goatcounter-click="no021-tool-librechat" href="https://github.com/danny-avila/LibreChat" target="_blank" rel="noopener">Open on GitHub →</a>
+      <div class="copy"><code>github.com/danny-avila/LibreChat</code><button class="copybtn" data-copy="https://github.com/danny-avila/LibreChat">Copy</button></div>
+    </div>
+  </article>
 
-    <form class="gate-form" action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="gate">
-      <input type="hidden" name="tag" value="no021">
-      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
-      <label class="sr-only" for="gateEmail">Email address</label>
-      <input id="gateEmail" name="email" type="email" placeholder="you@email.com" autocomplete="email" inputmode="email" required>
-      <button class="btn primary" type="submit">Open the pack &rarr;</button>
-    </form>
-    <!-- The last line exists because there is deliberately NO welcome email
-         (founder, 2026-08-26): the redirect is the whole delivery, so a closed
-         tab loses the pack. Retyping the same address works — an existing
-         subscriber is let straight back through (signup.js) — but nobody would
-         guess that, and a reader who thinks they've lost it doesn't come back. -->
-    <div class="note">Opens on the next screen — no confirmation email, no waiting room. Lost the tab? Type the same address again and it reopens. One-click unsubscribe. <a href="./privacy.html">What we do with it</a>.</div>
-    <div class="proof"><b>622</b> packs sent to people who asked · <b>1,338</b> follow @vektor.fm · one working setup a week</div>
-  </div>
+  <!-- TOOL 03 -->
+  <article class="card c-signal">
+    <div class="top">
+      <span class="tag">Tool 03 / 09 · comfyui · 122k★</span>
+      <span class="goth">render</span>
+    </div>
+    <h2>ComfyUI</h2>
+    <p class="one">Node-based image and video generation with cinematic control, running entirely on your own machine. GPL-3.0.</p>
+    <div class="actions">
+      <a class="btn" data-goatcounter-click="no021-tool-comfyui" href="https://github.com/comfyanonymous/ComfyUI" target="_blank" rel="noopener">Open on GitHub →</a>
+      <div class="copy"><code>github.com/comfyanonymous/ComfyUI</code><button class="copybtn" data-copy="https://github.com/comfyanonymous/ComfyUI">Copy</button></div>
+    </div>
+  </article>
+
+  <!-- TOOL 04 -->
+  <article class="card c-cream">
+    <div class="top">
+      <span class="tag">Tool 04 / 09 · agent reach · 58k★</span>
+      <span class="goth">reach</span>
+    </div>
+    <h2>Agent Reach</h2>
+    <p class="one">Gives your agents eyes — search Reddit, GitHub, YouTube and X from one CLI, zero paid APIs. MIT.</p>
+    <div class="actions">
+      <a class="btn" data-goatcounter-click="no021-tool-agent-reach" href="https://github.com/Panniantong/Agent-Reach" target="_blank" rel="noopener">Open on GitHub →</a>
+      <div class="copy"><code>github.com/Panniantong/Agent-Reach</code><button class="copybtn" data-copy="https://github.com/Panniantong/Agent-Reach">Copy</button></div>
+    </div>
+  </article>
+
+  <!-- TOOL 05 -->
+  <article class="card c-ink">
+    <div class="top">
+      <span class="tag">Tool 05 / 09 · agentic inbox · 6.4k★</span>
+      <span class="goth">inbox</span>
+    </div>
+    <h2>Agentic Inbox</h2>
+    <p class="one">An inbox that runs itself — an AI email agent that reads, searches and drafts replies, on your own Cloudflare. Apache-2.0.</p>
+    <div class="actions">
+      <a class="btn" data-goatcounter-click="no021-tool-agentic-inbox" href="https://github.com/cloudflare/agentic-inbox" target="_blank" rel="noopener">Open on GitHub →</a>
+      <div class="copy"><code>github.com/cloudflare/agentic-inbox</code><button class="copybtn" data-copy="https://github.com/cloudflare/agentic-inbox">Copy</button></div>
+    </div>
+  </article>
+
+  <!-- TOOL 06 -->
+  <article class="card c-orchid">
+    <div class="top">
+      <span class="tag">Tool 06 / 09 · voicebox · 44k★</span>
+      <span class="goth">voice</span>
+    </div>
+    <h2>Voicebox</h2>
+    <p class="one">Clone a voice, generate speech, dictate anywhere — a free ElevenLabs that never leaves your laptop. MIT.</p>
+    <div class="actions">
+      <a class="btn" data-goatcounter-click="no021-tool-voicebox" href="https://github.com/jamiepine/voicebox" target="_blank" rel="noopener">Open on GitHub →</a>
+      <div class="copy"><code>github.com/jamiepine/voicebox</code><button class="copybtn" data-copy="https://github.com/jamiepine/voicebox">Copy</button></div>
+    </div>
+  </article>
+
+  <!-- TOOL 07 -->
+  <article class="card c-aqua">
+    <div class="top">
+      <span class="tag">Tool 07 / 09 · shepherd · 1.5k★</span>
+      <span class="goth">trace</span>
+    </div>
+    <h2>Shepherd</h2>
+    <p class="one">Git, but for AI agents — inspect, replay or undo any run before it touches your files. MIT.</p>
+    <div class="actions">
+      <a class="btn" data-goatcounter-click="no021-tool-shepherd" href="https://github.com/shepherd-agents/shepherd" target="_blank" rel="noopener">Open on GitHub →</a>
+      <div class="copy"><code>github.com/shepherd-agents/shepherd</code><button class="copybtn" data-copy="https://github.com/shepherd-agents/shepherd">Copy</button></div>
+    </div>
+  </article>
+
+  <!-- TOOL 08 -->
+  <article class="card c-signal">
+    <div class="top">
+      <span class="tag">Tool 08 / 09 · open-llm-vtuber · 12.7k★</span>
+      <span class="goth">companion</span>
+    </div>
+    <h2>Open-LLM-VTuber</h2>
+    <p class="one">A local AI companion that sees, listens, talks and remembers — Live2D avatar, local models, any OS. MIT.</p>
+    <div class="actions">
+      <a class="btn" data-goatcounter-click="no021-tool-open-llm-vtuber" href="https://github.com/Open-LLM-VTuber/Open-LLM-VTuber" target="_blank" rel="noopener">Open on GitHub →</a>
+      <div class="copy"><code>github.com/Open-LLM-VTuber/Open-LLM-VTuber</code><button class="copybtn" data-copy="https://github.com/Open-LLM-VTuber/Open-LLM-VTuber">Copy</button></div>
+    </div>
+  </article>
+
+  <!-- TOOL 09 -->
+  <article class="card c-cream">
+    <div class="top">
+      <span class="tag">Tool 09 / 09 · hyperframes · 36k★</span>
+      <span class="goth">video</span>
+    </div>
+    <h2>HyperFrames</h2>
+    <p class="one">Write HTML, get real video — deterministic MP4 out, built for agents. Apache-2.0.</p>
+    <div class="actions">
+      <a class="btn" data-goatcounter-click="no021-tool-hyperframes" href="https://github.com/heygen-com/hyperframes" target="_blank" rel="noopener">Open on GitHub →</a>
+      <div class="copy"><code>github.com/heygen-com/hyperframes</code><button class="copybtn" data-copy="https://github.com/heygen-com/hyperframes">Copy</button></div>
+    </div>
+  </article>
+
 </section>
+
+<section class="midcap" aria-label="Get the weekly pack">
+  <span class="k">One email a week · the working setup</span>
+  <h2>Keep the whole toolkit.</h2>
+  <p>The Teardown sends the config pack and one working AI setup a week — the same rig behind this channel. Free, and you can unsubscribe anytime.</p>
+  <form action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="midcap">
+      <input type="hidden" name="tag" value="no-021-midcap">
+      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+    <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
+    <button class="btn" type="submit">Get the weekly pack →</button>
+  </form>
+  <div class="note">Free. The config pack lands in your inbox straight away. Unsubscribe anytime.</div>
+</section>
+
+<section class="issues">
+  <!-- FOLLOW ASK — the reciprocity moment -->
+  <article class="card c-ink">
+    <div class="top">
+      <span class="tag">No catch · all nine free</span>
+      <span class="goth">follow</span>
+    </div>
+    <h2>That's all 9. Follow for the next one.</h2>
+    <p class="one">This page exists because people follow — a new teardown drops daily, and followers catch it first. If it saved you a subscription, the follow is the thank-you.</p>
+    <div class="actions">
+      <a class="btn primary" data-goatcounter-click="no021-follow-instagram" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Follow @vektor.fm →</a>
+    </div>
+  </article>
+</section>
+<!-- ===================== END ISSUE BLOCK — NO. 021 ===================== -->
+
+<!-- ======================= FOOTER ======================= -->
 </main>
 
 <footer>
@@ -973,50 +1128,94 @@ pre.code code{font-size:inherit;}
   document.getElementById('ctaClose').addEventListener('click', function(){ dismissed=true; sticky.classList.remove('show'); sticky.setAttribute('aria-hidden','true'); });
   var wmFoot=document.getElementById('wmFoot');
   if(wmFoot && 'IntersectionObserver' in window){ var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ wmFoot.classList.remove('play'); void wmFoot.offsetWidth; wmFoot.classList.add('play'); } }); }, {threshold:0.6}); io.observe(wmFoot); }
-  // Pack popup — fires at 50% SCROLL DEPTH, never on a timer.
+  // THE ASK MODAL — an A/B on the TRIGGER, not on the copy (2026-09-01).
   //
-  // It used to open on a 900ms setTimeout, which covered the whole mobile
-  // viewport before the visitor had read a word. That is the exact pattern
-  // Google penalises on mobile (an interstitial blocking content before any
-  // engagement), and popups shown inside the first 5 seconds are measured to
-  // raise bounce by up to 5x. Scroll depth is the engagement signal: it only
-  // fires for someone already reading, and scroll-triggered popups catch
-  // people mid-interest rather than mid-exit.
+  // History, so nobody re-litigates it from memory: this started as a 900 ms
+  // setTimeout, which covered the mobile viewport before the reader had read a
+  // word — the exact pattern Google penalises on mobile. It was moved to 50%
+  // scroll depth on 2026-08-17, then removed entirely on 2026-08-26 when a hard
+  // email gate went on the end of the page instead. The gate is now gone too
+  // (founder, 2026-09-01) and the pack is free on the page, so the modal is the
+  // primary ask again.
   //
-  // Still re-shows every 2 days, still dismissible by x / scrim / Esc.
-  (function(){ var pop=document.getElementById('packPop'); if(!pop){return;} var KEY='vektor_pack_seen', TTL=2*24*60*60*1000;
-    // ?pop=1 forces it open regardless of the cooldown. Without this the popup
-    // is untestable for anyone who has already seen it: on 2026-08-17 this page
-    // looked broken for two days straight when the real cause was a dismissal
-    // 21 hours earlier. A test affordance, not a feature — it does nothing for
-    // a visitor who never types it.
-    var force=false; try{ force=new URLSearchParams(location.search).get('pop')==='1'; }catch(e){}
+  // The scroll version's record, pulled live from /report on 2026-09-01 over a
+  // 30-day window: ~47 views, ~46 dismissals, no attributable signup. The
+  // founder's position is that the ask should land at peak attention and that a
+  // half-page scroll is the wrong signal for it. Rather than argue it, both
+  // triggers ship and split 50/50:
+  //
+  //   arm a — 6 s timer            (fires on a clock, on everyone)
+  //   arm b — download/copy click  (fires on the action, after value landed)
+  //
+  // Read the result off count:email:<slug>-ask-a vs -ask-b in /report (the tag
+  // travels to Buttondown, so it survives ad-blockers that eat GoatCounter) and
+  // off no021-ask-view-a/-dismiss-a vs the -b pair for the dismissal rate.
+  // Decide after 3 films, not after one — at ~40-60 page opens per film, one
+  // film cannot separate these.
+  (function(){
+    var pop=document.getElementById('askPop'); if(!pop){return;}
+    var KEY='vektor_ask_seen', ARM_KEY='vektor_ask_arm', TTL=2*24*60*60*1000;
+
+    // ?arm=a / ?arm=b forces an arm, ?pop=1 forces it open past the cooldown.
+    // Without these the thing is untestable for anyone who has already seen it:
+    // on 2026-08-17 the page looked broken for two days when the real cause was
+    // a dismissal 21 hours earlier. Test affordances, not features.
+    var qs; try{ qs=new URLSearchParams(location.search); }catch(e){ qs=null; }
+    var force=!!qs && qs.get('pop')==='1';
+    var forcedArm=qs && (qs.get('arm')==='a' || qs.get('arm')==='b') ? qs.get('arm') : null;
+
+    // The arm is sticky per browser: a reader who saw the timer must never also
+    // see the action version, or every number here is a mixture of both.
+    var arm=forcedArm;
+    if(!arm){
+      try{ arm=localStorage.getItem(ARM_KEY); }catch(e){}
+      if(arm!=='a' && arm!=='b'){
+        arm = Math.random()<0.5 ? 'a' : 'b';
+        try{ localStorage.setItem(ARM_KEY, arm); }catch(e){}
+      }
+    }
+    var tag=document.getElementById('askTag');
+    if(tag){ tag.value='no021-ask-'+arm; }
+
     if(!force){ try{ var last=parseInt(localStorage.getItem(KEY)||'0',10); if(last && (Date.now()-last)<TTL){ return; } }catch(e){} }
     function seen(){ try{ localStorage.setItem(KEY, String(Date.now())); }catch(e){} }
     function esc(e){ if(e.key==='Escape'){ close(); } }
-    function close(){ pop.setAttribute('hidden',''); seen(); document.removeEventListener('keydown',esc); gcEvent('no021-popup-dismiss'); }
+    function close(){ pop.setAttribute('hidden',''); seen(); document.removeEventListener('keydown',esc); gcEvent('no021-ask-dismiss-'+arm); }
     pop.querySelectorAll('[data-pop-close]').forEach(function(el){ el.addEventListener('click', close); });
-    var f=pop.querySelector('form'); if(f){ f.addEventListener('submit', seen); }
+    // submit fires seen() but NOT close(), so a dismissal count is never
+    // inflated by a conversion — dismiss ≈ view is then a real read.
+    var f=pop.querySelector('form');
+    if(f){ f.addEventListener('submit', function(){ seen(); gcEvent('no021-ask-submit-'+arm); }); }
+
     var fired=false;
-    function depth(){
-      var doc=document.documentElement;
-      var scrollable=doc.scrollHeight-window.innerHeight;
-      return scrollable>0 ? (window.scrollY/scrollable) : 1;
-    }
     function open(){
       if(fired){ return; }
       fired=true;
-      window.removeEventListener('scroll',maybe);
       pop.removeAttribute('hidden');
       document.addEventListener('keydown',esc);
-      gcEvent('no021-popup-view');
+      gcEvent('no021-ask-view-'+arm);
       var x=pop.querySelector('.pop-x'); if(x){ try{ x.focus(); }catch(e){} }
     }
-    function maybe(){ if(depth()>=0.5){ open(); } }
-    window.addEventListener('scroll',maybe,{passive:true});
-    // ?pop=1 skips the scroll gate too, or testing still means scrolling half
-    // the page to find out whether a CSS change landed.
-    if(force){ open(); }
+
+    if(force){ open(); return; }
+
+    if(arm==='a'){
+      // 6 s from load. Not 3 s: under 5 s is the band the mobile-interstitial
+      // guidance treats as pre-engagement, and if this arm is going to lose it
+      // should lose on its own best showing.
+      setTimeout(open, 6000);
+    } else {
+      // Peak intent: the click that takes the payload. Covers every route the
+      // pages use — the file links, the .copybtn snippets, the single-snippet
+      // button and the legacy multi-card copy buttons. 900 ms of delay so the
+      // "Copied ✓" confirmation is seen first; a modal that lands on the same
+      // frame as the click reads as an error, not an offer.
+      document.addEventListener('click', function(ev){
+        var t=ev.target && ev.target.closest ? ev.target.closest('.copybtn, #snipCopy, [data-copy-target], a[href*="./files/"]') : null;
+        if(!t){ return; }
+        setTimeout(open, 900);
+      }, true);
+    }
   })();
   document.querySelectorAll('form').forEach(function(f){ f.addEventListener('submit', function(){ gcEvent('no021-subscribe-submit'); }); });
 
