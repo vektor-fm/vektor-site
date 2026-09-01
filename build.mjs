@@ -198,9 +198,22 @@ function renderIssue(num, { unlocked = false } = {}) {
   // fill() does not re-scan what it inserts.
   map.CAPTURE = unlocked ? '' : fill(CAPTURE, map);
 
+  // THE GATE IS RETIRED (founder, 2026-09-01). A public page is now the whole
+  // page: hook + payload, no email asked before the thing the DM promised. The
+  // reader already paid a follow in the DM; the second toll was costing funnel
+  // conversion on every film to grow a list that had sent one issue in its life
+  // (vektor/reports/2026-09-01-email-gate-decision.md).
+  //
+  // Deliberately NOT deleted: GATE, sealPublic(), payloadManifest() and the
+  // GATE_* map keys all still work. Restoring the wall is this one expression,
+  // not an archaeology exercise — which matters, because the plan is to re-test
+  // it once the newsletter has shipped ~4 consecutive weekly issues.
+  //
+  // Unlock pages keep rendering: the u-*.html URLs are live and linked from
+  // DMs already sent.
   const middle = unlocked
     ? fill(UNLOCKED, map) + open + payload
-    : sealPublic(open) + fill(GATE, map);
+    : open + payload;
 
   const out = fill(read('partials/head.html'), map)
     + fill(read('partials/masthead.html'), map)
@@ -209,8 +222,12 @@ function renderIssue(num, { unlocked = false } = {}) {
     + fill(read('partials/scripts.html'), map);
   const label = unlocked ? `${unlockName(num)}` : `no-${num}`;
   assertNoTokens(out, label);
-  if (!unlocked && out.includes('./files/')) {
-    throw new Error(`${label}: payload link leaked onto the public page`);
+  // The old invariant was the reverse of this one: it FAILED the build if a
+  // ./files/ link reached a public page. With the gate retired that leak IS the
+  // product, so the check runs the other way — a page whose source has a payload
+  // must actually serve it, or a silent wall is back and nobody notices.
+  if (!unlocked && hasPayload && !out.includes('./files/')) {
+    throw new Error(`${label}: payload links vanished from an ungated public page`);
   }
   return out;
 }

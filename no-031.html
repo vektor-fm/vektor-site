@@ -817,30 +817,66 @@ pre.code code{font-size:inherit;}
      capturing anything. The goal is the email address, so the persistent ask
      is now the email. Follow demotes to the footer.
 
-     Since 2026-08-26 the form carries the PAGE's tag (no031-sticky) rather
-     than a generic one: the worker reads the tag to decide which pack to
-     unlock, so a generic tag would capture the email and then have nothing to
-     hand back. The suffix keeps per-source attribution.
+     THE PACK IS NO LONGER BEHIND THE EMAIL (founder, 2026-09-01). The reader
+     paid a follow in the DM; charging a second toll on the page spent funnel
+     conversion to grow a list that had sent one issue in its life. So the
+     sticky bar no longer promises to "open" anything — the payload is already
+     open, three screens down. It sells the WEEKLY, which is the only honest
+     thing left to sell. Wording that implies a lock is a lie now, not copy.
+     Full argument: vektor/reports/2026-09-01-email-gate-decision.md.
 
-     THE POP-UP IS GONE (founder, 2026-08-26). It was dismissed 13 times out of
-     13 on NO.036 and 5 out of 5 on NO.039 (live /report, 2026-08-26) — it
-     converted nothing and spent goodwill on every visit. With a real gate at
-     the end of the page there are now two asks, not three. The pop-up's script
-     in partials/scripts.html no-ops on its own (`if(!pop){return;}`), so it is
-     left in place rather than ripped out; restoring the block restores it.
+     The tag still carries the PAGE slug (no031-sticky) — the worker no
+     longer needs it to decide what to unlock, but it is the only per-source
+     attribution we get in Buttondown and in /report's count:email:<source>.
 
      This whole file is omitted from unlock pages — asking a reader for the
      email they just gave you is how a funnel reads as a machine. -->
 <div class="sticky-cta" id="stickyCta" aria-hidden="true">
-  <span class="t">the Setup setup + one working setup a week</span>
+  <span class="t">One working AI setup a week</span>
   <form class="sticky-form" method="post" action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" data-capture="sticky">
       <input type="hidden" name="tag" value="no031-sticky">
       <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
     <label class="sr-only" for="stickyEmail">Email address</label>
     <input id="stickyEmail" name="email" type="email" placeholder="you@email.com" autocomplete="email" required>
-    <button class="btn primary" type="submit">Open it &rarr;</button>
+    <button class="btn primary" type="submit">Subscribe &rarr;</button>
   </form>
   <button class="x" id="ctaClose" type="button" aria-label="Dismiss">&times;</button>
+</div>
+
+<!-- THE ASK MODAL — one markup, two triggers, running as an A/B (2026-09-01).
+     Founder call after the evidence: the pop-up in its 50%-scroll form was
+     viewed ~47 times and dismissed ~46 of those across NO.006/034/036/038/039
+     (live /report, 30 d, pulled 2026-09-01), with no signup attributable to it.
+     The founder's read is that the ask should land at PEAK ATTENTION; the
+     disagreement was only about what signals attention — a clock or an action.
+     So both are built and split 50/50 rather than argued:
+
+       arm A — 6 s timer (the founder's version)
+       arm B — fires on the download / copy action, i.e. the moment the reader
+               takes the thing they came for
+
+     The trigger is the ONLY difference. Same markup, same copy, same cooldown,
+     so a difference in the numbers is a difference in the trigger. The arm is
+     sticky per browser (localStorage) so one reader never sees both.
+
+     The copy has to be true for BOTH arms, which is why it does not say "that
+     one's yours" (arm A fires before any download) and does not say "opens on
+     the next screen" (nothing is locked any more). It sells the weekly. -->
+<div class="pop" id="askPop" hidden>
+  <div class="pop-scrim" data-pop-close></div>
+  <div class="pop-card" role="dialog" aria-modal="true" aria-labelledby="askPopH">
+    <button class="pop-x" type="button" data-pop-close aria-label="Close">×</button>
+    <span class="k">One email a week · the working setup</span>
+    <h2 id="askPopH">Where the next one comes from.</h2>
+    <p>the Setup setup is yours, free, no email needed — it is on this page. The weekly teardown is where the next one gets built: one working AI setup, every week, with the numbers checked at source.</p>
+    <form action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="ask">
+      <input type="hidden" name="tag" id="askTag" value="no031-ask">
+      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+      <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
+      <button class="btn" type="submit">Send me the weekly →</button>
+    </form>
+    <div class="note">One email a week. Unsubscribe in one click.</div>
+  </div>
 </div>
 
 <div class="weave" aria-hidden="true"></div>
@@ -851,8 +887,8 @@ pre.code code{font-size:inherit;}
   <h1 class="disp">Tax the<br>agents<span class="dot">.</span></h1>
   <p class="sub">The US federal government runs on taxes tied to human work — 84% of everything it collects. An AI agent that replaces a $70,000 salary pays none of it. The obvious fix is to tax the agents. This is the full argument from NO. 031: the setup, the levy, and the two technical holes that make it much harder than the slogan — with every source linked at the bottom. As promised.</p>
   <div class="actions">
-    <a class="btn primary" href="#gate">Start reading ↓</a>
-    <a class="btn" href="#gate">Jump to sources ↓</a>
+    <a class="btn primary" href="#setup">Start reading ↓</a>
+    <a class="btn" href="#sources">Jump to sources ↓</a>
     <button class="btn" id="shareBtn" type="button">Send to a friend</button>
   </div>
   <div class="rule">////////////////////////////////////////////////////////////////////////////////////////////////</div>
@@ -885,61 +921,150 @@ pre.code code{font-size:inherit;}
 
 </section>
 
-<!-- THE GATE. Founder decision 2026-08-26: the packs stop being free-to-scroll,
-     and the ask is the loudest object on the page. ~700 landing-page opens in 30
-     days produced 6 form clicks (live /report, 2026-08-26), so the pages were
-     handing the payload over before the ask and the ask had no leverage.
+<div class="fig">
+  <h2 class="kick">Fig. 02 ·</h2>
+  <span class="gaccent">the idea</span>
+  <span class="line"></span>
+</div>
 
-     The payload is NOT in this document. build.mjs splits the body at the first
-     <div class="fig"> and writes everything below it to a separate unlock page
-     whose URL only the funnel worker knows. There is nothing here to view-source.
+<section class="issues">
 
-     WHY IT LOOKS LIKE THIS (founder picked A1, "paper block", 2026-08-26):
-     - Cream on an all-black site. It is the only light surface anywhere in the
-       design system, so the eye lands on it before it reads a word. Loud through
-       contrast rather than through decoration.
-     - The manifest lists the REAL payload — file names and line counts pulled
-       from the page's own snippets at build time, redacted. Paywall CRO is
-       consistent that showing what is missing beats describing it, and a
-       manifest cannot be faked into promising something the pack doesn't hold.
-     - It shows structure, never a readable line. Behavioural data on news
-       paywalls (Journalism Studies, 2024) found a readable teaser measurably
-       LOWERS subscribe clicks — curiosity gets satisfied and the reader leaves.
-     - One field. Single-field forms benchmark at ~25.5%, and every extra field
-       is the highest-cost thing you can add.
-     - The note kills the objection single opt-in always raises: nothing to
-       confirm, nothing to wait for.
-     Evidence + sources: docs/2026-08-26-gate-ui-research.md -->
-<section class="gate paper" id="gate">
-  <div class="tab">Locked</div>
-  <div class="inner">
-    <span class="k">4 sections · locked</span>
-    <h2>The agent-tax teardown, in full.</h2>
-    <p class="lede">Every section below is written and sitting on the next screen. One email opens all of it.</p>
+  <!-- CARD 02 — THE IDEA -->
+  <article class="card c-aqua">
+    <div class="top">
+      <span class="tag">The idea · count the agents, charge per head</span>
+      <span class="goth">levy</span>
+    </div>
+    <h2>Tax the agents.</h2>
+    <p class="one">The obvious answer. Bill Gates proposed exactly this in February 2017 — a "robot tax" where the robot that replaces a worker gets taxed at a similar level, funding retraining and care work. The European Parliament had considered the same idea and rejected it the day before, on the grounds it would stifle innovation.</p>
+    <p class="one">The idea is back, now with AI-specific framing. A February 2026 paper proposes an "Agent Displacement Levy" — a graduated corporate tax on firms deploying autonomous AI agents in roles previously held by humans. Senator Bernie Sanders has pushed for excise taxes on automating technology. The agentic AI market was about $7.6 billion in 2025 and is projected to reach $183 billion by 2033, so the base is growing fast.</p>
+    <span class="proof">A per-agent levy sounds clean. Two technical problems make it much harder than it sounds.</span>
+  </article>
 
-    <ul class="manifest">
-      <li><span class="lk">▣</span><span class="fn">the idea</span><span class="rd" aria-hidden="true"></span><span class="ln">locked</span></li>
-      <li><span class="lk">▣</span><span class="fn">hole no. 1</span><span class="rd" aria-hidden="true"></span><span class="ln">locked</span></li>
-      <li><span class="lk">▣</span><span class="fn">hole no. 2</span><span class="rd" aria-hidden="true"></span><span class="ln">locked</span></li>
-      <li><span class="lk">▣</span><span class="fn">on the table</span><span class="rd" aria-hidden="true"></span><span class="ln">locked</span></li>
-    </ul>
-
-    <form class="gate-form" action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="gate">
-      <input type="hidden" name="tag" value="no031">
-      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
-      <label class="sr-only" for="gateEmail">Email address</label>
-      <input id="gateEmail" name="email" type="email" placeholder="you@email.com" autocomplete="email" inputmode="email" required>
-      <button class="btn primary" type="submit">Open the pack &rarr;</button>
-    </form>
-    <!-- The last line exists because there is deliberately NO welcome email
-         (founder, 2026-08-26): the redirect is the whole delivery, so a closed
-         tab loses the pack. Retyping the same address works — an existing
-         subscriber is let straight back through (signup.js) — but nobody would
-         guess that, and a reader who thinks they've lost it doesn't come back. -->
-    <div class="note">Opens on the next screen — no confirmation email, no waiting room. Lost the tab? Type the same address again and it reopens. One-click unsubscribe. <a href="./privacy.html">What we do with it</a>.</div>
-    <div class="proof"><b>622</b> packs sent to people who asked · <b>1,338</b> follow @vektor.fm · one working setup a week</div>
-  </div>
 </section>
+
+<div class="fig">
+  <h2 class="kick">Fig. 03 ·</h2>
+  <span class="gaccent">hole no. 1</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues">
+
+  <!-- CARD 03 — HOLE 1 -->
+  <article class="card c-ink">
+    <div class="top">
+      <span class="tag">Hole 1 · jurisdiction shopping</span>
+      <span class="goth">reroute</span>
+    </div>
+    <h2>An agent is an API call.</h2>
+    <p class="one">A factory robot is bolted to a floor in a jurisdiction. An AI agent is a network request. It can run from a server anywhere on earth, and rerouting it through a low-tax jurisdiction is a config change, not a relocation.</p>
+    <p class="one">We've run this experiment before. The OECD's BEPS project (Base Erosion and Profit Shifting) exists because digital businesses built on intangible assets shift profits easily — the assets relocate with a filing, not a moving truck. The workaround countries reached for was digital services taxes: crude levies of 2–5% on gross revenue from digital activity, taxing where the customers are because taxing where the "work" happens proved impossible. The UK's DST collected £800 million in 2024–25. The OECD's Pillar One — the coordinated fix that would allocate taxing rights to market countries — has been stuck in negotiation for years.</p>
+    <span class="proof">If the tax attaches to where the agent runs, the agent moves. If it attaches to where revenue is booked, you've rebuilt the DST fight.</span>
+  </article>
+
+</section>
+
+<div class="fig">
+  <h2 class="kick">Fig. 04 ·</h2>
+  <span class="gaccent">hole no. 2</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues">
+
+  <!-- CARD 04 — HOLE 2 -->
+  <article class="card c-ink">
+    <div class="top">
+      <span class="tag">Hole 2 · unmeterable local inference</span>
+      <span class="goth">local</span>
+    </div>
+    <h2>The agents are going local.</h2>
+    <p class="one">A per-agent tax needs a count of agents. That works if inference flows through a handful of API providers who can report usage, like banks report interest.</p>
+    <p class="one">It doesn't work when the model runs on your own hardware. Open-weight models — Llama, Mistral, Qwen, DeepSeek — can be downloaded and run locally, and enterprises are doing it at scale, particularly in regulated sectors that want data on-premises. Red Hat's 2025 review reports open-source AI deployment surging and a large share of enterprise AI workloads now including a local inference component. Microsoft's Phi models run on a phone. There is no API bill, no usage log leaving the building, and no practical way for a tax authority to count "agents" on private servers.</p>
+    <span class="proof">You'd be trying to meter software execution — the thing tax systems have never been able to see.</span>
+  </article>
+
+</section>
+
+<div class="fig">
+  <h2 class="kick">Fig. 05 ·</h2>
+  <span class="gaccent">on the table</span>
+  <span class="line"></span>
+</div>
+
+<div class="ledger" aria-label="What's actually on the table">
+  <div class="lrow"><span class="n">01</span><span class="t">Tax the infrastructure — compute and data centers are physical: US states filed 300+ data-center bills in early 2026, many rolling back tax exemptions. A de facto tax increase on AI infrastructure.</span></div>
+  <div class="lrow"><span class="n">02</span><span class="t">Shift to consumption — the Tax Foundation's answer: a VAT taxes AI-produced goods and services when someone buys them, wherever the model ran.</span></div>
+  <div class="lrow"><span class="n">03</span><span class="t">Do nothing special — the IMF advised in 2024 against special AI taxes entirely, calling them hard to operationalize.</span></div>
+</div>
+
+<section class="issues" id="point">
+  <article class="card c-signal">
+    <div class="top">
+      <span class="tag">The point · slogan vs. engineering</span>
+      <span class="goth">verdict</span>
+    </div>
+    <h2>"Tax the agents" is a slogan.</h2>
+    <p class="one">Tax policy is an engineering problem, and this one has two failure modes — jurisdiction shopping and unmeterable local inference — that are visible in advance to anyone who knows how the technology works. The debate that matters isn't whether AI should contribute to the tax base. It's whether policymakers design for how agents actually run, or pass a law the technology routes around by lunchtime.</p>
+  </article>
+  <div class="receipt">The serious proposals mostly route around both holes by taxing things that can't move or hide — see the sources below for the full paper trail.</div>
+</section>
+
+<div class="fig" id="sources">
+  <h2 class="kick">Fig. 06 ·</h2>
+  <span class="gaccent">the sources</span>
+  <span class="line"></span>
+</div>
+
+<section class="sources" aria-label="Sources">
+  <ol>
+    <li><span><a data-goatcounter-click="no031-src-treasury" href="https://fiscal.treasury.gov/system/files/files/reports-statements/combined-statement/cs2025/receipt.pdf" target="_blank" rel="noopener">US Treasury, Combined Statement of Receipts FY2025</a> <span class="m">— individual $2,656.0B, corporate $452.1B, social insurance $1,748.3B, total $5,234.6B</span></span></li>
+    <li><span><a data-goatcounter-click="no031-src-cbo" href="https://www.cbo.gov/system/files/2025-11/61307-MBR-FY25-final.pdf" target="_blank" rel="noopener">CBO, Monthly Budget Review: Summary for Fiscal Year 2025</a></span></li>
+    <li><span><a data-goatcounter-click="no031-src-wef" href="https://www.weforum.org/stories/2017/02/bill-gates-this-is-why-we-should-tax-robots/" target="_blank" rel="noopener">WEF: Bill Gates — this is why we should tax robots (Feb 2017)</a></span></li>
+    <li><span><a data-goatcounter-click="no031-src-cnbc" href="https://www.cnbc.com/2017/06/02/bill-gates-robot-tax-eu.html" target="_blank" rel="noopener">CNBC: Bill Gates wants to tax robots, but the EU says no (2017)</a></span></li>
+    <li><span><a data-goatcounter-click="no031-src-fortune" href="https://fortune.com/2017/02/22/bill-gates-proposes-a-robot-tax" target="_blank" rel="noopener">Fortune: Bill Gates proposes a robot tax (Feb 2017)</a></span></li>
+    <li><span><a data-goatcounter-click="no031-src-ssrn" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6194458" target="_blank" rel="noopener">SSRN: Taxing the AI Agents — Agent Displacement Levy (Prasad Mukkamala, Feb 2026)</a></span></li>
+    <li><span><a data-goatcounter-click="no031-src-taxnotes" href="https://www.taxnotes.com/featured-analysis/robot-tax-proposals-legislative-review/2025/11/20/7t92q" target="_blank" rel="noopener">Tax Notes: 'Robot Tax' Proposals for Legislative Review (Nov 2025)</a></span></li>
+    <li><span><a data-goatcounter-click="no031-src-forbes" href="https://www.forbes.com/sites/lauraclaytonmcdonnell/2026/01/29/will-ai-agents-need-to-pay-taxes/" target="_blank" rel="noopener">Forbes: Will AI Agents Need To Pay Taxes? (Jan 2026)</a> <span class="m">— agentic AI market $7.63B (2025) → $183B (2033) projection; UK DST £800M 2024–25; IMF 2024 caution</span></span></li>
+    <li><span><a data-goatcounter-click="no031-src-bloomberg" href="https://pro.bloombergtax.com/insights/international-tax/beps-the-oecd-taxation-of-the-digital-economy/" target="_blank" rel="noopener">Bloomberg Tax: BEPS and the OECD taxation of the digital economy</a></span></li>
+    <li><span><a data-goatcounter-click="no031-src-tpc" href="https://taxpolicycenter.org/sites/default/files/2025-05/A-Primer-on-Digital-Service-Taxes-and-the-OECD's-Two-Pillars.pdf" target="_blank" rel="noopener">Tax Policy Center: A Primer on Digital Services Taxes and the OECD's Two Pillars (2025)</a> <span class="m">— DSTs at 2–5% of gross revenue</span></span></li>
+    <li><span><a data-goatcounter-click="no031-src-crs" href="https://www.congress.gov/crs-product/R47988" target="_blank" rel="noopener">CRS: The OECD/G20 Pillar 1 and Digital Services Taxes</a></span></li>
+    <li><span><a data-goatcounter-click="no031-src-redhat" href="https://developers.redhat.com/articles/2026/01/07/state-open-source-ai-models-2025" target="_blank" rel="noopener">Red Hat Developer: The state of open source AI models in 2025 (Jan 2026)</a> <span class="m">— enterprise open-weight adoption, local inference share</span></span></li>
+    <li><span><a data-goatcounter-click="no031-src-zentera" href="https://www.zentera.net/blog/why-enterprises-are-adopting-open-weight-ai" target="_blank" rel="noopener">Zentera: Why enterprises are adopting open-weight AI on premises</a></span></li>
+    <li><span><a data-goatcounter-click="no031-src-multistate" href="https://www.multistate.us/insider/2026/2/20/state-data-center-legislation-in-2026-tackles-energy-and-tax-issues" target="_blank" rel="noopener">MultiState: State Data Center Legislation in 2026 (Feb 2026)</a> <span class="m">— 300+ bills, 30+ states</span></span></li>
+    <li><span><a data-goatcounter-click="no031-src-taxfoundation" href="https://taxfoundation.org/blog/ai-tax-policy/" target="_blank" rel="noopener">Tax Foundation: AI Tax Policy Considerations (Feb 2026)</a> <span class="m">— against AI excise taxes; VAT/consumption-shift alternative</span></span></li>
+  </ol>
+</section>
+
+<section class="midcap" aria-label="Get the weekly pack">
+  <span class="k">One email a week · the working setup</span>
+  <h2>Keep the whole toolkit.</h2>
+  <p>The Teardown sends the config pack and one working AI setup a week — the same rig behind this channel. Free, and you can unsubscribe anytime.</p>
+  <form action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post">
+      <input type="hidden" name="tag" value="no-031-2">
+      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+    <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
+    <button class="btn" type="submit">Get the weekly pack →</button>
+  </form>
+  <div class="note">Free. The config pack lands in your inbox straight away. Unsubscribe anytime.</div>
+</section>
+
+<section class="issues">
+  <!-- FOLLOW ASK — the reciprocity moment -->
+  <article class="card c-ink">
+    <div class="top">
+      <span class="tag">No catch · all of it free</span>
+      <span class="goth">follow</span>
+    </div>
+    <h2>That's the read. Follow for tomorrow's.</h2>
+    <p class="one">This page exists because people follow — a new AI story drops daily, and tomorrow's keyword drops for followers first. If you know something about the agent economy you didn't ten minutes ago, the follow is the thank-you.</p>
+    <div class="actions">
+      <a class="btn primary" data-goatcounter-click="no031-follow-instagram" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Follow @vektor.fm →</a>
+    </div>
+  </article>
+</section>
+<!-- ===================== END ISSUE BLOCK — NO. 031 ===================== -->
 </main>
 
 <footer>
@@ -1001,50 +1126,94 @@ pre.code code{font-size:inherit;}
   document.getElementById('ctaClose').addEventListener('click', function(){ dismissed=true; sticky.classList.remove('show'); sticky.setAttribute('aria-hidden','true'); });
   var wmFoot=document.getElementById('wmFoot');
   if(wmFoot && 'IntersectionObserver' in window){ var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ wmFoot.classList.remove('play'); void wmFoot.offsetWidth; wmFoot.classList.add('play'); } }); }, {threshold:0.6}); io.observe(wmFoot); }
-  // Pack popup — fires at 50% SCROLL DEPTH, never on a timer.
+  // THE ASK MODAL — an A/B on the TRIGGER, not on the copy (2026-09-01).
   //
-  // It used to open on a 900ms setTimeout, which covered the whole mobile
-  // viewport before the visitor had read a word. That is the exact pattern
-  // Google penalises on mobile (an interstitial blocking content before any
-  // engagement), and popups shown inside the first 5 seconds are measured to
-  // raise bounce by up to 5x. Scroll depth is the engagement signal: it only
-  // fires for someone already reading, and scroll-triggered popups catch
-  // people mid-interest rather than mid-exit.
+  // History, so nobody re-litigates it from memory: this started as a 900 ms
+  // setTimeout, which covered the mobile viewport before the reader had read a
+  // word — the exact pattern Google penalises on mobile. It was moved to 50%
+  // scroll depth on 2026-08-17, then removed entirely on 2026-08-26 when a hard
+  // email gate went on the end of the page instead. The gate is now gone too
+  // (founder, 2026-09-01) and the pack is free on the page, so the modal is the
+  // primary ask again.
   //
-  // Still re-shows every 2 days, still dismissible by x / scrim / Esc.
-  (function(){ var pop=document.getElementById('packPop'); if(!pop){return;} var KEY='vektor_pack_seen', TTL=2*24*60*60*1000;
-    // ?pop=1 forces it open regardless of the cooldown. Without this the popup
-    // is untestable for anyone who has already seen it: on 2026-08-17 this page
-    // looked broken for two days straight when the real cause was a dismissal
-    // 21 hours earlier. A test affordance, not a feature — it does nothing for
-    // a visitor who never types it.
-    var force=false; try{ force=new URLSearchParams(location.search).get('pop')==='1'; }catch(e){}
+  // The scroll version's record, pulled live from /report on 2026-09-01 over a
+  // 30-day window: ~47 views, ~46 dismissals, no attributable signup. The
+  // founder's position is that the ask should land at peak attention and that a
+  // half-page scroll is the wrong signal for it. Rather than argue it, both
+  // triggers ship and split 50/50:
+  //
+  //   arm a — 6 s timer            (fires on a clock, on everyone)
+  //   arm b — download/copy click  (fires on the action, after value landed)
+  //
+  // Read the result off count:email:<slug>-ask-a vs -ask-b in /report (the tag
+  // travels to Buttondown, so it survives ad-blockers that eat GoatCounter) and
+  // off no031-ask-view-a/-dismiss-a vs the -b pair for the dismissal rate.
+  // Decide after 3 films, not after one — at ~40-60 page opens per film, one
+  // film cannot separate these.
+  (function(){
+    var pop=document.getElementById('askPop'); if(!pop){return;}
+    var KEY='vektor_ask_seen', ARM_KEY='vektor_ask_arm', TTL=2*24*60*60*1000;
+
+    // ?arm=a / ?arm=b forces an arm, ?pop=1 forces it open past the cooldown.
+    // Without these the thing is untestable for anyone who has already seen it:
+    // on 2026-08-17 the page looked broken for two days when the real cause was
+    // a dismissal 21 hours earlier. Test affordances, not features.
+    var qs; try{ qs=new URLSearchParams(location.search); }catch(e){ qs=null; }
+    var force=!!qs && qs.get('pop')==='1';
+    var forcedArm=qs && (qs.get('arm')==='a' || qs.get('arm')==='b') ? qs.get('arm') : null;
+
+    // The arm is sticky per browser: a reader who saw the timer must never also
+    // see the action version, or every number here is a mixture of both.
+    var arm=forcedArm;
+    if(!arm){
+      try{ arm=localStorage.getItem(ARM_KEY); }catch(e){}
+      if(arm!=='a' && arm!=='b'){
+        arm = Math.random()<0.5 ? 'a' : 'b';
+        try{ localStorage.setItem(ARM_KEY, arm); }catch(e){}
+      }
+    }
+    var tag=document.getElementById('askTag');
+    if(tag){ tag.value='no031-ask-'+arm; }
+
     if(!force){ try{ var last=parseInt(localStorage.getItem(KEY)||'0',10); if(last && (Date.now()-last)<TTL){ return; } }catch(e){} }
     function seen(){ try{ localStorage.setItem(KEY, String(Date.now())); }catch(e){} }
     function esc(e){ if(e.key==='Escape'){ close(); } }
-    function close(){ pop.setAttribute('hidden',''); seen(); document.removeEventListener('keydown',esc); gcEvent('no031-popup-dismiss'); }
+    function close(){ pop.setAttribute('hidden',''); seen(); document.removeEventListener('keydown',esc); gcEvent('no031-ask-dismiss-'+arm); }
     pop.querySelectorAll('[data-pop-close]').forEach(function(el){ el.addEventListener('click', close); });
-    var f=pop.querySelector('form'); if(f){ f.addEventListener('submit', seen); }
+    // submit fires seen() but NOT close(), so a dismissal count is never
+    // inflated by a conversion — dismiss ≈ view is then a real read.
+    var f=pop.querySelector('form');
+    if(f){ f.addEventListener('submit', function(){ seen(); gcEvent('no031-ask-submit-'+arm); }); }
+
     var fired=false;
-    function depth(){
-      var doc=document.documentElement;
-      var scrollable=doc.scrollHeight-window.innerHeight;
-      return scrollable>0 ? (window.scrollY/scrollable) : 1;
-    }
     function open(){
       if(fired){ return; }
       fired=true;
-      window.removeEventListener('scroll',maybe);
       pop.removeAttribute('hidden');
       document.addEventListener('keydown',esc);
-      gcEvent('no031-popup-view');
+      gcEvent('no031-ask-view-'+arm);
       var x=pop.querySelector('.pop-x'); if(x){ try{ x.focus(); }catch(e){} }
     }
-    function maybe(){ if(depth()>=0.5){ open(); } }
-    window.addEventListener('scroll',maybe,{passive:true});
-    // ?pop=1 skips the scroll gate too, or testing still means scrolling half
-    // the page to find out whether a CSS change landed.
-    if(force){ open(); }
+
+    if(force){ open(); return; }
+
+    if(arm==='a'){
+      // 6 s from load. Not 3 s: under 5 s is the band the mobile-interstitial
+      // guidance treats as pre-engagement, and if this arm is going to lose it
+      // should lose on its own best showing.
+      setTimeout(open, 6000);
+    } else {
+      // Peak intent: the click that takes the payload. Covers every route the
+      // pages use — the file links, the .copybtn snippets, the single-snippet
+      // button and the legacy multi-card copy buttons. 900 ms of delay so the
+      // "Copied ✓" confirmation is seen first; a modal that lands on the same
+      // frame as the click reads as an error, not an offer.
+      document.addEventListener('click', function(ev){
+        var t=ev.target && ev.target.closest ? ev.target.closest('.copybtn, #snipCopy, [data-copy-target], a[href*="./files/"]') : null;
+        if(!t){ return; }
+        setTimeout(open, 900);
+      }, true);
+    }
   })();
   document.querySelectorAll('form').forEach(function(f){ f.addEventListener('submit', function(){ gcEvent('no031-subscribe-submit'); }); });
 
