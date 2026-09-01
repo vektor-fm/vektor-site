@@ -333,6 +333,16 @@
       "unlock": "fd6d9b4ae0"
     },
     {
+      "number": "045",
+      "title_short": "Every stage commits a file",
+      "section": "AI engineering",
+      "date": "09-2026",
+      "keyword": "SDLC",
+      "lastmod": "2026-09-01",
+      "built": true,
+      "unlock": "73127f5e6b"
+    },
+    {
       "number": "044",
       "title_short": "Vercel or Netlify?",
       "section": "Deployment",

@@ -1,0 +1,82 @@
+<section class="hero">
+  <div class="kick eye">AI engineering · Process</div>
+  <h1 class="disp">Every stage ends by<br>committing a file<span class="dot">.</span></h1>
+  <p class="sub">Anthropic published how they actually build software with AI. The interesting part is not the AI — it is the <b>artifact chain</b>. An idea becomes <b>intent.md</b>. That triggers <b>spec.md</b>. That triggers <b>plan.md</b>. That triggers the code. Each handoff is a git commit, so the chain doubles as your audit trail for free. Below: the chain, both guardrail layers, and the one thing AI is never allowed to do.</p>
+  <div class="actions">
+    <a class="btn primary" href="#chain">The artifact chain ↓</a>
+    <a class="btn" href="#guardrails">Skills vs hooks →</a>
+    <a class="btn" href="./files/no-045/ai-sdlc-playbook.md">Download the playbook (.md) &darr;</a>
+    <button class="btn" id="shareBtn" type="button">Send to whoever owns your deploy process</button>
+  </div>
+  <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+</section>
+
+<!-- ======================= THE ARTIFACT CHAIN ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 01 ·</h2>
+  <h2 class="disp">The artifact chain<span class="dot">.</span></h2>
+  <p class="sub">Every stage produces a file, and that file is what triggers the next stage. Nothing is handed over in a chat window.</p>
+</div>
+
+<section class="issues" id="chain">
+  <article class="issue">
+    <h3>Intent → spec → plan → code</h3>
+    <p><b>intent.md</b> says what we want and why. It triggers <b>spec.md</b>, the testable contract. That triggers <b>plan.md</b> — migration first, then routes. That triggers the diff.</p>
+    <p>Each of those is committed on its own, before the next one starts.</p>
+    <p class="meta">Four commits instead of one, and the next person never has to ask why.</p>
+  </article>
+
+  <article class="issue">
+    <h3>The audit trail is free</h3>
+    <p>Because each handoff is a commit, <code>git log</code> read bottom-up <i>is</i> the decision history of the feature: who wanted what, what was agreed, how it was going to be done, and what actually shipped.</p>
+    <p class="meta">You do not build the audit trail. You get it because the work happens to be structured this way.</p>
+  </article>
+
+  <article class="issue">
+    <h3>Install it this week</h3>
+    <p>Pick one feature. Before any code, write <b>intent.md</b> and commit it alone. Then <b>spec.md</b>, commit. Then <b>plan.md</b>, commit. Then the code.</p>
+    <p class="meta">The discipline is committing them <i>separately</i> — that is the whole mechanism.</p>
+  </article>
+</section>
+
+<!-- ======================= THE GUARDRAILS ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 02 ·</h2>
+  <h2 class="disp">Skills are advice. Hooks are walls<span class="dot">.</span></h2>
+  <p class="sub">These two get used interchangeably. Only one of them stops anything.</p>
+</div>
+
+<section class="issues" id="guardrails">
+  <article class="issue">
+    <h3>Layer 01 — Skills</h3>
+    <p>Company policy, encoded: <i>never touch prod data · cite the file you changed · ask before you spend.</i></p>
+    <p>The agent reads them and complies because it was asked to. Which means it can also reason its way around them.</p>
+    <p class="meta">Good for conventions, house style, and what “done” means.</p>
+  </article>
+
+  <article class="issue">
+    <h3>Layer 02 — Hooks</h3>
+    <p>A script that runs <i>before</i> an action and can refuse it. A <code>pre-tool-use</code> hook inspects what is about to happen and exits non-zero.</p>
+    <p>Nothing talks its way past a non-zero exit. <b>exit 2, the action never ran.</b></p>
+    <p class="meta">This is the layer that is actually a wall.</p>
+  </article>
+
+  <article class="issue">
+    <h3>Which one to reach for</h3>
+    <p>If the consequence is reversible, a skill is enough. If it is not — production data, spend, deploys, force-pushes — it must be a hook.</p>
+    <p class="meta">Policy is not protection.</p>
+  </article>
+</section>
+
+<!-- ======================= THE ONE-LINER ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 03 ·</h2>
+  <h2 class="disp">The one thing AI never does<span class="dot">.</span></h2>
+</div>
+
+<section class="issues" id="oneline">
+  <article class="issue">
+    <p class="sub">AI reviews every pull request and can never approve its own code. A human keeps the merge button. Not because the review is worthless — because the control is the <i>approval</i>, not the review. Everything upstream can be agent-driven precisely because this one gate is not.</p>
+    <p class="meta"><a href="./files/no-045/ai-sdlc-playbook.md">View raw / download the playbook →</a></p>
+  </article>
+</section>
