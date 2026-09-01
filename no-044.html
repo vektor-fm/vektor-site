@@ -2,25 +2,25 @@
 <html lang="en" id="top"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>vektor /// no. 036 — Claude Code doesn't know your codebase. Graphify gives it a map.</title>
-<meta name="description" content="Every new session, Claude Code rebuilds its mental model — the same greps, the same file reads. Graphify builds a knowledge graph it can query instead. The two commands, our own measured run — 196 files, one real question, ≈14× fewer tokens — and the viral numbers we refused to repeat. As promised.">
+<title>vektor /// no. 044 — Vercel vs Netlify, static vs edge, preview vs production.</title>
+<meta name="description" content="Six deployment terms that get used interchangeably and mean different things. Vercel is built around Next.js; Netlify is framework-agnostic with a build-plugin ecosystem. Static hosting serves every visitor the same pre-built file; edge functions run your code near the user and can answer each request differently. A preview deployment is a live URL per branch; production is what your users actually hit. The cheat sheet, one email away.">
 
 <!-- OG / social preview (traffic arrives via DM) -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="Claude Code doesn't know your codebase. Graphify gives it a map. — vektor /// no. 036">
-<meta property="og:description" content="The two setup commands, and our own measured receipts: 196 files → a 1,764-node graph, one real query answered in ~2,000 tokens against ~27,184 by reading the files — ≈14×, measured. Plus the viral 70× claim, checked at source.">
-<meta property="og:image" content="https://vektor-fm.github.io/vektor-site/og/no-036.png">
+<meta property="og:title" content="Vercel vs Netlify. Static vs edge. Preview vs production. — vektor /// no. 044">
+<meta property="og:description" content="Three pairs people use interchangeably, and the cost of getting each one wrong: paying per-invocation for output a CDN would serve free, static-generating a page that needs to differ per user, reviewing on localhost instead of the preview URL.">
+<meta property="og:image" content="https://vektor-fm.github.io/vektor-site/og/no-044.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Claude Code doesn't know your codebase. Graphify gives it a map. — vektor /// no. 036">
+<meta property="og:image:alt" content="Vercel vs Netlify, static vs edge, preview vs production — vektor /// no. 044">
 <meta property="og:site_name" content="vektor">
-<meta property="og:url" content="https://vektor-fm.github.io/vektor-site/no-036.html">
-<link rel="canonical" href="https://vektor-fm.github.io/vektor-site/no-036.html">
-<meta name="robots" content="noindex,nofollow">
+<meta property="og:url" content="https://vektor-fm.github.io/vektor-site/no-044.html">
+<link rel="canonical" href="https://vektor-fm.github.io/vektor-site/no-044.html">
+
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Claude Code doesn't know your codebase. Graphify gives it a map. — vektor /// no. 036">
-<meta name="twitter:description" content="Two commands, one knowledge graph, and our own measured ≈14× on a real query — plus the viral 70× claim traced back to one user's anecdote.">
-<meta name="twitter:image" content="https://vektor-fm.github.io/vektor-site/og/no-036.png">
+<meta name="twitter:title" content="Vercel vs Netlify. Static vs edge. Preview vs production. — vektor /// no. 044">
+<meta name="twitter:description" content="Static when every visitor gets the same thing. Edge when they don't. Preview before production, always. And pick the platform your framework actually is. One-page cheat sheet on the page.">
+<meta name="twitter:image" content="https://vektor-fm.github.io/vektor-site/og/no-044.png">
 <meta name="theme-color" content="#000000">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000000'/%3E%3Ctext x='32' y='47' font-family='Arial' font-size='46' font-weight='600' text-anchor='middle' fill='%23EFEADD'%3Ev%3C/text%3E%3C/svg%3E">
 <link rel="preload" href="fonts/archivo-expanded-400.woff2" as="font" type="font/woff2" crossorigin>
@@ -807,207 +807,159 @@ pre.code code{font-size:inherit;}
 
 
 <!-- the issue marker, kept: it is the only per-page label in the bar -->
-<div class="issue-marker">This Week in AI · Tooling</div>
+<div class="issue-marker">Deployment · Platforms</div>
 
 <!-- The capture furniture (sticky bar + pop-up) lives in partials/capture.html
      and is injected ONLY into public pages. Unlock pages get an empty string
      here — see build.mjs. The weave stays on both: it is structure, not an ask. -->
+<!-- Sticky ask. This used to be a Follow link back to Instagram, which spent
+     an IG click to win a visit and then returned the visitor to IG without
+     capturing anything. The goal is the email address, so the persistent ask
+     is now the email. Follow demotes to the footer.
+
+     THE PACK IS NO LONGER BEHIND THE EMAIL (founder, 2026-09-01). The reader
+     paid a follow in the DM; charging a second toll on the page spent funnel
+     conversion to grow a list that had sent one issue in its life. So the
+     sticky bar no longer promises to "open" anything — the payload is already
+     open, three screens down. It sells the WEEKLY, which is the only honest
+     thing left to sell. Wording that implies a lock is a lie now, not copy.
+     Full argument: vektor/reports/2026-09-01-email-gate-decision.md.
+
+     The tag still carries the PAGE slug (no044-sticky) — the worker no
+     longer needs it to decide what to unlock, but it is the only per-source
+     attribution we get in Buttondown and in /report's count:email:<source>.
+
+     This whole file is omitted from unlock pages — asking a reader for the
+     email they just gave you is how a funnel reads as a machine. -->
+<div class="sticky-cta" id="stickyCta" aria-hidden="true">
+  <span class="t">One working AI setup a week</span>
+  <form class="sticky-form" method="post" action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" data-capture="sticky">
+      <input type="hidden" name="tag" value="no044-sticky">
+      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+    <label class="sr-only" for="stickyEmail">Email address</label>
+    <input id="stickyEmail" name="email" type="email" placeholder="you@email.com" autocomplete="email" required>
+    <button class="btn primary" type="submit">Subscribe &rarr;</button>
+  </form>
+  <button class="x" id="ctaClose" type="button" aria-label="Dismiss">&times;</button>
+</div>
+
+<!-- THE ASK MODAL — one markup, two triggers, running as an A/B (2026-09-01).
+     Founder call after the evidence: the pop-up in its 50%-scroll form was
+     viewed ~47 times and dismissed ~46 of those across NO.006/034/036/038/039
+     (live /report, 30 d, pulled 2026-09-01), with no signup attributable to it.
+     The founder's read is that the ask should land at PEAK ATTENTION; the
+     disagreement was only about what signals attention — a clock or an action.
+     So both are built and split 50/50 rather than argued:
+
+       arm A — 6 s timer (the founder's version)
+       arm B — fires on the download / copy action, i.e. the moment the reader
+               takes the thing they came for
+
+     The trigger is the ONLY difference. Same markup, same copy, same cooldown,
+     so a difference in the numbers is a difference in the trigger. The arm is
+     sticky per browser (localStorage) so one reader never sees both.
+
+     The copy has to be true for BOTH arms, which is why it does not say "that
+     one's yours" (arm A fires before any download) and does not say "opens on
+     the next screen" (nothing is locked any more). It sells the weekly. -->
+<div class="pop" id="askPop" hidden>
+  <div class="pop-scrim" data-pop-close></div>
+  <div class="pop-card" role="dialog" aria-modal="true" aria-labelledby="askPopH">
+    <button class="pop-x" type="button" data-pop-close aria-label="Close">×</button>
+    <span class="k">One email a week · the working setup</span>
+    <h2 id="askPopH">Where the next one comes from.</h2>
+    <p>the Deployment pack is yours, free, no email needed — it is on this page. The weekly teardown is where the next one gets built: one working AI setup, every week, with the numbers checked at source.</p>
+    <form action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="ask">
+      <input type="hidden" name="tag" id="askTag" value="no044-ask">
+      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+      <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
+      <button class="btn" type="submit">Send me the weekly →</button>
+    </form>
+    <div class="note">One email a week. Unsubscribe in one click.</div>
+  </div>
+</div>
 
 <div class="weave" aria-hidden="true"></div>
 
 <main>
-<!-- Shown at the top of an unlock page: the receipt for the email that was just
-     given. It exists because a redirect with no acknowledgement reads as an
-     error — the reader typed something, the screen changed, and nothing told
-     them it worked. It also carries the ONE instruction that protects the list:
-     the first issue arrives from this address, so whitelist it. -->
-<section class="unlocked">
-  <span class="k">Unlocked · This Week in AI · Tooling</span>
-  <h2>You're in. The pack is below.</h2>
-  <p>Bookmark this page — the link keeps working. The weekly setup lands on Thursday; if it isn't in your inbox, check Promotions and drag it across once.</p>
-</section>
 <section class="hero">
-  <div class="kick eye">This Week in AI · Tooling</div>
-  <h1 class="disp">Give Claude a map<br>of your codebase<span class="dot">.</span></h1>
-  <p class="sub">Every new session, Claude Code rebuilds its mental model from scratch — the same greps, the same file reads. Graphify scans your repo once and builds a knowledge graph it can query instead. Here is the repo, the two commands we ran, and our own measured receipts — including the numbers the viral versions got wrong. As promised.</p>
+  <div class="kick eye">Deployment · Platforms</div>
+  <h1 class="disp">Vercel or Netlify?<br>Static or edge<span class="dot">?</span></h1>
+  <p class="sub">Six words that get used as if they were interchangeable, and are not. <b>Vercel</b> is built around Next.js; <b>Netlify</b> is framework-agnostic with a build-plugin ecosystem. <b>Static hosting</b> serves every visitor the same pre-built file; <b>edge functions</b> run your code near the user and can answer each request differently. A <b>preview deployment</b> is a live URL for every branch; <b>production</b> is what your users actually hit. Below: what each pair really means, and what it costs you to pick wrong.</p>
   <div class="actions">
-    <a class="btn primary" href="#setup">The setup ↓</a>
-    <a class="btn" href="#sources">Check the sources →</a>
-    <button class="btn" id="shareBtn" type="button">Send to a dev friend</button>
+    <a class="btn primary" href="#pairs">The three pairs ↓</a>
+    <a class="btn" href="#traps">The traps →</a>
+    <a class="btn" href="./files/no-044/deploy-decision-cheatsheet.md">Download the cheat sheet (.md) &darr;</a>
+    <button class="btn" id="shareBtn" type="button">Send to someone mid-deploy-argument</button>
   </div>
   <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
 </section>
 
-<!-- ======================= THE PROBLEM ======================= -->
+<!-- ======================= THE THREE PAIRS ======================= -->
 <div class="fig">
   <h2 class="kick">Fig. 01 ·</h2>
-  <span class="gaccent">the problem, stated honestly</span>
-  <span class="line"></span>
+  <h2 class="disp">The three pairs<span class="dot">.</span></h2>
+  <p class="sub">Not “which is better” — each pair optimises for something different.</p>
 </div>
 
-<section class="issues" id="problem">
+<section class="issues" id="pairs">
   <article class="issue">
-    <h3><span class="num">0.</span> The setup sheet, to keep</h3>
-    <p>This is the thing the reel promises. The install line, the first run, the query
-    workflow, our full measured receipts, and the two viral claims to ignore — one page.</p>
-    <p><a class="btn primary" href="./files/no-036/graphify-setup.md" download>Download the setup sheet (Markdown) ↓</a></p>
-    <p class="meta">Free, no email, no gate. It is the exact setup we ran on our own
-    render engine, not a rewrite of somebody's thread.</p>
-  </article>
-
-  <p class="note">Every number on this page was either measured by us, on our own render engine, on <b>18 August 2026</b>, or read from the repo and its documentation at source on the same day. The viral figures we refused to repeat are in <a href="#wrong">Fig. 04</a>.</p>
-
-  <article class="issue">
-    <h3><span class="num">1.</span> Every session starts from zero</h3>
-    <p>If you think Claude Code actually knows your codebase, it is pretending. Each new session it rebuilds its mental model from scratch — the same greps, the same file reads, thousands of tokens spent remembering what it already knew yesterday.</p>
-    <p>Worth being precise, because the viral clips are not: Claude Code does <em>not</em> "re-read your entire codebase" every session. It uses on-demand agentic search — it reads what it needs, when it needs it. The true, checkable version of the complaint is that it re-greps and re-reads <em>the same files</em> across sessions, and pays for them again each time. That is the cost Graphify goes after.</p>
+    <h3>Vercel vs Netlify</h3>
+    <p><b>Vercel</b> is a deployment platform built and optimised around Next.js: first-class support for server components, edge functions, and incremental static regeneration.</p>
+    <p><b>Netlify</b> is framework-agnostic — it works equally well across React, Vue, Svelte or plain static sites, with a strong ecosystem of build plugins.</p>
+    <p class="meta">Pick on what your app <i>is</i>, not on which brand you have heard more about.</p>
   </article>
 
   <article class="issue">
-    <h3><span class="num">2.</span> What Graphify actually does</h3>
-    <p>It scans your codebase once and builds a knowledge graph — functions, connections, structure — into one output folder (<code>graphify-out/</code>). Future sessions query that graph instead of re-reading your code. Free, open source, Apache-2.0, <b>107,661 stars</b> read from the GitHub API on 18 August 2026, last push 17 August 2026.</p>
-    <pre class="code"><code>github.com/Graphify-Labs/graphify</code></pre>
+    <h3>Static hosting vs edge functions</h3>
+    <p><b>Static hosting</b> serves pre-built HTML, CSS and JS files from a CDN — the same content to every user, every time.</p>
+    <p><b>Edge functions</b> run your code at data centres close to the user, letting you personalise, redirect, or fetch data on every request, without a full server round trip.</p>
+    <p class="meta">The question is only ever: does every visitor get the same thing?</p>
+  </article>
+
+  <article class="issue">
+    <h3>Preview vs production deployment</h3>
+    <p>A <b>preview deployment</b> spins up a live, shareable version of your app for every branch or pull request, so your team can review changes before they ship.</p>
+    <p><b>Production</b> is the live version your actual users hit — pushed only after that review is done.</p>
+    <p class="meta">Temporary and disposable, versus the one that matters.</p>
   </article>
 </section>
 
-<!-- ======================= THE SETUP ======================= -->
+<!-- ======================= THE TRAPS ======================= -->
 <div class="fig">
   <h2 class="kick">Fig. 02 ·</h2>
-  <span class="gaccent">the exact two commands we ran</span>
-  <span class="line"></span>
+  <h2 class="disp">What it costs to pick wrong<span class="dot">.</span></h2>
+  <p class="sub">Each pair has a failure mode in both directions.</p>
 </div>
 
-<section class="issues" id="setup">
+<section class="issues" id="traps">
   <article class="issue">
-    <h3><span class="num">3.</span> Install</h3>
-    <p>One line. Mind the <b>double y</b> — <code>graphifyy</code> is the real package name, and the single-y spelling is a different package. We ran this on 18 August 2026 and it worked first try.</p>
-    <div class="snippet">
-      <div class="bar"><span class="f">terminal · install</span><button class="snipbtn" type="button" data-copy-target="#snipInstall" data-copy-event="copy-install">Copy</button></div>
-      <pre id="snipInstall">uv tool install graphifyy</pre>
-    </div>
+    <h3>Platform</h3>
+    <p>Vercel for a non-Next app means paying for integration you never use. Netlify for a Next app means re-implementing things the other platform gives you for free.</p>
   </article>
 
   <article class="issue">
-    <h3><span class="num">4.</span> Build the graph</h3>
-    <p>Run it from your repo root. It scans the codebase and writes the graph to <code>graphify-out/graph.json</code>. On our engine that took 196 files to a graph in one run.</p>
-    <div class="snippet">
-      <div class="bar"><span class="f">terminal · first run</span><button class="snipbtn" type="button" data-copy-target="#snipUpdate" data-copy-event="copy-install">Copy</button></div>
-      <pre id="snipUpdate">graphify update .</pre>
-    </div>
-    <p class="meta">The graph is a snapshot, not a live index — after your code changes, run <code>graphify update</code> again or it answers from a stale map. That caveat is from the repo's own README.</p>
+    <h3>Static vs edge</h3>
+    <p>Reaching for edge functions when the page is identical for everyone: you pay per invocation for output a CDN would have served free.</p>
+    <p>The opposite trap is worse — static-generating something that needs to differ per user, then patching it with client-side JavaScript that flashes the wrong content first.</p>
   </article>
 
   <article class="issue">
-    <h3><span class="num">5.</span> Query it</h3>
-    <p>Then you ask it questions instead of re-reading files. This is the actual question we asked about our own render engine — the one the receipts below are measured on:</p>
-    <div class="snippet">
-      <div class="bar"><span class="f">terminal · query</span><button class="snipbtn" type="button" data-copy-target="#snipQuery" data-copy-event="copy-install">Copy</button></div>
-      <pre id="snipQuery">graphify query "how does our caption system connect to the render pipeline?"</pre>
-    </div>
-    <p class="meta">Swap the quoted question for your own. The answer comes back inside a bounded token budget rather than as a pile of file contents.</p>
+    <h3>Preview vs production</h3>
+    <p>Reviewing changes on a local dev server instead of the preview URL. Local hides environment differences — env vars, build flags, edge behaviour — and those are exactly what breaks in production.</p>
   </article>
 </section>
 
-<!-- ======================= OUR RECEIPTS ======================= -->
+<!-- ======================= THE ONE-LINER ======================= -->
 <div class="fig">
   <h2 class="kick">Fig. 03 ·</h2>
-  <span class="gaccent">our receipts, measured on our own engine</span>
-  <span class="line"></span>
+  <h2 class="disp">The one-line version<span class="dot">.</span></h2>
 </div>
 
-<div class="ledger" aria-label="Our measured Graphify run, 18 August 2026">
-  <div class="lrow"><span class="n">196</span><span class="t">files scanned in one <code>graphify update</code> run</span></div>
-  <div class="lrow"><span class="n">1,764</span><span class="t">nodes in the raw graph · 3,457 edges</span></div>
-  <div class="lrow"><span class="n">~27,184</span><span class="t">tokens to answer our question by reading the six involved files (bytes÷4 estimate)</span></div>
-  <div class="lrow"><span class="n">~2,000</span><span class="t">tokens for the graph's budgeted answer to the same question (97 of 173 relevant nodes shown)</span></div>
-  <div class="lrow"><span class="n">≈14×</span><span class="t">fewer tokens on that one query — derived from the two measured numbers above, nothing else</span></div>
-</div>
-
-<section class="issues" id="receipts">
-  <p class="note">One run, one real question, all measured by us on 18 August 2026 on our own render engine. Token figures are bytes÷4 estimates — that is why they say "about".</p>
-
+<section class="issues" id="oneline">
   <article class="issue">
-    <h3><span class="num">6.</span> What the answer looked like</h3>
-    <p>The question was "how does our caption system connect to the render pipeline?" and the route the graph returned is real: <code>Captions()</code> → <code>Video.tsx</code> → <code>SceneBody()</code> — <code>Video.tsx</code> is the composition root and <code>SceneBody()</code> is the scene renderer. Every edge on that route exists in <code>graphify-out/graph.json</code>; we verified the path by walking the graph ourselves on 18 August 2026.</p>
-    <p class="meta">Also worth knowing: our render <em>script</em> shares no AST edge with the source tree — it shells out to a CLI — so no path to it exists in the graph. A code graph maps code relationships; it does not see across a process boundary. Knowing what a tool cannot answer is part of knowing the tool.</p>
-  </article>
-
-  <article class="issue">
-    <h3><span class="num">7.</span> What ≈14× is, and is not</h3>
-    <p>It is one query, on one codebase, measured once. It is not a benchmark, and your number will differ with your repo and your question. We are printing it because it is the only Graphify speedup figure on this page that anyone actually measured and can check — and because fourteen times on a real codebase was enough for us to keep the tool installed.</p>
-  </article>
-</section>
-
-<!-- ======================= WHAT THE VIRAL CLIPS GOT WRONG ======================= -->
-<div class="fig">
-  <h2 class="kick">Fig. 04 ·</h2>
-  <span class="gaccent">the viral numbers, checked at source</span>
-  <span class="line"></span>
-</div>
-
-<section class="issues" id="wrong">
-  <article class="issue">
-    <h3><span class="num">8.</span> "70× fewer tokens per search"</h3>
-    <p>Both source reels carry this number. The repo's README never says it. Graphify's own blog is more honest than the clips quoting it: it calls the 71.5× figure <b>"a community-reported number rather than a benchmark"</b> — read at source on 18 August 2026. One user's anecdote, repeated until it sounded like a spec.</p>
-    <p>We replaced it with the ≈14× we measured ourselves. Smaller number, real provenance.</p>
-  </article>
-
-  <article class="issue">
-    <h3><span class="num">9.</span> "Every new session Claude re-reads your entire codebase"</h3>
-    <p>False as stated. Claude Code uses on-demand agentic search — it does not ingest your repo at session start (docs.anthropic.com, read 18 August 2026). The kernel that survives checking: it re-greps and re-reads the <em>same files</em> across sessions, and that repeated cost is real. The exaggeration was never needed to make the point.</p>
-  </article>
-
-  <article class="issue">
-    <h3><span class="num">10.</span> The one we dropped entirely</h3>
-    <p>One of the source reels claims Anthropic is upset about Graphify and that users are cancelling $250 plans over it. No source, no evidence, pure hype. It did not survive contact with a fact-check, so it appears nowhere in the film — and only here, as an example of what got cut.</p>
-  </article>
-</section>
-
-<!-- ======================= HONEST CAVEATS ======================= -->
-<div class="fig">
-  <h2 class="kick">Fig. 05 ·</h2>
-  <span class="gaccent">the caveats the clips skip</span>
-  <span class="line"></span>
-</div>
-
-<section class="issues" id="caveats">
-  <article class="issue">
-    <h3><span class="num">11.</span> The graph is bigger than your code</h3>
-    <p>On our engine, the full <code>graph.json</code> weighs about <b>403k tokens</b> against roughly <b>371k tokens</b> for the codebase itself (both bytes÷4 estimates, measured 18 August 2026). So the win is <em>per query</em> — a bounded ~2k-token answer instead of a pile of file reads — never "the graph is smaller than your code". Anyone implying whole-graph savings has not looked at the file sizes.</p>
-  </article>
-
-  <article class="issue">
-    <h3><span class="num">12.</span> It goes stale</h3>
-    <p>The graph is a snapshot of your code at scan time. Change the code, and the map is wrong until you run <code>graphify update</code> again. Cheap to re-run, easy to forget — put it wherever you already put things you forget.</p>
-  </article>
-</section>
-
-<!-- ======================= THE SOURCES ======================= -->
-<div class="fig">
-  <h2 class="kick">Fig. 06 ·</h2>
-  <span class="gaccent">every claim, with somewhere to check it</span>
-  <span class="line"></span>
-</div>
-
-<section class="issues" id="sources">
-  <p class="note">This is the part we would want if somebody sent us this page. Each line is the claim, then where it came from — measured by us, or read at primary source. Nothing quoted from another video.</p>
-
-  <article class="issue">
-    <h3><span class="num">13.</span> The sources</h3>
-    <p><b>The repo: Graphify-Labs/graphify — 107,661 stars, Apache-2.0, last push 17 August 2026</b><br>
-    <a href="https://github.com/Graphify-Labs/graphify">github.com/Graphify-Labs/graphify</a>, figures read from the GitHub API on 18 August 2026. Star counts move; check the badge, not this page.</p>
-
-    <p><b>196 files → 1,764 nodes / 3,457 edges; ~2,000-token answer vs ~27,184 tokens by reading the files; ≈14×</b><br>
-    Measured by us on our own render engine, 18 August 2026 — <code>graphify update</code> and <code>graphify query</code> output, token figures as bytes÷4 estimates. The setup sheet above contains the full table.</p>
-
-    <p><b>71.5× is "a community-reported number rather than a benchmark"</b><br>
-    Graphify's own blog, fetched 18 August 2026. The repo README makes no per-search speedup claim at all.</p>
-
-    <p><b>Claude Code searches on demand rather than ingesting your repo per session</b><br>
-    <a href="https://docs.anthropic.com">docs.anthropic.com</a>, read 18 August 2026. The basis for correcting "re-reads your entire codebase".</p>
-
-    <p><b>The graph needs <code>graphify update</code> after code changes</b><br>
-    The repo's README, read 18 August 2026 — and our own <code>graph.json</code> vs codebase size measurement, same day.</p>
+    <p class="sub">Static when everyone gets the same thing. Edge when they don’t. Preview before production, always. And pick the platform your framework actually is.</p>
+    <p class="meta"><a href="./files/no-044/deploy-decision-cheatsheet.md">View raw / download the cheat sheet →</a></p>
   </article>
 </section>
 </main>
@@ -1030,18 +982,18 @@ pre.code code{font-size:inherit;}
   </div>
 
   <nav class="socials" aria-label="Social links">
-    <a data-goatcounter-click="no036-follow-tiktok-foot" href="https://tiktok.com/@vektor.fm" target="_blank" rel="noopener">TikTok · @vektor.fm</a>
-    <a data-goatcounter-click="no036-follow-instagram-foot" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Instagram · @vektor.fm</a>
-    <a data-goatcounter-click="no036-follow-youtube-foot" href="https://youtube.com/@vektorfm" target="_blank" rel="noopener">YouTube · @vektorfm</a>
-    <a data-goatcounter-click="no036-follow-x-foot" href="https://x.com/vektordotfm" target="_blank" rel="noopener">X · @vektordotfm</a>
+    <a data-goatcounter-click="no044-follow-tiktok-foot" href="https://tiktok.com/@vektor.fm" target="_blank" rel="noopener">TikTok · @vektor.fm</a>
+    <a data-goatcounter-click="no044-follow-instagram-foot" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Instagram · @vektor.fm</a>
+    <a data-goatcounter-click="no044-follow-youtube-foot" href="https://youtube.com/@vektorfm" target="_blank" rel="noopener">YouTube · @vektorfm</a>
+    <a data-goatcounter-click="no044-follow-x-foot" href="https://x.com/vektordotfm" target="_blank" rel="noopener">X · @vektordotfm</a>
     <a href="./privacy.html">Privacy</a>
   </nav>
 
-  <div class="backref">A new keyword drops every day — <b>catch it first on the reel</b> — follow @vektor.fm. More like this: <a href="./no-034.html">The one token-saving repo that published a measurement →</a></div>
+  <div class="backref">A new keyword drops every day — <b>catch it first on the reel</b> — follow @vektor.fm. More like this: <a href="./no-041.html">Clone yourself into a team →</a></div>
 
   <div class="wordmark-foot">
     <span class="wm-foot" id="wmFoot" aria-label="vektor"><span class="ch2" style="--i:0"><span class="g">%</span><span class="l">v</span></span><span class="ch2" style="--i:1"><span class="g">#</span><span class="l">e</span></span><span class="ch2" style="--i:2"><span class="g">Z</span><span class="l">k</span></span><span class="ch2" style="--i:3"><span class="g">8</span><span class="l">t</span></span><span class="ch2" style="--i:4"><span class="g">@</span><span class="l">o</span></span><span class="ch2" style="--i:5"><span class="g">W</span><span class="l">r</span></span></span>
-    <span class="m">/// no. 036 / graphify / 08-2026 · the frontier, by the numbers</span>
+    <span class="m">/// no. 044 / deploy platforms / 08-2026 · six terms, three real choices</span>
   </div>
 </footer>
 
@@ -1049,7 +1001,7 @@ pre.code code{font-size:inherit;}
   function fallback(text){ var t=document.createElement('textarea'); t.value=text; t.style.position='fixed'; t.style.opacity='0'; document.body.appendChild(t); t.focus(); t.select(); try{ document.execCommand('copy'); }catch(e){} document.body.removeChild(t); }
   function copyText(text, btn, doneLabel){ var o=btn.textContent, done=function(){ btn.textContent=doneLabel; setTimeout(function(){btn.textContent=o;},1600); }; if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(done).catch(function(){ fallback(text); done(); }); } else { fallback(text); done(); } }
   function gcEvent(name){ if(name && window.goatcounter && goatcounter.count){ goatcounter.count({path:name, event:true}); } }
-  var COPY_EVENT='copy-install';
+  var COPY_EVENT='copy-cheatsheet';
   document.querySelectorAll('.copybtn').forEach(function(btn){ btn.addEventListener('click', function(){ copyText(btn.getAttribute('data-copy'), btn, 'Copied ✓'); gcEvent(COPY_EVENT); }); });
   var snip=document.getElementById('snipCopy');
   if(snip){ snip.addEventListener('click', function(){ var el=document.getElementById('snipText'); copyText(el.textContent, snip, 'Copied ✓'); gcEvent(COPY_EVENT); }); }
@@ -1058,7 +1010,7 @@ pre.code code{font-size:inherit;}
   var camp=(location.pathname.split('/').pop()||'index').replace(/\.html$/,'')||'index';
   document.querySelectorAll('a[href^="http"]').forEach(function(a){ try{ var u=new URL(a.href); if(u.hostname==='github.com'){return;} if(!u.searchParams.has('utm_source')){ u.searchParams.set('utm_source','vektor'); u.searchParams.set('utm_medium','dm'); u.searchParams.set('utm_campaign',camp); a.href=u.toString(); } }catch(e){} });
   var sh=document.getElementById('shareBtn');
-  if(sh){ sh.addEventListener('click', function(){ gcEvent('no036-share'); if(navigator.share){ navigator.share({title:document.title, url:location.href}).catch(function(){}); } else { copyText(location.href, sh, 'Link copied — paste it ✓'); } }); }
+  if(sh){ sh.addEventListener('click', function(){ gcEvent('no044-share'); if(navigator.share){ navigator.share({title:document.title, url:location.href}).catch(function(){}); } else { copyText(location.href, sh, 'Link copied — paste it ✓'); } }); }
   var sticky=document.getElementById('stickyCta'), sub=document.getElementById('subscribe'), dismissed=false;
   var midcap=document.querySelector('.midcap'), cards=document.querySelectorAll('.issues .card'), lastCard=cards[cards.length-1];
   // show once the reader has scrolled PAST the mid-page capture (peak intent handled),
@@ -1092,7 +1044,7 @@ pre.code code{font-size:inherit;}
   //
   // Read the result off count:email:<slug>-ask-a vs -ask-b in /report (the tag
   // travels to Buttondown, so it survives ad-blockers that eat GoatCounter) and
-  // off no036-ask-view-a/-dismiss-a vs the -b pair for the dismissal rate.
+  // off no044-ask-view-a/-dismiss-a vs the -b pair for the dismissal rate.
   // Decide after 3 films, not after one — at ~40-60 page opens per film, one
   // film cannot separate these.
   (function(){
@@ -1118,17 +1070,17 @@ pre.code code{font-size:inherit;}
       }
     }
     var tag=document.getElementById('askTag');
-    if(tag){ tag.value='no036-ask-'+arm; }
+    if(tag){ tag.value='no044-ask-'+arm; }
 
     if(!force){ try{ var last=parseInt(localStorage.getItem(KEY)||'0',10); if(last && (Date.now()-last)<TTL){ return; } }catch(e){} }
     function seen(){ try{ localStorage.setItem(KEY, String(Date.now())); }catch(e){} }
     function esc(e){ if(e.key==='Escape'){ close(); } }
-    function close(){ pop.setAttribute('hidden',''); seen(); document.removeEventListener('keydown',esc); gcEvent('no036-ask-dismiss-'+arm); }
+    function close(){ pop.setAttribute('hidden',''); seen(); document.removeEventListener('keydown',esc); gcEvent('no044-ask-dismiss-'+arm); }
     pop.querySelectorAll('[data-pop-close]').forEach(function(el){ el.addEventListener('click', close); });
     // submit fires seen() but NOT close(), so a dismissal count is never
     // inflated by a conversion — dismiss ≈ view is then a real read.
     var f=pop.querySelector('form');
-    if(f){ f.addEventListener('submit', function(){ seen(); gcEvent('no036-ask-submit-'+arm); }); }
+    if(f){ f.addEventListener('submit', function(){ seen(); gcEvent('no044-ask-submit-'+arm); }); }
 
     var fired=false;
     function open(){
@@ -1136,7 +1088,7 @@ pre.code code{font-size:inherit;}
       fired=true;
       pop.removeAttribute('hidden');
       document.addEventListener('keydown',esc);
-      gcEvent('no036-ask-view-'+arm);
+      gcEvent('no044-ask-view-'+arm);
       var x=pop.querySelector('.pop-x'); if(x){ try{ x.focus(); }catch(e){} }
     }
 
@@ -1160,7 +1112,7 @@ pre.code code{font-size:inherit;}
       }, true);
     }
   })();
-  document.querySelectorAll('form').forEach(function(f){ f.addEventListener('submit', function(){ gcEvent('no036-subscribe-submit'); }); });
+  document.querySelectorAll('form').forEach(function(f){ f.addEventListener('submit', function(){ gcEvent('no044-subscribe-submit'); }); });
 
   // ---- shared nav: reveal + mobile drawer ----
   // The header sits off-screen until a 24px hover strip is entered (desktop) or
@@ -1190,14 +1142,14 @@ pre.code code{font-size:inherit;}
   // guessing. Previously all of them fired one shared 'subscribe-submit'.
   document.querySelectorAll('form[data-capture]').forEach(function(f){
     f.addEventListener('submit', function(){
-      gcEvent('no036-sub-' + f.getAttribute('data-capture'));
+      gcEvent('no044-sub-' + f.getAttribute('data-capture'));
     });
   });
   // sticky bar impression, once per page view, to give the submits a denominator
   (function(){ var seen=false, bar=document.getElementById('stickyCta');
     if(!bar){return;}
     new MutationObserver(function(){
-      if(!seen && bar.classList.contains('show')){ seen=true; gcEvent('no036-sticky-view'); }
+      if(!seen && bar.classList.contains('show')){ seen=true; gcEvent('no044-sticky-view'); }
     }).observe(bar,{attributes:true,attributeFilter:['class']});
   })();
 </script>

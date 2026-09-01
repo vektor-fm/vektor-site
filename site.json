@@ -331,6 +331,16 @@
       "lastmod": "2026-08-25",
       "built": true,
       "unlock": "fd6d9b4ae0"
+    },
+    {
+      "number": "044",
+      "title_short": "Vercel or Netlify?",
+      "section": "Deployment",
+      "date": "08-2026",
+      "keyword": "DEPLOY",
+      "lastmod": "2026-08-31",
+      "built": true,
+      "unlock": "bc0ebb4516"
     }
   ],
   "teardowns": [

@@ -1,0 +1,32 @@
+{
+  "number": "044",
+  "title": "vektor /// no. 044 — Vercel vs Netlify, static vs edge, preview vs production.",
+  "description": "Six deployment terms that get used interchangeably and mean different things. Vercel is built around Next.js; Netlify is framework-agnostic with a build-plugin ecosystem. Static hosting serves every visitor the same pre-built file; edge functions run your code near the user and can answer each request differently. A preview deployment is a live URL per branch; production is what your users actually hit. The cheat sheet, one email away.",
+  "og_title": "Vercel vs Netlify. Static vs edge. Preview vs production. — vektor /// no. 044",
+  "og_description": "Three pairs people use interchangeably, and the cost of getting each one wrong: paying per-invocation for output a CDN would serve free, static-generating a page that needs to differ per user, reviewing on localhost instead of the preview URL.",
+  "og_image": "https://vektor-fm.github.io/vektor-site/og/no-044.png",
+  "og_alt": "Vercel vs Netlify, static vs edge, preview vs production — vektor /// no. 044",
+  "og_url": "https://vektor-fm.github.io/vektor-site/no-044.html",
+  "canonical": "https://vektor-fm.github.io/vektor-site/no-044.html",
+  "tw_title": "Vercel vs Netlify. Static vs edge. Preview vs production. — vektor /// no. 044",
+  "tw_description": "Static when every visitor gets the same thing. Edge when they don't. Preview before production, always. And pick the platform your framework actually is. One-page cheat sheet on the page.",
+  "tw_image": "https://vektor-fm.github.io/vektor-site/og/no-044.png",
+  "marker": "Deployment · Platforms",
+  "sticky_text": "Follow <b>@vektor.fm</b> → a new keyword daily",
+  "backref_html": "A new keyword drops every day — <b>catch it first on the reel</b> — follow @vektor.fm. More like this: <a href=\"./no-041.html\">Clone yourself into a team →</a>",
+  "footer_meta": "/// no. 044 / deploy platforms / 08-2026 · six terms, three real choices",
+  "copy_event": "copy-cheatsheet",
+  "subscribe_track": true,
+  "slug": "no044",
+  "gate_title": "The deploy cheat sheet, in full.",
+  "gate_lede": "Every comparison below is written and sitting on the next screen. One email opens all of it.",
+  "og_card": {
+    "accent": "#E7371A",
+    "kick": "Deployment · Platforms",
+    "h1_html": "Vercel or Netlify<span class=\"dot\">?</span>",
+    "h1_size": 76,
+    "sub_mt": 18,
+    "sub_html": "Six terms that get used interchangeably and mean different things — and what each one costs you to get wrong. Static vs edge. Preview vs production. Platform vs framework.",
+    "meta_html": "/// no. 044 / deploy platforms / 08-2026 · <b>vektor-fm.github.io</b>"
+  }
+}
