@@ -1,0 +1,32 @@
+{
+  "number": "045",
+  "title": "vektor /// no. 045 — Anthropic's AI-native SDLC playbook, installable.",
+  "description": "Anthropic published how they actually build software with AI, and the interesting part is not the AI. Every stage now ends by committing a file: an idea becomes intent.md, which triggers spec.md, which triggers plan.md, which triggers the code. Each handoff is a git commit, so the chain doubles as your audit trail for free. Plus both guardrail layers — skills the agent follows, hooks that block it outright — and the one thing AI is never allowed to do.",
+  "og_title": "Every stage ends by committing a file. — vektor /// no. 045",
+  "og_description": "The artifact chain: intent.md to spec.md to plan.md to the diff, one commit per handoff. Skills are policy the agent follows; hooks are scripts that block it. AI reviews every PR and can never approve its own code.",
+  "og_image": "https://vektor-fm.github.io/vektor-site/og/no-045.png",
+  "og_alt": "Every stage ends by committing a file — vektor /// no. 045",
+  "og_url": "https://vektor-fm.github.io/vektor-site/no-045.html",
+  "canonical": "https://vektor-fm.github.io/vektor-site/no-045.html",
+  "tw_title": "Every stage ends by committing a file. — vektor /// no. 045",
+  "tw_description": "Reversible consequence, a skill is enough. Irreversible, it must be a hook. Policy is not protection. The whole playbook, one page.",
+  "tw_image": "https://vektor-fm.github.io/vektor-site/og/no-045.png",
+  "marker": "AI engineering · Process",
+  "sticky_text": "Follow <b>@vektor.fm</b> → a new keyword daily",
+  "backref_html": "A new keyword drops every day — <b>catch it first on the reel</b> — follow @vektor.fm. More like this: <a href=\"./no-044.html\">Vercel or Netlify? Static or edge? →</a>",
+  "footer_meta": "/// no. 045 / ai-native sdlc / 09-2026 · four artifacts, two guardrails, one gate",
+  "copy_event": "copy-playbook",
+  "subscribe_track": true,
+  "slug": "no045",
+  "gate_title": "The whole playbook, in full.",
+  "gate_lede": "The artifact chain, both guardrail layers and the one gate are written and sitting on the next screen. One email opens all of it.",
+  "og_card": {
+    "accent": "#E7371A",
+    "kick": "AI engineering · Process",
+    "h1_html": "Every stage commits a file<span class=\"dot\">.</span>",
+    "h1_size": 76,
+    "sub_mt": 18,
+    "sub_html": "Anthropic's AI-native SDLC, minus the enterprise language. An idea becomes intent.md, then spec.md, then plan.md, then the code — and the chain doubles as your audit trail, for free.",
+    "meta_html": "/// no. 045 / ai-native sdlc / 09-2026 · <b>vektor-fm.github.io</b>"
+  }
+}
