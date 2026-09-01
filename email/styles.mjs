@@ -34,7 +34,11 @@ export const TAG_STYLES = {
   h3: `font-family:${DISPLAY};font-weight:400;font-size:17px;line-height:1.35;color:${INK};margin:30px 0 0;`,
   strong: `font-weight:600;color:${INK};`,
   em: 'font-style:italic;',
-  a: `color:${INK};text-decoration:none;box-shadow:inset 0 -2px 0 ${TEAL};`,
+  // border-bottom, NOT box-shadow. Outlook renders through Word, which drops
+  // box-shadow entirely, and a link that loses its underline in an email is not a
+  // subtle styling loss: it becomes indistinguishable from body copy and nobody
+  // clicks it. border-bottom survives every client that matters.
+  a: `color:${INK};text-decoration:none;border-bottom:2px solid ${TEAL};`,
   img: 'display:block;width:100%;height:auto;margin:28px 0 0;',
   hr: `border:0;border-top:1px solid ${RULE};margin:34px 0 0;`,
   blockquote: `margin:24px 0 0;padding:2px 0 2px 16px;border-left:2px solid ${TEAL};color:${DIM};`,
@@ -73,7 +77,7 @@ export const blocks = {
   cta: ({ label, text, href, button }) => '<div style="margin:34px 0 0;background:#F5F5F3;padding:24px 26px;">'
     + `<span style="display:block;font-family:${SANS};font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:${TEAL};margin:0 0 9px;">${label}</span>`
     + `<p style="font-family:${SANS};font-size:15px;line-height:1.6;color:${INK};margin:0 0 16px;">${text}</p>`
-    + `<a href="${href}" style="display:inline-block;background:${TEAL};color:#04120F;font-family:${SANS};font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:13px 24px;text-decoration:none;">${button}</a>`
+    + `<a href="${href}" style="display:inline-block;background:${TEAL};color:#04120F;border-bottom:0;font-family:${SANS};font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:13px 24px;text-decoration:none;">${button}</a>`
     + '</div>',
 
   signoff: (paras, name) => `<div style="margin:32px 0 0;padding-top:20px;border-top:1px solid ${RULE};">`
