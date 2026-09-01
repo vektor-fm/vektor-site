@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MOCK A — The Teardown email, paper</title>
+<!--
+  MOCK A "PAPER" — the email in the film palette the reader already knows from
+  Instagram: KT cream, ink, redDeep. Not approved, not installed. This is the
+  artifact the founder judges; on approval the <style> block and the wrapper
+  become the Buttondown account template with {{ body }} in place of the copy.
+
+  What was actually wrong with the sent version of 002, in the order it costs:
+   1. no masthead. A centred 40px logo pill is the default template's idea of
+      branding. A newsletter with a name needs a lockup and a dateline.
+   2. no measure discipline. Full-width paragraphs at default leading read as a
+      pasted document. 600px container, 17px/1.72, is the reading spec.
+   3. no rhythm. Fifteen paragraphs of identical weight, with bold sentences
+      shouting inside them. Sections need labels and hairlines.
+   4. the chart is a dark card dropped into a white page. Same palette, framed,
+      captioned, or it reads as a screenshot someone pasted.
+   5. the numbers are the story and they are buried in prose. They get a block.
+   6. default footer: social icon row, "Powered by Buttondown", "Unsubscribe
+      anytime" in the body AND the footer. Three ways to say the same thing.
+
+  EMAIL-SAFE NOTES. Table wrapper with a fixed width, because Outlook's Word
+  engine ignores max-width on a div. Web font by <link> with a real fallback
+  stack: Gmail's web client drops it, so the design has to hold in Helvetica.
+  Everything else is one <style> block, which Buttondown keeps.
+-->
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,400;125,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F4EFDF;      /* KT cream */
+    --ink:#101010;        /* KT ink */
+    --red:#DB3419;        /* KT redDeep */
+    --dim:#4A463C;
+    --rule:#CFC7B2;
+  }
+  body{margin:0;padding:0;background:#E7E1CF;-webkit-font-smoothing:antialiased;}
+  .wrap{width:100%;background:#E7E1CF;padding:28px 0 56px;}
+  .frame{width:600px;max-width:100%;margin:0 auto;background:var(--paper);}
+  .pad{padding:0 44px;}
+
+  /* ---- masthead: lockup left, dateline right, hairline under ---- */
+  .mast{padding:34px 44px 0;}
+  .word{font-family:'Archivo','Helvetica Neue',Arial,sans-serif;font-weight:500;font-stretch:expanded;
+        font-size:19px;letter-spacing:.34em;text-transform:uppercase;color:var(--ink);margin:0;}
+  .dateline{font-family:'Archivo','Helvetica Neue',Arial,sans-serif;font-size:10px;letter-spacing:.18em;
+        text-transform:uppercase;color:var(--dim);margin:12px 0 0;}
+  .dateline b{color:var(--red);font-weight:500;}
+  .mastrule{border:0;border-top:1px solid var(--ink);margin:16px 44px 0;}
+
+  /* ---- title block ---- */
+  h1{font-family:'Archivo','Helvetica Neue',Arial,sans-serif;font-weight:400;font-stretch:expanded;
+     font-size:31px;line-height:1.16;letter-spacing:-.005em;color:var(--ink);margin:30px 0 0;}
+  .standfirst{font-family:Georgia,'Iowan Old Style','Times New Roman',serif;font-size:19px;line-height:1.6;
+     color:var(--dim);margin:16px 0 0;font-style:italic;}
+
+  /* ---- body ---- */
+  p{font-family:Georgia,'Iowan Old Style','Times New Roman',serif;font-size:17px;line-height:1.72;
+    color:var(--ink);margin:22px 0 0;}
+  p.first{margin-top:26px;}
+  strong{font-weight:700;}
+  em{font-style:italic;}
+  a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--red);}
+
+  /* ---- section label: the rhythm the sent version had none of ---- */
+  .section{margin:38px 0 0;}
+  .section .lab{font-family:'Archivo','Helvetica Neue',Arial,sans-serif;font-size:10px;letter-spacing:.2em;
+     text-transform:uppercase;color:var(--red);display:block;margin:0 0 10px;}
+  .section hr{border:0;border-top:1px solid var(--rule);margin:0 0 4px;}
+
+  /* ---- the numbers, given the weight they earn ---- */
+  .stats{width:100%;border-collapse:collapse;margin:26px 0 0;border-top:2px solid var(--ink);border-bottom:1px solid var(--ink);}
+  .stats td{padding:16px 0 15px;vertical-align:top;border-right:1px solid var(--rule);}
+  .stats td:last-child{border-right:0;}
+  .stats .k{font-family:'Archivo','Helvetica Neue',Arial,sans-serif;font-size:9px;letter-spacing:.16em;
+     text-transform:uppercase;color:var(--dim);display:block;margin:0 0 7px;padding-right:14px;}
+  .stats .v{font-family:'Archivo','Helvetica Neue',Arial,sans-serif;font-size:22px;font-weight:500;
+     color:var(--ink);display:block;line-height:1;padding-right:14px;}
+  .stats .v small{font-size:12px;color:var(--dim);font-weight:400;letter-spacing:.04em;}
+  .stats td.pad-l .k,.stats td.pad-l .v{padding-left:16px;}
+
+  /* ---- the one image, on the same paper ---- */
+  figure{margin:30px 0 0;}
+  figure img{display:block;width:100%;height:auto;border:1px solid var(--ink);}
+  figcaption{font-family:'Archivo','Helvetica Neue',Arial,sans-serif;font-size:10px;letter-spacing:.12em;
+     text-transform:uppercase;color:var(--dim);margin:9px 0 0;line-height:1.5;}
+
+  /* ---- one CTA, built as an object not a sentence ---- */
+  .cta{margin:36px 0 0;border:1px solid var(--ink);padding:22px 24px;}
+  .cta .lab{font-family:'Archivo','Helvetica Neue',Arial,sans-serif;font-size:10px;letter-spacing:.2em;
+     text-transform:uppercase;color:var(--red);display:block;margin:0 0 8px;}
+  .cta p{margin:0 0 14px;font-size:16px;}
+  .cta a{display:inline-block;background:var(--ink);color:var(--paper);border:0;
+     font-family:'Archivo','Helvetica Neue',Arial,sans-serif;font-size:12px;letter-spacing:.14em;
+     text-transform:uppercase;padding:13px 22px;text-decoration:none;}
+
+  /* ---- sign-off + footer ---- */
+  .sign{margin:34px 0 0;padding-top:22px;border-top:1px solid var(--rule);}
+  .sign p{margin:0;font-size:16px;}
+  .sign .name{font-family:'Archivo','Helvetica Neue',Arial,sans-serif;font-size:13px;letter-spacing:.16em;
+     text-transform:uppercase;margin-top:14px;color:var(--ink);}
+  .foot{padding:26px 44px 34px;margin-top:34px;border-top:1px solid var(--ink);}
+  .foot p{font-family:'Archivo','Helvetica Neue',Arial,sans-serif;font-size:10px;letter-spacing:.1em;
+     line-height:1.9;color:var(--dim);margin:0;text-transform:uppercase;}
+  .foot a{color:var(--dim);border-bottom:0;text-decoration:underline;}
+
+  @media (max-width:620px){
+    .frame{width:100%!important;}
+    .pad,.mast{padding-left:22px!important;padding-right:22px!important;}
+    .mastrule,.foot{margin-left:22px!important;margin-right:22px!important;}
+    .foot{padding-left:22px!important;padding-right:22px!important;}
+    h1{font-size:26px!important;}
+    .stats td{display:block!important;width:100%!important;border-right:0!important;border-bottom:1px solid var(--rule);}
+    .stats td:last-child{border-bottom:0;}
+    .stats td.pad-l .k,.stats td.pad-l .v{padding-left:0!important;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+<table role="presentation" class="frame" cellpadding="0" cellspacing="0" border="0" align="center"><tr><td>
+
+  <div class="mast">
+    <p class="word">Vektor</p>
+    <p class="dateline">The Teardown &nbsp;·&nbsp; <b>No. 002</b> &nbsp;·&nbsp; 01 September 2026</p>
+  </div>
+  <hr class="mastrule">
+
+  <div class="pad">
+    <h1>Five token claims,<br>one benchmark</h1>
+    <p class="standfirst">Four of them measured it on their own homework.</p>
+
+    <p class="first">Earlier this month I posted a 60-second film recommending a tool that cuts what Claude Code spends reading your codebase. I need to correct something in it, and the correction is more interesting than the recommendation.</p>
+
+    <p>The film said of the repo it recommends: <em>"they put the benchmark in the repo. Nobody else in this category did that."</em> Going back through the other four repositories properly, that is not true. Two of them publish measurements in the repo as well.</p>
+
+    <p>Here is what is actually true, and it took reading all five to see it.</p>
+
+    <div class="section">
+      <hr>
+      <span class="lab">The pattern</span>
+    </div>
+
+    <p>Every repo in this category publishes a number. 40%. 90%+. 71.5x. 98.9%. The numbers are not the problem. What they were measured against is.</p>
+
+    <p>Three of the five measured their saving on material they chose themselves. One benchmarked on its own source code with five queries; another on a single private project. That is not dishonest, but it is homework marked by the person who set it. A fourth repository has been taken down, and the API returns 404.</p>
+
+    <p>One measured differently. It ran 30 problems drawn from SWE-bench Verified (a public, human-validated set of real issues and pull requests from Python projects) three times per method, and published the harness.</p>
+
+    <table role="presentation" class="stats" cellpadding="0" cellspacing="0" border="0">
+      <tr>
+        <td>
+          <span class="k">Tokens / task</span>
+          <span class="v">73,373 &rarr; 44,449</span>
+        </td>
+        <td class="pad-l">
+          <span class="k">Tool calls</span>
+          <span class="v">8.3 &rarr; 5.3</span>
+        </td>
+        <td class="pad-l">
+          <span class="k">Answer quality (F1)</span>
+          <span class="v">0.40 &rarr; 0.40 <small>unchanged</small></span>
+        </td>
+      </tr>
+    </table>
+
+    <figure>
+      <img src="https://vektor-fm.github.io/vektor-site/diagrams/teardown-002.png" alt="Before and after: tokens per task 73,373 down to 44,449, tool calls 8.3 down to 5.3, answer quality F1 unchanged at 0.40.">
+      <figcaption>Measured on 30 SWE-bench Verified problems, three runs per method. Source: the repository's own published harness.</figcaption>
+    </figure>
+
+    <p>That third number is the one that matters, and it is the one nobody else reports. Any tool can cut your token bill to nothing by answering nothing. A saving is only a saving if you can see what it cost you. Here, it cost nothing measurable.</p>
+
+    <div class="section">
+      <hr>
+      <span class="lab">Two things the film had no room for</span>
+    </div>
+
+    <p><strong>It is not semantic search replacing grep.</strong> The README describes hybrid search, BM25 plus dense vectors. Keyword matching stays; it gets an index built beside it. What you are actually buying is that the expensive part, reading whole files to find out whether they are relevant, happens once at index time instead of on every question.</p>
+
+    <p><strong>It does not have to cost you an OpenAI key.</strong> The documented install wants OpenAI for embeddings and a hosted vector store, which is the obvious objection: spending someone else's tokens to save your own, and shipping your code off your machine. But the package documents four embedding providers including Ollama, which runs locally, and the vector store can be local too. Three lines of config and nothing leaves your laptop.</p>
+
+    <p>Does it earn a slot? Only if your repo is big. The measured gain was three fewer tool calls on a two-file bug fix. Below some size, that is noise you are maintaining an index for.</p>
+
+    <div class="cta">
+      <span class="lab">The full teardown</span>
+      <p>All five claims side by side, what each was measured on, where this one breaks, and the nine sources.</p>
+      <a href="https://vektor-fm.github.io/vektor-site/teardown-002.html">Read it &rarr;</a>
+    </div>
+
+    <div class="sign">
+      <p>If you only take one thing: a token-saving claim with no quality number beside it is not a result. Ask what it cost.</p>
+      <p style="margin-top:16px">Reply and tell me which of these you have actually run. I read everything that comes back.</p>
+      <p class="name">Julian</p>
+    </div>
+  </div>
+
+  <div class="foot">
+    <p>Vektor &nbsp;·&nbsp; The AI frontier, cut to what ships<br>
+    <a href="#">Unsubscribe</a> &nbsp;·&nbsp; <a href="#">Read on the web</a> &nbsp;·&nbsp; <a href="#">instagram.com/vektor.fm</a></p>
+  </div>
+
+</td></tr></table>
+</div>
+</body>
+</html>
