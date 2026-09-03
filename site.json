@@ -13,6 +13,16 @@
   },
   "issues": [
     {
+      "number": "046",
+      "title_short": "Four things to do with Fable 5.1",
+      "section": "AI models",
+      "date": "09-2026",
+      "keyword": "FOUR",
+      "lastmod": "2026-09-03",
+      "built": true,
+      "unlock": "107516050a"
+    },
+    {
       "number": "033",
       "title_short": "Five free setups.",
       "section": "Five Setups",

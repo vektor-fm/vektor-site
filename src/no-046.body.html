@@ -1,0 +1,122 @@
+<section class="hero">
+  <div class="kick eye">AI models · What to actually do</div>
+  <h1 class="disp">Four things to do<br>with Fable 5.1<span class="dot">.</span></h1>
+  <p class="sub">Anthropic shipped <b>Fable 5.1</b> on 1 September 2026. The benchmark table is not the reason to open it. The reason is that a model you last used six months ago is now good enough to be pointed at your own work and told to be honest about it. Below: the four moves, the prompt for each one written out, and the one number that changed the arithmetic.</p>
+  <div class="actions">
+    <a class="btn primary" href="#audit">Start with the audit ↓</a>
+    <a class="btn" href="#effort">What the price cut changes →</a>
+    <a class="btn" href="./files/no-046/four-things-fable-51.md">Download the four prompts (.md) &darr;</a>
+    <button class="btn" id="shareBtn" type="button">Send to whoever keeps saying they should try it again</button>
+  </div>
+  <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+</section>
+
+<!-- ======================= 01 — THE AUDIT ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 01 ·</h2>
+  <h2 class="disp">Point it at something you already built<span class="dot">.</span></h2>
+  <p class="sub">Not a toy. A thing that exists and that you care about: an app, a site, a contract, a deck.</p>
+</div>
+
+<section class="issues" id="audit">
+  <article class="issue">
+    <h3>Ask it to be three readers, not one</h3>
+    <p>“What is wrong with this” gets you small, safe notes. Instead: <i>read this as a hostile reviewer, then as a new hire on day one, then as the person maintaining it in two years — and label which one you are being.</i></p>
+    <p>The three answers will contradict each other. The contradictions are the findings.</p>
+    <p class="meta">Then: <b>rank everything by what it costs me to leave it alone.</b></p>
+  </article>
+
+  <article class="issue">
+    <h3>A crash nobody explained in four to five years</h3>
+    <p>In Anthropic's launch material the investment firm <b>Millennium</b> describe a rare crash — about one in a million runs — that no engineer on the team, and no model they tried, had explained in four to five years. Fable 5.1 found the cause.</p>
+    <p class="meta">Same instruction as above, aimed at a bug instead of a document. Source: the Fable and Mythos 5.1 announcement, anthropic.com.</p>
+  </article>
+
+  <article class="issue">
+    <h3>The line that does the work</h3>
+    <p>End the prompt with <b>“Do not be encouraging. I am not asking whether it is good.”</b> Without it you get a compliment and three suggestions.</p>
+    <p class="meta">Ten minutes. It tells you whether the other three are worth your afternoon.</p>
+  </article>
+</section>
+
+<!-- ======================= 02 — THE AGENT ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 02 ·</h2>
+  <h2 class="disp">Build an agent. It can be small<span class="dot">.</span></h2>
+  <p class="sub">Most people still have not built one, which is fair — until recently they were flaky. That stopped being true this year.</p>
+</div>
+
+<section class="issues" id="agent">
+  <article class="issue">
+    <h3>Read → do → check → read</h3>
+    <p>That loop is the whole definition. An agent that cannot check its own work is a script with extra steps.</p>
+    <p>Write the loop out explicitly in the prompt: what it reads, what it does, how it verifies, and what it does when the check fails.</p>
+    <p class="meta">The failure branch is the part people leave out, and it is the part that decides whether you can leave it running.</p>
+  </article>
+
+  <article class="issue">
+    <h3>Pick a job you do on a schedule and resent</h3>
+    <p>Say it in one sentence, then state <i>when it runs</i>, <i>what it can reach</i>, and <i>the observable state that means it is finished</i>. Ask it to interview you before it writes anything.</p>
+    <p class="meta">Vague finish condition is the number one reason a first agent never gets switched on.</p>
+  </article>
+
+  <article class="issue">
+    <h3>Start it read-only</h3>
+    <p>Give it the ability to look and to propose. Hold back the ability to change anything until you have watched a few runs.</p>
+    <p class="meta">You are buying the right to be wrong cheaply.</p>
+  </article>
+</section>
+
+<!-- ======================= 03 — THE HARD PROBLEM ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 03 ·</h2>
+  <h2 class="disp">Describe the hardest problem you have not solved<span class="dot">.</span></h2>
+  <p class="sub">The one you have been avoiding. In detail, the whole thing. This is the move people skip because it feels like it will not work.</p>
+</div>
+
+<section class="issues" id="problem">
+  <article class="issue">
+    <h3>Give it the failures, not just the problem</h3>
+    <p>What you already tried, and why each attempt failed, is what turns this from a horoscope into an analysis. Leave it out and you get the three obvious suggestions you already rejected.</p>
+    <p class="meta">Include what you are afraid the real answer is. It changes the reply.</p>
+  </article>
+
+  <article class="issue">
+    <h3>Make it play the problem back first</h3>
+    <p><i>What do you think the actual problem is, as opposed to the one I described? Say it plainly even if it is unflattering.</i> Then, and only then, three moves you could make this week — with the cost of each one being wrong.</p>
+    <p class="meta">“Do not motivate me” belongs in this prompt too.</p>
+  </article>
+
+  <article class="issue">
+    <h3>It does not have to be a coding problem</h3>
+    <p>Pricing. A hire you keep postponing. A partnership that is not working. Length is a feature here — this is the one prompt where a page of context beats a tidy paragraph.</p>
+    <p class="meta">Of the four, this is the one nobody does.</p>
+  </article>
+</section>
+
+<!-- ======================= 04 — EFFORT LEVELS ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 04 ·</h2>
+  <h2 class="disp">Experiment with effort levels<span class="dot">.</span></h2>
+  <p class="sub">The pricing moved, so the arithmetic moved with it.</p>
+</div>
+
+<section class="issues" id="effort">
+  <article class="issue">
+    <h3>Cache reads fell 75%</h3>
+    <p>To <b>$0.25 per million tokens</b> — which Anthropic puts at roughly a quarter off a typical workload and close to half off an agentic one.</p>
+    <p class="meta">Figures from the Fable and Mythos 5.1 announcement, anthropic.com, 1 September 2026.</p>
+  </article>
+
+  <article class="issue">
+    <h3>Sort your jobs into four buckets</h3>
+    <p>High volume and low judgement · drafting a human will edit · anything where being wrong is expensive · long agentic runs. Ask which tier and effort setting each one actually needs, <i>and what specifically breaks one step cheaper.</i></p>
+    <p class="meta">The answer to that second half is the only part worth reading.</p>
+  </article>
+
+  <article class="issue">
+    <h3>Caching is what people leave on the table</h3>
+    <p>In a long agentic run the same context is read over and over. That is exactly the read the price cut applies to — so the saving is largest precisely where the bill was worst.</p>
+    <p class="meta"><a href="./files/no-046/four-things-fable-51.md">View raw / download the four prompts →</a></p>
+  </article>
+</section>

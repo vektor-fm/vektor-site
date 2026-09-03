@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="en" id="top"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>vektor /// no. 046 — Four things to do with Claude Fable 5.1.</title>
+<meta name="description" content="Anthropic shipped Fable 5.1 on 1 September 2026. Four moves worth making this week, with the prompt for each one written out: point it at something you already built and ask it to be three hostile readers; build one small agent that runs read-do-check without you; describe the hardest problem you have not solved, failures included; and re-sort your jobs by effort level now that cache reads have fallen 75% to $0.25 per million tokens.">
+
+<!-- OG / social preview (traffic arrives via DM) -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Four things to do with Fable 5.1. — vektor /// no. 046">
+<meta property="og:description" content="Point it at something you already built. Build one small agent. Describe the problem you have been avoiding. Re-sort your jobs now cache reads cost $0.25 per million. All four prompts, written out.">
+<meta property="og:image" content="https://vektor-fm.github.io/vektor-site/og/no-046.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Four things to do with Fable 5.1 — vektor /// no. 046">
+<meta property="og:site_name" content="vektor">
+<meta property="og:url" content="https://vektor-fm.github.io/vektor-site/no-046.html">
+<link rel="canonical" href="https://vektor-fm.github.io/vektor-site/no-046.html">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Four things to do with Fable 5.1. — vektor /// no. 046">
+<meta name="twitter:description" content="A crash nobody had explained in four to five years, found. Here is the instruction that does it, plus three more, written out so you can paste them.">
+<meta name="twitter:image" content="https://vektor-fm.github.io/vektor-site/og/no-046.png">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000000'/%3E%3Ctext x='32' y='47' font-family='Arial' font-size='46' font-weight='600' text-anchor='middle' fill='%23EFEADD'%3Ev%3C/text%3E%3C/svg%3E">
+<link rel="preload" href="fonts/archivo-expanded-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/archivo-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/inter-tight-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+
+<style>
+/* Archivo + Archivo Expanded — SIL OFL, self-hosted, 14 KB each.
+   Printvetica — purchased commercial licence, GITIGNORED: this repo is public,
+   so committing the file would be redistribution. Production falls back to
+   Archivo for meta and labels until the webfont grant is confirmed.
+   IBM Plex Mono — retained at ONE weight for code snippets only. 11 of 20
+   issue pages carry a snippet and those legitimately need a monospace face;
+   the other five weights, plus Tektur, Workbench and Jacquard 24, are retired. */
+@font-face{font-family:'Archivo Expanded';src:url(fonts/archivo-expanded-400.woff2) format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Archivo Text';src:url(fonts/archivo-400.woff2) format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Inter Tight';src:url(fonts/inter-tight-600-latin.woff2) format('woff2');font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:'Printvetica';src:url(fonts/printvetica-caps.woff2) format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'IBM Plex Mono';src:url(fonts/ibm-plex-mono-400-latin.woff2) format('woff2');font-weight:400;font-style:normal;font-display:swap}
+/* the per-issue marker, previously inside the sticky .chrome masthead */
+.issue-marker{
+  padding:var(--p-s) var(--rail); border-bottom:1px solid var(--rule);
+  font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em;
+  font-size:var(--fs-s); line-height:var(--lh-s); color:var(--meta);
+}
+<!-- SHARED NAV STYLES — injected into both partials/head.html (the 20 issue
+     pages) and src/index.body.html (the landing page) by build.mjs via
+     the NAV_CSS token. Edit here only; a second copy is how the two drift apart. -->
+/* ================================ NAV ================================
+   MEASURED ON SPRIND 2026-08-08. The header is OFF-SCREEN by default:
+   transform:translate3d(0,-100%,0). It is revealed by mouseenter on an
+   invisible 24px-tall full-width strip pinned to the top of the viewport, or
+   by focus (keyboard). Scrolling never reveals it — verified at scrollY
+   0/200/400/800/1600. Once revealed it is sticky.
+
+   Three states: off-screen -> bar only (81.8px) -> fully open (326.8px).
+   Bar 44px + 1px grid gap + submenu row 36.8px.
+   Reveal is transform .4s ease; open is max-height .5s ease-out.
+   Desktop does NOT scroll-lock (body stays overflow:visible). Mobile does.
+   ===================================================================== */
+/* Skip link — sprind's, and the one piece of their nav furniture that is real
+   function rather than shape. Parked above the viewport, slides in on focus. */
+.skip-link{
+  position:fixed; top:0; left:0; z-index:80;
+  transform:translateY(-120%); transition:transform .2s ease-out;
+  background:var(--fg); color:var(--bg);
+  padding:12px var(--p-m); font-size:var(--fs-s); line-height:var(--lh-s);
+  font-weight:500; text-decoration:underline;
+}
+.skip-link:focus{ transform:translateY(0); outline:2px solid var(--fg); outline-offset:2px; }
+
+.navreveal{                       /* the invisible 24px trigger strip */
+  position:fixed; top:0; left:0; right:0; height:24px; z-index:70;
+  cursor:default;
+}
+.menu{
+  position:fixed; inset:0 0 auto 0; z-index:60; background:transparent;
+  display:grid; gap:1px;
+  transform:translate3d(0,-100%,0);
+  transition:transform .4s ease;
+}
+.menu.nav-visible, .menu:focus-within{ transform:translateZ(0); }
+.menu .bar{
+  display:flex; justify-content:space-between; align-items:center;
+  padding:var(--p-s); height:44px; background:var(--bg);
+  outline:1px solid var(--rule);   /* outline, not border — sprind surrounds the bar */
+}
+/* ======================= THE LOGO — THE REAL ONE =======================
+   The shipping wordmark, from partials/head.html:174-186. NOT the retired
+   brand/logo/export/ mark (Archivo 800 + teal caret).
+
+   Inter Tight 600 at -.045em in cream #EFEADD.
+
+   The live site animates this: two chromatic misregistration plates (acid +
+   orchid) slide into alignment and fade over 1.15s while each character
+   flashes a mono glyph before resolving. Founder retired that animation for
+   the redesign (2026-08-08) — sprind is restrained and the glitch-decode
+   fought it. The markup keeps the plate and glyph spans so the motion can be
+   restored by deleting the three rules below, but by default the mark is
+   STATIC: letters visible, glyphs and plates hidden. This is exactly the
+   live site's prefers-reduced-motion state, promoted to the default.
+   ===================================================================== */
+.wm{
+  position:relative; display:inline-flex; text-decoration:none;
+  font-family:'Inter Tight',system-ui,sans-serif; font-weight:600;
+  letter-spacing:-0.045em; color:var(--paper); line-height:1;
+}
+.wm-main{ position:relative; z-index:2; display:inline-flex; }
+.wm-main .ch{ position:relative; display:inline-block; }
+.wm-main .ch .l{ opacity:1; }          /* animation retired */
+.wm-main .ch .g{ display:none; }       /* glyph flash retired */
+.wm-plate{ display:none; }             /* registration plates retired */
+.bar .wm{ font-size:30px; }
+.bar .mid{ font-size:var(--fs-s); text-transform:uppercase; letter-spacing:.025em; }
+.bar .util{ display:flex; align-items:center; gap:var(--p-m); }
+.bar .util a{ font-size:var(--fs-s); text-transform:uppercase; letter-spacing:.025em; color:var(--dim); }
+.bar .util a:hover,.bar .util a.on{ color:var(--fg); }
+
+/* Submenu row — Technique C lattice: 1px grid gap plus a 1px OUTLINE on every
+   cell. Outlines paint outside the border box and take no layout space, so two
+   neighbours' outlines meet inside the gutter and read as one hairline. */
+.navgrid{
+  display:grid; grid-auto-flow:column; grid-auto-columns:minmax(0,1fr);
+  gap:1px; background:var(--bg); list-style:none;
+}
+.navgrid > li{ display:flex; flex-direction:column; outline:1px solid var(--rule); }
+.nav-submenu{ display:grid; }   /* no gap: .navbottom carries margin-top:-1px */
+/* 38px, not 37. At 37 the bottom rule lands on a half device pixel and splits
+   50/75% across two grey rows — it reads soft rather than crisp. Measured. */
+.navgrid .top{
+  height:38px; display:flex; align-items:center; justify-content:center;
+  font-size:var(--fs-s); line-height:var(--lh-s);
+  text-transform:uppercase; letter-spacing:normal; text-align:center;
+  transition:background-color .15s cubic-bezier(.4,0,.2,1);
+}
+/* sprind fills the cell 20% white on dark, and does NOT change the text colour */
+.navgrid > li:hover .top{ background-color:rgba(255,255,255,.2); }
+.navgrid .panel{
+  border-top:1px solid var(--rule);
+  margin-bottom:-1px;              /* swallows the doubled hairline, as sprind does */
+  display:grid; gap:var(--p-xl); padding:0 var(--p-m);
+  max-height:0; opacity:0; overflow:hidden;
+  transition:max-height .5s ease-out, opacity .5s ease-out, padding .5s ease-out;
+}
+.menu:hover .navgrid .panel,
+.menu:focus-within .navgrid .panel{ max-height:384px; opacity:1; padding:var(--p-m); }
+.navgrid .panel ul{ display:flex; flex-direction:column; gap:2px; list-style:none; }
+/* Panel links are the ONE place sprind puts the arrow first — 15/19,
+   SENTENCE CASE (not uppercase), 8px gap. */
+.navgrid .panel a{
+  display:flex; gap:var(--p-s);
+  font-size:var(--fs-s); line-height:var(--lh-s); text-transform:none;
+}
+.navgrid .panel a span{ border-bottom:1px solid transparent; }
+/* Hover DIMS THE SIBLINGS rather than highlighting the target: every other
+   link goes to #767676 while the hovered one stays white. */
+.navgrid .panel ul:hover li a{ color:#767676; }
+.navgrid .panel ul li a{ transition:color .1s ease-in-out; }
+.navgrid .panel ul li a:hover{ color:var(--fg); }
+.navgrid .panel .info{ color:var(--meta); font-size:var(--fs-s); line-height:var(--lh-s); }
+/* Staggered reveal: child n gets .1n s duration, .02n s delay */
+.navgrid .panel ul li{ opacity:0; }
+.menu:hover .navgrid .panel ul li,
+.menu:focus-within .navgrid .panel ul li{ opacity:1; }
+.navgrid .panel ul li:nth-child(1){ transition:opacity .1s ease-in-out 0s; }
+.navgrid .panel ul li:nth-child(2){ transition:opacity .2s ease-in-out .02s; }
+.navgrid .panel ul li:nth-child(3){ transition:opacity .3s ease-in-out .04s; }
+.navgrid .panel ul li:nth-child(4){ transition:opacity .4s ease-in-out .06s; }
+.navgrid .panel ul li:nth-child(5){ transition:opacity .5s ease-in-out .08s; }
+.navgrid .panel .info{ transition:opacity .5s ease-out .1s; }
+
+/* Full-width bottom row spanning all three columns, 36px */
+/* visibility:hidden is load-bearing, not decoration. overflow:hidden does NOT
+   clip an element's own outline, so a 1px outline around a max-height:0 box
+   paints its top AND bottom edges as one solid 2px band — which margin-top:-1px
+   then stacks onto the panel's border-top and the li's outline-bottom. Measured
+   at 4 lit device rows against sprind's 2, 2.67x the ink. sprind's own .slider
+   rule carries `visibility:hidden` alongside `max-height:0` for exactly this
+   reason; we had copied the max-height and dropped the visibility. */
+.navbottom{
+  display:flex; justify-content:space-between; flex-wrap:wrap;
+  background:var(--bg); outline:1px solid var(--rule);
+  /* Closed header totals 82.8px against sprind's 81.8. Adding their -mb-[1px]
+     was tried and had no effect — the grid track floors at 0 — so the 1px is
+     left standing rather than papered over with CSS that does nothing. It is
+     total height only: both hairlines render pixel-identical to theirs. */
+  margin-top:-1px;
+  max-height:0; overflow:hidden; visibility:hidden;
+  transition:max-height .5s ease-out, visibility linear .5s;
+}
+.menu:hover .navbottom, .menu:focus-within .navbottom{
+  max-height:96px; visibility:visible;
+  transition:max-height .5s ease-out, visibility linear;
+}
+.navbottom ul{ display:flex; list-style:none; padding:var(--p-s) var(--p-m); }
+.navbottom .social{ gap:var(--p-s); }
+.navbottom .legal{ gap:var(--p-xl); }
+.navbottom a{ font-size:var(--fs-s); line-height:var(--lh-s); display:flex; gap:var(--p-s); }
+.navbottom .legal:hover a{ color:#767676; }
+.navbottom .legal a{ transition:color .1s ease-in-out; }
+.navbottom .legal a:hover{ color:var(--fg); }
+
+/* MENU TRIGGER — two rules plus the word (founder choice, option C).
+   Both signals at once: the rules read at a glance and animate into an X so the
+   state is visible, and the label says what it does. The rules are 18px and
+   drawn in currentColor rather than three 15px hairlines, so the mark reads as
+   part of the site's rule system instead of as a stock hamburger. Desktop has
+   no trigger at all — the hover strip reveals the nav there, as sprind does. */
+.menu-word{
+  display:none; align-items:center; gap:var(--p-s); height:44px; padding:0 2px;
+  background:none; border:0; cursor:pointer; color:var(--fg);
+  font-family:var(--font-label); font-size:var(--fs-s); line-height:var(--lh-s);
+  letter-spacing:.025em; text-transform:uppercase;
+}
+.menu-word .rules{ display:flex; flex-direction:column; gap:5px; flex:0 0 auto; }
+.menu-word .rules i{
+  display:block; width:18px; height:1px; background:currentColor;
+  transition:transform .3s cubic-bezier(.4,0,.2,1);
+}
+.menu-word .lbl{ border-bottom:1px solid transparent; transition:border-color .15s cubic-bezier(.4,0,.2,1); }
+.menu-word:hover .lbl,.menu-word[aria-expanded="true"] .lbl{ border-bottom-color:var(--fg); }
+/* the two rules cross into an X on open */
+.menu-word[aria-expanded="true"] .rules i:first-child{ transform:translateY(3px) rotate(45deg); }
+.menu-word[aria-expanded="true"] .rules i:last-child{ transform:translateY(-3px) rotate(-45deg); }
+
+/* Below 768 sprind drops the hover gating entirely: the drawer opens from the
+   bar and ALL panels are expanded at once. Without a toggle that would leave a
+   ~700px nav permanently open, so the drawer is gated behind the hamburger and
+   scrolls internally — a nav taller than the viewport is otherwise unusable. */
+@media (max-width:767px){
+  .menu-word{ display:inline-flex; }
+  .nav-submenu{
+    max-height:0; overflow:hidden; visibility:hidden;
+    transition:max-height .4s ease, visibility linear .4s;
+  }
+  .menu.drawer-open .nav-submenu{
+    max-height:calc(100svh - 44px); overflow-y:auto; visibility:visible;
+    transition:max-height .4s ease, visibility linear;
+  }
+  .navgrid{ grid-auto-flow:row; }
+  .navgrid .panel{ max-height:none; opacity:1; padding:var(--p-m); }
+  .navgrid .panel ul li{ opacity:1; }
+  .navbottom{ max-height:none; visibility:visible; }
+  /* hover must not open anything on touch — the drawer class is the only gate */
+  .menu:hover .navgrid .panel, .menu:hover .navbottom{ max-height:none; }
+}
+
+/* ---- touch targets, owned by the nav itself ----
+   These lived in the landing page's stylesheet, so when the nav became shared
+   the 20 issue pages inherited the markup without the fixes: the wordmark came
+   back at 30px tall and the single-glyph social links at 10-17px wide. Rules
+   that belong to a component belong in the component. */
+.bar .wm{min-height:44px; display:inline-flex; align-items:center;}
+.bar .util a{min-height:44px; display:inline-flex; align-items:center;}
+.navgrid .top{min-height:44px;}
+.navgrid .panel a,
+.navbottom a{min-height:44px; display:inline-flex; align-items:center;}
+.navbottom .social a,
+.navbottom .social li{min-width:44px; justify-content:center;}
+
+</style>
+<style>
+/* =========================================================================
+   ISSUE PAGES — sprind structure, Vektor voice. Candidate replacement for the
+   196-line block in partials/head.html.
+
+   Every class name from the existing bodies is preserved, so all 20 pages
+   re-skin from this file with zero edits to any src/*.body.html.
+
+   Decisions baked in (founder, 2026-08-14):
+     · Jacquard 24 retired; Printvetica takes the .goth role, so the accent
+       survives, the site unifies with the films, and no fifth face is added.
+     · Headlines are weight 400. Size does the work — .disp was 900.
+     · Sticky CTA, newsletter pop-up and the weave are KEPT, rebuilt in the
+       new language rather than deleted.
+     · Card colour is the open question — see the two variants at the bottom.
+   ========================================================================= */
+
+:root{
+  /* type ramp — sprind's, identical to the landing page */
+  --fs-4xl:132px; --lh-4xl:140px; --fs-3xl:52px; --lh-3xl:54px;
+  --fs-2xl:32px;  --lh-2xl:34px;  --fs-xl:20px;  --lh-xl:22px;
+  --fs-m:18px;    --lh-m:22px;    --fs-s:15px;   --lh-s:19px;
+  --fs-xs:12px;   --lh-xs:14px;
+  --p-xs:4px; --p-s:8px; --p-m:16px; --p-l:24px; --p-xl:32px;
+  --p-2xl:40px; --p-3xl:48px; --p-4xl:80px;
+
+  --bg:#000000;
+  --fg:#FFFFFF;
+  --band:#141414;
+  --rule:#C9C9C9;
+  --meta:#999999;
+  --dim:#B4B4B4;
+  --accent:#0E9C86;          /* caret teal — locked */
+  --paper:#EFEADD;           /* wordmark ink */
+  --acid:#39FF35;            /* wordmark plate only, never UI */
+  --orchid:#C77BC9;
+
+  --font-extended:'Archivo Expanded','Archivo Text',system-ui,sans-serif;
+  --font-sans:'Archivo Text',system-ui,sans-serif;
+  --font-label:'Printvetica','Archivo Text',system-ui,sans-serif;
+  --font-code:'IBM Plex Mono',ui-monospace,monospace;
+  --wm:'Inter Tight',system-ui,sans-serif;
+
+  --rail:var(--p-2xl);       /* sprind's 40px page gutter */
+}
+@media (max-width:1023px){
+  :root{
+    --fs-4xl:40px; --lh-4xl:42px; --fs-3xl:32px; --lh-3xl:34px;
+    --fs-2xl:24px; --lh-2xl:26px; --fs-xl:18px;  --lh-xl:20px;
+    --fs-m:16px;   --lh-m:19px;   --fs-s:14px;   --lh-s:18px;
+    --p-m:12px; --p-l:16px; --p-xl:24px; --p-2xl:32px; --p-3xl:40px; --p-4xl:64px;
+  }
+}
+@media (max-width:767px){
+  :root{
+    --fs-4xl:28px; --lh-4xl:32px; --fs-3xl:24px; --lh-3xl:28px;
+    --fs-2xl:20px; --lh-2xl:22px; --fs-xl:16px;  --lh-xl:18px;
+    --fs-m:14px;   --lh-m:18px;
+    --p-m:8px; --p-l:12px; --p-xl:16px; --p-2xl:24px; --p-3xl:32px; --p-4xl:48px;
+  }
+}
+
+*{box-sizing:border-box;}
+html,body{margin:0;}
+body{
+  background:var(--bg); color:var(--fg);
+  font-family:var(--font-sans); font-size:var(--fs-m); line-height:var(--lh-m);
+  -webkit-font-smoothing:antialiased; overflow-x:hidden;
+}
+a{color:inherit; text-decoration:none;}
+/* Browser default for h1-h6 is bold. The locked rule is weight 400 everywhere,
+   and 119 bare <h2> plus 8 bare <h3> across the bodies were inheriting 700 —
+   caught by the all-pages check, invisible on any single page you happen to
+   look at. Reset globally rather than class by class. */
+h1,h2,h3,h4,h5,h6{font-weight:400; font-family:var(--font-extended); letter-spacing:normal;}
+h2{font-size:var(--fs-2xl); line-height:var(--lh-2xl); text-transform:uppercase; margin:var(--p-xl) 0 var(--p-s);}
+h3{font-size:var(--fs-xl); line-height:var(--lh-xl); text-transform:uppercase; margin:var(--p-l) 0 var(--p-xs);}
+/* long commands and URLs must never widen the page */
+code{font-family:var(--font-code); font-size:.92em; overflow-wrap:anywhere;}
+p,li{overflow-wrap:break-word;}
+:focus-visible{outline:2px solid var(--fg); outline-offset:2px;}
+::selection{background:var(--accent); color:var(--bg);}
+img{display:block; max-width:100%;}
+
+/* ---- shared type ---- */
+.kick{
+  font-family:var(--font-label); text-transform:uppercase;
+  letter-spacing:.025em; font-size:var(--fs-s); line-height:var(--lh-s);
+}
+.disp{
+  font-family:var(--font-extended); font-weight:400;   /* was 900 */
+  text-transform:uppercase; letter-spacing:normal; line-height:var(--lh-3xl);
+}
+/* the rule was an ASCII line in mono; it becomes an actual hairline */
+.rule{
+  font-size:0; line-height:0; color:transparent; user-select:none;
+  height:1px; background:var(--rule); overflow:hidden;
+}
+
+/* ---- masthead: static wordmark, hairline, no shadow ---- */
+.chrome{
+  position:sticky; top:0; z-index:50; background:var(--bg);
+  border-bottom:1px solid var(--rule);
+  display:flex; align-items:center; justify-content:space-between;
+  height:44px; padding:0 var(--rail);
+}
+.chrome .marker{
+  font-family:var(--font-label); text-transform:uppercase;
+  letter-spacing:.025em; font-size:var(--fs-s); color:var(--meta);
+}
+@media (max-width:520px){ .chrome .marker{display:none;} }
+
+.wm{
+  position:relative; display:inline-flex; font-family:var(--wm); font-weight:600;
+  letter-spacing:-0.045em; color:var(--paper); font-size:30px; line-height:1;
+}
+.wm-main{position:relative; z-index:2; display:inline-flex;}
+.wm-main .ch{position:relative; display:inline-block;}
+/* animation retired for the redesign, matching the landing page */
+.wm-main .ch .l{opacity:1;}
+.wm-main .ch .g{display:none;}
+.wm-plate{display:none;}
+.wm-foot{font-family:var(--wm); font-weight:600; letter-spacing:-0.045em; color:var(--paper); font-size:34px; line-height:1; display:inline-flex;}
+.wm-foot .ch2{position:relative; display:inline-block;}
+.wm-foot .ch2 .g{display:none;}
+
+/* the weave survives, but as a hairline-bounded teal band rather than a
+   full-bleed woven texture — kept per founder, restyled to the new language */
+.weave{
+  height:8px; width:100%;
+  background:repeating-linear-gradient(90deg, var(--accent) 0 2px, transparent 2px 10px);
+  border-bottom:1px solid var(--rule);
+}
+
+/* ---- hero ---- */
+.hero{padding:var(--p-2xl) var(--rail) var(--p-4xl); position:relative;}
+.hero .eye{color:var(--meta); margin-bottom:var(--p-m);}
+.hero h1{margin:0; font-size:var(--fs-3xl); line-height:var(--lh-3xl);}
+.hero h1 .dot{color:var(--accent);}
+.hero .sub{max-width:64ch; margin-top:var(--p-l); font-size:var(--fs-m); line-height:var(--lh-xl); color:var(--dim);}
+.hero .rule{margin-top:var(--p-xl);}
+
+/* ---- figure / section head ---- */
+.fig{padding:var(--p-2xl) var(--rail) var(--p-m); display:flex; align-items:baseline; gap:var(--p-m);}
+.fig .kick{color:var(--meta); white-space:nowrap;}
+.fig .line{flex:1; height:1px; background:var(--rule);}
+.fig h2{margin:0; font-size:var(--fs-3xl); line-height:var(--lh-3xl);}
+/* .goth was Jacquard 24 blackletter — Printvetica now carries the accent */
+.fig .gaccent{
+  font-family:var(--font-label); font-size:var(--fs-2xl); line-height:1;
+  color:var(--paper); text-transform:uppercase; letter-spacing:.025em;
+}
+
+/* ---- cards ---- */
+.issues{padding:var(--p-m) var(--rail) 0;}
+.card{position:relative; margin:var(--p-l) 0; padding:var(--p-l); overflow:hidden;}
+.card .top{display:flex; align-items:flex-start; justify-content:space-between; gap:var(--p-m);}
+.card .tag{
+  font-family:var(--font-label); text-transform:uppercase;
+  letter-spacing:.025em; font-size:var(--fs-s); color:var(--meta);
+}
+.card .goth{
+  font-family:var(--font-label); font-size:var(--fs-2xl); line-height:1;
+  text-transform:uppercase; letter-spacing:.025em; color:var(--paper);
+}
+.card h2{
+  font-family:var(--font-extended); font-weight:400; text-transform:uppercase;
+  letter-spacing:normal; font-size:var(--fs-2xl); line-height:var(--lh-2xl);
+  margin:var(--p-m) 0 0; overflow-wrap:break-word;
+}
+.card .one{font-size:var(--fs-m); line-height:var(--lh-xl); margin-top:var(--p-s); max-width:64ch; color:var(--dim);}
+.card .proof{
+  display:inline-block; margin-top:var(--p-m); font-family:var(--font-code);
+  font-size:var(--fs-s); padding:var(--p-s) var(--p-m);
+  color:var(--accent); border:1px solid var(--rule);
+}
+.card .stars{
+  display:inline-block; margin-top:var(--p-m); font-family:var(--font-label);
+  text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s);
+  padding:var(--p-s) var(--p-m); border:1px solid var(--rule); color:var(--dim);
+}
+.card .actions{display:flex; flex-wrap:wrap; gap:var(--p-s); margin-top:var(--p-l); align-items:stretch;}
+
+/* ---- controls: unfilled cells bounded by hairlines, as sprind's are ---- */
+.btn{
+  display:inline-flex; align-items:center; gap:var(--p-xs);
+  min-height:48px; padding:0 var(--p-m);
+  font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em;
+  font-size:var(--fs-s); border:1px solid var(--rule); background:transparent;
+  color:var(--fg); cursor:pointer;
+  transition:background-color .15s cubic-bezier(.4,0,.2,1), color .15s cubic-bezier(.4,0,.2,1);
+}
+.btn:hover{background:rgba(255,255,255,.06);}
+.btn.primary{border-color:var(--accent); color:var(--accent);}
+.btn.primary:hover{background:var(--accent); color:var(--bg);}
+
+.copy{
+  display:flex; align-items:center; min-height:48px;
+  border:1px solid var(--rule); padding:0 var(--p-xs) 0 var(--p-m); gap:var(--p-s);
+  font-family:var(--font-code); font-size:var(--fs-s);
+  flex:1 1 240px; min-width:0; justify-content:space-between;
+}
+.copy code{overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+.copybtn{
+  display:none; flex:none; align-items:center; min-height:40px; padding:0 var(--p-m);
+  font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em;
+  font-size:var(--fs-xs); border:1px solid var(--rule); background:transparent;
+  color:var(--fg); cursor:pointer;
+}
+.js .copybtn{display:inline-flex;}
+.copybtn:hover{background:var(--accent); color:var(--bg); border-color:var(--accent);}
+
+/* ---- code snippet: no sprind analogue, so designed to their logic —
+        a hairline-bounded cell, mono only inside the pre ---- */
+.snippet{position:relative; margin-top:var(--p-m); border:1px solid var(--rule); background:var(--band);}
+.snippet .bar{
+  display:flex; align-items:center; justify-content:space-between; gap:var(--p-s);
+  padding:var(--p-s) var(--p-s) var(--p-s) var(--p-m); border-bottom:1px solid var(--rule);
+}
+.snippet .bar .f{
+  font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em;
+  font-size:var(--fs-xs); color:var(--meta);
+}
+.snippet pre{
+  margin:0; padding:var(--p-m); overflow-x:auto; max-height:60vh; overflow-y:auto;
+  font-family:var(--font-code); font-size:var(--fs-s); line-height:1.55;
+  color:var(--fg); white-space:pre-wrap; word-break:break-word;
+}
+.snippet .snipbtn{
+  flex:none; min-height:44px; padding:0 var(--p-m);
+  font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em;
+  font-size:var(--fs-xs); border:1px solid var(--rule); background:transparent;
+  color:var(--fg); cursor:pointer;
+}
+.snippet .snipbtn:hover{background:var(--accent); color:var(--bg); border-color:var(--accent);}
+#shareBtn{display:none;}
+.js #shareBtn{display:inline-flex;}
+
+/* ---- ledger ---- */
+.ledger{padding:var(--p-s) var(--rail) var(--p-m);}
+.lrow{display:flex; gap:var(--p-l); align-items:baseline; border-top:1px solid var(--rule); padding:var(--p-l) 0;}
+.lrow:last-of-type{border-bottom:1px solid var(--rule);}
+.lrow .n{font-family:var(--font-extended); font-weight:400; font-size:var(--fs-2xl); color:var(--accent); flex:none; line-height:1;}
+.lrow .t{font-family:var(--font-sans); font-size:var(--fs-m); line-height:var(--lh-xl); text-transform:uppercase; letter-spacing:normal;}
+
+/* ---- mid-page newsletter capture (kept per founder) ---- */
+.midcap{margin:var(--p-2xl) var(--rail); padding:var(--p-l); border:1px solid var(--rule); background:var(--band);}
+.midcap .k{display:block; color:var(--accent); font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); margin-bottom:var(--p-s);}
+.midcap h2{font-family:var(--font-extended); font-weight:400; text-transform:uppercase; letter-spacing:normal; font-size:var(--fs-2xl); line-height:var(--lh-2xl); margin:0 0 var(--p-s);}
+.midcap p{font-size:var(--fs-m); line-height:var(--lh-xl); max-width:64ch; margin:0 0 var(--p-m); color:var(--dim);}
+.midcap form{display:flex; gap:var(--p-s); flex-wrap:wrap; max-width:540px;}
+.midcap input{flex:1 1 240px; min-height:48px; background:transparent; border:0; border-bottom:1px solid var(--rule); color:var(--fg); font-family:var(--font-sans); font-size:var(--fs-m); padding:0;}
+.midcap input:focus{outline:none; border-bottom-color:var(--fg);}
+.midcap .btn{min-height:48px;}
+.midcap .note{font-size:var(--fs-s); color:var(--meta); margin-top:var(--p-s);}
+
+/* ---- the gate (2026-08-26, founder picked "paper block") ----
+   The page ends here for anyone who hasn't paid the email, so it is built as a
+   destination, not a footer widget. The block flips to PAPER on an otherwise
+   all-black site: it is the only light surface in the whole design system, which
+   is what makes it the loudest object on the page without adding decoration.
+   Colours are hard-coded near-black rather than var(--fg) because this is the
+   one inverted surface — the tokens all assume ink-on-black.
+   The manifest rows are generated from the payload (build.mjs): real file names
+   and line counts, redacted. Structure, never a readable line — a readable
+   teaser measurably lowers conversion (docs/2026-08-26-gate-ui-research.md). */
+.gate{position:relative; margin:var(--p-2xl) 0 0; padding:var(--p-2xl) var(--rail) var(--p-4xl); background:var(--bg); border-top:1px solid var(--rule);}
+.gate .inner{background:var(--paper); color:#0B0B0B; padding:var(--p-xl) var(--p-l) var(--p-l); border:1px solid #0B0B0B; max-width:720px;}
+.gate .tab{display:inline-block; margin-bottom:-1px; background:var(--accent); color:#04120F; font-family:var(--font-label); text-transform:uppercase; letter-spacing:.05em; font-size:var(--fs-s); padding:6px 14px;}
+.gate .k{display:block; color:#0B0B0B; opacity:.7; font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); margin-bottom:var(--p-s);}
+.gate h2{color:#0B0B0B; font-family:var(--font-extended); font-weight:400; text-transform:uppercase; letter-spacing:normal; font-size:var(--fs-2xl); line-height:var(--lh-2xl); margin:0 0 var(--p-s);}
+.gate .lede{color:#2A2A2A; font-size:var(--fs-m); line-height:var(--lh-xl); max-width:52ch; margin:0 0 var(--p-l);}
+
+.manifest{list-style:none; margin:0 0 var(--p-xl); padding:0;}
+.manifest li{display:flex; align-items:center; gap:var(--p-s); padding:10px 0; border-top:1px solid #0B0B0B; font-family:var(--font-code); font-size:var(--fs-s); color:#0B0B0B;}
+.manifest li:last-child{border-bottom:1px solid #0B0B0B;}
+.manifest .lk{color:#0B7A69;}
+.manifest .fn{white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+/* the redaction: it has to read as "text is here and you can't have it", so it
+   is a bar of glyph-width blocks rather than a plain rule */
+.manifest .rd{flex:1 1 30px; min-width:20px; height:10px; opacity:.35; background:repeating-linear-gradient(90deg,#0B0B0B 0 12px, transparent 12px 18px);}
+.manifest .ln{color:#4A4A4A; white-space:nowrap;}
+
+.gate-form{display:flex; gap:var(--p-s); flex-wrap:wrap; max-width:560px;}
+.gate-form input{flex:1 1 240px; min-height:52px; background:transparent; border:0; border-bottom:2px solid #0B0B0B; color:#0B0B0B; font-family:var(--font-sans); font-size:var(--fs-m); padding:0;}
+.gate-form input::placeholder{color:#6A6A6A;}
+.gate-form input:focus{outline:none; border-bottom-color:#0B7A69;}
+.gate-form .btn{min-height:52px; padding:0 var(--p-l); background:#0B0B0B; color:var(--paper); border:1px solid #0B0B0B;}
+.gate-form .btn:hover{background:#0B7A69; border-color:#0B7A69;}
+/* On a phone the field and the button stop competing for one row: mobile is
+   ~83% of the traffic and converts at about half the desktop rate, so the tap
+   target gets the full width. */
+@media (max-width:620px){
+  .gate-form input{flex:1 1 100%;}
+  .gate-form .btn{flex:1 1 100%; text-align:center; justify-content:center;}
+}
+.gate .note{font-size:var(--fs-s); color:#4A4A4A; margin-top:var(--p-m);}
+.gate .note a{color:#0B7A69;}
+/* social proof, at the decision point rather than in the footer. Real numbers
+   only — see build.mjs, they come from site.json with an as-of date. */
+.gate .proof{margin-top:var(--p-s); font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); color:#4A4A4A;}
+.gate .proof b{color:#0B7A69; font-weight:400;}
+
+/* the receipt at the top of an unlock page */
+.unlocked{margin:0; padding:var(--p-xl) var(--rail); background:var(--band); border-bottom:1px solid var(--rule);}
+.unlocked .k{display:block; color:var(--accent); font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); margin-bottom:var(--p-s);}
+.unlocked h2{font-family:var(--font-extended); font-weight:400; text-transform:uppercase; letter-spacing:normal; font-size:var(--fs-2xl); line-height:var(--lh-2xl); margin:0 0 var(--p-xs);}
+.unlocked p{font-size:var(--fs-m); line-height:var(--lh-xl); max-width:64ch; margin:0; color:var(--dim);}
+
+/* ---- footer ---- */
+footer{margin-top:var(--p-4xl); padding:var(--p-2xl) var(--rail) var(--p-4xl); border-top:1px solid var(--rule);}
+.foot-rule{margin-bottom:var(--p-xl);}
+.news label{display:block; color:var(--accent); margin-bottom:var(--p-s); font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s);}
+.news h2{margin:0 0 var(--p-s); font-family:var(--font-extended); font-weight:400; text-transform:uppercase; font-size:var(--fs-2xl); line-height:var(--lh-2xl);}
+.news form{display:flex; gap:var(--p-s); flex-wrap:wrap; max-width:520px;}
+.news input{flex:1 1 220px; min-height:48px; background:transparent; border:0; border-bottom:1px solid var(--rule); color:var(--fg); font-family:var(--font-sans); font-size:var(--fs-m); padding:0;}
+.news input:focus{outline:none; border-bottom-color:var(--fg);}
+.news .note{font-size:var(--fs-s); color:var(--meta); margin-top:var(--p-s);}
+.pack{display:flex; flex-wrap:wrap; gap:var(--p-s) var(--p-l); margin:var(--p-s) 0 var(--p-m);}
+.pack span{font-family:var(--font-sans); font-size:var(--fs-s); color:var(--meta);}
+.pack span::before{content:"\2192 "; color:var(--accent);}
+.socials{display:flex; flex-wrap:wrap; gap:var(--p-l); margin-top:var(--p-xl);}
+.socials a{font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); color:var(--meta); padding:12px 0; margin:-12px 0;}
+.socials a:hover{color:var(--accent);}
+.backref{margin-top:var(--p-xl); font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); color:var(--dim);}
+.backref b,.backref a{color:var(--accent);}
+.wordmark-foot{display:flex; align-items:center; gap:var(--p-m); margin-top:var(--p-xl); flex-wrap:wrap;}
+.wordmark-foot .m{font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); color:var(--meta);}
+
+.hero .actions{display:flex; flex-wrap:wrap; gap:var(--p-s); margin-top:var(--p-l);}
+
+/* ---- sticky follow CTA (kept per founder) ---- */
+/* the bar is fixed, so the page must reserve room or it covers the footer's
+   last rows — measured 83-101px of occlusion on 20 pages */
+body{padding-bottom:120px;}
+@media (min-width:640px){ body{padding-bottom:96px;} }
+.sticky-cta{
+  position:fixed; left:0; right:0; bottom:0; z-index:60;
+  display:flex; align-items:center; justify-content:space-between; gap:var(--p-m);
+  padding:var(--p-s) var(--rail); background:var(--bg);
+  border-top:1px solid var(--rule);
+  font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s);
+  transform:translateY(110%); transition:transform .3s ease;
+}
+.sticky-cta.show{transform:none;}
+.sticky-cta .r{display:flex; align-items:center; gap:var(--p-s);}
+.sticky-cta .t{flex:0 1 auto; color:var(--dim); min-width:0;}
+/* the bar carries a real capture now, not a Follow link */
+.sticky-form{display:flex; align-items:stretch; gap:var(--p-s); flex:1 1 260px; min-width:0;}
+.sticky-form input{
+  flex:1 1 auto; min-width:0; min-height:40px; background:transparent;
+  border:0; border-bottom:1px solid var(--rule); color:var(--fg);
+  font-family:var(--font-sans); font-size:var(--fs-s); padding:0;
+}
+.sticky-form input:focus{outline:none; border-bottom-color:var(--fg);}
+.sticky-form .btn{min-height:40px; padding:0 var(--p-m); white-space:nowrap;}
+/* iOS Safari zooms the whole page when an input under 16px is focused. Every
+   email field was 14px, so tapping the primary conversion control zoomed and
+   re-laid-out the page. 16px is the floor; it is a functional value, not a
+   typographic one. */
+input,select,textarea{font-size:16px !important;}
+
+/* .sr-only with white-space:nowrap + clip leaves a wide box in the layout —
+   measured 109px of inner overflow on every issue page. The clip-path form
+   collapses to zero and cannot scroll. */
+.sr-only{
+  position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+  overflow:hidden; clip-path:inset(50%); border:0;
+}
+/* below 640 the label would push the form to a second line for no gain */
+@media (max-width:639px){
+  .sticky-cta{flex-wrap:wrap; gap:var(--p-xs) var(--p-s);}
+  .sticky-cta .t{flex:1 0 100%; font-size:var(--fs-xs);}
+  .sticky-form{flex:1 1 auto;}
+}
+.sticky-cta .go{color:var(--accent);}
+.sticky-cta .x{background:none; border:0; color:var(--meta); font-size:22px; line-height:1; min-width:44px; min-height:44px; cursor:pointer;}
+.sticky-cta .x:hover{color:var(--fg);}
+
+/* ---- newsletter pop-up (kept per founder) ---- */
+.pop[hidden]{display:none;}
+.pop{position:fixed; inset:0; z-index:100; display:flex; align-items:center; justify-content:center; padding:var(--p-l);}
+.pop-scrim{position:absolute; inset:0; background:rgba(0,0,0,.72); backdrop-filter:blur(8px); cursor:pointer;}
+.pop-card{position:relative; z-index:1; width:100%; max-width:480px; background:var(--bg); border:1px solid var(--rule); padding:var(--p-xl) var(--p-l) var(--p-l);}
+.pop-x{position:absolute; top:0; right:0; background:none; border:0; color:var(--meta); font-size:24px; line-height:1; min-width:44px; min-height:44px; cursor:pointer;}
+.pop-x:hover{color:var(--fg);}
+.pop-card .k{display:block; color:var(--accent); font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); margin-bottom:var(--p-s); padding-right:48px;}
+.pop-card h2{font-family:var(--font-extended); font-weight:400; text-transform:uppercase; letter-spacing:normal; font-size:var(--fs-2xl); line-height:var(--lh-2xl); margin:0 0 var(--p-s);}
+.pop-card p{font-size:var(--fs-m); line-height:var(--lh-xl); margin:0 0 var(--p-m); color:var(--dim);}
+.pop-card form{display:flex; flex-direction:column; gap:var(--p-s);}
+.pop-card input{min-height:48px; background:transparent; border:0; border-bottom:1px solid var(--rule); color:var(--fg); font-family:var(--font-sans); font-size:var(--fs-m); padding:0;}
+.pop-card input:focus{outline:none; border-bottom-color:var(--fg);}
+.pop-card .note{font-size:var(--fs-s); color:var(--meta); margin-top:var(--p-s);}
+/* Google's safe harbour for a post-engagement popup is under 30% of the mobile
+   viewport with a visible close control. At the default padding this measured
+   37%, so the phone case tightens up rather than relying on the engagement
+   rule alone. */
+@media (max-width:639px){
+  /* Centred, not a bottom sheet (founder, 2026-08-17). The card sat flush to
+     the bottom edge on phones, which read as a system tray rather than as the
+     page's own ask. The height work above is what keeps it inside the safe
+     harbour — the alignment never did any of that job. */
+  .pop{padding:var(--p-m); align-items:center;}
+  .pop-card{padding:var(--p-l) var(--p-m) var(--p-m);}
+  .pop-card p{font-size:var(--fs-s); line-height:var(--lh-s); margin-bottom:var(--p-s);}
+  .pop-card .k{font-size:var(--fs-xs); margin-bottom:var(--p-xs);}
+  .pop-card .note{display:none;}
+}
+.midcap .btn,.news .btn,.pop-card .btn{justify-content:center;}
+
+.note{font-size:var(--fs-s); line-height:var(--lh-s); color:var(--meta);}
+.midcap .k,.pop-card .k{font-family:var(--font-label);}
+.ascii,.ascii-art,.tpl{font-family:var(--font-code); font-size:var(--fs-s); line-height:1.4; color:var(--dim); white-space:pre-wrap;}
+
+/* ---- cards: band + accent (founder-chosen 2026-08-14 on the two
+        full-page mocks; the monochrome variant is in git history) ---- */
+
+.card{background:var(--bg); outline:1px solid var(--rule); padding:var(--p-l);}
+.c-cream,
+.c-aqua,
+.c-ink,
+.c-orchid,
+.c-signal,
+.c-fog{color:var(--fg); border:0;}
+.issues .card:nth-of-type(even){background:var(--band);}
+.card .tag{color:var(--accent);}
+.card .goth{color:var(--paper);}
+
+/* ---- components introduced after the old stylesheet was last updated.
+        no-033 ships .code/.issue/.meta/.num and no-022 ships .c-fog; none of
+        them were ever styled, so they rendered as unstyled markup. ---- */
+pre.code{
+  margin:var(--p-m) 0; padding:var(--p-m); border:1px solid var(--rule);
+  background:var(--band); overflow-x:auto;
+  font-family:var(--font-code); font-size:var(--fs-s); line-height:1.55;
+  white-space:pre-wrap; word-break:break-word;
+}
+pre.code code{font-size:inherit;}
+.issue{margin:var(--p-l) 0; padding-top:var(--p-l); border-top:1px solid var(--rule);}
+.issue .num{
+  font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em;
+  font-size:var(--fs-s); color:var(--accent); display:block; margin-bottom:var(--p-xs);
+}
+.meta{font-size:var(--fs-s); line-height:var(--lh-s); color:var(--meta);}
+.meta b{color:var(--dim); font-weight:400;}
+.c-fog{color:var(--dim);}
+
+/* ---- touch targets ----
+   Everything tappable gets a 44px hit area. Several controls measured 15-42px
+   tall, including the footer social links, the copy buttons and both dismiss
+   controls. Padding is used rather than height so the visual size is unchanged
+   where the design depends on it. */
+.socials a,
+.backref a,
+.pack span a{min-height:44px; display:inline-flex; align-items:center;}
+.copybtn,.snippet .snipbtn{min-height:44px;}
+.pop-x,.sticky-cta .x{min-width:48px; min-height:48px; display:inline-flex; align-items:center; justify-content:center;}
+.sticky-form input,.sticky-form .btn{min-height:48px;}
+.btn{min-height:48px;}
+.chrome .wm{min-height:44px; display:inline-flex; align-items:center;}
+/* inline arrow links inside prose sit at line-height; give them a real target */
+.card .one a,.hero .sub a,.midcap p a,.note a{
+  display:inline-block; padding:11px 0; margin:-11px 0;
+}
+
+/* the decorative slash rule carries text content that is invisible but still
+   in the accessibility tree; hide it from assistive tech */
+.rule{speak:never;}
+</style><!-- SHARED NAV MARKUP — injected into masthead.html and index.body.html by
+     build.mjs via the NAV token. Edit here only. -->
+<!-- The 24px invisible strip that reveals the nav. sprind pins one of these to
+     the top of the viewport; mouseenter adds .nav-visible to the header. -->
+<div class="navreveal" aria-hidden="true"></div>
+
+<div class="menu">
+  <div class="bar">
+    <a class="wm" href="#top" aria-label="vektor"><span class="wm-plate wm-acid" aria-hidden="true">vektor</span><span class="wm-plate wm-orchid" aria-hidden="true">vektor</span><span class="wm-main"><span class="ch" style="--i:0"><span class="g">%</span><span class="l">v</span></span><span class="ch" style="--i:1"><span class="g">#</span><span class="l">e</span></span><span class="ch" style="--i:2"><span class="g">Z</span><span class="l">k</span></span><span class="ch" style="--i:3"><span class="g">8</span><span class="l">t</span></span><span class="ch" style="--i:4"><span class="g">@</span><span class="l">o</span></span><span class="ch" style="--i:5"><span class="g">W</span><span class="l">r</span></span></span></a>
+    <span class="mid">The Index</span>
+    <div class="util">
+      <button class="menu-word" type="button" aria-label="Open menu" aria-expanded="false"><span class="rules" aria-hidden="true"><i></i><i></i></span><span class="lbl">Menu</span></button>
+    </div>
+  </div>
+  <!-- sprind nests the lattice and the bottom row inside ONE #nav-submenu, so
+       the header grid has two children and therefore one 1px gap. Flattening
+       them into .menu adds a second gap and overshoots the 81.8px closed
+       height by 2px. -->
+  <div class="nav-submenu">
+  <ul class="navgrid">
+    <li>
+      <a class="top" href="#latest">Issues</a>
+      <div class="panel">
+        <ul>
+          <li><a href="#latest"><span class="a">→</span><span>Latest</span></a></li>
+          <li><a href="#archive"><span class="a">→</span><span>The archive</span></a></li>
+          <li><a href="https://instagram.com/vektor.fm" target="_blank" rel="noopener"><span class="a">→</span><span>Submit a topic</span></a></li>
+        </ul>
+        <p class="info">Every issue is one short film and one working pack — config, prompts, links.</p>
+      </div>
+    </li>
+    <li>
+      <a class="top" href="./pack.html">Packs</a>
+      <div class="panel">
+        <ul>
+          <li><a href="./no-004.html"><span class="a">→</span><span>Skills</span></a></li>
+          <li><a href="./no-013.html"><span class="a">→</span><span>Agent starter kit</span></a></li>
+          <li><a href="./no-015.html"><span class="a">→</span><span>Loops</span></a></li>
+          <li><a href="./no-010.html"><span class="a">→</span><span>CLAUDE.md files</span></a></li>
+        </ul>
+        <p class="info">The files behind the films. One email opens any of them.</p>
+      </div>
+    </li>
+    <li>
+      <a class="top" href="#about">About</a>
+      <div class="panel">
+        <ul>
+          <li><a href="#about"><span class="a">→</span><span>What vektor is</span></a></li>
+          <li><a href="#subscribe"><span class="a">→</span><span>The Teardown</span></a></li>
+          <li><a href="https://youtube.com/@vektorfm" target="_blank" rel="noopener"><span class="a">→</span><span>Watch</span></a></li>
+          <li><a href="./privacy.html"><span class="a">→</span><span>Privacy</span></a></li>
+        </ul>
+        <p class="info">Daily shorts on the Claude and AI tooling that actually matters.</p>
+      </div>
+    </li>
+  </ul>
+  <!-- Full-width row spanning all three columns, 36px on sprind: social left,
+       legal links right at gap 32. Same dim-the-siblings hover as the panels. -->
+  <div class="navbottom">
+    <ul class="social">
+      <li><a href="https://youtube.com/@vektorfm" target="_blank" rel="noopener"><span>YT</span></a></li>
+      <li><a href="https://instagram.com/vektor.fm" target="_blank" rel="noopener"><span>IG</span></a></li>
+      <li><a href="https://tiktok.com/@vektor.fm" target="_blank" rel="noopener"><span>TT</span></a></li>
+      <li><a href="https://x.com/vektordotfm" target="_blank" rel="noopener"><span>X</span></a></li>
+    </ul>
+    <ul class="legal">
+      <li><a href="#subscribe"><span class="a">→</span><span>Subscribe</span></a></li>
+      <li><a href="./privacy.html"><span class="a">→</span><span>Privacy</span></a></li>
+      <li><a href="./thanks.html"><span class="a">→</span><span>Contact</span></a></li>
+    </ul>
+  </div>
+  </div>
+</div>
+
+
+<!-- the issue marker, kept: it is the only per-page label in the bar -->
+<div class="issue-marker">AI models · What to actually do</div>
+
+<!-- The capture furniture (sticky bar + pop-up) lives in partials/capture.html
+     and is injected ONLY into public pages. Unlock pages get an empty string
+     here — see build.mjs. The weave stays on both: it is structure, not an ask. -->
+<!-- Sticky ask. This used to be a Follow link back to Instagram, which spent
+     an IG click to win a visit and then returned the visitor to IG without
+     capturing anything. The goal is the email address, so the persistent ask
+     is now the email. Follow demotes to the footer.
+
+     THE PACK IS NO LONGER BEHIND THE EMAIL (founder, 2026-09-01). The reader
+     paid a follow in the DM; charging a second toll on the page spent funnel
+     conversion to grow a list that had sent one issue in its life. So the
+     sticky bar no longer promises to "open" anything — the payload is already
+     open, three screens down. It sells the WEEKLY, which is the only honest
+     thing left to sell. Wording that implies a lock is a lie now, not copy.
+     Full argument: vektor/reports/2026-09-01-email-gate-decision.md.
+
+     The tag still carries the PAGE slug (no046-sticky) — the worker no
+     longer needs it to decide what to unlock, but it is the only per-source
+     attribution we get in Buttondown and in /report's count:email:<source>.
+
+     This whole file is omitted from unlock pages — asking a reader for the
+     email they just gave you is how a funnel reads as a machine. -->
+<div class="sticky-cta" id="stickyCta" aria-hidden="true">
+  <span class="t">One working AI setup a week</span>
+  <form class="sticky-form" method="post" action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" data-capture="sticky">
+      <input type="hidden" name="tag" value="no046-sticky">
+      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+    <label class="sr-only" for="stickyEmail">Email address</label>
+    <input id="stickyEmail" name="email" type="email" placeholder="you@email.com" autocomplete="email" required>
+    <button class="btn primary" type="submit">Subscribe &rarr;</button>
+  </form>
+  <button class="x" id="ctaClose" type="button" aria-label="Dismiss">&times;</button>
+</div>
+
+<!-- THE ASK MODAL — one markup, two triggers, running as an A/B (2026-09-01).
+     Founder call after the evidence: the pop-up in its 50%-scroll form was
+     viewed ~47 times and dismissed ~46 of those across NO.006/034/036/038/039
+     (live /report, 30 d, pulled 2026-09-01), with no signup attributable to it.
+     The founder's read is that the ask should land at PEAK ATTENTION; the
+     disagreement was only about what signals attention — a clock or an action.
+     So both are built and split 50/50 rather than argued:
+
+       arm A — 6 s timer (the founder's version)
+       arm B — fires on the download / copy action, i.e. the moment the reader
+               takes the thing they came for
+
+     The trigger is the ONLY difference. Same markup, same copy, same cooldown,
+     so a difference in the numbers is a difference in the trigger. The arm is
+     sticky per browser (localStorage) so one reader never sees both.
+
+     The copy has to be true for BOTH arms, which is why it does not say "that
+     one's yours" (arm A fires before any download) and does not say "opens on
+     the next screen" (nothing is locked any more). It sells the weekly. -->
+<div class="pop" id="askPop" hidden>
+  <div class="pop-scrim" data-pop-close></div>
+  <div class="pop-card" role="dialog" aria-modal="true" aria-labelledby="askPopH">
+    <button class="pop-x" type="button" data-pop-close aria-label="Close">×</button>
+    <span class="k">One email a week · the working setup</span>
+    <h2 id="askPopH">Where the next one comes from.</h2>
+    <p>the AI models pack is yours, free, no email needed — it is on this page. The weekly teardown is where the next one gets built: one working AI setup, every week, with the numbers checked at source.</p>
+    <form action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="ask">
+      <input type="hidden" name="tag" id="askTag" value="no046-ask">
+      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+      <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
+      <button class="btn" type="submit">Send me the weekly →</button>
+    </form>
+    <div class="note">One email a week. Unsubscribe in one click.</div>
+  </div>
+</div>
+
+<div class="weave" aria-hidden="true"></div>
+
+<main>
+<section class="hero">
+  <div class="kick eye">AI models · What to actually do</div>
+  <h1 class="disp">Four things to do<br>with Fable 5.1<span class="dot">.</span></h1>
+  <p class="sub">Anthropic shipped <b>Fable 5.1</b> on 1 September 2026. The benchmark table is not the reason to open it. The reason is that a model you last used six months ago is now good enough to be pointed at your own work and told to be honest about it. Below: the four moves, the prompt for each one written out, and the one number that changed the arithmetic.</p>
+  <div class="actions">
+    <a class="btn primary" href="#audit">Start with the audit ↓</a>
+    <a class="btn" href="#effort">What the price cut changes →</a>
+    <a class="btn" href="./files/no-046/four-things-fable-51.md">Download the four prompts (.md) &darr;</a>
+    <button class="btn" id="shareBtn" type="button">Send to whoever keeps saying they should try it again</button>
+  </div>
+  <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+</section>
+
+<!-- ======================= 01 — THE AUDIT ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 01 ·</h2>
+  <h2 class="disp">Point it at something you already built<span class="dot">.</span></h2>
+  <p class="sub">Not a toy. A thing that exists and that you care about: an app, a site, a contract, a deck.</p>
+</div>
+
+<section class="issues" id="audit">
+  <article class="issue">
+    <h3>Ask it to be three readers, not one</h3>
+    <p>“What is wrong with this” gets you small, safe notes. Instead: <i>read this as a hostile reviewer, then as a new hire on day one, then as the person maintaining it in two years — and label which one you are being.</i></p>
+    <p>The three answers will contradict each other. The contradictions are the findings.</p>
+    <p class="meta">Then: <b>rank everything by what it costs me to leave it alone.</b></p>
+  </article>
+
+  <article class="issue">
+    <h3>A crash nobody explained in four to five years</h3>
+    <p>In Anthropic's launch material the investment firm <b>Millennium</b> describe a rare crash — about one in a million runs — that no engineer on the team, and no model they tried, had explained in four to five years. Fable 5.1 found the cause.</p>
+    <p class="meta">Same instruction as above, aimed at a bug instead of a document. Source: the Fable and Mythos 5.1 announcement, anthropic.com.</p>
+  </article>
+
+  <article class="issue">
+    <h3>The line that does the work</h3>
+    <p>End the prompt with <b>“Do not be encouraging. I am not asking whether it is good.”</b> Without it you get a compliment and three suggestions.</p>
+    <p class="meta">Ten minutes. It tells you whether the other three are worth your afternoon.</p>
+  </article>
+</section>
+
+<!-- ======================= 02 — THE AGENT ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 02 ·</h2>
+  <h2 class="disp">Build an agent. It can be small<span class="dot">.</span></h2>
+  <p class="sub">Most people still have not built one, which is fair — until recently they were flaky. That stopped being true this year.</p>
+</div>
+
+<section class="issues" id="agent">
+  <article class="issue">
+    <h3>Read → do → check → read</h3>
+    <p>That loop is the whole definition. An agent that cannot check its own work is a script with extra steps.</p>
+    <p>Write the loop out explicitly in the prompt: what it reads, what it does, how it verifies, and what it does when the check fails.</p>
+    <p class="meta">The failure branch is the part people leave out, and it is the part that decides whether you can leave it running.</p>
+  </article>
+
+  <article class="issue">
+    <h3>Pick a job you do on a schedule and resent</h3>
+    <p>Say it in one sentence, then state <i>when it runs</i>, <i>what it can reach</i>, and <i>the observable state that means it is finished</i>. Ask it to interview you before it writes anything.</p>
+    <p class="meta">Vague finish condition is the number one reason a first agent never gets switched on.</p>
+  </article>
+
+  <article class="issue">
+    <h3>Start it read-only</h3>
+    <p>Give it the ability to look and to propose. Hold back the ability to change anything until you have watched a few runs.</p>
+    <p class="meta">You are buying the right to be wrong cheaply.</p>
+  </article>
+</section>
+
+<!-- ======================= 03 — THE HARD PROBLEM ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 03 ·</h2>
+  <h2 class="disp">Describe the hardest problem you have not solved<span class="dot">.</span></h2>
+  <p class="sub">The one you have been avoiding. In detail, the whole thing. This is the move people skip because it feels like it will not work.</p>
+</div>
+
+<section class="issues" id="problem">
+  <article class="issue">
+    <h3>Give it the failures, not just the problem</h3>
+    <p>What you already tried, and why each attempt failed, is what turns this from a horoscope into an analysis. Leave it out and you get the three obvious suggestions you already rejected.</p>
+    <p class="meta">Include what you are afraid the real answer is. It changes the reply.</p>
+  </article>
+
+  <article class="issue">
+    <h3>Make it play the problem back first</h3>
+    <p><i>What do you think the actual problem is, as opposed to the one I described? Say it plainly even if it is unflattering.</i> Then, and only then, three moves you could make this week — with the cost of each one being wrong.</p>
+    <p class="meta">“Do not motivate me” belongs in this prompt too.</p>
+  </article>
+
+  <article class="issue">
+    <h3>It does not have to be a coding problem</h3>
+    <p>Pricing. A hire you keep postponing. A partnership that is not working. Length is a feature here — this is the one prompt where a page of context beats a tidy paragraph.</p>
+    <p class="meta">Of the four, this is the one nobody does.</p>
+  </article>
+</section>
+
+<!-- ======================= 04 — EFFORT LEVELS ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 04 ·</h2>
+  <h2 class="disp">Experiment with effort levels<span class="dot">.</span></h2>
+  <p class="sub">The pricing moved, so the arithmetic moved with it.</p>
+</div>
+
+<section class="issues" id="effort">
+  <article class="issue">
+    <h3>Cache reads fell 75%</h3>
+    <p>To <b>$0.25 per million tokens</b> — which Anthropic puts at roughly a quarter off a typical workload and close to half off an agentic one.</p>
+    <p class="meta">Figures from the Fable and Mythos 5.1 announcement, anthropic.com, 1 September 2026.</p>
+  </article>
+
+  <article class="issue">
+    <h3>Sort your jobs into four buckets</h3>
+    <p>High volume and low judgement · drafting a human will edit · anything where being wrong is expensive · long agentic runs. Ask which tier and effort setting each one actually needs, <i>and what specifically breaks one step cheaper.</i></p>
+    <p class="meta">The answer to that second half is the only part worth reading.</p>
+  </article>
+
+  <article class="issue">
+    <h3>Caching is what people leave on the table</h3>
+    <p>In a long agentic run the same context is read over and over. That is exactly the read the price cut applies to — so the saving is largest precisely where the bill was worst.</p>
+    <p class="meta"><a href="./files/no-046/four-things-fable-51.md">View raw / download the four prompts →</a></p>
+  </article>
+</section>
+</main>
+
+<footer>
+  <div class="rule foot-rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+
+  <div class="news" id="subscribe">
+    <h2 class="kick" style="color:var(--acid);">Get the pack — the working setup, one config</h2>
+    <div class="pack">
+      <span>The config pack</span><span>Claude Code settings</span><span>One teardown / week</span>
+    </div>
+    <form action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="footer">
+      <input type="hidden" name="tag" value="footer">
+      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+      <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
+      <button class="btn" type="submit">Send me the pack →</button>
+    </form>
+    <div class="note">Free. The config pack lands in your inbox straight away. Unsubscribe anytime.</div>
+  </div>
+
+  <nav class="socials" aria-label="Social links">
+    <a data-goatcounter-click="no046-follow-tiktok-foot" href="https://tiktok.com/@vektor.fm" target="_blank" rel="noopener">TikTok · @vektor.fm</a>
+    <a data-goatcounter-click="no046-follow-instagram-foot" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Instagram · @vektor.fm</a>
+    <a data-goatcounter-click="no046-follow-youtube-foot" href="https://youtube.com/@vektorfm" target="_blank" rel="noopener">YouTube · @vektorfm</a>
+    <a data-goatcounter-click="no046-follow-x-foot" href="https://x.com/vektordotfm" target="_blank" rel="noopener">X · @vektordotfm</a>
+    <a href="./privacy.html">Privacy</a>
+  </nav>
+
+  <div class="backref">A new keyword drops every day — <b>catch it first on the reel</b> — follow @vektor.fm. More like this: <a href="./no-045.html">Every stage ends by committing a file →</a></div>
+
+  <div class="wordmark-foot">
+    <span class="wm-foot" id="wmFoot" aria-label="vektor"><span class="ch2" style="--i:0"><span class="g">%</span><span class="l">v</span></span><span class="ch2" style="--i:1"><span class="g">#</span><span class="l">e</span></span><span class="ch2" style="--i:2"><span class="g">Z</span><span class="l">k</span></span><span class="ch2" style="--i:3"><span class="g">8</span><span class="l">t</span></span><span class="ch2" style="--i:4"><span class="g">@</span><span class="l">o</span></span><span class="ch2" style="--i:5"><span class="g">W</span><span class="l">r</span></span></span>
+    <span class="m">/// no. 046 / fable 5.1 / 09-2026 · four moves, four prompts, one price cut</span>
+  </div>
+</footer>
+
+<script>
+  function fallback(text){ var t=document.createElement('textarea'); t.value=text; t.style.position='fixed'; t.style.opacity='0'; document.body.appendChild(t); t.focus(); t.select(); try{ document.execCommand('copy'); }catch(e){} document.body.removeChild(t); }
+  function copyText(text, btn, doneLabel){ var o=btn.textContent, done=function(){ btn.textContent=doneLabel; setTimeout(function(){btn.textContent=o;},1600); }; if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(done).catch(function(){ fallback(text); done(); }); } else { fallback(text); done(); } }
+  function gcEvent(name){ if(name && window.goatcounter && goatcounter.count){ goatcounter.count({path:name, event:true}); } }
+  var COPY_EVENT='copy-four-things';
+  document.querySelectorAll('.copybtn').forEach(function(btn){ btn.addEventListener('click', function(){ copyText(btn.getAttribute('data-copy'), btn, 'Copied ✓'); gcEvent(COPY_EVENT); }); });
+  var snip=document.getElementById('snipCopy');
+  if(snip){ snip.addEventListener('click', function(){ var el=document.getElementById('snipText'); copyText(el.textContent, snip, 'Copied ✓'); gcEvent(COPY_EVENT); }); }
+  // generic copy hook (legacy multi-card pages): data-copy-target="all" | "#id"; optional data-copy-event
+  document.querySelectorAll('[data-copy-target]').forEach(function(btn){ btn.addEventListener('click', function(){ var t=btn.getAttribute('data-copy-target'), text; if(t==='all'){ text=[].slice.call(document.querySelectorAll('.copybtn')).map(function(b){return b.getAttribute('data-copy');}).join('\n'); } else { var el=document.querySelector(t); text=el?el.textContent:''; } copyText(text, btn, 'Copied ✓'); gcEvent(btn.getAttribute('data-copy-event')); }); });
+  var camp=(location.pathname.split('/').pop()||'index').replace(/\.html$/,'')||'index';
+  document.querySelectorAll('a[href^="http"]').forEach(function(a){ try{ var u=new URL(a.href); if(u.hostname==='github.com'){return;} if(!u.searchParams.has('utm_source')){ u.searchParams.set('utm_source','vektor'); u.searchParams.set('utm_medium','dm'); u.searchParams.set('utm_campaign',camp); a.href=u.toString(); } }catch(e){} });
+  var sh=document.getElementById('shareBtn');
+  if(sh){ sh.addEventListener('click', function(){ gcEvent('no046-share'); if(navigator.share){ navigator.share({title:document.title, url:location.href}).catch(function(){}); } else { copyText(location.href, sh, 'Link copied — paste it ✓'); } }); }
+  var sticky=document.getElementById('stickyCta'), sub=document.getElementById('subscribe'), dismissed=false;
+  var midcap=document.querySelector('.midcap'), cards=document.querySelectorAll('.issues .card'), lastCard=cards[cards.length-1];
+  // show once the reader has scrolled PAST the mid-page capture (peak intent handled),
+  // hide while a subscribe form intersects the bar's own strip (bottom 130px) so the bar
+  // never covers or competes with a form CTA. The old rule (last card above 60vh AND
+  // footer form fully off-screen) was geometrically unsatisfiable — the bar never showed.
+  function inBarZone(el){ if(!el){return false;} var r=el.getBoundingClientRect(); return r.top<window.innerHeight && r.bottom>window.innerHeight-130; }
+  function updCta(){ if(dismissed){return;} var gate=midcap||lastCard; var passed=!!gate && gate.getBoundingClientRect().bottom<0; var show=passed && !inBarZone(midcap) && !inBarZone(sub); sticky.classList.toggle('show', show); sticky.setAttribute('aria-hidden', show?'false':'true'); }
+  window.addEventListener('scroll',updCta,{passive:true}); window.addEventListener('resize',updCta); updCta();
+  document.getElementById('ctaClose').addEventListener('click', function(){ dismissed=true; sticky.classList.remove('show'); sticky.setAttribute('aria-hidden','true'); });
+  var wmFoot=document.getElementById('wmFoot');
+  if(wmFoot && 'IntersectionObserver' in window){ var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ wmFoot.classList.remove('play'); void wmFoot.offsetWidth; wmFoot.classList.add('play'); } }); }, {threshold:0.6}); io.observe(wmFoot); }
+  // THE ASK MODAL — an A/B on the TRIGGER, not on the copy (2026-09-01).
+  //
+  // History, so nobody re-litigates it from memory: this started as a 900 ms
+  // setTimeout, which covered the mobile viewport before the reader had read a
+  // word — the exact pattern Google penalises on mobile. It was moved to 50%
+  // scroll depth on 2026-08-17, then removed entirely on 2026-08-26 when a hard
+  // email gate went on the end of the page instead. The gate is now gone too
+  // (founder, 2026-09-01) and the pack is free on the page, so the modal is the
+  // primary ask again.
+  //
+  // The scroll version's record, pulled live from /report on 2026-09-01 over a
+  // 30-day window: ~47 views, ~46 dismissals, no attributable signup. The
+  // founder's position is that the ask should land at peak attention and that a
+  // half-page scroll is the wrong signal for it. Rather than argue it, both
+  // triggers ship and split 50/50:
+  //
+  //   arm a — 6 s timer            (fires on a clock, on everyone)
+  //   arm b — download/copy click  (fires on the action, after value landed)
+  //
+  // Read the result off count:email:<slug>-ask-a vs -ask-b in /report (the tag
+  // travels to Buttondown, so it survives ad-blockers that eat GoatCounter) and
+  // off no046-ask-view-a/-dismiss-a vs the -b pair for the dismissal rate.
+  // Decide after 3 films, not after one — at ~40-60 page opens per film, one
+  // film cannot separate these.
+  (function(){
+    var pop=document.getElementById('askPop'); if(!pop){return;}
+    var KEY='vektor_ask_seen', ARM_KEY='vektor_ask_arm', TTL=2*24*60*60*1000;
+
+    // ?arm=a / ?arm=b forces an arm, ?pop=1 forces it open past the cooldown.
+    // Without these the thing is untestable for anyone who has already seen it:
+    // on 2026-08-17 the page looked broken for two days when the real cause was
+    // a dismissal 21 hours earlier. Test affordances, not features.
+    var qs; try{ qs=new URLSearchParams(location.search); }catch(e){ qs=null; }
+    var force=!!qs && qs.get('pop')==='1';
+    var forcedArm=qs && (qs.get('arm')==='a' || qs.get('arm')==='b') ? qs.get('arm') : null;
+
+    // The arm is sticky per browser: a reader who saw the timer must never also
+    // see the action version, or every number here is a mixture of both.
+    var arm=forcedArm;
+    if(!arm){
+      try{ arm=localStorage.getItem(ARM_KEY); }catch(e){}
+      if(arm!=='a' && arm!=='b'){
+        arm = Math.random()<0.5 ? 'a' : 'b';
+        try{ localStorage.setItem(ARM_KEY, arm); }catch(e){}
+      }
+    }
+    var tag=document.getElementById('askTag');
+    if(tag){ tag.value='no046-ask-'+arm; }
+
+    if(!force){ try{ var last=parseInt(localStorage.getItem(KEY)||'0',10); if(last && (Date.now()-last)<TTL){ return; } }catch(e){} }
+    function seen(){ try{ localStorage.setItem(KEY, String(Date.now())); }catch(e){} }
+    function esc(e){ if(e.key==='Escape'){ close(); } }
+    function close(){ pop.setAttribute('hidden',''); seen(); document.removeEventListener('keydown',esc); gcEvent('no046-ask-dismiss-'+arm); }
+    pop.querySelectorAll('[data-pop-close]').forEach(function(el){ el.addEventListener('click', close); });
+    // submit fires seen() but NOT close(), so a dismissal count is never
+    // inflated by a conversion — dismiss ≈ view is then a real read.
+    var f=pop.querySelector('form');
+    if(f){ f.addEventListener('submit', function(){ seen(); gcEvent('no046-ask-submit-'+arm); }); }
+
+    var fired=false;
+    function open(){
+      if(fired){ return; }
+      fired=true;
+      pop.removeAttribute('hidden');
+      document.addEventListener('keydown',esc);
+      gcEvent('no046-ask-view-'+arm);
+      var x=pop.querySelector('.pop-x'); if(x){ try{ x.focus(); }catch(e){} }
+    }
+
+    if(force){ open(); return; }
+
+    if(arm==='a'){
+      // 6 s from load. Not 3 s: under 5 s is the band the mobile-interstitial
+      // guidance treats as pre-engagement, and if this arm is going to lose it
+      // should lose on its own best showing.
+      setTimeout(open, 6000);
+    } else {
+      // Peak intent: the click that takes the payload. Covers every route the
+      // pages use — the file links, the .copybtn snippets, the single-snippet
+      // button and the legacy multi-card copy buttons. 900 ms of delay so the
+      // "Copied ✓" confirmation is seen first; a modal that lands on the same
+      // frame as the click reads as an error, not an offer.
+      document.addEventListener('click', function(ev){
+        var t=ev.target && ev.target.closest ? ev.target.closest('.copybtn, #snipCopy, [data-copy-target], a[href*="./files/"]') : null;
+        if(!t){ return; }
+        setTimeout(open, 900);
+      }, true);
+    }
+  })();
+  document.querySelectorAll('form').forEach(function(f){ f.addEventListener('submit', function(){ gcEvent('no046-subscribe-submit'); }); });
+
+  // ---- shared nav: reveal + mobile drawer ----
+  // The header sits off-screen until a 24px hover strip is entered (desktop) or
+  // the Menu word is tapped (mobile). Touch devices never hover, so the bar is
+  // shown from the start there or the nav would be unreachable.
+  (function(){
+    var menu=document.querySelector('.menu'); if(!menu){return;}
+    var reveal=function(){ menu.classList.add('nav-visible'); };
+    var strip=document.querySelector('.navreveal'); if(strip){ strip.addEventListener('mouseenter',reveal); }
+    menu.addEventListener('focusin',reveal);
+    var word=document.querySelector('.menu-word');
+    if(word){
+      word.addEventListener('click',function(){
+        reveal();
+        var open=menu.classList.toggle('drawer-open');
+        word.setAttribute('aria-expanded',String(open));
+        word.setAttribute('aria-label',open?'Close menu':'Open menu');
+        var lbl=word.querySelector('.lbl'); if(lbl){ lbl.textContent=open?'Close':'Menu'; }
+        document.body.style.overflow=open?'hidden':'';
+      });
+    }
+    if(window.matchMedia('(hover: none)').matches){ reveal(); }
+  })();
+
+  // Instrumentation before optimisation. Every capture point reports its own
+  // event, so we can see which of the four actually earns its place instead of
+  // guessing. Previously all of them fired one shared 'subscribe-submit'.
+  document.querySelectorAll('form[data-capture]').forEach(function(f){
+    f.addEventListener('submit', function(){
+      gcEvent('no046-sub-' + f.getAttribute('data-capture'));
+    });
+  });
+  // sticky bar impression, once per page view, to give the submits a denominator
+  (function(){ var seen=false, bar=document.getElementById('stickyCta');
+    if(!bar){return;}
+    new MutationObserver(function(){
+      if(!seen && bar.classList.contains('show')){ seen=true; gcEvent('no046-sticky-view'); }
+    }).observe(bar,{attributes:true,attributeFilter:['class']});
+  })();
+</script>
+
+<script data-goatcounter="https://vektor.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body></html>
