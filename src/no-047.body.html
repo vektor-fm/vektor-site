@@ -1,0 +1,120 @@
+<section class="hero">
+  <div class="kick eye">Claude Code · Convert Files Locally</div>
+  <h1 class="disp">Convert files locally,<br>never upload them<span class="dot">.</span></h1>
+  <p class="sub">You upload a file to a free converter site, and you have no idea what happens to it in between. The FBI's Denver field office does: in March 2025 it warned that free online converters were loading malware and scraping uploaded documents. Below: the one ImageMagick line that converts a file on your own machine instead, and the full set of one-liners for images, PDFs, video, audio and documents — nothing uploaded, ever.</p>
+  <div class="actions">
+    <a class="btn primary" href="#install">Install it ↓</a>
+    <a class="btn" href="#claude">Let Claude Code write the loop →</a>
+    <a class="btn" href="./files/local-convert.md">Download the cheat sheet (.md) &darr;</a>
+    <button class="btn" id="shareBtn" type="button">Send to whoever still uses an online converter</button>
+  </div>
+  <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+</section>
+
+<!-- ======================= 01 — INSTALL ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 01 ·</h2>
+  <h2 class="disp">Install ImageMagick<span class="dot">.</span></h2>
+  <p class="sub">One command on Windows, one on a Mac. Everything after this runs offline.</p>
+</div>
+
+<section class="issues" id="install">
+  <article class="issue">
+    <h3>Windows</h3>
+    <p>Press <b>Windows + R</b>, type <code>wt</code>, press Enter to open Windows Terminal. Then:</p>
+    <p class="meta"><code>winget install ImageMagick.ImageMagick</code></p>
+  </article>
+
+  <article class="issue">
+    <h3>Mac</h3>
+    <p>Open Terminal. If you have Homebrew installed:</p>
+    <p class="meta"><code>brew install imagemagick</code></p>
+  </article>
+
+  <article class="issue">
+    <h3>What you get</h3>
+    <p>ImageMagick is open source and converts a huge range of image and PDF formats, entirely on your own machine. For video, audio and documents further down you also need <b>ffmpeg</b> and <b>pandoc</b> — install lines are next to each section on the sheet.</p>
+    <p class="meta">Never push a personal document through a random converter off the first page of Google. Keep your files on your machine wherever you can.</p>
+  </article>
+</section>
+
+<!-- ======================= 02 — IMAGES AND PDFS ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 02 ·</h2>
+  <h2 class="disp">Images and PDFs, one line each<span class="dot">.</span></h2>
+  <p class="sub">The pattern never changes: <code>magick &lt;input&gt; &lt;output&gt;</code>. The extensions do the work.</p>
+</div>
+
+<section class="issues" id="images">
+  <article class="issue">
+    <h3>JPG to PDF, live</h3>
+    <p>Copy the file path. In the terminal type <code>magick</code>, paste the path, then the output path, and swap <code>.jpg</code> for <code>.pdf</code>. Enter. Done.</p>
+    <p class="meta"><code>magick photo.jpg photo.pdf</code></p>
+  </article>
+
+  <article class="issue">
+    <h3>Several JPGs into one PDF</h3>
+    <p>List every input before the output name and ImageMagick stacks them into one file, in order.</p>
+    <p class="meta"><code>magick photo1.jpg photo2.jpg photo3.jpg combined.pdf</code></p>
+  </article>
+
+  <article class="issue">
+    <h3>PNG to JPG, resize, compress</h3>
+    <p>Same pattern for a straight format swap. Add <code>-resize</code> and <code>-quality</code> flags to shrink a file at the same time.</p>
+    <p class="meta"><code>magick photo.jpg -resize 50% -quality 80 photo-small.jpg</code></p>
+  </article>
+</section>
+
+<!-- ======================= 03 — VIDEO, AUDIO, DOCUMENTS ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 03 ·</h2>
+  <h2 class="disp">Video, audio and documents<span class="dot">.</span></h2>
+  <p class="sub">Two more tools, same idea. <b>ffmpeg</b> for video and audio, <b>pandoc</b> for documents.</p>
+</div>
+
+<section class="issues" id="other">
+  <article class="issue">
+    <h3>MP4 to GIF, MP4 to MP3</h3>
+    <p>ffmpeg pulls a clip's audio out on its own, or turns the clip itself into a GIF.</p>
+    <p class="meta"><code>ffmpeg -i clip.mp4 -vf "fps=10,scale=320:-1:flags=lanczos" clip.gif</code></p>
+  </article>
+
+  <article class="issue">
+    <h3>DOCX to Markdown or PDF</h3>
+    <p>pandoc converts a Word document straight to Markdown with no extra install. Going to PDF needs a LaTeX engine installed alongside it (MiKTeX or TinyTeX) — pandoc's own error message names what's missing if you don't have one yet.</p>
+    <p class="meta"><code>pandoc document.docx -o document.md</code></p>
+  </article>
+
+  <article class="issue">
+    <h3>The honest gaps</h3>
+    <p>PDF to JPG needs Ghostscript installed alongside ImageMagick — not on by default on Windows. HEIC to JPG depends on your ImageMagick build having the HEIC component; if it doesn't, the error tells you which one to look for.</p>
+    <p class="meta"><a href="./files/local-convert.md">Full cheat sheet, every caveat included →</a></p>
+  </article>
+</section>
+
+<!-- ======================= 04 — CLAUDE CODE ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 04 ·</h2>
+  <h2 class="disp">Let Claude Code write the loop<span class="dot">.</span></h2>
+  <p class="sub">Once ImageMagick is installed, Claude Code can drive it and write the batch loop for you.</p>
+</div>
+
+<section class="issues" id="claude">
+  <article class="issue">
+    <h3>Say what you want, not the syntax</h3>
+    <p>In a terminal, inside the folder with your files: <i>convert every jpg in this folder to pdf.</i> Claude Code writes and runs the loop.</p>
+    <p class="meta">You do not need to remember loop syntax in any shell — that is the point of asking.</p>
+  </article>
+
+  <article class="issue">
+    <h3>The loop it wrote</h3>
+    <p>On 2026-09-04, asked to batch-convert a folder, it wrote this — bash syntax, the shell Claude Code was running in:</p>
+    <p class="meta"><code>for f in *.jpg; do magick "$f" "${f%.jpg}.pdf"; done</code></p>
+  </article>
+
+  <article class="issue">
+    <h3>Your files stay yours</h3>
+    <p>ImageMagick did the whole thing locally. Nothing uploaded. No sketchy converter.</p>
+    <p class="meta"><a href="./files/local-convert.md">View raw / download the cheat sheet →</a></p>
+  </article>
+</section>

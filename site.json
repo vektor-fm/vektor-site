@@ -13,6 +13,16 @@
   },
   "issues": [
     {
+      "number": "047",
+      "title_short": "Convert files locally",
+      "section": "Local tools",
+      "date": "09-2026",
+      "keyword": "CONVERT",
+      "lastmod": "2026-09-04",
+      "built": true,
+      "unlock": "1ebc09123a"
+    },
+    {
       "number": "046",
       "title_short": "Four things to do with Fable 5.1",
       "section": "AI models",
