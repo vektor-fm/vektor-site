@@ -385,6 +385,12 @@
       "title": "Five token claims. One of them was measured.",
       "date": "2026-08-18",
       "subject": "Five token claims, one benchmark"
+    },
+    {
+      "number": "003",
+      "title": "Anthropic's playbook, minus the AI",
+      "date": "2026-09-08",
+      "subject": "Anthropic's playbook, minus the AI"
     }
   ],
   "proof": {
