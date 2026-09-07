@@ -1,0 +1,128 @@
+<section class="hero">
+  <div class="kick eye">The Teardown · 003</div>
+  <h1 class="disp">Anthropic's playbook,<br>minus the AI<span class="dot">.</span></h1>
+  <p class="sub">Anthropic published how it actually builds software with agents. The part worth stealing is not the agents. It is that every stage ends by committing a file, which is a 1970s idea wearing new clothes, and which works whether or not the AI is any good.</p>
+  <div class="actions">
+    <a class="btn primary" href="#chain">The artifact chain ↓</a>
+    <a class="btn" href="#bottleneck">The claim with the least evidence →</a>
+    <button class="btn" id="shareBtn" type="button">Send to a dev friend</button>
+  </div>
+  <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+</section>
+
+<!-- ======================= THE DIAGRAM ======================= -->
+<div class="fig" id="chain">
+  <h2 class="kick">Fig. 01 ·</h2>
+  <span class="gaccent">six stages, six commits, one edge going backwards</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues">
+  <article class="issue">
+    <p><img src="./diagrams/teardown-003.png" alt="The artifact chain: Plan commits intent.md, Design commits spec.md, Build commits plan.md and the diff, Test commits evals, Deploy commits a merged PR behind a human approval gate, Maintain commits an incident record. An edge runs back from Maintain to Plan, labelled: the incident writes the next intent.md. Below, skills are advisory and hooks are deterministic." width="1200" height="750" loading="lazy"></p>
+    <p class="meta">Every stage "ends by committing an artifact with the commit initiating the next stage."<sup><a href="#s1">[1]</a></sup> The stage names are ordinary. The discipline is not: the handoff between stages is a git commit, so the chain that produced a change and the audit trail of that change are the same object. You do not maintain the second one.</p>
+  </article>
+</section>
+
+<!-- ======================= WHAT IT ACTUALLY SAYS ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 02 ·</h2>
+  <span class="gaccent">what the document actually is</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues">
+  <article class="issue">
+    <p>Read it end to end and the first thing you notice is what is missing: numbers. There is no productivity multiplier in it, no defect-reduction percentage, no before-and-after on cycle time. The closest it comes to a measured claim is an aside about a support workflow, and a piece of operational advice that "two or three sessions is a sensible starting point," where "the practical ceiling is how many streams one person can review properly."<sup><a href="#s1">[1]</a></sup></p>
+    <p>That is not a criticism. It is a design document, and design documents are allowed to describe a shape rather than prove a result. But it matters for how you read it, because the internet has been quoting it as though it were a results paper. It is a description of how one company has arranged its work. Treat every claim in it as a hypothesis that Anthropic finds plausible enough to run its own engineering on, which is a real signal, and not as a measurement.</p>
+    <p>The genuinely reusable idea is the file discipline. An idea becomes <code>intent.md</code>, described as "what is wanted, why, and under which constraints." That commit triggers <code>spec.md</code>. That triggers <code>plan.md</code> and the diff. Tests are evals woven through implementation rather than a phase at the end. Deploy produces a reviewed, merged PR. Maintain produces an incident record.<sup><a href="#s1">[1]</a></sup></p>
+    <p>And then the edge that makes it a cycle rather than a pipeline: when production breaks, the agent "writes its diagnosis as <code>intent.md</code> in the Stage 1: Plan format," and "from there the finding goes through the pipeline like anything else."<sup><a href="#s1">[1]</a></sup> An incident does not get a special path. It gets the ordinary path, from the top.</p>
+  </article>
+</section>
+
+<!-- ======================= THE BOTTLENECK CLAIM ======================= -->
+<div class="fig" id="bottleneck">
+  <h2 class="kick">Fig. 03 ·</h2>
+  <span class="gaccent">the claim with the least evidence behind it</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues">
+  <article class="issue">
+    <p>The playbook's premise, and the line everyone repeats, is that <i>"code is no longer the bottleneck."</i> It follows through: <i>"build is no longer the constraint, the human-speed steps around it are,"</i> and the bottleneck therefore "moves to the steps to the left and right of the build phase. This is mainly plan, review/test, and deploy, which still run at human speed."<sup><a href="#s1">[1]</a></sup></p>
+    <p>This is the part of the document with the least evidence attached to it, and it is also the part the whole design rests on. So it is worth asking what has actually been measured.</p>
+    <p>The most careful thing anyone has run is a randomised controlled trial by METR, published July 2025. Sixteen experienced open-source developers completed 246 real tasks in mature repositories they had worked on for an average of five years. Each task was randomly assigned to allow or disallow AI tooling, which at the time meant mostly Cursor Pro with Claude 3.5 and 3.7 Sonnet. Before starting, the developers forecast that AI would cut their completion time by 24%. Afterwards, they estimated it had cut it by 20%. Measured, allowing AI <b>increased</b> completion time by 19%.<sup><a href="#s2">[2]</a></sup></p>
+    <p>The gap between the estimate and the measurement is the finding, more than the slowdown itself. These are not people with an axe to grind about AI. They used it, they felt faster, and the stopwatch disagreed by roughly forty percentage points. Economics and ML experts asked to predict the result were further out still, at 39% and 38% faster respectively.<sup><a href="#s2">[2]</a></sup></p>
+    <p><b>Three honest caveats, because this number gets swung around carelessly and I am not going to add to that.</b> First, it measures early-2025 tooling in a specific setting: mature codebases with high quality standards, developers with deep prior context, no agentic harness of the kind the playbook describes. It is not a measurement of the playbook. Second, the authors say plainly that "the influence of experimental artifacts cannot be entirely ruled out," though they argue the effect is robust across their analyses.<sup><a href="#s2">[2]</a></sup> Third, and most importantly, METR themselves have since reported that they cannot cleanly run this design any more: between 30% and 50% of developers told them they were declining to submit tasks "because they did not want to do them without AI," so the study is "systematically missing developers who have the most optimistic expectations about AI's value." Of their newer data they say it is "only very weak evidence."<sup><a href="#s3">[3]</a></sup></p>
+    <p>So the state of the evidence is genuinely unsettled, and anyone telling you otherwise in either direction is selling something. What you can say is this: "code is no longer the bottleneck" is an assertion, the one careful trial we have pointed the other way in its own setting, and the people who ran that trial now think their instrument is broken. That is a thinner foundation than the confidence around this document suggests.</p>
+    <p>Which is exactly why the file discipline is the part to take. It does not depend on the premise being true. If the agent is fast, the artifact chain is what stops the speed turning into unreviewable churn. If the agent is slow, you have lost nothing except some markdown. Google's DORA programme reached a compatible conclusion from the other end, reporting that "AI's primary role is as an amplifier, magnifying an organization's existing strengths and weaknesses," and that the "greatest returns on AI investment come not from the tools themselves, but from a strategic focus on the underlying organizational system."<sup><a href="#s5">[5]</a></sup> A chain of committed artifacts <i>is</i> an underlying organisational system, and it is one you can install this afternoon.</p>
+  </article>
+</section>
+
+<!-- ======================= SKILLS VS HOOKS ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 04 ·</h2>
+  <span class="gaccent">a skill asks, a hook refuses</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues">
+  <article class="issue">
+    <p>The two guardrail layers get conflated constantly, including by people who have shipped both. The playbook's own formulation is the cleanest one-liner available: <i>"A skill is an advisory control while a hook is the deterministic layer behind it."</i> The rule that follows is the useful bit: <i>"back any skill whose policy has to hold without exception"</i> with a hook.<sup><a href="#s1">[1]</a></sup></p>
+    <p>It is worth checking that "deterministic" against the mechanism, because it is the kind of word that gets used loosely. It holds up, in one direction. In the Claude Code hooks reference, a <code>PreToolUse</code> hook that exits with status 2 blocks the tool call outright, and the documentation is explicit that this is not negotiable: <i>"exit 2 blocks whether or not you print JSON: even a JSON <code>permissionDecision</code> of 'allow' can't override it."</i><sup><a href="#s4">[4]</a></sup></p>
+    <p>The asymmetry is the thing to internalise, and the docs state it in one sentence: <i>"The hook can deny the call, but staying silent doesn't approve it."</i><sup><a href="#s4">[4]</a></sup> A hook is a brake, not a steering wheel. It can stop the agent doing a specific thing with certainty. It cannot make the agent do a thing, and it cannot make a thing safe. If your policy is "never write to the production database," that is a hook and it will hold. If your policy is "prefer the repository's existing error-handling pattern," no hook can express that, and you are back to a skill and a probability.</p>
+    <p>One placement detail in the playbook is easy to miss and expensive to get wrong. A hook that asks a human for approval belongs at Stage 5, Deploy, <i>"because an approval prompt during the build puts a person back on the critical path."</i><sup><a href="#s1">[1]</a></sup> If you scatter approval prompts through the build stage you have rebuilt the bottleneck you were trying to remove, one dialog box at a time.</p>
+  </article>
+</section>
+
+<!-- ======================= THE MERGE BUTTON ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 05 ·</h2>
+  <span class="gaccent">the one thing the agent may never do</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues">
+  <article class="issue">
+    <p>Claude reviews pull requests against policy, and Claude also receives reviews and addresses the comments on its own PRs. But the boundary is absolute and, notably, it is not enforced by asking nicely: <i>"the agent that wrote the code has no way to approve it,"</i> because <i>"approval comes from a human through branch protection."</i><sup><a href="#s1">[1]</a></sup></p>
+    <p>That is the same design instinct as the hook. The rule that must hold without exception is not written into a prompt where a model can be talked out of it. It is written into the platform, where there is no conversation to have. Branch protection does not evaluate an argument.</p>
+    <p>What changes for the human is the altitude, not the workload: <i>"human attention moves up a level, to whether the change does what the plan intended and whether the risk is acceptable."</i><sup><a href="#s1">[1]</a></sup> This is the honest cost of the whole arrangement, and the playbook does not hide it. You are not reviewing less. You are reviewing differently, and against the <code>plan.md</code> that the same system committed three stages earlier, which is the only reason reviewing at that altitude is possible at all.</p>
+    <p>The production loop follows the same tiering logic. A deterministic script, not an agent, watches the metrics and calls the agent in when a control band is breached. The tiers are version-controlled: <i>"at 1σ the script only logs, at 2σ it invokes Claude read-only to diagnose, and at 3σ Claude may act, though only by opening a PR into the review gate or triggering a pre-approved runbook."</i><sup><a href="#s1">[1]</a></sup> Even at its most autonomous, at three standard deviations out, the agent's maximum privilege is to open a PR that a human still has to merge.</p>
+  </article>
+</section>
+
+<!-- ======================= DOES IT EARN A SLOT ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 06 ·</h2>
+  <span class="gaccent">does it earn a slot?</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues">
+  <article class="issue">
+    <p><b>Yes, and you should install the cheap half first.</b> The artifact chain costs you four markdown files and a habit. You do not need agents, a monitoring tier, or any part of the premise to be true in order to get the benefit, which is that every change arrives with a written record of what was wanted and why, committed before the code existed rather than reconstructed afterwards in a PR description.</p>
+    <p>Start with <code>intent.md</code> alone, for one change, this week. If writing down what is wanted and under which constraints turns out to be hard, that is the finding, and it was going to bite you later at review time regardless of who or what wrote the code.</p>
+    <p><b>Be more sceptical of the expensive half.</b> The autonomous production loop is a serious piece of infrastructure, and it is the part most likely to be cargo-culted by teams whose deploys are not yet boring. The tiering is good design, but it presupposes you already have control bands worth breaching, version-controlled response config, and pre-approved runbooks. If you have those, you probably did not need the playbook to tell you this. If you do not, build those first, without any AI in the picture, because an agent triggered by a metric you do not trust is a faster way to be wrong.</p>
+    <p>If you only take one thing from this issue: <b>the audit trail is free only if the handoff is a commit.</b> Every part of this design that works, the reviewable chain, the honest history, the incident that re-enters at Stage 1, works because the artifact is committed at the boundary rather than written up afterwards. Adopt that and you have most of the value. Adopt the agents without it and you have a faster way to produce changes nobody can review.</p>
+  </article>
+</section>
+
+<!-- ======================= SOURCES ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 07 ·</h2>
+  <span class="gaccent">sources</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues" id="sources">
+  <article class="issue">
+    <ol class="ledger">
+      <li id="s1"><b>[1]</b> Anthropic — <a href="https://claude.com/blog/the-ai-native-sdlc-playbook" target="_blank" rel="noopener">The AI-Native SDLC Playbook</a>. Source of the six stages and their committed artifacts, the skills-versus-hooks formulation, the branch-protection approval rule, the 1σ/2σ/3σ response tiers, the placement of approval hooks at Stage 5, and every quoted line attributed to the playbook above. Read at source 2026-09-07.</li>
+      <li id="s2"><b>[2]</b> Becker, Rush, Barnes and Rein — <a href="https://arxiv.org/abs/2507.09089" target="_blank" rel="noopener">Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity</a>, arXiv:2507.09089, submitted 12 July 2025. RCT, 16 developers, 246 tasks, mature repositories with ~5 years of prior developer experience, tooling window February to June 2025, mostly Cursor Pro with Claude 3.5/3.7 Sonnet. Forecast 24% faster, post-hoc self-estimate 20% faster, measured 19% slower. Expert predictions 39% (economics) and 38% (ML) faster. Abstract read at source 2026-09-07; no confidence interval is stated in the abstract.</li>
+      <li id="s3"><b>[3]</b> METR — <a href="https://metr.org/blog/2026-02-24-uplift-update/" target="_blank" rel="noopener">We are Changing our Developer Productivity Experiment Design</a>, 24 February 2026. Source of the selection-bias problem, the 30% to 50% of developers declining to submit tasks they did not want to do without AI, and the authors' own assessment that their newer data is "only very weak evidence." Read at source 2026-09-07.</li>
+      <li id="s4"><b>[4]</b> Anthropic — <a href="https://code.claude.com/docs/en/hooks" target="_blank" rel="noopener">Claude Code hooks reference</a>. Source of the <code>PreToolUse</code> blocking mechanism, the exit-code-2 guarantee, and "the hook can deny the call, but staying silent doesn't approve it." Read at source 2026-09-07.</li>
+      <li id="s5"><b>[5]</b> Google / DORA — <a href="https://dora.dev/dora-report-2025/" target="_blank" rel="noopener">State of AI-assisted Software Development 2025</a>. Source of the amplifier finding and the "underlying organizational system" line, both quoted from the report's public overview page. Read at source 2026-09-07. <b>Note:</b> the widely repeated "90% AI adoption" figure from this report is <i>not</i> cited here, because it does not appear on the page that was read and the full PDF was not opened. It is left out rather than passed along.</li>
+    </ol>
+    <p class="meta">Nothing in this issue has been independently reproduced. The playbook's claims are Anthropic's, attributed as such; the METR figures are the authors', with the authors' own caveats attached and the follow-up that weakens them cited beside the headline number. If something here is wrong, reply and tell me. Corrections go out in the next issue, named as corrections.</p>
+  </article>
+</section>
