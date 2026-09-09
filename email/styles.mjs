@@ -102,12 +102,13 @@ export const blocks = {
   kicker: (text) => `<p style="font-family:${SANS};font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:${DIM};margin:12px 0 0;">${text}</p>`,
 
   // FILE BAR: the tab above a code block. Path in teal, meta in grey, on the
-  // same ink as the block so the two read as one object. The fenced code block
-  // MUST follow it directly; inlineStyles() zeroes that block's top margin.
-  filebar: (file, meta) => `<div data-vk="filebar" style="margin:24px 0 0;background:#1A1A1A;padding:10px 20px;border-bottom:1px solid #2A2A2A;">`
-    + `<span style="font-family:'SF Mono',Menlo,Consolas,monospace;font-size:12px;color:${TEAL};">${file}</span>`
-    + (meta ? `<span style="font-family:${SANS};font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#8C8C8C;float:right;padding-top:2px;">${meta}</span>` : '')
-    + '</div>',
+  // same ink as the block so the two read as one object. A two-cell table, not a
+  // float: a floated span wrapped under the path in the 2026-09-09 preview. The
+  // fenced code block MUST follow it directly; inlineStyles() zeroes its top margin.
+  filebar: (file, meta) => `<table role="presentation" data-vk="filebar" cellpadding="0" cellspacing="0" border="0" style="width:100%;border-collapse:collapse;margin:24px 0 0;background:#1A1A1A;border-bottom:1px solid #2A2A2A;"><tr>`
+    + `<td style="padding:10px 20px;font-family:'SF Mono',Menlo,Consolas,monospace;font-size:12px;color:${TEAL};">${file}</td>`
+    + (meta ? `<td style="padding:10px 20px;text-align:right;white-space:nowrap;font-family:${SANS};font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#8C8C8C;">${meta}</td>` : '')
+    + '</tr></table>',
 
   // TRIED THIS WEEK: at most two rows, each a verdict chip and one sentence.
   // The chip is the product; a row without a verdict is a feed item.
@@ -146,6 +147,6 @@ export function inlineStyles(html) {
   // <pre><code> : the code tag inherits the block (see PRE_CODE).
   out = out.replace(/(<pre[^>]*>\s*<code[^>]*?)\sstyle="[^"]*"/g, `$1 style="${PRE_CODE}"`);
   // A code block directly under a file bar is the same object: no gap.
-  out = out.replace(/(<div data-vk="filebar"[\s\S]*?<\/div>)\s*(<pre style="[^"]*?)margin:24px 0 0;/g, '$1$2margin:0;');
+  out = out.replace(/(<table[^>]*data-vk="filebar"[\s\S]*?<\/table>)\s*(<pre style="[^"]*?)margin:24px 0 0;/g, '$1$2margin:0;');
   return out;
 }
