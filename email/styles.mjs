@@ -24,25 +24,37 @@ const RULE = '#E2E2E2';
 // tag -> style. Applied to the top-level tags marked() emits. A tag missing from
 // this map keeps the client's default, which is why the list is deliberately
 // complete for the subset the issues actually use rather than clever.
+//
+// WHAT BUTTONDOWN DOES TO THESE ON DELIVERY (measured 2026-09-09, two probe
+// sends read back from Gmail as delivered HTML; the rules are in
+// email/buttondown-modern.css). Its "modern" template runs a CSS inliner over
+// the body: a property we did not set is filled from its stylesheet, and its
+// !important rules overwrite ours. So: p/li/h1-h6 get margin 16px 0, p/li get
+// 16px/24px, links are the tint colour #0E9C86 underlined, whatever we say.
+// A fenced block WITH a language tag is re-rendered by its highlighter and
+// loses every style below; a plain fence keeps ours. The values here are set
+// to what actually arrives, so the preview stops lying, and every colour is
+// explicit because a missing one is filled with Buttondown's (code got
+// color:#fff and vanished on a light chip). The naked/custom templates and
+// the css field are paid; the account is on the free plan.
 export const TAG_STYLES = {
-  p: `font-family:${SANS};font-size:16px;line-height:1.7;color:${INK};margin:20px 0 0;`,
-  li: `font-family:${SANS};font-size:16px;line-height:1.7;color:${INK};margin:8px 0 0;`,
-  ul: 'margin:16px 0 0;padding-left:20px;',
-  ol: 'margin:16px 0 0;padding-left:20px;',
-  h1: `font-family:${DISPLAY};font-weight:400;font-size:30px;line-height:1.18;color:${INK};margin:34px 0 0;`,
-  h2: `font-family:${DISPLAY};font-weight:400;font-size:21px;line-height:1.28;color:${INK};margin:38px 0 0;`,
-  h3: `font-family:${DISPLAY};font-weight:400;font-size:17px;line-height:1.35;color:${INK};margin:30px 0 0;`,
+  p: `font-family:${SANS};font-size:16px;line-height:24px;color:${INK};margin:16px 0;`,
+  li: `font-family:${SANS};font-size:16px;line-height:24px;color:${INK};margin:8px 0 0;`,
+  ul: 'margin:16px 0;padding-left:20px;',
+  ol: 'margin:16px 0;padding-left:20px;',
+  h1: `font-family:${DISPLAY};font-weight:400;font-size:30px;line-height:1.18;color:${INK};margin:16px 0;`,
+  h2: `font-family:${DISPLAY};font-weight:400;font-size:21px;line-height:1.28;color:${INK};margin:16px 0;`,
+  h3: `font-family:${DISPLAY};font-weight:400;font-size:17px;line-height:1.35;color:${INK};margin:16px 0;`,
   strong: `font-weight:600;color:${INK};`,
   em: 'font-style:italic;',
-  // border-bottom, NOT box-shadow. Outlook renders through Word, which drops
-  // box-shadow entirely, and a link that loses its underline in an email is not a
-  // subtle styling loss: it becomes indistinguishable from body copy and nobody
-  // clicks it. border-bottom survives every client that matters.
-  a: `color:${INK};text-decoration:none;border-bottom:2px solid ${TEAL};`,
+  // Buttondown forces a { color: <tint> !important; text-decoration: underline }
+  // on every link. The tint IS our teal, so the theme says the same thing
+  // rather than pretending an ink link with a teal border-bottom will arrive.
+  a: `color:${TEAL};text-decoration:underline;`,
   img: 'display:block;width:100%;height:auto;margin:28px 0 0;',
-  hr: `border:0;border-top:1px solid ${RULE};margin:34px 0 0;`,
+  hr: `border:0;border-top:1px solid ${RULE};margin:34px 0 0;max-width:100%;`, // Buttondown fills max-width:300px if absent
   blockquote: `margin:24px 0 0;padding:2px 0 2px 16px;border-left:2px solid ${TEAL};color:${DIM};`,
-  code: "font-family:'SF Mono',Menlo,Consolas,monospace;font-size:14px;background:#F5F5F3;padding:2px 5px;",
+  code: `font-family:'SF Mono',Menlo,Consolas,monospace;font-size:14px;color:${INK};background:#F5F5F3;padding:2px 5px;`, // colour explicit: Buttondown fills #fff
   // pre-wrap, not overflow: Gmail and Outlook ignore overflow-x, so a long line
   // in a 600px column is either wrapped by us or cut off by them. Authors keep
   // code lines under ~72 characters so the wrap rarely fires on desktop.
@@ -62,7 +74,7 @@ const PRE_CODE = 'font-family:inherit;font-size:inherit;background:none;padding:
 export const blocks = {
   lede: (text) => `<p style="font-family:${SANS};font-size:17px;line-height:1.62;color:${DIM};margin:14px 0 0;">${text}</p>`,
 
-  rule: () => `<hr style="border:0;border-top:2px solid ${INK};margin:24px 0 0;">`,
+  rule: () => `<hr style="border:0;border-top:2px solid ${INK};margin:24px 0 0;max-width:100%;">`,
 
   section: (label) => `<div style="border-top:1px solid ${RULE};margin:36px 0 0;padding-top:14px;">`
     + `<span style="display:block;font-family:${SANS};font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:${TEAL};">${label}</span>`
@@ -86,7 +98,10 @@ export const blocks = {
   cta: ({ label, text, href, button }) => '<div style="margin:34px 0 0;background:#F5F5F3;padding:24px 26px;">'
     + `<span style="display:block;font-family:${SANS};font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:${TEAL};margin:0 0 9px;">${label}</span>`
     + `<p style="font-family:${SANS};font-size:15px;line-height:1.6;color:${INK};margin:0 0 16px;">${text}</p>`
-    + `<a href="${href}" style="display:inline-block;background:${TEAL};color:#04120F;border-bottom:0;font-family:${SANS};font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:13px 24px;text-decoration:none;">${button}</a>`
+    // Ink button, teal label: Buttondown forces link colour to the teal tint, so
+    // a teal button arrived teal-on-teal (invisible, founder 2026-09-09). Teal on
+    // ink measures 5.6:1. (.buttondown-button would give white on teal, 3.9:1.)
+    + `<a href="${href}" style="display:inline-block;background:${INK};color:${TEAL};font-family:${SANS};font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:13px 24px;text-decoration:none;">${button}</a>`
     + '</div>',
 
   signoff: (paras, name) => `<div style="margin:32px 0 0;padding-top:20px;border-top:1px solid ${RULE};">`
