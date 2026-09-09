@@ -132,7 +132,7 @@ export const blocks = {
       const yes = /^yes/i.test(verdict);
       const chip = `background:${yes ? TEAL : '#E2E2E2'};color:${yes ? '#04120F' : INK};`;
       return `<tr><td style="padding:12px 0;border-top:1px solid ${RULE};vertical-align:top;width:72px;">`
-        + `<span style="display:inline-block;${chip}font-family:${SANS};font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:4px 8px;">${verdict}</span></td>`
+        + `<span style="display:inline-block;${chip}font-family:${SANS};font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:4px 8px;">${verdict}</span></td>`
         + `<td style="padding:12px 0 12px 14px;border-top:1px solid ${RULE};vertical-align:top;font-family:${SANS};font-size:14px;line-height:1.6;color:${INK};">${text}</td></tr>`;
     }).join('')
     + '</table>',
