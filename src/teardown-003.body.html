@@ -107,6 +107,99 @@
   </article>
 </section>
 
+<!-- ======================= THE FILE ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 07 ·</h2>
+  <span class="gaccent">the file</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues" id="file">
+  <article class="issue">
+    <p>The one rule this operation could not afford to have broken was <i>no direct commits on <code>main</code></i>. It was written into the CLAUDE.md every session reads, in bold, on 2026-07-10. Over the next four days, sessions read it and committed on <code>main</code> twenty-one times across two repos. The hook below went in on 2026-07-13. In the fifty-eight days since, four direct commits reached <code>main</code>, all of them in the three hours between the file landing and the settings wiring that loads it. Before the written rule, the same four-day window held forty-eight. Source: <code>git log origin/main --first-parent --no-merges</code> on the two repos, read 2026-09-09. The site repo publishes straight from <code>main</code> and was never under the rule, so it is not counted.</p>
+    <p>This is the full file as it runs here, sanitised. The email carries a 36-line version; this one adds the <code>git -C &lt;path&gt;</code> handling for commits aimed at another repo, a Windows path fix for MSYS-style paths, and a per-repo escape hatch: a <code>.git-flow-exempt</code> file at a repo root opts that repo out. Save it as <code>.claude/hooks/git-flow-guard.mjs</code> in the folder above your repos and it covers every repo beneath, worktrees included. Node only, no dependencies.</p>
+<pre class="code"><code>#!/usr/bin/env node
+// git-flow-guard.mjs — PreToolUse hook (Claude Code). Enforces the Git Flow
+// branching law for every repo under projects/: no direct commits on
+// main/master. Reads the hook JSON from stdin; if the shell command contains a
+// `git commit` and the target repo's current branch is main or master, the
+// commit is BLOCKED (exit 2) — unless a merge is in progress (MERGE_HEAD
+// exists), which is the legitimate case of completing a release/hotfix merge
+// into main. Pure Node — Windows-safe, no bash/jq.
+//
+// Wired from .claude/settings.json → hooks.PreToolUse (matcher "Bash|PowerShell").
+import {execFileSync} from 'node:child_process';
+import fs from 'node:fs';
+
+let raw = '';
+process.stdin.on('data', (d) =&gt; (raw += d));
+process.stdin.on('end', () =&gt; {
+  let input;
+  try {
+    input = JSON.parse(raw);
+  } catch {
+    process.exit(0);
+  }
+  const cmd = String(input?.tool_input?.command ?? '');
+  // Only care about commands that actually run `git ... commit`
+  if (!/\bgit\b[^|&amp;;\n]*\bcommit\b/.test(cmd)) process.exit(0);
+
+  // Resolve the repo the commit targets: prefer `git -C &lt;path&gt;`, else the
+  // session cwd reported in the hook payload.
+  let dir = input?.cwd ?? process.cwd();
+  const cFlag = cmd.match(/\bgit\s+-C\s+("([^"]+)"|'([^']+)'|(\S+))/);
+  if (cFlag) dir = cFlag[2] ?? cFlag[3] ?? cFlag[4];
+  // Windows git.exe can't chdir to MSYS-style paths (/c/Users/...) — normalize.
+  dir = String(dir).replace(/^\/([a-zA-Z])\//, '$1:/');
+
+  const git = (args) =&gt; {
+    try {
+      return execFileSync('git', ['-C', dir, ...args], {
+        encoding: 'utf8',
+        stdio: ['ignore', 'pipe', 'ignore'],
+      }).trim();
+    } catch {
+      return null;
+    }
+  };
+
+  // Escape hatch: a repo with a .git-flow-exempt file at its root opts out
+  // (a learning playground, a throwaway experiment).
+  const top = git(['rev-parse', '--show-toplevel']);
+  if (top &amp;&amp; fs.existsSync(top + '/.git-flow-exempt')) process.exit(0);
+
+  const branch = git(['rev-parse', '--abbrev-ref', 'HEAD']);
+  if (branch !== 'main' &amp;&amp; branch !== 'master') process.exit(0); // not on a protected branch (or not a repo / detached)
+
+  // Completing a merge into main (release/hotfix flow, incl. conflict
+  // resolution) is the one legitimate commit on main.
+  if (git(['rev-parse', '-q', '--verify', 'MERGE_HEAD']) !== null) process.exit(0);
+
+  console.error(
+    `git-flow-guard: BLOCKED — direct commit on '${branch}' in ${dir}.\n` +
+      `Git Flow law: main receives code only via merges from release/* or hotfix/* branches.\n` +
+      `Do one of:\n` +
+      `  • feature work → git checkout develop &amp;&amp; git checkout -b feature/&lt;name&gt;\n` +
+      `  • urgent prod fix → git checkout -b hotfix/&lt;name&gt; (from main), commit there, then merge back\n` +
+      `  • release → git checkout -b release/vX.Y.Z (from develop)\n` +
+      `See the git-flow skill for the full workflow.`
+  );
+  process.exit(2); // exit 2 = block the tool call and feed stderr back to Claude
+});
+</code></pre>
+    <p>Register it in the <code>.claude/settings.json</code> beside it. Settings are read when a session starts, so restart the session, check out <code>main</code>, and ask the agent to commit something. The refusal you get back is the message at the bottom of the file.</p>
+<pre class="code"><code>{
+  "hooks": {
+    "PreToolUse": [{
+      "matcher": "Bash|PowerShell",
+      "hooks": [{ "type": "command", "command": "node .claude/hooks/git-flow-guard.mjs" }]
+    }]
+  }
+}</code></pre>
+    <p>What it cannot do is the other half of the playbook's sentence. Exit 2 blocks the call, and the hooks reference is explicit that a JSON <code>permissionDecision</code> of allow cannot override it.<sup><a href="#s4">[4]</a></sup> But the hook can only deny; staying silent does not approve anything, and it cannot make the agent write a good commit on the branch it is sent to. A brake, not a steering wheel. Put the rule that must hold in the hook, and put the reason it must hold in the prompt.</p>
+  </article>
+</section>
+
 <!-- ======================= SOURCES ======================= -->
 <div class="fig">
   <h2 class="kick">Fig. 07 ·</h2>

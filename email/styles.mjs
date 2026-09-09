@@ -43,8 +43,17 @@ export const TAG_STYLES = {
   hr: `border:0;border-top:1px solid ${RULE};margin:34px 0 0;`,
   blockquote: `margin:24px 0 0;padding:2px 0 2px 16px;border-left:2px solid ${TEAL};color:${DIM};`,
   code: "font-family:'SF Mono',Menlo,Consolas,monospace;font-size:14px;background:#F5F5F3;padding:2px 5px;",
-  pre: "font-family:'SF Mono',Menlo,Consolas,monospace;font-size:13px;line-height:1.6;background:#0B0B0B;color:#EFEADD;padding:18px 20px;margin:24px 0 0;overflow-x:auto;",
+  // pre-wrap, not overflow: Gmail and Outlook ignore overflow-x, so a long line
+  // in a 600px column is either wrapped by us or cut off by them. Authors keep
+  // code lines under ~72 characters so the wrap rarely fires on desktop.
+  pre: "font-family:'SF Mono',Menlo,Consolas,monospace;font-size:13px;line-height:1.6;background:#0B0B0B;color:#EFEADD;padding:18px 20px;margin:24px 0 0;white-space:pre-wrap;word-break:break-word;",
 };
+
+// A <code> inside a <pre> inherits the block. Without this the inline-code
+// style (light grey chip) lands inside the dark block and the file renders as
+// a grey slab with white text on it (found 2026-09-09 in the first issue to
+// ship a code block).
+const PRE_CODE = 'font-family:inherit;font-size:inherit;background:none;padding:0;color:inherit;';
 
 // The authored blocks: raw HTML an issue pastes into its markdown to get rhythm.
 // Written as functions rather than CSS classes for the same reason as above, and
@@ -84,6 +93,41 @@ export const blocks = {
     + paras.map((p) => `<p style="font-family:${SANS};font-size:15px;line-height:1.7;color:${INK};margin:0 0 14px;">${p}</p>`).join('')
     + `<p style="font-family:${DISPLAY};font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:${INK};margin:16px 0 0;">${name}</p>`
     + '</div>',
+
+  // ---- blocks added 2026-09-09 for the weekly "one installable file" issue ----
+
+  // KICKER: one dim line under the title. Issue number, read time, what the
+  // reader leaves with. The masthead cannot carry the issue number (Buttondown
+  // has no template variable for it), so it lives here.
+  kicker: (text) => `<p style="font-family:${SANS};font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:${DIM};margin:12px 0 0;">${text}</p>`,
+
+  // FILE BAR: the tab above a code block. Path in teal, meta in grey, on the
+  // same ink as the block so the two read as one object. The fenced code block
+  // MUST follow it directly; inlineStyles() zeroes that block's top margin.
+  filebar: (file, meta) => `<div data-vk="filebar" style="margin:24px 0 0;background:#1A1A1A;padding:10px 20px;border-bottom:1px solid #2A2A2A;">`
+    + `<span style="font-family:'SF Mono',Menlo,Consolas,monospace;font-size:12px;color:${TEAL};">${file}</span>`
+    + (meta ? `<span style="font-family:${SANS};font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#8C8C8C;float:right;padding-top:2px;">${meta}</span>` : '')
+    + '</div>',
+
+  // TRIED THIS WEEK: at most two rows, each a verdict chip and one sentence.
+  // The chip is the product; a row without a verdict is a feed item.
+  strip: (rows) => `<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%;border-collapse:collapse;margin:16px 0 0;">`
+    + rows.map(({ verdict, text }) => {
+      const yes = /^yes/i.test(verdict);
+      const chip = `background:${yes ? TEAL : '#E2E2E2'};color:${yes ? '#04120F' : INK};`;
+      return `<tr><td style="padding:12px 0;border-top:1px solid ${RULE};vertical-align:top;width:72px;">`
+        + `<span style="display:inline-block;${chip}font-family:${SANS};font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:4px 8px;">${verdict}</span></td>`
+        + `<td style="padding:12px 0 12px 14px;border-top:1px solid ${RULE};vertical-align:top;font-family:${SANS};font-size:14px;line-height:1.6;color:${INK};">${text}</td></tr>`;
+    }).join('')
+    + '</table>',
+
+  // ONE QUESTION: the reply ask as an object, not a plea at the bottom. One
+  // question, answerable in a line, with the promise that a reply gets read.
+  question: (q, note) => `<div style="margin:34px 0 0;border:2px solid ${INK};padding:22px 26px;">`
+    + `<span style="display:block;font-family:${SANS};font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:${TEAL};margin:0 0 10px;">One question</span>`
+    + `<p style="font-family:${DISPLAY};font-size:19px;line-height:1.35;color:${INK};margin:0;">${q}</p>`
+    + (note ? `<p style="font-family:${SANS};font-size:13px;line-height:1.6;color:${DIM};margin:12px 0 0;">${note}</p>` : '')
+    + '</div>',
 };
 
 // Inject style="" into every tag in TAG_STYLES that does not already carry one.
@@ -99,5 +143,9 @@ export function inlineStyles(html) {
       return `<${tag}${attrs || ''} style="${style}">`;
     });
   }
+  // <pre><code> : the code tag inherits the block (see PRE_CODE).
+  out = out.replace(/(<pre[^>]*>\s*<code[^>]*?)\sstyle="[^"]*"/g, `$1 style="${PRE_CODE}"`);
+  // A code block directly under a file bar is the same object: no gap.
+  out = out.replace(/(<div data-vk="filebar"[\s\S]*?<\/div>)\s*(<pre style="[^"]*?)margin:24px 0 0;/g, '$1$2margin:0;');
   return out;
 }
