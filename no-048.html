@@ -886,7 +886,51 @@ pre.code code{font-size:inherit;}
   /* this page only: 40px more air above each section heading, so the heading band
      never crowds the paragraph above it on a tall phone (2026-09-04) */
   .fig{padding-top:calc(var(--p-2xl) + 40px);}
+
+  /* ---- the living lattice (2026-09-10, founder: "cool background visualisations
+     related to the video"). A fixed 2D canvas sits BEHIND the page (z-index:-1 under
+     the html background), and shows only through the transparent .stage windows;
+     every block that carries type is an opaque band, so the words never sit on the
+     visual. Proposal P1 in vektor/docs/2026-09-10-astra-page-visual-proposals.md. ---- */
+  html{background:var(--bg);}
+  body{background:transparent;}
+  #lattice{position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; pointer-events:none; display:block;}
+  .issue-marker, .hero, .fig, .issues, footer{background:var(--bg);}
+  .stage{position:relative; height:28vh; min-height:200px; max-height:380px;}
+  .stage.open{height:44vh; min-height:280px; max-height:480px;}
+  .stage.climb{height:36vh; min-height:240px; max-height:420px;}
+  .stage .cap, .stage .hud{
+    position:absolute; bottom:var(--p-m); padding:6px 8px; background:var(--bg);
+    font-family:var(--font-code); font-size:var(--fs-xs); line-height:var(--lh-xs);
+    letter-spacing:.08em; text-transform:uppercase; color:var(--meta);
+  }
+  .stage .cap{left:var(--rail);}
+  .stage .hud{right:var(--rail); text-align:right;}
+  .stage .hud b{display:block; color:var(--accent); font-size:22px; line-height:1.1; letter-spacing:0; font-weight:600; font-variant-numeric:tabular-nums;}
+  @media (prefers-reduced-motion:reduce){ #lattice{opacity:.7;} }
+
+  /* ---- P6, the hidden point: problem 7 in one picture, beside the list entry ---- */
+  .hp{margin:var(--p-m) 0; padding:var(--p-m); background:var(--band); border:1px solid #2a2a2a; max-width:420px;}
+  .hp svg{display:block; width:100%; height:auto;}
+  .hp figcaption{margin-top:var(--p-s); font-size:var(--fs-s); line-height:var(--lh-s); color:var(--meta);}
+  .hp .pt{fill:var(--paper); opacity:.45;}
+  .hp .home{fill:var(--accent);}
+  .hp .err{stroke:var(--dim); stroke-width:1.2; fill:none; stroke-dasharray:60; stroke-dashoffset:60; animation:hpErr 5s linear infinite;}
+  .hp .noisy{fill:none; stroke:var(--fg); stroke-width:1.4; opacity:0; animation:hpNoisy 5s linear infinite;}
+  .hp .ring{fill:none; stroke:var(--accent); stroke-width:1.2; opacity:0; transform-box:fill-box; transform-origin:center; animation:hpRing 5s linear infinite;}
+  .hp .found{fill:none; stroke:var(--accent); stroke-width:1.4; opacity:0; animation:hpFound 5s linear infinite;}
+  .hp .lbl{font-family:var(--font-code); font-size:9px; letter-spacing:.08em; fill:var(--meta); text-transform:uppercase;}
+  @keyframes hpErr{0%,18%{stroke-dashoffset:60;} 32%,100%{stroke-dashoffset:0;}}
+  @keyframes hpNoisy{0%,28%{opacity:0;} 34%,100%{opacity:1;}}
+  @keyframes hpRing{0%,40%{opacity:0; transform:scale(.05);} 46%{opacity:.9;} 72%{opacity:.9; transform:scale(1);} 82%,100%{opacity:0; transform:scale(1);}}
+  @keyframes hpFound{0%,70%{opacity:0;} 78%,92%{opacity:1;} 100%{opacity:0;}}
+  @media (prefers-reduced-motion:reduce){
+    .hp .err,.hp .noisy,.hp .ring,.hp .found{animation:none;}
+    .hp .err{stroke-dashoffset:0;} .hp .noisy,.hp .found{opacity:1;} .hp .ring{opacity:.6; transform:scale(1);}
+  }
 </style>
+<canvas id="lattice" aria-hidden="true"></canvas>
+<div class="stage open" aria-hidden="true"><div class="cap">Closest vector search · live · from the film</div></div>
 <section class="hero">
   <div class="kick eye">OpenAI Math · Ten Advances</div>
   <h1 class="disp">Ten problems Astra<br>moved<span class="dot">.</span></h1>
@@ -928,6 +972,7 @@ pre.code code{font-size:inherit;}
 </section>
 
 <!-- ======================= 02 — THE FULL LIST ======================= -->
+<div class="stage" aria-hidden="true"></div>
 <div class="fig">
   <h2 class="kick">Fig. 02 ·</h2>
   <h2 class="disp">The ten problems, one line each<span class="dot">.</span></h2>
@@ -943,8 +988,26 @@ pre.code code{font-size:inherit;}
     <b>4. Connes's rigidity conjecture.</b> Disproof of a longstanding conjecture about groups and their von Neumann algebras.<br>
     <b>5. Arithmetic circuit complexity.</b> New lower bounds for computing the permanent, including a formula lower bound of order n⁴/log n.<br>
     <b>6. Quantum parallel repetition.</b> An exponential parallel repetition theorem for general two-player quantum games.<br>
-    <b>7. Closest vector problem.</b> Polynomial-factor hardness of approximation, a foundational post-quantum cryptography question.<br>
-    <b>8. Ehrhart's volume conjecture.</b> The maximum possible volume of a convex body whose centroid is its only interior lattice point, in every dimension.<br>
+    <b>7. Closest vector problem.</b> Polynomial-factor hardness of approximation, a foundational post-quantum cryptography question.</p>
+    <figure class="hp" aria-label="Problem 7 in one picture: a grid of points, one pushed off the grid by noise, and the search that finds the original.">
+      <svg viewBox="0 0 300 150" role="img" aria-hidden="true">
+        <g class="pt">
+          <circle cx="30" cy="30" r="2.2"/><circle cx="90" cy="30" r="2.2"/><circle cx="150" cy="30" r="2.2"/><circle cx="210" cy="30" r="2.2"/><circle cx="270" cy="30" r="2.2"/>
+          <circle cx="30" cy="75" r="2.2"/><circle cx="90" cy="75" r="2.2"/><circle cx="210" cy="75" r="2.2"/><circle cx="270" cy="75" r="2.2"/>
+          <circle cx="30" cy="120" r="2.2"/><circle cx="90" cy="120" r="2.2"/><circle cx="150" cy="120" r="2.2"/><circle cx="210" cy="120" r="2.2"/><circle cx="270" cy="120" r="2.2"/>
+        </g>
+        <circle class="home" cx="150" cy="75" r="3"/>
+        <path class="err" d="M150 75 L178 56"/>
+        <circle class="noisy" cx="178" cy="56" r="3.5"/>
+        <circle class="ring" cx="178" cy="56" r="34"/>
+        <circle class="found" cx="150" cy="75" r="8"/>
+        <text class="lbl" x="30" y="143">lattice point</text>
+        <text class="lbl" x="184" y="48">+ noise</text>
+        <text class="lbl" x="270" y="143" text-anchor="end">nearest = original</text>
+      </svg>
+      <figcaption>Problem 7 in one picture: a grid of points, one of them pushed off the grid by a little noise, and the question "which grid point was it?" In two dimensions your eye answers it. In a few hundred, nothing can, and that is what post-quantum encryption hides behind.</figcaption>
+    </figure>
+    <p><b>8. Ehrhart's volume conjecture.</b> The maximum possible volume of a convex body whose centroid is its only interior lattice point, in every dimension.<br>
     <b>9. Multicolor Ramsey numbers.</b> A superexponential lower bound, resolving Erdős problem 183.<br>
     <b>10. Extremal number conjectures.</b> Two results in extremal graph theory, resolving Erdős problems 146 and 180.</p>
     <p class="meta">openai.com/index/ten-advances-in-mathematics, August 1, 2026</p>
@@ -956,6 +1019,8 @@ pre.code code{font-size:inherit;}
     <p class="meta"><a href="https://openai.com/index/ten-advances-in-mathematics/" target="_blank" rel="noopener">OpenAI page →</a> · <a href="https://cdn.openai.com/pdf/ten-proofs-oai.pdf" target="_blank" rel="noopener">the paper →</a> · <a href="https://cdn.openai.com/pdf/reasoning-walkthroughs.pdf" target="_blank" rel="noopener">reasoning walkthroughs →</a></p>
   </article>
 </section>
+
+<div class="stage climb" id="climb" aria-hidden="true"><div class="hud">dimension<b id="dim">2</b></div></div>
 
 <!-- ======================= 03 — TWO MORE EXAMPLES ======================= -->
 <div class="fig">
@@ -983,6 +1048,8 @@ pre.code code{font-size:inherit;}
     <p class="meta"><a href="./files/astra-ten-problems.md">Full caveat + all ten write-ups →</a></p>
   </article>
 </section>
+
+<div class="stage" aria-hidden="true"></div>
 
 <!-- ======================= 04 — THE FULL PACK ======================= -->
 <div class="fig">
@@ -1202,5 +1269,162 @@ pre.code code{font-size:inherit;}
   })();
 </script>
 
+<script>
+/* The living lattice — P1 (vektor/docs/2026-09-10-astra-page-visual-proposals.md).
+   2D canvas, no dependency. A tilted lattice drifts behind the page; every few seconds a
+   target drops into a visible .stage window, a ring searches, Babai's nearest-plane
+   projections play, the nearest point snaps and its Voronoi cell outlines, then fades.
+   The dimension counter climbs 2 -> 512 as the ten-problems list scrolls past and the
+   lattice thins out (the film's b5 beat). 30 fps cap, DPR <= 2, pauses when hidden,
+   prefers-reduced-motion shows one finished search and no drift. Decoration only: if
+   anything here throws, the page is unchanged. */
+(function(){
+  var cv = document.getElementById('lattice'); if (!cv || !cv.getContext) return;
+  var ctx = cv.getContext('2d'); if (!ctx) return;
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var DPR = Math.min(window.devicePixelRatio || 1, 2);
+  var W = 0, H = 0, S = 58, b1, b2, det;
+  var dimEl = document.getElementById('dim'), list = document.getElementById('list'), climb = document.getElementById('climb');
+  var stages = Array.prototype.slice.call(document.querySelectorAll('.stage'));
+
+  function resize(){
+    W = window.innerWidth; H = window.innerHeight;
+    S = W > 900 ? 72 : 58;
+    b1 = { x: S * 0.96, y: S * 0.28 }; b2 = { x: S * 0.22, y: S * 0.92 };
+    det = b1.x * b2.y - b1.y * b2.x;
+    cv.width = Math.round(W * DPR); cv.height = Math.round(H * DPR);
+    cv.style.width = W + 'px'; cv.style.height = H + 'px';
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  }
+  window.addEventListener('resize', resize); resize();
+
+  var cam = { x: 0, y: 0 };
+  function toScreen(i, j){ return { x: W * 0.5 + i * b1.x + j * b2.x - cam.x, y: H * 0.5 + i * b1.y + j * b2.y - cam.y }; }
+  function toLattice(px, py){ var x = px - W * 0.5 + cam.x, y = py - H * 0.5 + cam.y; return { u: (x * b2.y - y * b2.x) / det, v: (y * b1.x - x * b1.y) / det }; }
+  function clamp(x){ return Math.max(0, Math.min(1, x)); }
+  function ease(x){ return 1 - Math.pow(1 - x, 3); }
+
+  // dimension: climbs as the ten-problems list scrolls out, holds through the climb stage, returns after it
+  var dim = 2;
+  function updateDim(){
+    if (!list || !climb) return;
+    var r = list.getBoundingClientRect(), c = climb.getBoundingClientRect();
+    var t = clamp((H * 0.9 - r.bottom) / (H * 0.6));
+    var back = clamp((c.bottom + H * 0.2) / (H * 0.5));
+    var k = t * back;
+    var d = Math.round(2 + 510 * k * k);
+    if (d !== dim) { dim = d; if (dimEl) dimEl.textContent = d; }
+  }
+
+  // the search episode, always inside the biggest visible stage window
+  var ep = null, nextAt = 900;
+  function visibleStage(){
+    var best = null, bestA = 0;
+    for (var k = 0; k < stages.length; k++) {
+      var r = stages[k].getBoundingClientRect();
+      var top = Math.max(r.top, 0), bot = Math.min(r.bottom, H), a = bot - top;
+      if (a > bestA) { bestA = a; best = { top: top, bottom: bot, left: r.left, right: r.right }; }
+    }
+    return bestA >= 150 ? best : null;
+  }
+  function startEpisode(now){
+    var v = visibleStage(); if (!v) return false;
+    var pad = 44;
+    var px = v.left + pad + Math.random() * Math.max(1, v.right - v.left - 2 * pad);
+    var py = v.top + pad + Math.random() * Math.max(1, v.bottom - v.top - 2 * pad);
+    var c = toLattice(px, py);
+    var i = Math.round(c.u), j = Math.round(c.v);
+    var tu = i + (Math.random() < 0.5 ? -1 : 1) * (0.25 + Math.random() * 0.22);
+    var tv = j + (Math.random() < 0.5 ? -1 : 1) * (0.25 + Math.random() * 0.22);
+    ep = { t0: now, tu: tu, tv: tv, i: i, j: j };
+    return true;
+  }
+  function voronoiCell(i, j){
+    var c = toScreen(i, j);
+    var poly = [{ x: c.x - 4000, y: c.y - 4000 }, { x: c.x + 4000, y: c.y - 4000 }, { x: c.x + 4000, y: c.y + 4000 }, { x: c.x - 4000, y: c.y + 4000 }];
+    for (var di = -2; di <= 2; di++) for (var dj = -2; dj <= 2; dj++) {
+      if (!di && !dj) continue;
+      var n = toScreen(i + di, j + dj);
+      var mx = (c.x + n.x) / 2, my = (c.y + n.y) / 2, nx = n.x - c.x, ny = n.y - c.y, out = [];
+      for (var k = 0; k < poly.length; k++) {
+        var a = poly[k], b = poly[(k + 1) % poly.length];
+        var da = (a.x - mx) * nx + (a.y - my) * ny, db = (b.x - mx) * nx + (b.y - my) * ny;
+        if (da <= 0) out.push(a);
+        if ((da <= 0) !== (db <= 0)) { var tt = da / (da - db); out.push({ x: a.x + (b.x - a.x) * tt, y: a.y + (b.y - a.y) * tt }); }
+      }
+      poly = out;
+    }
+    return poly;
+  }
+
+  var last = 0, running = !document.hidden, accent = '#0E9C86';
+  document.addEventListener('visibilitychange', function(){ running = !document.hidden; if (running) requestAnimationFrame(frame); });
+
+  function frame(now){
+    if (!running) return;
+    if (now - last < 1000 / 30) { requestAnimationFrame(frame); return; }
+    last = now;
+    updateDim();
+    if (!reduce) { cam.x = Math.sin(now * 0.00006) * 60 + now * 0.004; cam.y = Math.cos(now * 0.00005) * 40 + now * 0.0025; }
+    ctx.clearRect(0, 0, W, H);
+
+    var keep = dim <= 2 ? 1 : Math.max(0.06, 1 - Math.log(dim) / Math.LN2 / 9.5);
+    var c0 = toLattice(0, 0), c1 = toLattice(W, 0), c2 = toLattice(0, H), c3 = toLattice(W, H);
+    var iMin = Math.floor(Math.min(c0.u, c1.u, c2.u, c3.u)) - 1, iMax = Math.ceil(Math.max(c0.u, c1.u, c2.u, c3.u)) + 1;
+    var jMin = Math.floor(Math.min(c0.v, c1.v, c2.v, c3.v)) - 1, jMax = Math.ceil(Math.max(c0.v, c1.v, c2.v, c3.v)) + 1;
+    var lineA = 0.13 * keep * keep, i, j, a, b;
+    if (lineA > 0.005) {
+      ctx.strokeStyle = 'rgba(239,234,221,' + lineA.toFixed(3) + ')'; ctx.lineWidth = 1; ctx.beginPath();
+      for (j = jMin; j <= jMax; j++) { a = toScreen(iMin, j); b = toScreen(iMax, j); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); }
+      for (i = iMin; i <= iMax; i++) { a = toScreen(i, jMin); b = toScreen(i, jMax); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); }
+      ctx.stroke();
+    }
+    ctx.fillStyle = 'rgba(239,234,221,0.62)';
+    for (i = iMin; i <= iMax; i++) for (j = jMin; j <= jMax; j++) {
+      var h = Math.abs(Math.sin(i * 12.9898 + j * 78.233) * 43758.5453) % 1;
+      if (h > keep) continue;
+      var p = toScreen(i, j);
+      if (p.x < -10 || p.x > W + 10 || p.y < -10 || p.y > H + 10) continue;
+      ctx.beginPath(); ctx.arc(p.x, p.y, 2.1, 0, Math.PI * 2); ctx.fill();
+    }
+
+    if (!ep && (reduce || now > nextAt)) { if (!startEpisode(now)) nextAt = now + 500; }
+    if (ep) {
+      var t = reduce ? 3.0 : (now - ep.t0) / 1000;
+      var T = toScreen(ep.tu, ep.tv), P = toScreen(ep.i, ep.j);
+      ctx.fillStyle = accent; ctx.globalAlpha = Math.min(1, t / 0.5);
+      ctx.beginPath(); ctx.arc(T.x, T.y, 4.5, 0, Math.PI * 2); ctx.fill();
+      if (t > 0.3) {
+        var r = ease(Math.min(1, (t - 0.3) / 1.3)) * S * 1.05;
+        ctx.strokeStyle = accent; ctx.lineWidth = 1.2; ctx.globalAlpha = 0.9 * (1 - clamp((t - 1.4) / 0.5));
+        ctx.beginPath(); ctx.arc(T.x, T.y, r, 0, Math.PI * 2); ctx.stroke();
+      }
+      if (t > 0.9) {
+        var Q = toScreen(ep.tu, ep.j), k1 = ease(Math.min(1, (t - 0.9) / 0.5));
+        ctx.strokeStyle = 'rgba(239,234,221,0.7)'; ctx.setLineDash([4, 4]); ctx.lineWidth = 1; ctx.globalAlpha = 1;
+        ctx.beginPath(); ctx.moveTo(T.x, T.y); ctx.lineTo(T.x + (Q.x - T.x) * k1, T.y + (Q.y - T.y) * k1); ctx.stroke();
+        if (t > 1.4) {
+          var k2 = ease(Math.min(1, (t - 1.4) / 0.5));
+          ctx.beginPath(); ctx.moveTo(Q.x, Q.y); ctx.lineTo(Q.x + (P.x - Q.x) * k2, Q.y + (P.y - Q.y) * k2); ctx.stroke();
+        }
+        ctx.setLineDash([]);
+      }
+      if (t > 1.9) {
+        var s = Math.min(1, (t - 1.9) / 0.35), out = t > 3.6 ? 1 - Math.min(1, (t - 3.6) / 0.6) : 1;
+        ctx.globalAlpha = out; ctx.fillStyle = accent;
+        ctx.beginPath(); ctx.arc(P.x, P.y, 2.1 + 5 * ease(s), 0, Math.PI * 2); ctx.fill();
+        var cell = voronoiCell(ep.i, ep.j);
+        ctx.strokeStyle = accent; ctx.lineWidth = 1.3; ctx.globalAlpha = 0.85 * ease(s) * out;
+        ctx.beginPath(); for (var q = 0; q < cell.length; q++) { if (q) ctx.lineTo(cell[q].x, cell[q].y); else ctx.moveTo(cell[q].x, cell[q].y); } ctx.closePath(); ctx.stroke();
+        ctx.fillStyle = accent; ctx.globalAlpha = 0.10 * ease(s) * out; ctx.fill();
+      }
+      if (t > 4.2 && !reduce) { ep = null; nextAt = now + 1600 + Math.random() * 1200; }
+      ctx.globalAlpha = 1;
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
 <script data-goatcounter="https://vektor.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </body></html>
