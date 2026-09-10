@@ -1,0 +1,32 @@
+{
+  "number": "047",
+  "title": "vektor /// no. 047 — Convert files locally, never upload them.",
+  "description": "The FBI's Denver field office warned in March 2025 that free online file-converter sites were loading malware and scraping uploaded documents. Every one-liner to convert images, PDFs, video, audio and documents on your own machine instead, using ImageMagick, ffmpeg and pandoc, plus the loop Claude Code writes for you when you ask it to batch-convert a folder.",
+  "og_title": "Convert files locally, never upload them. — vektor /// no. 047",
+  "og_description": "One ImageMagick line does a JPG to PDF conversion entirely on your own machine. Every one-liner for images, PDFs, video, audio and documents, on one page.",
+  "og_image": "https://vektor-fm.github.io/vektor-site/og/no-047.png",
+  "og_alt": "Convert files locally, never upload them — vektor /// no. 047",
+  "og_url": "https://vektor-fm.github.io/vektor-site/no-047.html",
+  "canonical": "https://vektor-fm.github.io/vektor-site/no-047.html",
+  "tw_title": "Convert files locally, never upload them. — vektor /// no. 047",
+  "tw_description": "The FBI warned free converter sites load malware. Here is the one local line that replaces them, plus every other format you'll need.",
+  "tw_image": "https://vektor-fm.github.io/vektor-site/og/no-047.png",
+  "marker": "Claude Code · Convert Files Locally",
+  "sticky_text": "Follow <b>@vektor.fm</b> → a new keyword daily",
+  "backref_html": "A new keyword drops every day — <b>catch it first on the reel</b> — follow @vektor.fm. More like this: <a href=\"./no-046.html\">Four things to do with Fable 5.1 →</a>",
+  "footer_meta": "/// no. 047 / local convert / 09-2026 · imagemagick, ffmpeg, pandoc, one page",
+  "copy_event": "copy-local-convert",
+  "subscribe_track": true,
+  "slug": "no047",
+  "gate_title": "Every one-liner, in full.",
+  "gate_lede": "Images, PDFs, video, audio and documents — the whole cheat sheet is written out on the next screen. One email opens all of it.",
+  "og_card": {
+    "accent": "#E7371A",
+    "kick": "Claude Code · Convert Files Locally",
+    "h1_html": "Convert files locally,<br>never upload them<span class=\"dot\">.</span>",
+    "h1_size": 68,
+    "sub_mt": 18,
+    "sub_html": "The FBI warned that free converter sites load malware. One ImageMagick line does the same job on your own machine — every format's one-liner on one page.",
+    "meta_html": "/// no. 047 / local convert / 09-2026 · <b>vektor-fm.github.io</b>"
+  }
+}

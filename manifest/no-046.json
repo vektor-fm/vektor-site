@@ -1,0 +1,32 @@
+{
+  "number": "046",
+  "title": "vektor /// no. 046 — Four things to do with Claude Fable 5.1.",
+  "description": "Anthropic shipped Fable 5.1 on 1 September 2026. Four moves worth making this week, with the prompt for each one written out: point it at something you already built and ask it to be three hostile readers; build one small agent that runs read-do-check without you; describe the hardest problem you have not solved, failures included; and re-sort your jobs by effort level now that cache reads have fallen 75% to $0.25 per million tokens.",
+  "og_title": "Four things to do with Fable 5.1. — vektor /// no. 046",
+  "og_description": "Point it at something you already built. Build one small agent. Describe the problem you have been avoiding. Re-sort your jobs now cache reads cost $0.25 per million. All four prompts, written out.",
+  "og_image": "https://vektor-fm.github.io/vektor-site/og/no-046.png",
+  "og_alt": "Four things to do with Fable 5.1 — vektor /// no. 046",
+  "og_url": "https://vektor-fm.github.io/vektor-site/no-046.html",
+  "canonical": "https://vektor-fm.github.io/vektor-site/no-046.html",
+  "tw_title": "Four things to do with Fable 5.1. — vektor /// no. 046",
+  "tw_description": "A crash nobody had explained in four to five years, found. Here is the instruction that does it, plus three more, written out so you can paste them.",
+  "tw_image": "https://vektor-fm.github.io/vektor-site/og/no-046.png",
+  "marker": "AI models · What to actually do",
+  "sticky_text": "Follow <b>@vektor.fm</b> → a new keyword daily",
+  "backref_html": "A new keyword drops every day — <b>catch it first on the reel</b> — follow @vektor.fm. More like this: <a href=\"./no-045.html\">Every stage ends by committing a file →</a>",
+  "footer_meta": "/// no. 046 / fable 5.1 / 09-2026 · four moves, four prompts, one price cut",
+  "copy_event": "copy-four-things",
+  "subscribe_track": true,
+  "slug": "no046",
+  "gate_title": "All four prompts, in full.",
+  "gate_lede": "The audit, the agent, the hard problem and the effort-level sort are written out on the next screen. One email opens all of it.",
+  "og_card": {
+    "accent": "#E7371A",
+    "kick": "AI models · What to actually do",
+    "h1_html": "Four things to do with Fable 5.1<span class=\"dot\">.</span>",
+    "h1_size": 72,
+    "sub_mt": 18,
+    "sub_html": "Point it at something you already built. Build one small agent. Describe the problem you have been avoiding. Then re-sort your jobs — cache reads just fell 75%, to $0.25 per million tokens.",
+    "meta_html": "/// no. 046 / fable 5.1 / 09-2026 · <b>vektor-fm.github.io</b>"
+  }
+}

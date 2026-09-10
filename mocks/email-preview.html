@@ -6,6 +6,258 @@
      Sources: vektor-site/email/{header.html,footer.html,styles.mjs} + data/newsletter/_TEMPLATE.md -->
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,400;125,500&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
+/* Buttondown's own template stylesheet, so the preview shows what its inliner
+   does on delivery (email/buttondown-modern.css, copied 2026-09-09). */
+/* Buttondown "modern" email template stylesheet, copied verbatim from a delivered
+   email (Gmail, delivered HTML, 2026-09-09). Buttondown inlines these rules into
+   the body on delivery: missing properties are filled from here, !important rules
+   overwrite ours. The preview (vektor/scripts/newsletter-theme.mjs --preview)
+   includes this file so it renders what arrives, not what we sent. Refresh it
+   when a delivered email looks different from the preview. Not ours; do not edit. */
+
+@media (prefers-color-scheme:dark) {
+code {
+    background: #44494e;
+}
+blockquote {
+    color: #d2d2d2!important;
+    background-color: #212121!important;
+}
+blockquote p,blockquote li {
+    color: #d2d2d2!important;
+}
+body {
+    background-color: #fafafa!important;
+}
+} @media screen and (max-width:500px) {
+td.related-email {
+    width: 100%!important;
+    margin-bottom: 30px!important;
+    padding: 0!important;
+    display: block!important;
+}
+} 
+
+/* ---- next block ---- */
+
+body {
+    color: #000;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+    font-family: ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Noto Sans,Ubuntu,Cantarell,Helvetica Neue,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
+    background-color: #fafafa!important;
+}
+p,ul,li,h1,h2,h3,h4,h5,h6,blockquote,figure {
+    margin: 16px 0!important;
+}
+p,ul,li {
+    font-size: 16px!important;
+    line-height: 24px!important;
+}
+li {
+    margin-top: 8px!important;
+    margin-bottom: 0!important;
+}
+h3 {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 24px!important;
+}
+hr {
+    border: none;
+    border-top: 1px solid #eaeaea;
+    border-color: #f5f5f5;
+    border-width: 2px;
+    width: 100%;
+    max-width: 300px;
+    margin: 40px auto;
+}
+blockquote {
+    padding: 20px;
+    color: #666!important;
+    background-color: #f5f5f5!important;
+    border-radius: .5rem!important;
+    font-size: 16px!important;
+    line-height: 24px!important;
+}
+blockquote p,blockquote li {
+    color: #666!important;
+}
+.twitter-embed,.twitter-embed p,.twitter-embed li {
+    color: #000!important;
+}
+blockquote.pullquote {
+    text-align: center!important;
+    border: none!important;
+    padding: 20px 50px!important;
+    font-style: italic!important;
+}
+blockquote p:first-child {
+    margin-top: 0!important;
+}
+blockquote p:last-child {
+    margin-bottom: 0!important;
+}
+figure {
+    text-align: center;
+    margin: 16px auto;
+}
+figcaption {
+    text-align: center;
+    font-size: 14px!important;
+    line-height: 18px!important;
+}
+img,video {
+    max-width: 100%!important;
+}
+pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: anywhere;
+    background-color: #272822;
+    border-radius: 0 .25rem .25rem 0;
+    padding: 1em;
+    font-size: 15px;
+    line-height: 20px;
+    overflow-x: auto;
+}
+pre.poetry {
+    color: #333;
+    white-space: pre-wrap;
+    background-color: #f8f8f8;
+    border-radius: .25rem;
+    padding: 1em;
+}
+code {
+    color: #fff;
+    border-radius: 0 .25rem .25rem 0;
+    font-size: 14px;
+}
+p code,li code,h1 code,h2 code,h3 code,h4 code {
+    color: #333;
+    background: #eee;
+}
+table.buttondown-block-styled {
+    border-collapse: collapse;
+    table-layout: fixed;
+    width: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+table.buttondown-block-styled td,table.buttondown-block-styled th {
+    vertical-align: top;
+    box-sizing: border-box;
+    border: 2px solid #ced4da;
+    min-width: 1em;
+    padding: 3px 5px;
+    position: relative;
+}
+table.buttondown-block-styled td>*,table.buttondown-block-styled th>* {
+    margin-bottom: 0;
+}
+table.buttondown-block-styled th {
+    text-align: left;
+    background-color: #f1f3f5;
+    font-weight: 700;
+}
+table.buttondown-block-styled p {
+    margin: 0;
+}
+.buttondown-reference-invalid {
+    -webkit-text-decoration: underline dotted;
+    text-decoration: underline dotted;
+    color: #666!important;
+}
+div,table,tbody,tr,td,th,p,ul,ol,li,h1,h2,h3,h4,h5,h6,figure,figcaption {
+    color: #000;
+}
+.social-links {
+    text-align: center;
+    max-width: 600px;
+    margin: 20px auto;
+    padding-left: 20px;
+    padding-right: 20px;
+    line-height: 1.5;
+}
+.social-link {
+    margin-left: 2px;
+    margin-right: 2px;
+}
+.powered-by {
+    text-align: center;
+    margin-bottom: 16px;
+}
+.email-actions--premium-paid,.email-actions--unsubscribe,.email-actions--upsell,.email-actions--gifted-premium,.email-actions--trial-premium,.powered-by {
+    color: #666;
+    max-width: 600px;
+    margin-top: 8px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 13px;
+    line-height: 18px;
+}
+.powered-by-container {
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.powered-by-link {
+    text-decoration: none;
+    color: #0069ff!important;
+}
+.powered-by-icon {
+    border: none;
+    outline: none;
+    width: 40px;
+    margin: 20px auto 10px;
+    text-decoration: none;
+    display: block;
+}
+@media (prefers-color-scheme:dark) {
+code {
+    background: #44494e;
+}
+blockquote {
+    color: #d2d2d2!important;
+    background-color: #212121!important;
+}
+blockquote p,blockquote li {
+    color: #d2d2d2!important;
+}
+body {
+    background-color: #fafafa!important;
+}
+}
+@media screen and (max-width:500px) {
+td.related-email {
+    width: 100%!important;
+    margin-bottom: 30px!important;
+    padding: 0!important;
+    display: block!important;
+}
+}
+
+
+/* ---- next block ---- */
+
+
+    a {
+        color: #0E9C86 !important;
+        /* Some clients (Android Gmail) do not automatically add the underline. */
+        text-decoration: underline;
+    }
+
+    .buttondown-button {
+        color: #ffffff !important;
+        background-color: #0E9C86 !important;
+    }
+
+    /* Keep the color of the links even when e.g. some text is being bolded. */
+    a > * {
+        color: inherit !important;
+    }
+    
 body{margin:0;padding:0;background:#1A1A1A;}
 .vk-shell{width:600px;max-width:100%;margin:0 auto;background:#fff;}
 .vk-body{padding:34px 46px 0;}
@@ -20,20 +272,104 @@ body{margin:0;padding:0;background:#1A1A1A;}
   </div>
 </div>
 <div class="vk-body">
-<h1 style="font-family:'Archivo', 'Inter Tight', 'Helvetica Neue', Arial, sans-serif;font-weight:400;font-size:30px;line-height:1.18;color:#111111;margin:34px 0 0;">Five token claims,<br>one benchmark</h1>
-<p style="font-family:'Inter Tight',Inter,'Helvetica Neue',Arial,sans-serif;font-size:17px;line-height:1.62;color:#5A5A5A;margin:14px 0 0;">Four of them measured it on their own homework.</p><hr style="border:0;border-top:2px solid #111111;margin:24px 0 0;"><p style="font-family:'Inter Tight', Inter, 'Helvetica Neue', Arial, sans-serif;font-size:16px;line-height:1.7;color:#111111;margin:20px 0 0;">Earlier this month I posted a 60-second film recommending a tool that cuts what Claude Code spends reading your codebase. I need to correct something in it, and the correction is more interesting than the recommendation.</p>
-<p style="font-family:'Inter Tight', Inter, 'Helvetica Neue', Arial, sans-serif;font-size:16px;line-height:1.7;color:#111111;margin:20px 0 0;">The film said of the repo it recommends: <em style="font-style:italic;">&quot;they put the benchmark in the repo. Nobody else in this category did that.&quot;</em> Going back through the other four repositories properly, that is not true. Two of them publish measurements in the repo as well.</p>
-<p style="font-family:'Inter Tight', Inter, 'Helvetica Neue', Arial, sans-serif;font-size:16px;line-height:1.7;color:#111111;margin:20px 0 0;">Here is what is actually true, and it took reading all five to see it.</p>
-<div style="border-top:1px solid #E2E2E2;margin:36px 0 0;padding-top:14px;"><span style="display:block;font-family:'Inter Tight',Inter,'Helvetica Neue',Arial,sans-serif;font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#0E9C86;">The pattern</span></div><p style="font-family:'Inter Tight', Inter, 'Helvetica Neue', Arial, sans-serif;font-size:16px;line-height:1.7;color:#111111;margin:20px 0 0;">Every repo in this category publishes a number. 40%. 90%+. 71.5x. 98.9%. The numbers are not the problem. What they were measured against is.</p>
-<p style="font-family:'Inter Tight', Inter, 'Helvetica Neue', Arial, sans-serif;font-size:16px;line-height:1.7;color:#111111;margin:20px 0 0;">Three of the five measured their saving on material they chose themselves. One benchmarked on its own source code with five queries; another on a single private project. That is not dishonest, but it is homework marked by the person who set it. A fourth repository has been taken down, and the API returns 404.</p>
-<p style="font-family:'Inter Tight', Inter, 'Helvetica Neue', Arial, sans-serif;font-size:16px;line-height:1.7;color:#111111;margin:20px 0 0;">One measured differently. It ran 30 problems drawn from SWE-bench Verified (a public, human-validated set of real issues and pull requests from Python projects) three times per method, and published the harness.</p>
-<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%;border-collapse:collapse;margin:24px 0 0;background:#0B0B0B;"><tr><td style="padding:17px 18px;vertical-align:top;border-right:1px solid #262626;"><span style="display:block;font-family:'Inter Tight',Inter,'Helvetica Neue',Arial,sans-serif;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:#8C8C8C;margin:0 0 8px;">Tokens / task</span><span style="display:block;font-family:'Inter Tight',Inter,'Helvetica Neue',Arial,sans-serif;font-size:19px;font-weight:600;color:#FFFFFF;line-height:1.1;">73,373 <span style="color:#0E9C86;">&rarr;</span> 44,449</span></td><td style="padding:17px 18px;vertical-align:top;border-right:1px solid #262626;"><span style="display:block;font-family:'Inter Tight',Inter,'Helvetica Neue',Arial,sans-serif;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:#8C8C8C;margin:0 0 8px;">Tool calls</span><span style="display:block;font-family:'Inter Tight',Inter,'Helvetica Neue',Arial,sans-serif;font-size:19px;font-weight:600;color:#FFFFFF;line-height:1.1;">8.3 <span style="color:#0E9C86;">&rarr;</span> 5.3</span></td><td style="padding:17px 18px;vertical-align:top;"><span style="display:block;font-family:'Inter Tight',Inter,'Helvetica Neue',Arial,sans-serif;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:#8C8C8C;margin:0 0 8px;">Answer quality</span><span style="display:block;font-family:'Inter Tight',Inter,'Helvetica Neue',Arial,sans-serif;font-size:19px;font-weight:600;color:#FFFFFF;line-height:1.1;">F1 0.40 <span style="color:#0E9C86;">=</span> 0.40<span style="display:block;font-size:11px;font-weight:400;color:#8C8C8C;letter-spacing:.05em;margin-top:5px;">unchanged</span></span></td></tr></table><p style="font-family:'Inter Tight', Inter, 'Helvetica Neue', Arial, sans-serif;font-size:16px;line-height:1.7;color:#111111;margin:20px 0 0;"><img src="https://vektor-fm.github.io/vektor-site/diagrams/teardown-002.png" alt="Before and after: tokens per task 73,373 down to 44,449, tool calls 8.3 down to 5.3, and answer quality F1 unchanged at 0.40." style="display:block;width:100%;height:auto;margin:28px 0 0;"></p>
-<p style="font-family:'Inter Tight',Inter,'Helvetica Neue',Arial,sans-serif;font-size:11px;line-height:1.55;color:#5A5A5A;margin:10px 0 0;padding-left:12px;border-left:2px solid #0E9C86;">Measured on 30 SWE-bench Verified problems, three runs per method. Source: the repository&rsquo;s own published harness.</p><p style="font-family:'Inter Tight', Inter, 'Helvetica Neue', Arial, sans-serif;font-size:16px;line-height:1.7;color:#111111;margin:20px 0 0;">That third number is the one that matters, and it is the one nobody else reports. Any tool can cut your token bill to nothing by answering nothing. A saving is only a saving if you can see what it cost you. Here, it cost nothing measurable.</p>
-<p style="font-family:'Inter Tight', Inter, 'Helvetica Neue', Arial, sans-serif;font-size:16px;line-height:1.7;color:#111111;margin:20px 0 0;">Two things the film did not have room for.</p>
-<div style="border-top:1px solid #E2E2E2;margin:36px 0 0;padding-top:14px;"><span style="display:block;font-family:'Inter Tight',Inter,'Helvetica Neue',Arial,sans-serif;font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#0E9C86;">Two things the film had no room for</span></div><p style="font-family:'Inter Tight', Inter, 'Helvetica Neue', Arial, sans-serif;font-size:16px;line-height:1.7;color:#111111;margin:20px 0 0;"><strong style="font-weight:600;color:#111111;">It is not semantic search replacing grep.</strong> The README describes hybrid search, BM25 plus dense vectors. Keyword matching stays; it gets an index built beside it. What you are actually buying is that the expensive part, reading whole files to find out whether they are relevant, happens once at index time instead of on every question.</p>
-<p style="font-family:'Inter Tight', Inter, 'Helvetica Neue', Arial, sans-serif;font-size:16px;line-height:1.7;color:#111111;margin:20px 0 0;"><strong style="font-weight:600;color:#111111;">It does not have to cost you an OpenAI key.</strong> The documented install wants OpenAI for embeddings and a hosted vector store, which is the obvious objection: spending someone else&#39;s tokens to save your own, and shipping your code off your machine. But the package documents four embedding providers including Ollama, which runs locally, and the vector store can be local too. Three lines of config and nothing leaves your laptop.</p>
-<p style="font-family:'Inter Tight', Inter, 'Helvetica Neue', Arial, sans-serif;font-size:16px;line-height:1.7;color:#111111;margin:20px 0 0;">Does it earn a slot? Only if your repo is big. The measured gain was three fewer tool calls on a two-file bug fix. Below some size, that is noise you are maintaining an index for.</p>
-<div style="margin:34px 0 0;background:#F5F5F3;padding:24px 26px;"><span style="display:block;font-family:'Inter Tight',Inter,'Helvetica Neue',Arial,sans-serif;font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#0E9C86;margin:0 0 9px;">The full teardown</span><p style="font-family:'Inter Tight',Inter,'Helvetica Neue',Arial,sans-serif;font-size:15px;line-height:1.6;color:#111111;margin:0 0 16px;">All five claims side by side, what each was measured on, where this one breaks, and the nine sources.</p><a href="https://vektor-fm.github.io/vektor-site/teardown-002.html" style="display:inline-block;background:#0E9C86;color:#04120F;font-family:'Inter Tight',Inter,'Helvetica Neue',Arial,sans-serif;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:13px 24px;text-decoration:none;">Read it &rarr;</a></div><div style="margin:32px 0 0;padding-top:20px;border-top:1px solid #E2E2E2;"><p style="font-family:'Inter Tight',Inter,'Helvetica Neue',Arial,sans-serif;font-size:15px;line-height:1.7;color:#111111;margin:0 0 14px;">If you only take one thing: a token-saving claim with no quality number beside it is not a result. Ask what it cost.</p><p style="font-family:'Inter Tight',Inter,'Helvetica Neue',Arial,sans-serif;font-size:15px;line-height:1.7;color:#111111;margin:0 0 14px;">Reply and tell me which of these you have actually run. I read everything that comes back.</p><p style="font-family:Archivo,'Inter Tight',Inter,'Helvetica Neue',Arial,sans-serif;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#111111;margin:16px 0 0;">Julian</p></div>
+<h1 style="font-family:'Archivo', 'Inter Tight', 'Helvetica Neue', Arial, sans-serif;font-weight:400;font-size:30px;line-height:1.18;color:#111111;margin:16px 0;">One hook, no more<br>commits on main</h1>
+<p style="font-family:'Inter Tight',Inter,'Helvetica Neue',Arial,sans-serif;font-size:17px;line-height:1.62;color:#5A5A5A;margin:14px 0 0;">Anthropic wrote down how it builds software with agents. The rule worth stealing fits in 36 lines, and it has nothing to do with the AI being any good.</p><p style="font-family:'Inter Tight',Inter,'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#5A5A5A;margin:12px 0 0;">Issue 003 &nbsp;·&nbsp; 4 min read &nbsp;·&nbsp; 1 file to install</p><hr style="border:0;border-top:2px solid #111111;margin:24px 0 0;max-width:100%;"><p style="font-family:'Inter Tight', Inter, 'Helvetica Neue', Arial, sans-serif;font-size:16px;line-height:24px;color:#111111;margin:16px 0;">Anthropic published a stage by stage account of how it builds software with
+coding agents. It travelled on one line, &quot;code is no longer the bottleneck&quot;,
+which is the weakest part of the document.</p>
+<p style="font-family:'Inter Tight', Inter, 'Helvetica Neue', Arial, sans-serif;font-size:16px;line-height:24px;color:#111111;margin:16px 0;">The strongest part is one sentence about guardrails: a skill is advisory, a hook
+is the deterministic layer behind it. Any rule that has to hold without exception
+gets a hook. The rule Anthropic itself puts behind one is that the agent which
+wrote the code cannot approve it. Not a prompt asking the model to behave. A
+platform setting with no argument to win.</p>
+<p style="font-family:'Inter Tight', Inter, 'Helvetica Neue', Arial, sans-serif;font-size:16px;line-height:24px;color:#111111;margin:16px 0;">Here is ours. It is the file that has stopped every direct commit to <code style="font-family:'SF Mono',Menlo,Consolas,monospace;font-size:14px;color:#111111;background:#F5F5F3;padding:2px 5px;">main</code>
+across this operation since July.</p>
+<div style="border-top:1px solid #E2E2E2;margin:36px 0 0;padding-top:14px;"><span style="display:block;font-family:'Inter Tight',Inter,'Helvetica Neue',Arial,sans-serif;font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#0E9C86;">The file</span></div><table role="presentation" data-vk="filebar" cellpadding="0" cellspacing="0" border="0" style="width:100%;border-collapse:collapse;margin:24px 0 0;background:#1A1A1A;border-bottom:1px solid #2A2A2A;"><tr><td style="padding:10px 20px;font-family:'SF Mono',Menlo,Consolas,monospace;font-size:12px;color:#0E9C86;">.claude/hooks/git-flow-guard.mjs</td><td style="padding:10px 20px;text-align:right;white-space:nowrap;font-family:'Inter Tight',Inter,'Helvetica Neue',Arial,sans-serif;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#8C8C8C;">36 lines · node · no deps</td></tr></table><pre style="font-family:'SF Mono',Menlo,Consolas,monospace;font-size:13px;line-height:1.6;background:#0B0B0B;color:#EFEADD;padding:18px 20px;margin:0;white-space:pre-wrap;word-break:break-word;"><code style="font-family:inherit;font-size:inherit;background:none;padding:0;color:inherit;">#!/usr/bin/env node
+// PreToolUse hook for Claude Code. Refuses `git commit` while the
+// repo is on main or master. Exit 2 = the tool call is blocked and
+// this message goes back to the agent. A merge in progress is the
+// one legal commit on main (finishing a release or hotfix).
+import { execFileSync } from &#39;node:child_process&#39;;
+
+let raw = &#39;&#39;;
+process.stdin.on(&#39;data&#39;, (d) =&gt; (raw += d));
+process.stdin.on(&#39;end&#39;, () =&gt; {
+  let input;
+  try { input = JSON.parse(raw); } catch { process.exit(0); }
+  const cmd = String(input?.tool_input?.command ?? &#39;&#39;);
+  if (!/\bgit\b[^|&amp;;\n]*\bcommit\b/.test(cmd)) process.exit(0);
+
+  const dir = String(input?.cwd ?? process.cwd());
+  const git = (args) =&gt; {
+    try {
+      const opt = { encoding: &#39;utf8&#39;, stdio: [&#39;ignore&#39;, &#39;pipe&#39;, &#39;ignore&#39;] };
+      return execFileSync(&#39;git&#39;, [&#39;-C&#39;, dir, ...args], opt).trim();
+    } catch { return null; }
+  };
+
+  const branch = git([&#39;rev-parse&#39;, &#39;--abbrev-ref&#39;, &#39;HEAD&#39;]);
+  if (branch !== &#39;main&#39; &amp;&amp; branch !== &#39;master&#39;) process.exit(0);
+  const merging = git([&#39;rev-parse&#39;, &#39;-q&#39;, &#39;--verify&#39;, &#39;MERGE_HEAD&#39;]);
+  if (merging !== null) process.exit(0);
+
+  console.error(
+    `git-flow-guard: BLOCKED. Direct commit on &#39;${branch}&#39; in ${dir}.\n` +
+    &#39;main takes code only by merging release/* or hotfix/* branches.\n&#39; +
+    &#39;Feature: git checkout develop &amp;&amp; git checkout -b feature/&lt;name&gt;\n&#39; +
+    &#39;Urgent:  git checkout -b hotfix/&lt;name&gt;, commit there, merge back.&#39;
+  );
+  process.exit(2);
+});
+</code></pre>
+<div style="border-top:1px solid #E2E2E2;margin:36px 0 0;padding-top:14px;"><span style="display:block;font-family:'Inter Tight',Inter,'Helvetica Neue',Arial,sans-serif;font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#0E9C86;">What it stops</span></div><p style="font-family:'Inter Tight', Inter, 'Helvetica Neue', Arial, sans-serif;font-size:16px;line-height:24px;color:#111111;margin:16px 0;">Any shell command containing <code style="font-family:'SF Mono',Menlo,Consolas,monospace;font-size:14px;color:#111111;background:#F5F5F3;padding:2px 5px;">git commit</code> while the current branch is <code style="font-family:'SF Mono',Menlo,Consolas,monospace;font-size:14px;color:#111111;background:#F5F5F3;padding:2px 5px;">main</code> or
+<code style="font-family:'SF Mono',Menlo,Consolas,monospace;font-size:14px;color:#111111;background:#F5F5F3;padding:2px 5px;">master</code>. The hook exits with status 2, and the Claude Code docs are explicit
+that this is not negotiable: exit 2 blocks even if a JSON <code style="font-family:'SF Mono',Menlo,Consolas,monospace;font-size:14px;color:#111111;background:#F5F5F3;padding:2px 5px;">permissionDecision</code>
+of allow is printed alongside it. The agent gets the message on stderr and
+does the sensible thing, which is to make a branch.</p>
+<p style="font-family:'Inter Tight', Inter, 'Helvetica Neue', Arial, sans-serif;font-size:16px;line-height:24px;color:#111111;margin:16px 0;">It is a brake, never a steering wheel. It cannot make the agent do anything, and
+it cannot make a commit good. What it can do is make one rule impossible to
+argue with, which turns out to be the only kind of rule an agent keeps.</p>
+<div style="border-top:1px solid #E2E2E2;margin:36px 0 0;padding-top:14px;"><span style="display:block;font-family:'Inter Tight',Inter,'Helvetica Neue',Arial,sans-serif;font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#0E9C86;">What it cost us before</span></div><p style="font-family:'Inter Tight', Inter, 'Helvetica Neue', Arial, sans-serif;font-size:16px;line-height:24px;color:#111111;margin:16px 0;">The rule existed before the hook did. It sat in bold, in the CLAUDE.md every
+session reads at startup, for four days. Sessions read it and committed on
+<code style="font-family:'SF Mono',Menlo,Consolas,monospace;font-size:14px;color:#111111;background:#F5F5F3;padding:2px 5px;">main</code> anyway, because a rule in a prompt is a request, and a busy agent with a
+green test run treats a request as optional.</p>
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%;border-collapse:collapse;margin:24px 0 0;background:#0B0B0B;"><tr><td style="padding:17px 18px;vertical-align:top;border-right:1px solid #262626;"><span style="display:block;font-family:'Inter Tight',Inter,'Helvetica Neue',Arial,sans-serif;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:#8C8C8C;margin:0 0 8px;">No rule, 4 days</span><span style="display:block;font-family:'Inter Tight',Inter,'Helvetica Neue',Arial,sans-serif;font-size:19px;font-weight:600;color:#FFFFFF;line-height:1.1;">48</span></td><td style="padding:17px 18px;vertical-align:top;border-right:1px solid #262626;"><span style="display:block;font-family:'Inter Tight',Inter,'Helvetica Neue',Arial,sans-serif;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:#8C8C8C;margin:0 0 8px;">Rule in CLAUDE.md, 4 days</span><span style="display:block;font-family:'Inter Tight',Inter,'Helvetica Neue',Arial,sans-serif;font-size:19px;font-weight:600;color:#FFFFFF;line-height:1.1;">21</span></td><td style="padding:17px 18px;vertical-align:top;"><span style="display:block;font-family:'Inter Tight',Inter,'Helvetica Neue',Arial,sans-serif;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:#8C8C8C;margin:0 0 8px;">Rule as a hook, 58 days</span><span style="display:block;font-family:'Inter Tight',Inter,'Helvetica Neue',Arial,sans-serif;font-size:19px;font-weight:600;color:#FFFFFF;line-height:1.1;"><span style="color:#0E9C86;">4</span><span style="display:block;font-size:11px;font-weight:400;color:#8C8C8C;letter-spacing:.05em;margin-top:5px;">all in the first 3 hours</span></span></td></tr></table><p style="font-family:'Inter Tight',Inter,'Helvetica Neue',Arial,sans-serif;font-size:11px;line-height:1.55;color:#5A5A5A;margin:10px 0 0;padding-left:12px;border-left:2px solid #0E9C86;">Direct commits on main, two repos, several Claude Code sessions a day. Rule written 2026-07-10, hook installed 2026-07-13. The four stragglers landed the night the hook went in, before the settings wiring did. Source: git log, read 2026-09-09.</p><p style="font-family:'Inter Tight', Inter, 'Helvetica Neue', Arial, sans-serif;font-size:16px;line-height:24px;color:#111111;margin:16px 0;">Written down, the rule roughly halved the problem. As a hook it ended it. That
+gap is the whole argument for hooks, and it is the same shape as the number
+Anthropic&#39;s playbook never gives you.</p>
+<div style="border-top:1px solid #E2E2E2;margin:36px 0 0;padding-top:14px;"><span style="display:block;font-family:'Inter Tight',Inter,'Helvetica Neue',Arial,sans-serif;font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#0E9C86;">Install in 2 minutes</span></div><ol style="margin:16px 0;padding-left:20px;">
+<li style="font-family:'Inter Tight', Inter, 'Helvetica Neue', Arial, sans-serif;font-size:16px;line-height:24px;color:#111111;margin:8px 0 0;">Save the file above as <code style="font-family:'SF Mono',Menlo,Consolas,monospace;font-size:14px;color:#111111;background:#F5F5F3;padding:2px 5px;">.claude/hooks/git-flow-guard.mjs</code>. Put it in the
+folder above your repos and it covers every repo beneath, worktrees included.</li>
+<li style="font-family:'Inter Tight', Inter, 'Helvetica Neue', Arial, sans-serif;font-size:16px;line-height:24px;color:#111111;margin:8px 0 0;">Register it in <code style="font-family:'SF Mono',Menlo,Consolas,monospace;font-size:14px;color:#111111;background:#F5F5F3;padding:2px 5px;">.claude/settings.json</code> next to it:</li>
+</ol>
+<pre style="font-family:'SF Mono',Menlo,Consolas,monospace;font-size:13px;line-height:1.6;background:#0B0B0B;color:#EFEADD;padding:18px 20px;margin:24px 0 0;white-space:pre-wrap;word-break:break-word;"><code style="font-family:inherit;font-size:inherit;background:none;padding:0;color:inherit;">{
+  &quot;hooks&quot;: {
+    &quot;PreToolUse&quot;: [{
+      &quot;matcher&quot;: &quot;Bash|PowerShell&quot;,
+      &quot;hooks&quot;: [{ &quot;type&quot;: &quot;command&quot;,
+                  &quot;command&quot;: &quot;node .claude/hooks/git-flow-guard.mjs&quot; }]
+    }]
+  }
+}
+</code></pre>
+<ol start="3" style="margin:16px 0;padding-left:20px;">
+<li style="font-family:'Inter Tight', Inter, 'Helvetica Neue', Arial, sans-serif;font-size:16px;line-height:24px;color:#111111;margin:8px 0 0;">Check out <code style="font-family:'SF Mono',Menlo,Consolas,monospace;font-size:14px;color:#111111;background:#F5F5F3;padding:2px 5px;">main</code>, start Claude Code, ask it to commit anything. You should
+get the refusal back, and a branch. If you get a commit, the hook did not
+load: settings are read at session start, so restart the session.</li>
+</ol>
+<div style="border-top:1px solid #E2E2E2;margin:36px 0 0;padding-top:14px;"><span style="display:block;font-family:'Inter Tight',Inter,'Helvetica Neue',Arial,sans-serif;font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#0E9C86;">The playbook, torn down</span></div><p style="font-family:'Inter Tight', Inter, 'Helvetica Neue', Arial, sans-serif;font-size:16px;line-height:24px;color:#111111;margin:16px 0;">The reusable pattern in Anthropic&#39;s document is that every stage ends by
+committing a file, and that commit starts the next stage. Intent becomes
+<code style="font-family:'SF Mono',Menlo,Consolas,monospace;font-size:14px;color:#111111;background:#F5F5F3;padding:2px 5px;">intent.md</code>, which triggers <code style="font-family:'SF Mono',Menlo,Consolas,monospace;font-size:14px;color:#111111;background:#F5F5F3;padding:2px 5px;">spec.md</code>, then <code style="font-family:'SF Mono',Menlo,Consolas,monospace;font-size:14px;color:#111111;background:#F5F5F3;padding:2px 5px;">plan.md</code> and the diff, then a
+reviewed PR, then an incident record that writes the next <code style="font-family:'SF Mono',Menlo,Consolas,monospace;font-size:14px;color:#111111;background:#F5F5F3;padding:2px 5px;">intent.md</code>. The
+chain that produced a change and the audit trail for it are the same object.
+You never write the second one.</p>
+<p style="font-family:'Inter Tight', Inter, 'Helvetica Neue', Arial, sans-serif;font-size:16px;line-height:24px;color:#111111;margin:16px 0;"><img src="https://vektor-fm.github.io/vektor-site/diagrams/teardown-003.png" alt="The artifact chain: Plan commits intent.md, Design commits spec.md, Build commits plan.md and the diff, Test commits evals, Deploy commits a merged PR behind a human approval gate, Maintain commits an incident record that writes the next intent.md." style="display:block;width:100%;height:auto;margin:28px 0 0;"></p>
+<p style="font-family:'Inter Tight',Inter,'Helvetica Neue',Arial,sans-serif;font-size:11px;line-height:1.55;color:#5A5A5A;margin:10px 0 0;padding-left:12px;border-left:2px solid #0E9C86;">Stages, artifacts and the approval gate as described in the playbook. Source: Anthropic, The AI-Native SDLC Playbook, read at source 2026-09-07.</p><p style="font-family:'Inter Tight', Inter, 'Helvetica Neue', Arial, sans-serif;font-size:16px;line-height:24px;color:#111111;margin:16px 0;">The premise underneath it is unsettled. The most careful study anyone has run,
+METR&#39;s randomised trial of 16 experienced developers on 246 real tasks, forecast
+24% faster and measured 19% slower, on early 2025 tooling. Read that as a
+warning about self assessment, not a verdict on agents. The file discipline
+does not need the premise to be true: if the agent is fast, the chain stops the
+speed turning into churn nobody can review, and if it is slow, you have lost
+some markdown.</p>
+<div style="margin:34px 0 0;background:#F5F5F3;padding:24px 26px;"><span style="display:block;font-family:'Inter Tight',Inter,'Helvetica Neue',Arial,sans-serif;font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#0E9C86;margin:0 0 9px;">The full teardown</span><p style="font-family:'Inter Tight',Inter,'Helvetica Neue',Arial,sans-serif;font-size:15px;line-height:1.6;color:#111111;margin:0 0 16px;">The full 69-line hook with the Windows path fix and the per-repo escape hatch, the three caveats on that METR number, the 1σ/2σ/3σ production tiers and what the agent may do at each, and why an approval prompt in the build stage rebuilds the bottleneck.</p><a href="https://vektor-fm.github.io/vektor-site/teardown-003.html" style="display:inline-block;background:#111111;color:#0E9C86;font-family:'Inter Tight',Inter,'Helvetica Neue',Arial,sans-serif;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:13px 24px;text-decoration:none;">Read it &rarr;</a></div><div style="border-top:1px solid #E2E2E2;margin:36px 0 0;padding-top:14px;"><span style="display:block;font-family:'Inter Tight',Inter,'Helvetica Neue',Arial,sans-serif;font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#0E9C86;">Tried this week</span></div><table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%;border-collapse:collapse;margin:16px 0 0;"><tr><td style="padding:12px 0;border-top:1px solid #E2E2E2;vertical-align:top;width:72px;"><span style="display:inline-block;background:#0E9C86;color:#04120F;font-family:'Inter Tight',Inter,'Helvetica Neue',Arial,sans-serif;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:4px 8px;">Yes</span></td><td style="padding:12px 0 12px 14px;border-top:1px solid #E2E2E2;vertical-align:top;font-family:'Inter Tight',Inter,'Helvetica Neue',Arial,sans-serif;font-size:14px;line-height:1.6;color:#111111;"><code style="font-family:'SF Mono',Menlo,Consolas,monospace;font-size:14px;color:#111111;background:#F5F5F3;padding:2px 5px;">claude --worktree &lt;name&gt;</code>: one isolated checkout and branch per session, so two sessions stop stepping on each other's edits. Note that hooks in a parent folder are not isolated by it. The guard above is one of them, which is the point.</td></tr><tr><td style="padding:12px 0;border-top:1px solid #E2E2E2;vertical-align:top;width:72px;"><span style="display:inline-block;background:#0E9C86;color:#04120F;font-family:'Inter Tight',Inter,'Helvetica Neue',Arial,sans-serif;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:4px 8px;">Yes</span></td><td style="padding:12px 0 12px 14px;border-top:1px solid #E2E2E2;vertical-align:top;font-family:'Inter Tight',Inter,'Helvetica Neue',Arial,sans-serif;font-size:14px;line-height:1.6;color:#111111;">Reading our own session transcripts (<code style="font-family:'SF Mono',Menlo,Consolas,monospace;font-size:14px;color:#111111;background:#F5F5F3;padding:2px 5px;">~/.claude/projects/*/*.jsonl</code>) instead of guessing. Every message carries its token counts, so a cost claim can be checked against 103 real sessions before anyone runs an experiment. The number above came from git, not from memory.</td></tr></table><div style="margin:34px 0 0;border:2px solid #111111;padding:22px 26px;"><span style="display:block;font-family:'Inter Tight',Inter,'Helvetica Neue',Arial,sans-serif;font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#0E9C86;margin:0 0 10px;">One question</span><p style="font-family:'Archivo','Inter Tight','Helvetica Neue',Arial,sans-serif;font-size:19px;line-height:1.35;color:#111111;margin:0;">Which rule does your agent keep breaking, no matter how you word it?</p><p style="font-family:'Inter Tight',Inter,'Helvetica Neue',Arial,sans-serif;font-size:13px;line-height:1.6;color:#5A5A5A;margin:12px 0 0;">Hit reply. One line is enough. I answer every reply, and the best one becomes next week's file.</p></div><div style="margin:32px 0 0;padding-top:20px;border-top:1px solid #E2E2E2;"><p style="font-family:'Inter Tight',Inter,'Helvetica Neue',Arial,sans-serif;font-size:15px;line-height:1.7;color:#111111;margin:0 0 14px;">If you only take one thing: a rule you cannot afford to have broken does not go in a prompt. It goes in a hook, and the prompt explains why.</p><p style="font-family:'Inter Tight',Inter,'Helvetica Neue',Arial,sans-serif;font-size:15px;line-height:1.7;color:#111111;margin:0 0 14px;">Know someone who committed on main this week? Forward them this.</p><p style="font-family:'Archivo','Inter Tight','Helvetica Neue',Arial,sans-serif;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#111111;margin:16px 0 0;">Julian</p></div>
 </div>
 <div style="background:#0B0B0B;padding:24px 46px 30px;margin-top:36px;font-family:'Inter Tight',Inter,'Helvetica Neue',Arial,sans-serif;">
   <div style="font-size:16px;font-weight:600;letter-spacing:-0.045em;color:#EFEADD;line-height:1;margin:0 0 12px;">vektor</div>

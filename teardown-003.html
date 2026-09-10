@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="en" id="top"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Teardown 003 — One hook, no more commits on main</title>
+<meta name="description" content="Anthropic published how it builds software with agents. The part worth stealing is one sentence: a skill is advisory, a hook is deterministic. Here is the hook that ended direct commits on main across this operation, with the before-and-after count, plus the artifact chain the playbook is actually about and the one claim in it with the least evidence behind it.">
+
+<!-- OG / social preview (traffic arrives via DM) -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="One hook, no more commits on main — The Teardown 003">
+<meta property="og:description" content="The 69-line Claude Code hook that ended direct commits on main here, the before-and-after from git log, and Anthropic's SDLC playbook torn down: six stages, one commit per handoff, and the one thing the agent is never allowed to do.">
+<meta property="og:image" content="https://vektor-fm.github.io/vektor-site/diagrams/teardown-003.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The artifact chain: Plan commits intent.md, Design commits spec.md, Build commits plan.md and the diff, Test commits evals, Deploy commits a merged PR behind a human approval gate, Maintain commits an incident record that writes the next intent.md">
+<meta property="og:site_name" content="vektor">
+<meta property="og:url" content="https://vektor-fm.github.io/vektor-site/teardown-003.html">
+<link rel="canonical" href="https://vektor-fm.github.io/vektor-site/teardown-003.html">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="One hook, no more commits on main — The Teardown 003">
+<meta name="twitter:description" content="The 69-line Claude Code hook that ended direct commits on main here, the before-and-after from git log, and Anthropic's SDLC playbook torn down: six stages, one commit per handoff, and the one thing the agent is never allowed to do.">
+<meta name="twitter:image" content="undefined">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000000'/%3E%3Ctext x='32' y='47' font-family='Arial' font-size='46' font-weight='600' text-anchor='middle' fill='%23EFEADD'%3Ev%3C/text%3E%3C/svg%3E">
+<link rel="preload" href="fonts/archivo-expanded-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/archivo-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/inter-tight-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+
+<style>
+/* Archivo + Archivo Expanded — SIL OFL, self-hosted, 14 KB each.
+   Printvetica — purchased commercial licence, GITIGNORED: this repo is public,
+   so committing the file would be redistribution. Production falls back to
+   Archivo for meta and labels until the webfont grant is confirmed.
+   IBM Plex Mono — retained at ONE weight for code snippets only. 11 of 20
+   issue pages carry a snippet and those legitimately need a monospace face;
+   the other five weights, plus Tektur, Workbench and Jacquard 24, are retired. */
+@font-face{font-family:'Archivo Expanded';src:url(fonts/archivo-expanded-400.woff2) format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Archivo Text';src:url(fonts/archivo-400.woff2) format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Inter Tight';src:url(fonts/inter-tight-600-latin.woff2) format('woff2');font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:'Printvetica';src:url(fonts/printvetica-caps.woff2) format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'IBM Plex Mono';src:url(fonts/ibm-plex-mono-400-latin.woff2) format('woff2');font-weight:400;font-style:normal;font-display:swap}
+/* the per-issue marker, previously inside the sticky .chrome masthead */
+.issue-marker{
+  padding:var(--p-s) var(--rail); border-bottom:1px solid var(--rule);
+  font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em;
+  font-size:var(--fs-s); line-height:var(--lh-s); color:var(--meta);
+}
+<!-- SHARED NAV STYLES — injected into both partials/head.html (the 20 issue
+     pages) and src/index.body.html (the landing page) by build.mjs via
+     the NAV_CSS token. Edit here only; a second copy is how the two drift apart. -->
+/* ================================ NAV ================================
+   MEASURED ON SPRIND 2026-08-08. The header is OFF-SCREEN by default:
+   transform:translate3d(0,-100%,0). It is revealed by mouseenter on an
+   invisible 24px-tall full-width strip pinned to the top of the viewport, or
+   by focus (keyboard). Scrolling never reveals it — verified at scrollY
+   0/200/400/800/1600. Once revealed it is sticky.
+
+   Three states: off-screen -> bar only (81.8px) -> fully open (326.8px).
+   Bar 44px + 1px grid gap + submenu row 36.8px.
+   Reveal is transform .4s ease; open is max-height .5s ease-out.
+   Desktop does NOT scroll-lock (body stays overflow:visible). Mobile does.
+   ===================================================================== */
+/* Skip link — sprind's, and the one piece of their nav furniture that is real
+   function rather than shape. Parked above the viewport, slides in on focus. */
+.skip-link{
+  position:fixed; top:0; left:0; z-index:80;
+  transform:translateY(-120%); transition:transform .2s ease-out;
+  background:var(--fg); color:var(--bg);
+  padding:12px var(--p-m); font-size:var(--fs-s); line-height:var(--lh-s);
+  font-weight:500; text-decoration:underline;
+}
+.skip-link:focus{ transform:translateY(0); outline:2px solid var(--fg); outline-offset:2px; }
+
+.navreveal{                       /* the invisible 24px trigger strip */
+  position:fixed; top:0; left:0; right:0; height:24px; z-index:70;
+  cursor:default;
+}
+.menu{
+  position:fixed; inset:0 0 auto 0; z-index:60; background:transparent;
+  display:grid; gap:1px;
+  transform:translate3d(0,-100%,0);
+  transition:transform .4s ease;
+}
+.menu.nav-visible, .menu:focus-within{ transform:translateZ(0); }
+.menu .bar{
+  display:flex; justify-content:space-between; align-items:center;
+  padding:var(--p-s); height:44px; background:var(--bg);
+  outline:1px solid var(--rule);   /* outline, not border — sprind surrounds the bar */
+}
+/* ======================= THE LOGO — THE REAL ONE =======================
+   The shipping wordmark, from partials/head.html:174-186. NOT the retired
+   brand/logo/export/ mark (Archivo 800 + teal caret).
+
+   Inter Tight 600 at -.045em in cream #EFEADD.
+
+   The live site animates this: two chromatic misregistration plates (acid +
+   orchid) slide into alignment and fade over 1.15s while each character
+   flashes a mono glyph before resolving. Founder retired that animation for
+   the redesign (2026-08-08) — sprind is restrained and the glitch-decode
+   fought it. The markup keeps the plate and glyph spans so the motion can be
+   restored by deleting the three rules below, but by default the mark is
+   STATIC: letters visible, glyphs and plates hidden. This is exactly the
+   live site's prefers-reduced-motion state, promoted to the default.
+   ===================================================================== */
+.wm{
+  position:relative; display:inline-flex; text-decoration:none;
+  font-family:'Inter Tight',system-ui,sans-serif; font-weight:600;
+  letter-spacing:-0.045em; color:var(--paper); line-height:1;
+}
+.wm-main{ position:relative; z-index:2; display:inline-flex; }
+.wm-main .ch{ position:relative; display:inline-block; }
+.wm-main .ch .l{ opacity:1; }          /* animation retired */
+.wm-main .ch .g{ display:none; }       /* glyph flash retired */
+.wm-plate{ display:none; }             /* registration plates retired */
+.bar .wm{ font-size:30px; }
+.bar .mid{ font-size:var(--fs-s); text-transform:uppercase; letter-spacing:.025em; }
+.bar .util{ display:flex; align-items:center; gap:var(--p-m); }
+.bar .util a{ font-size:var(--fs-s); text-transform:uppercase; letter-spacing:.025em; color:var(--dim); }
+.bar .util a:hover,.bar .util a.on{ color:var(--fg); }
+
+/* Submenu row — Technique C lattice: 1px grid gap plus a 1px OUTLINE on every
+   cell. Outlines paint outside the border box and take no layout space, so two
+   neighbours' outlines meet inside the gutter and read as one hairline. */
+.navgrid{
+  display:grid; grid-auto-flow:column; grid-auto-columns:minmax(0,1fr);
+  gap:1px; background:var(--bg); list-style:none;
+}
+.navgrid > li{ display:flex; flex-direction:column; outline:1px solid var(--rule); }
+.nav-submenu{ display:grid; }   /* no gap: .navbottom carries margin-top:-1px */
+/* 38px, not 37. At 37 the bottom rule lands on a half device pixel and splits
+   50/75% across two grey rows — it reads soft rather than crisp. Measured. */
+.navgrid .top{
+  height:38px; display:flex; align-items:center; justify-content:center;
+  font-size:var(--fs-s); line-height:var(--lh-s);
+  text-transform:uppercase; letter-spacing:normal; text-align:center;
+  transition:background-color .15s cubic-bezier(.4,0,.2,1);
+}
+/* sprind fills the cell 20% white on dark, and does NOT change the text colour */
+.navgrid > li:hover .top{ background-color:rgba(255,255,255,.2); }
+.navgrid .panel{
+  border-top:1px solid var(--rule);
+  margin-bottom:-1px;              /* swallows the doubled hairline, as sprind does */
+  display:grid; gap:var(--p-xl); padding:0 var(--p-m);
+  max-height:0; opacity:0; overflow:hidden;
+  transition:max-height .5s ease-out, opacity .5s ease-out, padding .5s ease-out;
+}
+.menu:hover .navgrid .panel,
+.menu:focus-within .navgrid .panel{ max-height:384px; opacity:1; padding:var(--p-m); }
+.navgrid .panel ul{ display:flex; flex-direction:column; gap:2px; list-style:none; }
+/* Panel links are the ONE place sprind puts the arrow first — 15/19,
+   SENTENCE CASE (not uppercase), 8px gap. */
+.navgrid .panel a{
+  display:flex; gap:var(--p-s);
+  font-size:var(--fs-s); line-height:var(--lh-s); text-transform:none;
+}
+.navgrid .panel a span{ border-bottom:1px solid transparent; }
+/* Hover DIMS THE SIBLINGS rather than highlighting the target: every other
+   link goes to #767676 while the hovered one stays white. */
+.navgrid .panel ul:hover li a{ color:#767676; }
+.navgrid .panel ul li a{ transition:color .1s ease-in-out; }
+.navgrid .panel ul li a:hover{ color:var(--fg); }
+.navgrid .panel .info{ color:var(--meta); font-size:var(--fs-s); line-height:var(--lh-s); }
+/* Staggered reveal: child n gets .1n s duration, .02n s delay */
+.navgrid .panel ul li{ opacity:0; }
+.menu:hover .navgrid .panel ul li,
+.menu:focus-within .navgrid .panel ul li{ opacity:1; }
+.navgrid .panel ul li:nth-child(1){ transition:opacity .1s ease-in-out 0s; }
+.navgrid .panel ul li:nth-child(2){ transition:opacity .2s ease-in-out .02s; }
+.navgrid .panel ul li:nth-child(3){ transition:opacity .3s ease-in-out .04s; }
+.navgrid .panel ul li:nth-child(4){ transition:opacity .4s ease-in-out .06s; }
+.navgrid .panel ul li:nth-child(5){ transition:opacity .5s ease-in-out .08s; }
+.navgrid .panel .info{ transition:opacity .5s ease-out .1s; }
+
+/* Full-width bottom row spanning all three columns, 36px */
+/* visibility:hidden is load-bearing, not decoration. overflow:hidden does NOT
+   clip an element's own outline, so a 1px outline around a max-height:0 box
+   paints its top AND bottom edges as one solid 2px band — which margin-top:-1px
+   then stacks onto the panel's border-top and the li's outline-bottom. Measured
+   at 4 lit device rows against sprind's 2, 2.67x the ink. sprind's own .slider
+   rule carries `visibility:hidden` alongside `max-height:0` for exactly this
+   reason; we had copied the max-height and dropped the visibility. */
+.navbottom{
+  display:flex; justify-content:space-between; flex-wrap:wrap;
+  background:var(--bg); outline:1px solid var(--rule);
+  /* Closed header totals 82.8px against sprind's 81.8. Adding their -mb-[1px]
+     was tried and had no effect — the grid track floors at 0 — so the 1px is
+     left standing rather than papered over with CSS that does nothing. It is
+     total height only: both hairlines render pixel-identical to theirs. */
+  margin-top:-1px;
+  max-height:0; overflow:hidden; visibility:hidden;
+  transition:max-height .5s ease-out, visibility linear .5s;
+}
+.menu:hover .navbottom, .menu:focus-within .navbottom{
+  max-height:96px; visibility:visible;
+  transition:max-height .5s ease-out, visibility linear;
+}
+.navbottom ul{ display:flex; list-style:none; padding:var(--p-s) var(--p-m); }
+.navbottom .social{ gap:var(--p-s); }
+.navbottom .legal{ gap:var(--p-xl); }
+.navbottom a{ font-size:var(--fs-s); line-height:var(--lh-s); display:flex; gap:var(--p-s); }
+.navbottom .legal:hover a{ color:#767676; }
+.navbottom .legal a{ transition:color .1s ease-in-out; }
+.navbottom .legal a:hover{ color:var(--fg); }
+
+/* MENU TRIGGER — two rules plus the word (founder choice, option C).
+   Both signals at once: the rules read at a glance and animate into an X so the
+   state is visible, and the label says what it does. The rules are 18px and
+   drawn in currentColor rather than three 15px hairlines, so the mark reads as
+   part of the site's rule system instead of as a stock hamburger. Desktop has
+   no trigger at all — the hover strip reveals the nav there, as sprind does. */
+.menu-word{
+  display:none; align-items:center; gap:var(--p-s); height:44px; padding:0 2px;
+  background:none; border:0; cursor:pointer; color:var(--fg);
+  font-family:var(--font-label); font-size:var(--fs-s); line-height:var(--lh-s);
+  letter-spacing:.025em; text-transform:uppercase;
+}
+.menu-word .rules{ display:flex; flex-direction:column; gap:5px; flex:0 0 auto; }
+.menu-word .rules i{
+  display:block; width:18px; height:1px; background:currentColor;
+  transition:transform .3s cubic-bezier(.4,0,.2,1);
+}
+.menu-word .lbl{ border-bottom:1px solid transparent; transition:border-color .15s cubic-bezier(.4,0,.2,1); }
+.menu-word:hover .lbl,.menu-word[aria-expanded="true"] .lbl{ border-bottom-color:var(--fg); }
+/* the two rules cross into an X on open */
+.menu-word[aria-expanded="true"] .rules i:first-child{ transform:translateY(3px) rotate(45deg); }
+.menu-word[aria-expanded="true"] .rules i:last-child{ transform:translateY(-3px) rotate(-45deg); }
+
+/* Below 768 sprind drops the hover gating entirely: the drawer opens from the
+   bar and ALL panels are expanded at once. Without a toggle that would leave a
+   ~700px nav permanently open, so the drawer is gated behind the hamburger and
+   scrolls internally — a nav taller than the viewport is otherwise unusable. */
+@media (max-width:767px){
+  .menu-word{ display:inline-flex; }
+  .nav-submenu{
+    max-height:0; overflow:hidden; visibility:hidden;
+    transition:max-height .4s ease, visibility linear .4s;
+  }
+  .menu.drawer-open .nav-submenu{
+    max-height:calc(100svh - 44px); overflow-y:auto; visibility:visible;
+    transition:max-height .4s ease, visibility linear;
+  }
+  .navgrid{ grid-auto-flow:row; }
+  .navgrid .panel{ max-height:none; opacity:1; padding:var(--p-m); }
+  .navgrid .panel ul li{ opacity:1; }
+  .navbottom{ max-height:none; visibility:visible; }
+  /* hover must not open anything on touch — the drawer class is the only gate */
+  .menu:hover .navgrid .panel, .menu:hover .navbottom{ max-height:none; }
+}
+
+/* ---- touch targets, owned by the nav itself ----
+   These lived in the landing page's stylesheet, so when the nav became shared
+   the 20 issue pages inherited the markup without the fixes: the wordmark came
+   back at 30px tall and the single-glyph social links at 10-17px wide. Rules
+   that belong to a component belong in the component. */
+.bar .wm{min-height:44px; display:inline-flex; align-items:center;}
+.bar .util a{min-height:44px; display:inline-flex; align-items:center;}
+.navgrid .top{min-height:44px;}
+.navgrid .panel a,
+.navbottom a{min-height:44px; display:inline-flex; align-items:center;}
+.navbottom .social a,
+.navbottom .social li{min-width:44px; justify-content:center;}
+
+</style>
+<style>
+/* =========================================================================
+   ISSUE PAGES — sprind structure, Vektor voice. Candidate replacement for the
+   196-line block in partials/head.html.
+
+   Every class name from the existing bodies is preserved, so all 20 pages
+   re-skin from this file with zero edits to any src/*.body.html.
+
+   Decisions baked in (founder, 2026-08-14):
+     · Jacquard 24 retired; Printvetica takes the .goth role, so the accent
+       survives, the site unifies with the films, and no fifth face is added.
+     · Headlines are weight 400. Size does the work — .disp was 900.
+     · Sticky CTA, newsletter pop-up and the weave are KEPT, rebuilt in the
+       new language rather than deleted.
+     · Card colour is the open question — see the two variants at the bottom.
+   ========================================================================= */
+
+:root{
+  /* type ramp — sprind's, identical to the landing page */
+  --fs-4xl:132px; --lh-4xl:140px; --fs-3xl:52px; --lh-3xl:54px;
+  --fs-2xl:32px;  --lh-2xl:34px;  --fs-xl:20px;  --lh-xl:22px;
+  --fs-m:18px;    --lh-m:22px;    --fs-s:15px;   --lh-s:19px;
+  --fs-xs:12px;   --lh-xs:14px;
+  --p-xs:4px; --p-s:8px; --p-m:16px; --p-l:24px; --p-xl:32px;
+  --p-2xl:40px; --p-3xl:48px; --p-4xl:80px;
+
+  --bg:#000000;
+  --fg:#FFFFFF;
+  --band:#141414;
+  --rule:#C9C9C9;
+  --meta:#999999;
+  --dim:#B4B4B4;
+  --accent:#0E9C86;          /* caret teal — locked */
+  --paper:#EFEADD;           /* wordmark ink */
+  --acid:#39FF35;            /* wordmark plate only, never UI */
+  --orchid:#C77BC9;
+
+  --font-extended:'Archivo Expanded','Archivo Text',system-ui,sans-serif;
+  --font-sans:'Archivo Text',system-ui,sans-serif;
+  --font-label:'Printvetica','Archivo Text',system-ui,sans-serif;
+  --font-code:'IBM Plex Mono',ui-monospace,monospace;
+  --wm:'Inter Tight',system-ui,sans-serif;
+
+  --rail:var(--p-2xl);       /* sprind's 40px page gutter */
+}
+@media (max-width:1023px){
+  :root{
+    --fs-4xl:40px; --lh-4xl:42px; --fs-3xl:32px; --lh-3xl:34px;
+    --fs-2xl:24px; --lh-2xl:26px; --fs-xl:18px;  --lh-xl:20px;
+    --fs-m:16px;   --lh-m:19px;   --fs-s:14px;   --lh-s:18px;
+    --p-m:12px; --p-l:16px; --p-xl:24px; --p-2xl:32px; --p-3xl:40px; --p-4xl:64px;
+  }
+}
+@media (max-width:767px){
+  :root{
+    --fs-4xl:28px; --lh-4xl:32px; --fs-3xl:24px; --lh-3xl:28px;
+    --fs-2xl:20px; --lh-2xl:22px; --fs-xl:16px;  --lh-xl:18px;
+    --fs-m:14px;   --lh-m:18px;
+    --p-m:8px; --p-l:12px; --p-xl:16px; --p-2xl:24px; --p-3xl:32px; --p-4xl:48px;
+  }
+}
+
+*{box-sizing:border-box;}
+html,body{margin:0;}
+body{
+  background:var(--bg); color:var(--fg);
+  font-family:var(--font-sans); font-size:var(--fs-m); line-height:var(--lh-m);
+  -webkit-font-smoothing:antialiased; overflow-x:hidden;
+}
+a{color:inherit; text-decoration:none;}
+/* Browser default for h1-h6 is bold. The locked rule is weight 400 everywhere,
+   and 119 bare <h2> plus 8 bare <h3> across the bodies were inheriting 700 —
+   caught by the all-pages check, invisible on any single page you happen to
+   look at. Reset globally rather than class by class. */
+h1,h2,h3,h4,h5,h6{font-weight:400; font-family:var(--font-extended); letter-spacing:normal;}
+h2{font-size:var(--fs-2xl); line-height:var(--lh-2xl); text-transform:uppercase; margin:var(--p-xl) 0 var(--p-s);}
+h3{font-size:var(--fs-xl); line-height:var(--lh-xl); text-transform:uppercase; margin:var(--p-l) 0 var(--p-xs);}
+/* long commands and URLs must never widen the page */
+code{font-family:var(--font-code); font-size:.92em; overflow-wrap:anywhere;}
+p,li{overflow-wrap:break-word;}
+:focus-visible{outline:2px solid var(--fg); outline-offset:2px;}
+::selection{background:var(--accent); color:var(--bg);}
+img{display:block; max-width:100%;}
+
+/* ---- shared type ---- */
+.kick{
+  font-family:var(--font-label); text-transform:uppercase;
+  letter-spacing:.025em; font-size:var(--fs-s); line-height:var(--lh-s);
+}
+.disp{
+  font-family:var(--font-extended); font-weight:400;   /* was 900 */
+  text-transform:uppercase; letter-spacing:normal; line-height:var(--lh-3xl);
+}
+/* the rule was an ASCII line in mono; it becomes an actual hairline */
+.rule{
+  font-size:0; line-height:0; color:transparent; user-select:none;
+  height:1px; background:var(--rule); overflow:hidden;
+}
+
+/* ---- masthead: static wordmark, hairline, no shadow ---- */
+.chrome{
+  position:sticky; top:0; z-index:50; background:var(--bg);
+  border-bottom:1px solid var(--rule);
+  display:flex; align-items:center; justify-content:space-between;
+  height:44px; padding:0 var(--rail);
+}
+.chrome .marker{
+  font-family:var(--font-label); text-transform:uppercase;
+  letter-spacing:.025em; font-size:var(--fs-s); color:var(--meta);
+}
+@media (max-width:520px){ .chrome .marker{display:none;} }
+
+.wm{
+  position:relative; display:inline-flex; font-family:var(--wm); font-weight:600;
+  letter-spacing:-0.045em; color:var(--paper); font-size:30px; line-height:1;
+}
+.wm-main{position:relative; z-index:2; display:inline-flex;}
+.wm-main .ch{position:relative; display:inline-block;}
+/* animation retired for the redesign, matching the landing page */
+.wm-main .ch .l{opacity:1;}
+.wm-main .ch .g{display:none;}
+.wm-plate{display:none;}
+.wm-foot{font-family:var(--wm); font-weight:600; letter-spacing:-0.045em; color:var(--paper); font-size:34px; line-height:1; display:inline-flex;}
+.wm-foot .ch2{position:relative; display:inline-block;}
+.wm-foot .ch2 .g{display:none;}
+
+/* the weave survives, but as a hairline-bounded teal band rather than a
+   full-bleed woven texture — kept per founder, restyled to the new language */
+.weave{
+  height:8px; width:100%;
+  background:repeating-linear-gradient(90deg, var(--accent) 0 2px, transparent 2px 10px);
+  border-bottom:1px solid var(--rule);
+}
+
+/* ---- hero ---- */
+.hero{padding:var(--p-2xl) var(--rail) var(--p-4xl); position:relative;}
+.hero .eye{color:var(--meta); margin-bottom:var(--p-m);}
+.hero h1{margin:0; font-size:var(--fs-3xl); line-height:var(--lh-3xl);}
+.hero h1 .dot{color:var(--accent);}
+.hero .sub{max-width:64ch; margin-top:var(--p-l); font-size:var(--fs-m); line-height:var(--lh-xl); color:var(--dim);}
+.hero .rule{margin-top:var(--p-xl);}
+
+/* ---- figure / section head ---- */
+.fig{padding:var(--p-2xl) var(--rail) var(--p-m); display:flex; align-items:baseline; gap:var(--p-m);}
+.fig .kick{color:var(--meta); white-space:nowrap;}
+.fig .line{flex:1; height:1px; background:var(--rule);}
+.fig h2{margin:0; font-size:var(--fs-3xl); line-height:var(--lh-3xl);}
+/* .goth was Jacquard 24 blackletter — Printvetica now carries the accent */
+.fig .gaccent{
+  font-family:var(--font-label); font-size:var(--fs-2xl); line-height:1;
+  color:var(--paper); text-transform:uppercase; letter-spacing:.025em;
+}
+
+/* ---- cards ---- */
+.issues{padding:var(--p-m) var(--rail) 0;}
+.card{position:relative; margin:var(--p-l) 0; padding:var(--p-l); overflow:hidden;}
+.card .top{display:flex; align-items:flex-start; justify-content:space-between; gap:var(--p-m);}
+.card .tag{
+  font-family:var(--font-label); text-transform:uppercase;
+  letter-spacing:.025em; font-size:var(--fs-s); color:var(--meta);
+}
+.card .goth{
+  font-family:var(--font-label); font-size:var(--fs-2xl); line-height:1;
+  text-transform:uppercase; letter-spacing:.025em; color:var(--paper);
+}
+.card h2{
+  font-family:var(--font-extended); font-weight:400; text-transform:uppercase;
+  letter-spacing:normal; font-size:var(--fs-2xl); line-height:var(--lh-2xl);
+  margin:var(--p-m) 0 0; overflow-wrap:break-word;
+}
+.card .one{font-size:var(--fs-m); line-height:var(--lh-xl); margin-top:var(--p-s); max-width:64ch; color:var(--dim);}
+.card .proof{
+  display:inline-block; margin-top:var(--p-m); font-family:var(--font-code);
+  font-size:var(--fs-s); padding:var(--p-s) var(--p-m);
+  color:var(--accent); border:1px solid var(--rule);
+}
+.card .stars{
+  display:inline-block; margin-top:var(--p-m); font-family:var(--font-label);
+  text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s);
+  padding:var(--p-s) var(--p-m); border:1px solid var(--rule); color:var(--dim);
+}
+.card .actions{display:flex; flex-wrap:wrap; gap:var(--p-s); margin-top:var(--p-l); align-items:stretch;}
+
+/* ---- controls: unfilled cells bounded by hairlines, as sprind's are ---- */
+.btn{
+  display:inline-flex; align-items:center; gap:var(--p-xs);
+  min-height:48px; padding:0 var(--p-m);
+  font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em;
+  font-size:var(--fs-s); border:1px solid var(--rule); background:transparent;
+  color:var(--fg); cursor:pointer;
+  transition:background-color .15s cubic-bezier(.4,0,.2,1), color .15s cubic-bezier(.4,0,.2,1);
+}
+.btn:hover{background:rgba(255,255,255,.06);}
+.btn.primary{border-color:var(--accent); color:var(--accent);}
+.btn.primary:hover{background:var(--accent); color:var(--bg);}
+
+.copy{
+  display:flex; align-items:center; min-height:48px;
+  border:1px solid var(--rule); padding:0 var(--p-xs) 0 var(--p-m); gap:var(--p-s);
+  font-family:var(--font-code); font-size:var(--fs-s);
+  flex:1 1 240px; min-width:0; justify-content:space-between;
+}
+.copy code{overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+.copybtn{
+  display:none; flex:none; align-items:center; min-height:40px; padding:0 var(--p-m);
+  font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em;
+  font-size:var(--fs-xs); border:1px solid var(--rule); background:transparent;
+  color:var(--fg); cursor:pointer;
+}
+.js .copybtn{display:inline-flex;}
+.copybtn:hover{background:var(--accent); color:var(--bg); border-color:var(--accent);}
+
+/* ---- code snippet: no sprind analogue, so designed to their logic —
+        a hairline-bounded cell, mono only inside the pre ---- */
+.snippet{position:relative; margin-top:var(--p-m); border:1px solid var(--rule); background:var(--band);}
+.snippet .bar{
+  display:flex; align-items:center; justify-content:space-between; gap:var(--p-s);
+  padding:var(--p-s) var(--p-s) var(--p-s) var(--p-m); border-bottom:1px solid var(--rule);
+}
+.snippet .bar .f{
+  font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em;
+  font-size:var(--fs-xs); color:var(--meta);
+}
+.snippet pre{
+  margin:0; padding:var(--p-m); overflow-x:auto; max-height:60vh; overflow-y:auto;
+  font-family:var(--font-code); font-size:var(--fs-s); line-height:1.55;
+  color:var(--fg); white-space:pre-wrap; word-break:break-word;
+}
+.snippet .snipbtn{
+  flex:none; min-height:44px; padding:0 var(--p-m);
+  font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em;
+  font-size:var(--fs-xs); border:1px solid var(--rule); background:transparent;
+  color:var(--fg); cursor:pointer;
+}
+.snippet .snipbtn:hover{background:var(--accent); color:var(--bg); border-color:var(--accent);}
+#shareBtn{display:none;}
+.js #shareBtn{display:inline-flex;}
+
+/* ---- ledger ---- */
+.ledger{padding:var(--p-s) var(--rail) var(--p-m);}
+.lrow{display:flex; gap:var(--p-l); align-items:baseline; border-top:1px solid var(--rule); padding:var(--p-l) 0;}
+.lrow:last-of-type{border-bottom:1px solid var(--rule);}
+.lrow .n{font-family:var(--font-extended); font-weight:400; font-size:var(--fs-2xl); color:var(--accent); flex:none; line-height:1;}
+.lrow .t{font-family:var(--font-sans); font-size:var(--fs-m); line-height:var(--lh-xl); text-transform:uppercase; letter-spacing:normal;}
+
+/* ---- mid-page newsletter capture (kept per founder) ---- */
+.midcap{margin:var(--p-2xl) var(--rail); padding:var(--p-l); border:1px solid var(--rule); background:var(--band);}
+.midcap .k{display:block; color:var(--accent); font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); margin-bottom:var(--p-s);}
+.midcap h2{font-family:var(--font-extended); font-weight:400; text-transform:uppercase; letter-spacing:normal; font-size:var(--fs-2xl); line-height:var(--lh-2xl); margin:0 0 var(--p-s);}
+.midcap p{font-size:var(--fs-m); line-height:var(--lh-xl); max-width:64ch; margin:0 0 var(--p-m); color:var(--dim);}
+.midcap form{display:flex; gap:var(--p-s); flex-wrap:wrap; max-width:540px;}
+.midcap input{flex:1 1 240px; min-height:48px; background:transparent; border:0; border-bottom:1px solid var(--rule); color:var(--fg); font-family:var(--font-sans); font-size:var(--fs-m); padding:0;}
+.midcap input:focus{outline:none; border-bottom-color:var(--fg);}
+.midcap .btn{min-height:48px;}
+.midcap .note{font-size:var(--fs-s); color:var(--meta); margin-top:var(--p-s);}
+
+/* ---- the gate (2026-08-26, founder picked "paper block") ----
+   The page ends here for anyone who hasn't paid the email, so it is built as a
+   destination, not a footer widget. The block flips to PAPER on an otherwise
+   all-black site: it is the only light surface in the whole design system, which
+   is what makes it the loudest object on the page without adding decoration.
+   Colours are hard-coded near-black rather than var(--fg) because this is the
+   one inverted surface — the tokens all assume ink-on-black.
+   The manifest rows are generated from the payload (build.mjs): real file names
+   and line counts, redacted. Structure, never a readable line — a readable
+   teaser measurably lowers conversion (docs/2026-08-26-gate-ui-research.md). */
+.gate{position:relative; margin:var(--p-2xl) 0 0; padding:var(--p-2xl) var(--rail) var(--p-4xl); background:var(--bg); border-top:1px solid var(--rule);}
+.gate .inner{background:var(--paper); color:#0B0B0B; padding:var(--p-xl) var(--p-l) var(--p-l); border:1px solid #0B0B0B; max-width:720px;}
+.gate .tab{display:inline-block; margin-bottom:-1px; background:var(--accent); color:#04120F; font-family:var(--font-label); text-transform:uppercase; letter-spacing:.05em; font-size:var(--fs-s); padding:6px 14px;}
+.gate .k{display:block; color:#0B0B0B; opacity:.7; font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); margin-bottom:var(--p-s);}
+.gate h2{color:#0B0B0B; font-family:var(--font-extended); font-weight:400; text-transform:uppercase; letter-spacing:normal; font-size:var(--fs-2xl); line-height:var(--lh-2xl); margin:0 0 var(--p-s);}
+.gate .lede{color:#2A2A2A; font-size:var(--fs-m); line-height:var(--lh-xl); max-width:52ch; margin:0 0 var(--p-l);}
+
+.manifest{list-style:none; margin:0 0 var(--p-xl); padding:0;}
+.manifest li{display:flex; align-items:center; gap:var(--p-s); padding:10px 0; border-top:1px solid #0B0B0B; font-family:var(--font-code); font-size:var(--fs-s); color:#0B0B0B;}
+.manifest li:last-child{border-bottom:1px solid #0B0B0B;}
+.manifest .lk{color:#0B7A69;}
+.manifest .fn{white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+/* the redaction: it has to read as "text is here and you can't have it", so it
+   is a bar of glyph-width blocks rather than a plain rule */
+.manifest .rd{flex:1 1 30px; min-width:20px; height:10px; opacity:.35; background:repeating-linear-gradient(90deg,#0B0B0B 0 12px, transparent 12px 18px);}
+.manifest .ln{color:#4A4A4A; white-space:nowrap;}
+
+.gate-form{display:flex; gap:var(--p-s); flex-wrap:wrap; max-width:560px;}
+.gate-form input{flex:1 1 240px; min-height:52px; background:transparent; border:0; border-bottom:2px solid #0B0B0B; color:#0B0B0B; font-family:var(--font-sans); font-size:var(--fs-m); padding:0;}
+.gate-form input::placeholder{color:#6A6A6A;}
+.gate-form input:focus{outline:none; border-bottom-color:#0B7A69;}
+.gate-form .btn{min-height:52px; padding:0 var(--p-l); background:#0B0B0B; color:var(--paper); border:1px solid #0B0B0B;}
+.gate-form .btn:hover{background:#0B7A69; border-color:#0B7A69;}
+/* On a phone the field and the button stop competing for one row: mobile is
+   ~83% of the traffic and converts at about half the desktop rate, so the tap
+   target gets the full width. */
+@media (max-width:620px){
+  .gate-form input{flex:1 1 100%;}
+  .gate-form .btn{flex:1 1 100%; text-align:center; justify-content:center;}
+}
+.gate .note{font-size:var(--fs-s); color:#4A4A4A; margin-top:var(--p-m);}
+.gate .note a{color:#0B7A69;}
+/* social proof, at the decision point rather than in the footer. Real numbers
+   only — see build.mjs, they come from site.json with an as-of date. */
+.gate .proof{margin-top:var(--p-s); font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); color:#4A4A4A;}
+.gate .proof b{color:#0B7A69; font-weight:400;}
+
+/* the receipt at the top of an unlock page */
+.unlocked{margin:0; padding:var(--p-xl) var(--rail); background:var(--band); border-bottom:1px solid var(--rule);}
+.unlocked .k{display:block; color:var(--accent); font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); margin-bottom:var(--p-s);}
+.unlocked h2{font-family:var(--font-extended); font-weight:400; text-transform:uppercase; letter-spacing:normal; font-size:var(--fs-2xl); line-height:var(--lh-2xl); margin:0 0 var(--p-xs);}
+.unlocked p{font-size:var(--fs-m); line-height:var(--lh-xl); max-width:64ch; margin:0; color:var(--dim);}
+
+/* ---- footer ---- */
+footer{margin-top:var(--p-4xl); padding:var(--p-2xl) var(--rail) var(--p-4xl); border-top:1px solid var(--rule);}
+.foot-rule{margin-bottom:var(--p-xl);}
+.news label{display:block; color:var(--accent); margin-bottom:var(--p-s); font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s);}
+.news h2{margin:0 0 var(--p-s); font-family:var(--font-extended); font-weight:400; text-transform:uppercase; font-size:var(--fs-2xl); line-height:var(--lh-2xl);}
+.news form{display:flex; gap:var(--p-s); flex-wrap:wrap; max-width:520px;}
+.news input{flex:1 1 220px; min-height:48px; background:transparent; border:0; border-bottom:1px solid var(--rule); color:var(--fg); font-family:var(--font-sans); font-size:var(--fs-m); padding:0;}
+.news input:focus{outline:none; border-bottom-color:var(--fg);}
+.news .note{font-size:var(--fs-s); color:var(--meta); margin-top:var(--p-s);}
+.pack{display:flex; flex-wrap:wrap; gap:var(--p-s) var(--p-l); margin:var(--p-s) 0 var(--p-m);}
+.pack span{font-family:var(--font-sans); font-size:var(--fs-s); color:var(--meta);}
+.pack span::before{content:"\2192 "; color:var(--accent);}
+.socials{display:flex; flex-wrap:wrap; gap:var(--p-l); margin-top:var(--p-xl);}
+.socials a{font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); color:var(--meta); padding:12px 0; margin:-12px 0;}
+.socials a:hover{color:var(--accent);}
+.backref{margin-top:var(--p-xl); font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); color:var(--dim);}
+.backref b,.backref a{color:var(--accent);}
+.wordmark-foot{display:flex; align-items:center; gap:var(--p-m); margin-top:var(--p-xl); flex-wrap:wrap;}
+.wordmark-foot .m{font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); color:var(--meta);}
+
+.hero .actions{display:flex; flex-wrap:wrap; gap:var(--p-s); margin-top:var(--p-l);}
+
+/* ---- sticky follow CTA (kept per founder) ---- */
+/* the bar is fixed, so the page must reserve room or it covers the footer's
+   last rows — measured 83-101px of occlusion on 20 pages */
+body{padding-bottom:120px;}
+@media (min-width:640px){ body{padding-bottom:96px;} }
+.sticky-cta{
+  position:fixed; left:0; right:0; bottom:0; z-index:60;
+  display:flex; align-items:center; justify-content:space-between; gap:var(--p-m);
+  padding:var(--p-s) var(--rail); background:var(--bg);
+  border-top:1px solid var(--rule);
+  font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s);
+  transform:translateY(110%); transition:transform .3s ease;
+}
+.sticky-cta.show{transform:none;}
+.sticky-cta .r{display:flex; align-items:center; gap:var(--p-s);}
+.sticky-cta .t{flex:0 1 auto; color:var(--dim); min-width:0;}
+/* the bar carries a real capture now, not a Follow link */
+.sticky-form{display:flex; align-items:stretch; gap:var(--p-s); flex:1 1 260px; min-width:0;}
+.sticky-form input{
+  flex:1 1 auto; min-width:0; min-height:40px; background:transparent;
+  border:0; border-bottom:1px solid var(--rule); color:var(--fg);
+  font-family:var(--font-sans); font-size:var(--fs-s); padding:0;
+}
+.sticky-form input:focus{outline:none; border-bottom-color:var(--fg);}
+.sticky-form .btn{min-height:40px; padding:0 var(--p-m); white-space:nowrap;}
+/* iOS Safari zooms the whole page when an input under 16px is focused. Every
+   email field was 14px, so tapping the primary conversion control zoomed and
+   re-laid-out the page. 16px is the floor; it is a functional value, not a
+   typographic one. */
+input,select,textarea{font-size:16px !important;}
+
+/* .sr-only with white-space:nowrap + clip leaves a wide box in the layout —
+   measured 109px of inner overflow on every issue page. The clip-path form
+   collapses to zero and cannot scroll. */
+.sr-only{
+  position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+  overflow:hidden; clip-path:inset(50%); border:0;
+}
+/* below 640 the label would push the form to a second line for no gain */
+@media (max-width:639px){
+  .sticky-cta{flex-wrap:wrap; gap:var(--p-xs) var(--p-s);}
+  .sticky-cta .t{flex:1 0 100%; font-size:var(--fs-xs);}
+  .sticky-form{flex:1 1 auto;}
+}
+.sticky-cta .go{color:var(--accent);}
+.sticky-cta .x{background:none; border:0; color:var(--meta); font-size:22px; line-height:1; min-width:44px; min-height:44px; cursor:pointer;}
+.sticky-cta .x:hover{color:var(--fg);}
+
+/* ---- newsletter pop-up (kept per founder) ---- */
+.pop[hidden]{display:none;}
+.pop{position:fixed; inset:0; z-index:100; display:flex; align-items:center; justify-content:center; padding:var(--p-l);}
+.pop-scrim{position:absolute; inset:0; background:rgba(0,0,0,.72); backdrop-filter:blur(8px); cursor:pointer;}
+.pop-card{position:relative; z-index:1; width:100%; max-width:480px; background:var(--bg); border:1px solid var(--rule); padding:var(--p-xl) var(--p-l) var(--p-l);}
+.pop-x{position:absolute; top:0; right:0; background:none; border:0; color:var(--meta); font-size:24px; line-height:1; min-width:44px; min-height:44px; cursor:pointer;}
+.pop-x:hover{color:var(--fg);}
+.pop-card .k{display:block; color:var(--accent); font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); margin-bottom:var(--p-s); padding-right:48px;}
+.pop-card h2{font-family:var(--font-extended); font-weight:400; text-transform:uppercase; letter-spacing:normal; font-size:var(--fs-2xl); line-height:var(--lh-2xl); margin:0 0 var(--p-s);}
+.pop-card p{font-size:var(--fs-m); line-height:var(--lh-xl); margin:0 0 var(--p-m); color:var(--dim);}
+.pop-card form{display:flex; flex-direction:column; gap:var(--p-s);}
+.pop-card input{min-height:48px; background:transparent; border:0; border-bottom:1px solid var(--rule); color:var(--fg); font-family:var(--font-sans); font-size:var(--fs-m); padding:0;}
+.pop-card input:focus{outline:none; border-bottom-color:var(--fg);}
+.pop-card .note{font-size:var(--fs-s); color:var(--meta); margin-top:var(--p-s);}
+/* Google's safe harbour for a post-engagement popup is under 30% of the mobile
+   viewport with a visible close control. At the default padding this measured
+   37%, so the phone case tightens up rather than relying on the engagement
+   rule alone. */
+@media (max-width:639px){
+  /* Centred, not a bottom sheet (founder, 2026-08-17). The card sat flush to
+     the bottom edge on phones, which read as a system tray rather than as the
+     page's own ask. The height work above is what keeps it inside the safe
+     harbour — the alignment never did any of that job. */
+  .pop{padding:var(--p-m); align-items:center;}
+  .pop-card{padding:var(--p-l) var(--p-m) var(--p-m);}
+  .pop-card p{font-size:var(--fs-s); line-height:var(--lh-s); margin-bottom:var(--p-s);}
+  .pop-card .k{font-size:var(--fs-xs); margin-bottom:var(--p-xs);}
+  .pop-card .note{display:none;}
+}
+.midcap .btn,.news .btn,.pop-card .btn{justify-content:center;}
+
+.note{font-size:var(--fs-s); line-height:var(--lh-s); color:var(--meta);}
+.midcap .k,.pop-card .k{font-family:var(--font-label);}
+.ascii,.ascii-art,.tpl{font-family:var(--font-code); font-size:var(--fs-s); line-height:1.4; color:var(--dim); white-space:pre-wrap;}
+
+/* ---- cards: band + accent (founder-chosen 2026-08-14 on the two
+        full-page mocks; the monochrome variant is in git history) ---- */
+
+.card{background:var(--bg); outline:1px solid var(--rule); padding:var(--p-l);}
+.c-cream,
+.c-aqua,
+.c-ink,
+.c-orchid,
+.c-signal,
+.c-fog{color:var(--fg); border:0;}
+.issues .card:nth-of-type(even){background:var(--band);}
+.card .tag{color:var(--accent);}
+.card .goth{color:var(--paper);}
+
+/* ---- components introduced after the old stylesheet was last updated.
+        no-033 ships .code/.issue/.meta/.num and no-022 ships .c-fog; none of
+        them were ever styled, so they rendered as unstyled markup. ---- */
+pre.code{
+  margin:var(--p-m) 0; padding:var(--p-m); border:1px solid var(--rule);
+  background:var(--band); overflow-x:auto;
+  font-family:var(--font-code); font-size:var(--fs-s); line-height:1.55;
+  white-space:pre-wrap; word-break:break-word;
+}
+pre.code code{font-size:inherit;}
+.issue{margin:var(--p-l) 0; padding-top:var(--p-l); border-top:1px solid var(--rule);}
+.issue .num{
+  font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em;
+  font-size:var(--fs-s); color:var(--accent); display:block; margin-bottom:var(--p-xs);
+}
+.meta{font-size:var(--fs-s); line-height:var(--lh-s); color:var(--meta);}
+.meta b{color:var(--dim); font-weight:400;}
+.c-fog{color:var(--dim);}
+
+/* ---- touch targets ----
+   Everything tappable gets a 44px hit area. Several controls measured 15-42px
+   tall, including the footer social links, the copy buttons and both dismiss
+   controls. Padding is used rather than height so the visual size is unchanged
+   where the design depends on it. */
+.socials a,
+.backref a,
+.pack span a{min-height:44px; display:inline-flex; align-items:center;}
+.copybtn,.snippet .snipbtn{min-height:44px;}
+.pop-x,.sticky-cta .x{min-width:48px; min-height:48px; display:inline-flex; align-items:center; justify-content:center;}
+.sticky-form input,.sticky-form .btn{min-height:48px;}
+.btn{min-height:48px;}
+.chrome .wm{min-height:44px; display:inline-flex; align-items:center;}
+/* inline arrow links inside prose sit at line-height; give them a real target */
+.card .one a,.hero .sub a,.midcap p a,.note a{
+  display:inline-block; padding:11px 0; margin:-11px 0;
+}
+
+/* the decorative slash rule carries text content that is invisible but still
+   in the accessibility tree; hide it from assistive tech */
+.rule{speak:never;}
+</style><!-- SHARED NAV MARKUP — injected into masthead.html and index.body.html by
+     build.mjs via the NAV token. Edit here only. -->
+<!-- The 24px invisible strip that reveals the nav. sprind pins one of these to
+     the top of the viewport; mouseenter adds .nav-visible to the header. -->
+<div class="navreveal" aria-hidden="true"></div>
+
+<div class="menu">
+  <div class="bar">
+    <a class="wm" href="#top" aria-label="vektor"><span class="wm-plate wm-acid" aria-hidden="true">vektor</span><span class="wm-plate wm-orchid" aria-hidden="true">vektor</span><span class="wm-main"><span class="ch" style="--i:0"><span class="g">%</span><span class="l">v</span></span><span class="ch" style="--i:1"><span class="g">#</span><span class="l">e</span></span><span class="ch" style="--i:2"><span class="g">Z</span><span class="l">k</span></span><span class="ch" style="--i:3"><span class="g">8</span><span class="l">t</span></span><span class="ch" style="--i:4"><span class="g">@</span><span class="l">o</span></span><span class="ch" style="--i:5"><span class="g">W</span><span class="l">r</span></span></span></a>
+    <span class="mid">The Index</span>
+    <div class="util">
+      <button class="menu-word" type="button" aria-label="Open menu" aria-expanded="false"><span class="rules" aria-hidden="true"><i></i><i></i></span><span class="lbl">Menu</span></button>
+    </div>
+  </div>
+  <!-- sprind nests the lattice and the bottom row inside ONE #nav-submenu, so
+       the header grid has two children and therefore one 1px gap. Flattening
+       them into .menu adds a second gap and overshoots the 81.8px closed
+       height by 2px. -->
+  <div class="nav-submenu">
+  <ul class="navgrid">
+    <li>
+      <a class="top" href="#latest">Issues</a>
+      <div class="panel">
+        <ul>
+          <li><a href="#latest"><span class="a">→</span><span>Latest</span></a></li>
+          <li><a href="#archive"><span class="a">→</span><span>The archive</span></a></li>
+          <li><a href="https://instagram.com/vektor.fm" target="_blank" rel="noopener"><span class="a">→</span><span>Submit a topic</span></a></li>
+        </ul>
+        <p class="info">Every issue is one short film and one working pack — config, prompts, links.</p>
+      </div>
+    </li>
+    <li>
+      <a class="top" href="./pack.html">Packs</a>
+      <div class="panel">
+        <ul>
+          <li><a href="./no-004.html"><span class="a">→</span><span>Skills</span></a></li>
+          <li><a href="./no-013.html"><span class="a">→</span><span>Agent starter kit</span></a></li>
+          <li><a href="./no-015.html"><span class="a">→</span><span>Loops</span></a></li>
+          <li><a href="./no-010.html"><span class="a">→</span><span>CLAUDE.md files</span></a></li>
+        </ul>
+        <p class="info">The files behind the films. One email opens any of them.</p>
+      </div>
+    </li>
+    <li>
+      <a class="top" href="#about">About</a>
+      <div class="panel">
+        <ul>
+          <li><a href="#about"><span class="a">→</span><span>What vektor is</span></a></li>
+          <li><a href="#subscribe"><span class="a">→</span><span>The Teardown</span></a></li>
+          <li><a href="https://youtube.com/@vektorfm" target="_blank" rel="noopener"><span class="a">→</span><span>Watch</span></a></li>
+          <li><a href="./privacy.html"><span class="a">→</span><span>Privacy</span></a></li>
+        </ul>
+        <p class="info">Daily shorts on the Claude and AI tooling that actually matters.</p>
+      </div>
+    </li>
+  </ul>
+  <!-- Full-width row spanning all three columns, 36px on sprind: social left,
+       legal links right at gap 32. Same dim-the-siblings hover as the panels. -->
+  <div class="navbottom">
+    <ul class="social">
+      <li><a href="https://youtube.com/@vektorfm" target="_blank" rel="noopener"><span>YT</span></a></li>
+      <li><a href="https://instagram.com/vektor.fm" target="_blank" rel="noopener"><span>IG</span></a></li>
+      <li><a href="https://tiktok.com/@vektor.fm" target="_blank" rel="noopener"><span>TT</span></a></li>
+      <li><a href="https://x.com/vektordotfm" target="_blank" rel="noopener"><span>X</span></a></li>
+    </ul>
+    <ul class="legal">
+      <li><a href="#subscribe"><span class="a">→</span><span>Subscribe</span></a></li>
+      <li><a href="./privacy.html"><span class="a">→</span><span>Privacy</span></a></li>
+      <li><a href="./thanks.html"><span class="a">→</span><span>Contact</span></a></li>
+    </ul>
+  </div>
+  </div>
+</div>
+
+
+<!-- the issue marker, kept: it is the only per-page label in the bar -->
+<div class="issue-marker">The Teardown · 003</div>
+
+<!-- The capture furniture (sticky bar + pop-up) lives in partials/capture.html
+     and is injected ONLY into public pages. Unlock pages get an empty string
+     here — see build.mjs. The weave stays on both: it is structure, not an ask. -->
+<!-- Sticky ask. This used to be a Follow link back to Instagram, which spent
+     an IG click to win a visit and then returned the visitor to IG without
+     capturing anything. The goal is the email address, so the persistent ask
+     is now the email. Follow demotes to the footer.
+
+     THE PACK IS NO LONGER BEHIND THE EMAIL (founder, 2026-09-01). The reader
+     paid a follow in the DM; charging a second toll on the page spent funnel
+     conversion to grow a list that had sent one issue in its life. So the
+     sticky bar no longer promises to "open" anything — the payload is already
+     open, three screens down. It sells the WEEKLY, which is the only honest
+     thing left to sell. Wording that implies a lock is a lie now, not copy.
+     Full argument: vektor/reports/2026-09-01-email-gate-decision.md.
+
+     The tag still carries the PAGE slug (teardown003-sticky) — the worker no
+     longer needs it to decide what to unlock, but it is the only per-source
+     attribution we get in Buttondown and in /report's count:email:<source>.
+
+     This whole file is omitted from unlock pages — asking a reader for the
+     email they just gave you is how a funnel reads as a machine. -->
+<div class="sticky-cta" id="stickyCta" aria-hidden="true">
+  <span class="t">One working AI setup a week</span>
+  <form class="sticky-form" method="post" action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" data-capture="sticky">
+      <input type="hidden" name="tag" value="teardown003-sticky">
+      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+    <label class="sr-only" for="stickyEmail">Email address</label>
+    <input id="stickyEmail" name="email" type="email" placeholder="you@email.com" autocomplete="email" required>
+    <button class="btn primary" type="submit">Subscribe &rarr;</button>
+  </form>
+  <button class="x" id="ctaClose" type="button" aria-label="Dismiss">&times;</button>
+</div>
+
+<!-- THE ASK MODAL — one markup, two triggers, running as an A/B (2026-09-01).
+     Founder call after the evidence: the pop-up in its 50%-scroll form was
+     viewed ~47 times and dismissed ~46 of those across NO.006/034/036/038/039
+     (live /report, 30 d, pulled 2026-09-01), with no signup attributable to it.
+     The founder's read is that the ask should land at PEAK ATTENTION; the
+     disagreement was only about what signals attention — a clock or an action.
+     So both are built and split 50/50 rather than argued:
+
+       arm A — 6 s timer (the founder's version)
+       arm B — fires on the download / copy action, i.e. the moment the reader
+               takes the thing they came for
+
+     The trigger is the ONLY difference. Same markup, same copy, same cooldown,
+     so a difference in the numbers is a difference in the trigger. The arm is
+     sticky per browser (localStorage) so one reader never sees both.
+
+     The copy has to be true for BOTH arms, which is why it does not say "that
+     one's yours" (arm A fires before any download) and does not say "opens on
+     the next screen" (nothing is locked any more). It sells the weekly. -->
+<div class="pop" id="askPop" hidden>
+  <div class="pop-scrim" data-pop-close></div>
+  <div class="pop-card" role="dialog" aria-modal="true" aria-labelledby="askPopH">
+    <button class="pop-x" type="button" data-pop-close aria-label="Close">×</button>
+    <span class="k">One email a week · the working setup</span>
+    <h2 id="askPopH">Where the next one comes from.</h2>
+    <p>the config pack is yours, free, no email needed — it is on this page. The weekly teardown is where the next one gets built: one working AI setup, every week, with the numbers checked at source.</p>
+    <form action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="ask">
+      <input type="hidden" name="tag" id="askTag" value="teardown003-ask">
+      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+      <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
+      <button class="btn" type="submit">Send me the weekly →</button>
+    </form>
+    <div class="note">One email a week. Unsubscribe in one click.</div>
+  </div>
+</div>
+
+<div class="weave" aria-hidden="true"></div>
+
+<main>
+<section class="hero">
+  <div class="kick eye">The Teardown · 003</div>
+  <h1 class="disp">Anthropic's playbook,<br>minus the AI<span class="dot">.</span></h1>
+  <p class="sub">Anthropic published how it actually builds software with agents. The part worth stealing is not the agents. It is that every stage ends by committing a file, which is a 1970s idea wearing new clothes, and which works whether or not the AI is any good.</p>
+  <div class="actions">
+    <a class="btn primary" href="#chain">The artifact chain ↓</a>
+    <a class="btn" href="#bottleneck">The claim with the least evidence →</a>
+    <button class="btn" id="shareBtn" type="button">Send to a dev friend</button>
+  </div>
+  <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+</section>
+
+<!-- ======================= THE DIAGRAM ======================= -->
+<div class="fig" id="chain">
+  <h2 class="kick">Fig. 01 ·</h2>
+  <span class="gaccent">six stages, six commits, one edge going backwards</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues">
+  <article class="issue">
+    <p><img src="./diagrams/teardown-003.png" alt="The artifact chain: Plan commits intent.md, Design commits spec.md, Build commits plan.md and the diff, Test commits evals, Deploy commits a merged PR behind a human approval gate, Maintain commits an incident record. An edge runs back from Maintain to Plan, labelled: the incident writes the next intent.md. Below, skills are advisory and hooks are deterministic." width="1200" height="750" loading="lazy"></p>
+    <p class="meta">Every stage "ends by committing an artifact with the commit initiating the next stage."<sup><a href="#s1">[1]</a></sup> The stage names are ordinary. The discipline is not: the handoff between stages is a git commit, so the chain that produced a change and the audit trail of that change are the same object. You do not maintain the second one.</p>
+  </article>
+</section>
+
+<!-- ======================= WHAT IT ACTUALLY SAYS ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 02 ·</h2>
+  <span class="gaccent">what the document actually is</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues">
+  <article class="issue">
+    <p>Read it end to end and the first thing you notice is what is missing: numbers. There is no productivity multiplier in it, no defect-reduction percentage, no before-and-after on cycle time. The closest it comes to a measured claim is an aside about a support workflow, and a piece of operational advice that "two or three sessions is a sensible starting point," where "the practical ceiling is how many streams one person can review properly."<sup><a href="#s1">[1]</a></sup></p>
+    <p>That is not a criticism. It is a design document, and design documents are allowed to describe a shape rather than prove a result. But it matters for how you read it, because the internet has been quoting it as though it were a results paper. It is a description of how one company has arranged its work. Treat every claim in it as a hypothesis that Anthropic finds plausible enough to run its own engineering on, which is a real signal, and not as a measurement.</p>
+    <p>The genuinely reusable idea is the file discipline. An idea becomes <code>intent.md</code>, described as "what is wanted, why, and under which constraints." That commit triggers <code>spec.md</code>. That triggers <code>plan.md</code> and the diff. Tests are evals woven through implementation rather than a phase at the end. Deploy produces a reviewed, merged PR. Maintain produces an incident record.<sup><a href="#s1">[1]</a></sup></p>
+    <p>And then the edge that makes it a cycle rather than a pipeline: when production breaks, the agent "writes its diagnosis as <code>intent.md</code> in the Stage 1: Plan format," and "from there the finding goes through the pipeline like anything else."<sup><a href="#s1">[1]</a></sup> An incident does not get a special path. It gets the ordinary path, from the top.</p>
+  </article>
+</section>
+
+<!-- ======================= THE BOTTLENECK CLAIM ======================= -->
+<div class="fig" id="bottleneck">
+  <h2 class="kick">Fig. 03 ·</h2>
+  <span class="gaccent">the claim with the least evidence behind it</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues">
+  <article class="issue">
+    <p>The playbook's premise, and the line everyone repeats, is that <i>"code is no longer the bottleneck."</i> It follows through: <i>"build is no longer the constraint, the human-speed steps around it are,"</i> and the bottleneck therefore "moves to the steps to the left and right of the build phase. This is mainly plan, review/test, and deploy, which still run at human speed."<sup><a href="#s1">[1]</a></sup></p>
+    <p>This is the part of the document with the least evidence attached to it, and it is also the part the whole design rests on. So it is worth asking what has actually been measured.</p>
+    <p>The most careful thing anyone has run is a randomised controlled trial by METR, published July 2025. Sixteen experienced open-source developers completed 246 real tasks in mature repositories they had worked on for an average of five years. Each task was randomly assigned to allow or disallow AI tooling, which at the time meant mostly Cursor Pro with Claude 3.5 and 3.7 Sonnet. Before starting, the developers forecast that AI would cut their completion time by 24%. Afterwards, they estimated it had cut it by 20%. Measured, allowing AI <b>increased</b> completion time by 19%.<sup><a href="#s2">[2]</a></sup></p>
+    <p>The gap between the estimate and the measurement is the finding, more than the slowdown itself. These are not people with an axe to grind about AI. They used it, they felt faster, and the stopwatch disagreed by roughly forty percentage points. Economics and ML experts asked to predict the result were further out still, at 39% and 38% faster respectively.<sup><a href="#s2">[2]</a></sup></p>
+    <p><b>Three honest caveats, because this number gets swung around carelessly and I am not going to add to that.</b> First, it measures early-2025 tooling in a specific setting: mature codebases with high quality standards, developers with deep prior context, no agentic harness of the kind the playbook describes. It is not a measurement of the playbook. Second, the authors say plainly that "the influence of experimental artifacts cannot be entirely ruled out," though they argue the effect is robust across their analyses.<sup><a href="#s2">[2]</a></sup> Third, and most importantly, METR themselves have since reported that they cannot cleanly run this design any more: between 30% and 50% of developers told them they were declining to submit tasks "because they did not want to do them without AI," so the study is "systematically missing developers who have the most optimistic expectations about AI's value." Of their newer data they say it is "only very weak evidence."<sup><a href="#s3">[3]</a></sup></p>
+    <p>So the state of the evidence is genuinely unsettled, and anyone telling you otherwise in either direction is selling something. What you can say is this: "code is no longer the bottleneck" is an assertion, the one careful trial we have pointed the other way in its own setting, and the people who ran that trial now think their instrument is broken. That is a thinner foundation than the confidence around this document suggests.</p>
+    <p>Which is exactly why the file discipline is the part to take. It does not depend on the premise being true. If the agent is fast, the artifact chain is what stops the speed turning into unreviewable churn. If the agent is slow, you have lost nothing except some markdown. Google's DORA programme reached a compatible conclusion from the other end, reporting that "AI's primary role is as an amplifier, magnifying an organization's existing strengths and weaknesses," and that the "greatest returns on AI investment come not from the tools themselves, but from a strategic focus on the underlying organizational system."<sup><a href="#s5">[5]</a></sup> A chain of committed artifacts <i>is</i> an underlying organisational system, and it is one you can install this afternoon.</p>
+  </article>
+</section>
+
+<!-- ======================= SKILLS VS HOOKS ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 04 ·</h2>
+  <span class="gaccent">a skill asks, a hook refuses</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues">
+  <article class="issue">
+    <p>The two guardrail layers get conflated constantly, including by people who have shipped both. The playbook's own formulation is the cleanest one-liner available: <i>"A skill is an advisory control while a hook is the deterministic layer behind it."</i> The rule that follows is the useful bit: <i>"back any skill whose policy has to hold without exception"</i> with a hook.<sup><a href="#s1">[1]</a></sup></p>
+    <p>It is worth checking that "deterministic" against the mechanism, because it is the kind of word that gets used loosely. It holds up, in one direction. In the Claude Code hooks reference, a <code>PreToolUse</code> hook that exits with status 2 blocks the tool call outright, and the documentation is explicit that this is not negotiable: <i>"exit 2 blocks whether or not you print JSON: even a JSON <code>permissionDecision</code> of 'allow' can't override it."</i><sup><a href="#s4">[4]</a></sup></p>
+    <p>The asymmetry is the thing to internalise, and the docs state it in one sentence: <i>"The hook can deny the call, but staying silent doesn't approve it."</i><sup><a href="#s4">[4]</a></sup> A hook is a brake, not a steering wheel. It can stop the agent doing a specific thing with certainty. It cannot make the agent do a thing, and it cannot make a thing safe. If your policy is "never write to the production database," that is a hook and it will hold. If your policy is "prefer the repository's existing error-handling pattern," no hook can express that, and you are back to a skill and a probability.</p>
+    <p>One placement detail in the playbook is easy to miss and expensive to get wrong. A hook that asks a human for approval belongs at Stage 5, Deploy, <i>"because an approval prompt during the build puts a person back on the critical path."</i><sup><a href="#s1">[1]</a></sup> If you scatter approval prompts through the build stage you have rebuilt the bottleneck you were trying to remove, one dialog box at a time.</p>
+  </article>
+</section>
+
+<!-- ======================= THE MERGE BUTTON ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 05 ·</h2>
+  <span class="gaccent">the one thing the agent may never do</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues">
+  <article class="issue">
+    <p>Claude reviews pull requests against policy, and Claude also receives reviews and addresses the comments on its own PRs. But the boundary is absolute and, notably, it is not enforced by asking nicely: <i>"the agent that wrote the code has no way to approve it,"</i> because <i>"approval comes from a human through branch protection."</i><sup><a href="#s1">[1]</a></sup></p>
+    <p>That is the same design instinct as the hook. The rule that must hold without exception is not written into a prompt where a model can be talked out of it. It is written into the platform, where there is no conversation to have. Branch protection does not evaluate an argument.</p>
+    <p>What changes for the human is the altitude, not the workload: <i>"human attention moves up a level, to whether the change does what the plan intended and whether the risk is acceptable."</i><sup><a href="#s1">[1]</a></sup> This is the honest cost of the whole arrangement, and the playbook does not hide it. You are not reviewing less. You are reviewing differently, and against the <code>plan.md</code> that the same system committed three stages earlier, which is the only reason reviewing at that altitude is possible at all.</p>
+    <p>The production loop follows the same tiering logic. A deterministic script, not an agent, watches the metrics and calls the agent in when a control band is breached. The tiers are version-controlled: <i>"at 1σ the script only logs, at 2σ it invokes Claude read-only to diagnose, and at 3σ Claude may act, though only by opening a PR into the review gate or triggering a pre-approved runbook."</i><sup><a href="#s1">[1]</a></sup> Even at its most autonomous, at three standard deviations out, the agent's maximum privilege is to open a PR that a human still has to merge.</p>
+  </article>
+</section>
+
+<!-- ======================= DOES IT EARN A SLOT ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 06 ·</h2>
+  <span class="gaccent">does it earn a slot?</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues">
+  <article class="issue">
+    <p><b>Yes, and you should install the cheap half first.</b> The artifact chain costs you four markdown files and a habit. You do not need agents, a monitoring tier, or any part of the premise to be true in order to get the benefit, which is that every change arrives with a written record of what was wanted and why, committed before the code existed rather than reconstructed afterwards in a PR description.</p>
+    <p>Start with <code>intent.md</code> alone, for one change, this week. If writing down what is wanted and under which constraints turns out to be hard, that is the finding, and it was going to bite you later at review time regardless of who or what wrote the code.</p>
+    <p><b>Be more sceptical of the expensive half.</b> The autonomous production loop is a serious piece of infrastructure, and it is the part most likely to be cargo-culted by teams whose deploys are not yet boring. The tiering is good design, but it presupposes you already have control bands worth breaching, version-controlled response config, and pre-approved runbooks. If you have those, you probably did not need the playbook to tell you this. If you do not, build those first, without any AI in the picture, because an agent triggered by a metric you do not trust is a faster way to be wrong.</p>
+    <p>If you only take one thing from this issue: <b>the audit trail is free only if the handoff is a commit.</b> Every part of this design that works, the reviewable chain, the honest history, the incident that re-enters at Stage 1, works because the artifact is committed at the boundary rather than written up afterwards. Adopt that and you have most of the value. Adopt the agents without it and you have a faster way to produce changes nobody can review.</p>
+  </article>
+</section>
+
+<!-- ======================= THE FILE ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 07 ·</h2>
+  <span class="gaccent">the file</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues" id="file">
+  <article class="issue">
+    <p>The one rule this operation could not afford to have broken was <i>no direct commits on <code>main</code></i>. It was written into the CLAUDE.md every session reads, in bold, on 2026-07-10. Over the next four days, sessions read it and committed on <code>main</code> twenty-one times across two repos. The hook below went in on 2026-07-13. In the fifty-eight days since, four direct commits reached <code>main</code>, all of them in the three hours between the file landing and the settings wiring that loads it. Before the written rule, the same four-day window held forty-eight. Source: <code>git log origin/main --first-parent --no-merges</code> on the two repos, read 2026-09-09. The site repo publishes straight from <code>main</code> and was never under the rule, so it is not counted.</p>
+    <p>This is the full file as it runs here, sanitised. The email carries a 36-line version; this one adds the <code>git -C &lt;path&gt;</code> handling for commits aimed at another repo, a Windows path fix for MSYS-style paths, and a per-repo escape hatch: a <code>.git-flow-exempt</code> file at a repo root opts that repo out. Save it as <code>.claude/hooks/git-flow-guard.mjs</code> in the folder above your repos and it covers every repo beneath, worktrees included. Node only, no dependencies.</p>
+<pre class="code"><code>#!/usr/bin/env node
+// git-flow-guard.mjs — PreToolUse hook (Claude Code). Enforces the Git Flow
+// branching law for every repo under projects/: no direct commits on
+// main/master. Reads the hook JSON from stdin; if the shell command contains a
+// `git commit` and the target repo's current branch is main or master, the
+// commit is BLOCKED (exit 2) — unless a merge is in progress (MERGE_HEAD
+// exists), which is the legitimate case of completing a release/hotfix merge
+// into main. Pure Node — Windows-safe, no bash/jq.
+//
+// Wired from .claude/settings.json → hooks.PreToolUse (matcher "Bash|PowerShell").
+import {execFileSync} from 'node:child_process';
+import fs from 'node:fs';
+
+let raw = '';
+process.stdin.on('data', (d) =&gt; (raw += d));
+process.stdin.on('end', () =&gt; {
+  let input;
+  try {
+    input = JSON.parse(raw);
+  } catch {
+    process.exit(0);
+  }
+  const cmd = String(input?.tool_input?.command ?? '');
+  // Only care about commands that actually run `git ... commit`
+  if (!/\bgit\b[^|&amp;;\n]*\bcommit\b/.test(cmd)) process.exit(0);
+
+  // Resolve the repo the commit targets: prefer `git -C &lt;path&gt;`, else the
+  // session cwd reported in the hook payload.
+  let dir = input?.cwd ?? process.cwd();
+  const cFlag = cmd.match(/\bgit\s+-C\s+("([^"]+)"|'([^']+)'|(\S+))/);
+  if (cFlag) dir = cFlag[2] ?? cFlag[3] ?? cFlag[4];
+  // Windows git.exe can't chdir to MSYS-style paths (/c/Users/...) — normalize.
+  dir = String(dir).replace(/^\/([a-zA-Z])\//, '$1:/');
+
+  const git = (args) =&gt; {
+    try {
+      return execFileSync('git', ['-C', dir, ...args], {
+        encoding: 'utf8',
+        stdio: ['ignore', 'pipe', 'ignore'],
+      }).trim();
+    } catch {
+      return null;
+    }
+  };
+
+  // Escape hatch: a repo with a .git-flow-exempt file at its root opts out
+  // (a learning playground, a throwaway experiment).
+  const top = git(['rev-parse', '--show-toplevel']);
+  if (top &amp;&amp; fs.existsSync(top + '/.git-flow-exempt')) process.exit(0);
+
+  const branch = git(['rev-parse', '--abbrev-ref', 'HEAD']);
+  if (branch !== 'main' &amp;&amp; branch !== 'master') process.exit(0); // not on a protected branch (or not a repo / detached)
+
+  // Completing a merge into main (release/hotfix flow, incl. conflict
+  // resolution) is the one legitimate commit on main.
+  if (git(['rev-parse', '-q', '--verify', 'MERGE_HEAD']) !== null) process.exit(0);
+
+  console.error(
+    `git-flow-guard: BLOCKED — direct commit on '${branch}' in ${dir}.\n` +
+      `Git Flow law: main receives code only via merges from release/* or hotfix/* branches.\n` +
+      `Do one of:\n` +
+      `  • feature work → git checkout develop &amp;&amp; git checkout -b feature/&lt;name&gt;\n` +
+      `  • urgent prod fix → git checkout -b hotfix/&lt;name&gt; (from main), commit there, then merge back\n` +
+      `  • release → git checkout -b release/vX.Y.Z (from develop)\n` +
+      `See the git-flow skill for the full workflow.`
+  );
+  process.exit(2); // exit 2 = block the tool call and feed stderr back to Claude
+});
+</code></pre>
+    <p>Register it in the <code>.claude/settings.json</code> beside it. Settings are read when a session starts, so restart the session, check out <code>main</code>, and ask the agent to commit something. The refusal you get back is the message at the bottom of the file.</p>
+<pre class="code"><code>{
+  "hooks": {
+    "PreToolUse": [{
+      "matcher": "Bash|PowerShell",
+      "hooks": [{ "type": "command", "command": "node .claude/hooks/git-flow-guard.mjs" }]
+    }]
+  }
+}</code></pre>
+    <p>What it cannot do is the other half of the playbook's sentence. Exit 2 blocks the call, and the hooks reference is explicit that a JSON <code>permissionDecision</code> of allow cannot override it.<sup><a href="#s4">[4]</a></sup> But the hook can only deny; staying silent does not approve anything, and it cannot make the agent write a good commit on the branch it is sent to. A brake, not a steering wheel. Put the rule that must hold in the hook, and put the reason it must hold in the prompt.</p>
+  </article>
+</section>
+
+<!-- ======================= SOURCES ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 07 ·</h2>
+  <span class="gaccent">sources</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues" id="sources">
+  <article class="issue">
+    <ol class="ledger">
+      <li id="s1"><b>[1]</b> Anthropic — <a href="https://claude.com/blog/the-ai-native-sdlc-playbook" target="_blank" rel="noopener">The AI-Native SDLC Playbook</a>. Source of the six stages and their committed artifacts, the skills-versus-hooks formulation, the branch-protection approval rule, the 1σ/2σ/3σ response tiers, the placement of approval hooks at Stage 5, and every quoted line attributed to the playbook above. Read at source 2026-09-07.</li>
+      <li id="s2"><b>[2]</b> Becker, Rush, Barnes and Rein — <a href="https://arxiv.org/abs/2507.09089" target="_blank" rel="noopener">Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity</a>, arXiv:2507.09089, submitted 12 July 2025. RCT, 16 developers, 246 tasks, mature repositories with ~5 years of prior developer experience, tooling window February to June 2025, mostly Cursor Pro with Claude 3.5/3.7 Sonnet. Forecast 24% faster, post-hoc self-estimate 20% faster, measured 19% slower. Expert predictions 39% (economics) and 38% (ML) faster. Abstract read at source 2026-09-07; no confidence interval is stated in the abstract.</li>
+      <li id="s3"><b>[3]</b> METR — <a href="https://metr.org/blog/2026-02-24-uplift-update/" target="_blank" rel="noopener">We are Changing our Developer Productivity Experiment Design</a>, 24 February 2026. Source of the selection-bias problem, the 30% to 50% of developers declining to submit tasks they did not want to do without AI, and the authors' own assessment that their newer data is "only very weak evidence." Read at source 2026-09-07.</li>
+      <li id="s4"><b>[4]</b> Anthropic — <a href="https://code.claude.com/docs/en/hooks" target="_blank" rel="noopener">Claude Code hooks reference</a>. Source of the <code>PreToolUse</code> blocking mechanism, the exit-code-2 guarantee, and "the hook can deny the call, but staying silent doesn't approve it." Read at source 2026-09-07.</li>
+      <li id="s5"><b>[5]</b> Google / DORA — <a href="https://dora.dev/dora-report-2025/" target="_blank" rel="noopener">State of AI-assisted Software Development 2025</a>. Source of the amplifier finding and the "underlying organizational system" line, both quoted from the report's public overview page. Read at source 2026-09-07. <b>Note:</b> the widely repeated "90% AI adoption" figure from this report is <i>not</i> cited here, because it does not appear on the page that was read and the full PDF was not opened. It is left out rather than passed along.</li>
+    </ol>
+    <p class="meta">Nothing in this issue has been independently reproduced. The playbook's claims are Anthropic's, attributed as such; the METR figures are the authors', with the authors' own caveats attached and the follow-up that weakens them cited beside the headline number. If something here is wrong, reply and tell me. Corrections go out in the next issue, named as corrections.</p>
+  </article>
+</section>
+</main>
+
+<footer>
+  <div class="rule foot-rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+
+  <div class="news" id="subscribe">
+    <h2 class="kick" style="color:var(--acid);">Get the pack — the working setup, one config</h2>
+    <div class="pack">
+      <span>The config pack</span><span>Claude Code settings</span><span>One teardown / week</span>
+    </div>
+    <form action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="footer">
+      <input type="hidden" name="tag" value="footer">
+      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+      <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
+      <button class="btn" type="submit">Send me the pack →</button>
+    </form>
+    <div class="note">Free. The config pack lands in your inbox straight away. Unsubscribe anytime.</div>
+  </div>
+
+  <nav class="socials" aria-label="Social links">
+    <a data-goatcounter-click="teardown003-follow-tiktok-foot" href="https://tiktok.com/@vektor.fm" target="_blank" rel="noopener">TikTok · @vektor.fm</a>
+    <a data-goatcounter-click="teardown003-follow-instagram-foot" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Instagram · @vektor.fm</a>
+    <a data-goatcounter-click="teardown003-follow-youtube-foot" href="https://youtube.com/@vektorfm" target="_blank" rel="noopener">YouTube · @vektorfm</a>
+    <a data-goatcounter-click="teardown003-follow-x-foot" href="https://x.com/vektordotfm" target="_blank" rel="noopener">X · @vektordotfm</a>
+    <a href="./privacy.html">Privacy</a>
+  </nav>
+
+  <div class="backref">One teardown a week, the AI tooling that actually ships. The 60-second version of this issue is on Instagram: <a href="https://instagram.com/vektor.fm">@vektor.fm →</a></div>
+
+  <div class="wordmark-foot">
+    <span class="wm-foot" id="wmFoot" aria-label="vektor"><span class="ch2" style="--i:0"><span class="g">%</span><span class="l">v</span></span><span class="ch2" style="--i:1"><span class="g">#</span><span class="l">e</span></span><span class="ch2" style="--i:2"><span class="g">Z</span><span class="l">k</span></span><span class="ch2" style="--i:3"><span class="g">8</span><span class="l">t</span></span><span class="ch2" style="--i:4"><span class="g">@</span><span class="l">o</span></span><span class="ch2" style="--i:5"><span class="g">W</span><span class="l">r</span></span></span>
+    <span class="m">/// the teardown / 003 / 09-2026 · the frontier, by the numbers</span>
+  </div>
+</footer>
+
+<script>
+  function fallback(text){ var t=document.createElement('textarea'); t.value=text; t.style.position='fixed'; t.style.opacity='0'; document.body.appendChild(t); t.focus(); t.select(); try{ document.execCommand('copy'); }catch(e){} document.body.removeChild(t); }
+  function copyText(text, btn, doneLabel){ var o=btn.textContent, done=function(){ btn.textContent=doneLabel; setTimeout(function(){btn.textContent=o;},1600); }; if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(done).catch(function(){ fallback(text); done(); }); } else { fallback(text); done(); } }
+  function gcEvent(name){ if(name && window.goatcounter && goatcounter.count){ goatcounter.count({path:name, event:true}); } }
+  var COPY_EVENT='teardown-003-copy';
+  document.querySelectorAll('.copybtn').forEach(function(btn){ btn.addEventListener('click', function(){ copyText(btn.getAttribute('data-copy'), btn, 'Copied ✓'); gcEvent(COPY_EVENT); }); });
+  var snip=document.getElementById('snipCopy');
+  if(snip){ snip.addEventListener('click', function(){ var el=document.getElementById('snipText'); copyText(el.textContent, snip, 'Copied ✓'); gcEvent(COPY_EVENT); }); }
+  // generic copy hook (legacy multi-card pages): data-copy-target="all" | "#id"; optional data-copy-event
+  document.querySelectorAll('[data-copy-target]').forEach(function(btn){ btn.addEventListener('click', function(){ var t=btn.getAttribute('data-copy-target'), text; if(t==='all'){ text=[].slice.call(document.querySelectorAll('.copybtn')).map(function(b){return b.getAttribute('data-copy');}).join('\n'); } else { var el=document.querySelector(t); text=el?el.textContent:''; } copyText(text, btn, 'Copied ✓'); gcEvent(btn.getAttribute('data-copy-event')); }); });
+  var camp=(location.pathname.split('/').pop()||'index').replace(/\.html$/,'')||'index';
+  document.querySelectorAll('a[href^="http"]').forEach(function(a){ try{ var u=new URL(a.href); if(u.hostname==='github.com'){return;} if(!u.searchParams.has('utm_source')){ u.searchParams.set('utm_source','vektor'); u.searchParams.set('utm_medium','dm'); u.searchParams.set('utm_campaign',camp); a.href=u.toString(); } }catch(e){} });
+  var sh=document.getElementById('shareBtn');
+  if(sh){ sh.addEventListener('click', function(){ gcEvent('teardown003-share'); if(navigator.share){ navigator.share({title:document.title, url:location.href}).catch(function(){}); } else { copyText(location.href, sh, 'Link copied — paste it ✓'); } }); }
+  var sticky=document.getElementById('stickyCta'), sub=document.getElementById('subscribe'), dismissed=false;
+  var midcap=document.querySelector('.midcap'), cards=document.querySelectorAll('.issues .card'), lastCard=cards[cards.length-1];
+  // show once the reader has scrolled PAST the mid-page capture (peak intent handled),
+  // hide while a subscribe form intersects the bar's own strip (bottom 130px) so the bar
+  // never covers or competes with a form CTA. The old rule (last card above 60vh AND
+  // footer form fully off-screen) was geometrically unsatisfiable — the bar never showed.
+  function inBarZone(el){ if(!el){return false;} var r=el.getBoundingClientRect(); return r.top<window.innerHeight && r.bottom>window.innerHeight-130; }
+  function updCta(){ if(dismissed){return;} var gate=midcap||lastCard; var passed=!!gate && gate.getBoundingClientRect().bottom<0; var show=passed && !inBarZone(midcap) && !inBarZone(sub); sticky.classList.toggle('show', show); sticky.setAttribute('aria-hidden', show?'false':'true'); }
+  window.addEventListener('scroll',updCta,{passive:true}); window.addEventListener('resize',updCta); updCta();
+  document.getElementById('ctaClose').addEventListener('click', function(){ dismissed=true; sticky.classList.remove('show'); sticky.setAttribute('aria-hidden','true'); });
+  var wmFoot=document.getElementById('wmFoot');
+  if(wmFoot && 'IntersectionObserver' in window){ var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ wmFoot.classList.remove('play'); void wmFoot.offsetWidth; wmFoot.classList.add('play'); } }); }, {threshold:0.6}); io.observe(wmFoot); }
+  // THE ASK MODAL — an A/B on the TRIGGER, not on the copy (2026-09-01).
+  //
+  // History, so nobody re-litigates it from memory: this started as a 900 ms
+  // setTimeout, which covered the mobile viewport before the reader had read a
+  // word — the exact pattern Google penalises on mobile. It was moved to 50%
+  // scroll depth on 2026-08-17, then removed entirely on 2026-08-26 when a hard
+  // email gate went on the end of the page instead. The gate is now gone too
+  // (founder, 2026-09-01) and the pack is free on the page, so the modal is the
+  // primary ask again.
+  //
+  // The scroll version's record, pulled live from /report on 2026-09-01 over a
+  // 30-day window: ~47 views, ~46 dismissals, no attributable signup. The
+  // founder's position is that the ask should land at peak attention and that a
+  // half-page scroll is the wrong signal for it. Rather than argue it, both
+  // triggers ship and split 50/50:
+  //
+  //   arm a — 6 s timer            (fires on a clock, on everyone)
+  //   arm b — download/copy click  (fires on the action, after value landed)
+  //
+  // Read the result off count:email:<slug>-ask-a vs -ask-b in /report (the tag
+  // travels to Buttondown, so it survives ad-blockers that eat GoatCounter) and
+  // off teardown003-ask-view-a/-dismiss-a vs the -b pair for the dismissal rate.
+  // Decide after 3 films, not after one — at ~40-60 page opens per film, one
+  // film cannot separate these.
+  (function(){
+    var pop=document.getElementById('askPop'); if(!pop){return;}
+    var KEY='vektor_ask_seen', ARM_KEY='vektor_ask_arm', TTL=2*24*60*60*1000;
+
+    // ?arm=a / ?arm=b forces an arm, ?pop=1 forces it open past the cooldown.
+    // Without these the thing is untestable for anyone who has already seen it:
+    // on 2026-08-17 the page looked broken for two days when the real cause was
+    // a dismissal 21 hours earlier. Test affordances, not features.
+    var qs; try{ qs=new URLSearchParams(location.search); }catch(e){ qs=null; }
+    var force=!!qs && qs.get('pop')==='1';
+    var forcedArm=qs && (qs.get('arm')==='a' || qs.get('arm')==='b') ? qs.get('arm') : null;
+
+    // The arm is sticky per browser: a reader who saw the timer must never also
+    // see the action version, or every number here is a mixture of both.
+    var arm=forcedArm;
+    if(!arm){
+      try{ arm=localStorage.getItem(ARM_KEY); }catch(e){}
+      if(arm!=='a' && arm!=='b'){
+        arm = Math.random()<0.5 ? 'a' : 'b';
+        try{ localStorage.setItem(ARM_KEY, arm); }catch(e){}
+      }
+    }
+    var tag=document.getElementById('askTag');
+    if(tag){ tag.value='teardown003-ask-'+arm; }
+
+    if(!force){ try{ var last=parseInt(localStorage.getItem(KEY)||'0',10); if(last && (Date.now()-last)<TTL){ return; } }catch(e){} }
+    function seen(){ try{ localStorage.setItem(KEY, String(Date.now())); }catch(e){} }
+    function esc(e){ if(e.key==='Escape'){ close(); } }
+    function close(){ pop.setAttribute('hidden',''); seen(); document.removeEventListener('keydown',esc); gcEvent('teardown003-ask-dismiss-'+arm); }
+    pop.querySelectorAll('[data-pop-close]').forEach(function(el){ el.addEventListener('click', close); });
+    // submit fires seen() but NOT close(), so a dismissal count is never
+    // inflated by a conversion — dismiss ≈ view is then a real read.
+    var f=pop.querySelector('form');
+    if(f){ f.addEventListener('submit', function(){ seen(); gcEvent('teardown003-ask-submit-'+arm); }); }
+
+    var fired=false;
+    function open(){
+      if(fired){ return; }
+      fired=true;
+      pop.removeAttribute('hidden');
+      document.addEventListener('keydown',esc);
+      gcEvent('teardown003-ask-view-'+arm);
+      var x=pop.querySelector('.pop-x'); if(x){ try{ x.focus(); }catch(e){} }
+    }
+
+    if(force){ open(); return; }
+
+    if(arm==='a'){
+      // 6 s from load. Not 3 s: under 5 s is the band the mobile-interstitial
+      // guidance treats as pre-engagement, and if this arm is going to lose it
+      // should lose on its own best showing.
+      setTimeout(open, 6000);
+    } else {
+      // Peak intent: the click that takes the payload. Covers every route the
+      // pages use — the file links, the .copybtn snippets, the single-snippet
+      // button and the legacy multi-card copy buttons. 900 ms of delay so the
+      // "Copied ✓" confirmation is seen first; a modal that lands on the same
+      // frame as the click reads as an error, not an offer.
+      document.addEventListener('click', function(ev){
+        var t=ev.target && ev.target.closest ? ev.target.closest('.copybtn, #snipCopy, [data-copy-target], a[href*="./files/"]') : null;
+        if(!t){ return; }
+        setTimeout(open, 900);
+      }, true);
+    }
+  })();
+  document.querySelectorAll('form').forEach(function(f){ f.addEventListener('submit', function(){ gcEvent('teardown003-subscribe-submit'); }); });
+
+  // ---- shared nav: reveal + mobile drawer ----
+  // The header sits off-screen until a 24px hover strip is entered (desktop) or
+  // the Menu word is tapped (mobile). Touch devices never hover, so the bar is
+  // shown from the start there or the nav would be unreachable.
+  (function(){
+    var menu=document.querySelector('.menu'); if(!menu){return;}
+    var reveal=function(){ menu.classList.add('nav-visible'); };
+    var strip=document.querySelector('.navreveal'); if(strip){ strip.addEventListener('mouseenter',reveal); }
+    menu.addEventListener('focusin',reveal);
+    var word=document.querySelector('.menu-word');
+    if(word){
+      word.addEventListener('click',function(){
+        reveal();
+        var open=menu.classList.toggle('drawer-open');
+        word.setAttribute('aria-expanded',String(open));
+        word.setAttribute('aria-label',open?'Close menu':'Open menu');
+        var lbl=word.querySelector('.lbl'); if(lbl){ lbl.textContent=open?'Close':'Menu'; }
+        document.body.style.overflow=open?'hidden':'';
+      });
+    }
+    if(window.matchMedia('(hover: none)').matches){ reveal(); }
+  })();
+
+  // Instrumentation before optimisation. Every capture point reports its own
+  // event, so we can see which of the four actually earns its place instead of
+  // guessing. Previously all of them fired one shared 'subscribe-submit'.
+  document.querySelectorAll('form[data-capture]').forEach(function(f){
+    f.addEventListener('submit', function(){
+      gcEvent('teardown003-sub-' + f.getAttribute('data-capture'));
+    });
+  });
+  // sticky bar impression, once per page view, to give the submits a denominator
+  (function(){ var seen=false, bar=document.getElementById('stickyCta');
+    if(!bar){return;}
+    new MutationObserver(function(){
+      if(!seen && bar.classList.contains('show')){ seen=true; gcEvent('teardown003-sticky-view'); }
+    }).observe(bar,{attributes:true,attributeFilter:['class']});
+  })();
+</script>
+
+<script data-goatcounter="https://vektor.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body></html>

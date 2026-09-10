@@ -1,0 +1,20 @@
+{
+  "number": "003",
+  "title": "The Teardown 003 — One hook, no more commits on main",
+  "description": "Anthropic published how it builds software with agents. The part worth stealing is one sentence: a skill is advisory, a hook is deterministic. Here is the hook that ended direct commits on main across this operation, with the before-and-after count, plus the artifact chain the playbook is actually about and the one claim in it with the least evidence behind it.",
+  "og_title": "One hook, no more commits on main — The Teardown 003",
+  "og_description": "The 69-line Claude Code hook that ended direct commits on main here, the before-and-after from git log, and Anthropic's SDLC playbook torn down: six stages, one commit per handoff, and the one thing the agent is never allowed to do.",
+  "og_image": "https://vektor-fm.github.io/vektor-site/diagrams/teardown-003.png",
+  "og_alt": "The artifact chain: Plan commits intent.md, Design commits spec.md, Build commits plan.md and the diff, Test commits evals, Deploy commits a merged PR behind a human approval gate, Maintain commits an incident record that writes the next intent.md",
+  "og_url": "https://vektor-fm.github.io/vektor-site/teardown-003.html",
+  "canonical": "https://vektor-fm.github.io/vektor-site/teardown-003.html",
+  "tw_title": "One hook, no more commits on main — The Teardown 003",
+  "tw_description": "The 69-line Claude Code hook that ended direct commits on main here, the before-and-after from git log, and Anthropic's SDLC playbook torn down: six stages, one commit per handoff, and the one thing the agent is never allowed to do.",
+  "marker": "The Teardown · 003",
+  "sticky_text": "One teardown a week — <b>the working setup</b>",
+  "backref_html": "One teardown a week, the AI tooling that actually ships. The 60-second version of this issue is on Instagram: <a href=\"https://instagram.com/vektor.fm\">@vektor.fm →</a>",
+  "footer_meta": "/// the teardown / 003 / 09-2026 · the frontier, by the numbers",
+  "copy_event": "teardown-003-copy",
+  "subscribe_track": true,
+  "slug": "teardown003"
+}
