@@ -326,6 +326,10 @@ input,select,textarea{font-size:16px !important;}
 .vote-btns{display:flex; gap:var(--p-m); flex-wrap:wrap;}
 .vote-btn{flex:1 1 220px; justify-content:center; min-height:64px; font-size:var(--fs-m); text-align:center;}
 .vote .note{margin-top:var(--p-m);}
+/* ---- page field: restrained exploded rack behind the real content ---- */
+#rack-bg{position:fixed;inset:0;z-index:0;display:block;width:100%;height:100%;pointer-events:none;opacity:.58;}
+body > .issue-marker, body > .weave, body > main, body > footer{position:relative;z-index:1;}
+@media (prefers-reduced-motion:reduce){#rack-bg{opacity:.48;}}
 </style>
 <!-- SHARED NAV MARKUP, copied from no-048.html, unedited. -->
 <div class="navreveal" aria-hidden="true"></div>
@@ -391,6 +395,8 @@ input,select,textarea{font-size:16px !important;}
   </div>
   </div>
 </div>
+
+<canvas id="rack-bg" aria-hidden="true"></canvas>
 
 <div class="issue-marker">GB200 NVL72 · One Prompt, Two Models</div>
 
@@ -530,6 +536,50 @@ input,select,textarea{font-size:16px !important;}
     <span class="m">/// no. 050 / gb200 nvl72 / 09-2026 · one prompt, two models, not a model race</span>
   </div>
 </footer>
+
+<script>
+  // Decorative field only: it never owns focus or input and pauses when hidden.
+  (function(){
+    var canvas=document.getElementById('rack-bg'); if(!canvas){return;}
+    var ctx=canvas.getContext('2d'),W=0,H=0,dpr=1,mouseX=.5,mouseY=.5,mouseTX=.5,mouseTY=.5,scrollT=0;
+    var inViewport=true,tabVisible=!document.hidden,reduced=matchMedia('(prefers-reduced-motion: reduce)').matches,raf=0;
+    var units=[],i; for(i=0;i<27;i++){units.push(i%3===2);}
+    var columns=[{cx:.14,depth:.55,phase:0},{cx:.36,depth:.85,phase:1.1},{cx:.58,depth:1,phase:2.3},{cx:.80,depth:.70,phase:.6},{cx:.97,depth:.45,phase:1.8}];
+    function resize(){W=window.innerWidth;H=window.innerHeight;dpr=Math.min(window.devicePixelRatio||1,2);canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);if(reduced){drawStatic();}}
+    function column(col,explode,t){
+      var scale=.55+col.depth*.55,unitH=14*scale,gap=2*scale,rackW=92*scale,rackH=(unitH+gap)*units.length,top=H*.5-rackH/2,alpha=.18+col.depth*.32;
+      ctx.save();ctx.translate(col.cx*W,0);
+      var spineTop=top-10*scale,spineBot=top+rackH+explode*rackH*.65+10*scale;
+      ctx.strokeStyle='rgba(14,156,134,'+(alpha*.7)+')';ctx.lineWidth=Math.max(1,1.2*scale);ctx.beginPath();ctx.moveTo(0,spineTop);ctx.lineTo(0,spineBot);ctx.stroke();
+      var pulse=((t*.00028+col.phase*.15)%1),pulseY=spineTop+(spineBot-spineTop)*pulse,grad=ctx.createRadialGradient(0,pulseY,0,0,pulseY,14*scale);
+      grad.addColorStop(0,'rgba(14,156,134,'+(alpha*.9)+')');grad.addColorStop(1,'rgba(14,156,134,0)');ctx.fillStyle=grad;ctx.beginPath();ctx.arc(0,pulseY,14*scale,0,Math.PI*2);ctx.fill();
+      var y=top; for(i=0;i<units.length;i++){var sw=units[i],spread=(i-units.length/2)*explode*3.4*scale,uy=y+spread,w=rackW*(sw ? .72 : 1),h=unitH*.72;
+        ctx.strokeStyle=sw?'rgba(14,156,134,'+(alpha*.95)+')':'rgba(239,234,221,'+(alpha*.55)+')';ctx.lineWidth=Math.max(1,scale);ctx.strokeRect(-w/2,uy,w,h);
+        if(!sw){ctx.fillStyle='rgba(239,234,221,'+(alpha*.55)+')';for(var d=0;d<4;d++){ctx.beginPath();ctx.arc(-w/2+w*(.16+d*.23),uy+h/2,Math.max(.6,1.1*scale),0,Math.PI*2);ctx.fill();}}
+        y+=unitH+gap;
+      } ctx.restore();
+    }
+    function maskCopy(){
+      ctx.fillStyle='#000';
+      document.querySelectorAll('.hero .eye,.hero h1,.hero .sub,.hero .actions,.fig h2,.lede').forEach(function(el){
+        var r=el.getBoundingClientRect(); if(r.bottom<0||r.top>H){return;}
+        ctx.fillRect(Math.max(0,r.left-6),Math.max(0,r.top-5),Math.min(W,r.width+12),Math.min(H,r.height+10));
+      });
+    }
+    function paint(now,explode){ctx.clearRect(0,0,W,H);ctx.fillStyle='#000';ctx.fillRect(0,0,W,H);ctx.save();ctx.translate((mouseX-.5)*12,(mouseY-.5)*7);columns.forEach(function(col){column(col,explode,now||0);});ctx.restore();maskCopy();}
+    function drawStatic(){paint(0,.32);}
+    function shouldRun(){return !reduced&&tabVisible&&inViewport;}
+    function frame(now){raf=0;if(!shouldRun()){return;}mouseX+=(mouseTX-mouseX)*.04;mouseY+=(mouseTY-mouseY)*.04;paint(now,.18+(.5+.5*Math.sin(now*.00035))*.22+scrollT*.55);raf=requestAnimationFrame(frame);}
+    function sync(){if(reduced){if(raf){cancelAnimationFrame(raf);raf=0;}drawStatic();}else if(shouldRun()&&!raf){raf=requestAnimationFrame(frame);}else if(!shouldRun()&&raf){cancelAnimationFrame(raf);raf=0;}}
+    window.addEventListener('resize',resize,{passive:true});
+    window.addEventListener('mousemove',function(e){mouseTX=e.clientX/W;mouseTY=e.clientY/H;},{passive:true});
+    window.addEventListener('scroll',function(){scrollT=Math.min(1,window.scrollY/(window.innerHeight*.6));},{passive:true});
+    document.addEventListener('visibilitychange',function(){tabVisible=!document.hidden;sync();});
+    var mq=matchMedia('(prefers-reduced-motion: reduce)');
+    if(mq.addEventListener){mq.addEventListener('change',function(e){reduced=e.matches;sync();});}else if(mq.addListener){mq.addListener(function(e){reduced=e.matches;sync();});}
+    var io=new IntersectionObserver(function(entries){entries.forEach(function(entry){inViewport=entry.isIntersecting;sync();});});io.observe(canvas);resize();sync();
+  })();
+</script>
 
 <script>
   function fallback(text){ var t=document.createElement('textarea'); t.value=text; t.style.position='fixed'; t.style.opacity='0'; document.body.appendChild(t); t.focus(); t.select(); try{ document.execCommand('copy'); }catch(e){} document.body.removeChild(t); }
