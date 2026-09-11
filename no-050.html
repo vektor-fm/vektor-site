@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en" id="top"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>vektor /// no. 050: Not AGI, but it built the rack.</title>
+<meta name="description" content="One prompt, no follow-ups, a clock on both: GPT-6 Pro in ChatGPT and Fable 5.1 in Claude Code each built an interactive exploded three.js diagram of NVIDIA's GB200 NVL72 rack. Both got the hardware counts right. Both broke somewhere. Both files, the exact prompt and the timing method, on one page. Comment VERDICT on the reel to get this link, then pick a side.">
+
+<!-- OG / social preview (traffic arrives via DM) -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Not AGI, but it built the rack: vektor /// no. 050">
+<meta property="og:description" content="GPT-6 Pro vs Fable 5.1, one prompt, no follow-ups: an interactive exploded GB200 NVL72 rack in three.js. Both files, the prompt and both times, on one page.">
+<meta property="og:image" content="https://vektor-fm.github.io/vektor-site/og/no-050.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Not AGI, but it built the rack: vektor /// no. 050">
+<meta property="og:site_name" content="vektor">
+<meta property="og:url" content="https://vektor-fm.github.io/vektor-site/no-050.html">
+<link rel="canonical" href="https://vektor-fm.github.io/vektor-site/no-050.html">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Not AGI, but it built the rack: vektor /// no. 050">
+<meta name="twitter:description" content="GPT-6 Pro vs Fable 5.1, one prompt, no follow-ups, a clock on both. Both files, the prompt and both times, on one page.">
+<meta name="twitter:image" content="https://vektor-fm.github.io/vektor-site/og/no-050.png">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000000'/%3E%3Ctext x='32' y='47' font-family='Arial' font-size='46' font-weight='600' text-anchor='middle' fill='%23EFEADD'%3Ev%3C/text%3E%3C/svg%3E">
+<link rel="preload" href="fonts/archivo-expanded-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/archivo-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/inter-tight-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+
+<style>
+/* Archivo + Archivo Expanded, SIL OFL, self-hosted, 14 KB each.
+   Printvetica: purchased commercial licence, GITIGNORED. This repo is public,
+   so committing the file would be redistribution. Production falls back to
+   Archivo for meta and labels until the webfont grant is confirmed.
+   IBM Plex Mono: retained at ONE weight for code snippets only. */
+@font-face{font-family:'Archivo Expanded';src:url(fonts/archivo-expanded-400.woff2) format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Archivo Text';src:url(fonts/archivo-400.woff2) format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Inter Tight';src:url(fonts/inter-tight-600-latin.woff2) format('woff2');font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:'Printvetica';src:url(fonts/printvetica-caps.woff2) format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'IBM Plex Mono';src:url(fonts/ibm-plex-mono-400-latin.woff2) format('woff2');font-weight:400;font-style:normal;font-display:swap}
+.issue-marker{
+  padding:var(--p-s) var(--rail); border-bottom:1px solid var(--rule);
+  font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em;
+  font-size:var(--fs-s); line-height:var(--lh-s); color:var(--meta);
+}
+/* ================================ NAV ================================
+   Shared nav, copied verbatim from no-048.html / partials/head.html so this
+   page shares the same masthead and drawer as every other issue page. */
+.skip-link{
+  position:fixed; top:0; left:0; z-index:80;
+  transform:translateY(-120%); transition:transform .2s ease-out;
+  background:var(--fg); color:var(--bg);
+  padding:12px var(--p-m); font-size:var(--fs-s); line-height:var(--lh-s);
+  font-weight:500; text-decoration:underline;
+}
+.skip-link:focus{ transform:translateY(0); outline:2px solid var(--fg); outline-offset:2px; }
+.navreveal{ position:fixed; top:0; left:0; right:0; height:24px; z-index:70; cursor:default; }
+.menu{
+  position:fixed; inset:0 0 auto 0; z-index:60; background:transparent;
+  display:grid; gap:1px; transform:translate3d(0,-100%,0); transition:transform .4s ease;
+}
+.menu.nav-visible, .menu:focus-within{ transform:translateZ(0); }
+.menu .bar{
+  display:flex; justify-content:space-between; align-items:center;
+  padding:var(--p-s); height:44px; background:var(--bg);
+  outline:1px solid var(--rule);
+}
+.wm{
+  position:relative; display:inline-flex; text-decoration:none;
+  font-family:'Inter Tight',system-ui,sans-serif; font-weight:600;
+  letter-spacing:-0.045em; color:var(--paper); line-height:1;
+}
+.wm-main{ position:relative; z-index:2; display:inline-flex; }
+.wm-main .ch{ position:relative; display:inline-block; }
+.wm-main .ch .l{ opacity:1; }
+.wm-main .ch .g{ display:none; }
+.wm-plate{ display:none; }
+.bar .wm{ font-size:30px; }
+.bar .mid{ font-size:var(--fs-s); text-transform:uppercase; letter-spacing:.025em; }
+.bar .util{ display:flex; align-items:center; gap:var(--p-m); }
+.bar .util a{ font-size:var(--fs-s); text-transform:uppercase; letter-spacing:.025em; color:var(--dim); }
+.bar .util a:hover,.bar .util a.on{ color:var(--fg); }
+.navgrid{ display:grid; grid-auto-flow:column; grid-auto-columns:minmax(0,1fr); gap:1px; background:var(--bg); list-style:none; }
+.navgrid > li{ display:flex; flex-direction:column; outline:1px solid var(--rule); }
+.nav-submenu{ display:grid; }
+.navgrid .top{
+  height:38px; display:flex; align-items:center; justify-content:center;
+  font-size:var(--fs-s); line-height:var(--lh-s);
+  text-transform:uppercase; letter-spacing:normal; text-align:center;
+  transition:background-color .15s cubic-bezier(.4,0,.2,1);
+}
+.navgrid > li:hover .top{ background-color:rgba(255,255,255,.2); }
+.navgrid .panel{
+  border-top:1px solid var(--rule); margin-bottom:-1px;
+  display:grid; gap:var(--p-xl); padding:0 var(--p-m);
+  max-height:0; opacity:0; overflow:hidden;
+  transition:max-height .5s ease-out, opacity .5s ease-out, padding .5s ease-out;
+}
+.menu:hover .navgrid .panel, .menu:focus-within .navgrid .panel{ max-height:384px; opacity:1; padding:var(--p-m); }
+.navgrid .panel ul{ display:flex; flex-direction:column; gap:2px; list-style:none; }
+.navgrid .panel a{ display:flex; gap:var(--p-s); font-size:var(--fs-s); line-height:var(--lh-s); text-transform:none; }
+.navgrid .panel a span{ border-bottom:1px solid transparent; }
+.navgrid .panel ul:hover li a{ color:#767676; }
+.navgrid .panel ul li a{ transition:color .1s ease-in-out; }
+.navgrid .panel ul li a:hover{ color:var(--fg); }
+.navgrid .panel .info{ color:var(--meta); font-size:var(--fs-s); line-height:var(--lh-s); }
+.navgrid .panel ul li{ opacity:0; }
+.menu:hover .navgrid .panel ul li, .menu:focus-within .navgrid .panel ul li{ opacity:1; }
+.navgrid .panel ul li:nth-child(1){ transition:opacity .1s ease-in-out 0s; }
+.navgrid .panel ul li:nth-child(2){ transition:opacity .2s ease-in-out .02s; }
+.navgrid .panel ul li:nth-child(3){ transition:opacity .3s ease-in-out .04s; }
+.navgrid .panel ul li:nth-child(4){ transition:opacity .4s ease-in-out .06s; }
+.navgrid .panel ul li:nth-child(5){ transition:opacity .5s ease-in-out .08s; }
+.navgrid .panel .info{ transition:opacity .5s ease-out .1s; }
+.navbottom{
+  display:flex; justify-content:space-between; flex-wrap:wrap;
+  background:var(--bg); outline:1px solid var(--rule); margin-top:-1px;
+  max-height:0; overflow:hidden; visibility:hidden;
+  transition:max-height .5s ease-out, visibility linear .5s;
+}
+.menu:hover .navbottom, .menu:focus-within .navbottom{
+  max-height:96px; visibility:visible; transition:max-height .5s ease-out, visibility linear;
+}
+.navbottom ul{ display:flex; list-style:none; padding:var(--p-s) var(--p-m); }
+.navbottom .social{ gap:var(--p-s); }
+.navbottom .legal{ gap:var(--p-xl); }
+.navbottom a{ font-size:var(--fs-s); line-height:var(--lh-s); display:flex; gap:var(--p-s); }
+.navbottom .legal:hover a{ color:#767676; }
+.navbottom .legal a{ transition:color .1s ease-in-out; }
+.navbottom .legal a:hover{ color:var(--fg); }
+.menu-word{
+  display:none; align-items:center; gap:var(--p-s); height:44px; padding:0 2px;
+  background:none; border:0; cursor:pointer; color:var(--fg);
+  font-family:var(--font-label); font-size:var(--fs-s); line-height:var(--lh-s);
+  letter-spacing:.025em; text-transform:uppercase;
+}
+.menu-word .rules{ display:flex; flex-direction:column; gap:5px; flex:0 0 auto; }
+.menu-word .rules i{ display:block; width:18px; height:1px; background:currentColor; transition:transform .3s cubic-bezier(.4,0,.2,1); }
+.menu-word .lbl{ border-bottom:1px solid transparent; transition:border-color .15s cubic-bezier(.4,0,.2,1); }
+.menu-word:hover .lbl,.menu-word[aria-expanded="true"] .lbl{ border-bottom-color:var(--fg); }
+.menu-word[aria-expanded="true"] .rules i:first-child{ transform:translateY(3px) rotate(45deg); }
+.menu-word[aria-expanded="true"] .rules i:last-child{ transform:translateY(-3px) rotate(-45deg); }
+@media (max-width:767px){
+  .menu-word{ display:inline-flex; }
+  .nav-submenu{ max-height:0; overflow:hidden; visibility:hidden; transition:max-height .4s ease, visibility linear .4s; }
+  .menu.drawer-open .nav-submenu{ max-height:calc(100svh - 44px); overflow-y:auto; visibility:visible; transition:max-height .4s ease, visibility linear; }
+  .navgrid{ grid-auto-flow:row; }
+  .navgrid .panel{ max-height:none; opacity:1; padding:var(--p-m); }
+  .navgrid .panel ul li{ opacity:1; }
+  .navbottom{ max-height:none; visibility:visible; }
+  .menu:hover .navgrid .panel, .menu:hover .navbottom{ max-height:none; }
+}
+.bar .wm{min-height:44px; display:inline-flex; align-items:center;}
+.bar .util a{min-height:44px; display:inline-flex; align-items:center;}
+.navgrid .top{min-height:44px;}
+.navgrid .panel a, .navbottom a{min-height:44px; display:inline-flex; align-items:center;}
+.navbottom .social a, .navbottom .social li{min-width:44px; justify-content:center;}
+</style>
+<style>
+:root{
+  --fs-4xl:132px; --lh-4xl:140px; --fs-3xl:52px; --lh-3xl:54px;
+  --fs-2xl:32px;  --lh-2xl:34px;  --fs-xl:20px;  --lh-xl:22px;
+  --fs-m:18px;    --lh-m:22px;    --fs-s:15px;   --lh-s:19px;
+  --fs-xs:12px;   --lh-xs:14px;
+  --p-xs:4px; --p-s:8px; --p-m:16px; --p-l:24px; --p-xl:32px;
+  --p-2xl:40px; --p-3xl:48px; --p-4xl:80px;
+
+  --bg:#000000; --fg:#FFFFFF; --band:#141414; --rule:#C9C9C9;
+  --meta:#999999; --dim:#B4B4B4; --accent:#0E9C86;
+  --paper:#EFEADD; --acid:#39FF35; --orchid:#C77BC9;
+
+  --font-extended:'Archivo Expanded','Archivo Text',system-ui,sans-serif;
+  --font-sans:'Archivo Text',system-ui,sans-serif;
+  --font-label:'Printvetica','Archivo Text',system-ui,sans-serif;
+  --font-code:'IBM Plex Mono',ui-monospace,monospace;
+  --wm:'Inter Tight',system-ui,sans-serif;
+  --rail:var(--p-2xl);
+}
+@media (max-width:1023px){
+  :root{
+    --fs-4xl:40px; --lh-4xl:42px; --fs-3xl:32px; --lh-3xl:34px;
+    --fs-2xl:24px; --lh-2xl:26px; --fs-xl:18px;  --lh-xl:20px;
+    --fs-m:16px;   --lh-m:19px;   --fs-s:14px;   --lh-s:18px;
+    --p-m:12px; --p-l:16px; --p-xl:24px; --p-2xl:32px; --p-3xl:40px; --p-4xl:64px;
+  }
+}
+@media (max-width:767px){
+  :root{
+    --fs-4xl:28px; --lh-4xl:32px; --fs-3xl:24px; --lh-3xl:28px;
+    --fs-2xl:20px; --lh-2xl:22px; --fs-xl:16px;  --lh-xl:18px;
+    --fs-m:14px;   --lh-m:18px;
+    --p-m:8px; --p-l:12px; --p-xl:16px; --p-2xl:24px; --p-3xl:32px; --p-4xl:48px;
+  }
+}
+*{box-sizing:border-box;}
+html,body{margin:0;}
+body{
+  background:var(--bg); color:var(--fg);
+  font-family:var(--font-sans); font-size:var(--fs-m); line-height:var(--lh-m);
+  -webkit-font-smoothing:antialiased; overflow-x:hidden;
+}
+a{color:inherit; text-decoration:none;}
+h1,h2,h3,h4,h5,h6{font-weight:400; font-family:var(--font-extended); letter-spacing:normal;}
+h2{font-size:var(--fs-2xl); line-height:var(--lh-2xl); text-transform:uppercase; margin:var(--p-xl) 0 var(--p-s);}
+h3{font-size:var(--fs-xl); line-height:var(--lh-xl); text-transform:uppercase; margin:var(--p-l) 0 var(--p-xs);}
+code{font-family:var(--font-code); font-size:.92em; overflow-wrap:anywhere;}
+p,li{overflow-wrap:break-word;}
+:focus-visible{outline:2px solid var(--fg); outline-offset:2px;}
+::selection{background:var(--accent); color:var(--bg);}
+img{display:block; max-width:100%;}
+.kick{ font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); line-height:var(--lh-s); }
+.disp{ font-family:var(--font-extended); font-weight:400; text-transform:uppercase; letter-spacing:normal; line-height:var(--lh-3xl); }
+.rule{ font-size:0; line-height:0; color:transparent; user-select:none; height:1px; background:var(--rule); overflow:hidden; speak:never; }
+.wm{ position:relative; display:inline-flex; font-family:var(--wm); font-weight:600; letter-spacing:-0.045em; color:var(--paper); font-size:30px; line-height:1; }
+.wm-main{position:relative; z-index:2; display:inline-flex;}
+.wm-main .ch{position:relative; display:inline-block;}
+.wm-main .ch .l{opacity:1;}
+.wm-main .ch .g{display:none;}
+.wm-plate{display:none;}
+.wm-foot{font-family:var(--wm); font-weight:600; letter-spacing:-0.045em; color:var(--paper); font-size:34px; line-height:1; display:inline-flex;}
+.wm-foot .ch2{position:relative; display:inline-block;}
+.wm-foot .ch2 .g{display:none;}
+.weave{ height:8px; width:100%; background:repeating-linear-gradient(90deg, var(--accent) 0 2px, transparent 2px 10px); border-bottom:1px solid var(--rule); }
+.hero{padding:var(--p-2xl) var(--rail) var(--p-3xl); position:relative;}
+.hero .eye{color:var(--meta); margin-bottom:var(--p-m);}
+.hero h1{margin:0; font-size:var(--fs-3xl); line-height:var(--lh-3xl);}
+.hero h1 .dot{color:var(--accent);}
+.hero .sub{max-width:64ch; margin-top:var(--p-l); font-size:var(--fs-m); line-height:var(--lh-xl); color:var(--dim);}
+.hero .rule{margin-top:var(--p-xl);}
+.hero .actions{display:flex; flex-wrap:wrap; gap:var(--p-s); margin-top:var(--p-l);}
+.fig{padding:var(--p-2xl) var(--rail) var(--p-m); display:flex; align-items:baseline; gap:var(--p-m); flex-wrap:wrap;}
+.fig .kick{color:var(--meta); white-space:nowrap;}
+.fig .line{flex:1 1 40px; height:1px; background:var(--rule); align-self:center;}
+.fig h2{margin:0; font-size:var(--fs-3xl); line-height:var(--lh-3xl);}
+.lede{padding:0 var(--rail); max-width:74ch; color:var(--dim); font-size:var(--fs-m); line-height:var(--lh-xl); margin:0 0 var(--p-m);}
+.lede b{color:var(--fg); font-weight:400;}
+.issues{padding:var(--p-m) var(--rail) 0;}
+.issue{margin:var(--p-l) 0; padding-top:var(--p-l); border-top:1px solid var(--rule);}
+.issue .num{ font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); color:var(--accent); display:block; margin-bottom:var(--p-xs); }
+.issue p{ font-size:var(--fs-m); line-height:var(--lh-xl); color:var(--dim); margin:0; max-width:74ch; }
+.meta{font-size:var(--fs-s); line-height:var(--lh-s); color:var(--meta);}
+.meta b{color:var(--dim); font-weight:400;}
+.btn{
+  display:inline-flex; align-items:center; gap:var(--p-xs);
+  min-height:48px; padding:0 var(--p-m);
+  font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em;
+  font-size:var(--fs-s); border:1px solid var(--rule); background:transparent;
+  color:var(--fg); cursor:pointer;
+  transition:background-color .15s cubic-bezier(.4,0,.2,1), color .15s cubic-bezier(.4,0,.2,1);
+}
+.btn:hover{background:rgba(255,255,255,.06);}
+.btn.primary{border-color:var(--accent); color:var(--accent);}
+.btn.primary:hover{background:var(--accent); color:var(--bg);}
+.snippet{margin:var(--p-m) var(--rail); border:1px solid var(--rule); background:var(--band);}
+.snippet .bar{
+  display:flex; align-items:center; justify-content:space-between; gap:var(--p-s);
+  padding:var(--p-s) var(--p-s) var(--p-s) var(--p-m); border-bottom:1px solid var(--rule);
+}
+.snippet .bar .f{ font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-xs); color:var(--meta); }
+.snippet pre{
+  margin:0; padding:var(--p-m); overflow-x:auto; max-height:60vh; overflow-y:auto;
+  font-family:var(--font-code); font-size:var(--fs-s); line-height:1.55;
+  color:var(--fg); white-space:pre-wrap; word-break:break-word;
+}
+.snippet .snipbtn{
+  flex:none; min-height:44px; padding:0 var(--p-m);
+  font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em;
+  font-size:var(--fs-xs); border:1px solid var(--rule); background:transparent;
+  color:var(--fg); cursor:pointer;
+}
+.snippet .snipbtn:hover{background:var(--accent); color:var(--bg); border-color:var(--accent);}
+.snippet .note{margin:0; padding:0 var(--p-m) var(--p-m); font-size:var(--fs-xs); color:var(--meta); word-break:break-all;}
+.ledger{padding:var(--p-s) var(--rail) var(--p-m);}
+.lrow{display:flex; gap:var(--p-l); align-items:baseline; border-top:1px solid var(--rule); padding:var(--p-l) 0;}
+.lrow:last-of-type{border-bottom:1px solid var(--rule);}
+.lrow .n{font-family:var(--font-extended); font-weight:400; font-size:var(--fs-2xl); color:var(--accent); flex:none; line-height:1; white-space:nowrap;}
+.lrow .t{font-family:var(--font-sans); font-size:var(--fs-m); line-height:var(--lh-xl); color:var(--dim);}
+.callout{margin:var(--p-m) var(--rail) 0; padding:var(--p-m) var(--p-l); border:1px solid var(--rule); background:var(--band); font-size:var(--fs-m); line-height:var(--lh-xl); color:var(--dim); max-width:74ch;}
+.callout q, .callout .q{color:var(--fg); font-style:normal;}
+footer{margin-top:var(--p-4xl); padding:var(--p-2xl) var(--rail) var(--p-4xl); border-top:1px solid var(--rule);}
+.foot-rule{margin-bottom:var(--p-xl);}
+.news label{display:block; color:var(--accent); margin-bottom:var(--p-s); font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s);}
+.news h2{margin:0 0 var(--p-s); font-family:var(--font-extended); font-weight:400; text-transform:uppercase; font-size:var(--fs-2xl); line-height:var(--lh-2xl);}
+.news form{display:flex; gap:var(--p-s); flex-wrap:wrap; max-width:520px;}
+.news input{flex:1 1 220px; min-height:48px; background:transparent; border:0; border-bottom:1px solid var(--rule); color:var(--fg); font-family:var(--font-sans); font-size:var(--fs-m); padding:0;}
+.news input:focus{outline:none; border-bottom-color:var(--fg);}
+.news .note{font-size:var(--fs-s); color:var(--meta); margin-top:var(--p-s);}
+.pack{display:flex; flex-wrap:wrap; gap:var(--p-s) var(--p-l); margin:var(--p-s) 0 var(--p-m);}
+.pack span{font-family:var(--font-sans); font-size:var(--fs-s); color:var(--meta);}
+.pack span::before{content:"\2192 "; color:var(--accent);}
+.socials{display:flex; flex-wrap:wrap; gap:var(--p-l); margin-top:var(--p-xl);}
+.socials a{font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); color:var(--meta); padding:12px 0; margin:-12px 0;}
+.socials a:hover{color:var(--accent);}
+.backref{margin-top:var(--p-xl); font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); color:var(--dim);}
+.backref b,.backref a{color:var(--accent);}
+.wordmark-foot{display:flex; align-items:center; gap:var(--p-m); margin-top:var(--p-xl); flex-wrap:wrap;}
+.wordmark-foot .m{font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); color:var(--meta);}
+.note{font-size:var(--fs-s); line-height:var(--lh-s); color:var(--meta);}
+input,select,textarea{font-size:16px !important;}
+.sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip-path:inset(50%); border:0; }
+.socials a, .backref a, .pack span a{min-height:44px; display:inline-flex; align-items:center;}
+.snippet .snipbtn{min-height:44px;}
+.btn{min-height:48px;}
+.chrome .wm{min-height:44px; display:inline-flex; align-items:center;}
+.card .one a,.hero .sub a,.midcap p a,.note a{ display:inline-block; padding:11px 0; margin:-11px 0; }
+
+/* ---- page-specific: the two racks, the prompt, the vote block ---- */
+.racks{display:grid; grid-template-columns:1fr 1fr; gap:var(--p-l); padding:0 var(--rail); margin-top:var(--p-m);}
+@media (max-width:900px){ .racks{grid-template-columns:1fr;} }
+.rack-cell{border:1px solid var(--rule); background:var(--band); display:flex; flex-direction:column; min-width:0;}
+.rack-meta{
+  display:flex; align-items:center; justify-content:space-between; gap:var(--p-s);
+  padding:var(--p-s) var(--p-m); border-bottom:1px solid var(--rule);
+  font-family:var(--font-code); font-size:var(--fs-s); line-height:var(--lh-s);
+  color:var(--dim); flex-wrap:wrap;
+}
+.rack-meta .who{min-width:0; overflow-wrap:break-word;}
+.rack-meta b{color:var(--fg); font-weight:400;}
+.rack-meta a{color:var(--accent); white-space:nowrap;}
+.rack-cell iframe{display:block; width:100%; height:70vh; min-height:70vh; border:0; background:#000;}
+.vote{margin:var(--p-2xl) var(--rail); padding:var(--p-xl) var(--p-l); border:1px solid var(--rule); background:var(--band);}
+.vote .k{display:block; color:var(--accent); font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); margin-bottom:var(--p-s);}
+.vote h2{font-family:var(--font-extended); font-weight:400; text-transform:uppercase; letter-spacing:normal; font-size:var(--fs-2xl); line-height:var(--lh-2xl); margin:0 0 var(--p-s);}
+.vote p{font-size:var(--fs-m); line-height:var(--lh-xl); color:var(--dim); margin:0 0 var(--p-l); max-width:64ch;}
+.vote-btns{display:flex; gap:var(--p-m); flex-wrap:wrap;}
+.vote-btn{flex:1 1 220px; justify-content:center; min-height:64px; font-size:var(--fs-m); text-align:center;}
+.vote .note{margin-top:var(--p-m);}
+</style>
+<!-- SHARED NAV MARKUP, copied from no-048.html, unedited. -->
+<div class="navreveal" aria-hidden="true"></div>
+
+<div class="menu">
+  <div class="bar">
+    <a class="wm" href="#top" aria-label="vektor"><span class="wm-plate wm-acid" aria-hidden="true">vektor</span><span class="wm-plate wm-orchid" aria-hidden="true">vektor</span><span class="wm-main"><span class="ch" style="--i:0"><span class="g">%</span><span class="l">v</span></span><span class="ch" style="--i:1"><span class="g">#</span><span class="l">e</span></span><span class="ch" style="--i:2"><span class="g">Z</span><span class="l">k</span></span><span class="ch" style="--i:3"><span class="g">8</span><span class="l">t</span></span><span class="ch" style="--i:4"><span class="g">@</span><span class="l">o</span></span><span class="ch" style="--i:5"><span class="g">W</span><span class="l">r</span></span></span></a>
+    <span class="mid">The Index</span>
+    <div class="util">
+      <button class="menu-word" type="button" aria-label="Open menu" aria-expanded="false"><span class="rules" aria-hidden="true"><i></i><i></i></span><span class="lbl">Menu</span></button>
+    </div>
+  </div>
+  <div class="nav-submenu">
+  <ul class="navgrid">
+    <li>
+      <a class="top" href="./index.html#latest">Issues</a>
+      <div class="panel">
+        <ul>
+          <li><a href="./index.html#latest"><span class="a">→</span><span>Latest</span></a></li>
+          <li><a href="./index.html#archive"><span class="a">→</span><span>The archive</span></a></li>
+          <li><a href="https://instagram.com/vektor.fm" target="_blank" rel="noopener"><span class="a">→</span><span>Submit a topic</span></a></li>
+        </ul>
+        <p class="info">Every issue is one short film and one working pack: config, prompts, links.</p>
+      </div>
+    </li>
+    <li>
+      <a class="top" href="./pack.html">Packs</a>
+      <div class="panel">
+        <ul>
+          <li><a href="./no-004.html"><span class="a">→</span><span>Skills</span></a></li>
+          <li><a href="./no-013.html"><span class="a">→</span><span>Agent starter kit</span></a></li>
+          <li><a href="./no-015.html"><span class="a">→</span><span>Loops</span></a></li>
+          <li><a href="./no-010.html"><span class="a">→</span><span>CLAUDE.md files</span></a></li>
+        </ul>
+        <p class="info">The files behind the films. One email opens any of them.</p>
+      </div>
+    </li>
+    <li>
+      <a class="top" href="./index.html#about">About</a>
+      <div class="panel">
+        <ul>
+          <li><a href="./index.html#about"><span class="a">→</span><span>What vektor is</span></a></li>
+          <li><a href="#subscribe"><span class="a">→</span><span>The Teardown</span></a></li>
+          <li><a href="https://youtube.com/@vektorfm" target="_blank" rel="noopener"><span class="a">→</span><span>Watch</span></a></li>
+          <li><a href="./privacy.html"><span class="a">→</span><span>Privacy</span></a></li>
+        </ul>
+        <p class="info">Daily shorts on the Claude and AI tooling that actually matters.</p>
+      </div>
+    </li>
+  </ul>
+  <div class="navbottom">
+    <ul class="social">
+      <li><a href="https://youtube.com/@vektorfm" target="_blank" rel="noopener"><span>YT</span></a></li>
+      <li><a href="https://instagram.com/vektor.fm" target="_blank" rel="noopener"><span>IG</span></a></li>
+      <li><a href="https://tiktok.com/@vektor.fm" target="_blank" rel="noopener"><span>TT</span></a></li>
+      <li><a href="https://x.com/vektordotfm" target="_blank" rel="noopener"><span>X</span></a></li>
+    </ul>
+    <ul class="legal">
+      <li><a href="#subscribe"><span class="a">→</span><span>Subscribe</span></a></li>
+      <li><a href="./privacy.html"><span class="a">→</span><span>Privacy</span></a></li>
+      <li><a href="./thanks.html"><span class="a">→</span><span>Contact</span></a></li>
+    </ul>
+  </div>
+  </div>
+</div>
+
+<div class="issue-marker">GB200 NVL72 · One Prompt, Two Models</div>
+
+<div class="weave" aria-hidden="true"></div>
+
+<main>
+<section class="hero">
+  <div class="kick eye">GPT-6 Pro vs Fable 5.1 · one prompt · no follow-ups</div>
+  <h1 class="disp">Not AGI,<br>but it built the rack<span class="dot">.</span></h1>
+  <p class="sub">GPT-6 Pro in ChatGPT and Fable 5.1 in Claude Code got the same prompt and a clock: build an interactive exploded three.js diagram of NVIDIA's GB200 NVL72 rack, no follow-up messages allowed.</p>
+  <div class="actions">
+    <a class="btn primary" href="#racks">See both racks ↓</a>
+    <a class="btn" href="#prompt">Read the exact prompt →</a>
+    <a class="btn" href="#vote">Cast your vote →</a>
+  </div>
+  <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+</section>
+
+<div class="fig">
+  <h2 class="kick">Fig. 01 ·</h2>
+  <h2 class="disp">The verdict<span class="dot">.</span></h2>
+  <span class="line" aria-hidden="true"></span>
+</div>
+<p class="lede">Both models came back with a rack that explodes, orbits and names its parts on click, and both got the hardware counts right against NVIDIA's own numbers: eighteen compute trays, thirty-six Grace CPUs, seventy-two Blackwell GPUs. That is genuinely useful: a working, clickable teaching tool built from one sentence, in under fifteen minutes each. It is also, in places, embarrassing. Drag Fable's slider to the end and the Grace CPU label lands on top of the Blackwell GPU label. Turn a phone upright and Fable's exploded rack falls off the left edge. Click around ChatGPT's rack and three of five scripted clicks land on empty space. None of that is evidence of general intelligence. It is evidence of a good demo, which is a different thing, and that is the whole verdict: break both files yourself below, then pick a side.</p>
+
+<div class="fig" id="racks">
+  <h2 class="kick">Fig. 02 ·</h2>
+  <h2 class="disp">The two racks<span class="dot">.</span></h2>
+  <span class="line" aria-hidden="true"></span>
+</div>
+<p class="lede">Both are live below, full builds, nothing trimmed. Drag the slider, orbit with a drag, click a part.</p>
+<div class="racks">
+  <div class="rack-cell">
+    <div class="rack-meta">
+      <span class="who"><b>Fable 5.1</b> in Claude Code · 549.8s process wall-clock</span>
+      <a href="./files/no-050/fable-gb200-nvl72.html" target="_blank" rel="noopener">Open full screen →</a>
+    </div>
+    <iframe src="./files/no-050/fable-gb200-nvl72.html" loading="lazy" title="Fable 5.1's exploded GB200 NVL72 rack, live, in an iframe"></iframe>
+  </div>
+  <div class="rack-cell">
+    <div class="rack-meta">
+      <span class="who"><b>GPT-6 Pro</b> in ChatGPT · 856s (±10s)</span>
+      <a href="./files/no-050/gpt6-gb200-nvl72.html" target="_blank" rel="noopener">Open full screen →</a>
+    </div>
+    <iframe src="./files/no-050/gpt6-gb200-nvl72.html" loading="lazy" title="GPT-6 Pro's exploded GB200 NVL72 rack, live, in an iframe"></iframe>
+  </div>
+</div>
+
+<div class="fig" id="prompt">
+  <h2 class="kick">Fig. 03 ·</h2>
+  <h2 class="disp">The exact prompt<span class="dot">.</span></h2>
+  <span class="line" aria-hidden="true"></span>
+</div>
+<p class="lede">One message, no follow-ups, sent to both. Nothing added afterward to either model.</p>
+<div class="snippet">
+  <div class="bar"><span class="f">PROMPT.txt</span><button class="snipbtn" id="snipCopy" type="button">Copy prompt</button></div>
+  <pre id="snipText">Build an interactive exploded-view 3D diagram of an NVIDIA GB200 NVL72 rack (Grace Blackwell) in three.js, as a single self-contained index.html that loads three.js from a CDN. Requirements: the rack's main parts modelled as simple 3D geometry and labelled (compute trays with Grace CPUs and Blackwell GPUs, NVLink switch trays, power shelves, the NVLink spine and cabling, liquid-cooling manifolds, the rack frame); an explode/assemble slider that spreads the parts apart along sensible axes; an orbit camera; click any part to show its name and a one-line description. Make it look premium. Return only the complete file.</pre>
+  <p class="note">SHA-256 of this prompt, both runs (EVALUATION.md): 3ad96c0abdab9c461474be08f0b6398a29745630cbc0f888fb752f36d901ef0d</p>
+</div>
+
+<div class="fig">
+  <h2 class="kick">Fig. 04 ·</h2>
+  <h2 class="disp">How the clock ran<span class="dot">.</span></h2>
+  <span class="line" aria-hidden="true"></span>
+</div>
+<p class="lede">Same harness, same steps, run separately against each file, quoted from EVALUATION.md: "headless Chrome 145.0.7632.77 via global puppeteer, SwiftShader WebGL, desktop viewport 1440x900 then portrait 1080x1920, identical scripted actions, screenshots under 2000 px, visual reading by an Explore sub-agent."</p>
+<div class="ledger" aria-label="The two times">
+  <div class="lrow"><span class="n">549.8s</span><span class="t"><b>Fable 5.1 in Claude Code.</b> Process wall-clock, start to exit, including CLI start-up and transport. This tool has no isolated generation timer. Source: EVALUATION.md.</span></div>
+  <div class="lrow"><span class="n">856s ±10s</span><span class="t"><b>GPT-6 Pro in ChatGPT.</b> Per ChatGPT's own on-screen badge ("Worked for 14m 16s"), including its web searches and sandbox steps. Source: EVALUATION.md.</span></div>
+</div>
+<div class="callout">"Elapsed (different products, different tooling: <span class="q">NOT a model race</span>)", EVALUATION.md's own side-by-side table, verbatim. Different tools, different environments, different amounts of agentic work: Astra ran web searches and a code sandbox, Fable had no tools at all. The clock is on the page because the prompt said "a clock to check," not because either number proves which model is faster or smarter.</div>
+
+<div class="fig">
+  <h2 class="kick">Fig. 05 ·</h2>
+  <h2 class="disp">What broke<span class="dot">.</span></h2>
+  <span class="line" aria-hidden="true"></span>
+</div>
+<p class="lede">Every defect below is reproducible in the live racks above. Quoted from EVALUATION.md's sub-agent visual reading, same seven scripted questions asked of both files.</p>
+<section class="issues">
+  <div class="issue">
+    <span class="num">Fable 5.1: files/no-050/fable-gb200-nvl72.html</span>
+    <p>Drag the explode slider to the end: "Grace CPU ×36" sits on top of "Blackwell GPU ×72", and the "NVLink switch tray ×9" label clips against the left panel edge. Reproducible every time. EVALUATION.md, files 03 and 09 through 12.</p>
+  </div>
+  <div class="issue">
+    <span class="num">Fable 5.1: same file, portrait 1080x1920</span>
+    <p>Turn the viewport to portrait and explode past roughly 70 percent: the rack's geometry cuts off at the left edge, and the NVLink spine and DC busbar labels truncate at the right edge. Desktop is unaffected. EVALUATION.md, files 14 and 15.</p>
+  </div>
+  <div class="issue">
+    <span class="num">GPT-6 Pro: files/no-050/gpt6-gb200-nvl72.html</span>
+    <p>Three of five scripted desktop clicks land on empty space and leave the default system panel up. It's a layout consequence, not a broken click handler. The exploded rack sits in a narrow canvas column rather than filling the viewport, and the two hits that do land (plus the one portrait click tested) all behave correctly. EVALUATION.md, files 08, 09 and 11.</p>
+  </div>
+</section>
+
+<div class="vote" id="vote">
+  <span class="k">The comment is the vote</span>
+  <h2>Pick a side.</h2>
+  <p>Tap your pick to copy the line, then paste it as a comment on the reel. That comment is your vote: nothing here counts a click, and there is no form, no backend, nothing sent from this page.</p>
+  <div class="vote-btns">
+    <button type="button" class="btn primary vote-btn" data-copy="VERDICT GPT-6">GPT-6 Pro</button>
+    <button type="button" class="btn primary vote-btn" data-copy="VERDICT FABLE">Fable 5.1</button>
+  </div>
+  <p class="note">Comment VERDICT on the reel first if you have not already, that's what got you this page.</p>
+</div>
+</main>
+
+<footer>
+  <div class="rule foot-rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+
+  <div class="news" id="subscribe">
+    <h2 class="kick" style="color:var(--acid);">Get the pack: the working setup, one config</h2>
+    <div class="pack">
+      <span>Both rack files</span><span>The eval harness</span><span>One teardown / week</span>
+    </div>
+    <form action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="footer">
+      <input type="hidden" name="tag" value="no-050-footer">
+      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+      <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
+      <button class="btn" type="submit">Send me the pack →</button>
+    </form>
+    <div class="note">Free. The config pack lands in your inbox straight away. Unsubscribe anytime.</div>
+  </div>
+
+  <p class="note" style="margin-top:var(--p-m);">vektor. The AI frontier, cut to what ships.</p>
+
+  <nav class="socials" aria-label="Social links">
+    <a href="https://tiktok.com/@vektor.fm" target="_blank" rel="noopener">TikTok · @vektor.fm</a>
+    <a href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Instagram · @vektor.fm</a>
+    <a href="https://youtube.com/@vektorfm" target="_blank" rel="noopener">YouTube · @vektorfm</a>
+    <a href="https://x.com/vektordotfm" target="_blank" rel="noopener">X · @vektordotfm</a>
+    <a href="./privacy.html">Privacy</a>
+  </nav>
+
+  <div class="backref">A new keyword drops every day, <b>catch it first on the reel</b>, follow @vektor.fm. More like this: <a href="./no-048.html">Ten problems Astra moved &rarr;</a></div>
+
+  <div class="wordmark-foot">
+    <span class="wm-foot" id="wmFoot" aria-label="vektor"><span class="ch2" style="--i:0"><span class="g">%</span><span class="l">v</span></span><span class="ch2" style="--i:1"><span class="g">#</span><span class="l">e</span></span><span class="ch2" style="--i:2"><span class="g">Z</span><span class="l">k</span></span><span class="ch2" style="--i:3"><span class="g">8</span><span class="l">t</span></span><span class="ch2" style="--i:4"><span class="g">@</span><span class="l">o</span></span><span class="ch2" style="--i:5"><span class="g">W</span><span class="l">r</span></span></span>
+    <span class="m">/// no. 050 / gb200 nvl72 / 09-2026 · one prompt, two models, not a model race</span>
+  </div>
+</footer>
+
+<script>
+  function fallback(text){ var t=document.createElement('textarea'); t.value=text; t.style.position='fixed'; t.style.opacity='0'; document.body.appendChild(t); t.focus(); t.select(); try{ document.execCommand('copy'); }catch(e){} document.body.removeChild(t); }
+  function copyText(text, btn, doneLabel){ var o=btn.textContent, done=function(){ btn.textContent=doneLabel; setTimeout(function(){btn.textContent=o;},1800); }; if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(done).catch(function(){ fallback(text); done(); }); } else { fallback(text); done(); } }
+  var snip=document.getElementById('snipCopy');
+  if(snip){ snip.addEventListener('click', function(){ var el=document.getElementById('snipText'); copyText(el.textContent, snip, 'Copied ✓'); }); }
+  document.querySelectorAll('.vote-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){ copyText(btn.getAttribute('data-copy'), btn, 'Copied, paste it as a comment'); });
+  });
+
+  // ---- shared nav: reveal + mobile drawer (copied from no-048.html) ----
+  (function(){
+    var menu=document.querySelector('.menu'); if(!menu){return;}
+    var reveal=function(){ menu.classList.add('nav-visible'); };
+    var strip=document.querySelector('.navreveal'); if(strip){ strip.addEventListener('mouseenter',reveal); }
+    menu.addEventListener('focusin',reveal);
+    var word=document.querySelector('.menu-word');
+    if(word){
+      word.addEventListener('click',function(){
+        reveal();
+        var open=menu.classList.toggle('drawer-open');
+        word.setAttribute('aria-expanded',String(open));
+        word.setAttribute('aria-label',open?'Close menu':'Open menu');
+        var lbl=word.querySelector('.lbl'); if(lbl){ lbl.textContent=open?'Close':'Menu'; }
+        document.body.style.overflow=open?'hidden':'';
+      });
+    }
+    if(window.matchMedia('(hover: none)').matches){ reveal(); }
+  })();
+</script>
+</body></html>
