@@ -109,7 +109,7 @@ lines.forEach((l,i)=>{const start=i===0?8:14.2+(i%9)*.075,p=clamp((t-start)/(i==
 boardRows.forEach((m,i)=>{m.scale.x=(10.4-(i%3)*1.2)*clamp((t-8.1-i*.12)/.45);});redSockets.visible=t>=17;
 sandbox.visible=t<7.8;taskBlock.visible=t<7.8;cacheRoute.visible=t>=4&&t<8;cacheObjects.forEach(m=>{m.visible=t<12;});
 joinLine.geometry.setDrawRange(0,Math.floor(clamp((t-12)/2.1)*61));
-groupLabels.forEach((el,i)=>{const p=new THREE.Vector3(groups[i].x,3.5,groups[i].z+8).project(camera);el.style.left=Math.max(8,Math.min(564,390+p.x*390-104))+'px';el.style.top=(390-p.y*390)+'px';el.style.opacity=String(clamp((t-16.8)/.5));});
+groupLabels.forEach((el,i)=>{const p=new THREE.Vector3(groups[i].x,3.5,groups[i].z+8).project(camera);el.style.left=Math.max(8,Math.min(564,390+p.x*390-104))+'px';el.style.top=Math.max(8,Math.min(772-el.offsetHeight,390-p.y*390))+'px';el.style.opacity=String(clamp((t-16.8)/.5));});
 const phase=t<4?0:t<8?1:t<12?2:t<16.8?3:4;
 headline.textContent=['STUCK.','A WAY OUT?','THE BOARD.','JOIN A TEAM.','SHARED GOALS.'][phase];headline.style.fontSize=['134px','107px','107px','86px','86px'][phase];
 kicker.textContent=['01 / AN IMPOSSIBLE TASK','02 / EXPLORE THE ENVIRONMENT','03 / DISCOVER THE SHARED BOARD','04 / JOIN A WORKSTREAM','05 / PROJECTS ON THE BOARD'][phase];
