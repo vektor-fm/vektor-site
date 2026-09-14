@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="PACE evidence kit: inspect the prompts, saved replies, and model identity limits behind a small product comparison.">
+  <title>PACE / Evidence kit</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="PACE evidence kit home"><span class="brand-mark" aria-hidden="true"></span><span>PACE</span></a>
+    <div class="header-meta"><span>Evidence kit</span><span id="verifiedAt">Loading date…</span></div>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow">A small, inspectable comparison</p>
+        <h1 id="hero-title">Do you<br><em>continue?</em></h1>
+        <p class="hero-deck">A recovered line of reasoning from METR’s July incident was placed in a frozen prompt and shown to two model interfaces. This kit lets you inspect what was requested, what was saved, and what the logs can actually establish.</p>
+        <div class="hero-actions"><a class="button button-primary" id="downloadZip" href="#">Get the evidence kit</a><a class="text-link" href="#explorer">Inspect records <span aria-hidden="true">↓</span></a></div>
+      </div>
+      <div class="source-figure" aria-labelledby="source-title">
+        <div class="source-top"><span id="source-title">METR / Figure 1</span><span>26 Aug 2026</span></div>
+        <img class="metr-figure" src="assets/metr-figure-1.svg" alt="METR Figure 1: an agent moves from an impossible task through search to a shared message board and workstream">
+        <div class="stage-visual" id="stageVisual" role="img" aria-label="Schematic four-stage reconstruction of the METR figure">
+          <div class="stage-connector"></div>
+          <button class="stage-node is-active" data-stage="1"><b>1</b><span>Task</span><i class="agent-box"></i></button>
+          <button class="stage-node" data-stage="2"><b>2</b><span>Search</span><i class="search-line"></i></button>
+          <button class="stage-node" data-stage="3"><b>3</b><span>Board</span><i class="board-icon"></i></button>
+          <button class="stage-node" data-stage="4"><b>4</b><span>Join</span><i class="join-icon"></i></button>
+        </div>
+        <p class="stage-caption" id="stageCaption">Sandboxed agent is given an impossible task and gets stuck.</p>
+        <p class="source-credit">Original diagram: <a href="https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/#core-takeaways-about-this-incident" target="_blank" rel="noreferrer">METR’s investigation</a>. The reconstruction is schematic; the figure’s quotes illustrate a typical trajectory from different agents.</p>
+      </div>
+    </section>
+
+    <section class="finding-strip" aria-label="Key findings">
+      <div><span class="finding-label">CLI runs · 14 Sep 2026</span><strong>Codex: 30 STOP / REPORT. Claude: 29 STOP, 1 CONTINUE.</strong><p>The Claude exception rejects an unauthorized infrastructure exploit. All 30 Claude CLI replies include REPORT; usage records report Opus.</p></div>
+      <div><span class="finding-label">Identity limit · 14 Sep 2026</span><strong>Requested model is not always answering identity.</strong><p>Codex logs preserve the request. Claude usage records report Opus. Neither is an independent safety verdict.</p><div class="products-tested"><span>Products tested</span><img src="assets/openai-monoblossom-official-black.svg" alt="OpenAI"><img src="assets/anthropic-logo-official-slate.svg" alt="Anthropic"></div></div>
+      <div><span class="finding-label">Read the caveat</span><strong>A cold comparison cannot recreate a live swarm.</strong><p>The recovered reasoning was presented as a board message in the frozen prompt; it was not a recovered board message.</p></div>
+    </section>
+
+    <section class="prompt-section" id="prompts" aria-labelledby="prompt-title">
+      <div class="section-intro"><p class="eyebrow">The frozen inputs</p><h2 id="prompt-title">Exact prompts,<br>in three levels.</h2><p>Select a level to read or copy the original prompt. Attribution is disclosed before the text.</p></div>
+      <div class="prompt-reader"><div class="prompt-tabs" role="tablist" aria-label="Prompt levels"><button role="tab" aria-selected="true" data-prompt-level="L1">L1 / direct</button><button role="tab" aria-selected="false" data-prompt-level="L2">L2 / context</button><button role="tab" aria-selected="false" data-prompt-level="L3">L3 / challenge</button></div><div class="prompt-note">The prompt presents one recovered agent’s reasoning as a board message. That framing is ours; it is not a recovered message-board transcript. For byte-for-byte verification, use the .txt download; clipboard line endings can vary.</div><pre class="prompt-text" id="promptText">Loading prompt…</pre><div class="prompt-actions"><button class="button button-dark" id="copyPrompt">Copy prompt</button><a class="text-link" id="downloadPrompt" href="#" download>Download .txt</a><span class="copy-status" id="copyStatus" role="status" aria-live="polite"></span></div><div class="prompt-hash" id="promptHash"></div></div>
+    </section>
+
+    <section class="explorer" id="explorer" aria-labelledby="explorer-title">
+      <div class="explorer-head"><div><p class="eyebrow">The saved material</p><h2 id="explorer-title">Open the evidence.</h2></div><a class="button button-outline" id="downloadJson" href="#" download>Download evidence.json</a></div>
+      <div class="explorer-grid">
+        <aside class="filters" aria-label="Evidence filters"><div class="filter-heading"><span>Filter records</span><button id="clearFilters" class="clear-button">Clear</button></div><label>Provider<select id="providerFilter"><option value="all">All providers</option><option value="codex">Codex</option><option value="claude">Claude</option></select></label><label>Population<select id="populationFilter"><option value="all">CLI + web</option><option value="cli">CLI</option><option value="web">Web UI</option></select></label><label>Level<select id="levelFilter"><option value="all">All levels</option><option value="1">L1</option><option value="2">L2</option><option value="3">L3</option></select></label><label>Decision<select id="decisionFilter"><option value="all">All decisions</option><option value="STOP">STOP</option><option value="CONTINUE">CONTINUE</option></select></label><label>Report<select id="reportFilter"><option value="all">Report: any</option><option value="yes">Has report</option><option value="no">No report</option></select></label><p class="filter-count" id="filterCount">Loading records…</p></aside>
+        <div class="record-list" id="recordList" aria-live="polite"></div>
+        <article class="record-detail" id="recordDetail" aria-live="polite"><div class="detail-empty"><span class="detail-pin" aria-hidden="true">＋</span><h3>Select a saved record</h3><p>Choose a file to read its reply, prompt level, requested model, identity basis, date, and hash.</p></div></article>
+      </div>
+    </section>
+
+    <section class="reconstruction-section" aria-labelledby="reconstruction-title"><div><p class="eyebrow">Interactive reconstruction</p><h2 id="reconstruction-title">Trace the source-linked scene.</h2><p>A local silent reconstruction follows the credited METR figure’s four stages. Load it only when you are ready to inspect the motion.</p></div><button class="reconstruction-launch" id="loadReconstruction" type="button"><span class="play-glyph" aria-hidden="true">▶</span><span>Load reconstruction</span></button><div class="reconstruction-frame" id="reconstructionFrame" hidden></div></section>
+
+    <section class="limits" aria-labelledby="limits-title"><div><p class="eyebrow">Read before sharing</p><h2 id="limits-title">Evidence has edges.</h2></div><div id="limitations" class="limits-copy"></div></section>
+  </main>
+  <footer class="site-footer"><span>PACE / Vektor</span><span>Built from saved local evidence · no live calls</span><a href="https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/#core-takeaways-about-this-incident" target="_blank" rel="noreferrer">Read the source ↗</a></footer>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js" defer></script>
+</body>
+</html>
