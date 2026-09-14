@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080c10">
+  <meta name="description" content="An interactive, exploded 3D anatomy of the NVIDIA GB200 NVL72 Grace Blackwell rack.">
+  <title>GB200 NVL72 · Rack anatomy</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23080c10'/%3E%3Cpath d='M9 6h14v20H9z' stroke='%23b4ee55' fill='none' stroke-width='2'/%3E%3Cpath d='M12 11h8m-8 5h8m-8 5h8' stroke='%23b4ee55' stroke-width='2'/%3E%3C/svg%3E">
+  <style>
+    :root { color-scheme: dark; --bg:#080c10; --panel:#10171d; --line:#ffffff12; --text:#edf3f5; --muted:#91a2ad; --green:#b4ee55; --cyan:#65d9e9; --purple:#b09afa; --amber:#e6ba70; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:var(--text); font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; font-size:16px; -webkit-font-smoothing:antialiased; }
+    button,input,select { font:inherit; }
+    button,a,input,select { -webkit-tap-highlight-color:transparent; }
+    button { color:inherit; cursor:pointer; }
+    button:focus-visible,a:focus-visible,select:focus-visible { outline:2px solid var(--green); outline-offset:4px; }
+    button { border:0; }
+    a { color:var(--muted); text-underline-offset:4px; }
+    a:hover { color:var(--green); }
+    .app { min-height:760px; height:100dvh; display:flex; flex-direction:column; max-width:2400px; margin:auto; }
+    .header { display:flex; justify-content:space-between; gap:28px; align-items:center; padding:29px 38px 24px; border-bottom:1px solid var(--line); }
+    .eyebrow { font:500 12px/1.4 ui-monospace,SFMono-Regular,Consolas,monospace; color:var(--muted); letter-spacing:.14em; text-transform:uppercase; }
+    .brand { display:flex; align-items:center; gap:10px; margin-bottom:8px; }
+    .brand-mark { display:flex; gap:3px; height:13px; align-items:flex-end; }
+    .brand-mark i { display:block; width:4px; background:var(--green); height:100%; }
+    .brand-mark i:nth-child(2) { height:72%; }
+    .brand-mark i:nth-child(3) { height:42%; }
+    h1 { font-size:34px; font-weight:550; letter-spacing:-.045em; line-height:1; margin:0; }
+    h1 span { color:#75838e; font-weight:400; margin-left:12px; font-size:16px; letter-spacing:-.015em; }
+    .stats { display:flex; gap:35px; }
+    .stat { padding-left:26px; border-left:1px solid var(--line); }
+    .stat strong { font-size:27px; font-weight:500; line-height:1; letter-spacing:-.04em; }
+    .stat strong small { font-size:14px; color:var(--muted); letter-spacing:0; }
+    .stat p { font-size:12px; color:var(--muted); margin:7px 0 0; }
+    .workspace { display:grid; grid-template-columns:210px minmax(0,1fr) 258px; flex:1; min-height:0; padding:0 28px; position:relative; }
+    .anatomy { padding:29px 8px 20px 4px; display:flex; flex-direction:column; z-index:2; }
+    .section-label { display:flex; justify-content:space-between; color:var(--muted); font-size:12px; letter-spacing:.12em; text-transform:uppercase; margin:0 0 19px; }
+    .section-label span { color:#526570; font-family:ui-monospace,monospace; }
+    .part-list { display:flex; flex-direction:column; gap:5px; }
+    .part-button { text-align:left; border:1px solid transparent; background:transparent; display:flex; gap:11px; align-items:center; padding:12px 10px; border-radius:9px; transition:background .18s,border-color .18s; min-height:62px; }
+    .part-button:hover { background:#ffffff05; border-color:#ffffff0b; }
+    .part-button[aria-pressed="true"] { background:color-mix(in srgb,var(--part-color) 7%,transparent); border-color:color-mix(in srgb,var(--part-color) 23%,transparent); }
+    .part-swatch { height:26px; width:3px; border-radius:3px; background:var(--part-color); opacity:.85; flex:none; }
+    .part-button b { display:block; font-size:14px; font-weight:500; }
+    .part-button small { display:block; color:var(--muted); font-size:12px; margin-top:4px; }
+    .anatomy-note { margin-top:auto; padding-top:26px; color:#81949f; font-size:12px; line-height:1.7; max-width:190px; }
+    .anatomy-note a { display:inline-block; margin-top:8px; }
+    .stage { position:relative; min-width:0; min-height:380px; overflow:hidden; background:radial-gradient(ellipse at 50% 48%,#1b2c342e 0%,transparent 66%); }
+    #viewport { position:absolute; inset:0; }
+    #viewport canvas { display:block; width:100%; height:100%; touch-action:none; outline:none; }
+    #viewport canvas:focus-visible { box-shadow:inset 0 0 0 1px #b4ee5560; }
+    .stage-caption { position:absolute; left:16px; top:25px; z-index:2; pointer-events:none; color:#758793; font:12px ui-monospace,monospace; letter-spacing:.09em; }
+    .stage-caption b { color:var(--green); font-weight:400; }
+    .view-controls { position:absolute; top:16px; right:12px; display:flex; gap:4px; z-index:5; border:1px solid var(--line); border-radius:9px; background:#0e151bcc; padding:4px; }
+    .view-controls button { background:transparent; color:var(--muted); padding:8px 10px; font-size:12px; border-radius:5px; }
+    .view-controls button:hover,.view-controls button[aria-pressed="true"] { background:#ffffff09; color:var(--text); }
+    .orbit-hint { position:absolute; bottom:19px; left:0; right:0; text-align:center; color:#7b8d99; font-size:12px; pointer-events:none; }
+    .orbit-hint span { margin:0 9px; color:#3b505a; }
+    #labels,#leaders { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; overflow:hidden; }
+    #labels { z-index:3; }
+    #leaders { z-index:2; }
+    .callout { position:absolute; top:0; left:0; width:142px; pointer-events:auto; padding:7px 9px; background:#0b1117e8; border:1px solid #ffffff12; border-radius:5px; text-align:left; color:#c6d3dc; box-shadow:0 4px 16px #0002; transition:opacity .18s; }
+    .callout:hover,.callout.selected { border-color:var(--tag-color); color:#fff; }
+    .callout::before { content:""; display:inline-block; width:5px; height:5px; margin-right:7px; border-radius:1px; background:var(--tag-color); vertical-align:2px; }
+    .callout strong { font-size:12px; font-weight:500; }
+    .inspector { padding:29px 0 20px 17px; display:flex; flex-direction:column; min-width:0; z-index:4; }
+    .detail-card { border:1px solid #ffffff14; background:linear-gradient(145deg,#182128b5,#0c1319b8); border-radius:12px; overflow:hidden; }
+    .detail-top { height:4px; background:var(--green); transition:background .2s; }
+    .detail-body { padding:21px 20px; }
+    #detail-kind { font-size:12px; color:var(--green); text-transform:uppercase; letter-spacing:.11em; }
+    #detail-name { font-size:24px; font-weight:500; letter-spacing:-.035em; line-height:1.13; margin:13px 0; overflow-wrap:anywhere; }
+    #detail-description { color:#aebdc7; font-size:14px; line-height:1.7; margin:0; min-height:94px; }
+    .detail-spec { display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--line); padding-top:15px; margin-top:19px; gap:10px; font-size:12px; color:var(--muted); }
+    .detail-spec strong { color:#e7eff1; font:500 14px ui-monospace,monospace; text-align:right; }
+    .chip-key { display:flex; gap:7px; margin-top:18px; }
+    .chip-key button { background:#ffffff05; border:1px solid var(--line); font-size:12px; color:#c2cfd8; padding:8px; border-radius:5px; flex:1; }
+    .chip-key button:hover { background:#ffffff0d; }
+    .chip-key i { display:inline-block; width:7px; height:7px; margin-right:5px; background:var(--green); border-radius:1px; }
+    .chip-key button:first-child i { background:var(--amber); }
+    .selector-label { font-size:12px; color:var(--muted); display:block; margin:22px 0 8px; }
+    #part-select { width:100%; min-width:0; padding:10px 7px; color:#becbd3; border:1px solid var(--line); background:#0c1218; font-size:12px; border-radius:6px; }
+    .micro-note { font-size:12px; color:#718590; line-height:1.6; margin:14px 0 0; }
+    .tools { display:flex; flex-direction:column; margin-top:auto; padding-top:24px; gap:10px; }
+    .toggle { display:flex; justify-content:space-between; align-items:center; padding:8px 0; background:none; font-size:13px; color:#acbdc7; }
+    .toggle .switch { width:29px; height:16px; border-radius:10px; background:#26343e; display:block; position:relative; transition:background .2s; }
+    .toggle .switch::after { content:""; width:10px; height:10px; position:absolute; top:3px; left:3px; border-radius:50%; background:#a1b4be; transition:transform .2s; }
+    .toggle[aria-pressed="true"] .switch { background:#415e26; }
+    .toggle[aria-pressed="true"] .switch::after { transform:translateX(13px); background:var(--green); }
+    .footer { padding:13px 38px 22px; border-top:1px solid var(--line); }
+    .explosion-bar { max-width:1000px; margin:auto; display:grid; grid-template-columns:175px 1fr 100px; align-items:center; gap:25px; }
+    .control-title { font-size:14px; font-weight:500; }
+    .control-title small { display:block; margin-top:5px; font-size:12px; font-weight:400; color:var(--muted); }
+    .range-head { display:flex; justify-content:space-between; font-size:12px; color:var(--muted); margin-bottom:5px; }
+    #explode-value { font:500 14px ui-monospace,monospace; color:var(--green); }
+    input[type="range"] { --fill:36%; display:block; appearance:none; -webkit-appearance:none; width:100%; height:27px; background:transparent; margin:0; cursor:ew-resize; accent-color:var(--green); }
+    input[type="range"]::-webkit-slider-runnable-track { height:3px; border-radius:3px; background:linear-gradient(to right,var(--green) var(--fill),#26343b var(--fill)); }
+    input[type="range"]::-moz-range-track { height:3px; background:#26343b; }
+    input[type="range"]::-moz-range-progress { height:3px; background:var(--green); }
+    input[type="range"]::-webkit-slider-thumb { appearance:none; -webkit-appearance:none; height:15px; width:15px; border:3px solid var(--bg); border-radius:50%; margin-top:-6px; background:var(--green); box-shadow:0 0 0 1px #b4ee5590,0 0 16px #b4ee5530; }
+    input[type="range"]::-moz-range-thumb { height:10px; width:10px; background:var(--green); border:3px solid var(--bg); border-radius:50%; }
+    input[type="range"]:focus-visible { outline:1px solid var(--green); outline-offset:4px; border-radius:5px; }
+    .range-ends { display:flex; justify-content:space-between; }
+    .range-ends button { background:none; padding:3px 0; font-size:12px; color:#9aabb6; }
+    .range-ends button:hover { color:var(--green); }
+    .reset { border:1px solid #ffffff20; background:#ffffff04; border-radius:7px; padding:11px 13px; font-size:13px; white-space:nowrap; }
+    .reset:hover { background:#ffffff0a; }
+    .loading { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; z-index:10; background:var(--bg); }
+    .loading-inner { max-width:330px; padding:25px; text-align:center; }
+    .loading-icon { width:28px; height:28px; border:2px solid #b4ee5525; border-top-color:var(--green); border-radius:50%; margin:0 auto 18px; animation:spin 1s linear infinite; }
+    .loading p { font-size:14px; color:var(--muted); line-height:1.6; }
+    .loading h2 { font-size:20px; font-weight:500; }
+    .loading button { background:#b4ee5515; padding:10px 20px; border:1px solid #b4ee5540; border-radius:6px; }
+    [hidden] { display:none !important; }
+    @keyframes spin { to { transform:rotate(360deg); } }
+    @media(min-width:1700px) { .workspace { grid-template-columns:240px minmax(0,1fr) 285px; padding:0 40px; } .header { padding:35px 48px 28px; } h1 { font-size:40px; } }
+    @media(max-width:1150px) { .workspace { grid-template-columns:175px minmax(0,1fr) 225px; padding:0 18px; } .header { padding:25px 25px 22px; } h1 span { display:none; } .stats { gap:22px; } .stat { padding-left:20px; } .inspector { padding-left:9px; } .detail-body { padding:17px 15px; } .callout { width:123px; padding:7px; } .callout strong { font-size:12px; } .part-button { padding-left:6px; gap:8px; } }
+    @media(max-width:950px) { .workspace { grid-template-columns:minmax(0,1fr) 230px; padding:0 18px; } .anatomy { display:none; } .stage { min-height:480px; } .stage-caption { left:8px; } .app { min-height:790px; } .footer { padding:16px 25px 22px; } .explosion-bar { grid-template-columns:145px 1fr 92px; gap:20px; } }
+    @media(max-width:650px) { .app { height:auto; min-height:100dvh; } .header { padding:20px 20px 18px; align-items:flex-start; gap:10px; } h1 { font-size:28px; } .eyebrow { font-size:10px; letter-spacing:.12em; } .stats { gap:14px; padding-top:8px; } .stat { padding-left:0; border:none; } .stat strong { font-size:22px; } .stat p { font-size:10px; } .stat:last-child { display:none; } .workspace { display:flex; flex-direction:column; padding:0; min-height:0; } .stage { height:58dvh; min-height:430px; max-height:660px; width:100%; } .stage-caption { top:26px; left:17px; font-size:10px; } .view-controls { right:15px; } .view-controls button { padding:7px 8px; } .callout { width:119px; padding:6px; } .callout strong { font-size:11px; } .orbit-hint { bottom:15px; font-size:10px; } .inspector { padding:0 18px 18px; display:block; } .inspector>.section-label,.selector-label,#part-select,.micro-note { display:none; } .detail-body { padding:15px 17px; display:grid; grid-template-columns:1fr auto; column-gap:12px; } #detail-kind { grid-column:1 / -1; font-size:10px; } #detail-name { font-size:21px; margin:8px 0; } #detail-description { min-height:0; font-size:13px; line-height:1.55; grid-column:1 / -1; } .detail-spec { display:none; } .chip-key { margin:5px 0 0; grid-column:2; grid-row:2; align-self:center; } .chip-key button { padding:6px; font-size:10px; white-space:nowrap; } .tools { padding:10px 3px 0; flex-direction:row; justify-content:space-between; gap:20px; } .toggle { gap:13px; font-size:12px; padding:2px 0; } .footer { position:sticky; bottom:0; z-index:6; padding:15px 20px max(17px,env(safe-area-inset-bottom)); background:#0c1218f5; backdrop-filter:blur(15px); } .explosion-bar { grid-template-columns:1fr 83px; gap:12px; } .control-title { display:none; } .reset { padding:10px; font-size:12px; } }
+    @media(prefers-reduced-motion:reduce) { *,*::before,*::after { animation:none !important; transition:none !important; } }
+  </style>
+  <script type="importmap">
+    {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"}}
+  </script>
+</head>
+<body>
+<div class="app">
+  <header class="header">
+    <div><div class="brand"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span class="eyebrow">NVIDIA / Grace Blackwell</span></div><h1>GB200 NVL72 <span>Rack anatomy</span></h1></div>
+    <div class="stats" aria-label="Rack specifications"><div class="stat"><strong>72</strong><p>Blackwell GPUs</p></div><div class="stat"><strong>36</strong><p>Grace CPUs</p></div><div class="stat"><strong>130 <small>TB/s</small></strong><p>NVLink bandwidth</p></div></div>
+  </header>
+  <main class="workspace">
+    <aside class="anatomy" aria-label="Rack components">
+      <p class="section-label">Anatomy <span>01—06</span></p>
+      <nav class="part-list" aria-label="Select a component">
+        <button class="part-button" data-category="compute" aria-pressed="false" style="--part-color:#b4ee55"><span class="part-swatch"></span><span><b>Compute trays</b><small>18 trays · 72 GPUs</small></span></button>
+        <button class="part-button" data-category="switch" aria-pressed="false" style="--part-color:#b09afa"><span class="part-swatch"></span><span><b>NVLink switches</b><small>9 trays · 18 NVSwitches</small></span></button>
+        <button class="part-button" data-category="power" aria-pressed="false" style="--part-color:#e6ba70"><span class="part-swatch"></span><span><b>Power shelves</b><small>8 shelves · 48 PSUs</small></span></button>
+        <button class="part-button" data-category="spine" aria-pressed="false" style="--part-color:#7ba6de"><span class="part-swatch"></span><span><b>NVLink spine</b><small>Rear copper cable fabric</small></span></button>
+        <button class="part-button" data-category="cooling" aria-pressed="false" style="--part-color:#65d9e9"><span class="part-swatch"></span><span><b>Liquid cooling</b><small>Supply &amp; return manifolds</small></span></button>
+        <button class="part-button" data-category="frame" aria-pressed="false" style="--part-color:#9dabb4"><span class="part-swatch"></span><span><b>Rack frame</b><small>Structure &amp; mounting rails</small></span></button>
+      </nav>
+      <div class="anatomy-note">Schematic of the NVIDIA DGX GB200 configuration. Geometry, spacing and cable routes are simplified; OEM layouts vary.<br><a href="https://docs.nvidia.com/dgx/dgxgb200-user-guide/hardware.html" target="_blank" rel="noopener noreferrer">NVIDIA hardware reference ↗</a></div>
+    </aside>
+    <section class="stage" aria-label="Interactive 3D rack diagram">
+      <div id="viewport"></div>
+      <div class="stage-caption">FIG. 01 <b>/</b> <span id="view-state">EXPLODED VIEW</span></div>
+      <div class="view-controls" aria-label="Camera presets"><button data-view="iso" aria-pressed="true">3D</button><button data-view="front" aria-pressed="false">Front</button><button data-view="rear" aria-pressed="false">Rear</button></div>
+      <svg id="leaders" aria-hidden="true"></svg><div id="labels"></div>
+      <div class="orbit-hint">Drag to orbit <span>·</span> Scroll / pinch to zoom <span>·</span> Click to inspect</div>
+      <div class="loading" id="loading"><div class="loading-inner"><div class="loading-icon"></div><h2>Preparing the rack</h2><p>Loading the interactive 3D model…</p></div></div>
+    </section>
+    <aside class="inspector" aria-label="Selected component">
+      <p class="section-label">Component inspector <span>↙</span></p>
+      <div class="detail-card" aria-live="polite" aria-atomic="true">
+        <div class="detail-top" id="detail-accent"></div>
+        <div class="detail-body">
+          <div id="detail-kind">Rack-scale system</div><h2 id="detail-name">GB200 NVL72</h2>
+          <p id="detail-description">36 Grace CPUs and 72 Blackwell GPUs form one liquid-cooled, rack-scale NVLink domain.</p>
+          <div class="detail-spec"><span id="detail-metric">Compute / fabric</span><strong id="detail-value">18 / 9 trays</strong></div>
+          <div class="chip-key"><button id="inspect-cpu" title="Inspect a Grace CPU"><i></i>Grace CPU</button><button id="inspect-gpu" title="Inspect a Blackwell GPU"><i></i>Blackwell GPU</button></div>
+        </div>
+      </div>
+      <label class="selector-label" for="part-select">Jump to a specific part</label><select id="part-select"><option value="">Rack overview</option></select>
+      <p class="micro-note">Click a part or its label to inspect it. Explode the rack to reveal the silicon inside each compute tray.</p>
+      <div class="tools"><button class="toggle" id="labels-toggle" aria-pressed="true"><span>Component labels</span><span class="switch" aria-hidden="true"></span></button><button class="toggle" id="rotate-toggle" aria-pressed="false"><span>Slow orbit</span><span class="switch" aria-hidden="true"></span></button></div>
+    </aside>
+  </main>
+  <footer class="footer">
+    <div class="explosion-bar">
+      <div class="control-title">Explore the architecture<small>One rack. Every layer.</small></div>
+      <div><div class="range-head"><label for="explode">Explode / assemble</label><output id="explode-value" for="explode">36%</output></div><input id="explode" type="range" min="0" max="100" step="1" value="36" aria-label="Rack explosion amount" aria-valuetext="36 percent exploded"><div class="range-ends"><button id="assemble">Assembled</button><button id="fully-explode">Exploded</button></div></div>
+      <button class="reset" id="reset" title="Reset camera, selection and explosion amount">↺ Reset view</button>
+    </div>
+  </footer>
+</div>
+<noscript><p style="padding:24px">Enable JavaScript to explore the interactive rack.</p></noscript>
+<script type="module">
+// All geometry, materials, labels and UI are procedural and contained in this file.
+// The only external runtime dependencies are three.js and its OrbitControls addon.
+// Reference: https://docs.nvidia.com/dgx/dgxgb200-user-guide/hardware.html
+// 18 compute trays (10 above + 8 below the 9-switch center), 8 power shelves.
+// This is an explanatory model, not CAD: connectors, hoses, chip packaging and
+// wire counts are representative. Cold plates are cut away to expose CPU/GPU dies.
+
+const loading = document.getElementById('loading');
+function showError(message) {
+  loading.hidden = false;
+  loading.replaceChildren();
+  const content = document.createElement('div'); content.className = 'loading-inner';
+  const title = document.createElement('h2'); title.textContent = 'The 3D view could not load';
+  const text = document.createElement('p'); text.textContent = message;
+  const retry = document.createElement('button'); retry.textContent = 'Try again'; retry.onclick = () => location.reload();
+  content.append(title,text,retry); loading.append(content);
+}
+try {
+  const [THREE, { OrbitControls }] = await Promise.all([import('three'), import('three/addons/controls/OrbitControls.js')]);
+  init(THREE, OrbitControls);
+} catch (error) {
+  console.error(error);
+  showError('Check your internet connection and that your browser supports WebGL 2. This file loads three.js from cdn.jsdelivr.net.');
+}
+
+function init(THREE, OrbitControls) {
+  const $ = id => document.getElementById(id);
+  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const stage = document.querySelector('.stage');
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(36,1,.1,160);
+  const renderer = new THREE.WebGLRenderer({antialias:true,alpha:true,powerPreference:'high-performance'});
+  renderer.setPixelRatio(Math.min(devicePixelRatio,1.75));
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.2;
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  $('viewport').append(renderer.domElement);
+  renderer.domElement.tabIndex = 0;
+  renderer.domElement.setAttribute('aria-label','3D rack. Drag to orbit; scroll or pinch to zoom; arrow keys to orbit; plus or minus to zoom. Use component buttons or the part selector to inspect any part.');
+  const controls = new OrbitControls(camera,renderer.domElement);
+  controls.enableDamping = true; controls.dampingFactor = .075;
+  controls.enablePan = true; controls.screenSpacePanning = true;
+  controls.minDistance = 5; controls.maxDistance = 65;
+  controls.maxPolarAngle = Math.PI * .91;
+  controls.autoRotateSpeed = .45;
+  controls.target.set(0,5.6,0);
+  scene.add(new THREE.HemisphereLight(0xd9ecff,0x243b28,2.5));
+  function light(color,intensity,x,y,z) { const l=new THREE.DirectionalLight(color,intensity); l.position.set(x,y,z); scene.add(l); return l; }
+  const key = light(0xe8f4ff,3.5,7,18,12);
+  key.castShadow = true; key.shadow.mapSize.set(1024,1024);
+  Object.assign(key.shadow.camera,{left:-14,right:14,top:17,bottom:-12,near:1,far:65});
+  key.shadow.bias=-.0008; key.shadow.normalBias=.045;
+  light(0x8facce,2.0,-10,7,-7); light(0xc7edab,1.3,2,11,-8);
+
+  const C={compute:'#b4ee55',cpu:'#e6ba70',gpu:'#b4ee55',switch:'#b09afa',power:'#e6ba70',spine:'#7ba6de',cooling:'#65d9e9',frame:'#9dabb4',management:'#9dabb4'};
+  const mat=(color,metalness=.45,roughness=.4,emissive=0)=>new THREE.MeshStandardMaterial({color,metalness,roughness,emissive,emissiveIntensity:.3});
+  const M={steel:mat('#53616b',.7,.35),dark:mat('#25343d',.55,.44),edge:mat('#82929b',.62,.28),black:mat('#121d23',.25,.5),board:mat('#234435',.35,.5),gpu:mat('#a4cb65',.6,.28),cpu:mat('#d0a25f',.7,.27),die:mat('#243a47',.75,.19),switch:mat('#7f70b2',.65,.32),purple:mat('#b09afa',.4,.28,0x332254),power:mat('#9e8b6b',.6,.35),blue:mat('#577cac',.55,.32),cable:mat('#456181',.45,.42),cyan:mat('#59cddd',.5,.25),return:mat('#d99670',.55,.3),green:mat('#b4ee55',.3,.3,0x6a9d20),led:new THREE.MeshBasicMaterial({color:0xb4ee55}),silver:mat('#b0babf',.7,.32)};
+  const boxGeometry=new THREE.BoxGeometry(1,1,1);
+  const cylinderGeometry=new THREE.CylinderGeometry(1,1,1,10);
+  const model=new THREE.Group(); scene.add(model);
+  const parts=[],moving=[],compute=[],switches=[],power=[],cpus=[],gpus=[],cables=[];
+  const partById=new Map();
+  function part(name,description,category,parent=model,metric='Configuration',value='',id='') {
+    const g=new THREE.Group(); parent.add(g);
+    const p={id:id||'p'+parts.length,name,description,category,metric,value,object:g};
+    g.userData.part=p; parts.push(p); partById.set(p.id,p); return p;
+  }
+  function box(parent,w,h,d,x,y,z,material,shadow=false) {
+    const m=new THREE.Mesh(boxGeometry,material); m.scale.set(w,h,d);m.position.set(x,y,z);m.castShadow=shadow;m.receiveShadow=shadow; parent.add(m); return m;
+  }
+  function cylinder(parent,r,h,x,y,z,material) {
+    const m=new THREE.Mesh(cylinderGeometry,material);m.scale.set(r,h,r);m.position.set(x,y,z);parent.add(m);return m;
+  }
+  const from=new THREE.Vector3(),to=new THREE.Vector3(),axis=new THREE.Vector3(0,1,0);
+  function rod(parent,a,b,r,material) {
+    from.set(...a);to.set(...b);const delta=to.clone().sub(from);
+    const m=new THREE.Mesh(cylinderGeometry,material);m.position.copy(from).add(to).multiplyScalar(.5);m.scale.set(r,delta.length(),r);m.quaternion.setFromUnitVectors(axis,delta.normalize());parent.add(m);return m;
+  }
+  function move(object,home,offset) {object.position.set(...home);moving.push({object,home:new THREE.Vector3(...home),offset:new THREE.Vector3(...offset)});}
+  function faceText(parent,text,w,h,x,y,z,color='#c2d1d8') {
+    const canvas=document.createElement('canvas');canvas.width=256;canvas.height=64;
+    const ctx=canvas.getContext('2d'); ctx.font='500 29px monospace';ctx.fillStyle=color;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(text,128,32);
+    const texture=new THREE.CanvasTexture(canvas);texture.colorSpace=THREE.SRGBColorSpace;
+    const mesh=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshBasicMaterial({map:texture,transparent:true,depthWrite:false}));mesh.position.set(x,y,z);parent.add(mesh);return mesh;
+  }
+
+  // Open frame, with separate front/rear uprights and roof for a readable explosion.
+  const frame=part('Rack frame','The rack frame supports the compute, switch and power trays, with mounting rails and service access.','frame',model,'Structure','4 uprights','frame');
+  box(frame.object,3.45,.24,3.7,0,.1,0,M.dark,true);
+  for(const x of [-1.51,1.51]) for(const z of [-1.63,1.63]) {
+    const rail=new THREE.Group(); frame.object.add(rail);
+    box(rail,.16,11.25,.16,0,5.78,0,M.steel,true);
+    for(let y=.7;y<11.2;y+=.29) box(rail,.055,.047,.015,0,y,z>0?.088:-.088,M.black);
+    move(rail,[x,0,z],[Math.sign(x)*.6,0,Math.sign(z)*.4]);
+    cylinder(frame.object,.13,.22,x,-.075,z,M.black);
+  }
+  const roof=new THREE.Group();frame.object.add(roof);
+  box(roof,3.4,.17,3.65,0,0,0,M.steel,true);box(roof,2.95,.018,3.05,0,.095,0,M.dark);
+  move(roof,[0,11.46,0],[0,1.65,0]);
+  for(const y of [.38,11.24]) for(const z of [-1.63,1.63]) box(frame.object,3.12,.10,.10,0,y,z,M.steel);
+  for(const x of [-1.51,1.51]) box(frame.object,.1,.12,3.28,x,.39,0,M.edge);
+
+  function createCompute(index,y,upper,localIndex) {
+    const p=part('Compute tray '+String(index+1).padStart(2,'0'),'Two GB200 Superchips combine 2 Grace CPUs and 4 Blackwell GPUs on this liquid-cooled compute tray.','compute',model,'Per tray','2 CPUs + 4 GPUs');
+    const g=p.object;compute.push(p);
+    move(g,[0,y,0],[-2.5-(upper?.12:0),(y-5.7)*(upper?.24:.13),3.0+localIndex*.075]);
+    box(g,2.88,.095,3.04,0,0,0,M.steel,true);
+    box(g,2.66,.045,2.75,0,.069,-.02,M.board);
+    box(g,2.88,.155,.105,0,.065,1.48,M.dark,true);
+    for(const x of [-1.37,1.37]) {box(g,.045,.15,2.97,x,.06,0,M.edge);box(g,.12,.09,.19,x,.052,1.6,M.edge);}
+    box(g,.035,.065,.025,-1.21,.102,1.544,M.led);
+    for(let n=0;n<7;n++)box(g,.115,.045,.018,-.93+n*.13,.086,1.545,M.black);
+    faceText(g,'GB200 / '+String(index+1).padStart(2,'0'),.85,.16,.77,.065,1.541);
+    for(const side of [-1,1]) {
+      const x=side*.68;
+      const cpu=part('Grace CPU '+(cpus.length+1),'An Arm-based Grace CPU connects coherently to two Blackwell GPUs through NVLink-C2C.','cpu',g,'CPU architecture','72 Arm cores');
+      cpu.object.position.set(x,.12,.69);cpus.push(cpu);
+      box(cpu.object,.46,.045,.45,0,0,0,M.cpu);box(cpu.object,.31,.045,.3,0,.041,0,M.die);
+      box(cpu.object,.24,.012,.05,0,.069,0,M.cpu);
+      for(let d=0;d<2;d++) {
+        const gpu=part('Blackwell GPU '+(gpus.length+1),'A Blackwell GPU accelerates AI workloads and joins all 72 rack GPUs through fifth-generation NVLink.','gpu',g,'Per-GPU NVLink','1.8 TB/s');
+        gpu.object.position.set(x,.125,-.03-d*.77);gpus.push(gpu);
+        box(gpu.object,.65,.045,.57,0,0,0,M.gpu);
+        box(gpu.object,.4,.042,.37,0,.04,0,M.die);
+        for(const s of [-1,1])box(gpu.object,.12,.009,.25,s*.085,.066,0,M.gpu);
+        for(const s of [-1,1])box(gpu.object,.055,.023,.36,s*.266,.04,0,M.silver);
+      }
+      box(g,.023,.014,1.82,x,.112,-.02,M.cpu);
+      for(const xx of [-.28,.28])box(g,.047,.045,.46,x+xx,.13,.69,M.black);
+    }
+    // Visible cold-plate edge plumbing; chip tops remain exposed for teaching.
+    for(const x of [-1.15,1.15])rod(g,[x,.15,-1.3],[x,.15,1.15],.027,M.cyan);
+    for(let n=0;n<5;n++)box(g,.33,.095,.12,-1.01+n*.5,.075,-1.42,M.blue);
+    return p;
+  }
+  for(let i=0;i<8;i++)createCompute(i,1.88+i*.28,false,i);
+  for(let i=0;i<10;i++)createCompute(8+i,6.9+i*.28,true,i);
+
+  for(let i=0;i<9;i++) {
+    const y=4.25+i*.27;
+    const p=part('NVLink switch tray '+String(i+1).padStart(2,'0'),'Two NVSwitch chips route high-bandwidth, all-to-all traffic across the rack’s 72 Blackwell GPUs.','switch',model,'Per tray','2 NVSwitch chips');
+    switches.push(p);const g=p.object;move(g,[0,y,0],[3.1,(i-4)*.13,1.2]);
+    box(g,2.88,.105,3.0,0,0,0,M.steel,true);box(g,2.63,.045,2.72,0,.074,0,M.board);
+    box(g,2.88,.16,.11,0,.06,1.48,M.dark);box(g,2.68,.025,.022,0,.145,1.54,M.purple);
+    for(const x of [-.66,.66]) {
+      box(g,.72,.045,.72,x,.12,-.2,M.switch);box(g,.48,.035,.48,x,.155,-.2,M.die);
+      for(let n=0;n<4;n++)box(g,.065,.045,.5,x-.19+n*.127,.19,-.2,M.purple);
+    }
+    for(let n=0;n<9;n++)box(g,.18,.064,.11,-1.08+n*.27,.07,1.56,M.black);
+    box(g,.042,.049,.022,-1.33,.075,1.55,M.led);
+    faceText(g,'NVLINK / '+String(i+1).padStart(2,'0'),1.0,.15,0,.065,1.625,'#c5b6ed');
+  }
+
+  for(let i=0;i<8;i++) {
+    const top=i>=4, slot=i%4,y=top?9.82+slot*.25:.66+slot*.25;
+    const p=part('Power shelf '+(i+1),'Six AC-to-DC power supplies feed the rack’s approximately 50 V DC busbar in an N+N redundant power system.','power',model,'Per shelf','6 × 5.5 kW PSUs');
+    power.push(p);const g=p.object;move(g,[0,y,.02],[.2,top?1.2+slot*.1:-.18-slot*.04,2.4]);
+    box(g,2.88,.2,2.3,0,0,0,M.dark,true);
+    for(let j=0;j<6;j++) {
+      const x=-1.19+j*.477;box(g,.43,.15,2.24,x,.008,0,M.power);
+      box(g,.34,.11,.024,x,.01,1.138,M.black);
+      box(g,.032,.055,.05,x+.13,.01,1.169,M.led);
+      box(g,.24,.025,.045,x,-.033,1.18,M.edge);
+    }
+  }
+  // Two small management switches occupy the reference rack's uppermost slots.
+  for(let i=0;i<2;i++) {
+    const p=part('Management Ethernet switch '+(i+1),'An Ethernet management switch provides out-of-band connectivity for rack administration.','management',model,'Role','Rack management');
+    move(p.object,[0,10.92+i*.2,.3],[0,1.7,0]);
+    box(p.object,2.83,.14,1.65,0,0,0,M.dark);
+    for(let j=0;j<12;j++)box(p.object,.13,.06,.04,-1.1+j*.2,0,.844,M.edge);
+  }
+
+  const spine=part('NVLink spine & cable cartridges','A passive rear copper cable backplane links compute trays to NVLink switch trays; the switching logic lives in the switch trays.','spine',model,'Interconnect','Passive copper fabric','spine');
+  move(spine.object,[0,0,-1.77],[.4,0,-2.7]);
+  for(const x of [-1.1,1.1])box(spine.object,.17,9.1,.2,x,5.7,0,M.dark);
+  for(let i=0;i<6;i++) {
+    const x=-.9+i*.36;box(spine.object,.28,8.67,.21,x,5.7,0,M.blue,true);
+    for(let j=0;j<13;j++)box(spine.object,.23,.085,.09,x,1.69+j*.65,.15,M.black);
+    rod(spine.object,[x,1.24,-.14],[x,10.07,-.14],.036,M.cable);
+  }
+  // Selected representative bundles stay connected while the tray/spine separate.
+  const cableGeometry=new THREE.BufferGeometry();
+  const cablePositions=new Float32Array(27*20*2*3);
+  cableGeometry.setAttribute('position',new THREE.BufferAttribute(cablePositions,3));
+  const cableLines=new THREE.LineSegments(cableGeometry,new THREE.LineBasicMaterial({color:0x7097bc,transparent:true,opacity:.43}));
+  spine.object.add(cableLines);
+  [...compute,...switches].forEach((p,i)=>cables.push({part:p,index:i,x:-.95+(i%6)*.38,y:p.object.position.y}));
+  let lastCableExplosion=-1;
+
+  const cooling=part('Liquid-cooling manifolds','Vertical supply and return manifolds distribute coolant to cold plates on the compute and NVLink switch trays.','cooling',model,'Cooling loop','Supply + return','cooling');
+  move(cooling.object,[1.36,0,-1.5],[3.35,0,-1.3]);
+  const supply=part('Coolant supply manifold','The supply manifold distributes cooled liquid through branch connections to the rack’s cold plates.','cooling',cooling.object,'Flow','To cold plates');
+  const returned=part('Coolant return manifold','The return manifold collects heated coolant from the trays and carries it back toward the facility cooling loop.','cooling',cooling.object,'Flow','From cold plates');
+  for(const [p,x,material] of [[supply,-.19,M.cyan],[returned,.19,M.return]]) {
+    cylinder(p.object,.085,10.3,x,5.63,0,material);
+    for(const y of [.55,10.7]) {cylinder(p.object,.14,.16,x,y,0,M.edge);rod(p.object,[x,y,0],[x,y,.38],.077,material);}
+    for(let i=0;i<18;i++) {
+      const y=compute[i].object.position.y;
+      rod(p.object,[x,y,0],[x+(x<0?-.23:.23),y,.28],.039,material);
+      cylinder(p.object,.108,.05,x,y,0,M.edge);
+    }
+    for(let i=0;i<9;i++)rod(p.object,[x,switches[i].object.position.y,0],[x,switches[i].object.position.y,.24],.029,material);
+    box(p.object,.12,.2,.12,x,10.94,0,M.dark);
+  }
+  const busbar=part('DC power busbar','The rear DC busbar distributes power from the eight power shelves to the rack’s tray assemblies.','power',model,'Distribution','≈50 V DC');
+  move(busbar.object,[-1.39,0,-1.51],[-1.15,0,-1.7]);
+  for(const x of [-.09,.09])box(busbar.object,.075,10.15,.13,x,5.57,0,M.cpu);
+  for(let i=0;i<17;i++)box(busbar.object,.37,.08,.2,0,.85+i*.59,0,M.black);
+
+  // A quiet, procedural studio floor; no external textures or model files.
+  const floor=new THREE.Mesh(new THREE.PlaneGeometry(200,200),new THREE.ShadowMaterial({opacity:.22}));
+  floor.rotation.x=-Math.PI/2;floor.position.y=-.24;floor.receiveShadow=true;scene.add(floor);
+  const grid=new THREE.GridHelper(36,36,0x2b3b44,0x1d2b34);grid.position.y=-.245;grid.material.transparent=true;grid.material.opacity=.3;scene.add(grid);
+  const ring=new THREE.Mesh(new THREE.RingGeometry(3.05,3.065,96),new THREE.MeshBasicMaterial({color:0x63844c,transparent:true,opacity:.25,side:THREE.DoubleSide}));ring.rotation.x=-Math.PI/2;ring.position.y=-.235;scene.add(ring);
+
+  const overview={name:'GB200 NVL72',description:'36 Grace CPUs and 72 Blackwell GPUs form one liquid-cooled, rack-scale NVLink domain.',category:'compute',metric:'Compute / fabric',value:'18 / 9 trays'};
+  const representatives={compute:compute[13],switch:switches[4],power:power[6],spine,cooling,frame};
+  const partSelect=$('part-select');
+  const optgroups=new Map();
+  const categoryNames={compute:'Compute trays',cpu:'Grace CPUs',gpu:'Blackwell GPUs',switch:'NVLink switch trays',power:'Power system',spine:'NVLink fabric',cooling:'Liquid cooling',frame:'Rack structure',management:'Management'};
+  for(const p of parts) {
+    if(!optgroups.has(p.category)){const optgroup=document.createElement('optgroup');optgroup.label=categoryNames[p.category];partSelect.append(optgroup);optgroups.set(p.category,optgroup);}
+    const option=document.createElement('option');option.value=p.id;option.textContent=p.name;optgroups.get(p.category).append(option);
+  }
+  let selected=null,hovered=null,showLabels=true,explosion=.36,targetExplosion=.36;
+  let width=1,height=1,view='iso',cameraTween=null,needsRender=true;
+  const selectionBox=new THREE.Box3();
+  const selectedOutline=new THREE.Box3Helper(selectionBox,new THREE.Color(C.compute));selectedOutline.visible=false;
+  selectedOutline.material.depthTest=false;selectedOutline.material.transparent=true;selectedOutline.material.opacity=.7;selectedOutline.renderOrder=20;scene.add(selectedOutline);
+  const hoverBox=new THREE.Box3(),hoverOutline=new THREE.Box3Helper(hoverBox,0xd5e4ed);hoverOutline.visible=false;hoverOutline.material.transparent=true;hoverOutline.material.opacity=.27;hoverOutline.material.depthTest=false;scene.add(hoverOutline);
+  const callouts=[];
+  function addCallout(text,p,local,side,compact=false) {
+    const el=document.createElement('button');el.className='callout';el.style.setProperty('--tag-color',C[p.category]);
+    const strong=document.createElement('strong');strong.textContent=text;el.append(strong);el.setAttribute('aria-label','Inspect '+p.name);
+    const line=document.createElementNS('http://www.w3.org/2000/svg','path');line.setAttribute('fill','none');line.setAttribute('stroke',C[p.category]);line.setAttribute('stroke-opacity','.37');line.setAttribute('stroke-width','1');
+    const dot=document.createElementNS('http://www.w3.org/2000/svg','circle');dot.setAttribute('r','2.1');dot.setAttribute('fill',C[p.category]);
+    $('leaders').append(line,dot);$('labels').append(el);el.onclick=()=>selectPart(p);
+    callouts.push({el,line,dot,p,point:new THREE.Vector3(...local),side,compact,projected:new THREE.Vector3()});
+  }
+  addCallout('Compute trays',compute[13],[-1.3,.12,1.5],'left');
+  addCallout('Grace CPU',cpus[26],[0,.1,0],'left',true);
+  addCallout('Blackwell GPU',gpus[52],[0,.1,0],'left',true);
+  addCallout('Power shelves',power[1],[-1.35,0,1.1],'left');
+  addCallout('NVLink switches',switches[4],[1.35,.1,1.5],'right');
+  addCallout('NVLink spine',spine,[0,9.7,0],'right');
+  addCallout('Liquid cooling',cooling,[.2,8.5,0],'right');
+  addCallout('Rack frame',frame,[1.55,.7,1.63],'right');
+  function selectPart(p) {
+    selected=p||null;const info=p||overview;const color=C[info.category];
+    $('detail-kind').textContent=p?categoryNames[info.category]:'Rack-scale system';$('detail-kind').style.color=color;
+    $('detail-name').textContent=info.name;$('detail-description').textContent=info.description;
+    $('detail-metric').textContent=info.metric;$('detail-value').textContent=info.value;$('detail-accent').style.background=color;
+    selectedOutline.material.color.set(color);selectedOutline.visible=Boolean(p);partSelect.value=p?.id||'';
+    for(const button of document.querySelectorAll('[data-category]'))button.setAttribute('aria-pressed',String(!!p&&(button.dataset.category===p.category||(['cpu','gpu'].includes(p.category)&&button.dataset.category==='compute'))));
+    for(const c of callouts)c.el.classList.toggle('selected',c.p===p);
+    needsRender=true;
+  }
+  partSelect.onchange=()=>selectPart(partById.get(partSelect.value));
+  document.querySelectorAll('[data-category]').forEach(button=>button.onclick=()=>selectPart(representatives[button.dataset.category]));
+  function inspectChip(p) {selectPart(p);setExplosion(Math.max(targetExplosion,.72));}
+  $('inspect-cpu').onclick=()=>inspectChip(cpus[26]);$('inspect-gpu').onclick=()=>inspectChip(gpus[52]);
+
+  function setExplosion(value) {
+    targetExplosion=THREE.MathUtils.clamp(value,0,1);
+    const percent=Math.round(targetExplosion*100);$('explode').value=String(percent);$('explode').style.setProperty('--fill',percent+'%');
+    $('explode-value').value=percent+'%';$('explode').setAttribute('aria-valuetext',percent+' percent exploded');
+    $('view-state').textContent=percent===0?'ASSEMBLED VIEW':'EXPLODED VIEW';
+    if(reducedMotion){camera.position.sub(controls.target).multiplyScalar((1+targetExplosion*.27)/(1+explosion*.27)).add(controls.target);explosion=targetExplosion;}
+    needsRender=true;
+  }
+  $('explode').oninput=event=>setExplosion(Number(event.target.value)/100);
+  $('assemble').onclick=()=>setExplosion(0);$('fully-explode').onclick=()=>setExplosion(1);
+  $('labels-toggle').onclick=()=>{showLabels=!showLabels;$('labels-toggle').setAttribute('aria-pressed',String(showLabels));needsRender=true;};
+  $('rotate-toggle').onclick=()=>{controls.autoRotate=!controls.autoRotate;$('rotate-toggle').setAttribute('aria-pressed',String(controls.autoRotate));needsRender=true;};
+
+  function defaultCamera(preset) {
+    // Fit the tall rack to portrait and landscape stage bounds without cutting it off.
+    const distance= Math.max(24,13/(2*Math.tan(THREE.MathUtils.degToRad(camera.fov/2)))) * Math.max(1,.76/camera.aspect);
+    const direction= preset==='front'?new THREE.Vector3(0,.045,1):preset==='rear'?new THREE.Vector3(-.17,.19,-1):new THREE.Vector3(1.03,.64,1.56);
+    return direction.normalize().multiplyScalar(distance*(1+targetExplosion*.27)).add(new THREE.Vector3(0,5.7,.4));
+  }
+  function setView(preset,immediate=false) {
+    view=preset;const position=defaultCamera(preset);const target=new THREE.Vector3(0,5.7,.4);
+    if(immediate||reducedMotion){camera.position.copy(position);controls.target.copy(target);cameraTween=null;}
+    else cameraTween={start:performance.now(),from:camera.position.clone(),to:position,targetFrom:controls.target.clone(),targetTo:target};
+    document.querySelectorAll('[data-view]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.view===preset)));needsRender=true;
+  }
+  document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>setView(b.dataset.view));
+  $('reset').onclick=()=>{controls.autoRotate=false;$('rotate-toggle').setAttribute('aria-pressed','false');setExplosion(.36);selectPart(null);setView('iso');};
+  controls.addEventListener('start',()=>{cameraTween=null;});
+  controls.addEventListener('change',()=>{needsRender=true;});
+  let firstResize=true;
+  function resize() {
+    const rect=stage.getBoundingClientRect();width=Math.max(1,rect.width);height=Math.max(1,rect.height);
+    const previousFit=Math.max(1,.76/camera.aspect);
+    camera.aspect=width/height;camera.updateProjectionMatrix();renderer.setSize(width,height);
+    if(!firstResize){cameraTween=null;camera.position.sub(controls.target).multiplyScalar(Math.max(1,.76/camera.aspect)/previousFit).add(controls.target);}
+    $('leaders').setAttribute('viewBox',`0 0 ${width} ${height}`);
+    if(firstResize){setView('iso',true);firstResize=false;}needsRender=true;
+  }
+  new ResizeObserver(resize).observe(stage);resize();
+
+  const raycaster=new THREE.Raycaster(),pointer=new THREE.Vector2();
+  // Decorative text planes do not block selection; every solid model mesh resolves
+  // to its nearest named ancestor, including individual CPUs, GPUs and manifolds.
+  const pickable=[];model.traverse(obj=>{if(obj.isMesh&&!obj.material.map)pickable.push(obj);});
+  pickable.push(cableLines);raycaster.params.Line.threshold=.035;
+  function pick(clientX,clientY) {
+    const rect=renderer.domElement.getBoundingClientRect();pointer.set((clientX-rect.left)/rect.width*2-1,-(clientY-rect.top)/rect.height*2+1);
+    raycaster.setFromCamera(pointer,camera);const hits=raycaster.intersectObjects(pickable,false);
+    for(const hit of hits){let obj=hit.object;while(obj&&!obj.userData.part)obj=obj.parent;if(obj)return obj.userData.part;}
+    return null;
+  }
+  const activePointers=new Set();let clickStart=null,multiTouch=false,lastHover=0;
+  renderer.domElement.addEventListener('pointerdown',e=>{activePointers.add(e.pointerId);if(activePointers.size>1)multiTouch=true;if(e.button===0)clickStart={x:e.clientX,y:e.clientY,id:e.pointerId};});
+  renderer.domElement.addEventListener('pointerup',e=>{
+    if(clickStart&&e.pointerId===clickStart.id&&!multiTouch&&Math.hypot(e.clientX-clickStart.x,e.clientY-clickStart.y)<6)selectPart(pick(e.clientX,e.clientY));
+    activePointers.delete(e.pointerId);if(activePointers.size===0){clickStart=null;multiTouch=false;}
+  });
+  renderer.domElement.addEventListener('pointercancel',e=>{activePointers.delete(e.pointerId);clickStart=null;if(!activePointers.size)multiTouch=false;});
+  renderer.domElement.addEventListener('pointerleave',()=>{hovered=null;hoverOutline.visible=false;needsRender=true;});
+  renderer.domElement.addEventListener('pointermove',e=>{
+    if(e.buttons||e.pointerType==='touch'||performance.now()-lastHover<55)return;lastHover=performance.now();hovered=pick(e.clientX,e.clientY);
+    renderer.domElement.style.cursor=hovered?'pointer':'grab';renderer.domElement.title=hovered?.name||'';needsRender=true;
+  });
+  renderer.domElement.addEventListener('keydown',e=>{
+    if(e.key==='Escape'){selectPart(null);return;}
+    if(!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','+','=','-'].includes(e.key))return;e.preventDefault();cameraTween=null;
+    const spherical=new THREE.Spherical().setFromVector3(camera.position.clone().sub(controls.target));
+    if(e.key==='ArrowLeft')spherical.theta-=.1;if(e.key==='ArrowRight')spherical.theta+=.1;
+    if(e.key==='ArrowUp')spherical.phi-=.1;if(e.key==='ArrowDown')spherical.phi+=.1;
+    if(e.key==='+'||e.key==='=')spherical.radius*=.9;if(e.key==='-')spherical.radius*=1.1;
+    spherical.phi=THREE.MathUtils.clamp(spherical.phi,.05,controls.maxPolarAngle);spherical.radius=THREE.MathUtils.clamp(spherical.radius,controls.minDistance,controls.maxDistance);
+    camera.position.setFromSpherical(spherical).add(controls.target);controls.update();needsRender=true;
+  });
+
+  const world=new THREE.Vector3(),startWorld=new THREE.Vector3(),endWorld=new THREE.Vector3();
+  const c1=new THREE.Vector3(),c2=new THREE.Vector3(),curvePoint=new THREE.Vector3();
+  function updateCables() {
+    if(Math.abs(explosion-lastCableExplosion)<.0001)return;lastCableExplosion=explosion;
+    let cursor=0;
+    for(const c of cables) {
+      startWorld.set(c.x,.075,-1.5);c.part.object.localToWorld(startWorld);spine.object.worldToLocal(startWorld);
+      endWorld.set(c.x,c.y,.16);
+      c1.copy(startWorld);c1.z-=.55+explosion*.6;c2.copy(endWorld);c2.z+=.35;
+      const curve=new THREE.CubicBezierCurve3(startWorld,c1,c2,endWorld);
+      for(let j=0;j<20;j++)for(const t of [j/20,(j+1)/20]) {curve.getPoint(t,curvePoint);cablePositions[cursor++]=curvePoint.x;cablePositions[cursor++]=curvePoint.y;cablePositions[cursor++]=curvePoint.z;}
+    }
+    cableGeometry.attributes.position.needsUpdate=true; cableGeometry.computeBoundingSphere();
+  }
+  function updateLabels() {
+    const compact=width<550;
+    for(const c of callouts) {
+      c.p.object.localToWorld(world.copy(c.point));c.projected.copy(world).project(camera);
+      const visible=showLabels&&(!compact||!c.compact)&&c.projected.z>-1&&c.projected.z<1&&Math.abs(c.projected.x)<1.25&&Math.abs(c.projected.y)<1.18;
+      c.visible=visible;c.el.hidden=!visible;c.line.style.display=visible?'':'none';c.dot.style.display=visible?'':'none';
+      c.x=(c.projected.x*.5+.5)*width;c.y=(-c.projected.y*.5+.5)*height;
+    }
+    // Place labels in two collision-free columns; leader endpoints follow geometry.
+    for(const side of ['left','right']) {
+      const column=callouts.filter(c=>c.visible&&c.side===side).sort((a,b)=>a.y-b.y);
+      let last=67;
+      for(const c of column){c.labelY=Math.max(last,c.y-15);last=c.labelY+39;}
+      if(column.length){let overflow=Math.max(0,last-(height-42));for(let i=column.length-1;i>=0;i--){column[i].labelY-=overflow;if(i>0&&column[i].labelY-column[i-1].labelY<39)overflow=39-(column[i].labelY-column[i-1].labelY);else overflow=0;}}
+      for(const c of column) {
+        const w=c.el.offsetWidth;const x=side==='left'?9:width-w-9;const y=THREE.MathUtils.clamp(c.labelY,63,height-68);
+        c.el.style.transform=`translate(${x}px,${y}px)`;const endX=side==='left'?x+w:x,endY=y+c.el.offsetHeight/2;
+        const elbow=side==='left'?endX+12:endX-12;
+        c.line.setAttribute('d',`M ${c.x.toFixed(1)} ${c.y.toFixed(1)} L ${elbow.toFixed(1)} ${endY.toFixed(1)} H ${endX.toFixed(1)}`);
+        c.dot.setAttribute('cx',c.x.toFixed(1));c.dot.setAttribute('cy',c.y.toFixed(1));
+      }
+    }
+  }
+  let lastTime=performance.now();
+  function animate(now) {
+    const dt=Math.min((now-lastTime)/1000,.05);lastTime=now;
+    const oldExplosion=explosion;
+    if(Math.abs(explosion-targetExplosion)>.0001) {
+      explosion=THREE.MathUtils.lerp(explosion,targetExplosion,1-Math.exp(-dt*9));
+      if(Math.abs(explosion-targetExplosion)<.0001)explosion=targetExplosion;needsRender=true;
+    }
+    // Compensate camera distance as the assembly expands, retaining the user's angle.
+    if(oldExplosion!==explosion&&!cameraTween)camera.position.sub(controls.target).multiplyScalar((1+explosion*.27)/(1+oldExplosion*.27)).add(controls.target);
+    if(cameraTween) {
+      const t=Math.min(1,(now-cameraTween.start)/650),ease=t*t*(3-2*t);
+      camera.position.lerpVectors(cameraTween.from,cameraTween.to,ease);controls.target.lerpVectors(cameraTween.targetFrom,cameraTween.targetTo,ease);
+      if(t===1)cameraTween=null;needsRender=true;
+    }
+    controls.update(dt);
+    if(!needsRender&&!controls.autoRotate)return;
+    for(const m of moving)m.object.position.copy(m.home).addScaledVector(m.offset,explosion);
+    scene.updateMatrixWorld(true);camera.updateMatrixWorld();updateCables();
+    if(selected){selectionBox.setFromObject(selected.object);selectionBox.expandByScalar(.035);selectedOutline.visible=true;}
+    hoverOutline.visible=Boolean(hovered&&hovered!==selected);
+    if(hoverOutline.visible){hoverBox.setFromObject(hovered.object);hoverBox.expandByScalar(.025);}
+    renderer.render(scene,camera);updateLabels();needsRender=false;
+  }
+  renderer.domElement.addEventListener('webglcontextlost',event=>{event.preventDefault();renderer.setAnimationLoop(null);showError('The graphics context was interrupted. Reload the view to restore the rack.');});
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)renderer.setAnimationLoop(null);else{lastTime=performance.now();needsRender=true;renderer.setAnimationLoop(animate);}});
+  setExplosion(.36);animate(performance.now());loading.hidden=true;renderer.setAnimationLoop(animate);
+}
+</script>
+</body>
+</html>

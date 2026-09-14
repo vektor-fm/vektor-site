@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NVIDIA GB200 NVL72 — Interactive Exploded View</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg0:#05070b; --bg1:#0d1420;
+    --panel:rgba(12,16,24,.62); --panel-border:rgba(255,255,255,.08);
+    --text:#e8edf5; --muted:#8b96a8; --accent:#76b900;
+    --shadow:0 20px 50px rgba(0,0,0,.45);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;overflow:hidden;background:var(--bg0);color:var(--text);
+    font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+  body::before{content:"";position:fixed;inset:0;z-index:0;
+    background:radial-gradient(1200px 800px at 45% 35%,var(--bg1) 0%,#080b11 55%,var(--bg0) 100%)}
+  body::after{content:"";position:fixed;inset:0;z-index:3;pointer-events:none;
+    background:radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.55) 100%)}
+  #app,#labels{position:fixed;inset:0}
+  #app{z-index:1}
+  #app canvas{display:block}
+  #labels{z-index:2;pointer-events:none;overflow:hidden}
+  #ui{position:fixed;inset:0;z-index:4;pointer-events:none}
+  #ui > *{pointer-events:auto}
+
+  .panel{background:var(--panel);border:1px solid var(--panel-border);border-radius:16px;
+    backdrop-filter:blur(18px) saturate(140%);-webkit-backdrop-filter:blur(18px) saturate(140%);box-shadow:var(--shadow)}
+
+  /* header */
+  #header{position:absolute;top:22px;left:24px;padding:16px 20px 14px;max-width:420px}
+  #header .eyebrow{display:flex;align-items:center;gap:8px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  #header .eyebrow i{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent)}
+  #header h1{margin:6px 0 4px;font-size:22px;font-weight:700;letter-spacing:-.01em}
+  #header h1 span{color:var(--accent)}
+  #header p{margin:0;font-size:12.5px;line-height:1.5;color:var(--muted)}
+  #header kbd{font-family:"JetBrains Mono",monospace;font-size:10.5px;padding:1px 5px;border:1px solid rgba(255,255,255,.14);border-radius:5px;background:rgba(255,255,255,.05);color:#c7d0dd}
+
+  /* legend */
+  #legend{position:absolute;top:22px;right:24px;width:246px;padding:12px 10px}
+  #legend .title{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;padding:4px 10px 8px}
+  .lg{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;cursor:pointer;transition:background .15s,transform .15s;user-select:none}
+  .lg:hover{background:rgba(255,255,255,.06)}
+  .lg.active{background:rgba(255,255,255,.09)}
+  .lg .sw{width:10px;height:10px;border-radius:3px;flex:none;box-shadow:0 0 10px currentColor;background:currentColor}
+  .lg .nm{flex:1;font-size:13px;font-weight:500}
+  .lg .ct{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--muted)}
+
+  /* info */
+  #info{position:absolute;left:24px;bottom:110px;width:400px;padding:18px 20px 16px;transition:opacity .2s,transform .2s}
+  #info .cat{display:flex;align-items:center;gap:8px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--muted)}
+  #info .cat i{width:8px;height:8px;border-radius:50%;background:currentColor;box-shadow:0 0 10px currentColor}
+  #info h2{margin:8px 0 6px;font-size:19px;font-weight:700;letter-spacing:-.01em}
+  #info p{margin:0 0 12px;font-size:13.5px;line-height:1.55;color:#c9d2df}
+  .specs{display:flex;flex-wrap:wrap;gap:6px}
+  .spec{font-family:"JetBrains Mono",monospace;font-size:11px;padding:4px 8px;border-radius:7px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.05);color:#d7deea}
+  #info .hint{margin-top:12px;font-size:11.5px;color:var(--muted)}
+
+  /* controls */
+  #controls{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);display:flex;align-items:center;gap:14px;padding:12px 16px}
+  .slider-wrap{display:flex;align-items:center;gap:12px}
+  .slider-wrap .lab{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600;white-space:nowrap}
+  #explode{-webkit-appearance:none;appearance:none;width:280px;height:4px;border-radius:99px;outline:none;cursor:pointer;
+    background:linear-gradient(90deg,var(--accent) var(--pct,0%),rgba(255,255,255,.14) var(--pct,0%))}
+  #explode::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:#fff;border:3px solid var(--accent);
+    box-shadow:0 0 0 4px rgba(118,185,0,.18),0 4px 12px rgba(0,0,0,.5);cursor:grab}
+  #explode::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:#fff;border:3px solid var(--accent);box-shadow:0 0 0 4px rgba(118,185,0,.18)}
+  .pct{font-family:"JetBrains Mono",monospace;font-size:12px;color:#d7deea;width:38px;text-align:right}
+  .sep{width:1px;height:26px;background:rgba(255,255,255,.1)}
+  .btn{font:inherit;font-size:12.5px;font-weight:600;color:var(--text);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
+    border-radius:10px;padding:8px 12px;cursor:pointer;transition:background .15s,border-color .15s;white-space:nowrap}
+  .btn:hover{background:rgba(255,255,255,.12)}
+  .btn.on{background:rgba(118,185,0,.18);border-color:rgba(118,185,0,.5)}
+  .btn.primary{background:var(--accent);color:#06110a;border-color:transparent}
+  .btn.primary:hover{background:#86cf07}
+
+  /* 3D labels */
+  .lbl{width:0;height:0;position:relative}
+  .lbl-in{position:absolute;left:0;top:0;transform:translate(-5px,-50%);display:flex;align-items:center;white-space:nowrap;pointer-events:auto;cursor:pointer;
+    transition:opacity .35s}
+  .lbl-in .dot{width:10px;height:10px;border-radius:50%;background:currentColor;box-shadow:0 0 12px currentColor,0 0 0 3px rgba(0,0,0,.35);flex:none}
+  .lbl-in .line{width:26px;height:1px;background:linear-gradient(90deg,currentColor,rgba(255,255,255,.35))}
+  .lbl-in .pill{font-size:12px;font-weight:600;color:#eef2f8;padding:5px 10px;border-radius:999px;background:rgba(10,13,20,.78);
+    border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);letter-spacing:.01em;
+    box-shadow:0 6px 18px rgba(0,0,0,.4);transition:background .15s,border-color .15s}
+  .lbl-in .pill small{color:var(--muted);font-weight:500;margin-left:5px;font-family:"JetBrains Mono",monospace;font-size:10.5px}
+  .lbl-in:hover .pill{background:rgba(25,32,46,.92);border-color:currentColor}
+  .lbl-in.hidden{opacity:0;pointer-events:none}
+  #labels.off .lbl-in{opacity:0;pointer-events:none}
+
+  @media (max-width:900px){
+    #legend{display:none}
+    #info{width:calc(100vw - 48px);bottom:100px}
+    #header{max-width:calc(100vw - 48px)}
+    #explode{width:160px}
+  }
+</style>
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+</head>
+<body>
+<div id="app"></div>
+<div id="labels"></div>
+
+<div id="ui">
+  <div id="header" class="panel">
+    <div class="eyebrow"><i></i>Grace Blackwell · Rack-scale system</div>
+    <h1>NVIDIA <span>GB200 NVL72</span></h1>
+    <p>Interactive exploded view. Drag to orbit · scroll to zoom · right-drag to pan · click any part for details.
+      Press <kbd>Space</kbd> to explode / assemble, <kbd>R</kbd> to reset the camera.</p>
+  </div>
+
+  <div id="legend" class="panel">
+    <div class="title">Components</div>
+    <div id="legend-list"></div>
+  </div>
+
+  <div id="info" class="panel">
+    <div class="cat" id="info-cat"><i></i><span id="info-cat-name">System</span></div>
+    <h2 id="info-name">GB200 NVL72</h2>
+    <p id="info-desc"></p>
+    <div class="specs" id="info-specs"></div>
+    <div class="hint" id="info-hint"></div>
+  </div>
+
+  <div id="controls" class="panel">
+    <button class="btn primary" id="btn-explode">Explode</button>
+    <div class="sep"></div>
+    <div class="slider-wrap">
+      <span class="lab">Assembled</span>
+      <input id="explode" type="range" min="0" max="100" value="0" step="1">
+      <span class="lab">Exploded</span>
+      <span class="pct" id="pct">0%</span>
+    </div>
+    <div class="sep"></div>
+    <button class="btn on" id="btn-rotate">Auto-rotate</button>
+    <button class="btn on" id="btn-labels">Labels</button>
+    <button class="btn" id="btn-reset">Reset view</button>
+  </div>
+</div>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer.js';
+import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
+
+/* ------------------------------------------------------------------ */
+/*  Component catalogue                                                */
+/* ------------------------------------------------------------------ */
+const CATS = {
+  compute: { label:'Compute trays', name:'Compute tray', color:'#4fd1ff', count:'×18',
+    desc:'A 1U liquid-cooled tray carrying two GB200 superchips (2× Grace CPU + 4× Blackwell GPU) on a single board, plus ConnectX-7 and BlueField-3 networking. Eighteen per rack.',
+    specs:['2× Grace','4× Blackwell','1U','direct liquid cooling'] },
+  gpu: { label:'Blackwell GPUs', name:'Blackwell GPU', color:'#76b900', count:'×72',
+    desc:'Dual-die Blackwell GPU with 208 B transistors and up to 192 GB of HBM3e, joined to its Grace CPU by a 900 GB/s NVLink-C2C link. Seventy-two per rack, all in one NVLink domain.',
+    specs:['208 B transistors','192 GB HBM3e','1.8 TB/s NVLink','cold-plate cooled'] },
+  cpu: { label:'Grace CPUs', name:'Grace CPU', color:'#ffb347', count:'×36',
+    desc:'72-core Arm Neoverse V2 processor with up to 480 GB of LPDDR5X memory, coherently attached to two Blackwell GPUs over NVLink-C2C. Thirty-six per rack.',
+    specs:['72 Arm V2 cores','480 GB LPDDR5X','NVLink-C2C 900 GB/s'] },
+  nvswitch: { label:'NVLink switch trays', name:'NVLink switch tray', color:'#a78bfa', count:'×9',
+    desc:'1U tray holding two fifth-generation NVLink Switch ASICs. The nine trays form one non-blocking fabric so all 72 GPUs share memory at 1.8 TB/s each, 130 TB/s in aggregate.',
+    specs:['2× NVLink Switch','14.4 TB/s per tray','130 TB/s fabric'] },
+  spine: { label:'NVLink spine', name:'NVLink spine', color:'#ff8a5b', count:'',
+    desc:'Passive copper cable cartridge at the rear of the rack: more than 5,000 cables (about 2 miles) that connect every compute tray to every switch tray with no optics or retimers.',
+    specs:['5,000+ copper cables','~2 miles','zero optics'] },
+  power: { label:'Power shelves', name:'Power shelf', color:'#ffd166', count:'×8',
+    desc:'AC-to-DC power shelf. The bank of shelves at the top and bottom of the rack converts facility AC to the DC busbar that feeds roughly 120 kW of compute and switch trays.',
+    specs:['AC → DC','~120 kW rack','N+1 redundant'] },
+  busbar: { label:'DC busbar', name:'DC busbar', color:'#e8c07a', count:'',
+    desc:'Rear vertical busbar that every tray blind-mates into, carrying high-current DC from the power shelves so no tray needs individual power cabling.',
+    specs:['blind-mate','~1,400 A','rear-mounted'] },
+  cooling: { label:'Cooling manifolds', name:'Liquid-cooling manifold', color:'#38bdf8', count:'×2',
+    desc:'Vertical supply and return manifolds circulate warm water (roughly 25–45 °C) through per-tray quick-disconnects to the cold plates on every CPU, GPU and switch chip.',
+    specs:['direct-to-chip','quick disconnects','supply + return'] },
+  frame: { label:'Rack frame', name:'Rack frame', color:'#a1acbd', count:'',
+    desc:'Reinforced 19-inch OCP-style rack about 2 m tall. Fully loaded it weighs about 1.36 t (3,000 lb) and rolls on casters for datacenter placement.',
+    specs:['~1.36 t loaded','~2 m tall','18 + 9 tray slots'] },
+};
+const OVERVIEW = {
+  name:'GB200 NVL72', cat:'System',
+  desc:'A single liquid-cooled rack that behaves like one giant GPU: 36 Grace CPUs and 72 Blackwell GPUs joined by an all-copper NVLink fabric. Click a component, a legend item or a label to learn about it.',
+  specs:['72× Blackwell GPU','36× Grace CPU','130 TB/s NVLink','~120 kW','~1.36 t'],
+};
+const catColor = Object.fromEntries(Object.entries(CATS).map(([k,v]) => [k, new THREE.Color(v.color)]));
+
+/* ------------------------------------------------------------------ */
+/*  Renderer / scene                                                   */
+/* ------------------------------------------------------------------ */
+const app = document.getElementById('app');
+const renderer = new THREE.WebGLRenderer({ antialias:true, alpha:true, powerPreference:'high-performance' });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setSize(innerWidth, innerHeight);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.05;
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+app.appendChild(renderer.domElement);
+
+const labelRenderer = new CSS2DRenderer({ element: document.getElementById('labels') });
+labelRenderer.setSize(innerWidth, innerHeight);
+
+const scene = new THREE.Scene();
+const pmrem = new THREE.PMREMGenerator(renderer);
+scene.environment = pmrem.fromScene(new RoomEnvironment(renderer), 0.04).texture;
+
+const camera = new THREE.PerspectiveCamera(38, innerWidth/innerHeight, 0.05, 60);
+const CAM_HOME = new THREE.Vector3(3.4, 2.3, 3.9);
+const TGT_HOME = new THREE.Vector3(0, 1.1, 0);
+camera.position.copy(CAM_HOME);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.target.copy(TGT_HOME);
+controls.enableDamping = true;
+controls.dampingFactor = 0.06;
+controls.minDistance = 1.6;
+controls.maxDistance = 10;
+controls.maxPolarAngle = Math.PI * 0.49;
+controls.autoRotate = true;
+controls.autoRotateSpeed = 0.55;
+
+/* lights */
+scene.add(new THREE.HemisphereLight(0x8fb3ff, 0x0b0d12, 0.35));
+const key = new THREE.DirectionalLight(0xffffff, 2.3);
+key.position.set(4, 7, 5);
+key.castShadow = true;
+key.shadow.mapSize.set(2048, 2048);
+key.shadow.camera.left = key.shadow.camera.bottom = -3.2;
+key.shadow.camera.right = key.shadow.camera.top = 3.2;
+key.shadow.camera.near = 0.5; key.shadow.camera.far = 20;
+key.shadow.bias = -0.0004; key.shadow.normalBias = 0.02;
+scene.add(key, key.target);
+const rim = new THREE.DirectionalLight(0x6fa8ff, 0.9);
+rim.position.set(-5, 3, -4);
+scene.add(rim);
+const fill = new THREE.DirectionalLight(0xffd9b0, 0.4);
+fill.position.set(-3, 1.5, 4);
+scene.add(fill);
+
+/* floor: fading grid + shadow catcher */
+const gridMat = new THREE.ShaderMaterial({
+  transparent:true, depthWrite:false,
+  vertexShader:`varying vec3 vP; void main(){ vP = position; gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0); }`,
+  fragmentShader:`
+    varying vec3 vP;
+    float grid(vec2 c){ vec2 g = abs(fract(c - 0.5) - 0.5) / fwidth(c); return 1.0 - min(min(g.x, g.y), 1.0); }
+    void main(){
+      float l  = grid(vP.xy * 2.0) * 0.45;
+      float l2 = grid(vP.xy * 0.5) * 0.9;
+      float line = max(l, l2);
+      float r = length(vP.xy);
+      float fade = 1.0 - smoothstep(1.3, 4.8, r);
+      vec3 col = mix(vec3(0.05,0.07,0.10), vec3(0.33,0.52,0.82), line);
+      gl_FragColor = vec4(col, fade * (0.16 + 0.84 * line));
+    }`
+});
+const floorGrid = new THREE.Mesh(new THREE.PlaneGeometry(14, 14), gridMat);
+floorGrid.rotation.x = -Math.PI/2;
+scene.add(floorGrid);
+const shadowCatcher = new THREE.Mesh(new THREE.PlaneGeometry(14, 14), new THREE.ShadowMaterial({ opacity:0.42 }));
+shadowCatcher.rotation.x = -Math.PI/2; shadowCatcher.position.y = 0.002; shadowCatcher.receiveShadow = true;
+scene.add(shadowCatcher);
+
+/* ------------------------------------------------------------------ */
+/*  Helpers                                                            */
+/* ------------------------------------------------------------------ */
+const M = {
+  chassis: () => new THREE.MeshStandardMaterial({ color:0x22262e, metalness:0.85, roughness:0.42 }),
+  face:    () => new THREE.MeshStandardMaterial({ color:0x3a414d, metalness:0.75, roughness:0.32 }),
+  vent:    () => new THREE.MeshStandardMaterial({ color:0x0c0e12, metalness:0.6, roughness:0.7 }),
+  handle:  () => new THREE.MeshStandardMaterial({ color:0xc9d1dc, metalness:0.95, roughness:0.25 }),
+  pcb:     () => new THREE.MeshStandardMaterial({ color:0x123321, metalness:0.2, roughness:0.6 }),
+  pkg:     () => new THREE.MeshPhysicalMaterial({ color:0x07080a, metalness:0.5, roughness:0.12, clearcoat:1, clearcoatRoughness:0.08 }),
+  copper:  () => new THREE.MeshStandardMaterial({ color:0xc47a3f, metalness:0.95, roughness:0.28 }),
+  alu:     () => new THREE.MeshStandardMaterial({ color:0xb9c2cf, metalness:0.95, roughness:0.28 }),
+  brass:   () => new THREE.MeshStandardMaterial({ color:0xd8ac5c, metalness:0.95, roughness:0.3 }),
+  dark:    () => new THREE.MeshStandardMaterial({ color:0x16191f, metalness:0.7, roughness:0.5 }),
+  shelf:   () => new THREE.MeshStandardMaterial({ color:0x3b4250, metalness:0.75, roughness:0.4 }),
+  frame:   () => new THREE.MeshStandardMaterial({ color:0x1b1f27, metalness:0.9, roughness:0.45 }),
+  sleeve:  () => new THREE.MeshStandardMaterial({ color:0x363a44, metalness:0.4, roughness:0.75 }),
+  paint:   (c) => new THREE.MeshPhysicalMaterial({ color:c, metalness:0.2, roughness:0.35, clearcoat:0.6, clearcoatRoughness:0.2 }),
+  glass:   () => new THREE.MeshPhysicalMaterial({ color:0x0f141c, metalness:0.7, roughness:0.22, transparent:true, opacity:0.22, side:THREE.DoubleSide, depthWrite:false }),
+  led:     (c) => new THREE.MeshBasicMaterial({ color:c }),
+};
+function mesh(geo, mat, x=0, y=0, z=0, o={}) {
+  const m = new THREE.Mesh(geo, mat);
+  m.position.set(x, y, z);
+  m.castShadow = o.shadow !== false;
+  m.receiveShadow = true;
+  if (o.ud) Object.assign(m.userData, o.ud);
+  return m;
+}
+const box  = (w,h,d,mat,x,y,z,o) => mesh(new THREE.BoxGeometry(w,h,d), mat, x,y,z,o);
+const rbox = (w,h,d,r,mat,x,y,z,o) => mesh(new RoundedBoxGeometry(w,h,d,2,r), mat, x,y,z,o);
+function cylZ(r, len, mat, x,y,z, o) { const m = mesh(new THREE.CylinderGeometry(r,r,len,18), mat, x,y,z,o); m.rotation.x = Math.PI/2; return m; }
+function cylX(r, len, mat, x,y,z, o) { const m = mesh(new THREE.CylinderGeometry(r,r,len,18), mat, x,y,z,o); m.rotation.z = Math.PI/2; return m; }
+const ease = t => t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3)/2;
+
+/* part registry */
+const parts = [];
+const pickables = [];
+function register(obj, cat, name, desc, ex = new THREE.Vector3(), delay = 0, extra = {}) {
+  const entry = { obj, cat, name, desc, ex, delay, home: obj.position.clone(), mats: [], ...extra };
+  obj.traverse(m => {
+    if (!m.isMesh || m.userData.part) return;        // meshes owned by a nested part keep their owner
+    m.userData.part = entry;
+    if (!m.userData.nopick) pickables.push(m);
+    if (!m.userData.nohl && m.material.emissive) entry.mats.push(m.material);
+  });
+  parts.push(entry);
+  return entry;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Rack geometry                                                      */
+/* ------------------------------------------------------------------ */
+const rack = new THREE.Group();
+scene.add(rack);
+
+const TRAY_W = 0.54, TRAY_H = 0.044, TRAY_D = 0.8;
+const TRAY_Z = 0.2;                     // tray centre depth (front face at z ≈ 0.6)
+const SLOT = 0.05;
+
+/* --- frame --- */
+{
+  const posts = new THREE.Group();
+  for (const sx of [-1,1]) for (const sz of [-1,1]) posts.add(box(0.04,1.92,0.04, M.frame(), sx*0.31, 1.1, sz*0.58));
+  for (const yy of [0.17, 2.03]) {
+    for (const sz of [-1,1]) posts.add(box(0.66,0.035,0.035, M.frame(), 0, yy, sz*0.58));
+    for (const sx of [-1,1]) posts.add(box(0.035,0.035,1.2, M.frame(), sx*0.31, yy, 0));
+  }
+  register(posts, 'frame', 'Rack frame · uprights', CATS.frame.desc);
+
+  const cap = new THREE.Group();
+  cap.add(rbox(0.7,0.06,1.24,0.012, M.frame(), 0,0,0));
+  cap.add(box(0.5,0.008,0.004, M.led(0x76b900), 0, 0.006, 0.622, { ud:{nohl:true}, shadow:false }));
+  for (let i=0;i<5;i++) cap.add(box(0.5,0.004,0.03, M.vent(), 0, 0.031, -0.4 + i*0.2));
+  cap.position.set(0, 2.09, 0);
+  register(cap, 'frame', 'Rack frame · top cap', 'Top cap of the rack, above the upper power shelves. Coolant and power enter from above or below depending on the datacenter.', new THREE.Vector3(0,0.5,0));
+
+  const plinth = new THREE.Group();
+  plinth.add(rbox(0.7,0.1,1.24,0.012, M.frame(), 0,0,0));
+  for (const sx of [-1,1]) for (const sz of [-1,1]) plinth.add(cylX(0.026, 0.03, M.dark(), sx*0.26, -0.065, sz*0.5, { ud:{nohl:true} }));
+  plinth.position.set(0, 0.09, 0);
+  register(plinth, 'frame', 'Rack frame · base & casters', 'Base plinth with casters and levelling feet. The loaded rack weighs about 1.36 t, so the base and floor loading are engineered accordingly.', new THREE.Vector3(0,-0.45,0));
+
+  for (const sx of [-1,1]) {
+    const panel = new THREE.Group();
+    panel.add(box(0.012,1.92,1.2, M.glass(), 0,0,0, { ud:{nopick:true}, shadow:false }));
+    panel.position.set(sx*0.345, 1.1, 0);
+    register(panel, 'frame', sx<0 ? 'Rack frame · left side panel' : 'Rack frame · right side panel', 'Removable side panel. Shown translucent here so the interior stays visible.', new THREE.Vector3(sx*0.62,0,0));
+  }
+}
+
+/* --- chips --- */
+function makeChip(kind) {
+  const cfg = { gpu:{ pkg:0.1, plate:0.13, accent:0x76b900, plateMat:M.copper },
+                cpu:{ pkg:0.075, plate:0.1, accent:0xffb347, plateMat:M.alu },
+                nvs:{ pkg:0.1, plate:0.14, accent:0xa78bfa, plateMat:M.copper } }[kind];
+  const g = new THREE.Group();
+  g.add(box(cfg.plate+0.03, 0.004, cfg.plate+0.03, M.pcb(), 0, 0.002, 0));
+  g.add(rbox(cfg.pkg, 0.01, cfg.pkg, 0.002, M.pkg(), 0, 0.009, 0));
+  g.add(rbox(cfg.plate, 0.016, cfg.plate, 0.003, cfg.plateMat(), 0, 0.022, 0));
+  g.add(box(cfg.plate*0.72, 0.002, 0.007, M.led(cfg.accent), 0, 0.031, cfg.plate*0.36, { ud:{nohl:true}, shadow:false }));
+  g.add(cylZ(0.006, 0.02, M.alu(), -cfg.plate*0.3, 0.024, -cfg.plate*0.5-0.008));
+  g.add(cylZ(0.006, 0.02, M.alu(),  cfg.plate*0.3, 0.024, -cfg.plate*0.5-0.008));
+  return g;
+}
+
+/* --- tray chassis (shared by compute + switch trays) --- */
+function makeChassis(faceMat) {
+  const g = new THREE.Group();
+  const body = M.chassis();
+  g.add(box(TRAY_W, 0.006, TRAY_D, body, 0, -TRAY_H/2+0.003, 0));
+  g.add(box(0.006, TRAY_H, TRAY_D, body, -TRAY_W/2+0.003, 0, 0));
+  g.add(box(0.006, TRAY_H, TRAY_D, body,  TRAY_W/2-0.003, 0, 0));
+  g.add(box(TRAY_W, TRAY_H, 0.006, body, 0, 0, -TRAY_D/2+0.003));
+  g.add(rbox(TRAY_W+0.012, TRAY_H, 0.022, 0.004, faceMat, 0, 0, TRAY_D/2+0.011));
+  g.add(rbox(0.03, 0.014, 0.022, 0.004, M.handle(), -0.245, 0, TRAY_D/2+0.03));
+  g.add(rbox(0.03, 0.014, 0.022, 0.004, M.handle(),  0.245, 0, TRAY_D/2+0.03));
+  // rear blind-mate connectors
+  g.add(box(0.05, 0.03, 0.012, M.brass(), 0, 0, -TRAY_D/2-0.006));
+  g.add(cylZ(0.008, 0.02, M.alu(), -0.22, 0, -TRAY_D/2-0.01));
+  g.add(cylZ(0.008, 0.02, M.alu(),  0.22, 0, -TRAY_D/2-0.01));
+  return g;
+}
+
+const computeYs = [], switchYs = [];
+let ySlot = 2.0;
+const nextSlot = (gap = 0) => { ySlot -= gap + SLOT; return ySlot + SLOT/2; };
+
+/* --- compute tray --- */
+function makeComputeTray(i, y, ex, delay) {
+  const g = makeChassis(M.face());
+  g.add(box(0.36, 0.02, 0.004, M.vent(), -0.03, 0, TRAY_D/2+0.023));
+  g.add(box(0.014, 0.006, 0.004, M.led(0x76b900), 0.2, 0.011, TRAY_D/2+0.023, { ud:{nohl:true}, shadow:false }));
+  g.add(box(0.014, 0.006, 0.004, M.led(0x4fd1ff), 0.22, 0.011, TRAY_D/2+0.023, { ud:{nohl:true}, shadow:false }));
+  // NVLink rear connectors
+  g.add(box(0.12, 0.018, 0.014, M.copper(), -0.11, 0, -TRAY_D/2-0.007));
+  g.add(box(0.12, 0.018, 0.014, M.copper(),  0.11, 0, -TRAY_D/2-0.007));
+  for (const s of [-1,1]) {
+    const x = s*0.13;
+    g.add(rbox(0.24, 0.004, 0.7, 0.002, M.pcb(), x, -0.014, -0.02));
+    const cpu = makeChip('cpu'); cpu.position.set(x, -0.012, 0.2); g.add(cpu);
+    register(cpu, 'cpu', `Grace CPU · tray ${i+1}`, CATS.cpu.desc, new THREE.Vector3(0,0.085,0), 0.55);
+    for (const [k, z] of [[0,-0.03],[1,-0.22]]) {
+      const gpu = makeChip('gpu'); gpu.position.set(x, -0.012, z); g.add(gpu);
+      register(gpu, 'gpu', `Blackwell GPU · tray ${i+1}`, CATS.gpu.desc, new THREE.Vector3(0,0.11 + k*0.01,0), 0.55);
+    }
+    // NIC / BlueField module
+    g.add(rbox(0.1, 0.012, 0.06, 0.002, M.dark(), x, -0.006, 0.31));
+  }
+  g.position.set(0, y, TRAY_Z);
+  rack.add(g);
+  return register(g, 'compute', `Compute tray ${String(i+1).padStart(2,'0')} of 18`, CATS.compute.desc, ex, delay);
+}
+
+/* --- switch tray --- */
+function makeSwitchTray(i, y, ex, delay) {
+  const g = makeChassis(M.paint(0x2c2a3f));
+  for (const s of [-1,1]) for (let p=0;p<6;p++) g.add(box(0.016, 0.012, 0.004, M.vent(), s*0.13 + (p-2.5)*0.022, 0, TRAY_D/2+0.023));
+  g.add(box(0.014, 0.006, 0.004, M.led(0xa78bfa), 0.24, 0.011, TRAY_D/2+0.023, { ud:{nohl:true}, shadow:false }));
+  g.add(rbox(0.48, 0.004, 0.68, 0.002, M.pcb(), 0, -0.014, -0.02));
+  for (const s of [-1,1]) {
+    const chip = makeChip('nvs'); chip.position.set(s*0.12, -0.012, -0.03); g.add(chip);
+    register(chip, 'nvswitch', 'NVLink Switch ASIC', 'Fifth-generation NVLink Switch chip: 72 NVLink ports and 7.2 TB/s of switching bandwidth, with in-network SHARP reductions for collective operations.', new THREE.Vector3(0,0.11,0), 0.55, { specs:['72 ports','7.2 TB/s','SHARP in-network'] });
+    g.add(box(0.2, 0.02, 0.014, M.copper(), s*0.13, 0, -TRAY_D/2-0.007));
+  }
+  g.position.set(0, y, TRAY_Z);
+  rack.add(g);
+  return register(g, 'nvswitch', `NVLink switch tray ${i+1} of 9`, CATS.nvswitch.desc, ex, delay);
+}
+
+/* --- power shelf --- */
+function makePowerShelf(i, y, ex, delay, label) {
+  const g = new THREE.Group();
+  g.add(rbox(0.55, 0.042, 0.72, 0.004, M.shelf(), 0, 0, 0));
+  for (let f=0; f<4; f++) g.add(cylZ(0.015, 0.006, M.vent(), -0.2 + f*0.055, 0, 0.362));
+  g.add(box(0.12, 0.014, 0.004, M.vent(), 0.12, 0, 0.363));
+  g.add(box(0.01, 0.006, 0.004, M.led(0x76b900), 0.22, 0.008, 0.363, { ud:{nohl:true}, shadow:false }));
+  g.add(box(0.01, 0.006, 0.004, M.led(0xffd166), 0.24, 0.008, 0.363, { ud:{nohl:true}, shadow:false }));
+  g.add(box(0.4, 0.003, 0.004, M.led(0xffd166), 0, -0.016, 0.363, { ud:{nohl:true}, shadow:false }));
+  g.add(box(0.06, 0.03, 0.012, M.brass(), 0, 0, -0.366));
+  g.add(box(0.08, 0.026, 0.02, M.dark(), -0.18, 0, -0.37));
+  g.position.set(0, y, TRAY_Z);
+  rack.add(g);
+  return register(g, 'power', label, CATS.power.desc, ex, delay);
+}
+
+/* --- stacking (top to bottom) --- */
+for (let i=0;i<4;i++) makePowerShelf(i, nextSlot(), new THREE.Vector3(0, 0.22 + (3-i)*0.08, 0.05), 0.02*i, `Power shelf ${i+1} of 8 (upper bank)`);
+for (let i=0;i<10;i++) { const y = nextSlot(i===0?0.03:0); computeYs.push(y); makeComputeTray(i, y, new THREE.Vector3(0, 0.2 + (4.5-i)*0.05, 0.85), 0.12*i/17); }
+for (let i=0;i<9;i++)  { const y = nextSlot(); switchYs.push(y); makeSwitchTray(i, y, new THREE.Vector3(0, (4-i)*0.055, 1.35), 0.12*i/8); }
+for (let i=0;i<8;i++)  { const y = nextSlot(); computeYs.push(y); makeComputeTray(10+i, y, new THREE.Vector3(0, -0.2 + (3.5-i)*0.05, 0.85), 0.12*(10+i)/17); }
+for (let i=0;i<4;i++)  makePowerShelf(i, nextSlot(i===0?0.03:0), new THREE.Vector3(0, -(0.22 + i*0.08), 0.05), 0.02*i, `Power shelf ${i+5} of 8 (lower bank)`);
+
+/* --- NVLink spine + cabling --- */
+{
+  const g = new THREE.Group();
+  const SP = new THREE.Vector3(0, 1.05, -0.28);
+  g.add(rbox(0.36, 1.52, 0.06, 0.008, M.paint(0x24262e), 0, 0, 0));
+  g.add(box(0.02, 1.5, 0.02, M.alu(), -0.19, 0, 0));
+  g.add(box(0.02, 1.5, 0.02, M.alu(),  0.19, 0, 0));
+  for (const y of [...computeYs, ...switchYs]) g.add(box(0.3, 0.018, 0.012, M.copper(), 0, y - SP.y, 0.034));
+  const copper = M.copper(), sleeve = M.sleeve();
+  computeYs.forEach((y0, i) => {
+    for (const s of [-1,1]) {
+      const ys = switchYs[(i*2 + (s>0?1:0)) % 9];
+      const pts = [
+        new THREE.Vector3(s*0.12, y0 - SP.y, 0.03),
+        new THREE.Vector3(s*0.26, (y0*0.7 + ys*0.3) - SP.y, -0.06),
+        new THREE.Vector3(s*0.26, (y0*0.3 + ys*0.7) - SP.y, -0.06),
+        new THREE.Vector3(s*0.1,  ys - SP.y, 0.03),
+      ];
+      const curve = new THREE.CatmullRomCurve3(pts, false, 'catmullrom', 0.6);
+      const tube = mesh(new THREE.TubeGeometry(curve, 36, 0.0045, 8, false), (i % 3 === 0) ? copper : sleeve, 0,0,0);
+      g.add(tube);
+    }
+  });
+  g.position.copy(SP);
+  rack.add(g);
+  register(g, 'spine', 'NVLink spine', CATS.spine.desc, new THREE.Vector3(0, 0, -0.75), 0.05);
+}
+
+/* --- DC busbar --- */
+{
+  const g = new THREE.Group();
+  g.add(box(0.09, 1.88, 0.006, M.dark(), 0, 0, -0.008));
+  g.add(box(0.022, 1.86, 0.012, M.brass(), -0.027, 0, 0));
+  g.add(box(0.022, 1.86, 0.012, M.brass(),  0.027, 0, 0));
+  g.add(box(0.1, 0.06, 0.03, M.dark(), 0, 0.96, -0.01));
+  g.add(box(0.1, 0.06, 0.03, M.dark(), 0, -0.96, -0.01));
+  g.position.set(0, 1.1, -0.5);
+  rack.add(g);
+  register(g, 'busbar', 'DC busbar', CATS.busbar.desc, new THREE.Vector3(0, 0, -1.25), 0.1);
+}
+
+/* --- liquid-cooling manifolds --- */
+for (const s of [-1,1]) {
+  const g = new THREE.Group();
+  const col = s < 0 ? 0x2f7cf6 : 0xef4b4b;
+  const pipe = M.paint(col);
+  g.add(mesh(new THREE.CylinderGeometry(0.021, 0.021, 1.9, 24), pipe, 0, 0, 0));
+  g.add(cylX(0.021, 0.14, pipe, s*0.07, 0.95, 0));
+  g.add(mesh(new THREE.SphereGeometry(0.023, 16, 12), pipe, 0, 0.95, 0));
+  g.add(mesh(new THREE.CylinderGeometry(0.03, 0.03, 0.05, 20), M.alu(), s*0.14, 0.95, 0).rotateZ(Math.PI/2));
+  for (const y of [...computeYs, ...switchYs]) {
+    g.add(cylZ(0.0065, 0.2, pipe, 0, y - 1.1, 0.12));
+    g.add(box(0.02, 0.02, 0.024, M.alu(), 0, y - 1.1, 0.212));
+  }
+  g.position.set(s*0.245, 1.1, -0.44);
+  rack.add(g);
+  register(g, 'cooling', s < 0 ? 'Coolant supply manifold' : 'Coolant return manifold',
+    s < 0 ? 'Supply manifold: distributes chilled facility water to every tray through blind-mate quick-disconnects, so trays can be hot-swapped without draining the loop.'
+          : 'Return manifold: collects warm water from the cold plates and carries it back to the coolant distribution unit (CDU) for heat exchange.',
+    new THREE.Vector3(s*0.55, 0, -0.35), 0.08);
+}
+
+/* ------------------------------------------------------------------ */
+/*  Labels                                                             */
+/* ------------------------------------------------------------------ */
+const labelsRoot = document.getElementById('labels');
+const chipLabels = [];
+function addLabel(entry, offset, text, sub, chip=false) {
+  const el = document.createElement('div'); el.className = 'lbl';
+  const inner = document.createElement('div'); inner.className = 'lbl-in';
+  inner.style.color = CATS[entry.cat].color;
+  inner.innerHTML = `<span class="dot"></span><span class="line"></span><span class="pill">${text}${sub ? `<small>${sub}</small>` : ''}</span>`;
+  inner.addEventListener('click', e => { e.stopPropagation(); selectCategory(entry.cat, entry); });
+  el.appendChild(inner);
+  const o = new CSS2DObject(el);
+  o.position.copy(offset);
+  entry.obj.add(o);
+  if (chip) chipLabels.push(inner);
+}
+const byCat = c => parts.filter(p => p.cat === c);
+const computeTrays = byCat('compute').filter(p => !p.name.startsWith('Blackwell') && !p.name.startsWith('Grace'));
+addLabel(computeTrays[3], new THREE.Vector3(0.3, 0.01, 0.4), 'Compute tray', '×18');
+addLabel(byCat('nvswitch').filter(p => p.name.startsWith('NVLink switch tray'))[4], new THREE.Vector3(0.3, 0.01, 0.4), 'NVLink switch tray', '×9');
+addLabel(byCat('power')[1], new THREE.Vector3(0.3, 0.01, 0.35), 'Power shelf', '×8');
+addLabel(byCat('spine')[0], new THREE.Vector3(0.2, 0.6, -0.02), 'NVLink spine', '5,000+ cables');
+addLabel(byCat('cooling')[0], new THREE.Vector3(-0.03, 0.72, 0), 'Cooling manifolds', 'supply / return');
+addLabel(byCat('busbar')[0], new THREE.Vector3(0.05, -0.62, -0.02), 'DC busbar');
+addLabel(parts.find(p => p.name.includes('top cap')), new THREE.Vector3(0.36, 0.02, 0.3), 'Rack frame', '~1.36 t');
+addLabel(byCat('gpu')[1], new THREE.Vector3(0.07, 0.03, 0), 'Blackwell GPU', '×72', true);
+addLabel(byCat('cpu')[1], new THREE.Vector3(0.06, 0.03, 0), 'Grace CPU', '×36', true);
+
+/* ------------------------------------------------------------------ */
+/*  Selection / highlight                                              */
+/* ------------------------------------------------------------------ */
+let selection = [];
+let hovered = null;
+function setGlow(entry, k) {
+  const c = catColor[entry.cat];
+  for (const m of entry.mats) { m.emissive.copy(c); m.emissiveIntensity = k; }
+}
+function clearSelection() {
+  for (const e of selection) setGlow(e, 0);
+  selection = [];
+  document.querySelectorAll('.lg.active').forEach(el => el.classList.remove('active'));
+  showOverview();
+}
+function selectEntry(entry) {
+  for (const e of selection) setGlow(e, 0);
+  selection = [entry];
+  document.querySelectorAll('.lg.active').forEach(el => el.classList.remove('active'));
+  document.querySelector(`.lg[data-cat="${entry.cat}"]`)?.classList.add('active');
+  showInfo(entry);
+}
+function selectCategory(cat, focus) {
+  for (const e of selection) setGlow(e, 0);
+  selection = byCat(cat);
+  document.querySelectorAll('.lg.active').forEach(el => el.classList.remove('active'));
+  document.querySelector(`.lg[data-cat="${cat}"]`)?.classList.add('active');
+  showInfo(focus || null, cat);
+}
+
+const infoEl = {
+  cat: document.getElementById('info-cat'), catName: document.getElementById('info-cat-name'),
+  name: document.getElementById('info-name'), desc: document.getElementById('info-desc'),
+  specs: document.getElementById('info-specs'), hint: document.getElementById('info-hint'),
+};
+function renderSpecs(specs) { infoEl.specs.innerHTML = specs.map(s => `<span class="spec">${s}</span>`).join(''); }
+function showOverview() {
+  infoEl.cat.style.color = ''; infoEl.catName.textContent = OVERVIEW.cat;
+  infoEl.name.textContent = OVERVIEW.name; infoEl.desc.textContent = OVERVIEW.desc;
+  renderSpecs(OVERVIEW.specs); infoEl.hint.textContent = 'Tip: drag the slider or press Space to explode the rack.';
+}
+function showInfo(entry, cat) {
+  const c = CATS[cat || entry.cat];
+  infoEl.cat.style.color = c.color; infoEl.catName.textContent = c.label + (c.count ? ` ${c.count}` : '');
+  if (entry) {
+    infoEl.name.textContent = entry.name; infoEl.desc.textContent = entry.desc;
+    renderSpecs(entry.specs || c.specs);
+  } else {
+    infoEl.name.textContent = c.name; infoEl.desc.textContent = c.desc; renderSpecs(c.specs);
+  }
+  infoEl.hint.textContent = 'Click empty space or press Esc to deselect.';
+}
+showOverview();
+
+/* legend */
+const legendList = document.getElementById('legend-list');
+for (const [k, v] of Object.entries(CATS)) {
+  const el = document.createElement('div');
+  el.className = 'lg'; el.dataset.cat = k; el.style.color = v.color;
+  el.innerHTML = `<span class="sw"></span><span class="nm">${v.label}</span><span class="ct">${v.count}</span>`;
+  el.addEventListener('click', () => selectCategory(k));
+  legendList.appendChild(el);
+}
+
+/* picking */
+const ray = new THREE.Raycaster();
+const ndc = new THREE.Vector2();
+let downPos = null;
+function pick(ev) {
+  ndc.set((ev.clientX / innerWidth) * 2 - 1, -(ev.clientY / innerHeight) * 2 + 1);
+  ray.setFromCamera(ndc, camera);
+  const hit = ray.intersectObjects(pickables, false)[0];
+  return hit ? hit.object.userData.part : null;
+}
+renderer.domElement.addEventListener('pointerdown', e => { downPos = [e.clientX, e.clientY]; });
+renderer.domElement.addEventListener('pointerup', e => {
+  if (!downPos) return;
+  const moved = Math.hypot(e.clientX - downPos[0], e.clientY - downPos[1]);
+  downPos = null;
+  if (moved > 6 || e.button !== 0) return;
+  const p = pick(e);
+  if (p) selectEntry(p); else clearSelection();
+});
+renderer.domElement.addEventListener('pointermove', e => {
+  const p = pick(e);
+  if (p !== hovered) {
+    if (hovered && !selection.includes(hovered)) setGlow(hovered, 0);
+    hovered = p;
+    if (hovered && !selection.includes(hovered)) setGlow(hovered, 0.22);
+    renderer.domElement.style.cursor = hovered ? 'pointer' : '';
+  }
+});
+
+/* ------------------------------------------------------------------ */
+/*  Explode control                                                    */
+/* ------------------------------------------------------------------ */
+let eTarget = 0, eCur = 0, lastRise = 0;
+const slider = document.getElementById('explode');
+const pctEl = document.getElementById('pct');
+const btnExplode = document.getElementById('btn-explode');
+let sliderActive = false;
+slider.addEventListener('pointerdown', () => sliderActive = true);
+window.addEventListener('pointerup', () => sliderActive = false);
+slider.addEventListener('input', () => { eTarget = slider.value / 100; });
+btnExplode.addEventListener('click', () => { eTarget = eTarget > 0.5 ? 0 : 1; });
+
+function updateExplode() {
+  for (const p of parts) {
+    const s = Math.max(0, Math.min(1, (eCur - p.delay) / (1 - p.delay)));
+    p.obj.position.copy(p.home).addScaledVector(p.ex, ease(s));
+  }
+  const rise = 0.55 * ease(eCur);
+  rack.position.y = rise;
+  controls.target.y += rise - lastRise;
+  lastRise = rise;
+  if (!sliderActive) slider.value = Math.round(eCur * 100);
+  slider.style.setProperty('--pct', `${Math.round(eCur*100)}%`);
+  pctEl.textContent = `${Math.round(eCur*100)}%`;
+  btnExplode.textContent = eTarget > 0.5 ? 'Assemble' : 'Explode';
+  const chipsVisible = eCur > 0.6;
+  for (const el of chipLabels) el.classList.toggle('hidden', !chipsVisible);
+}
+
+/* buttons */
+const btnRotate = document.getElementById('btn-rotate');
+btnRotate.addEventListener('click', () => { controls.autoRotate = !controls.autoRotate; btnRotate.classList.toggle('on', controls.autoRotate); });
+const btnLabels = document.getElementById('btn-labels');
+btnLabels.addEventListener('click', () => { const on = labelsRoot.classList.toggle('off'); btnLabels.classList.toggle('on', !on); });
+let camTween = null;
+function resetView() {
+  camTween = { t:0, fromP:camera.position.clone(), fromT:controls.target.clone(),
+               toP:CAM_HOME.clone(), toT:TGT_HOME.clone().add(new THREE.Vector3(0, lastRise, 0)) };
+}
+document.getElementById('btn-reset').addEventListener('click', resetView);
+window.addEventListener('keydown', e => {
+  if (e.target.tagName === 'INPUT') return;
+  if (e.code === 'Space') { e.preventDefault(); eTarget = eTarget > 0.5 ? 0 : 1; }
+  if (e.key === 'r' || e.key === 'R') resetView();
+  if (e.key === 'Escape') clearSelection();
+});
+controls.addEventListener('start', () => { camTween = null; });
+
+/* ------------------------------------------------------------------ */
+/*  Loop                                                               */
+/* ------------------------------------------------------------------ */
+const clock = new THREE.Clock();
+function animate() {
+  requestAnimationFrame(animate);
+  const dt = Math.min(clock.getDelta(), 0.05);
+  const t = clock.elapsedTime;
+
+  eCur += (eTarget - eCur) * Math.min(1, dt * 4.5);
+  if (Math.abs(eTarget - eCur) < 0.0005) eCur = eTarget;
+  updateExplode();
+
+  if (camTween) {
+    camTween.t = Math.min(1, camTween.t + dt / 0.8);
+    const k = ease(camTween.t);
+    camera.position.lerpVectors(camTween.fromP, camTween.toP, k);
+    controls.target.lerpVectors(camTween.fromT, camTween.toT, k);
+    if (camTween.t >= 1) camTween = null;
+  }
+  controls.update();
+
+  const pulse = 0.34 + 0.16 * Math.sin(t * 5);
+  for (const e of selection) setGlow(e, pulse);
+
+  renderer.render(scene, camera);
+  labelRenderer.render(scene, camera);
+}
+animate();
+
+window.addEventListener('resize', () => {
+  camera.aspect = innerWidth / innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+  labelRenderer.setSize(innerWidth, innerHeight);
+});
+
+/* opening move: settle then gently explode to invite interaction */
+setTimeout(() => { eTarget = 0.55; }, 900);
+</script>
+</body>
+</html>
