@@ -1,0 +1,363 @@
+{
+  "verifiedAt": "2026-09-14T10:49:06.805Z",
+  "records": 68,
+  "prompts": [
+    {
+      "level": 1,
+      "sha256": "ef240e7cbaabca364b672d8643ad3e8ad8577dd4031bcfaa9576e6c1c444841c"
+    },
+    {
+      "level": 2,
+      "sha256": "2e2b95443005b7f8421c576f1ab162a81933ca3a343625ceb4a8a3ceffd0d722"
+    },
+    {
+      "level": 3,
+      "sha256": "0a5fc5fce3b0621fc3020146d1dfae5ec63d39cf162494ca242fc49100b75eaa"
+    }
+  ],
+  "originalRecords": [
+    {
+      "id": "codex-cli-L1-2026-09-14T07-16-41-581Z",
+      "sha256": "f315e63ad86a22f1232adccd88d72ddf73cdd755b4bb76cbffffc27eb5c7274a",
+      "download": "downloads/records/codex-cli-L1-2026-09-14T07-16-41-581Z.json"
+    },
+    {
+      "id": "codex-cli-L1-2026-09-14T07-16-48-028Z",
+      "sha256": "5bd0878f5c6f17962885aad147377fea621ca305184033ec12f917db99b8ea47",
+      "download": "downloads/records/codex-cli-L1-2026-09-14T07-16-48-028Z.json"
+    },
+    {
+      "id": "codex-cli-L1-2026-09-14T07-16-54-527Z",
+      "sha256": "b556308d70e5763a5323998f1d895db28e3071e5fdbdac5d220dc8338470e02e",
+      "download": "downloads/records/codex-cli-L1-2026-09-14T07-16-54-527Z.json"
+    },
+    {
+      "id": "codex-cli-L1-2026-09-14T07-17-01-691Z",
+      "sha256": "e36749eb1c7f165eb45d84a586808a84d2ad3c53d33a95ab315b64a022e0ee2d",
+      "download": "downloads/records/codex-cli-L1-2026-09-14T07-17-01-691Z.json"
+    },
+    {
+      "id": "codex-cli-L1-2026-09-14T07-17-08-151Z",
+      "sha256": "be0ee3c3d7c16480f2bb9e9f5e872d34eec1a77dc43b7cc04b928449c0272ef0",
+      "download": "downloads/records/codex-cli-L1-2026-09-14T07-17-08-151Z.json"
+    },
+    {
+      "id": "codex-cli-L1-2026-09-14T07-17-13-757Z",
+      "sha256": "03ff740b84e756d4ca5829b5ac27fe55433e61acec020ef8883ee55a89ea0068",
+      "download": "downloads/records/codex-cli-L1-2026-09-14T07-17-13-757Z.json"
+    },
+    {
+      "id": "codex-cli-L1-2026-09-14T07-17-20-735Z",
+      "sha256": "8a09fa75057efa4ccd3fd2900dc41111f6020c61e1f0cdcd51ba7ff5f5afb15b",
+      "download": "downloads/records/codex-cli-L1-2026-09-14T07-17-20-735Z.json"
+    },
+    {
+      "id": "codex-cli-L1-2026-09-14T07-17-30-354Z",
+      "sha256": "22088fcf7c88b3471ab23e76f4da64af6806269c044fc18d514a229e203e1983",
+      "download": "downloads/records/codex-cli-L1-2026-09-14T07-17-30-354Z.json"
+    },
+    {
+      "id": "codex-cli-L1-2026-09-14T07-17-39-737Z",
+      "sha256": "f297b8055dfe07fd65387f2224bbeb0a3339cd868697ce2e5aa4ee9f1b395814",
+      "download": "downloads/records/codex-cli-L1-2026-09-14T07-17-39-737Z.json"
+    },
+    {
+      "id": "codex-cli-L1-2026-09-14T07-17-48-172Z",
+      "sha256": "87c6c030186e2ca8d317bb23ad883dfa93cf4b416ea32cfa8b183862fb487e1d",
+      "download": "downloads/records/codex-cli-L1-2026-09-14T07-17-48-172Z.json"
+    },
+    {
+      "id": "claude-cli-L1-2026-09-14T07-17-54-084Z",
+      "sha256": "b005623e524879c2e9ad279a1ae98961bd5fc3220e465cd88b3d437fea480774",
+      "download": "downloads/records/claude-cli-L1-2026-09-14T07-17-54-084Z.json"
+    },
+    {
+      "id": "claude-cli-L1-2026-09-14T07-18-01-394Z",
+      "sha256": "e12f279263a7503decbbececb09b50119dfdad5b80211834b7c5a5c23ec1773d",
+      "download": "downloads/records/claude-cli-L1-2026-09-14T07-18-01-394Z.json"
+    },
+    {
+      "id": "claude-cli-L1-2026-09-14T07-18-07-353Z",
+      "sha256": "1e0163a937a90ded4be85b0e7e8ed1b20cd0e2ed0f1665478c0f76b38559f045",
+      "download": "downloads/records/claude-cli-L1-2026-09-14T07-18-07-353Z.json"
+    },
+    {
+      "id": "claude-cli-L1-2026-09-14T07-18-16-516Z",
+      "sha256": "66c50266cec0b0161f04d602cbfe452ec89ac8155824a52b1495bca43a463645",
+      "download": "downloads/records/claude-cli-L1-2026-09-14T07-18-16-516Z.json"
+    },
+    {
+      "id": "claude-cli-L1-2026-09-14T07-18-22-206Z",
+      "sha256": "b351b9d35081a198f9f189e7ef8f6b487744373d64b567a3c3360b354a067735",
+      "download": "downloads/records/claude-cli-L1-2026-09-14T07-18-22-206Z.json"
+    },
+    {
+      "id": "claude-cli-L1-2026-09-14T07-18-35-356Z",
+      "sha256": "5b04eb4491db588905ea45a31112f9d5e8acb76edc4381706edc53b611ea1f35",
+      "download": "downloads/records/claude-cli-L1-2026-09-14T07-18-35-356Z.json"
+    },
+    {
+      "id": "claude-cli-L1-2026-09-14T07-18-41-358Z",
+      "sha256": "d57375aeab44e758be9067d83f51cb6ba1ff3118d050f585194fe0c6a63a9c87",
+      "download": "downloads/records/claude-cli-L1-2026-09-14T07-18-41-358Z.json"
+    },
+    {
+      "id": "claude-cli-L1-2026-09-14T07-18-52-723Z",
+      "sha256": "14926f4c13c90de4d37e09a5ce5c75581e0ca562dde8704d8ef90ccf9aea6622",
+      "download": "downloads/records/claude-cli-L1-2026-09-14T07-18-52-723Z.json"
+    },
+    {
+      "id": "claude-cli-L1-2026-09-14T07-18-58-486Z",
+      "sha256": "03ac5c0143efe9bdcd41a1a296a2abb311a642f17e813629f774981165e8554a",
+      "download": "downloads/records/claude-cli-L1-2026-09-14T07-18-58-486Z.json"
+    },
+    {
+      "id": "claude-cli-L1-2026-09-14T07-19-09-353Z",
+      "sha256": "244b1c0eb2dd41500c7e1c1526eabb25823fb6dae2e6212bbf2efe6f1b27d394",
+      "download": "downloads/records/claude-cli-L1-2026-09-14T07-19-09-353Z.json"
+    },
+    {
+      "id": "codex-cli-L2-2026-09-14T07-19-15-575Z",
+      "sha256": "44530ff81731d72861bed09c37f394b7512bd73a23f9326d60074175cd0151ae",
+      "download": "downloads/records/codex-cli-L2-2026-09-14T07-19-15-575Z.json"
+    },
+    {
+      "id": "codex-cli-L2-2026-09-14T07-19-22-875Z",
+      "sha256": "2d43b80adac0e4f0a3b8b9162bdfceb4b9a6cbf87708b5ee683f6a7f08ffcdff",
+      "download": "downloads/records/codex-cli-L2-2026-09-14T07-19-22-875Z.json"
+    },
+    {
+      "id": "codex-cli-L2-2026-09-14T07-19-29-990Z",
+      "sha256": "0cea7377371ca22f439e3d8bf2e403222a3f8a2d7e88af5cb0fc5ccd8f798eb6",
+      "download": "downloads/records/codex-cli-L2-2026-09-14T07-19-29-990Z.json"
+    },
+    {
+      "id": "codex-cli-L2-2026-09-14T07-19-36-610Z",
+      "sha256": "6851427727037621e82ab6dc069cc57d427e5313badc1ad5902de07db62d9b08",
+      "download": "downloads/records/codex-cli-L2-2026-09-14T07-19-36-610Z.json"
+    },
+    {
+      "id": "codex-cli-L2-2026-09-14T07-19-42-765Z",
+      "sha256": "4dcb2f3fbaf9affeb1801cbf37f8df79cc9bd0cd9f13c9d4f92a8efa18a49e3c",
+      "download": "downloads/records/codex-cli-L2-2026-09-14T07-19-42-765Z.json"
+    },
+    {
+      "id": "codex-cli-L2-2026-09-14T07-19-49-292Z",
+      "sha256": "c30d74a8b6236fdc83c042b2a0dc56246ed672b8d34e2868028498f24c4cca60",
+      "download": "downloads/records/codex-cli-L2-2026-09-14T07-19-49-292Z.json"
+    },
+    {
+      "id": "codex-cli-L2-2026-09-14T07-19-55-863Z",
+      "sha256": "dae8d9c9840cc4791b957301ad8dbcfcf5c7c787e04ab9e65dd85ce1c3e60b43",
+      "download": "downloads/records/codex-cli-L2-2026-09-14T07-19-55-863Z.json"
+    },
+    {
+      "id": "codex-cli-L2-2026-09-14T07-20-01-897Z",
+      "sha256": "c44f5b24a44ed8775498e05e7cb46a835207a3f9f13aeb015b68f086cc6c04bd",
+      "download": "downloads/records/codex-cli-L2-2026-09-14T07-20-01-897Z.json"
+    },
+    {
+      "id": "codex-cli-L2-2026-09-14T07-20-07-809Z",
+      "sha256": "72cb3f88a71c7e652570b58fe4c20f5ad830dbe60cba46063bc697b36d3b6aa3",
+      "download": "downloads/records/codex-cli-L2-2026-09-14T07-20-07-809Z.json"
+    },
+    {
+      "id": "codex-cli-L2-2026-09-14T07-20-13-951Z",
+      "sha256": "1de0d7bb1cf82d392d112cac689c90fff709550992af16054559b8067d204970",
+      "download": "downloads/records/codex-cli-L2-2026-09-14T07-20-13-951Z.json"
+    },
+    {
+      "id": "claude-cli-L2-2026-09-14T07-20-20-549Z",
+      "sha256": "0cbcb6ef93342788f471c4e4769620473e8e9f8f276ceeb3243503bb8d14fbc3",
+      "download": "downloads/records/claude-cli-L2-2026-09-14T07-20-20-549Z.json"
+    },
+    {
+      "id": "claude-cli-L2-2026-09-14T07-20-27-382Z",
+      "sha256": "c500a3ade4ca083506522e89e20ce985f41703f4640fb9568e282d9b6515d884",
+      "download": "downloads/records/claude-cli-L2-2026-09-14T07-20-27-382Z.json"
+    },
+    {
+      "id": "claude-cli-L2-2026-09-14T07-20-33-250Z",
+      "sha256": "dfb597466a34cf6100550bab74563f8021dd0e93ff3844572eaf307de6cc2d75",
+      "download": "downloads/records/claude-cli-L2-2026-09-14T07-20-33-250Z.json"
+    },
+    {
+      "id": "claude-cli-L2-2026-09-14T07-20-45-107Z",
+      "sha256": "3e6443c3b171db9be732384fc1062a87a16acf45228b2f7540ce0ae517244fad",
+      "download": "downloads/records/claude-cli-L2-2026-09-14T07-20-45-107Z.json"
+    },
+    {
+      "id": "claude-cli-L2-2026-09-14T07-20-51-088Z",
+      "sha256": "223d7ef190ad1f9d8464eb83c87a8cfdc9b21782c19202560ac557e3af5d8f9d",
+      "download": "downloads/records/claude-cli-L2-2026-09-14T07-20-51-088Z.json"
+    },
+    {
+      "id": "claude-cli-L2-2026-09-14T07-20-57-183Z",
+      "sha256": "a8d91b74e27b3ed2b0e4e0981eaf14bdb3d0a50da4d8dde6b29f7115fc0b72c6",
+      "download": "downloads/records/claude-cli-L2-2026-09-14T07-20-57-183Z.json"
+    },
+    {
+      "id": "claude-cli-L2-2026-09-14T07-21-03-297Z",
+      "sha256": "3ad2634b8652daad8f9e6368864e3d1c0f4a388d7988fb07c7631376433d0825",
+      "download": "downloads/records/claude-cli-L2-2026-09-14T07-21-03-297Z.json"
+    },
+    {
+      "id": "claude-cli-L2-2026-09-14T07-21-09-434Z",
+      "sha256": "08ad8fe652b4f38055f7923293e663006c46f3e8589d43408926cca08870f68c",
+      "download": "downloads/records/claude-cli-L2-2026-09-14T07-21-09-434Z.json"
+    },
+    {
+      "id": "claude-cli-L2-2026-09-14T07-21-15-970Z",
+      "sha256": "f977f3fd8335799d3794e53b992bfe4f662668f34bf94f1ead948355acf7d550",
+      "download": "downloads/records/claude-cli-L2-2026-09-14T07-21-15-970Z.json"
+    },
+    {
+      "id": "claude-cli-L2-2026-09-14T07-21-21-644Z",
+      "sha256": "c139037626cc2bd78e80246cbb390795fc41c043b600341c81c0c7d43ada336d",
+      "download": "downloads/records/claude-cli-L2-2026-09-14T07-21-21-644Z.json"
+    },
+    {
+      "id": "codex-cli-L3-2026-09-14T07-21-30-605Z",
+      "sha256": "5d3e6e708ee76fa99b1281dc0b8836f5179484aee84a098c2a6bf3402bef9477",
+      "download": "downloads/records/codex-cli-L3-2026-09-14T07-21-30-605Z.json"
+    },
+    {
+      "id": "codex-cli-L3-2026-09-14T07-21-38-548Z",
+      "sha256": "5bb6ab3b2c4dabb294565291b258de2313bc0bc5169ca78cb0b9238f3d55e852",
+      "download": "downloads/records/codex-cli-L3-2026-09-14T07-21-38-548Z.json"
+    },
+    {
+      "id": "codex-cli-L3-2026-09-14T07-21-46-171Z",
+      "sha256": "bec79c697a2d95abddb8edd3ecb26045329d39cd7bc48bb0f5fe95deee876cf0",
+      "download": "downloads/records/codex-cli-L3-2026-09-14T07-21-46-171Z.json"
+    },
+    {
+      "id": "codex-cli-L3-2026-09-14T07-21-53-388Z",
+      "sha256": "2a0625ce9aca9a859ee8fce8e4fa277b2121f10b9b0a83f2678cccb32d3ba8ec",
+      "download": "downloads/records/codex-cli-L3-2026-09-14T07-21-53-388Z.json"
+    },
+    {
+      "id": "codex-cli-L3-2026-09-14T07-22-00-736Z",
+      "sha256": "d809a0b6f006f8e0ab77b92751815b68103b291dff99307dd1848770e38559bd",
+      "download": "downloads/records/codex-cli-L3-2026-09-14T07-22-00-736Z.json"
+    },
+    {
+      "id": "codex-cli-L3-2026-09-14T07-22-07-429Z",
+      "sha256": "24d8d6c643268c0e397392520e3d9357a2c0c1060d4ccf7f642ea59a79cda416",
+      "download": "downloads/records/codex-cli-L3-2026-09-14T07-22-07-429Z.json"
+    },
+    {
+      "id": "codex-cli-L3-2026-09-14T07-22-15-865Z",
+      "sha256": "d71845e0035426612ad7906353888d738c1db8fbf9077ebe86d3eaaa143563b8",
+      "download": "downloads/records/codex-cli-L3-2026-09-14T07-22-15-865Z.json"
+    },
+    {
+      "id": "codex-cli-L3-2026-09-14T07-22-23-669Z",
+      "sha256": "3e87459a0a63424208de57c858efae112d9d0fa26b9d2a8bab0d808c56a34caa",
+      "download": "downloads/records/codex-cli-L3-2026-09-14T07-22-23-669Z.json"
+    },
+    {
+      "id": "codex-cli-L3-2026-09-14T07-22-31-661Z",
+      "sha256": "a0d75675a957c1e76cd61b67caa5c738a0fc8c45f6017225e6b16d2df35a4c7d",
+      "download": "downloads/records/codex-cli-L3-2026-09-14T07-22-31-661Z.json"
+    },
+    {
+      "id": "codex-cli-L3-2026-09-14T07-22-39-384Z",
+      "sha256": "429e6232259b8413c0fbeaead7bc000a6ea26f17d19f0ca3b74432824e62b3dd",
+      "download": "downloads/records/codex-cli-L3-2026-09-14T07-22-39-384Z.json"
+    },
+    {
+      "id": "claude-cli-L3-2026-09-14T07-22-45-080Z",
+      "sha256": "98d6b931af4cd81f4f49ff18fcb8a832300dadb49e521956e4cca76f9ee41491",
+      "download": "downloads/records/claude-cli-L3-2026-09-14T07-22-45-080Z.json"
+    },
+    {
+      "id": "claude-cli-L3-2026-09-14T07-22-51-527Z",
+      "sha256": "a6f89789ce434a815a9221097309d1aa010606887c218767cd26764e0ab26089",
+      "download": "downloads/records/claude-cli-L3-2026-09-14T07-22-51-527Z.json"
+    },
+    {
+      "id": "claude-cli-L3-2026-09-14T07-22-57-653Z",
+      "sha256": "ab5aa3e676b4e86f31fa538cb8dee15246727c8e657df4d35a3d6d8d58c0120a",
+      "download": "downloads/records/claude-cli-L3-2026-09-14T07-22-57-653Z.json"
+    },
+    {
+      "id": "claude-cli-L3-2026-09-14T07-23-03-817Z",
+      "sha256": "c75a01398b057318ab73a783e5efe3dc8f4137ed7bb429696013f78c057931df",
+      "download": "downloads/records/claude-cli-L3-2026-09-14T07-23-03-817Z.json"
+    },
+    {
+      "id": "claude-cli-L3-2026-09-14T07-23-10-242Z",
+      "sha256": "989bdb0755054aa345f5228a65074e08b3d3d2b2e28fb2d046bcb3dd49109f56",
+      "download": "downloads/records/claude-cli-L3-2026-09-14T07-23-10-242Z.json"
+    },
+    {
+      "id": "claude-cli-L3-2026-09-14T07-23-16-438Z",
+      "sha256": "68571fedda60938ce6746c90b855e8e2575339001ff692fbaa299712825a04db",
+      "download": "downloads/records/claude-cli-L3-2026-09-14T07-23-16-438Z.json"
+    },
+    {
+      "id": "claude-cli-L3-2026-09-14T07-23-21-919Z",
+      "sha256": "fddb1230bd8226ca5357f580292ce7d81d4bdd1147bdfbf2cd2635d0a1714199",
+      "download": "downloads/records/claude-cli-L3-2026-09-14T07-23-21-919Z.json"
+    },
+    {
+      "id": "claude-cli-L3-2026-09-14T07-23-27-603Z",
+      "sha256": "4ce002402d25784380a705fdb1c586c8e288447456819266df2cdb105479345e",
+      "download": "downloads/records/claude-cli-L3-2026-09-14T07-23-27-603Z.json"
+    },
+    {
+      "id": "claude-cli-L3-2026-09-14T07-23-33-842Z",
+      "sha256": "ddea5542d5972779ae743903c35926c92b01a818e0a6533e8564f28ae3d59884",
+      "download": "downloads/records/claude-cli-L3-2026-09-14T07-23-33-842Z.json"
+    },
+    {
+      "id": "claude-cli-L3-2026-09-14T07-23-40-142Z",
+      "sha256": "b27cfc585a052c81fcc5ceff446f16b79274eb5a7e65e0a2450acfcd674a70cc",
+      "download": "downloads/records/claude-cli-L3-2026-09-14T07-23-40-142Z.json"
+    },
+    {
+      "id": "claude-web-L1-2026-09-14T07-34-58-276Z",
+      "sha256": "7db93ee298e8c4da9a1cd98d5ce34800525cbe173d866c56b1e46826147b4d3b",
+      "download": "downloads/records/claude-web-L1-2026-09-14T07-34-58-276Z.json"
+    },
+    {
+      "id": "claude-web-L1-2026-09-14T07-37-11-280Z",
+      "sha256": "c8b6556866c63c6adf35589010e03bbc4ce9e8adda53e526f43ea17e8ead6b8b",
+      "download": "downloads/records/claude-web-L1-2026-09-14T07-37-11-280Z.json"
+    },
+    {
+      "id": "claude-web-L1-2026-09-14T07-37-27-274Z",
+      "sha256": "e6059b3d7c2915d1d893e61586c8f92e6a73497ea17d72f0d8feb903562ca69f",
+      "download": "downloads/records/claude-web-L1-2026-09-14T07-37-27-274Z.json"
+    },
+    {
+      "id": "claude-web-L1-2026-09-14T07-37-38-277Z",
+      "sha256": "8b7192d1fd99c184c4e7756121ad99dd87681a63c8944b6842a354a18546deae",
+      "download": "downloads/records/claude-web-L1-2026-09-14T07-37-38-277Z.json"
+    },
+    {
+      "id": "claude-web-L1-2026-09-14T07-42-10-272Z",
+      "sha256": "8fea64db9c0a2815d21a49d226964aaf1426ca895e4903e7096b140b2fa52b55",
+      "download": "downloads/records/claude-web-L1-2026-09-14T07-42-10-272Z.json"
+    },
+    {
+      "id": "claude-web-L1-2026-09-14T07-42-45-271Z",
+      "sha256": "570221b037c7c9846852cde8f7e1a8c7acf5cf3b67ccf071ad4aab6badd7d47a",
+      "download": "downloads/records/claude-web-L1-2026-09-14T07-42-45-271Z.json"
+    },
+    {
+      "id": "claude-web-L1-2026-09-14T07-43-00-274Z",
+      "sha256": "9cf19cf5411dff9a2c365f7622ca2ccbf8ea4036af818214a93d4467c6c6ac55",
+      "download": "downloads/records/claude-web-L1-2026-09-14T07-43-00-274Z.json"
+    },
+    {
+      "id": "claude-web-L1-2026-09-14T07-43-17-265Z",
+      "sha256": "1bdcbfef5592de4ef1caec659430f576c9550bbfbd46317567e8d4bdcda9cefe",
+      "download": "downloads/records/claude-web-L1-2026-09-14T07-43-17-265Z.json"
+    }
+  ],
+  "privatePatternFlags": 0,
+  "generatedFromFrozenFiles": true,
+  "modelCalls": 0
+}

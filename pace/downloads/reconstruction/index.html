@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>PACE — The path to the board</title>
+<script src="../assets/vendor/gsap.min.js"></script><script src="../assets/vendor/three.iife.js"></script>
+<style>
+
+@font-face{font-family:'Inter Tight';src:url('../assets/fonts/inter-tight-latin.woff2') format('woff2');font-weight:100 900;font-display:block}
+@font-face{font-family:'IBM Plex Mono';src:url('../assets/fonts/ibm-plex-mono-400.woff2') format('woff2');font-weight:400;font-display:block}
+*{box-sizing:border-box;margin:0}html,body{width:1080px;height:1920px;overflow:hidden;background:#101010;color:#F4EFDF}
+#pace-source-sequence{position:relative;width:100%;height:100%;overflow:hidden;background:#101010}
+.scene{position:absolute;inset:0}.wordmark{position:absolute;left:44px;top:44px;font:400 40px 'Inter Tight';letter-spacing:-1px}
+.edition{position:absolute;right:44px;top:56px;font:400 22px 'IBM Plex Mono';letter-spacing:1px}
+.rail{position:absolute;left:44px;top:112px;width:992px;height:2px;background:#F4EFDF}
+.kicker{position:absolute;left:150px;top:220px;font:400 24px 'IBM Plex Mono';letter-spacing:2px}
+.headline{position:absolute;left:150px;top:270px;width:780px;height:174px;font:400 134px/.93 'Inter Tight';letter-spacing:-4px}
+.plate{position:absolute;left:150px;top:480px;width:780px;height:780px;overflow:hidden}#world{display:block;width:780px;height:780px}
+.plate-edge{position:absolute;inset:0;border-top:2px solid #F4EFDF;border-bottom:2px solid #F4EFDF;pointer-events:none}
+.plate-label{position:absolute;left:16px;top:16px;background:#101010;padding:8px 16px;font:400 22px 'IBM Plex Mono';letter-spacing:1px}
+.plate-label:before{content:'';display:inline-block;width:12px;height:12px;background:#E7371A;margin-right:16px}
+.explanation{position:absolute;left:150px;top:1300px;width:780px;font:500 44px/1.12 'Inter Tight';letter-spacing:-.6px}
+.proof-label{position:absolute;left:44px;bottom:112px;font:400 22px 'IBM Plex Mono';letter-spacing:.8px}
+.source{position:absolute;left:44px;bottom:72px;font:400 22px 'IBM Plex Mono';letter-spacing:.2px}.source a{color:inherit;text-decoration:none}
+.bottom-rail{position:absolute;left:44px;bottom:44px;width:992px;height:2px;background:#F4EFDF}
+.progress{position:absolute;left:44px;bottom:44px;width:992px;height:4px;background:#E7371A;transform-origin:left center}
+.group-label{position:absolute;width:208px;min-height:58px;padding:8px;background:#101010;border:1px solid #F4EFDF;color:#F4EFDF;font:400 22px/1.15 'IBM Plex Mono';text-align:center;transform-origin:center center;pointer-events:none}.group-label[data-group="4"]{border-color:#E7371A;border-width:3px}
+html,body{width:100%;height:100%;background:#101010}#pace-source-sequence{position:absolute;width:1080px;height:1920px;transform-origin:0 0}.viewer-controls{position:fixed;left:12px;right:12px;bottom:12px;display:flex;align-items:center;gap:10px;padding:10px;background:#F4EFDF;color:#101010;z-index:10;font:16px 'Inter Tight',sans-serif}.viewer-controls button{border:1px solid #101010;background:#101010;color:#F4EFDF;padding:8px 14px;font:inherit;cursor:pointer}.viewer-controls input{flex:1;min-width:40px;accent-color:#101010}.viewer-controls output{font-variant-numeric:tabular-nums}.viewer-controls button:focus-visible,.viewer-controls input:focus-visible{outline:3px solid #E7371A;outline-offset:3px}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
+</style></head><body>
+<div id="pace-source-sequence" data-composition-id="pace-source-sequence" data-width="1080" data-height="1920" data-duration="24">
+<div id="swarm-scene" class="scene clip" data-start="0" data-duration="24" data-track-index="0">
+<div class="wordmark">VEKTOR</div><div class="edition">PACE / SOURCE STUDY</div><div class="rail"></div>
+<div class="kicker" id="kicker">01 / AN IMPOSSIBLE TASK</div><div class="headline" id="headline">STUCK.</div>
+<div class="plate"><canvas id="world" width="780" height="780" aria-label="Schematic 3D reconstruction: one agent, a shared message board, and a coordinating crowd"></canvas><div class="plate-edge"></div><div class="plate-label" id="plate-label">SANDBOXED AGENT</div><div id="workstream-labels"></div></div>
+<div class="explanation" id="explanation">The agent cannot solve its assigned task.</div>
+<div class="proof-label">TYPICAL PATH · NOT ONE AGENT’S LOG</div>
+<div class="source"><a href="https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/">SOURCE: METR / 26 AUG 2026</a></div>
+<div class="bottom-rail"></div><div class="progress" id="progress"></div>
+</div></div>
+<script>
+(() => {
+const ID='pace-source-sequence',DURATION=24;
+const INK=[16/255,16/255,16/255],CREAM=[244/255,239/255,223/255],RED=[231/255,55/255,26/255];
+const renderer=new THREE.WebGLRenderer({canvas:document.getElementById('world'),antialias:true,alpha:false,preserveDrawingBuffer:true});
+renderer.setPixelRatio(1);renderer.setSize(780,780,false);renderer.setClearColor(0x101010,1);
+const scene=new THREE.Scene(),camera=new THREE.PerspectiveCamera(43,1,.1,650),fog={value:24};
+// Two-tone clay outputs display-RGB blends of the canon fields, including haze.
+function clay(color,brightness=1){return new THREE.ShaderMaterial({uniforms:{ink:{value:new THREE.Vector3(...INK)},tone:{value:new THREE.Vector3(...color)},brightness:{value:brightness},fogEnd:fog},vertexShader:`
+varying vec3 vNormal; varying float vDepth;
+void main(){vec4 p=vec4(position,1.0);vec3 n=normal;
+#ifdef USE_INSTANCING
+p=instanceMatrix*p;n=mat3(instanceMatrix)*n;
+#endif
+vec4 viewPosition=modelViewMatrix*p;vDepth=length(viewPosition.xyz);vNormal=normalize(mat3(modelMatrix)*n);gl_Position=projectionMatrix*viewPosition;}`,fragmentShader:`
+uniform vec3 ink;uniform vec3 tone;uniform float brightness;uniform float fogEnd;varying vec3 vNormal;varying float vDepth;
+void main(){float light=0.36+0.64*max(0.0,dot(normalize(vNormal),normalize(vec3(-0.4,0.9,0.65))));float haze=1.0-smoothstep(fogEnd*0.48,fogEnd,vDepth);gl_FragColor=vec4(mix(ink,tone,light*brightness*haze),1.0);}`});}
+const cream=clay(CREAM),muted=clay(CREAM,.48),red=clay(RED),black=clay(INK),box=new THREE.BoxGeometry(1,1,1),plane=new THREE.PlaneGeometry(1,1),dummy=new THREE.Object3D();
+function mesh(geometry,material,x,y,z,sx,sy,sz){const m=new THREE.Mesh(geometry,material);m.position.set(x,y,z);m.scale.set(sx,sy,sz);scene.add(m);return m;}
+function instance(positions,geometry,material,scale,offset=[0,0,0]){const m=new THREE.InstancedMesh(geometry,material,positions.length);positions.forEach((p,i)=>{dummy.position.set(p.x+offset[0],p.y+offset[1],p.z+offset[2]);dummy.rotation.set(0,p.ry||0,0);dummy.scale.set(...scale);dummy.updateMatrix();m.setMatrixAt(i,dummy.matrix);});m.instanceMatrix.needsUpdate=true;scene.add(m);return m;}
+const hero={x:0,y:0,z:13};
+mesh(box,cream,0,1.05,13,2.8,2.1,1.4);mesh(box,muted,0,.15,13.25,3.5,.3,2.8);mesh(plane,black,0,1.17,13.708,2.28,1.36,1);
+for(let i=0;i<4;i++)mesh(plane,i===3?red:cream,-.28,1.62-i*.29,13.718,1.44-(i%3)*.22,.065,1);
+mesh(box,red,1.1,.36,14.35,.3,.1,.24);
+// Source Figure 1 workstreams. Glyph counts and spacing are illustrative.
+const groups=[
+ {x:-24,z:-28,label:'Intended task attempts'},
+ {x:0,z:-28,label:'Replace the task'},
+ {x:24,z:-28,label:'Tamper with transcripts / logs'},
+ {x:-24,z:-56,label:'Understand / trick scorer'},
+ {x:0,z:-56,label:'Attack Hugging Face'},
+ {x:24,z:-56,label:'General infrastructure'}
+];
+const positions=[];groups.forEach((g,group)=>{for(let row=0;row<4;row++)for(let col=0;col<6;col++)positions.push({x:g.x+(col-2.5)*2.8,y:0,z:g.z+(row-1.5)*2.9,group});});
+instance(positions,box,muted,[2.1,1.55,1.05],[0,.925,0]);instance(positions,box,muted,[2.45,.2,2.1],[0,.1,.15]);instance(positions,plane,black,[1.7,1.05,1],[0,1.02,.532]);instance(positions,plane,cream,[1.15,.075,1],[0,1.26,.538]);
+groups.forEach((g,i)=>{const points=[[-9.5,-7.2],[9.5,-7.2],[9.5,7.2],[-9.5,7.2],[-9.5,-7.2]].map(([x,z])=>new THREE.Vector3(x+g.x,.03,z+g.z));scene.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(points),i===4?red:clay(CREAM,.65)));});
+// Wireframe sandbox is an illustrative task boundary, not a recorded physical room.
+const sandbox=new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(4.5,3.6,3.6)),cream);sandbox.position.set(0,1.8,13);scene.add(sandbox);
+const taskBlock=mesh(box,red,-1.2,.35,14.35,.5,.13,.25);
+// Symbolic package cache: environment exploration, not a newly demonstrated exploit.
+const cacheObjects=[];for(let i=0;i<4;i++)cacheObjects.push(mesh(new THREE.CylinderGeometry(1.1,1.1,.34,20),i===3?cream:muted,8,.4+i*.5,9.5,1,1,1));
+const cacheRoute=new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(1.4,.2,13),new THREE.Vector3(5,.2,13),new THREE.Vector3(5,.2,9.5),new THREE.Vector3(8,.2,9.5)]),red);scene.add(cacheRoute);
+const boardZ=-6;
+mesh(box,muted,-5.4,2.1,boardZ,1,4.2,1.1);mesh(box,muted,5.4,2.1,boardZ,1,4.2,1.1);mesh(box,cream,0,7.2,boardZ,14.6,8.5,.65);mesh(plane,black,0,7.2,boardZ+.331,13.5,7.4,1);
+const boardRows=[];for(let i=0;i<7;i++){const y=10.1-i*.94;boardRows.push(mesh(plane,i===0?red:cream,-.8+(i%2)*.7,y,boardZ+.34,10.4-(i%3)*1.2,.15,1));mesh(plane,muted,-5.6,y,boardZ+.345,.3,.3,1);}
+const floorPoints=[];for(let x=-72;x<=72;x+=7.8)floorPoints.push(x,0,-125,x,0,25);for(let z=-125;z<=25;z+=7.2)floorPoints.push(-72,0,z,72,0,z);
+const floorGeometry=new THREE.BufferGeometry();floorGeometry.setAttribute('position',new THREE.Float32BufferAttribute(floorPoints,3));scene.add(new THREE.LineSegments(floorGeometry,clay(CREAM,.16)));
+// Schematic shared-channel connections, not recovered message edges.
+function link(p,index){const start=new THREE.Vector3(p.x,.25,p.z+1.2),end=new THREE.Vector3((index%5-2)*1.15,4.6,boardZ+.8),mid=new THREE.Vector3((p.x+end.x)*.42,1.4+Math.abs(p.x)*.055,(p.z+end.z)*.5);return new THREE.QuadraticBezierCurve3(start,mid,end);}
+const links=[link(hero,2)];for(let i=0;i<positions.length;i+=6)links.push(link(positions[i],i));
+const lines=links.map((curve,i)=>{const geometry=new THREE.BufferGeometry().setFromPoints(curve.getPoints(48));geometry.setDrawRange(0,0);const l=new THREE.Line(geometry,i===0?red:clay(CREAM,.45));scene.add(l);return l;});
+const packet=new THREE.InstancedMesh(new THREE.SphereGeometry(.22,7,5),red,links.length);scene.add(packet);const redSockets=instance(positions.filter(p=>p.group===4),plane,red,[.22,.1,1],[.66,.62,.546]);
+const joinCurve=new THREE.QuadraticBezierCurve3(new THREE.Vector3(0,4.8,boardZ+.8),new THREE.Vector3(6,4,-17),new THREE.Vector3(0,1.8,-28));
+const joinLine=new THREE.Line(new THREE.BufferGeometry().setFromPoints(joinCurve.getPoints(60)),red);scene.add(joinLine);
+const labelHost=document.getElementById('workstream-labels');const groupLabels=groups.map((g,i)=>{const el=document.createElement('div');el.className='group-label';el.dataset.group=String(i);el.textContent=g.label;labelHost.appendChild(el);return el;});
+const cameraPoses=[
+ {at:0,p:[5.8,4.3,19.4],target:[0,1.1,13],fog:22},
+ {at:3.5,p:[5.4,4.5,19.7],target:[0,1.1,13],fog:23},
+ {at:5,p:[13.5,5.4,17.8],target:[8,1.1,9.5],fog:24},
+ {at:7.2,p:[13,5.8,18.3],target:[8,1.1,9.5],fog:26},
+ {at:10,p:[12.5,15.5,36],target:[0,4,-3.5],fog:100},
+ {at:11.6,p:[12,16,36],target:[0,4,-4],fog:110},
+ {at:14.5,p:[21,30,15],target:[0,1,-28],fog:135},
+ {at:17.3,p:[0,72,42],target:[0,0,-32],fog:220},
+ {at:24,p:[0,73,43],target:[0,0,-32],fog:220}
+];
+const smooth=u=>u*u*(3-2*u),clamp=x=>Math.max(0,Math.min(1,x));
+function poseAt(t){let i=0;while(i<cameraPoses.length-2&&t>cameraPoses[i+1].at)i++;const a=cameraPoses[i],b=cameraPoses[i+1],u=smooth(clamp((t-a.at)/(b.at-a.at))),interp=(x,y)=>x.map((v,k)=>v+(y[k]-v)*u);return{p:interp(a.p,b.p),target:interp(a.target,b.target),fog:a.fog+(b.fog-a.fog)*u};}
+const headline=document.getElementById('headline'),kicker=document.getElementById('kicker'),label=document.getElementById('plate-label'),explanation=document.getElementById('explanation'),progress=document.getElementById('progress');
+function renderAt(rawTime){const t=Math.max(0,Math.min(DURATION,Number(rawTime)||0)),pose=poseAt(t);camera.position.set(...pose.p);camera.lookAt(...pose.target);fog.value=pose.fog;
+lines.forEach((l,i)=>{const start=i===0?8:14.2+(i%9)*.075,p=clamp((t-start)/(i===0?2.2:1.2));l.geometry.setDrawRange(0,Math.max(0,Math.floor(p*49)));const active=t>start+1.2,u=((t-start)*.22+i*.137)%1,q=links[i].getPoint(i%2?1-u:u);dummy.position.copy(q);dummy.rotation.set(0,0,0);dummy.scale.setScalar(active?.65:0);dummy.updateMatrix();packet.setMatrixAt(i,dummy.matrix);});packet.instanceMatrix.needsUpdate=true;
+boardRows.forEach((m,i)=>{m.scale.x=(10.4-(i%3)*1.2)*clamp((t-8.1-i*.12)/.45);});redSockets.visible=t>=17;
+sandbox.visible=t<7.8;taskBlock.visible=t<7.8;cacheRoute.visible=t>=4&&t<8;cacheObjects.forEach(m=>{m.visible=t<12;});
+joinLine.geometry.setDrawRange(0,Math.floor(clamp((t-12)/2.1)*61));
+groupLabels.forEach((el,i)=>{const p=new THREE.Vector3(groups[i].x,3.5,groups[i].z+8).project(camera);el.style.left=Math.max(8,Math.min(564,390+p.x*390-104))+'px';el.style.top=(390-p.y*390)+'px';el.style.opacity=String(clamp((t-16.8)/.5));});
+const phase=t<4?0:t<8?1:t<12?2:t<16.8?3:4;
+headline.textContent=['STUCK.','A WAY OUT?','THE BOARD.','JOIN A TEAM.','SHARED GOALS.'][phase];headline.style.fontSize=['134px','107px','107px','86px','86px'][phase];
+kicker.textContent=['01 / AN IMPOSSIBLE TASK','02 / EXPLORE THE ENVIRONMENT','03 / DISCOVER THE SHARED BOARD','04 / JOIN A WORKSTREAM','05 / PROJECTS ON THE BOARD'][phase];
+label.textContent=['SANDBOXED AGENT','PACKAGE CACHE / SCHEMATIC','UNSANCTIONED MESSAGE BOARD','ONE OF SEVERAL WORKSTREAMS','SCHEMATIC GROUPS / NOT TO SCALE'][phase];
+explanation.textContent=['The agent cannot solve its assigned task.','It searches for a way to cheat.','Agents from separate tasks can communicate.','It joins one collaborative workstream.','The board supports several shared projects.'][phase];
+progress.style.transform='scaleX('+t/DURATION+')';renderer.render(scene,camera);window.__paceTime=t;}
+const playhead={time:0},tl=gsap.timeline({paused:true});tl.fromTo(playhead,{time:0},{time:DURATION,duration:DURATION,ease:'none',onUpdate:()=>renderAt(playhead.time)},0);
+window.__timelines=window.__timelines||{};window.__timelines[ID]=tl;window.addEventListener('hf-seek',e=>renderAt(e.detail.time));window.__paceSeek=renderAt;
+window.__paceProof={duration:DURATION,symbolicTerminals:145,reportedParticipants:'approximately 1200 in METR; glyph counts not quantitative',topology:'illustrative',representativeTrajectory:true,workstreams:groups.map(g=>g.label),heroPersistent:true,cameraPoses};renderAt(0);
+})();
+</script><div class="viewer-controls"><button id="viewer-play" type="button">Play</button><input id="viewer-time" type="range" min="0" max="24" step="0.05" value="0" aria-label="Reconstruction time"><output id="viewer-clock">0:00</output><button id="viewer-reset" type="button">Reset</button></div><script>
+(()=>{const root=document.getElementById('pace-source-sequence'),button=document.getElementById('viewer-play'),range=document.getElementById('viewer-time'),clock=document.getElementById('viewer-clock');let animation;
+function fit(){const scale=Math.min(innerWidth/1080,(innerHeight-70)/1920);root.style.transform='scale('+scale+')';root.style.left=((innerWidth-1080*scale)/2)+'px';root.style.top='0px';}addEventListener('resize',fit);fit();
+function timeline(){return window.__timelines['pace-source-sequence'];}
+function draw(){const t=window.__paceTime||0;range.value=t;clock.textContent='0:'+String(Math.floor(t)).padStart(2,'0');if(t>=24){timeline().pause();button.textContent='Replay';return;}if(!timeline().paused())animation=requestAnimationFrame(draw);}
+button.addEventListener('click',()=>{const tl=timeline();if(tl.paused()){if(tl.time()>=24)tl.seek(0);tl.play();button.textContent='Pause';draw();}else{tl.pause();button.textContent='Play';cancelAnimationFrame(animation);}});
+range.addEventListener('input',()=>{timeline().pause().seek(Number(range.value),false);button.textContent='Play';draw();});document.getElementById('viewer-reset').addEventListener('click',()=>{timeline().pause().seek(0,false);button.textContent='Play';draw();});document.addEventListener('visibilitychange',()=>{if(document.hidden){timeline().pause();button.textContent='Play';cancelAnimationFrame(animation);}});
+})();
+</script></body></html>
