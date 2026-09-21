@@ -13,6 +13,16 @@
   },
   "issues": [
     {
+      "number": "052",
+      "title_short": "Two mathematicians, one phone call",
+      "section": "Credit",
+      "date": "09-2026",
+      "keyword": "CREDIT",
+      "lastmod": "2026-09-14",
+      "built": true,
+      "unlock": "9bf7b28378"
+    },
+    {
       "number": "047",
       "title_short": "Convert files locally",
       "section": "Local tools",
@@ -391,6 +401,18 @@
       "title": "Anthropic's playbook, minus the AI",
       "date": "2026-09-08",
       "subject": "Anthropic's playbook, minus the AI"
+    },
+    {
+      "number": "004",
+      "title": "One prompt, two racks, no winner",
+      "date": "2026-09-15",
+      "subject": "One prompt, two racks, no winner"
+    },
+    {
+      "number": "005",
+      "title": "Asked for Fable, got Opus",
+      "date": "2026-09-22",
+      "subject": "We asked for Fable, got Opus"
     }
   ],
   "proof": {

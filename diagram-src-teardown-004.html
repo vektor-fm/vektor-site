@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>What was equal, what was not — diagram</title>
+<!-- Rendered to diagrams/teardown-004.png by render-diagram.mjs. Sized 1200x750
+     because email displays it at ~600px wide, so 2x keeps it sharp on retina.
+     PNG, not SVG: Outlook dropped inline SVG in late 2025 and Gmail strips
+     attributes, so SVG in email is not deliverable.
+
+     WHY A SYSTEM DIAGRAM. The visual policy's selection table sends "how the
+     pieces connect" to a system diagram. This issue's hardest-to-explain thing
+     is a boundary: two products enter through two different pipelines (their
+     own system prompt, their own tools, their own clock) and only AFTER the
+     file comes back does the test become identical. The elapsed times were
+     measured on the unequal half, which is the whole reason the film never
+     calls one of them faster. Prose has to say that in three sentences; a
+     drawing puts the clock on the wrong side of the line and the point is made.
+
+     The shared band is drawn in accent because it is the only part of the rig
+     a reader can install. Everything above it belongs to the vendors. -->
+<style>
+@font-face{font-family:'Archivo Expanded';src:url(fonts/archivo-expanded-400.woff2) format('woff2');font-weight:400;font-display:block}
+@font-face{font-family:'Archivo Text';src:url(fonts/archivo-400.woff2) format('woff2');font-weight:400;font-display:block}
+@font-face{font-family:'Printvetica';src:url(fonts/printvetica-caps.woff2) format('woff2');font-weight:400;font-display:block}
+@font-face{font-family:'IBM Plex Mono';src:url(fonts/ibm-plex-mono-400-latin.woff2) format('woff2');font-weight:400;font-display:block}
+
+:root{
+  --bg:#000; --fg:#FFF; --rule:#C9C9C9; --meta:#999; --dim:#B4B4B4; --accent:#0E9C86;
+  --extended:'Archivo Expanded','Archivo Text',system-ui,sans-serif;
+  --sans:'Archivo Text',system-ui,sans-serif;
+  --label:'Printvetica','Archivo Text',system-ui,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box; margin:0}
+html,body{width:1200px; height:750px; overflow:hidden}
+body{background:var(--bg); color:var(--fg); font-family:var(--sans); padding:44px 48px; display:flex; flex-direction:column;}
+
+.head{display:flex; justify-content:space-between; align-items:baseline; padding-bottom:14px; border-bottom:1px solid var(--rule);}
+.head .t{font-family:var(--extended); font-weight:400; text-transform:uppercase; font-size:30px; line-height:1;}
+.head .m{font-family:var(--label); text-transform:uppercase; letter-spacing:.025em; font-size:15px; color:var(--meta);}
+
+/* THE UNEQUAL HALF. Two lanes, one per product, drawn in the neutral rule
+   colour because nothing in them was under our control. Each lane lists the
+   things that differed, and the clock sits here, inside the lane, on purpose. */
+.lanes{display:flex; gap:26px; margin-top:26px;}
+.lane{flex:1; border:1px solid var(--rule); padding:14px 16px 12px; display:flex; flex-direction:column; min-height:214px;}
+.lane .n{font-family:var(--label); font-size:13px; letter-spacing:.025em; color:var(--meta); display:block; margin-bottom:8px;}
+.lane .h{font-family:var(--extended); font-weight:400; text-transform:uppercase; font-size:17px; line-height:20px; height:20px; white-space:nowrap; margin-bottom:12px;}
+.row{display:flex; gap:12px; align-items:baseline; padding:5px 0; border-top:1px solid #333;}
+.row .k{font-family:var(--label); text-transform:uppercase; letter-spacing:.025em; font-size:11px; color:var(--meta); flex:none; width:118px;}
+.row .v{font-family:var(--mono); font-size:13px; line-height:17px; color:var(--fg);}
+.row .v .sub{color:var(--dim);}
+.row.clock .v{color:var(--fg);}
+.row.clock .k{color:var(--fg);}
+
+/* THE BOUNDARY. A single hairline across the full width with a label sitting
+   on it: above the line is the vendor's, below it is ours. */
+.bound{position:relative; height:44px;}
+.bound .track{position:absolute; left:0; right:0; top:22px; border-top:1px solid var(--accent);}
+.bound .lab{position:absolute; left:50%; top:13px; transform:translateX(-50%); background:var(--bg); padding:0 14px; font-family:var(--label); text-transform:uppercase; letter-spacing:.025em; font-size:13px; color:var(--accent); white-space:nowrap;}
+.bound .arrL,.bound .arrR{position:absolute; top:0; font-family:var(--mono); font-size:19px; line-height:1; color:var(--accent);}
+.bound .arrL{left:calc(25% - 13px - 6px);}
+.bound .arrR{left:calc(75% + 13px - 6px);}
+
+/* THE EQUAL HALF. One box, accent border, because it is the only part of the
+   rig that a reader can take home. */
+.same{border:1px solid var(--accent); display:flex;}
+.same .cell{flex:1; padding:13px 16px 12px; display:flex; flex-direction:column; gap:4px;}
+.same .cell + .cell{border-left:1px solid var(--accent);}
+.same .k{font-family:var(--label); text-transform:uppercase; letter-spacing:.025em; font-size:12px; color:var(--accent);}
+.same .v{font-family:var(--mono); font-size:13px; line-height:17px; color:var(--fg);}
+.same .v .sub{display:block; font-size:12px; color:var(--dim); margin-top:2px;}
+
+.prov{margin-top:auto; padding-top:14px; border-top:1px solid var(--rule); display:flex; gap:26px; align-items:baseline;}
+.prov .k{font-family:var(--label); text-transform:uppercase; letter-spacing:.025em; font-size:13px; color:var(--accent); flex:none;}
+.prov .v{font-family:var(--mono); font-size:12px; line-height:18px; color:var(--dim);}
+</style>
+</head>
+<body>
+
+<div class="head">
+  <div class="t">What was equal, what was not</div>
+  <div class="m">The Teardown · 004</div>
+</div>
+
+<div class="lanes">
+  <div class="lane">
+    <span class="n">A · the vendor's half</span>
+    <div class="h">Claude Code · Fable 5.1</div>
+    <div class="row"><span class="k">System prompt</span><span class="v">Claude Code's own <span class="sub">(safe mode: no CLAUDE.md, hooks, skills)</span></span></div>
+    <div class="row"><span class="k">Tools</span><span class="v">none <span class="sub">(--tools "")</span></span></div>
+    <div class="row"><span class="k">Search</span><span class="v">none</span></div>
+    <div class="row"><span class="k">Reasoning</span><span class="v">effort high</span></div>
+    <div class="row clock"><span class="k">Clock</span><span class="v">549.8 s <span class="sub">process start to exit, incl. CLI start-up</span></span></div>
+  </div>
+  <div class="lane">
+    <span class="n">B · the vendor's half</span>
+    <div class="h">ChatGPT · GPT-6 Pro</div>
+    <div class="row"><span class="k">System prompt</span><span class="v">ChatGPT's own <span class="sub">(fresh conversation)</span></span></div>
+    <div class="row"><span class="k">Tools</span><span class="v">code sandbox, skills <span class="sub">("Rack facts", "Review model")</span></span></div>
+    <div class="row"><span class="k">Search</span><span class="v">web, 6 sites visited</span></div>
+    <div class="row"><span class="k">Reasoning</span><span class="v">thinking effort at maximum</span></div>
+    <div class="row clock"><span class="k">Clock</span><span class="v">856 s ±10 <span class="sub">ChatGPT's own badge, incl. search + sandbox</span></span></div>
+  </div>
+</div>
+
+<div class="bound">
+  <span class="arrL">&darr;</span>
+  <span class="arrR">&darr;</span>
+  <div class="track"></div>
+  <div class="lab">the file comes back · from here on, identical</div>
+</div>
+
+<div class="same">
+  <div class="cell">
+    <span class="k">Prompt</span>
+    <span class="v">one text, frozen<span class="sub">sha256 3ad96c0a… · no follow-ups</span></span>
+  </div>
+  <div class="cell">
+    <span class="k">Browser</span>
+    <span class="v">headless Chrome 145<span class="sub">SwiftShader WebGL · 1440×900 then 1080×1920</span></span>
+  </div>
+  <div class="cell">
+    <span class="k">Actions</span>
+    <span class="v">15 scripted steps<span class="sub">slider 50 / 100 / 0 · 3 drags · 5 clicks at fixed fractions</span></span>
+  </div>
+  <div class="cell">
+    <span class="k">Reading</span>
+    <span class="v">screenshots to a sub-agent<span class="sub">same 7 questions each · defects need an exact action</span></span>
+  </div>
+  <div class="cell">
+    <span class="k">Claims</span>
+    <span class="v">checked against NVIDIA docs<span class="sub">18 · 36 · 72 · 9 · 130 TB/s</span></span>
+  </div>
+</div>
+
+<div class="prov">
+  <span class="k">Source</span>
+  <span class="v">TEST-PROTOCOL.md and EVALUATION.md, single-prompt rack comparison, runs of 2026-09-11 (run.json per attempt). The clocks sit above the line on purpose:<br>two products, two tool sets, two timers. Neither number is a model speed. Hardware counts: NVIDIA DGX GB200 hardware guide and GB200 NVL72 page, read 2026-09-14.</span>
+</div>
+
+</body>
+</html>
