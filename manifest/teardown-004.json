@@ -1,0 +1,20 @@
+{
+  "number": "004",
+  "title": "The Teardown 004 — One prompt, two racks, no winner",
+  "description": "Jensen Huang said AGI has arrived, so one prompt went to GPT-6 Pro and to Fable 5.1 with a clock on both. This is the rig behind the film: what was held equal, what could not be, why the two elapsed times are not a race, and the 45-line harness that scored both files the same way. Plus the ARC-AGI-3 footnote that turns 62.7 into 99.9, and a first-party measurement that the model you ask for is not always the model that answers.",
+  "og_title": "One prompt, two racks, no winner — The Teardown 004",
+  "og_description": "The test rig behind the Astra vs Fable film: the frozen prompt, the identical evaluation sequence, the two clocks that cannot be compared, and the harness file. Why the film declared no winner, on purpose.",
+  "og_image": "https://vektor-fm.github.io/vektor-site/diagrams/teardown-004.png",
+  "og_alt": "Two lanes, Claude Code with Fable 5.1 and ChatGPT with GPT-6 Pro, each listing its own system prompt, tools, search, reasoning setting and clock. A boundary line reads: the file comes back, from here on identical. Below it one shared box: frozen prompt, headless Chrome 145, fifteen scripted actions, screenshots read by a sub-agent, hardware claims checked against NVIDIA documentation.",
+  "og_url": "https://vektor-fm.github.io/vektor-site/teardown-004.html",
+  "canonical": "https://vektor-fm.github.io/vektor-site/teardown-004.html",
+  "tw_title": "One prompt, two racks, no winner — The Teardown 004",
+  "tw_description": "The test rig behind the Astra vs Fable film: the frozen prompt, the identical evaluation sequence, the two clocks that cannot be compared, and the harness file. Why the film declared no winner, on purpose.",
+  "marker": "The Teardown · 004",
+  "sticky_text": "One teardown a week — <b>the working setup</b>",
+  "backref_html": "One teardown a week, the AI tooling that actually ships. The 60-second version of this issue is on Instagram: <a href=\"https://instagram.com/vektor.fm\">@vektor.fm →</a>",
+  "footer_meta": "/// the teardown / 004 / 09-2026 · the frontier, by the numbers",
+  "copy_event": "teardown-004-copy",
+  "subscribe_track": true,
+  "slug": "teardown004"
+}

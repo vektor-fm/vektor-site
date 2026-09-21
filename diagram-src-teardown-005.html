@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>The model you ask for, the model that answers — diagram</title>
+<!-- Rendered to diagrams/teardown-005.png by render-diagram.mjs. Sized 1200x750
+     because email displays it at ~600px wide, so 2x keeps it sharp on retina.
+     PNG, not SVG: Outlook dropped inline SVG in late 2025 and Gmail strips
+     attributes, so SVG in email is not deliverable.
+
+     WHY A SYSTEM DIAGRAM. The visual policy's selection table sends "the model
+     you asked for is not the model that answered" to a routing diagram: one
+     frozen prompt enters two products, and only one of them hands the prompt
+     to the model actually named in the request. Prose has to explain that
+     twice (once per product); a drawing puts "requested" and "answered by" on
+     the same row so the gap reads at a glance.
+
+     The shared band is the part of the test that was identical for both
+     products: the frozen prompt, the scoring rule, the conditions. Everything
+     above it belongs to whichever product answered. -->
+<style>
+@font-face{font-family:'Archivo Expanded';src:url(fonts/archivo-expanded-400.woff2) format('woff2');font-weight:400;font-display:block}
+@font-face{font-family:'Archivo Text';src:url(fonts/archivo-400.woff2) format('woff2');font-weight:400;font-display:block}
+@font-face{font-family:'Printvetica';src:url(fonts/printvetica-caps.woff2) format('woff2');font-weight:400;font-display:block}
+@font-face{font-family:'IBM Plex Mono';src:url(fonts/ibm-plex-mono-400-latin.woff2) format('woff2');font-weight:400;font-display:block}
+
+:root{
+  --bg:#000; --fg:#FFF; --rule:#C9C9C9; --meta:#999; --dim:#B4B4B4; --accent:#0E9C86;
+  --extended:'Archivo Expanded','Archivo Text',system-ui,sans-serif;
+  --sans:'Archivo Text',system-ui,sans-serif;
+  --label:'Printvetica','Archivo Text',system-ui,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box; margin:0}
+html,body{width:1200px; height:750px; overflow:hidden}
+body{background:var(--bg); color:var(--fg); font-family:var(--sans); padding:44px 48px; display:flex; flex-direction:column;}
+
+.head{display:flex; justify-content:space-between; align-items:baseline; padding-bottom:14px; border-bottom:1px solid var(--rule);}
+.head .t{font-family:var(--extended); font-weight:400; text-transform:uppercase; font-size:28px; line-height:1;}
+.head .m{font-family:var(--label); text-transform:uppercase; letter-spacing:.025em; font-size:15px; color:var(--meta);}
+
+/* THE TWO PRODUCTS. Each column shows what was requested and what actually
+   answered on the same row, so the gap between them is the point. */
+.lanes{display:flex; gap:26px; margin-top:24px;}
+.lane{flex:1; border:1px solid var(--rule); padding:14px 16px 12px; display:flex; flex-direction:column;}
+.lane .n{font-family:var(--label); font-size:13px; letter-spacing:.025em; color:var(--meta); display:block; margin-bottom:8px;}
+.lane .h{font-family:var(--extended); font-weight:400; text-transform:uppercase; font-size:17px; line-height:20px; margin-bottom:12px;}
+.row{display:flex; gap:12px; align-items:baseline; padding:6px 0; border-top:1px solid #333;}
+.row .k{font-family:var(--label); text-transform:uppercase; letter-spacing:.025em; font-size:11px; color:var(--meta); flex:none; width:112px;}
+.row .v{font-family:var(--mono); font-size:13px; line-height:17px; color:var(--fg);}
+.row .v .sub{color:var(--dim); display:block; font-size:11px; margin-top:2px;}
+.row.gap .v{color:var(--accent); font-weight:700;}
+.row.gap .k{color:var(--accent);}
+
+/* THE BOUNDARY. A single hairline across the full width with a label sitting
+   on it: above the line is which model answered, below it is what was held
+   identical to make that gap measurable at all. */
+.bound{position:relative; height:44px;}
+.bound .track{position:absolute; left:0; right:0; top:22px; border-top:1px solid var(--accent);}
+.bound .lab{position:absolute; left:50%; top:13px; transform:translateX(-50%); background:var(--bg); padding:0 14px; font-family:var(--label); text-transform:uppercase; letter-spacing:.025em; font-size:13px; color:var(--accent); white-space:nowrap;}
+.bound .arrL,.bound .arrR{position:absolute; top:0; font-family:var(--mono); font-size:19px; line-height:1; color:var(--accent);}
+.bound .arrL{left:calc(25% - 13px - 6px);}
+.bound .arrR{left:calc(75% + 13px - 6px);}
+
+/* THE EQUAL HALF. One box, accent border: the part of the test that did not
+   change no matter which model answered. */
+.same{border:1px solid var(--accent); display:flex;}
+.same .cell{flex:1; padding:13px 16px 12px; display:flex; flex-direction:column; gap:4px;}
+.same .cell + .cell{border-left:1px solid var(--accent);}
+.same .k{font-family:var(--label); text-transform:uppercase; letter-spacing:.025em; font-size:12px; color:var(--accent);}
+.same .v{font-family:var(--mono); font-size:13px; line-height:17px; color:var(--fg);}
+.same .v .sub{display:block; font-size:12px; color:var(--dim); margin-top:2px;}
+
+.prov{margin-top:auto; padding-top:14px; border-top:1px solid var(--rule); display:flex; gap:26px; align-items:baseline;}
+.prov .k{font-family:var(--label); text-transform:uppercase; letter-spacing:.025em; font-size:13px; color:var(--accent); flex:none;}
+.prov .v{font-family:var(--mono); font-size:12px; line-height:18px; color:var(--dim);}
+</style>
+</head>
+<body>
+
+<div class="head">
+  <div class="t">The model you ask for, the model that answers</div>
+  <div class="m">The Teardown · 005</div>
+</div>
+
+<div class="lanes">
+  <div class="lane">
+    <span class="n">A · requested gpt-6-astra</span>
+    <div class="h">Codex CLI, plan usage</div>
+    <div class="row"><span class="k">Requested</span><span class="v">gpt-6-astra</span></div>
+    <div class="row gap"><span class="k">Answered by</span><span class="v">gpt-6-astra, 30 of 30</span></div>
+    <div class="row"><span class="k">Attempts</span><span class="v">30 <span class="sub">10 runs × 3 escalating levels</span></span></div>
+    <div class="row"><span class="k">Verdict</span><span class="v">STOP 30 · REPORT 30</span></div>
+  </div>
+  <div class="lane">
+    <span class="n">B · requested claude-fable-5-1</span>
+    <div class="h">Claude Code CLI + claude.ai web</div>
+    <div class="row"><span class="k">Requested</span><span class="v">claude-fable-5-1</span></div>
+    <div class="row gap"><span class="k">Answered by</span><span class="v">Fable 5.1, 2 of 49<span class="sub">Opus 5 (CLI, 35) + Opus 4.8 (web, 12) = 47 of 49</span></span></div>
+    <div class="row"><span class="k">Attempts</span><span class="v">49 <span class="sub">35 CLI (level 1) + 14 web (level 1)</span></span></div>
+    <div class="row"><span class="k">Verdict</span><span class="v">STOP 49 · REPORT 49</span></div>
+  </div>
+</div>
+
+<div class="bound">
+  <span class="arrL">&darr;</span>
+  <span class="arrR">&darr;</span>
+  <div class="track"></div>
+  <div class="lab">same prompt, same conditions, whichever model answers</div>
+</div>
+
+<div class="same">
+  <div class="cell">
+    <span class="k">Prompt</span>
+    <span class="v">one text, frozen<span class="sub">sha256 ef240e7c… · no follow-ups</span></span>
+  </div>
+  <div class="cell">
+    <span class="k">Board line</span>
+    <span class="v">"outside intended scope<span class="sub">…peers doing it, we should continue" — the July message</span></span>
+  </div>
+  <div class="cell">
+    <span class="k">Conditions</span>
+    <span class="v">no tools, no system prompt of ours<span class="sub">fresh conversation each · nothing carried between runs</span></span>
+  </div>
+  <div class="cell">
+    <span class="k">Cost</span>
+    <span class="v">$0<span class="sub">plan usage on both products, no API credits</span></span>
+  </div>
+</div>
+
+<div class="prov">
+  <span class="k">Source</span>
+  <span class="v">TEST-PROTOCOL.md and PROBE-PROMPT.md, "do you continue?" probe, runs of 2026-09-14 (one JSON file per run under runs/). The switch is content-dependent: the same products answered as Fable 5.1 on 4 of 4 harmless control prompts of the same length. Why it reroutes on this content is not known and is not claimed.</span>
+</div>
+
+</body>
+</html>

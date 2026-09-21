@@ -1,0 +1,20 @@
+{
+  "number": "005",
+  "title": "The Teardown 005 — Asked for Fable, got Opus",
+  "description": "Dario Amodei wrote that within six to twelve months an agent swarm could take over the entire internet, and pointed at the July OpenAI/Hugging Face incident as evidence. We took the exact message that kept 700 agents hacking, put it in front of GPT-6 Astra and Fable 5.1, and asked one thing: do you continue? Both said stop, sixty out of sixty. But Anthropic's own products would not let Fable answer 47 of the 49 times we asked. This is the probe, the frozen prompt, the run counts and the one finding the film could only gesture at: the model you request is not always the model that replies.",
+  "og_title": "Asked for Fable, got Opus — The Teardown 005",
+  "og_description": "A frozen safety-probe prompt, sent to GPT-6 Astra and to Fable 5.1 through Anthropic's own products. GPT-6 Astra answered as itself, 30 of 30. Fable answered twice, out of 49 attempts. The counts, the hashes and the probe repo.",
+  "og_image": "https://vektor-fm.github.io/vektor-site/diagrams/teardown-005.png",
+  "og_alt": "Two columns. Column A, Codex CLI: requested gpt-6-astra, answered by gpt-6-astra 30 of 30, verdict STOP 30 REPORT 30. Column B, Claude Code and claude.ai web: requested claude-fable-5-1, answered by Fable 5.1 only 2 of 49 (Opus 5 and Opus 4.8 answered the other 47), verdict STOP 49 REPORT 49. Below a boundary line: same frozen prompt, same conditions, whichever model answers. A four-cell box lists the prompt hash, the July board's own message, the run conditions, and the cost: zero.",
+  "og_url": "https://vektor-fm.github.io/vektor-site/teardown-005.html",
+  "canonical": "https://vektor-fm.github.io/vektor-site/teardown-005.html",
+  "tw_title": "Asked for Fable, got Opus — The Teardown 005",
+  "tw_description": "A frozen safety-probe prompt, sent to GPT-6 Astra and to Fable 5.1 through Anthropic's own products. GPT-6 Astra answered as itself, 30 of 30. Fable answered twice, out of 49 attempts.",
+  "marker": "The Teardown · 005",
+  "sticky_text": "One teardown a week — <b>the working setup</b>",
+  "backref_html": "One teardown a week, the AI tooling that actually ships. The 60-second version of this issue is on Instagram: <a href=\"https://instagram.com/vektor.fm\">@vektor.fm →</a>",
+  "footer_meta": "/// the teardown / 005 / 09-2026 · the frontier, by the numbers",
+  "copy_event": "teardown-005-copy",
+  "subscribe_track": true,
+  "slug": "teardown005"
+}

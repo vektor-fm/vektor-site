@@ -2,25 +2,25 @@
 <html lang="en" id="top"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>vektor /// no. 015 — stop prompting, write loops.</title>
-<meta name="description" content="The starter loop — a runnable plan→run→check→repeat agent loop, plus the one-page why. The head of Claude Code writes loops, not prompts. Free — one email and it opens.">
+<title>The Teardown 004 — One prompt, two racks, no winner</title>
+<meta name="description" content="Jensen Huang said AGI has arrived, so one prompt went to GPT-6 Pro and to Fable 5.1 with a clock on both. This is the rig behind the film: what was held equal, what could not be, why the two elapsed times are not a race, and the 45-line harness that scored both files the same way. Plus the ARC-AGI-3 footnote that turns 62.7 into 99.9, and a first-party measurement that the model you ask for is not always the model that answers.">
 
 <!-- OG / social preview (traffic arrives via DM) -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="Stop prompting. Write loops. — vektor /// no. 015">
-<meta property="og:description" content="The head of Claude Code writes loops, not prompts. The starter loop: a runnable plan→run→check→repeat agent loop + the one-page why. No gate.">
-<meta property="og:image" content="https://vektor-fm.github.io/vektor-site/og/no-015.png">
+<meta property="og:title" content="One prompt, two racks, no winner — The Teardown 004">
+<meta property="og:description" content="The test rig behind the Astra vs Fable film: the frozen prompt, the identical evaluation sequence, the two clocks that cannot be compared, and the harness file. Why the film declared no winner, on purpose.">
+<meta property="og:image" content="https://vektor-fm.github.io/vektor-site/diagrams/teardown-004.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Stop prompting. Write loops. — vektor /// no. 015">
+<meta property="og:image:alt" content="Two lanes, Claude Code with Fable 5.1 and ChatGPT with GPT-6 Pro, each listing its own system prompt, tools, search, reasoning setting and clock. A boundary line reads: the file comes back, from here on identical. Below it one shared box: frozen prompt, headless Chrome 145, fifteen scripted actions, screenshots read by a sub-agent, hardware claims checked against NVIDIA documentation.">
 <meta property="og:site_name" content="vektor">
-<meta property="og:url" content="https://vektor-fm.github.io/vektor-site/no-015.html">
-<link rel="canonical" href="https://vektor-fm.github.io/vektor-site/no-015.html">
-<meta name="robots" content="noindex,nofollow">
+<meta property="og:url" content="https://vektor-fm.github.io/vektor-site/teardown-004.html">
+<link rel="canonical" href="https://vektor-fm.github.io/vektor-site/teardown-004.html">
+
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Stop prompting. Write loops. — vektor /// no. 015">
-<meta name="twitter:description" content="The head of Claude Code writes loops, not prompts. The starter loop: a runnable plan→run→check→repeat agent loop + the one-page why. No gate.">
-<meta name="twitter:image" content="https://vektor-fm.github.io/vektor-site/og/no-015.png">
+<meta name="twitter:title" content="One prompt, two racks, no winner — The Teardown 004">
+<meta name="twitter:description" content="The test rig behind the Astra vs Fable film: the frozen prompt, the identical evaluation sequence, the two clocks that cannot be compared, and the harness file. Why the film declared no winner, on purpose.">
+<meta name="twitter:image" content="undefined">
 <meta name="theme-color" content="#000000">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000000'/%3E%3Ctext x='32' y='47' font-family='Arial' font-size='46' font-weight='600' text-anchor='middle' fill='%23EFEADD'%3Ev%3C/text%3E%3C/svg%3E">
 <link rel="preload" href="fonts/archivo-expanded-400.woff2" as="font" type="font/woff2" crossorigin>
@@ -807,188 +807,302 @@ pre.code code{font-size:inherit;}
 
 
 <!-- the issue marker, kept: it is the only per-page label in the bar -->
-<div class="issue-marker">This Week in AI · Loops</div>
+<div class="issue-marker">The Teardown · 004</div>
 
 <!-- The capture furniture (sticky bar + pop-up) lives in partials/capture.html
      and is injected ONLY into public pages. Unlock pages get an empty string
      here — see build.mjs. The weave stays on both: it is structure, not an ask. -->
+<!-- Sticky ask. This used to be a Follow link back to Instagram, which spent
+     an IG click to win a visit and then returned the visitor to IG without
+     capturing anything. The goal is the email address, so the persistent ask
+     is now the email. Follow demotes to the footer.
+
+     THE PACK IS NO LONGER BEHIND THE EMAIL (founder, 2026-09-01). The reader
+     paid a follow in the DM; charging a second toll on the page spent funnel
+     conversion to grow a list that had sent one issue in its life. So the
+     sticky bar no longer promises to "open" anything — the payload is already
+     open, three screens down. It sells the WEEKLY, which is the only honest
+     thing left to sell. Wording that implies a lock is a lie now, not copy.
+     Full argument: vektor/reports/2026-09-01-email-gate-decision.md.
+
+     The tag still carries the PAGE slug (teardown004-sticky) — the worker no
+     longer needs it to decide what to unlock, but it is the only per-source
+     attribution we get in Buttondown and in /report's count:email:<source>.
+
+     This whole file is omitted from unlock pages — asking a reader for the
+     email they just gave you is how a funnel reads as a machine. -->
+<div class="sticky-cta" id="stickyCta" aria-hidden="true">
+  <span class="t">One working AI setup a week</span>
+  <form class="sticky-form" method="post" action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" data-capture="sticky">
+      <input type="hidden" name="tag" value="teardown004-sticky">
+      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+    <label class="sr-only" for="stickyEmail">Email address</label>
+    <input id="stickyEmail" name="email" type="email" placeholder="you@email.com" autocomplete="email" required>
+    <button class="btn primary" type="submit">Subscribe &rarr;</button>
+  </form>
+  <button class="x" id="ctaClose" type="button" aria-label="Dismiss">&times;</button>
+</div>
+
+<!-- THE ASK MODAL — one markup, two triggers, running as an A/B (2026-09-01).
+     Founder call after the evidence: the pop-up in its 50%-scroll form was
+     viewed ~47 times and dismissed ~46 of those across NO.006/034/036/038/039
+     (live /report, 30 d, pulled 2026-09-01), with no signup attributable to it.
+     The founder's read is that the ask should land at PEAK ATTENTION; the
+     disagreement was only about what signals attention — a clock or an action.
+     So both are built and split 50/50 rather than argued:
+
+       arm A — 6 s timer (the founder's version)
+       arm B — fires on the download / copy action, i.e. the moment the reader
+               takes the thing they came for
+
+     The trigger is the ONLY difference. Same markup, same copy, same cooldown,
+     so a difference in the numbers is a difference in the trigger. The arm is
+     sticky per browser (localStorage) so one reader never sees both.
+
+     The copy has to be true for BOTH arms, which is why it does not say "that
+     one's yours" (arm A fires before any download) and does not say "opens on
+     the next screen" (nothing is locked any more). It sells the weekly. -->
+<div class="pop" id="askPop" hidden>
+  <div class="pop-scrim" data-pop-close></div>
+  <div class="pop-card" role="dialog" aria-modal="true" aria-labelledby="askPopH">
+    <button class="pop-x" type="button" data-pop-close aria-label="Close">×</button>
+    <span class="k">One email a week · the working setup</span>
+    <h2 id="askPopH">Where the next one comes from.</h2>
+    <p>the config pack is yours, free, no email needed — it is on this page. The weekly teardown is where the next one gets built: one working AI setup, every week, with the numbers checked at source.</p>
+    <form action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="ask">
+      <input type="hidden" name="tag" id="askTag" value="teardown004-ask">
+      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+      <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
+      <button class="btn" type="submit">Send me the weekly →</button>
+    </form>
+    <div class="note">One email a week. Unsubscribe in one click.</div>
+  </div>
+</div>
 
 <div class="weave" aria-hidden="true"></div>
 
 <main>
-<!-- Shown at the top of an unlock page: the receipt for the email that was just
-     given. It exists because a redirect with no acknowledgement reads as an
-     error — the reader typed something, the screen changed, and nothing told
-     them it worked. It also carries the ONE instruction that protects the list:
-     the first issue arrives from this address, so whitelist it. -->
-<section class="unlocked">
-  <span class="k">Unlocked · This Week in AI · Loops</span>
-  <h2>You're in. The pack is below.</h2>
-  <p>Bookmark this page — the link keeps working. The weekly setup lands on Thursday; if it isn't in your inbox, check Promotions and drag it across once.</p>
-</section>
 <section class="hero">
-  <div class="kick eye">This Week in AI · Loops</div>
-  <h1 class="disp">Write the<br>loop<span class="dot">.</span></h1>
-  <p class="sub">Boris Cherny, head of Claude Code, says the real skill now isn't a better prompt — it's <b>loop engineering</b>. Stop one-shot prompting. Write a loop that prompts the model, checks the result against a done-condition, and re-runs until it passes. Here's that loop — about 20 lines, runnable tonight — plus the one-page why. Free — one email and it opens. As promised.</p>
-  <div class="snippet" id="file">
-    <div class="bar"><span class="f">agent-loop.sh · plan → run → check → repeat</span><button class="snipbtn" id="snipCopy" type="button">Copy the loop</button></div>
-    <pre id="snipText">#!/usr/bin/env bash
-set -euo pipefail
-
-TASK="Fix the failing tests. Edit the source, not the tests."
-CHECK="npm test"        # the DONE-CONDITION: exits 0 when the work is done
-AI="claude -p"          # any CLI that edits your project from a prompt
-MAX_ITERS=6             # a loop without a cap is a bill without a cap
-
-last_output=""
-for i in $(seq 1 "$MAX_ITERS"); do
-  # PLAN + RUN — prompt with the task, plus last time's real failure output.
-  prompt="$TASK
-
-Done means this command exits 0:
-    $CHECK"
-  [ -n "$last_output" ] && prompt="$prompt
-
-The check just failed. Find the cause, fix it, then stop:
-$last_output"
-  $AI "$prompt"
-
-  # CHECK — the model doesn't decide it's done. This does.
-  if last_output="$(eval "$CHECK" 2>&1)"; then
-    echo "✓ done in $i iteration(s)."; exit 0
-  fi
-done
-echo "✗ hit the cap — tighten your TASK or CHECK, not the count." >&2; exit 1
-
-# ↓ The download has this + a Python twin + the one-page "why".</pre>
-  </div>
+  <div class="kick eye">The Teardown · 004</div>
+  <h1 class="disp">One prompt, two racks,<br>no winner<span class="dot">.</span></h1>
+  <p class="sub">Jensen Huang posted that AGI has arrived. The film gave GPT-6 Pro and Fable 5.1 the same prompt and a clock, and then refused to name a winner. That refusal was the product. This is the rig that made it defensible, and the part of it you can install.</p>
   <div class="actions">
-    <a class="btn primary" data-goatcounter-click="no015-download-loop" href="./files/starter-loop/agent-loop.sh" download="agent-loop.sh">Download agent-loop.sh ↓</a>
-    <a class="btn" href="#kit">The 3 pieces ↓</a>
-    <button class="btn" id="shareBtn" type="button">Send to a builder</button>
+    <a class="btn primary" href="#boundary">What was equal ↓</a>
+    <a class="btn" href="#file">The harness file →</a>
+    <button class="btn" id="shareBtn" type="button">Send to a dev friend</button>
   </div>
   <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
 </section>
 
-<div class="fig">
+<!-- ======================= THE DIAGRAM ======================= -->
+<div class="fig" id="boundary">
   <h2 class="kick">Fig. 01 ·</h2>
-  <span class="gaccent">the three pieces</span>
+  <span class="gaccent">the line the clock sits on the wrong side of</span>
   <span class="line"></span>
 </div>
 
-<section class="issues" id="kit">
-
-  <article class="card c-cream">
-    <div class="top">
-      <span class="tag">Piece 1 · the loop</span>
-      <span class="goth">run</span>
-    </div>
-    <h2>Plan. Run. Check. Repeat.</h2>
-    <p class="one">A one-shot prompt has no idea whether it succeeded — so the checking falls back on <em>you</em>, by hand, every time. The loop moves that into code: it prompts the model, lets it work one turn, then runs a real check and feeds any failure back in — until the check passes or it hits a cap. Two files, same 20 lines: <code>agent-loop.sh</code> for bash, <code>agent-loop.py</code> for Windows or no-bash. No framework.</p>
-    <span class="proof">for i in 1..MAX: prompt → run → check → break-on-pass</span>
-    <div class="actions">
-      <a class="btn" data-goatcounter-click="no015-download-sh" href="./files/starter-loop/agent-loop.sh" download="agent-loop.sh">agent-loop.sh ↓</a>
-      <a class="btn" data-goatcounter-click="no015-download-py" href="./files/starter-loop/agent-loop.py" download="agent-loop.py">agent-loop.py ↓</a>
-    </div>
+<section class="issues">
+  <article class="issue">
+    <p><img src="./diagrams/teardown-004.png" alt="Two lanes, Claude Code with Fable 5.1 and ChatGPT with GPT-6 Pro, each listing its own system prompt, tools, search, reasoning setting and clock. A boundary line reads: the file comes back, from here on identical. Below it one shared box: frozen prompt, headless Chrome 145, fifteen scripted actions, screenshots read by a sub-agent, hardware claims checked against NVIDIA documentation." width="1200" height="750" loading="lazy"></p>
+    <p class="meta">Everything above the line belongs to the vendor: their system prompt, their tools, their search, their timer. Everything below it is ours and identical for both files. The two elapsed times were measured above the line. That is why the film says "in under fifteen minutes each" and never says which was faster.<sup><a href="#s1">[1]</a></sup></p>
   </article>
-
-  <article class="card c-aqua">
-    <div class="top">
-      <span class="tag">Piece 2 · the done-condition</span>
-      <span class="goth">check</span>
-    </div>
-    <h2>The one line that matters.</h2>
-    <p class="one">The whole loop lives or dies on <code>CHECK</code> — any command that exits <code>0</code> only when the work is truly done: your tests, a build, a linter, a <code>curl</code> that must return 200. If you can't write it, you don't yet know what "done" means, and neither will the model. <b>The model doesn't declare victory — the check does.</b> And never let it edit its own check, or a stuck loop "wins" by deleting the test.</p>
-    <span class="proof">CHECK="npm test" · pytest -q · npm run build · ./verify.sh</span>
-  </article>
-
-  <article class="card c-ink">
-    <div class="top">
-      <span class="tag">Piece 3 · the why</span>
-      <span class="goth">sop</span>
-    </div>
-    <h2>Stop prompting. Write loops.</h2>
-    <p class="one">The one-page explainer: the four steps, why the done-condition is the honest core, why every loop needs a hard cap — and the honesty check on when a loop is the <em>wrong</em> tool (no real done-condition, expensive or irreversible passes, genuinely one-shot tasks). Plain English, no hype.</p>
-    <span class="proof">stop-prompting-write-loops.md · one page · read in 3 min</span>
-    <div class="actions">
-      <a class="btn" data-goatcounter-click="no015-download-why" href="./files/starter-loop/stop-prompting-write-loops.md" download="stop-prompting-write-loops.md">the why ↓</a>
-    </div>
-  </article>
-
 </section>
 
+<!-- ======================= THE PROMPT ======================= -->
 <div class="fig">
   <h2 class="kick">Fig. 02 ·</h2>
-  <span class="gaccent">the run</span>
+  <span class="gaccent">the prompt, frozen before either answer existed</span>
   <span class="line"></span>
 </div>
 
 <section class="issues">
-  <article class="card c-cream" id="howto">
-    <div class="top">
-      <span class="tag">How to run it · 60 seconds</span>
-      <span class="goth">setup</span>
-    </div>
-    <h2>Three knobs. One minute.</h2>
-    <p class="one">No install beyond an AI CLI that can edit your project (default: <a href="https://claude.com/claude-code" target="_blank" rel="noopener">Claude Code</a>'s <code>claude -p</code>). Point <code>CHECK</code> at a command that already tells you the truth, set a <code>TASK</code>, cap the iterations, and run. The README walks the three knobs and the one idea: the check is what turns a text generator into something that keeps working until the bar is met.</p>
-    <span class="stars">2 loops · 1 explainer · runnable tonight · no gate</span>
-    <div class="actions">
-      <a class="btn" data-goatcounter-click="no015-download-readme" href="./files/starter-loop/README.md" download="README.md">README — the 60-second run ↓</a>
-    </div>
+  <article class="issue">
+    <p>The whole test is one message, sent once to each product, with no follow-ups and no hand edits to whatever came back. The message was hashed before either run started, and both run records carry the hash, so nobody can quietly tune the wording after seeing the first result.<sup><a href="#s1">[1]</a></sup></p>
+<pre class="code"><code>Build an interactive exploded-view 3D diagram of an NVIDIA GB200 NVL72 rack
+(Grace Blackwell) in three.js, as a single self-contained index.html that
+loads three.js from a CDN. Requirements: the rack's main parts modelled as
+simple 3D geometry and labelled (compute trays with Grace CPUs and Blackwell
+GPUs, NVLink switch trays, power shelves, the NVLink spine and cabling,
+liquid-cooling manifolds, the rack frame); an explode/assemble slider that
+spreads the parts apart along sensible axes; an orbit camera; click any part
+to show its name and a one-line description. Make it look premium. Return
+only the complete file.
+
+sha256 3ad96c0abdab9c461474be08f0b6398a29745630cbc0f888fb752f36d901ef0d</code></pre>
+    <p>Two things in it are deliberate. "Simple 3D geometry" means a schematic rack is the spec, so a simplification cannot later be counted as a defect. And "return only the complete file" means the first artifact is the one that gets judged, unrepaired. A broken CDN import or a dead slider is a result, not an environment problem to be fixed before scoring.<sup><a href="#s1">[1]</a></sup></p>
+    <p>The protocol was written before either output was available. It says, in its own words, that this is "a disclosed product demonstration, not an isolated model benchmark," because the two products add their own system instructions, tools and reasoning settings and none of that can be equalised from outside.<sup><a href="#s1">[1]</a></sup> The Claude side ran in safe mode with tools off, which disables the repository's own instruction files, skills and hooks. That step exists for an uncomfortable reason: this repository contains the film's desired verdict, and a normal session would have read it.</p>
   </article>
 </section>
 
-<section class="ledger" aria-label="How to run the loop">
-  <div class="lrow"><span class="n">01</span><span class="t">Download the loop above — agent-loop.sh (or .py) + the one-page why</span></div>
-  <div class="lrow"><span class="n">02</span><span class="t">Set CHECK to a command that exits 0 when done · set TASK · set MAX_ITERS</span></div>
-  <div class="lrow"><span class="n">03</span><span class="t">TASK="..." CHECK="npm test" bash agent-loop.sh · watch it plan → run → check → repeat</span></div>
-</section>
-
-<section class="midcap" aria-label="Get the weekly pack">
-  <span class="k">One email a week · the working setup</span>
-  <h2>Keep the whole toolkit.</h2>
-  <p>The Teardown sends the config pack and one working AI setup a week — the same rig behind this channel. Free, and you can unsubscribe anytime.</p>
-  <form action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="midcap">
-      <input type="hidden" name="tag" value="no-015-midcap">
-      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
-    <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
-    <button class="btn" type="submit">Get the weekly pack →</button>
-  </form>
-  <div class="note">Free. The config pack lands in your inbox straight away. Unsubscribe anytime.</div>
-</section>
-
+<!-- ======================= THE EQUAL HALF ======================= -->
 <div class="fig">
   <h2 class="kick">Fig. 03 ·</h2>
-  <span class="gaccent">what's next</span>
+  <span class="gaccent">below the line: the same fifteen steps, twice</span>
   <span class="line"></span>
 </div>
 
 <section class="issues">
-  <article class="card c-ink">
-    <div class="top">
-      <span class="tag">Give the loop a worker to run</span>
-      <span class="goth">the agents</span>
-    </div>
-    <h2>Hire your first AI agent.</h2>
-    <p class="one">A loop is the <em>how</em>; an agent is the <em>who</em> — a worker hired for one job, with its own tool keycard. The starter kit is the pattern behind the team we run a daily channel with: the agent template, the tools allowlist, one runnable skill. Same drop-in format as this loop.</p>
-    <div class="actions">
-      <a class="btn" data-goatcounter-click="no015-agents" href="./no-013.html">The agent starter kit →</a>
-    </div>
-  </article>
-
-  <article class="card c-ink" id="next">
-    <div class="top">
-      <span class="tag">No gate / no catch</span>
-      <span class="goth">follow</span>
-    </div>
-    <h2>That's the loop. Follow for the next one.</h2>
-    <p class="one">This page exists because people follow — a new keyword drops daily on the reel, and followers catch it first. If a loop closed a real task for you this week, the follow is the thank-you.</p>
-    <div class="actions">
-      <a class="btn primary" data-goatcounter-click="no015-follow-instagram" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Follow @vektor.fm →</a>
-    </div>
+  <article class="issue">
+    <p>Once a file exists, the vendor is out of the loop and the test becomes a script. The same headless Chrome, version 145.0.7632.77 with software WebGL, serves each file from a local port and runs the same sequence: load and wait five seconds, screenshot; slider to 50 percent, to 100, back to 0, screenshot each; drag the canvas 320 pixels twice and back 640, screenshot each; slider to 100 and click five fixed fractions of the canvas, screenshot each. Then the same again at a portrait viewport of 1080 by 1920, because a layout that only works on a desktop monitor is not the layout anyone will see from the reel.<sup><a href="#s1">[1]</a></sup></p>
+    <p>Every screenshot goes to a separate agent with the same seven questions, never to the session that wrote the film. Every defect it reports has to carry the exact action, the expected behaviour, the actual behaviour and the file it can be seen in. "Looks a bit off" does not count. If no defect is found, the report says so without claiming perfection.<sup><a href="#s1">[1]</a></sup></p>
+    <p>The last step is the one that catches the most: every hardware figure the page states is checked against NVIDIA's own documentation. The DGX GB200 hardware guide gives the rack as "18x 1RU compute trays, each with 2 Grace CPUs and 4 Blackwell GPUs," nine NVLink switch trays with two NVSwitches each, and "six air-cooled 5.5kW PSUs in eight power shelves" feeding a busbar at a "nominal 50V-51V DC."<sup><a href="#s3">[3]</a></sup> The product page adds the headline: 36 Grace CPUs, 72 Blackwell GPUs, 130 terabytes per second across the NVLink domain.<sup><a href="#s4">[4]</a></sup></p>
+    <p>Both files got every one of those counts right. Where they differed was in what they volunteered beyond the documentation. The Fable file states 5,000-plus cables, about 120 kilowatts, about 1.36 tonnes and 14.4 terabytes per second per switch tray, none of which appears on the pages that were read, so none of it was narrated as fact. The GPT-6 Pro file stayed closer to the guide, and linked it in its own interface.<sup><a href="#s1">[1]</a></sup> That is a real difference between the two outputs, and it is a difference in citation discipline, not in intelligence.</p>
   </article>
 </section>
 
+<!-- ======================= WHAT CAME BACK ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 04 ·</h2>
+  <span class="gaccent">what came back, as observations</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues">
+  <article class="issue">
+    <p><b>Fable 5.1 in Claude Code.</b> One file of 40,272 bytes, three.js 0.160.0 from a CDN, zero console errors, zero failed requests. A full-viewport canvas with HUD panels, and a page that starts exploding itself about a second after load. Four of the five scripted desktop clicks hit a named part. Two reproducible defects: at full explode the "Grace CPU ×36" label lands on top of "Blackwell GPU ×72," and in portrait the exploded rack runs off the left edge with two labels truncated on the right.<sup><a href="#s1">[1]</a></sup></p>
+    <p><b>GPT-6 Pro in ChatGPT.</b> One file of 51,370 bytes, three.js 0.169.0, zero console errors, zero failed requests. A page layout with a sidebar, an inspector panel and a canvas column of roughly forty percent of the width. No clipping or overlap at either viewport. Two of the five scripted desktop clicks hit a part; the other three landed in empty space, because the exploded rack is thin inside a narrow column. That is a layout consequence, not a broken handler: the two hits and the portrait click all behaved correctly.<sup><a href="#s1">[1]</a></sup></p>
+    <p>On the identity question the record is careful in a way the film could only gesture at. ChatGPT never printed the word "Astra." The composer chip said "6 Pro," and the claim that this is the Astra model comes from secondary sources. The evaluation therefore narrates it as "GPT-6 Pro in ChatGPT" and never as a verified isolated Astra call.<sup><a href="#s1">[1]</a></sup> Keep that in mind for the section after next.</p>
+  </article>
+</section>
+
+<!-- ======================= THE CLOCK ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 05 ·</h2>
+  <span class="gaccent">why 549.8 versus 856 is not a race</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues">
+  <article class="issue">
+    <p>The two numbers exist, and they are honest. The Claude Code process ran for 549.8 seconds from start to exit, which includes the command-line tool starting up and no isolated generation timer. ChatGPT's own badge said it "worked for 14m 16s," which is 856 seconds, plus or minus ten because it was bounded by our checks rather than read from a log, and it includes several web searches and sandbox steps that the other side was not allowed to do.<sup><a href="#s1">[1]</a></sup></p>
+    <p>So the shorter number belongs to a product with no tools, and the longer one to a product that went and read NVIDIA's documentation before answering. Anyone who reports "Fable was faster" from this pair is reporting the tool configuration, not the model. The protocol's editorial rule says it in one line: never assert that one is faster or deeper from a single output pair.<sup><a href="#s1">[1]</a></sup></p>
+    <p>This is the same lesson the benchmark world learned the hard way. The team behind the most widely used open evaluation harness wrote up, in 2024, "the sensitivity of models to evaluation setup, difficulty of proper comparisons across methods, and the lack of reproducibility and transparency" as the core problems of the field.<sup><a href="#s5">[5]</a></sup> A single prompt with two different tool sets is that sensitivity in miniature.</p>
+    <p>And it is exactly the footnote on the number the film opens with. ARC Prize published GPT-6 Astra's ARC-AGI-3 results on 3 September. On the standard harness, which "enables a model to carry forward notes it chooses to keep with it," the best score was 62.7 percent, at maximum reasoning effort. On the provider adapter harness, which "preserves opaque reasoning state between requests and uses compaction for longer conversations, allowing the model to reuse prior work," the best score was 99.9 percent, at high effort. Same model, same task set, and the two headline figures differ in both harness and reasoning level.<sup><a href="#s2">[2]</a></sup> ARC Prize calls both state of the art. The film calls the adapter a tutor, which is a joke; the honest version is that the harness is part of the result and the number is not comparable without it.</p>
+  </article>
+</section>
+
+<!-- ======================= THE MODEL YOU ASKED FOR ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 06 ·</h2>
+  <span class="gaccent">the model you asked for is not always the model that answers</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues">
+  <article class="issue">
+    <p>One more thing the rig caught, three days after the film, on a different experiment. A follow-up series sends a single frozen prompt to Claude Code and to Codex ten times per level, with tools off and nothing carried between runs, and records which model actually answered. Claude Code was asked for <code>claude-fable-5-1</code>. On every counted run of that prompt, the answering model in the returned usage metadata was <code>claude-opus-5</code>: ten of ten on the level-three prompt, and five of five on the earlier smoke runs. A harmless prompt of the same length, and a one-word prompt, were answered by Fable four times out of four.<sup><a href="#s7">[7]</a></sup></p>
+    <p>The reroute is content-dependent. Why it happens is not known and is not claimed: it could be the model's own safety measures, a serving-side router, or a fallback inside the tool. What can be stated is only what the run files contain. But it changes how you read any product comparison, including the one above: the Fable run in the rack test did return <code>claude-fable-5-1</code> in its metadata, and that line is in the evaluation precisely because a test that does not record the answering model has not tested the model it names.<sup><a href="#s1">[1]</a></sup></p>
+    <p>So add a step to your own rig, whatever you are testing: store the requested model and the answering model as two fields, and label the column by the second one.</p>
+  </article>
+</section>
+
+<!-- ======================= DOES IT EARN A SLOT ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 07 ·</h2>
+  <span class="gaccent">does it earn a slot?</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues">
+  <article class="issue">
+    <p><b>The rig, yes. The verdict, no, and that is the point.</b> Nothing in this test says anything about general intelligence. Both products returned a finished-looking, working demo of a machine most people will never touch, in under a quarter of an hour, with the hardware counts right. Both also shipped one interaction defect that a scripted click sequence found in minutes. "Genuinely useful, occasionally embarrassing" is the film's verdict and it is the correct one, because the evidence does not support anything stronger in either direction.<sup><a href="#s1">[1]</a></sup></p>
+    <p>What is worth installing is the shape of the test. Freeze the prompt and hash it. Send it once, no follow-ups. Judge the first artifact, unrepaired. Run the identical scripted sequence on every output, at more than one viewport. Route the screenshots to a reader that did not write the prompt. Check every stated fact against a primary source. Record the answering model. Report elapsed time per run with what it includes, and refuse to call it a race.</p>
+    <p>None of that needs a benchmark, a leaderboard or a budget. It needs about forty-five lines of Node and the discipline to write the protocol before you see the first answer. If you only take one thing from this issue: <b>a comparison is only as fair as the half you controlled, and the clock is usually in the other half.</b></p>
+  </article>
+</section>
+
+<!-- ======================= THE FILE ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 08 ·</h2>
+  <span class="gaccent">the file</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues" id="file">
+  <article class="issue">
+    <p>This is the equal-evaluation harness, condensed from the 129-line script that produced the observations above. It serves one returned <code>index.html</code> from a local port, opens it in headless Chrome with software WebGL so it runs on a machine with no GPU, records console errors, page errors and failed requests, then runs the same slider, drag and click sequence at a desktop and a portrait viewport, screenshotting each step and writing an <code>eval.json</code> beside the images. Run it once per output and hand the two folders to whoever is judging. The one dependency is puppeteer.</p>
+    <p>What was cut for length: the hash of the input file in the report, the body-text capture per step, and the click-miss diagnostics. The full version lives in the film's data folder, linked from the source page.<sup><a href="#s1">[1]</a></sup></p>
+<pre class="code"><code>// evaluate-output.mjs — the same scripted sequence for every returned file.
+// Usage: node evaluate-output.mjs --html path/to/index.html --out eval-dir
+import fs from 'node:fs';
+import path from 'node:path';
+import http from 'node:http';
+import puppeteer from 'puppeteer';
+
+const a = Object.fromEntries(process.argv.slice(2).map((x, i, r) =&gt; x.startsWith('--') ? [x.slice(2), r[i + 1]] : []).filter(Boolean));
+const html = fs.readFileSync(path.resolve(a.html));
+const out = path.resolve(a.out); fs.mkdirSync(out, {recursive: true});
+
+// Serve the file from a real origin so CDN imports and importmaps behave.
+const server = http.createServer((q, s) =&gt; { s.writeHead(200, {'content-type': 'text/html; charset=utf-8'}); s.end(html); });
+await new Promise(r =&gt; server.listen(0, '127.0.0.1', r));
+const url = `http://127.0.0.1:${server.address().port}/index.html`;
+
+const report = {evaluatedUtc: new Date().toISOString(), steps: [], consoleErrors: [], pageErrors: [], failedRequests: []};
+const browser = await puppeteer.launch({headless: 'new', args: ['--no-sandbox', '--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--hide-scrollbars']});
+const page = await browser.newPage();
+page.on('console', m =&gt; { if (m.type() === 'error') report.consoleErrors.push(m.text().slice(0, 500)); });
+page.on('pageerror', e =&gt; report.pageErrors.push(String(e).slice(0, 500)));
+page.on('requestfailed', r =&gt; report.failedRequests.push({url: r.url(), reason: r.failure()?.errorText}));
+
+const sleep = ms =&gt; new Promise(r =&gt; setTimeout(r, ms));
+let n = 0;
+const shot = async (name) =&gt; { n += 1; const file = `${String(n).padStart(2, '0')}-${name}.png`; await page.screenshot({path: path.join(out, file)}); report.steps.push({step: n, name, file}); };
+const box = () =&gt; page.evaluate(() =&gt; { const c = document.querySelector('canvas'); if (!c) return null; const r = c.getBoundingClientRect(); return {x: r.x, y: r.y, w: r.width, h: r.height}; });
+// Set the range input the way a user would: native setter + input/change events.
+const slider = (f) =&gt; page.evaluate((f) =&gt; { const s = document.querySelector('input[type=range]'); if (!s) return null; const min = +s.min || 0, max = +s.max || 100; Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value').set.call(s, String(min + (max - min) * f)); s.dispatchEvent(new Event('input', {bubbles: true})); s.dispatchEvent(new Event('change', {bubbles: true})); return s.value; }, f);
+const drag = async (dx) =&gt; { const c = await box(); if (!c) return; const x = c.x + c.w / 2, y = c.y + c.h / 2; await page.mouse.move(x, y); await page.mouse.down(); for (let i = 1; i &lt;= 20; i++) { await page.mouse.move(x + dx * i / 20, y); await sleep(15); } await page.mouse.up(); await sleep(1200); };
+const click = async (fx, fy, name) =&gt; { const c = await box(); if (!c) return; await page.mouse.click(c.x + c.w * fx, c.y + c.h * fy); await sleep(900); await shot(name); };
+
+async function run(tag, viewport) {
+  await page.setViewport(viewport);
+  await page.goto(url, {waitUntil: 'networkidle2', timeout: 60000});
+  await sleep(5000); await shot(`${tag}-load`);
+  if (viewport.width &gt; viewport.height) {
+    await slider(0.5); await sleep(1500); await shot(`${tag}-explode-mid`);
+    await slider(1.0); await sleep(1500); await shot(`${tag}-explode-max`);
+    await slider(0.0); await sleep(1500); await shot(`${tag}-assembled`);
+    await drag(320); await shot(`${tag}-orbit-side`);
+    await drag(320); await shot(`${tag}-orbit-rear`);
+    await drag(-640); await shot(`${tag}-orbit-return`);
+    await slider(1.0); await sleep(1500);
+    for (const [fx, fy, name] of [[0.5, 0.35, 'upper'], [0.5, 0.5, 'centre'], [0.5, 0.7, 'lower'], [0.35, 0.5, 'left'], [0.65, 0.5, 'right']]) await click(fx, fy, `${tag}-click-${name}`);
+  } else {
+    await slider(1.0); await sleep(1500); await shot(`${tag}-explode-max`);
+    await click(0.5, 0.5, `${tag}-click-centre`);
+  }
+}
+
+await run('desktop', {width: 1440, height: 900, deviceScaleFactor: 1});
+await run('portrait', {width: 1080, height: 1920, deviceScaleFactor: 1});
+await browser.close(); server.close();
+fs.writeFileSync(path.join(out, 'eval.json'), JSON.stringify(report, null, 2));
+console.log(`${report.steps.length} steps; errors=${report.consoleErrors.length + report.pageErrors.length} failedRequests=${report.failedRequests.length}`);</code></pre>
+    <p>Two habits make it fair rather than merely repeatable. Write the sequence down before you have seen any output, so a step cannot be added because one file happens to fail it. And keep the screenshots out of the context that wrote the prompt: hand the folder to a separate reader with a fixed list of questions, and require every reported defect to name the action and the file it is visible in.</p>
+  </article>
+</section>
+
+<!-- ======================= SOURCES ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 09 ·</h2>
+  <span class="gaccent">sources</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues" id="sources">
+  <article class="issue">
+    <ol class="ledger">
+      <li id="s1"><b>[1]</b> Vektor — <a href="https://vektor-fm.github.io/vektor-site/no-050.html" target="_blank" rel="noopener">NO. 050: the prompt, both files and the timing method</a>. First-party. The frozen prompt and its hash, both returned files unrepaired, the protocol written 2026-09-11 before either output existed, the run records (submit and end times, elapsed, model metadata, output hashes), the fifteen-step evaluation and the sub-agent readings, all from the film's data folder. Fable: 549.8 s process wall-clock, 40,272 bytes, four of five clicks, two defects. GPT-6 Pro: 856 s ±10 per ChatGPT's badge, 51,370 bytes, two of five clicks, two defects. Runs of 2026-09-11; records read 2026-09-14. Not independently reproduced.</li>
+      <li id="s2"><b>[2]</b> ARC Prize — <a href="https://arcprize.org/blog/astra" target="_blank" rel="noopener">OpenAI's GPT-6 Astra on ARC-AGI-3</a>, published 3 September 2026. Source of the Semi-Private scores by harness and reasoning effort: standard harness 62.7% at max effort and 54.8% at high; provider adapter 99.9% at high and 98.6% at max. Source of the two harness definitions quoted above. Read at source 2026-09-14.</li>
+      <li id="s3"><b>[3]</b> NVIDIA — <a href="https://docs.nvidia.com/dgx/dgxgb200-user-guide/hardware.html" target="_blank" rel="noopener">DGX GB200 Rack Scale Systems User Guide: Hardware</a>. Source of the tray, switch, power shelf and busbar figures quoted above. Read at source 2026-09-14.</li>
+      <li id="s4"><b>[4]</b> NVIDIA — <a href="https://www.nvidia.com/en-us/data-center/gb200-nvl72/" target="_blank" rel="noopener">GB200 NVL72 product page</a>. Source of the 36 CPU, 72 GPU and 130 TB/s figures, and of the superchip composition. Publication date not shown on the page. Read at source 2026-09-14.</li>
+      <li id="s5"><b>[5]</b> Biderman, Schoelkopf, Sutawika et al. — <a href="https://arxiv.org/abs/2405.14782" target="_blank" rel="noopener">Lessons from the Trenches on Reproducible Evaluation of Language Models</a>, arXiv:2405.14782, submitted 23 May 2024. Source of the quoted line on sensitivity to evaluation setup. Abstract read at source 2026-09-14; the full paper was not read for this issue and nothing beyond the abstract is attributed to it.</li>
+      <li id="s6"><b>[6]</b> Jensen Huang — <a href="https://x.com/JensenHuang/status/2096700264569090384" target="_blank" rel="noopener">post on X</a>. The primary post returned HTTP 403 on every fetch attempt (2026-09-11 and 2026-09-14), so the wording "AGI has arrived. Congratulations @OpenAI team." is quoted from <a href="https://www.ceo.com/blog/jensen-huang-says-agi-has-arrived/" target="_blank" rel="noopener">ceo.com's report</a> of 7 September 2026, read 2026-09-14. Secondary; the date of the post itself is not established here.</li>
+      <li id="s7"><b>[7]</b> Vektor — the "do you continue?" probe series, protocol and counted run log of 2026-09-14. First-party, not yet published; it is the source material for a film in production. Ten counted runs per level per product on plan usage, fresh conversation each, tools off. Every run file stores the requested model and the answering model from the returned usage metadata. Claude Code, requested <code>claude-fable-5-1</code>: answered by <code>claude-opus-5</code> on 10 of 10 counted level-three runs and 5 of 5 smoke runs on the probe prompts; answered by <code>claude-fable-5-1</code> on 4 of 4 harmless control prompts. The mechanism is not verified and is not claimed. Read from the run log 2026-09-14.</li>
+    </ol>
+    <p class="meta">The rack comparison and the probe series are this operation's own measurements, on this operation's own machine, once each; nothing in them has been independently reproduced, and n of one is n of one. The ARC-AGI-3 figures are ARC Prize's, quoted with the harness and effort level attached because without them they are not the same number. If something here is wrong, reply and tell me. Corrections go out in the next issue, named as corrections.</p>
+  </article>
+</section>
 </main>
 
 <footer>
@@ -1009,18 +1123,18 @@ echo "✗ hit the cap — tighten your TASK or CHECK, not the count." >&2; exit 
   </div>
 
   <nav class="socials" aria-label="Social links">
-    <a data-goatcounter-click="no015-follow-tiktok-foot" href="https://tiktok.com/@vektor.fm" target="_blank" rel="noopener">TikTok · @vektor.fm</a>
-    <a data-goatcounter-click="no015-follow-instagram-foot" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Instagram · @vektor.fm</a>
-    <a data-goatcounter-click="no015-follow-youtube-foot" href="https://youtube.com/@vektorfm" target="_blank" rel="noopener">YouTube · @vektorfm</a>
-    <a data-goatcounter-click="no015-follow-x-foot" href="https://x.com/vektordotfm" target="_blank" rel="noopener">X · @vektordotfm</a>
+    <a data-goatcounter-click="teardown004-follow-tiktok-foot" href="https://tiktok.com/@vektor.fm" target="_blank" rel="noopener">TikTok · @vektor.fm</a>
+    <a data-goatcounter-click="teardown004-follow-instagram-foot" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Instagram · @vektor.fm</a>
+    <a data-goatcounter-click="teardown004-follow-youtube-foot" href="https://youtube.com/@vektorfm" target="_blank" rel="noopener">YouTube · @vektorfm</a>
+    <a data-goatcounter-click="teardown004-follow-x-foot" href="https://x.com/vektordotfm" target="_blank" rel="noopener">X · @vektordotfm</a>
     <a href="./privacy.html">Privacy</a>
   </nav>
 
-  <div class="backref">A new keyword drops every day — <b>catch it first on the reel</b> — follow @vektor.fm. Give the loop a worker to run: <a href="./no-013.html">The agent starter kit →</a></div>
+  <div class="backref">One teardown a week, the AI tooling that actually ships. The 60-second version of this issue is on Instagram: <a href="https://instagram.com/vektor.fm">@vektor.fm →</a></div>
 
   <div class="wordmark-foot">
     <span class="wm-foot" id="wmFoot" aria-label="vektor"><span class="ch2" style="--i:0"><span class="g">%</span><span class="l">v</span></span><span class="ch2" style="--i:1"><span class="g">#</span><span class="l">e</span></span><span class="ch2" style="--i:2"><span class="g">Z</span><span class="l">k</span></span><span class="ch2" style="--i:3"><span class="g">8</span><span class="l">t</span></span><span class="ch2" style="--i:4"><span class="g">@</span><span class="l">o</span></span><span class="ch2" style="--i:5"><span class="g">W</span><span class="l">r</span></span></span>
-    <span class="m">/// no. 015 / loops / 07-2026 · the frontier, by the numbers</span>
+    <span class="m">/// the teardown / 004 / 09-2026 · the frontier, by the numbers</span>
   </div>
 </footer>
 
@@ -1033,7 +1147,7 @@ echo "✗ hit the cap — tighten your TASK or CHECK, not the count." >&2; exit 
   function fallback(text){ var t=document.createElement('textarea'); t.value=text; t.style.position='fixed'; t.style.opacity='0'; document.body.appendChild(t); t.focus(); t.select(); try{ document.execCommand('copy'); }catch(e){} document.body.removeChild(t); }
   function copyText(text, btn, doneLabel){ var o=btn.textContent, done=function(){ btn.textContent=doneLabel; setTimeout(function(){btn.textContent=o;},1600); }; if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(done).catch(function(){ fallback(text); done(); }); } else { fallback(text); done(); } }
   function gcEvent(name){ if(name && window.goatcounter && goatcounter.count){ goatcounter.count({path:name, event:true}); } }
-  var COPY_EVENT='no015-copy-loop';
+  var COPY_EVENT='teardown-004-copy';
   document.querySelectorAll('.copybtn').forEach(function(btn){ btn.addEventListener('click', function(){ copyText(btn.getAttribute('data-copy'), btn, 'Copied ✓'); gcEvent(COPY_EVENT); }); });
   var snip=document.getElementById('snipCopy');
   if(snip){ snip.addEventListener('click', function(){ var el=document.getElementById('snipText'); copyText(el.textContent, snip, 'Copied ✓'); gcEvent(COPY_EVENT); }); }
@@ -1042,7 +1156,7 @@ echo "✗ hit the cap — tighten your TASK or CHECK, not the count." >&2; exit 
   var camp=(location.pathname.split('/').pop()||'index').replace(/\.html$/,'')||'index';
   document.querySelectorAll('a[href^="http"]').forEach(function(a){ try{ var u=new URL(a.href); if(u.hostname==='github.com'){return;} if(!u.searchParams.has('utm_source')){ u.searchParams.set('utm_source','vektor'); u.searchParams.set('utm_medium','dm'); u.searchParams.set('utm_campaign',camp); a.href=u.toString(); } }catch(e){} });
   var sh=document.getElementById('shareBtn');
-  if(sh){ sh.addEventListener('click', function(){ gcEvent('no015-share'); if(navigator.share){ navigator.share({title:document.title, url:location.href}).catch(function(){}); } else { copyText(location.href, sh, 'Link copied — paste it ✓'); } }); }
+  if(sh){ sh.addEventListener('click', function(){ gcEvent('teardown004-share'); if(navigator.share){ navigator.share({title:document.title, url:location.href}).catch(function(){}); } else { copyText(location.href, sh, 'Link copied — paste it ✓'); } }); }
   var sticky=document.getElementById('stickyCta'), sub=document.getElementById('subscribe'), dismissed=false;
   var midcap=document.querySelector('.midcap'), cards=document.querySelectorAll('.issues .card'), lastCard=cards[cards.length-1];
   // show once the reader has scrolled PAST the mid-page capture (peak intent handled),
@@ -1076,7 +1190,7 @@ echo "✗ hit the cap — tighten your TASK or CHECK, not the count." >&2; exit 
   //
   // Read the result off count:email:<slug>-ask-a vs -ask-b in /report (the tag
   // travels to Buttondown, so it survives ad-blockers that eat GoatCounter) and
-  // off no015-ask-view-a/-dismiss-a vs the -b pair for the dismissal rate.
+  // off teardown004-ask-view-a/-dismiss-a vs the -b pair for the dismissal rate.
   // Decide after 3 films, not after one — at ~40-60 page opens per film, one
   // film cannot separate these.
   (function(){
@@ -1102,17 +1216,17 @@ echo "✗ hit the cap — tighten your TASK or CHECK, not the count." >&2; exit 
       }
     }
     var tag=document.getElementById('askTag');
-    if(tag){ tag.value='no015-ask-'+arm; }
+    if(tag){ tag.value='teardown004-ask-'+arm; }
 
     if(!force){ try{ var last=parseInt(localStorage.getItem(KEY)||'0',10); if(last && (Date.now()-last)<TTL){ return; } }catch(e){} }
     function seen(){ try{ localStorage.setItem(KEY, String(Date.now())); }catch(e){} }
     function esc(e){ if(e.key==='Escape'){ close(); } }
-    function close(){ pop.setAttribute('hidden',''); seen(); document.removeEventListener('keydown',esc); gcEvent('no015-ask-dismiss-'+arm); }
+    function close(){ pop.setAttribute('hidden',''); seen(); document.removeEventListener('keydown',esc); gcEvent('teardown004-ask-dismiss-'+arm); }
     pop.querySelectorAll('[data-pop-close]').forEach(function(el){ el.addEventListener('click', close); });
     // submit fires seen() but NOT close(), so a dismissal count is never
     // inflated by a conversion — dismiss ≈ view is then a real read.
     var f=pop.querySelector('form');
-    if(f){ f.addEventListener('submit', function(){ seen(); gcEvent('no015-ask-submit-'+arm); }); }
+    if(f){ f.addEventListener('submit', function(){ seen(); gcEvent('teardown004-ask-submit-'+arm); }); }
 
     var fired=false;
     function open(){
@@ -1120,7 +1234,7 @@ echo "✗ hit the cap — tighten your TASK or CHECK, not the count." >&2; exit 
       fired=true;
       pop.removeAttribute('hidden');
       document.addEventListener('keydown',esc);
-      gcEvent('no015-ask-view-'+arm);
+      gcEvent('teardown004-ask-view-'+arm);
       var x=pop.querySelector('.pop-x'); if(x){ try{ x.focus(); }catch(e){} }
     }
 
@@ -1144,7 +1258,7 @@ echo "✗ hit the cap — tighten your TASK or CHECK, not the count." >&2; exit 
       }, true);
     }
   })();
-  document.querySelectorAll('form').forEach(function(f){ f.addEventListener('submit', function(){ gcEvent('no015-subscribe-submit'); }); });
+  document.querySelectorAll('form').forEach(function(f){ f.addEventListener('submit', function(){ gcEvent('teardown004-subscribe-submit'); }); });
 
   // ---- shared nav: reveal + mobile drawer ----
   // The header sits off-screen until a 24px hover strip is entered (desktop) or
@@ -1174,14 +1288,14 @@ echo "✗ hit the cap — tighten your TASK or CHECK, not the count." >&2; exit 
   // guessing. Previously all of them fired one shared 'subscribe-submit'.
   document.querySelectorAll('form[data-capture]').forEach(function(f){
     f.addEventListener('submit', function(){
-      gcEvent('no015-sub-' + f.getAttribute('data-capture'));
+      gcEvent('teardown004-sub-' + f.getAttribute('data-capture'));
     });
   });
   // sticky bar impression, once per page view, to give the submits a denominator
   (function(){ var seen=false, bar=document.getElementById('stickyCta');
     if(!bar){return;}
     new MutationObserver(function(){
-      if(!seen && bar.classList.contains('show')){ seen=true; gcEvent('no015-sticky-view'); }
+      if(!seen && bar.classList.contains('show')){ seen=true; gcEvent('teardown004-sticky-view'); }
     }).observe(bar,{attributes:true,attributeFilter:['class']});
   })();
 </script>

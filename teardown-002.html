@@ -1099,6 +1099,11 @@ OLLAMA_HOST=http://127.0.0.1:11434</code></pre>
 </footer>
 
 <script>
+  // head.html hides #shareBtn and un-hides it with `.js #shareBtn`, the standard
+  // no-JS progressive-enhancement pattern - but nothing ever set the class, so the
+  // share button was display:none on every built page while its click handler below
+  // sat there wired and unreachable (found 2026-09-14 on no-052, present on all 37).
+  document.documentElement.classList.add('js');
   function fallback(text){ var t=document.createElement('textarea'); t.value=text; t.style.position='fixed'; t.style.opacity='0'; document.body.appendChild(t); t.focus(); t.select(); try{ document.execCommand('copy'); }catch(e){} document.body.removeChild(t); }
   function copyText(text, btn, doneLabel){ var o=btn.textContent, done=function(){ btn.textContent=doneLabel; setTimeout(function(){btn.textContent=o;},1600); }; if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(done).catch(function(){ fallback(text); done(); }); } else { fallback(text); done(); } }
   function gcEvent(name){ if(name && window.goatcounter && goatcounter.count){ goatcounter.count({path:name, event:true}); } }
