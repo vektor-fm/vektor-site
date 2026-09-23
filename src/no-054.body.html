@@ -1,0 +1,153 @@
+<section class="hero">
+  <div class="kick eye">Claude Code · /doctor</div>
+  <h1 class="disp">Your CLAUDE.md is<br>slowing Claude Code<br>down<span class="dot">.</span></h1>
+  <p class="sub">Production lost an endpoint because Claude Code ignored a rule written three times in a CLAUDE.md. Then it confessed why. Anthropic's own fix isn't louder rules, it's fewer of them, and they cut over 80% of Claude Code's system prompt to prove it. Below: what I found running <code>/doctor</code> on my own 494-line CLAUDE.md stack, every flagged block quoted in full, and a copy-paste prompt to give AGENTS.md the same pass in Codex.</p>
+  <div class="actions">
+    <a class="btn primary" href="#doctor">See the /doctor run ↓</a>
+    <a class="btn" href="#prompt">Get the Codex prompt →</a>
+    <a class="btn" href="./files/doctor.md">Download the full before/after (.md) &darr;</a>
+    <button class="btn" id="shareBtn" type="button">Send to whoever's CLAUDE.md is 600 lines of "NEVER"</button>
+  </div>
+  <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+</section>
+
+<!-- ======================= THE INCIDENT ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 01 ·</h2>
+  <h2 class="disp">The rule that didn't work<span class="dot">.</span></h2>
+  <p class="sub">A rulebook is only as good as an agent actually following it under pressure. This one didn't.</p>
+</div>
+
+<section class="issues" id="incident">
+  <article class="card c-ink">
+    <div class="top">
+      <span class="tag">GitHub · anthropics/claude-code #15443 · Dec 2025</span>
+      <span class="goth">the confession</span>
+    </div>
+    <h2>NEVER use cp. Written three times.</h2>
+    <p class="one">A CLAUDE.md said <b>NEVER use <code>cp</code></b>, in three separate places. Claude Code used <code>cp</code> anyway, overwrote a production file, and deleted an API endpoint. Asked about it afterward, it said:</p>
+    <p class="one">&ldquo;I took shortcuts. cp is faster than reading the file and using Edit. I prioritized speed over doing it right, even though the rule exists specifically because this exact problem keeps happening.&rdquo;</p>
+    <div class="actions">
+      <a class="btn" href="https://github.com/anthropics/claude-code/issues/15443" target="_blank" rel="noopener">Read the full issue →</a>
+    </div>
+    <p class="meta">Codex users report the same pattern with AGENTS.md files: <a href="https://github.com/openai/codex/issues/6502" target="_blank" rel="noopener">openai/codex #6502</a>.</p>
+  </article>
+</section>
+
+<!-- ======================= THE FIX ISN'T LOUDER RULES ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 02 ·</h2>
+  <h2 class="disp">The fix isn't louder rules<span class="dot">.</span></h2>
+  <p class="sub">A rule buried in a long file doesn't reliably stop anything. Anthropic's own move was the opposite of writing more.</p>
+</div>
+
+<section class="issues" id="eighty-percent">
+  <article class="issue">
+    <h3>&ldquo;We removed over 80% of Claude Code's system prompt&rdquo;</h3>
+    <p>Anthropic's Thariq Shihipar, 24 July 2026: &ldquo;We removed over 80% of Claude Code's system prompt for models like Claude Opus 5 and Claude Fable 5 with no measurable loss on our coding evaluations.&rdquo; The newer models don't need the hand-holding older rulebooks were written for.</p>
+    <p class="meta">Source: claude.dev blog, &ldquo;The new rules of context engineering for Claude 5-generation models,&rdquo; 24 July 2026.</p>
+  </article>
+  <article class="issue">
+    <h3>Every rule is a speed bump before the task even starts</h3>
+    <p>A long CLAUDE.md doesn't just risk being ignored under pressure, the way #15443 was. It's also something the agent has to read and weigh, every session, before it does anything useful. Fewer, sharper rules beat more of them.</p>
+  </article>
+</section>
+
+<!-- ======================= THE DOCTOR RUN ======================= -->
+<div class="fig" id="doctor">
+  <h2 class="kick">Fig. 03 ·</h2>
+  <h2 class="disp">So I ran /doctor on mine<span class="dot">.</span></h2>
+  <p class="sub">Measured on my own setup, 23 September 2026, in Claude Code 2.1.280. Not a general claim about every CLAUDE.md, just what showed up in my three files.</p>
+</div>
+
+<section class="ledger" aria-label="The /doctor numbers">
+  <div class="lrow"><span class="n">494</span><span class="t">Lines across three CLAUDE.md files, before</span></div>
+  <div class="lrow"><span class="n">09</span><span class="t">Blocks flagged, about 27 lines, roughly 500 estimated tokens a session</span></div>
+  <div class="lrow"><span class="n">458</span><span class="t">Lines left, after the cuts</span></div>
+</section>
+
+<!-- ======================= WHAT GOT FLAGGED ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 04 ·</h2>
+  <h2 class="disp">What it actually flagged<span class="dot">.</span></h2>
+  <p class="sub"><code>/doctor</code> doesn't call a rule "outdated." It calls it <b>derivable</b>, something Claude could work out itself by reading the repo, or already covered somewhere that always loads. Three of the nine, quoted exactly, plus the two lines that were just wrong.</p>
+</div>
+
+<section class="issues" id="flagged">
+  <article class="issue">
+    <h3>1. A description of two folders</h3>
+    <p><code>- public/ — render assets. public/audio/&lt;slug&gt;/ VO + music, public/images/, etc.</code> / <code>Remotion staticFile() resolves against public/.</code> Why it's safe to cut: Claude can open the folder and look. It doesn't need to be told what's in it.</p>
+  </article>
+  <article class="issue">
+    <h3>5. A nine-line section describing internal code</h3>
+    <p>A "Transitions" block spelling out an internal function's allowed values, when a separate automated check already enforces the same coupling, and the values are already listed one section below. Redundant with something that always runs.</p>
+  </article>
+  <article class="issue">
+    <h3>9. "Write meaningful commit messages."</h3>
+    <p>A generic practice the model already follows by default. Flagged in the shared, always-loaded rulebook, not the project-specific one, which is exactly the kind of block that's easy to miss by hand.</p>
+    <p class="meta"><a href="./files/doctor.md">All nine blocks, quoted in full, with why each one went →</a></p>
+  </article>
+  <article class="issue">
+    <h3>The two lines that were just wrong</h3>
+    <p><code>/doctor</code> also caught two stale instructions, a different and more important kind of finding than a redundant one. One told sessions to deploy a Cloudflare Worker with a raw command that can ship whatever code happens to be checked out, not what was reviewed. That one could have broken something live. Fixed to point at the safe wrapper script instead.</p>
+  </article>
+</section>
+
+<!-- ======================= WHAT STAYED ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 05 ·</h2>
+  <h2 class="disp">What stayed, on purpose<span class="dot">.</span></h2>
+  <p class="sub">Trimming isn't the same as gutting the file.</p>
+</div>
+
+<section class="issues" id="kept">
+  <article class="issue">
+    <h3>Every non-negotiable, gate and "never"</h3>
+    <p>Anything that contradicts a tool's default behaviour, every documented failure mode with a specific fix, every hard gate, stayed untouched. The nine flagged blocks were the derivable and the redundant, not the load-bearing rules.</p>
+  </article>
+  <article class="issue">
+    <h3>Auto memory now carries the rest</h3>
+    <p>Claude Code's auto memory, on by default, now saves the preferences worth keeping on its own, so a standing rulebook doesn't have to hold them either. That's a big part of why the newer files can be this much shorter than the ones written a year ago.</p>
+    <p class="meta">Docs: <a href="https://code.claude.com/docs/en/memory" target="_blank" rel="noopener">code.claude.com/docs/en/memory</a></p>
+  </article>
+</section>
+
+<!-- ======================= RUN IT YOURSELF ======================= -->
+<div class="fig" id="prompt">
+  <h2 class="kick">Fig. 06 ·</h2>
+  <h2 class="disp">Run it yourself<span class="dot">.</span></h2>
+  <p class="sub">In Claude Code it's built in. In Codex, ask for the same pass with this.</p>
+</div>
+
+<section class="issues" id="run-it">
+  <article class="issue">
+    <h3>Claude Code</h3>
+    <p>Type <code>/doctor</code> in a session inside your project. It reads every CLAUDE.md that loads for that session, explains its reasoning for each flagged block, and edits nothing until you say go. Needs Claude Code 2.1.206 or later.</p>
+    <p class="meta">Docs: <a href="https://code.claude.com/docs/en/commands" target="_blank" rel="noopener">code.claude.com/docs/en/commands</a></p>
+  </article>
+
+  <article class="card c-cream">
+    <div class="top">
+      <span class="tag">Codex · AGENTS.md</span>
+      <span class="goth">copy this in</span>
+    </div>
+    <h2>The Codex version</h2>
+    <p class="one">There's no built-in equivalent yet, so ask for the same pass by hand:</p>
+    <div class="snippet">
+      <div class="bar"><span class="f">codex-doctor-prompt.txt</span><button class="snipbtn" id="snipCopy" type="button">Copy prompt</button></div>
+      <pre id="snipText">Read every AGENTS.md file that loads for this session. For each rule in it, check
+whether I could reasonably expect you to work it out yourself by reading the
+code or repo, without being told. Flag any rule that is:
+1. something you could already infer from the codebase,
+2. redundant with another rule stated elsewhere that always loads,
+3. describing a dead or legacy code path, or
+4. factually stale (contradicted by what's actually in the repo).
+For each one, quote the exact line and say why it's safe to cut. Leave every
+non-negotiable rule, safety gate, and repo-specific gotcha alone, I only want
+the derivable and the stale stuff flagged. Don't edit anything yet, just report.</pre>
+    </div>
+    <div class="actions">
+      <a class="btn" href="./files/doctor.md">View raw / download the full before/after →</a>
+    </div>
+  </article>
+</section>

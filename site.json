@@ -13,6 +13,16 @@
   },
   "issues": [
     {
+      "number": "054",
+      "title_short": "Your CLAUDE.md is slowing Claude Code down",
+      "section": "Claude Code",
+      "date": "09-2026",
+      "keyword": "DOCTOR",
+      "lastmod": "2026-09-24",
+      "built": true,
+      "unlock": "48439be80f"
+    },
+    {
       "number": "053",
       "title_short": "Which of the five roles are you",
       "section": "AI models",
