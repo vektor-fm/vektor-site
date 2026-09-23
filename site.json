@@ -13,6 +13,16 @@
   },
   "issues": [
     {
+      "number": "053",
+      "title_short": "Which of the five roles are you",
+      "section": "AI models",
+      "date": "09-2026",
+      "keyword": "ROLES",
+      "lastmod": "2026-09-23",
+      "built": true,
+      "unlock": "2a6f2aa6c1"
+    },
+    {
       "number": "052",
       "title_short": "Two mathematicians, one phone call",
       "section": "Credit",

@@ -1,0 +1,32 @@
+{
+  "number": "053",
+  "title": "vektor /// no. 053 — Which of the five roles are you?",
+  "description": "Boris Cherny, who created Claude Code, says every team splits into five archetypes: Prototyper, Builder, Sweeper, Grower, Maintainer. Most people are a mix of two. Here is the full breakdown of what each role does, the mix a product needs at each stage, and a copy-paste Claude Code prompt that reads your own git history and tells you which one you actually are, with the commits that prove it.",
+  "og_title": "Which of the five roles are you? — vektor /// no. 053",
+  "og_description": "Prototyper, Builder, Sweeper, Grower, Maintainer. Boris Cherny's five archetypes, what a healthy team needs at each stage, and a prompt that reads your git history and tells you which one you are.",
+  "og_image": "https://vektor-fm.github.io/vektor-site/og/no-053.png",
+  "og_alt": "Which of the five roles are you — vektor /// no. 053",
+  "og_url": "https://vektor-fm.github.io/vektor-site/no-053.html",
+  "canonical": "https://vektor-fm.github.io/vektor-site/no-053.html",
+  "tw_title": "Which of the five roles are you? — vektor /// no. 053",
+  "tw_description": "Boris Cherny's five archetypes, the mix a product needs at each stage, and a prompt that reads your own git history to sort you into one.",
+  "tw_image": "https://vektor-fm.github.io/vektor-site/og/no-053.png",
+  "marker": "AI models · Which one are you",
+  "sticky_text": "Follow <b>@vektor.fm</b> → a new keyword daily",
+  "backref_html": "A new keyword drops every day — <b>catch it first on the reel</b> — follow @vektor.fm. More like this: <a href=\"./no-046.html\">Four things to do with Fable 5.1 →</a>",
+  "footer_meta": "/// no. 053 / five roles / 09-2026 · prototyper, builder, sweeper, grower, maintainer",
+  "copy_event": "copy-five-roles",
+  "subscribe_track": true,
+  "slug": "no053",
+  "gate_title": "The prompt, in full.",
+  "gate_lede": "The full breakdown and the git-history prompt are written out on the next screen. One email opens all of it.",
+  "og_card": {
+    "accent": "#E7371A",
+    "kick": "AI models · Which one are you",
+    "h1_html": "Which of the five<br>roles are you<span class=\"dot\">?</span>",
+    "h1_size": 76,
+    "sub_mt": 18,
+    "sub_html": "Prototyper, Builder, Sweeper, Grower, Maintainer. Boris Cherny's five archetypes, the mix a healthy team needs, and a prompt that reads your git history and tells you which one you are.",
+    "meta_html": "/// no. 053 / five roles / 09-2026 · <b>vektor-fm.github.io</b>"
+  }
+}

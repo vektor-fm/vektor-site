@@ -1,0 +1,148 @@
+<section class="hero">
+  <div class="kick eye">AI models · Which one are you</div>
+  <h1 class="disp">Which of the five<br>roles are you<span class="dot">?</span></h1>
+  <p class="sub"><b>Boris Cherny</b>, who created Claude Code, looked at his own team and saw five archetypes hiding under the old job titles. Not tied to "engineer" or "designer" or "PM" — tied to how you actually work. Below: all five, the mix a healthy product needs at each stage, and a prompt that reads your own git history and tells you which one you are, with the commits that prove it.</p>
+  <div class="actions">
+    <a class="btn primary" href="#roles">See the five ↓</a>
+    <a class="btn" href="#prompt">Get the prompt →</a>
+    <a class="btn" href="./files/roles-prompt.md">Download the prompt (.md) &darr;</a>
+    <button class="btn" id="shareBtn" type="button">Send to whoever just said "I'm not really an engineer, an engineer, or a PM"</button>
+  </div>
+  <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+</section>
+
+<!-- ======================= THE SOURCE ======================= -->
+<div class="fig">
+  <h2 class="kick">Source ·</h2>
+  <h2 class="disp">Straight from the person who built Claude Code<span class="dot">.</span></h2>
+  <p class="sub">Boris Cherny posted this on X on 28 June 2026. It went past 3.1 million views. Nobody has improved on it since, so here it is in full, not a paraphrase.</p>
+</div>
+
+<section class="issues" id="roles">
+  <article class="issue">
+    <h3>"As engineering, product, design, DS, etc. melt into a new kind of role..."</h3>
+    <p>"...I was reflecting on what roles might look like in the future. When I look at the Claude Code team I see what I think is five archetypes." He is clear these are not job functions — designers, engineers, PMs and data scientists each land across all five.</p>
+    <p class="meta">Source: @bcherny on X, 28 June 2026.</p>
+  </article>
+</section>
+
+<!-- ======================= 01 — PROTOTYPER ======================= -->
+<div class="fig">
+  <h2 class="kick">01 ·</h2>
+  <h2 class="disp">The Prototyper<span class="dot">.</span></h2>
+  <p class="sub">Comes up with brand-new ideas. Churns out many of them. Most don't ship, and that's the job, not a failure.</p>
+</div>
+
+<section class="issues" id="prototyper">
+  <article class="issue">
+    <h3>What it looks like</h3>
+    <p>Fast, cheap first drafts. A dozen directions in the time it takes most people to commit to one. The output is mostly throwaway, on purpose — a prototyper's job is to find the one idea worth someone else's time.</p>
+    <p class="meta">Every product that now looks obvious was, at some point, one of a prototyper's discarded ten.</p>
+  </article>
+</section>
+
+<!-- ======================= 02 — BUILDER ======================= -->
+<div class="fig">
+  <h2 class="kick">02 ·</h2>
+  <h2 class="disp">The Builder<span class="dot">.</span></h2>
+  <p class="sub">Quickly turns a prototype or idea into production-grade product or infra.</p>
+</div>
+
+<section class="issues" id="builder">
+  <article class="issue">
+    <h3>What it looks like</h3>
+    <p>Takes the prototyper's rough sketch and makes it real: hardened, tested, shipped behind a flag or straight to users. Speed from idea to something that survives contact with real traffic is the whole skill.</p>
+    <p class="meta">A team of only builders ships fast and never questions what it's shipping.</p>
+  </article>
+</section>
+
+<!-- ======================= 03 — SWEEPER ======================= -->
+<div class="fig">
+  <h2 class="kick">03 ·</h2>
+  <h2 class="disp">The Sweeper<span class="dot">.</span></h2>
+  <p class="sub">Cleans up the UI, simplifies the code and system, unships what shouldn't have shipped, optimizes performance.</p>
+</div>
+
+<section class="issues" id="sweeper">
+  <article class="issue">
+    <h3>What it looks like</h3>
+    <p>Deletes more than they add. Kills the feature nobody uses, collapses three settings into one, makes the thing faster without adding anything visible. The least celebrated role and one of the most valuable once a product has any age on it.</p>
+    <p class="meta">Net negative lines of code is a sweeper's version of a good week.</p>
+  </article>
+</section>
+
+<!-- ======================= 04 — GROWER ======================= -->
+<div class="fig">
+  <h2 class="kick">04 ·</h2>
+  <h2 class="disp">The Grower<span class="dot">.</span></h2>
+  <p class="sub">Takes a product that's already been built and iterates on it to improve product-market fit.</p>
+</div>
+
+<section class="issues" id="grower">
+  <article class="issue">
+    <h3>What it looks like</h3>
+    <p>Lives on the same shipped surface for months, not because they can't move on but because that's where the compounding is: copy tests, onboarding tweaks, the funnel step that's quietly leaking users. Small changes, repeated, on something real.</p>
+    <p class="meta">A grower's commits touch old files, not new ones — and they touch the same old files, over and over.</p>
+  </article>
+</section>
+
+<!-- ======================= 05 — MAINTAINER ======================= -->
+<div class="fig">
+  <h2 class="kick">05 ·</h2>
+  <h2 class="disp">The Maintainer<span class="dot">.</span></h2>
+  <p class="sub">Owns a mature system to make it secure, reliable, fast and efficient as it scales.</p>
+</div>
+
+<section class="issues" id="maintainer">
+  <article class="issue">
+    <h3>What it looks like</h3>
+    <p>The person a security bug or a dependency CVE lands on. Unglamorous by design: the win is nothing breaking, which is invisible right up until it isn't. Old files, careful diffs, low line-count changes that matter disproportionately.</p>
+    <p class="meta">"Most people are a mix of two roles, and sometimes three," Cherny wrote — these aren't a personality test, they're a texture in your own history.</p>
+  </article>
+</section>
+
+<!-- ======================= THE MIX ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 06 ·</h2>
+  <h2 class="disp">The mix a product actually needs<span class="dot">.</span></h2>
+  <p class="sub">Cherny's own mapping — the reel that adapted this post for video skipped it, so here it is in full.</p>
+</div>
+
+<section class="issues" id="mix">
+  <article class="issue">
+    <h3>New, pre-product-market-fit</h3>
+    <p>Needs people strong at <b>Prototyper + Builder + Sweeper</b>. Everything is still being found and thrown away; a team here that's mostly Growers and Maintainers has nothing mature enough yet to grow or maintain.</p>
+  </article>
+
+  <article class="issue">
+    <h3>Growing, has found fit</h3>
+    <p>Needs <b>Builder + Sweeper + Grower</b>, and some Maintainer. The product is real now — the job shifts from finding it to compounding it without it collapsing under its own growth.</p>
+  </article>
+
+  <article class="issue">
+    <h3>Strong product-market fit</h3>
+    <p>Needs <b>Sweeper + Grower + Maintainer</b>, and some Builder. Most of the value left is in not breaking what works, squeezing the parts that are inefficient, and iterating carefully rather than throwing new ideas at something that already works.</p>
+    <p class="meta">Source: @bcherny on X, 28 June 2026.</p>
+  </article>
+</section>
+
+<!-- ======================= THE PROMPT ======================= -->
+<div class="fig" id="prompt">
+  <h2 class="kick">Fig. 07 ·</h2>
+  <h2 class="disp">Which one are you, really<span class="dot">?</span></h2>
+  <p class="sub">Self-reported roles are unreliable — everyone thinks they're a builder. Your git history doesn't lie the same way. This prompt reads it and tells you.</p>
+</div>
+
+<section class="issues" id="git-prompt">
+  <article class="issue">
+    <h3>What it does</h3>
+    <p>Paste it into Claude Code in any repo you've worked in. It scopes to your own commits (by git email), reads read-only signals — commit sizes, net additions vs deletions, branch life, unmerged and reverted work, file age, keywords like fix/refactor/security/feat — and maps them to the five roles with an explicit rubric, not a vibe.</p>
+    <p class="meta">It never edits, commits, or pushes anything. Read-only, every time.</p>
+  </article>
+
+  <article class="issue">
+    <h3>What you get back</h3>
+    <p>A primary and secondary role with a rough percentage split, the 3-5 actual commits that drove the call, and one concrete way to get better at your own role using AI. It also tells you plainly: this is a heuristic read of one repo's history, not a psychometric test.</p>
+    <p class="meta"><a href="./files/roles-prompt.md">View raw / download the prompt →</a></p>
+  </article>
+</section>
