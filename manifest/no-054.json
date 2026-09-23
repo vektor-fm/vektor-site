@@ -1,0 +1,32 @@
+{
+  "number": "054",
+  "title": "vektor /// no. 054 — Your CLAUDE.md is slowing Claude Code down.",
+  "description": "In GitHub issue anthropics/claude-code #15443 (Dec 2025), Claude Code used cp despite a CLAUDE.md rule forbidding it in three places, overwrote a production file and deleted an API endpoint, then said \"I read the words but didn't actually follow them.\" Anthropic removed over 80% of Claude Code's own system prompt (claude.dev blog, 24 July 2026) with no measurable loss on its coding evals. Running /doctor on a 494-line, three-file CLAUDE.md stack (measured 2026-09-23) flagged nine blocks the agent could already work out from the repo. Every flagged block, quoted, with why it went, what was kept on purpose, and a copy-paste prompt to give AGENTS.md the same pass in Codex.",
+  "og_title": "Your CLAUDE.md is slowing Claude Code down — vektor /// no. 054",
+  "og_description": "Anthropic cut over 80% of Claude Code's own system prompt. I ran /doctor on my 494-line CLAUDE.md stack: nine blocks flagged, quoted in full, with why each one went.",
+  "og_image": "https://vektor-fm.github.io/vektor-site/og/no-054.png",
+  "og_alt": "Your CLAUDE.md is slowing Claude Code down — vektor /// no. 054",
+  "og_url": "https://vektor-fm.github.io/vektor-site/no-054.html",
+  "canonical": "https://vektor-fm.github.io/vektor-site/no-054.html",
+  "tw_title": "Your CLAUDE.md is slowing Claude Code down — vektor /// no. 054",
+  "tw_description": "A CLAUDE.md said NEVER use cp, three times. Claude Code used cp anyway and deleted an endpoint. Anthropic cut 80% of its system prompt. My own /doctor run, in full.",
+  "tw_image": "https://vektor-fm.github.io/vektor-site/og/no-054.png",
+  "marker": "Claude Code · /doctor",
+  "sticky_text": "Follow <b>@vektor.fm</b> → a new keyword daily",
+  "backref_html": "A new keyword drops every day — <b>catch it first on the reel</b> — follow @vektor.fm. More like this: <a href=\"./no-053.html\">Which of the five roles are you? →</a>",
+  "footer_meta": "/// no. 054 / doctor / 09-2026 · claude.md, agents.md, context engineering",
+  "copy_event": "copy-doctor-prompt",
+  "subscribe_track": true,
+  "slug": "no054",
+  "gate_title": "The full before-and-after.",
+  "gate_lede": "Every flagged block, quoted, with why it went — plus the copy-paste Codex prompt — is written out on the next screen. One email opens all of it.",
+  "og_card": {
+    "accent": "#E7371A",
+    "kick": "Claude Code · /doctor",
+    "h1_html": "Your CLAUDE.md is<br>slowing Claude Code<br>down<span class=\"dot\">.</span>",
+    "h1_size": 62,
+    "sub_mt": 18,
+    "sub_html": "Anthropic cut over 80% of Claude Code's own system prompt. I ran /doctor on my 494-line stack: nine blocks flagged, quoted in full, with why each one went.",
+    "meta_html": "/// no. 054 / doctor / 09-2026 · <b>vektor-fm.github.io</b>"
+  }
+}
