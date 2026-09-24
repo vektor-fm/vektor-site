@@ -1,0 +1,119 @@
+<section class="hero">
+  <div class="kick eye">Claude Code · repo map</div>
+  <h1 class="disp">Draw your whole<br>codebase as a<br>galaxy<span class="dot">.</span></h1>
+  <p class="sub">One prompt in Claude Code cloned microsoft/vscode, read the code, and wrote back one offline HTML file: 10,022 files as stars, grouped into 11 glowing module clusters, with imports flowing between them as particles. 30 minutes, zero follow-up messages. Below: the exact prompt that ran, a your-repo version, and every number from the run.</p>
+  <div class="actions">
+    <a class="btn primary" href="#prompt">Get the prompt ↓</a>
+    <a class="btn" href="#numbers">See the numbers →</a>
+    <a class="btn" href="./files/repo-map-prompt.md">Download both prompts (.md) &darr;</a>
+    <button class="btn" id="shareBtn" type="button">Send to whoever last said "I wish I understood this codebase"</button>
+  </div>
+  <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+</section>
+
+<!-- ======================= WHAT IT BUILT ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 01 ·</h2>
+  <h2 class="disp">One prompt, one file<span class="dot">.</span></h2>
+  <p class="sub">No app, no server, no dependencies to install. The output is a single HTML file that opens in any browser, offline.</p>
+</div>
+
+<section class="issues" id="what-it-built">
+  <article class="card c-ink">
+    <div class="top">
+      <span class="tag">microsoft/vscode @ 13de456 · src/ only</span>
+      <span class="goth">the target</span>
+    </div>
+    <h2>Ten thousand files, drawn as a galaxy.</h2>
+    <p class="one">Claude Code (VS Code extension, Opus 5.5, auto mode) shallow-cloned VS Code's own repo, read src/, and wrote <code>repo-map.html</code>: one self-contained 1.34 MB file. Every top-level module is a cluster of glowing stars, one star per file, sized by lines of code. Imports between files flow between the clusters as animated particles, so what depends on what is visible at a glance instead of buried in an import graph nobody opens.</p>
+    <p class="one">Hover a cluster and everything it touches lights up. Click one and the camera flies in, resolving into its individual files, each carrying one plain-English line on what that file actually does.</p>
+  </article>
+</section>
+
+<!-- ======================= THE NUMBERS ======================= -->
+<div class="fig" id="numbers">
+  <h2 class="kick">Fig. 02 ·</h2>
+  <h2 class="disp">The numbers from the run<span class="dot">.</span></h2>
+  <p class="sub">Measured 2026-09-24: one run, on one repo, on this laptop. Not a claim about every codebase, just what happened on this one.</p>
+</div>
+
+<section class="ledger" aria-label="The repo-map numbers">
+  <div class="lrow"><span class="n">30</span><span class="t">Minutes wall clock, one prompt, zero follow-up messages</span></div>
+  <div class="lrow"><span class="n">10,022</span><span class="t">Files mapped, across 11 modules (editor alone: 995 files)</span></div>
+  <div class="lrow"><span class="n">2,836,738</span><span class="t">Non-blank lines read to build the map</span></div>
+  <div class="lrow"><span class="n">107,661</span><span class="t">File-to-file imports (61,998 crossing a module boundary, collapsed to 32 module-to-module lines)</span></div>
+  <div class="lrow"><span class="n">1.34 MB</span><span class="t">Size of the one output file, self-contained and offline</span></div>
+</section>
+
+<section class="issues" id="descriptions">
+  <article class="issue">
+    <h3>Every file gets a description, read from the file itself</h3>
+    <p>Fly into a cluster and every star carries a one-line, plain-English description of what that file does. 1,435 of the 10,022 (14%) are pulled from the authors' own code comments; the rest are generated from what the code itself declares, its classes, its registered commands, its test suites, not from a second model pass guessing at a filename. That second pass would have cost real tokens for a marginal gain, so the page skips it: some lines read a little mechanical because of that trade, not because they're guessed.</p>
+  </article>
+  <article class="issue">
+    <h3>It held up under a headless check</h3>
+    <p>Run through headless Chrome on this laptop: 0 console errors, roughly 60fps steady, dipping to 50 to 57fps during the fly-in camera move into a cluster.</p>
+  </article>
+</section>
+
+<!-- ======================= THE PROMPT THAT RAN ======================= -->
+<div class="fig" id="prompt">
+  <h2 class="kick">Fig. 03 ·</h2>
+  <h2 class="disp">The exact prompt that ran<span class="dot">.</span></h2>
+  <p class="sub">This is the one we ran, word for word, with the VS Code URL still in it. It is what produced every number above.</p>
+</div>
+
+<section class="issues" id="prompt-run">
+  <article class="card c-cream">
+    <div class="top">
+      <span class="tag">Claude Code · what we actually typed</span>
+      <span class="goth">ran this</span>
+    </div>
+    <h2>The VS Code version.</h2>
+    <p class="one">One message, no follow-ups. Paste this into Claude Code inside an empty folder.</p>
+    <pre class="tpl" id="promptRun"><code>Clone https://github.com/microsoft/vscode (shallow, and only what you need). Turn this codebase into a living map in one self-contained HTML file, repo-map.html. Every top-level module of src/ is a glowing cluster of stars, one star per file, sized by lines of code. Imports between modules flow as animated particles along curved lines, so I can see what depends on what. The whole map slowly drifts like a galaxy. Hover a cluster to light up everything it touches. Click a cluster to fly into it and see its files, each with one plain-English line on what it does. Read the code to write those lines, don't guess. Keep every label readable, never overlapping. Dark, cinematic, smooth at 60fps, works offline, looks good on a phone screen in portrait.</code></pre>
+    <div class="actions">
+      <button class="btn primary" id="copyPromptRun" type="button" data-copy-target="#promptRun" data-copy-event="no055-copy-prompt-run">Copy the prompt we ran</button>
+    </div>
+  </article>
+
+  <article class="card c-ink">
+    <div class="top">
+      <span class="tag">Claude Code · point it at your own repo</span>
+      <span class="goth">your repo</span>
+    </div>
+    <h2>The your-repo version.</h2>
+    <p class="one">Same prompt, two lines swapped: it clones nothing and maps the folder you're already in, and "module of src/" becomes "folder of the source tree" so it fits any layout, not just VS Code's. This version is untested on other repos; we've only run the VS Code one above.</p>
+    <pre class="tpl" id="promptYours"><code>Map the codebase in this folder. Turn this codebase into a living map in one self-contained HTML file, repo-map.html. Every top-level folder of the source tree is a glowing cluster of stars, one star per file, sized by lines of code. Imports between modules flow as animated particles along curved lines, so I can see what depends on what. The whole map slowly drifts like a galaxy. Hover a cluster to light up everything it touches. Click a cluster to fly into it and see its files, each with one plain-English line on what it does. Read the code to write those lines, don't guess. Keep every label readable, never overlapping. Dark, cinematic, smooth at 60fps, works offline, looks good on a phone screen in portrait.</code></pre>
+    <p class="meta">Cloning someone else's repo instead of using your own folder? Swap the first sentence for: "Clone &lt;your repo URL&gt; (shallow, and only what you need)."</p>
+    <div class="actions">
+      <button class="btn" id="copyPromptYours" type="button" data-copy-target="#promptYours" data-copy-event="no055-copy-prompt-yours">Copy the your-repo version</button>
+    </div>
+  </article>
+</section>
+
+<!-- ======================= RUN IT YOURSELF ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 04 ·</h2>
+  <h2 class="disp">Before you run it<span class="dot">.</span></h2>
+  <p class="sub">What to expect, and where this does and doesn't work.</p>
+</div>
+
+<section class="issues" id="tips">
+  <article class="issue">
+    <h3>Where it runs</h3>
+    <p>Built and measured in Claude Code, and the terminal, VS Code and JetBrains variants should all read the same prompt the same way since it's just one message with no tool-specific syntax. It should also work in Codex, but that's untested; we only ran it in Claude Code.</p>
+  </article>
+  <article class="issue">
+    <h3>Big repos take longer</h3>
+    <p>30 minutes was VS Code's src/ alone, 10,022 files and 2.8 million lines. A smaller repo will finish faster; a much bigger one will take longer, since the agent is reading the actual code to write each file's description, not sampling filenames.</p>
+  </article>
+  <article class="issue">
+    <h3>The descriptions come from the code, not a second model</h3>
+    <p>Don't add a step asking a model to "write each line if the comments are thin." It sounds like a quality fix but it's a token-cost problem dressed as one: it means a second full read of every file. The prompt as written already reads the code once and writes the line from what it finds there, comments where they exist, the file's own structure where they don't.</p>
+  </article>
+  <article class="issue">
+    <h3>Get the prompts as a file</h3>
+    <p>Both versions, plus this page's numbers, in one markdown file: <a href="./files/repo-map-prompt.md">files/repo-map-prompt.md →</a></p>
+  </article>
+</section>

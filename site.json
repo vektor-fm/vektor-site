@@ -13,6 +13,16 @@
   },
   "issues": [
     {
+      "number": "055",
+      "title_short": "Draw your whole codebase as a galaxy",
+      "section": "Claude Code",
+      "date": "09-2026",
+      "keyword": "MAP",
+      "lastmod": "2026-09-24",
+      "built": true,
+      "unlock": "ccfe36310f"
+    },
+    {
       "number": "054",
       "title_short": "Your CLAUDE.md is slowing Claude Code down",
       "section": "Claude Code",
