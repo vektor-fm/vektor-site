@@ -713,6 +713,26 @@ input,select,textarea{font-size:16px !important;}   /* iOS zooms below 16 */
   .pop-card .k{font-size:var(--fs-xs); margin-bottom:var(--p-xs);}
   .pop-card .note{display:none;}
 }
+
+/* ---- role pills (v2, 2026-09-24) ----
+   Same one-tap optional question as the issue-page sticky bar
+   (partials/capture.html), ported here so the hub's own popup carries the
+   same signal. Pair identical to .gate .tab: teal fill + near-black text
+   measures 5.57:1, clears the 4.5:1 floor for small text. */
+.role-pick{display:flex; flex-wrap:wrap; gap:6px; border:0; padding:0; margin:0 0 var(--p-xs);}
+.role-pick .pill{display:inline-flex;}
+.role-pick .pill input{
+  position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+  overflow:hidden; clip-path:inset(50%); border:0;
+}
+.role-pick .pill span{
+  display:inline-flex; align-items:center; min-height:36px; padding:4px 12px;
+  border:1px solid var(--rule); border-radius:999px; color:var(--dim);
+  font-family:var(--font-sans); text-transform:uppercase; letter-spacing:.025em;
+  font-size:var(--fs-xs); white-space:nowrap; cursor:pointer;
+}
+.role-pick .pill input:checked + span{background:var(--accent); border-color:var(--accent); color:#04120F;}
+.role-pick .pill input:focus-visible + span{outline:2px solid var(--fg); outline-offset:2px;}
 </style>
 </head>
 <body>
@@ -731,6 +751,12 @@ input,select,textarea{font-size:16px !important;}   /* iOS zooms below 16 */
     <span class="k">One email a week &middot; the working setup</span>
     <h2 id="bioPopH">Take the config pack with you.</h2>
     <p>Add your email and the config pack opens straight away — plus one working AI setup a week.</p>
+    <fieldset class="role-pick" id="bioPopRole">
+      <legend class="sr-only">What do you do? (optional)</legend>
+      <label class="pill"><input type="radio" name="role" value="developer"><span>Developer</span></label>
+      <label class="pill"><input type="radio" name="role" value="founder-operator"><span>Founder/operator</span></label>
+      <label class="pill"><input type="radio" name="role" value="other"><span>Other</span></label>
+    </fieldset>
     <form method="post" action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" data-capture="bio-popup">
       <input type="hidden" name="tag" value="bio-popup">
       <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
@@ -1141,11 +1167,23 @@ document.querySelectorAll('.copylink').forEach(b => {
     // the only failure worth telling the visitor about. A Buttondown-side
     // rejection reads as success here — exactly as it does in the native flow,
     // which redirects to thanks.html for those cases too.
+    // role pills: one optional tap, read at submit time (the fieldset sits
+    // outside <form> since the form itself is a hand-built fetch, not a native
+    // submit — same field name as the issue-page sticky bar (partials/
+    // capture.html), so both land as `role` once the worker learns to carry
+    // it (see WORKER-CHANGE-NEEDED.md). Its own event per tap.
+    var rolePick = document.getElementById('bioPopRole');
+    if (rolePick) {
+      rolePick.querySelectorAll('input[type="radio"]').forEach(function(r){
+        r.addEventListener('change', function(){ if (r.checked) { ev('hub-bio-popup-role-'+r.value); } });
+      });
+    }
     form.addEventListener('submit', function(e){
       if (!form.checkValidity()) { return; }
       e.preventDefault();
       var email = String(form.email.value || '').trim();
       if (!email) { return; }
+      var role = rolePick ? (rolePick.querySelector('input[type="radio"]:checked') || {}).value || '' : '';
       card.classList.remove('errored');
       btn.disabled = true; btn.textContent = 'Sending…';
       seen();
@@ -1153,7 +1191,7 @@ document.querySelectorAll('.copylink').forEach(b => {
       fetch(form.action, {
         method: 'POST',
         mode: 'no-cors',
-        body: new URLSearchParams({ email: email, tag: 'bio-popup', company: '' })
+        body: new URLSearchParams({ email: email, tag: 'bio-popup', company: '', role: role })
       }).then(function(){
         card.classList.add('done');
         btn.disabled = false; btn.innerHTML = btnLabel;

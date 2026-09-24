@@ -19,16 +19,43 @@
   document.querySelectorAll('a[href^="http"]').forEach(function(a){ try{ var u=new URL(a.href); if(u.hostname==='github.com'){return;} if(!u.searchParams.has('utm_source')){ u.searchParams.set('utm_source','vektor'); u.searchParams.set('utm_medium','dm'); u.searchParams.set('utm_campaign',camp); a.href=u.toString(); } }catch(e){} });
   var sh=document.getElementById('shareBtn');
   if(sh){ sh.addEventListener('click', function(){ gcEvent('{{SLUG}}-share'); if(navigator.share){ navigator.share({title:document.title, url:location.href}).catch(function(){}); } else { copyText(location.href, sh, 'Link copied — paste it ✓'); } }); }
-  var sticky=document.getElementById('stickyCta'), sub=document.getElementById('subscribe'), dismissed=false;
-  var midcap=document.querySelector('.midcap'), cards=document.querySelectorAll('.issues .card'), lastCard=cards[cards.length-1];
-  // show once the reader has scrolled PAST the mid-page capture (peak intent handled),
-  // hide while a subscribe form intersects the bar's own strip (bottom 130px) so the bar
-  // never covers or competes with a form CTA. The old rule (last card above 60vh AND
-  // footer form fully off-screen) was geometrically unsatisfiable — the bar never showed.
+  var sticky=document.getElementById('stickyCta'), sub=document.getElementById('subscribe'), dismissed=false, stickyViewed=false;
+  var midcap=document.querySelector('.midcap');
+  // v2 (2026-09-24): visible FROM LOAD, not after scrolling past the whole
+  // payload. Evidence: the five biggest keyword campaigns drew 1,097 opens
+  // and captured 41 emails lifetime (~4 per 100, worker /report) — the old
+  // scroll-gated bar only appeared after the reader had scrolled past the
+  // ENTIRE free payload, so most mobile readers who bounced early never saw
+  // an ask at all. The only reasons left to hide it: the reader dismissed
+  // it, or a page form (midcap / footer #subscribe) is intersecting the
+  // bar's own strip (bottom 130px), so it never covers or competes with a
+  // form CTA already in view.
   function inBarZone(el){ if(!el){return false;} var r=el.getBoundingClientRect(); return r.top<window.innerHeight && r.bottom>window.innerHeight-130; }
-  function updCta(){ if(dismissed){return;} var gate=midcap||lastCard; var passed=!!gate && gate.getBoundingClientRect().bottom<0; var show=passed && !inBarZone(midcap) && !inBarZone(sub); sticky.classList.toggle('show', show); sticky.setAttribute('aria-hidden', show?'false':'true'); }
-  window.addEventListener('scroll',updCta,{passive:true}); window.addEventListener('resize',updCta); updCta();
-  document.getElementById('ctaClose').addEventListener('click', function(){ dismissed=true; sticky.classList.remove('show'); sticky.setAttribute('aria-hidden','true'); });
+  // guarded: unlock pages omit capture.html entirely (build.mjs), so #stickyCta
+  // does not exist there — this already threw on every u-no-*.html page before
+  // v2 (unguarded sticky.classList calls), just silently, since nothing downstream
+  // depended on it running. Guarding it here rather than leaving that landmine.
+  if(sticky){
+    function updCta(){
+      if(dismissed){ sticky.classList.remove('show'); sticky.setAttribute('aria-hidden','true'); return; }
+      var show=!inBarZone(midcap) && !inBarZone(sub);
+      sticky.classList.toggle('show', show);
+      sticky.setAttribute('aria-hidden', show?'false':'true');
+      // view-of-ask event, once per page view, the moment it first becomes visible
+      // (almost always on load) — gives the submit counts a denominator.
+      if(show && !stickyViewed){ stickyViewed=true; gcEvent('{{SLUG}}-sticky-view'); }
+    }
+    window.addEventListener('scroll',updCta,{passive:true}); window.addEventListener('resize',updCta); updCta();
+    var ctaClose=document.getElementById('ctaClose');
+    if(ctaClose){ ctaClose.addEventListener('click', function(){ dismissed=true; sticky.classList.remove('show'); sticky.setAttribute('aria-hidden','true'); }); }
+    // role pills: one optional tap, POSTs as `role` (each radio carries
+    // form="stickyForm" so it submits with the sticky form without being
+    // nested inside it). Its own event per tap, so the choice is measurable
+    // even from a reader who taps a pill and never submits.
+    document.querySelectorAll('.role-pick input[type="radio"]').forEach(function(r){
+      r.addEventListener('change', function(){ if(r.checked){ gcEvent('{{SLUG}}-sticky-role-'+r.value); } });
+    });
+  }
   var wmFoot=document.getElementById('wmFoot');
   if(wmFoot && 'IntersectionObserver' in window){ var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ wmFoot.classList.remove('play'); void wmFoot.offsetWidth; wmFoot.classList.add('play'); } }); }, {threshold:0.6}); io.observe(wmFoot); }
   // THE ASK MODAL — an A/B on the TRIGGER, not on the copy (2026-09-01).
@@ -147,18 +174,15 @@
   // Instrumentation before optimisation. Every capture point reports its own
   // event, so we can see which of the four actually earns its place instead of
   // guessing. Previously all of them fired one shared 'subscribe-submit'.
+  // (Sticky-bar view is fired from updCta() above, not here — v1 used a
+  // MutationObserver to catch the show-class toggle, which only fired for a
+  // toggle AFTER it attached; now the bar shows on load, before the observer
+  // would even exist, so that path would have gone silent.)
   document.querySelectorAll('form[data-capture]').forEach(function(f){
     f.addEventListener('submit', function(){
       gcEvent('{{SLUG}}-sub-' + f.getAttribute('data-capture'));
     });
   });
-  // sticky bar impression, once per page view, to give the submits a denominator
-  (function(){ var seen=false, bar=document.getElementById('stickyCta');
-    if(!bar){return;}
-    new MutationObserver(function(){
-      if(!seen && bar.classList.contains('show')){ seen=true; gcEvent('{{SLUG}}-sticky-view'); }
-    }).observe(bar,{attributes:true,attributeFilter:['class']});
-  })();
 </script>
 
 <script data-goatcounter="https://vektor.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>

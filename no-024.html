@@ -594,24 +594,51 @@ footer{margin-top:var(--p-4xl); padding:var(--p-2xl) var(--rail) var(--p-4xl); b
 
 .hero .actions{display:flex; flex-wrap:wrap; gap:var(--p-s); margin-top:var(--p-l);}
 
-/* ---- sticky follow CTA (kept per founder) ---- */
-/* the bar is fixed, so the page must reserve room or it covers the footer's
-   last rows — measured 83-101px of occlusion on 20 pages */
-body{padding-bottom:120px;}
-@media (min-width:640px){ body{padding-bottom:96px;} }
+/* ---- sticky ask (v2, 2026-09-24 — shows from load, not after scroll) ----
+   Was: translateY(110%) until the reader scrolled past the LAST card, i.e.
+   past the whole free payload — most mobile readers bounced before ever
+   seeing an ask (evidence: 1,097 opens / 41 emails lifetime, worker /report
+   2026-09-24). Now .show is the default state (scripts.html), so the bar
+   sits in the initial viewport like a cookie bar. Taller than v1 (copy line
+   + optional role pills + the form), so the reserved body padding grows to
+   match — get this wrong and the bar covers the footer's last rows again
+   (measured 83-101px of occlusion the first time this shipped). */
+body{padding-bottom:210px;}
+@media (min-width:640px){ body{padding-bottom:120px;} }
 .sticky-cta{
   position:fixed; left:0; right:0; bottom:0; z-index:60;
-  display:flex; align-items:center; justify-content:space-between; gap:var(--p-m);
-  padding:var(--p-s) var(--rail); background:var(--bg);
-  border-top:1px solid var(--rule);
-  font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s);
+  display:flex; flex-direction:column; gap:var(--p-s);
+  padding:var(--p-m) var(--rail); padding-right:calc(var(--rail) + 40px);
+  background:var(--bg); border-top:1px solid var(--rule);
   transform:translateY(110%); transition:transform .3s ease;
 }
 .sticky-cta.show{transform:none;}
-.sticky-cta .r{display:flex; align-items:center; gap:var(--p-s);}
-.sticky-cta .t{flex:0 1 auto; color:var(--dim); min-width:0;}
+.sticky-cta .ask-copy{display:flex; flex-direction:column; gap:6px;}
+.sticky-cta .t{
+  color:var(--dim); font-family:var(--font-sans); text-transform:none;
+  letter-spacing:normal; font-size:var(--fs-xs); line-height:var(--lh-xs);
+}
+/* the role question: a fieldset of pill radios, associated to the form by
+   id (form="stickyForm") rather than nesting, so the copy/pills can sit
+   visually apart from the email row without splitting the <form>. */
+.role-pick{display:flex; flex-wrap:wrap; gap:6px; border:0; padding:0; margin:0;}
+.role-pick .pill{display:inline-flex;}
+.role-pick .pill input{
+  position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+  overflow:hidden; clip-path:inset(50%); border:0;
+}
+.role-pick .pill span{
+  display:inline-flex; align-items:center; min-height:36px; padding:4px 12px;
+  border:1px solid var(--rule); border-radius:999px; color:var(--dim);
+  font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em;
+  font-size:var(--fs-xs); white-space:nowrap; cursor:pointer;
+}
+/* teal fill + near-black text — same pair as .gate .tab, already measured
+   at 5.57:1 there, so it clears the 4.5:1 floor for this small text too. */
+.role-pick .pill input:checked + span{background:var(--accent); border-color:var(--accent); color:#04120F;}
+.role-pick .pill input:focus-visible + span{outline:2px solid var(--fg); outline-offset:2px;}
 /* the bar carries a real capture now, not a Follow link */
-.sticky-form{display:flex; align-items:stretch; gap:var(--p-s); flex:1 1 260px; min-width:0;}
+.sticky-form{display:flex; align-items:stretch; gap:var(--p-s); width:100%; min-width:0;}
 .sticky-form input{
   flex:1 1 auto; min-width:0; min-height:40px; background:transparent;
   border:0; border-bottom:1px solid var(--rule); color:var(--fg);
@@ -632,14 +659,13 @@ input,select,textarea{font-size:16px !important;}
   position:absolute; width:1px; height:1px; padding:0; margin:-1px;
   overflow:hidden; clip-path:inset(50%); border:0;
 }
-/* below 640 the label would push the form to a second line for no gain */
-@media (max-width:639px){
-  .sticky-cta{flex-wrap:wrap; gap:var(--p-xs) var(--p-s);}
-  .sticky-cta .t{flex:1 0 100%; font-size:var(--fs-xs);}
-  .sticky-form{flex:1 1 auto;}
+@media (min-width:640px){
+  .sticky-cta{flex-direction:row; align-items:center; flex-wrap:wrap; padding-right:calc(var(--rail) + 40px);}
+  .sticky-cta .ask-copy{flex:1 1 280px;}
+  .sticky-form{flex:1 1 320px;}
 }
 .sticky-cta .go{color:var(--accent);}
-.sticky-cta .x{background:none; border:0; color:var(--meta); font-size:22px; line-height:1; min-width:44px; min-height:44px; cursor:pointer;}
+.sticky-cta .x{background:none; border:0; color:var(--meta); font-size:22px; line-height:1; min-width:44px; min-height:44px; cursor:pointer; position:absolute; top:2px; right:var(--p-xs);}
 .sticky-cta .x:hover{color:var(--fg);}
 
 /* ---- newsletter pop-up (kept per founder) ---- */
@@ -825,6 +851,23 @@ pre.code code{font-size:inherit;}
      thing left to sell. Wording that implies a lock is a lie now, not copy.
      Full argument: vektor/reports/2026-09-01-email-gate-decision.md.
 
+     ABOVE-THE-FOLD FROM LOAD (v2, 2026-09-24). Evidence: the five biggest
+     keyword campaigns drew 1,097 opens and captured 41 emails lifetime (~4 per
+     100; worker /report). This bar previously stayed translateY(110%) — off
+     screen — until the reader scrolled past the LAST card on the page, i.e.
+     past the entire free payload. On mobile that is several screens down, so
+     most readers who bounce before finishing the page never saw an ask at
+     all. It now ships .show by default (scripts.html) so it is inside the
+     initial viewport on load, same as a cookie bar — it does not cover the
+     hook or the payload, it just rides the bottom 130-190px. Dismiss (the ×)
+     still hides it for the session.
+
+     ROLE PILLS (v2). One optional tap, POSTs as `role` alongside the email.
+     The worker (signup.js → Buttondown) does not yet turn it into a tag —
+     see vektor-site/WORKER-CHANGE-NEEDED.md for the exact change. Until that
+     ships the value still reaches the funnel worker's logs/notes field, it
+     is just not yet a Buttondown tag.
+
      The tag still carries the PAGE slug (no024-sticky) — the worker no
      longer needs it to decide what to unlock, but it is the only per-source
      attribution we get in Buttondown and in /report's count:email:<source>.
@@ -832,8 +875,16 @@ pre.code code{font-size:inherit;}
      This whole file is omitted from unlock pages — asking a reader for the
      email they just gave you is how a funnel reads as a machine. -->
 <div class="sticky-cta" id="stickyCta" aria-hidden="true">
-  <span class="t">One working AI setup a week</span>
-  <form class="sticky-form" method="post" action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" data-capture="sticky">
+  <div class="ask-copy">
+    <span class="t">The files stay free. One email a week — unsubscribe anytime.</span>
+    <fieldset class="role-pick">
+      <legend class="sr-only">What do you do? (optional)</legend>
+      <label class="pill"><input type="radio" name="role" value="developer" form="stickyForm"><span>Developer</span></label>
+      <label class="pill"><input type="radio" name="role" value="founder-operator" form="stickyForm"><span>Founder/operator</span></label>
+      <label class="pill"><input type="radio" name="role" value="other" form="stickyForm"><span>Other</span></label>
+    </fieldset>
+  </div>
+  <form class="sticky-form" id="stickyForm" method="post" action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" data-capture="sticky">
       <input type="hidden" name="tag" value="no024-sticky">
       <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
     <label class="sr-only" for="stickyEmail">Email address</label>
@@ -1084,16 +1135,43 @@ pre.code code{font-size:inherit;}
   document.querySelectorAll('a[href^="http"]').forEach(function(a){ try{ var u=new URL(a.href); if(u.hostname==='github.com'){return;} if(!u.searchParams.has('utm_source')){ u.searchParams.set('utm_source','vektor'); u.searchParams.set('utm_medium','dm'); u.searchParams.set('utm_campaign',camp); a.href=u.toString(); } }catch(e){} });
   var sh=document.getElementById('shareBtn');
   if(sh){ sh.addEventListener('click', function(){ gcEvent('no024-share'); if(navigator.share){ navigator.share({title:document.title, url:location.href}).catch(function(){}); } else { copyText(location.href, sh, 'Link copied — paste it ✓'); } }); }
-  var sticky=document.getElementById('stickyCta'), sub=document.getElementById('subscribe'), dismissed=false;
-  var midcap=document.querySelector('.midcap'), cards=document.querySelectorAll('.issues .card'), lastCard=cards[cards.length-1];
-  // show once the reader has scrolled PAST the mid-page capture (peak intent handled),
-  // hide while a subscribe form intersects the bar's own strip (bottom 130px) so the bar
-  // never covers or competes with a form CTA. The old rule (last card above 60vh AND
-  // footer form fully off-screen) was geometrically unsatisfiable — the bar never showed.
+  var sticky=document.getElementById('stickyCta'), sub=document.getElementById('subscribe'), dismissed=false, stickyViewed=false;
+  var midcap=document.querySelector('.midcap');
+  // v2 (2026-09-24): visible FROM LOAD, not after scrolling past the whole
+  // payload. Evidence: the five biggest keyword campaigns drew 1,097 opens
+  // and captured 41 emails lifetime (~4 per 100, worker /report) — the old
+  // scroll-gated bar only appeared after the reader had scrolled past the
+  // ENTIRE free payload, so most mobile readers who bounced early never saw
+  // an ask at all. The only reasons left to hide it: the reader dismissed
+  // it, or a page form (midcap / footer #subscribe) is intersecting the
+  // bar's own strip (bottom 130px), so it never covers or competes with a
+  // form CTA already in view.
   function inBarZone(el){ if(!el){return false;} var r=el.getBoundingClientRect(); return r.top<window.innerHeight && r.bottom>window.innerHeight-130; }
-  function updCta(){ if(dismissed){return;} var gate=midcap||lastCard; var passed=!!gate && gate.getBoundingClientRect().bottom<0; var show=passed && !inBarZone(midcap) && !inBarZone(sub); sticky.classList.toggle('show', show); sticky.setAttribute('aria-hidden', show?'false':'true'); }
-  window.addEventListener('scroll',updCta,{passive:true}); window.addEventListener('resize',updCta); updCta();
-  document.getElementById('ctaClose').addEventListener('click', function(){ dismissed=true; sticky.classList.remove('show'); sticky.setAttribute('aria-hidden','true'); });
+  // guarded: unlock pages omit capture.html entirely (build.mjs), so #stickyCta
+  // does not exist there — this already threw on every u-no-*.html page before
+  // v2 (unguarded sticky.classList calls), just silently, since nothing downstream
+  // depended on it running. Guarding it here rather than leaving that landmine.
+  if(sticky){
+    function updCta(){
+      if(dismissed){ sticky.classList.remove('show'); sticky.setAttribute('aria-hidden','true'); return; }
+      var show=!inBarZone(midcap) && !inBarZone(sub);
+      sticky.classList.toggle('show', show);
+      sticky.setAttribute('aria-hidden', show?'false':'true');
+      // view-of-ask event, once per page view, the moment it first becomes visible
+      // (almost always on load) — gives the submit counts a denominator.
+      if(show && !stickyViewed){ stickyViewed=true; gcEvent('no024-sticky-view'); }
+    }
+    window.addEventListener('scroll',updCta,{passive:true}); window.addEventListener('resize',updCta); updCta();
+    var ctaClose=document.getElementById('ctaClose');
+    if(ctaClose){ ctaClose.addEventListener('click', function(){ dismissed=true; sticky.classList.remove('show'); sticky.setAttribute('aria-hidden','true'); }); }
+    // role pills: one optional tap, POSTs as `role` (each radio carries
+    // form="stickyForm" so it submits with the sticky form without being
+    // nested inside it). Its own event per tap, so the choice is measurable
+    // even from a reader who taps a pill and never submits.
+    document.querySelectorAll('.role-pick input[type="radio"]').forEach(function(r){
+      r.addEventListener('change', function(){ if(r.checked){ gcEvent('no024-sticky-role-'+r.value); } });
+    });
+  }
   var wmFoot=document.getElementById('wmFoot');
   if(wmFoot && 'IntersectionObserver' in window){ var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ wmFoot.classList.remove('play'); void wmFoot.offsetWidth; wmFoot.classList.add('play'); } }); }, {threshold:0.6}); io.observe(wmFoot); }
   // THE ASK MODAL — an A/B on the TRIGGER, not on the copy (2026-09-01).
@@ -1213,18 +1291,15 @@ pre.code code{font-size:inherit;}
   // Instrumentation before optimisation. Every capture point reports its own
   // event, so we can see which of the four actually earns its place instead of
   // guessing. Previously all of them fired one shared 'subscribe-submit'.
+  // (Sticky-bar view is fired from updCta() above, not here — v1 used a
+  // MutationObserver to catch the show-class toggle, which only fired for a
+  // toggle AFTER it attached; now the bar shows on load, before the observer
+  // would even exist, so that path would have gone silent.)
   document.querySelectorAll('form[data-capture]').forEach(function(f){
     f.addEventListener('submit', function(){
       gcEvent('no024-sub-' + f.getAttribute('data-capture'));
     });
   });
-  // sticky bar impression, once per page view, to give the submits a denominator
-  (function(){ var seen=false, bar=document.getElementById('stickyCta');
-    if(!bar){return;}
-    new MutationObserver(function(){
-      if(!seen && bar.classList.contains('show')){ seen=true; gcEvent('no024-sticky-view'); }
-    }).observe(bar,{attributes:true,attributeFilter:['class']});
-  })();
 </script>
 
 <script data-goatcounter="https://vektor.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>

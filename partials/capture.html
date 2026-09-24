@@ -11,6 +11,23 @@
      thing left to sell. Wording that implies a lock is a lie now, not copy.
      Full argument: vektor/reports/2026-09-01-email-gate-decision.md.
 
+     ABOVE-THE-FOLD FROM LOAD (v2, 2026-09-24). Evidence: the five biggest
+     keyword campaigns drew 1,097 opens and captured 41 emails lifetime (~4 per
+     100; worker /report). This bar previously stayed translateY(110%) — off
+     screen — until the reader scrolled past the LAST card on the page, i.e.
+     past the entire free payload. On mobile that is several screens down, so
+     most readers who bounce before finishing the page never saw an ask at
+     all. It now ships .show by default (scripts.html) so it is inside the
+     initial viewport on load, same as a cookie bar — it does not cover the
+     hook or the payload, it just rides the bottom 130-190px. Dismiss (the ×)
+     still hides it for the session.
+
+     ROLE PILLS (v2). One optional tap, POSTs as `role` alongside the email.
+     The worker (signup.js → Buttondown) does not yet turn it into a tag —
+     see vektor-site/WORKER-CHANGE-NEEDED.md for the exact change. Until that
+     ships the value still reaches the funnel worker's logs/notes field, it
+     is just not yet a Buttondown tag.
+
      The tag still carries the PAGE slug ({{SLUG}}-sticky) — the worker no
      longer needs it to decide what to unlock, but it is the only per-source
      attribution we get in Buttondown and in /report's count:email:<source>.
@@ -18,8 +35,16 @@
      This whole file is omitted from unlock pages — asking a reader for the
      email they just gave you is how a funnel reads as a machine. -->
 <div class="sticky-cta" id="stickyCta" aria-hidden="true">
-  <span class="t">One working AI setup a week</span>
-  <form class="sticky-form" method="post" action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" data-capture="sticky">
+  <div class="ask-copy">
+    <span class="t">The files stay free. One email a week — unsubscribe anytime.</span>
+    <fieldset class="role-pick">
+      <legend class="sr-only">What do you do? (optional)</legend>
+      <label class="pill"><input type="radio" name="role" value="developer" form="stickyForm"><span>Developer</span></label>
+      <label class="pill"><input type="radio" name="role" value="founder-operator" form="stickyForm"><span>Founder/operator</span></label>
+      <label class="pill"><input type="radio" name="role" value="other" form="stickyForm"><span>Other</span></label>
+    </fieldset>
+  </div>
+  <form class="sticky-form" id="stickyForm" method="post" action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" data-capture="sticky">
       <input type="hidden" name="tag" value="{{SLUG}}-sticky">
       <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
     <label class="sr-only" for="stickyEmail">Email address</label>

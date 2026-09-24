@@ -927,6 +927,26 @@ input,select,textarea{font-size:16px !important;}   /* iOS zooms below 16 */
   .pop-card .k{font-size:var(--fs-xs); margin-bottom:var(--p-xs);}
   .pop-card .note{display:none;}
 }
+
+/* ---- role pills (v2, 2026-09-24) ----
+   Same one-tap optional question as the issue-page sticky bar
+   (partials/capture.html), ported here so the hub's own popup carries the
+   same signal. Pair identical to .gate .tab: teal fill + near-black text
+   measures 5.57:1, clears the 4.5:1 floor for small text. */
+.role-pick{display:flex; flex-wrap:wrap; gap:6px; border:0; padding:0; margin:0 0 var(--p-xs);}
+.role-pick .pill{display:inline-flex;}
+.role-pick .pill input{
+  position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+  overflow:hidden; clip-path:inset(50%); border:0;
+}
+.role-pick .pill span{
+  display:inline-flex; align-items:center; min-height:36px; padding:4px 12px;
+  border:1px solid var(--rule); border-radius:999px; color:var(--dim);
+  font-family:var(--font-sans); text-transform:uppercase; letter-spacing:.025em;
+  font-size:var(--fs-xs); white-space:nowrap; cursor:pointer;
+}
+.role-pick .pill input:checked + span{background:var(--accent); border-color:var(--accent); color:#04120F;}
+.role-pick .pill input:focus-visible + span{outline:2px solid var(--fg); outline-offset:2px;}
 </style>
 </head>
 <body>
@@ -945,6 +965,12 @@ input,select,textarea{font-size:16px !important;}   /* iOS zooms below 16 */
     <span class="k">One email a week &middot; the working setup</span>
     <h2 id="bioPopH">Take the config pack with you.</h2>
     <p>Add your email and the config pack opens straight away — plus one working AI setup a week.</p>
+    <fieldset class="role-pick" id="bioPopRole">
+      <legend class="sr-only">What do you do? (optional)</legend>
+      <label class="pill"><input type="radio" name="role" value="developer"><span>Developer</span></label>
+      <label class="pill"><input type="radio" name="role" value="founder-operator"><span>Founder/operator</span></label>
+      <label class="pill"><input type="radio" name="role" value="other"><span>Other</span></label>
+    </fieldset>
     <form method="post" action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" data-capture="bio-popup">
       <input type="hidden" name="tag" value="bio-popup">
       <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
@@ -1057,21 +1083,21 @@ input,select,textarea{font-size:16px !important;}   /* iOS zooms below 16 */
       <a class="alink u" href="#archive"><span class="a">→</span><span>All 22 issues</span></a>
     </div>
     <div class="cards">
+      <a class="teaser" href="./no-054.html">
+        <div class="img noplate" aria-hidden="true"></div>
+        <div class="body">
+          <div class="date meta">09-2026 &middot; Claude Code</div>
+          <h3>Your CLAUDE.md is slowing Claude Code down</h3>
+          <p>Anthropic cut over 80% of Claude Code's own system prompt. I ran /doctor on my 494-line CLAUDE.md stack: nine blocks flagged, quoted in full, with why each one went.</p>
+          <span class="more defaultS">Open the pack</span>
+        </div>
+      </a>
       <a class="teaser" href="./no-053.html">
         <div class="img noplate" aria-hidden="true"></div>
         <div class="body">
           <div class="date meta">09-2026 &middot; AI models</div>
           <h3>Which of the five roles are you</h3>
           <p>Prototyper, Builder, Sweeper, Grower, Maintainer. Boris Cherny's five archetypes, what a healthy team needs at each stage, and a prompt that reads your git history and tells you which one you are.</p>
-          <span class="more defaultS">Open the pack</span>
-        </div>
-      </a>
-      <a class="teaser" href="./no-052.html">
-        <div class="img noplate" aria-hidden="true"></div>
-        <div class="body">
-          <div class="date meta">09-2026 &middot; Credit</div>
-          <h3>Two mathematicians, one phone call</h3>
-          <p>OpenAI's own announcement says it is not claiming the Millennium Prize. Its 166-page paper never names Alpöge. Clay has awarded nothing. Every primary document in the Navier–Stokes credit dispute, on one page.</p>
           <span class="more defaultS">Open the pack</span>
         </div>
       </a>
@@ -1213,7 +1239,6 @@ input,select,textarea{font-size:16px !important;}   /* iOS zooms below 16 */
         <div class="body">
           <div class="date meta">2026-08-01 &middot; Setup</div>
           <h3>tax the agents</h3>
-          <p>The US federal government runs on wage taxes — 84% of revenue. An agent that replaces a $70k salary pays none of it. The obvious fix is a per-agent levy. It has two holes. Read both.</p>
           <span class="defaultS">Open the pack</span>
         </div>
       </a>
@@ -1528,7 +1553,7 @@ input,select,textarea{font-size:16px !important;}   /* iOS zooms below 16 */
 
   <div class="lattice foot-links">
     <a href="#archive"><span>→</span><span>The archive</span></a>
-    <a href="./no-053.html"><span>→</span><span>Latest issue</span></a>
+    <a href="./no-054.html"><span>→</span><span>Latest issue</span></a>
     <a href="./pack.html"><span>→</span><span>Packs</span></a>
     <a href="https://youtube.com/@vektorfm" target="_blank" rel="noopener"><span>→</span><span>Watch</span></a>
     <a href="./thanks.html"><span>→</span><span>Contact</span></a>
@@ -1736,11 +1761,23 @@ document.querySelectorAll('.copylink').forEach(b => {
     // the only failure worth telling the visitor about. A Buttondown-side
     // rejection reads as success here — exactly as it does in the native flow,
     // which redirects to thanks.html for those cases too.
+    // role pills: one optional tap, read at submit time (the fieldset sits
+    // outside <form> since the form itself is a hand-built fetch, not a native
+    // submit — same field name as the issue-page sticky bar (partials/
+    // capture.html), so both land as `role` once the worker learns to carry
+    // it (see WORKER-CHANGE-NEEDED.md). Its own event per tap.
+    var rolePick = document.getElementById('bioPopRole');
+    if (rolePick) {
+      rolePick.querySelectorAll('input[type="radio"]').forEach(function(r){
+        r.addEventListener('change', function(){ if (r.checked) { ev('hub-bio-popup-role-'+r.value); } });
+      });
+    }
     form.addEventListener('submit', function(e){
       if (!form.checkValidity()) { return; }
       e.preventDefault();
       var email = String(form.email.value || '').trim();
       if (!email) { return; }
+      var role = rolePick ? (rolePick.querySelector('input[type="radio"]:checked') || {}).value || '' : '';
       card.classList.remove('errored');
       btn.disabled = true; btn.textContent = 'Sending…';
       seen();
@@ -1748,7 +1785,7 @@ document.querySelectorAll('.copylink').forEach(b => {
       fetch(form.action, {
         method: 'POST',
         mode: 'no-cors',
-        body: new URLSearchParams({ email: email, tag: 'bio-popup', company: '' })
+        body: new URLSearchParams({ email: email, tag: 'bio-popup', company: '', role: role })
       }).then(function(){
         card.classList.add('done');
         btn.disabled = false; btn.innerHTML = btnLabel;

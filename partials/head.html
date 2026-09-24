@@ -380,24 +380,51 @@ footer{margin-top:var(--p-4xl); padding:var(--p-2xl) var(--rail) var(--p-4xl); b
 
 .hero .actions{display:flex; flex-wrap:wrap; gap:var(--p-s); margin-top:var(--p-l);}
 
-/* ---- sticky follow CTA (kept per founder) ---- */
-/* the bar is fixed, so the page must reserve room or it covers the footer's
-   last rows — measured 83-101px of occlusion on 20 pages */
-body{padding-bottom:120px;}
-@media (min-width:640px){ body{padding-bottom:96px;} }
+/* ---- sticky ask (v2, 2026-09-24 — shows from load, not after scroll) ----
+   Was: translateY(110%) until the reader scrolled past the LAST card, i.e.
+   past the whole free payload — most mobile readers bounced before ever
+   seeing an ask (evidence: 1,097 opens / 41 emails lifetime, worker /report
+   2026-09-24). Now .show is the default state (scripts.html), so the bar
+   sits in the initial viewport like a cookie bar. Taller than v1 (copy line
+   + optional role pills + the form), so the reserved body padding grows to
+   match — get this wrong and the bar covers the footer's last rows again
+   (measured 83-101px of occlusion the first time this shipped). */
+body{padding-bottom:210px;}
+@media (min-width:640px){ body{padding-bottom:120px;} }
 .sticky-cta{
   position:fixed; left:0; right:0; bottom:0; z-index:60;
-  display:flex; align-items:center; justify-content:space-between; gap:var(--p-m);
-  padding:var(--p-s) var(--rail); background:var(--bg);
-  border-top:1px solid var(--rule);
-  font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s);
+  display:flex; flex-direction:column; gap:var(--p-s);
+  padding:var(--p-m) var(--rail); padding-right:calc(var(--rail) + 40px);
+  background:var(--bg); border-top:1px solid var(--rule);
   transform:translateY(110%); transition:transform .3s ease;
 }
 .sticky-cta.show{transform:none;}
-.sticky-cta .r{display:flex; align-items:center; gap:var(--p-s);}
-.sticky-cta .t{flex:0 1 auto; color:var(--dim); min-width:0;}
+.sticky-cta .ask-copy{display:flex; flex-direction:column; gap:6px;}
+.sticky-cta .t{
+  color:var(--dim); font-family:var(--font-sans); text-transform:none;
+  letter-spacing:normal; font-size:var(--fs-xs); line-height:var(--lh-xs);
+}
+/* the role question: a fieldset of pill radios, associated to the form by
+   id (form="stickyForm") rather than nesting, so the copy/pills can sit
+   visually apart from the email row without splitting the <form>. */
+.role-pick{display:flex; flex-wrap:wrap; gap:6px; border:0; padding:0; margin:0;}
+.role-pick .pill{display:inline-flex;}
+.role-pick .pill input{
+  position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+  overflow:hidden; clip-path:inset(50%); border:0;
+}
+.role-pick .pill span{
+  display:inline-flex; align-items:center; min-height:36px; padding:4px 12px;
+  border:1px solid var(--rule); border-radius:999px; color:var(--dim);
+  font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em;
+  font-size:var(--fs-xs); white-space:nowrap; cursor:pointer;
+}
+/* teal fill + near-black text — same pair as .gate .tab, already measured
+   at 5.57:1 there, so it clears the 4.5:1 floor for this small text too. */
+.role-pick .pill input:checked + span{background:var(--accent); border-color:var(--accent); color:#04120F;}
+.role-pick .pill input:focus-visible + span{outline:2px solid var(--fg); outline-offset:2px;}
 /* the bar carries a real capture now, not a Follow link */
-.sticky-form{display:flex; align-items:stretch; gap:var(--p-s); flex:1 1 260px; min-width:0;}
+.sticky-form{display:flex; align-items:stretch; gap:var(--p-s); width:100%; min-width:0;}
 .sticky-form input{
   flex:1 1 auto; min-width:0; min-height:40px; background:transparent;
   border:0; border-bottom:1px solid var(--rule); color:var(--fg);
@@ -418,14 +445,13 @@ input,select,textarea{font-size:16px !important;}
   position:absolute; width:1px; height:1px; padding:0; margin:-1px;
   overflow:hidden; clip-path:inset(50%); border:0;
 }
-/* below 640 the label would push the form to a second line for no gain */
-@media (max-width:639px){
-  .sticky-cta{flex-wrap:wrap; gap:var(--p-xs) var(--p-s);}
-  .sticky-cta .t{flex:1 0 100%; font-size:var(--fs-xs);}
-  .sticky-form{flex:1 1 auto;}
+@media (min-width:640px){
+  .sticky-cta{flex-direction:row; align-items:center; flex-wrap:wrap; padding-right:calc(var(--rail) + 40px);}
+  .sticky-cta .ask-copy{flex:1 1 280px;}
+  .sticky-form{flex:1 1 320px;}
 }
 .sticky-cta .go{color:var(--accent);}
-.sticky-cta .x{background:none; border:0; color:var(--meta); font-size:22px; line-height:1; min-width:44px; min-height:44px; cursor:pointer;}
+.sticky-cta .x{background:none; border:0; color:var(--meta); font-size:22px; line-height:1; min-width:44px; min-height:44px; cursor:pointer; position:absolute; top:2px; right:var(--p-xs);}
 .sticky-cta .x:hover{color:var(--fg);}
 
 /* ---- newsletter pop-up (kept per founder) ---- */
