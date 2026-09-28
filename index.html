@@ -3,11 +3,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>vektor /// the index — the AI frontier, cut to what ships</title>
-<meta name="description" content="Daily shorts on the Claude &amp; AI tooling that actually matters — and every issue delivers the goods. Join The Teardown.">
+<meta name="description" content="Short films on the Claude &amp; AI tooling that actually matters, every week — and every issue ships the working files behind it. Join The Teardown.">
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="VEKTOR — the AI frontier, cut to what ships.">
-<meta property="og:description" content="Daily shorts on the Claude &amp; AI tooling that actually matters. Get The Teardown — one email a week.">
+<meta property="og:description" content="Short films on the Claude &amp; AI tooling that actually matters, every week. Get The Teardown — one email a week.">
 <meta property="og:image" content="https://vektor-fm.github.io/vektor-site/og/index.png?v=2026-08-17">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -294,7 +294,7 @@ img{ display:block; max-width:100%; }
 .menu.nav-visible, .menu:focus-within{ transform:translateZ(0); }
 .menu .bar{
   display:flex; justify-content:space-between; align-items:center;
-  padding:var(--p-s); height:44px; background:var(--bg);
+  padding:var(--p-s) var(--p-m); height:44px; background:var(--bg);   /* horizontal = the content gutter, so the wordmark is not 8px off the screen edge (2026-09-27) */
   outline:1px solid var(--rule);   /* outline, not border — sprind surrounds the bar */
 }
 /* ======================= THE LOGO — THE REAL ONE =======================
@@ -629,9 +629,6 @@ main{ padding-top:0; }
 }
 .film .play:hover{ background:#fff; color:#000; }
 .film .scrub{ position:absolute; left:var(--p-m); right:var(--p-m); bottom:var(--p-l); }
-.film .track{ position:relative; height:1px; background:rgba(255,255,255,.25); transition:height .2s ease; }
-.film:hover .track{ height:4px; }
-.film .track i{ position:absolute; inset:0 62% 0 0; background:#fff; }
 .film .times{ display:flex; justify-content:space-between; color:#fff; font-size:var(--fs-xs); padding-top:8px; font-variant-numeric:tabular-nums; }
 
 /* ===================== SECTION-HEADER COPY-LINK ======================
@@ -1019,24 +1016,24 @@ input,select,textarea{font-size:16px !important;}   /* iOS zooms below 16 */
       <a class="top" href="./pack.html">Packs</a>
       <div class="panel">
         <ul>
-          <li><a href="./no-004.html"><span class="a">→</span><span>Skills</span></a></li>
-          <li><a href="./no-013.html"><span class="a">→</span><span>Agent starter kit</span></a></li>
-          <li><a href="./no-015.html"><span class="a">→</span><span>Loops</span></a></li>
-          <li><a href="./no-010.html"><span class="a">→</span><span>CLAUDE.md files</span></a></li>
+          <li><a href="./no-054.html"><span class="a">→</span><span>Your CLAUDE.md is slowing Claude Code down</span></a></li>
+          <li><a href="./no-053.html"><span class="a">→</span><span>Which of the five roles are you</span></a></li>
+          <li><a href="./no-052.html"><span class="a">→</span><span>Two mathematicians, one phone call</span></a></li>
+          <li><a href="./no-047.html"><span class="a">→</span><span>Convert files locally</span></a></li>
         </ul>
-        <p class="info">The files behind the films. One email opens any of them.</p>
+        <p class="info">The files behind the films. Every one of them is on its issue page, free.</p>
       </div>
     </li>
     <li>
-      <a class="top" href="#about">About</a>
+      <a class="top" href="./about.html">About</a>
       <div class="panel">
         <ul>
-          <li><a href="#about"><span class="a">→</span><span>What vektor is</span></a></li>
-          <li><a href="#subscribe"><span class="a">→</span><span>The Teardown</span></a></li>
+          <li><a href="./about.html"><span class="a">→</span><span>What vektor is</span></a></li>
+          <li><a href="#teardown"><span class="a">→</span><span>The Teardown</span></a></li>
           <li><a href="https://youtube.com/@vektorfm" target="_blank" rel="noopener"><span class="a">→</span><span>Watch</span></a></li>
           <li><a href="./privacy.html"><span class="a">→</span><span>Privacy</span></a></li>
         </ul>
-        <p class="info">Daily shorts on the Claude and AI tooling that actually matters.</p>
+        <p class="info">Short films on the Claude and AI tooling that actually matters, every week.</p>
       </div>
     </li>
   </ul>
@@ -1080,11 +1077,11 @@ input,select,textarea{font-size:16px !important;}   /* iOS zooms below 16 */
   <section class="module band-lift" id="latest">
     <div class="modhead">
       <h2 class="heading1">Latest</h2>
-      <a class="alink u" href="#archive"><span class="a">→</span><span>All 22 issues</span></a>
+      <a class="alink u" href="#archive"><span class="a">→</span><span>All 39 issues</span></a>
     </div>
     <div class="cards">
       <a class="teaser" href="./no-054.html">
-        <div class="img noplate" aria-hidden="true"></div>
+        <div class="img"><img loading="lazy" decoding="async" width="700" height="467" src="og/plate-no-054-card.webp" alt=""></div>
         <div class="body">
           <div class="date meta">09-2026 &middot; Claude Code</div>
           <h3>Your CLAUDE.md is slowing Claude Code down</h3>
@@ -1093,7 +1090,7 @@ input,select,textarea{font-size:16px !important;}   /* iOS zooms below 16 */
         </div>
       </a>
       <a class="teaser" href="./no-053.html">
-        <div class="img noplate" aria-hidden="true"></div>
+        <div class="img"><img loading="lazy" decoding="async" width="700" height="467" src="og/plate-no-053-card.webp" alt=""></div>
         <div class="body">
           <div class="date meta">09-2026 &middot; AI models</div>
           <h3>Which of the five roles are you</h3>
@@ -1101,8 +1098,17 @@ input,select,textarea{font-size:16px !important;}   /* iOS zooms below 16 */
           <span class="more defaultS">Open the pack</span>
         </div>
       </a>
+      <a class="teaser" href="./no-052.html">
+        <div class="img"><img loading="lazy" decoding="async" width="700" height="467" src="og/plate-no-052-card.webp" alt=""></div>
+        <div class="body">
+          <div class="date meta">09-2026 &middot; Credit</div>
+          <h3>Two mathematicians, one phone call</h3>
+          <p>OpenAI's own announcement says it is not claiming the Millennium Prize. Its 166-page paper never names Alpöge. Clay has awarded nothing. Every primary document in the Navier–Stokes credit dispute, on one page.</p>
+          <span class="more defaultS">Open the pack</span>
+        </div>
+      </a>
       <a class="teaser" href="./no-047.html">
-        <div class="img noplate" aria-hidden="true"></div>
+        <div class="img"><img loading="lazy" decoding="async" width="700" height="467" src="og/plate-no-047-card.webp" alt=""></div>
         <div class="body">
           <div class="date meta">09-2026 &middot; Local tools</div>
           <h3>Convert files locally</h3>
@@ -1110,25 +1116,15 @@ input,select,textarea{font-size:16px !important;}   /* iOS zooms below 16 */
           <span class="more defaultS">Open the pack</span>
         </div>
       </a>
-      <a class="teaser" href="./no-046.html">
-        <div class="img noplate" aria-hidden="true"></div>
-        <div class="body">
-          <div class="date meta">09-2026 &middot; AI models</div>
-          <h3>Four things to do with Fable 5.1</h3>
-          <p>Point it at something you already built. Build one small agent. Describe the problem you have been avoiding. Re-sort your jobs now cache reads cost $0.25 per million. All four prompts, written out.</p>
-          <span class="more defaultS">Open the pack</span>
-        </div>
-      </a>
     </div>
   </section>
 
   <section class="module-flush band-lift">
-    <div class="film">
-      <img src="og/plate-no-017-hero.webp" alt="">
-      <div class="veil"><button class="play">Play the reel</button></div>
+    <div class="film" id="reel" data-yt="hdzmUkqMkY8">
+      <img src="og/plate-no-006-hero.webp" alt="">
+      <div class="veil"><button class="play" type="button" aria-label="Play NO. 006, One file. 188,000 stars. Sixty seconds, on YouTube.">Play the reel</button></div>
       <div class="scrub">
-        <div class="track"><i></i></div>
-        <div class="times"><span>00:24</span><span>00:38</span></div>
+        <div class="times"><span>NO. 006 &middot; One file. 188,000 stars.</span><span>01:00</span></div>
       </div>
     </div>
   </section>
@@ -1161,22 +1157,22 @@ input,select,textarea{font-size:16px !important;}   /* iOS zooms below 16 */
   <section class="module band-base" id="packs">
     <div class="modhead">
       <h2 class="heading1">The packs<button class="copylink" type="button" aria-label="Copy link to this section">#</button></h2>
-      <a class="alink u" href="./pack.html"><span class="a">→</span><span>Browse every pack</span></a>
+      <a class="alink u" href="#archive"><span class="a">→</span><span>Every issue ships one</span></a>
     </div>
     <div class="bigcards">
-      <a class="bigcard" href="./no-004.html">
-        <div class="img"><img loading="lazy" decoding="async" width="700" height="467" src="og/plate-no-004-card.webp" alt=""></div>
+      <a class="bigcard" href="./no-046.html">
+        <div class="img"><img loading="lazy" decoding="async" width="700" height="467" src="og/plate-no-046-card.webp" alt=""></div>
         <div class="body">
-          <h3 class="heading2">Skills</h3>
-          <h3 class="heading2 plain">Five that carry the rest of the toolchain</h3>
+          <h3 class="heading2">AI models</h3>
+          <h3 class="heading2 plain">Four things to do with Fable 5.1</h3>
           <span class="defaultS">Open the pack</span>
         </div>
       </a>
-      <a class="bigcard" href="./no-020.html">
-        <div class="img"><img loading="lazy" decoding="async" width="700" height="467" src="og/plate-no-020-card.webp" alt=""></div>
+      <a class="bigcard" href="./no-033.html">
+        <div class="img"><img loading="lazy" decoding="async" width="700" height="467" src="og/plate-no-033-card.webp" alt=""></div>
         <div class="body">
-          <h3 class="heading2">Subagents</h3>
-          <h3 class="heading2 plain">Four working in parallel, not one long chat</h3>
+          <h3 class="heading2">Five Setups</h3>
+          <h3 class="heading2 plain">Five free setups.</h3>
           <span class="defaultS">Open the pack</span>
         </div>
       </a>
@@ -1191,7 +1187,7 @@ input,select,textarea{font-size:16px !important;}   /* iOS zooms below 16 */
       <div class="split">
         <h2 class="heading1 up">The Teardown<button class="copylink" type="button" aria-label="Copy link to this section">#</button></h2>
         <div style="display:flex;justify-content:flex-end;align-items:flex-start">
-          <a class="alink u" href="#subscribe"><span class="a">→</span><span>Subscribe</span></a>
+          <a class="alink u" href="./newsletter.html"><span class="a">→</span><span>All 5 editions</span></a>
         </div>
       </div>
       <div class="split">
@@ -1205,7 +1201,28 @@ input,select,textarea{font-size:16px !important;}   /* iOS zooms below 16 */
           </ul>
         </div>
         <div class="eplist">
-          <form class="nl-inline" method="post" action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" data-capture="lp-teardown">
+          <a class="episode" href="./teardown-005.html">
+            <span class="play-ep" aria-hidden="true">→</span>
+            <div class="epbody">
+              <div class="ephead"><h4>Asked for Fable, got Opus</h4><span class="dur">2026-09-22</span></div>
+              <div class="epacts"><span class="defaultS">Teardown 005 · Read</span></div>
+            </div>
+          </a>
+          <a class="episode" href="./teardown-004.html">
+            <span class="play-ep" aria-hidden="true">→</span>
+            <div class="epbody">
+              <div class="ephead"><h4>One prompt, two racks, no winner</h4><span class="dur">2026-09-15</span></div>
+              <div class="epacts"><span class="defaultS">Teardown 004 · Read</span></div>
+            </div>
+          </a>
+          <a class="episode" href="./teardown-003.html">
+            <span class="play-ep" aria-hidden="true">→</span>
+            <div class="epbody">
+              <div class="ephead"><h4>Anthropic's playbook, minus the AI</h4><span class="dur">2026-09-08</span></div>
+              <div class="epacts"><span class="defaultS">Teardown 003 · Read</span></div>
+            </div>
+          </a>
+          <form class="nl-inline" style="padding-top:var(--p-xl)" method="post" action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" data-capture="lp-teardown">
       <input type="hidden" name="tag" value="index-lp-teardown">
       <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
             <label class="sr-only" for="tdEmail">Email address</label>
@@ -1225,17 +1242,25 @@ input,select,textarea{font-size:16px !important;}   /* iOS zooms below 16 */
       <a class="alink u" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener"><span class="a">→</span><span>Issues 001–003 lived in the DMs</span></a>
     </div>
     <div class="magazine">
+      <a class="mag" href="./no-046.html">
+        <div class="img"><img loading="lazy" decoding="async" width="700" height="467" src="og/plate-no-046-card.webp" alt=""></div>
+        <div class="body">
+          <div class="date meta">09-2026 &middot; AI models</div>
+          <h3>Four things to do with Fable 5.1</h3>
+          <p>Point it at something you already built. Build one small agent. Describe the problem you have been avoiding. Re-sort your jobs now cache reads cost $0.25 per million. All four prompts, written out.</p>
+          <span class="defaultS">Open the pack</span>
+        </div>
+      </a>
       <a class="mag" href="./no-033.html">
         <div class="img"><img loading="lazy" decoding="async" width="700" height="467" src="og/plate-no-033-card.webp" alt=""></div>
         <div class="body">
           <div class="date meta">08-2026 &middot; Five Setups</div>
           <h3>Five free setups.</h3>
-          <p>17 example skills, the official plugin marketplace, superpowers, claude-mem, a sub-agent marketplace — and the two hooks that make your rules file bite.</p>
           <span class="defaultS">Open the pack</span>
         </div>
       </a>
       <a class="mag" href="./no-031.html">
-        <div class="img noplate" aria-hidden="true"></div>
+        <div class="img"><img loading="lazy" decoding="async" width="700" height="467" src="og/plate-no-031-card.webp" alt=""></div>
         <div class="body">
           <div class="date meta">2026-08-01 &middot; Setup</div>
           <h3>tax the agents</h3>
@@ -1243,7 +1268,7 @@ input,select,textarea{font-size:16px !important;}   /* iOS zooms below 16 */
         </div>
       </a>
       <a class="mag" href="./no-030.html">
-        <div class="img noplate" aria-hidden="true"></div>
+        <div class="img"><img loading="lazy" decoding="async" width="700" height="467" src="og/plate-no-030-card.webp" alt=""></div>
         <div class="body">
           <div class="date meta">2026-08-01 &middot; Setup</div>
           <h3>the council</h3>
@@ -1251,7 +1276,7 @@ input,select,textarea{font-size:16px !important;}   /* iOS zooms below 16 */
         </div>
       </a>
       <a class="mag" href="./no-028.html">
-        <div class="img noplate" aria-hidden="true"></div>
+        <div class="img"><img loading="lazy" decoding="async" width="700" height="467" src="og/plate-no-028-card.webp" alt=""></div>
         <div class="body">
           <div class="date meta">2026-08-01 &middot; Setup</div>
           <h3>Superpowers</h3>
@@ -1259,7 +1284,7 @@ input,select,textarea{font-size:16px !important;}   /* iOS zooms below 16 */
         </div>
       </a>
       <a class="mag" href="./no-026.html">
-        <div class="img noplate" aria-hidden="true"></div>
+        <div class="img"><img loading="lazy" decoding="async" width="700" height="467" src="og/plate-no-026-card.webp" alt=""></div>
         <div class="body">
           <div class="date meta">2026-08-01 &middot; Setup</div>
           <h3>the state file</h3>
@@ -1339,7 +1364,7 @@ input,select,textarea{font-size:16px !important;}   /* iOS zooms below 16 */
         </div>
       </a>
       <a class="mag" href="./no-014.html">
-        <div class="img noplate" aria-hidden="true"></div>
+        <div class="img"><img loading="lazy" decoding="async" width="700" height="467" src="og/plate-no-014-card.webp" alt=""></div>
         <div class="body">
           <div class="date meta">2026-08-01 &middot; Setup</div>
           <h3>Give Claude Code a memory.</h3>
@@ -1427,7 +1452,7 @@ input,select,textarea{font-size:16px !important;}   /* iOS zooms below 16 */
         </div>
       </a>
       <a class="mag" href="./no-034.html">
-        <div class="img noplate" aria-hidden="true"></div>
+        <div class="img"><img loading="lazy" decoding="async" width="700" height="467" src="og/plate-no-034-card.webp" alt=""></div>
         <div class="body">
           <div class="date meta">08-2026 &middot; Tooling</div>
           <h3>One repo showed its working.</h3>
@@ -1435,7 +1460,7 @@ input,select,textarea{font-size:16px !important;}   /* iOS zooms below 16 */
         </div>
       </a>
       <a class="mag" href="./no-035.html">
-        <div class="img noplate" aria-hidden="true"></div>
+        <div class="img"><img loading="lazy" decoding="async" width="700" height="467" src="og/plate-no-035-card.webp" alt=""></div>
         <div class="body">
           <div class="date meta">08-2026 &middot; Protocols</div>
           <h3>MCP doesn't replace your API.</h3>
@@ -1443,7 +1468,7 @@ input,select,textarea{font-size:16px !important;}   /* iOS zooms below 16 */
         </div>
       </a>
       <a class="mag" href="./no-036.html">
-        <div class="img noplate" aria-hidden="true"></div>
+        <div class="img"><img loading="lazy" decoding="async" width="700" height="467" src="og/plate-no-036-card.webp" alt=""></div>
         <div class="body">
           <div class="date meta">08-2026 &middot; Tooling</div>
           <h3>Claude Code doesn't know your codebase.</h3>
@@ -1451,7 +1476,7 @@ input,select,textarea{font-size:16px !important;}   /* iOS zooms below 16 */
         </div>
       </a>
       <a class="mag" href="./no-037.html">
-        <div class="img noplate" aria-hidden="true"></div>
+        <div class="img"><img loading="lazy" decoding="async" width="700" height="467" src="og/plate-no-037-card.webp" alt=""></div>
         <div class="body">
           <div class="date meta">08-2026 &middot; AI Tools</div>
           <h3>ChatGPT isn't even on this list.</h3>
@@ -1459,7 +1484,7 @@ input,select,textarea{font-size:16px !important;}   /* iOS zooms below 16 */
         </div>
       </a>
       <a class="mag" href="./no-039.html">
-        <div class="img noplate" aria-hidden="true"></div>
+        <div class="img"><img loading="lazy" decoding="async" width="700" height="467" src="og/plate-no-039-card.webp" alt=""></div>
         <div class="body">
           <div class="date meta">08-2026 &middot; Claude Code</div>
           <h3>You hit your limit. These five fix it.</h3>
@@ -1467,7 +1492,7 @@ input,select,textarea{font-size:16px !important;}   /* iOS zooms below 16 */
         </div>
       </a>
       <a class="mag" href="./no-038.html">
-        <div class="img noplate" aria-hidden="true"></div>
+        <div class="img"><img loading="lazy" decoding="async" width="700" height="467" src="og/plate-no-038-card.webp" alt=""></div>
         <div class="body">
           <div class="date meta">08-2026 &middot; Skill Security</div>
           <h3>Don't install a Claude skill until you read the install line.</h3>
@@ -1475,7 +1500,7 @@ input,select,textarea{font-size:16px !important;}   /* iOS zooms below 16 */
         </div>
       </a>
       <a class="mag" href="./no-041.html">
-        <div class="img noplate" aria-hidden="true"></div>
+        <div class="img"><img loading="lazy" decoding="async" width="700" height="467" src="og/plate-no-041-card.webp" alt=""></div>
         <div class="body">
           <div class="date meta">08-2026 &middot; Subagents</div>
           <h3>Clone yourself into a team.</h3>
@@ -1483,7 +1508,7 @@ input,select,textarea{font-size:16px !important;}   /* iOS zooms below 16 */
         </div>
       </a>
       <a class="mag" href="./no-045.html">
-        <div class="img noplate" aria-hidden="true"></div>
+        <div class="img"><img loading="lazy" decoding="async" width="700" height="467" src="og/plate-no-045-card.webp" alt=""></div>
         <div class="body">
           <div class="date meta">09-2026 &middot; AI engineering</div>
           <h3>Every stage commits a file</h3>
@@ -1491,7 +1516,7 @@ input,select,textarea{font-size:16px !important;}   /* iOS zooms below 16 */
         </div>
       </a>
       <a class="mag" href="./no-044.html">
-        <div class="img noplate" aria-hidden="true"></div>
+        <div class="img"><img loading="lazy" decoding="async" width="700" height="467" src="og/plate-no-044-card.webp" alt=""></div>
         <div class="body">
           <div class="date meta">08-2026 &middot; Deployment</div>
           <h3>Vercel or Netlify?</h3>
@@ -1510,7 +1535,7 @@ input,select,textarea{font-size:16px !important;}   /* iOS zooms below 16 */
     <a class="bigrow" href="https://youtube.com/@vektorfm" target="_blank" rel="noopener">
       <div class="img"><img loading="lazy" decoding="async" width="700" height="467" src="og/plate-no-009-card.webp" alt=""></div>
       <div class="side">
-        <h3 class="heading2">One short a day, on every platform that will carry it — no intro, no outro, no sixty seconds of throat-clearing.</h3>
+        <h3 class="heading2">New shorts every week, on every platform that will carry them — no intro, no outro, no sixty seconds of throat-clearing.</h3>
         <span class="cta">Watch the latest</span>
       </div>
     </a>
@@ -1519,12 +1544,12 @@ input,select,textarea{font-size:16px !important;}   /* iOS zooms below 16 */
   <section class="module band-base" id="about">
     <div class="modhead">
       <h2 class="heading1">About<button class="copylink" type="button" aria-label="Copy link to this section">#</button></h2>
-      <a class="alink u" href="#about"><span class="a">→</span><span>The long version</span></a>
+      <a class="alink u" href="./about.html"><span class="a">→</span><span>The long version</span></a>
     </div>
-    <a class="bigrow" href="#about">
+    <a class="bigrow" href="./about.html">
       <div class="img"><img loading="lazy" decoding="async" width="700" height="467" src="og/plate-no-006-card.webp" alt=""></div>
       <div class="side">
-        <h3 class="heading2">Daily shorts on the Claude and AI tooling that actually matters — and every issue ships the working files behind it, free.</h3>
+        <h3 class="heading2">Short films on the Claude and AI tooling that actually matters, every week — and every issue ships the working files behind it, free.</h3>
         <span class="cta">Read more</span>
       </div>
     </a>
@@ -1571,6 +1596,21 @@ input,select,textarea{font-size:16px !important;}   /* iOS zooms below 16 */
 document.querySelectorAll('.acc .row button').forEach(b=>{
   b.addEventListener('click',()=> b.parentElement.classList.toggle('open'));
 });
+
+/* The reel: the YouTube player is created on click only, so the page loads no
+   third-party frame until the visitor asks for it (youtube-nocookie). */
+const reel = document.getElementById('reel');
+if (reel) {
+  reel.querySelector('.play').addEventListener('click', () => {
+    const f = document.createElement('iframe');
+    f.src = 'https://www.youtube-nocookie.com/embed/' + reel.dataset.yt + '?autoplay=1&rel=0&modestbranding=1&playsinline=1';
+    f.title = 'vektor NO. 006';
+    f.allow = 'autoplay; encrypted-media; picture-in-picture';
+    f.allowFullscreen = true;
+    f.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:0;background:#000';
+    reel.replaceChildren(f);
+  });
+}
 
 /* Stacked slider — rotate which card sits at data-i="0". The transforms live
    in CSS keyed off data-i, so stepping is just a re-index. */

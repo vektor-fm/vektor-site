@@ -1,0 +1,278 @@
+<!doctype html>
+<!--
+  plates-gen.html — the FREE plate generator (2026-09-27, v4: per-plate palettes 2026-09-28).
+
+  Renders one card plate procedurally in a 1536x1024 canvas. The recipe is the
+  locked one from reports/PLATE-PROMPTS.md, minus the image model: one large
+  SCULPTED SURFACE (a petal, a sheet, a flame, an orb) that fills most of the
+  frame and is cropped by at least one edge, lit by warm light (amber through
+  to a white-hot rim) raking in from one side, its shadow side falling to a
+  cool green-black; true-black ground; a single crisp rim in one place and
+  soft defocus elsewhere; fine film grain; soft lens falloff.
+
+  v1 (same day) drew small bars and dots on empty black and a sub-agent judge
+  failed 14 of 19 against the reference set — "small bokeh points and bars on
+  mostly empty black; striated highlights read digital". v2 is built on big
+  surfaces with terminator shading and has no striations at all.
+
+  Open as  plates-gen.html?n=054  and screenshot at 1536x1024, scale 1 — that
+  is what gen-plates-free.mjs does through headless Edge. Deterministic per
+  issue (seeded PRNG). No text, no UI, no logos are ever drawn, by construction.
+  The paid route (gen-plates.mjs, OpenAI) is unchanged.
+-->
+<html lang="en"><head><meta charset="utf-8"><title>plate</title>
+<style>html,body{margin:0;background:#000;overflow:hidden}canvas{display:block}</style></head>
+<body><canvas id="c" width="1536" height="1024"></canvas>
+<script>
+const W = 1536, H = 1024;
+const c = document.getElementById('c'), ctx = c.getContext('2d');
+const n = new URLSearchParams(location.search).get('n') || '054';
+
+// ---- seeded randomness (mulberry32) ----
+let seed = 0x9e3779b9 ^ parseInt(n, 10) * 2654435761;
+const rnd = () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+const rr = (a, b) => a + (b - a) * rnd();
+
+// ---- palette ----
+// ---- palettes (v4, founder 2026-09-28: a wide palette, not just the gold) ----
+// Each plate picks one family. The names are kept from v3 so the subject code
+// reads the same: WHITE = the hot core, CREAM = the lit rim, AMBER = the body
+// hue, EMBER = the deep hue, DEEP = the shadow tint, COOLHI = the contrast
+// highlight used where a subject wants a second temperature.
+const PALETTES = {
+  gold:    { CREAM: [244, 228, 196], AMBER: [226, 172, 92],  EMBER: [148, 96, 46],  DEEP: [14, 32, 28],  COOLHI: [190, 214, 200] },
+  cobalt:  { CREAM: [204, 222, 255], AMBER: [72, 122, 232],  EMBER: [24, 48, 140],  DEEP: [8, 12, 40],   COOLHI: [255, 214, 170] },
+  rose:    { CREAM: [255, 216, 224], AMBER: [232, 92, 132],  EMBER: [140, 30, 70],  DEEP: [40, 10, 24],  COOLHI: [200, 232, 222] },
+  teal:    { CREAM: [204, 242, 234], AMBER: [52, 190, 172],  EMBER: [14, 92, 92],   DEEP: [6, 28, 30],   COOLHI: [255, 222, 182] },
+  violet:  { CREAM: [228, 212, 255], AMBER: [152, 92, 232],  EMBER: [70, 30, 140],  DEEP: [22, 10, 44],  COOLHI: [255, 230, 190] },
+  crimson: { CREAM: [255, 204, 186], AMBER: [222, 64, 44],   EMBER: [122, 20, 22],  DEEP: [36, 8, 10],   COOLHI: [200, 220, 240] },
+  emerald: { CREAM: [214, 246, 214], AMBER: [64, 182, 94],   EMBER: [16, 82, 42],   DEEP: [6, 26, 16],   COOLHI: [255, 230, 200] },
+  copper:  { CREAM: [255, 222, 194], AMBER: [212, 122, 72],  EMBER: [112, 52, 30],  DEEP: [30, 14, 10],  COOLHI: [190, 220, 232] },
+  ice:     { CREAM: [232, 246, 255], AMBER: [142, 202, 242], EMBER: [42, 92, 152],  DEEP: [10, 20, 40],  COOLHI: [255, 212, 162] },
+  magenta: { CREAM: [255, 204, 242], AMBER: [222, 72, 202],  EMBER: [122, 22, 112], DEEP: [36, 8, 34],   COOLHI: [200, 240, 222] },
+};
+// Spread across the grid so neighbouring cards differ (index order: 054 053 052 047 | 046 033 031 030 028 026 ...).
+const PALETTE_OF = { '054': 'cobalt', '053': 'rose', '052': 'teal', '047': 'violet', '046': 'crimson', '031': 'emerald', '030': 'magenta', '028': 'ice', '026': 'copper', '014': 'cobalt', '034': 'teal', '035': 'rose', '036': 'violet', '037': 'emerald', '039': 'crimson', '038': 'ice', '041': 'gold', '045': 'magenta', '044': 'cobalt' };
+const PAL = PALETTES[PALETTE_OF[n]] || PALETTES.gold;
+const WHITE = [255, 250, 240], CREAM = PAL.CREAM, AMBER = PAL.AMBER, EMBER = PAL.EMBER, DEEP = PAL.DEEP, COOLHI = PAL.COOLHI;
+const rgba = (c, a = 1) => `rgba(${c[0]},${c[1]},${c[2]},${a})`;
+const mix = (a, b, t) => a.map((v, i) => Math.round(v + (b[i] - v) * t));
+
+// ---- organic closed paths ----
+// blob(): an ellipse whose radius wobbles with low-frequency noise so it reads
+// as a grown thing, not a drawn one. taper>0 narrows one end (a petal).
+function blob(cx, cy, rx, ry, rot = 0, wob = 0.08, taper = 0, N = 48) {
+  const a1 = rr(0, 6.28), a2 = rr(0, 6.28), f1 = 2 + Math.floor(rr(0, 2)), f2 = 3 + Math.floor(rr(0, 3));
+  const pts = [];
+  for (let i = 0; i < N; i++) {
+    const t = i / N * Math.PI * 2;
+    const w = 1 + wob * (Math.sin(f1 * t + a1) * 0.6 + Math.sin(f2 * t + a2) * 0.4);
+    const tp = 1 - taper * (0.5 + 0.5 * Math.cos(t));      // cos(t)=1 at the +x end → narrow there
+    const x = Math.cos(t) * rx * w, y = Math.sin(t) * ry * w * tp;
+    const cr = Math.cos(rot), sr = Math.sin(rot);
+    pts.push([cx + x * cr - y * sr, cy + x * sr + y * cr]);
+  }
+  return pts;
+}
+function tracePath(g, pts) {   // smooth closed curve through midpoints
+  const N = pts.length; g.beginPath();
+  let [mx, my] = [(pts[0][0] + pts[1][0]) / 2, (pts[0][1] + pts[1][1]) / 2];
+  g.moveTo(mx, my);
+  for (let i = 1; i <= N; i++) { const p = pts[i % N], q = pts[(i + 1) % N]; g.quadraticCurveTo(p[0], p[1], (p[0] + q[0]) / 2, (p[1] + q[1]) / 2); }
+  g.closePath();
+}
+
+// ---- the surface ----
+// A big shape shaded by a gradient along the light vector: white-hot rim on
+// the lit side, amber, ember, then the deep green-black shadow. Drawn opaque
+// (source-over) with a modest blur so the silhouette itself reads, then a wide
+// warm halo (lighter) so the light spills into the field, then ONE crisp rim
+// segment inside a focus window. No streaks, no scanlines.
+function surface(s) {
+  const pts = s.pts;
+  const light = s.light || [-1, -0.3];           // direction the light comes FROM
+  const len = Math.hypot(light[0], light[1]); const lx = light[0] / len, ly = light[1] / len;
+  // extent of the shape along the light vector
+  let mn = Infinity, mx = -Infinity; for (const [x, y] of pts) { const d = x * lx + y * ly; if (d < mn) mn = d; if (d > mx) mx = d; }
+  const cx = pts.reduce((a, p) => a + p[0], 0) / pts.length, cy = pts.reduce((a, p) => a + p[1], 0) / pts.length;
+  const c0 = cx * lx + cy * ly;
+  const g0 = [cx + (mn - c0) * lx, cy + (mn - c0) * ly], g1 = [cx + (mx - c0) * lx, cy + (mx - c0) * ly];
+  const core = s.core || WHITE, hi = s.hi || CREAM, mid = s.mid || AMBER, lo = s.lo || EMBER, dark = s.dark || DEEP;
+  const grad = (g, a = 1) => {
+    const gr = g.createLinearGradient(g0[0], g0[1], g1[0], g1[1]);
+    const k = s.rimWidth ?? 0.06;   // how thin the white-hot rim is
+    gr.addColorStop(0, rgba(core, a)); gr.addColorStop(k, rgba(hi, a)); gr.addColorStop(k + 0.16, rgba(mid, a));
+    gr.addColorStop(Math.min(0.95, k + 0.45), rgba(lo, a)); gr.addColorStop(1, rgba(dark, a));
+    return gr;
+  };
+  // 1. the body
+  ctx.save(); ctx.filter = `blur(${s.blur ?? 10}px)`; ctx.globalAlpha = s.alpha ?? 1;
+  tracePath(ctx, pts); ctx.fillStyle = grad(ctx); ctx.fill(); ctx.restore();
+  // 2. the halo — light spilling into the field
+  ctx.save(); ctx.filter = `blur(${s.halo ?? 120}px)`; ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = (s.haloA ?? 0.42) * 0.8;
+  tracePath(ctx, pts); ctx.fillStyle = grad(ctx, 0.9); ctx.fill(); ctx.restore();
+  // 3. one crisp rim, only inside the focus window
+  if (s.focus) {
+    // The crisp pass is drawn on an offscreen canvas and faded out by a radial
+    // mask, so the focus window has no visible edge (v2.0 clipped to a hard
+    // ellipse and the ellipse showed through the surface).
+    const f = s.focus;
+    const O = document.createElement('canvas'); O.width = W; O.height = H; const g = O.getContext('2d');
+    g.filter = 'blur(0.8px)'; g.globalAlpha = 0.9;
+    tracePath(g, pts); g.fillStyle = grad(g); g.fill();
+    g.globalCompositeOperation = 'lighter'; g.filter = 'blur(1.2px)';
+    tracePath(g, pts); g.lineWidth = s.rimLine ?? 3; g.strokeStyle = grad(g, 0.8); g.stroke();
+    g.globalCompositeOperation = 'source-over'; g.filter = 'none';
+    { const ang = ((f.rot || 0) + 90) * Math.PI / 180, ca = Math.cos(ang), sa = Math.sin(ang);
+      tracePath(g, pts); g.clip();
+      for (let i = 0; i < 5000; i++) { const t = rr(-1, 1), u = rr(-1, 1); const px = f.x + ca * t * f.r * 1.2 - sa * u * f.r * (f.k || 0.7) * 1.2, py = f.y + sa * t * f.r * 1.2 + ca * u * f.r * (f.k || 0.7) * 1.2; const L = rr(1, 5);
+        g.strokeStyle = rnd() < 0.5 ? 'rgba(0,0,0,' + rr(0.03, 0.1) + ')' : 'rgba(255,246,226,' + rr(0.02, 0.07) + ')'; g.lineWidth = rr(0.4, 1);
+        g.beginPath(); g.moveTo(px - ca * L, py - sa * L); g.lineTo(px + ca * L, py + sa * L); g.stroke(); } }
+    g.globalCompositeOperation = 'destination-in'; g.filter = 'none'; g.globalAlpha = 1;
+    g.save(); g.translate(f.x, f.y); g.rotate((f.rot || 0) * Math.PI / 180); g.scale(1, f.k || 0.7);
+    const m = g.createRadialGradient(0, 0, 0, 0, 0, f.r); m.addColorStop(0, 'rgba(0,0,0,1)'); m.addColorStop(0.45, 'rgba(0,0,0,1)'); m.addColorStop(1, 'rgba(0,0,0,0)');
+    g.fillStyle = m; g.fillRect(-f.r, -f.r, f.r * 2, f.r * 2); g.restore();
+    ctx.save(); ctx.globalCompositeOperation = 'source-over'; ctx.drawImage(O, 0, 0); ctx.restore();
+  }
+}
+// a cut: takes a bite out of what is drawn so far, turning a blob into a crescent / a curved sheet
+function cut(pts, blur = 14) {
+  ctx.save(); ctx.filter = `blur(${blur}px)`; tracePath(ctx, pts); ctx.fillStyle = '#000'; ctx.fill(); ctx.restore();
+}
+function ambient(x, y, r, a) {
+  ctx.save(); const g = ctx.createRadialGradient(x, y, 0, x, y, r);
+  g.addColorStop(0, rgba(mix(DEEP, [0, 0, 0], 0.2), a)); g.addColorStop(1, 'rgba(0,0,0,0)');
+  ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); ctx.restore();
+}
+function journey(from, to, a) {
+  ctx.save(); ctx.globalCompositeOperation = 'soft-light';
+  const g = ctx.createLinearGradient(from[0], from[1], to[0], to[1]);
+  g.addColorStop(0, rgba(AMBER, a)); g.addColorStop(1, rgba(mix(DEEP, EMBER, 0.3), a));
+  ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); ctx.restore();
+}
+function falloff(cx, cy, a = 0.7) {
+  ctx.save(); const g = ctx.createRadialGradient(cx, cy, H * 0.3, cx, cy, W * 0.9);
+  g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(1, `rgba(0,0,0,${a})`);
+  ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); ctx.restore();
+}
+function grain(amount) {
+  const img = ctx.getImageData(0, 0, W, H), d = img.data;
+  for (let i = 0; i < d.length; i += 4) {
+    const g = (rnd() - 0.5) * amount * (0.55 + 0.45 * (255 - d[i + 1]) / 255);
+    d[i] = Math.max(0, Math.min(255, d[i] + g)); d[i + 1] = Math.max(0, Math.min(255, d[i + 1] + g)); d[i + 2] = Math.max(0, Math.min(255, d[i + 2] + g));
+  }
+  ctx.putImageData(img, 0, 0);
+}
+function black() { ctx.fillStyle = '#000'; ctx.fillRect(0, 0, W, H); }
+const D = Math.PI / 180;
+
+// ---- the subjects ----
+const P = {
+  // A tall stack of thin translucent sheets, most peeled away, one bright sheet left in focus. (v2 PASS, kept)
+  '054': () => { ambient(1100, 400, 1100, 0.9);
+    for (let i = 0; i < 4; i++) { const t = i / 3;
+      surface({ pts: blob(1250 + i * 60, 420 + i * 40, 1000, 130 + i * 30, 72 * D, 0.05, 0.55), light: [-1, -0.5], blur: 30 + (3 - i) * 14, alpha: 0.45 + t * 0.35, halo: 140, haloA: 0.2, mid: mix(EMBER, AMBER, t), hi: mix(AMBER, CREAM, t) }); }
+    surface({ pts: blob(1080, 470, 1050, 150, 74 * D, 0.04, 0.6), light: [-1, -0.4], blur: 6, rimWidth: 0.05, halo: 160, haloA: 0.5, focus: { x: 1010, y: 300, r: 330, k: 0.55, rot: 74 } });
+    journey([0, H], [W, 0], 0.45); falloff(1000, 420); },
+  // Five petals fanning from the bottom-right corner like a hand, one crisp.
+  '053': () => { ambient(1000, 800, 1200, 0.9);
+    const angs = [-118, -100, -84, -66, -50], lens = [720, 900, 1120, 880, 640];
+    for (let i = 0; i < 5; i++) { const f = i === 2; const a = angs[i] * D;
+      surface({ pts: blob(1250 + Math.cos(a) * lens[i] * 0.42, 1080 + Math.sin(a) * lens[i] * 0.42, lens[i], 170 - Math.abs(i - 2) * 20, a, 0.06, 0.55), light: [-1, -0.7], blur: f ? 6 : 24 + Math.abs(i - 2) * 14, alpha: f ? 1 : 0.6, halo: 140, haloA: f ? 0.45 : 0.2, hi: f ? CREAM : mix(CREAM, AMBER, 0.5), focus: f ? { x: 900, y: 520, r: 360, k: 0.55, rot: -84 } : null }); }
+    journey([0, 0], [W, H], 0.4); falloff(1000, 700); },
+  // One big sheet crossing the frame diagonally with a crisp bright rim, a cool petal behind it.
+  '047': () => { ambient(760, 512, 1200, 0.85);
+    surface({ pts: blob(1000, 560, 760, 520, 20 * D, 0.1, 0.3), light: [1, -0.4], blur: 30, alpha: 0.85, halo: 150, haloA: 0.25, core: WHITE, hi: COOLHI, mid: mix(COOLHI, DEEP, 0.45), lo: mix(COOLHI, DEEP, 0.8) });
+    surface({ pts: blob(620, 520, 1500, 210, 62 * D, 0.04, 0.5), light: [-1, -0.2], blur: 5, halo: 160, haloA: 0.5, rimWidth: 0.05, focus: { x: 560, y: 420, r: 380, k: 0.5, rot: 62 } });
+    journey([0, 0], [W, 0], 0.45); falloff(700, 500); },
+  // One big petal cropped bottom-left, three smaller cooler petals receding to the top-right.
+  '046': () => { ambient(500, 800, 1200, 0.85);
+    const ps = [[1240, 230, 300, 120, 40], [980, 400, 420, 170, 26], [640, 620, 580, 240, 12], [220, 900, 820, 340, 4]];
+    ps.forEach(([x, y, L, w, b], i) => { const t = 1 - i / 3; surface({ pts: blob(x, y, L, w, -38 * D, 0.08, 0.5), light: [-1, -0.8], blur: b, alpha: 0.6 + i * 0.13, halo: 130, haloA: 0.28, hi: mix(COOLHI, CREAM, 1 - t * 0.7), mid: mix(mix(COOLHI, DEEP, 0.4), AMBER, 1 - t * 0.7), focus: i === 3 ? { x: 120, y: 760, r: 420, k: 0.6, rot: -38 } : null }); });
+    journey([0, H], [W, 0], 0.4); falloff(600, 700); },
+  // Two tall flames side by side, different heights, cropped by the top edge, one crisp.
+  '031': () => { ambient(760, 350, 1200, 0.85);
+    surface({ pts: blob(560, 560, 1300, 230, -84 * D, 0.07, 0.55), light: [-1, -0.6], blur: 34, alpha: 0.8, halo: 160, haloA: 0.25, hi: mix(CREAM, AMBER, 0.5) });
+    surface({ pts: blob(920, 300, 1500, 280, -88 * D, 0.06, 0.55), light: [-1, -0.5], blur: 6, halo: 180, haloA: 0.5, rimWidth: 0.05, focus: { x: 800, y: 380, r: 400, k: 0.5, rot: -88 } });
+    journey([0, H], [W, 0], 0.4); falloff(760, 450); },
+  // Three offset crescents stacked toward the right edge, cropped, cream to gold.
+  '030': () => { ambient(900, 500, 1200, 0.85);
+    for (let i = 2; i >= 0; i--) { const t = i / 2;
+      surface({ pts: blob(1000 + i * 140, 520 + i * 40, 560 + i * 60, 660 + i * 40, (10 + i * 8) * D, 0.05), light: [-1, -0.5], blur: i === 0 ? 6 : 20 + i * 14, alpha: 1 - t * 0.35, halo: 150, haloA: 0.3, hi: mix(CREAM, AMBER, t * 0.6), focus: i === 0 ? { x: 560, y: 480, r: 380, k: 0.9 } : null });
+      cut(blob(1150 + i * 140, 480 + i * 40, 520 + i * 60, 600 + i * 40, (10 + i * 8) * D, 0.05), 26); }
+    journey([W, 0], [0, H], 0.45); falloff(800, 520); },
+  // A tall flame narrowing at the bottom and widening into a soft flare at the top edge.
+  '028': () => { ambient(1000, 300, 1200, 0.85);
+    surface({ pts: blob(1000, 380, 1500, 380, -90 * D, 0.08, 0.7), light: [-1, -0.3], blur: 7, halo: 220, haloA: 0.55, rimWidth: 0.06, focus: { x: 960, y: 620, r: 360, k: 0.5, rot: -90 } });
+    journey([0, H], [W, 0], 0.4); falloff(1000, 350, 0.6); },
+  // Broad overlapping slanted sheets, cream through gold into green-black, cropped top and bottom, one crisp.
+  '026': () => { ambient(700, 512, 1200, 0.8);
+    const xs = [260, 520, 780, 1060, 1330], ws = [300, 420, 360, 460, 320];
+    for (let i = 0; i < 5; i++) { const t = i / 4; const f = i === 1;
+      surface({ pts: blob(xs[i], 512 + rr(-80, 80), 1500, ws[i], (86 + rr(-4, 4)) * D, 0.03), light: [-1, 0], blur: f ? 6 : rr(18, 40), alpha: f ? 1 : rr(0.5, 0.8), halo: 130, haloA: 0.2, core: mix(WHITE, CREAM, t), hi: mix(CREAM, AMBER, t), mid: mix(AMBER, EMBER, t), lo: mix(EMBER, DEEP, 0.5 + t * 0.4), focus: f ? { x: 420, y: 500, r: 380, k: 0.5, rot: 86 } : null }); }
+    journey([0, 0], [W, 0], 0.5); falloff(600, 520); },
+  // A large crescent sheet with a crisp rim.
+  '014': () => { ambient(500, 512, 1200, 0.85);
+    surface({ pts: blob(420, 560, 780, 720, -15 * D, 0.06), light: [-1, -0.6], blur: 8, halo: 170, haloA: 0.4, focus: { x: 120, y: 420, r: 400, k: 0.9, rot: -15 } });
+    cut(blob(640, 600, 720, 640, -15 * D, 0.06), 30);
+    journey([0, 0], [W, H], 0.4); falloff(450, 500); },
+  // A huge slab cropped by the top and right edges, lit from within, two soft internal bands.
+  '034': () => { ambient(900, 200, 1300, 0.85);
+    surface({ pts: blob(1000, 260, 1400, 420, -9 * D, 0.03, 0.2), light: [0, -1], blur: 12, halo: 170, haloA: 0.4, rimWidth: 0.1, focus: { x: 700, y: 120, r: 420, k: 0.4, rot: -9 } });
+    for (let i = 0; i < 2; i++) surface({ pts: blob(1000, 180 + i * 150, 1400, 40, -9 * D, 0.02), light: [0, -1], blur: 22, alpha: 0.5, halo: 60, haloA: 0.1, rimWidth: 0.3 });
+    journey([0, H], [W, 0], 0.4); falloff(900, 300); },
+  // Two channels of light across the frame, one warm, one cool. (v2 PASS, kept)
+  '035': () => { ambient(760, 512, 1200, 0.8);
+    surface({ pts: blob(760, 420, 1900, 120, -4 * D, 0.03), light: [0, -1], blur: 14, halo: 150, haloA: 0.45, rimWidth: 0.1, focus: { x: 480, y: 440, r: 360, k: 0.35, rot: -4 } });
+    surface({ pts: blob(760, 640, 1900, 100, -4 * D, 0.03), light: [0, 1], blur: 34, alpha: 0.75, halo: 150, haloA: 0.3, rimWidth: 0.1, core: WHITE, hi: COOLHI, mid: mix(COOLHI, DEEP, 0.45), lo: mix(COOLHI, DEEP, 0.8) });
+    journey([0, 0], [W, 0], 0.4); falloff(700, 520); },
+  // A broad dark field; one petal enters from the right edge, heavy grain in the emptiness.
+  '036': () => { ambient(1350, 650, 1100, 1);
+    surface({ pts: blob(1420, 640, 900, 320, -150 * D, 0.08, 0.55), light: [-1, -0.8], blur: 5, halo: 170, haloA: 0.4, rimWidth: 0.06, focus: { x: 1150, y: 560, r: 320, k: 0.7, rot: -150 } });
+    journey([0, 0], [W, H], 0.3); falloff(1250, 650, 0.8); },
+  // Three big soft petals overlapping into one cloud, a dark notch cut between two of them, off-centre.
+  '037': () => { ambient(800, 500, 1200, 0.85);
+    surface({ pts: blob(560, 420, 620, 420, 30 * D, 0.1, 0.3), light: [-1, -0.6], blur: 22, halo: 150, haloA: 0.3 });
+    surface({ pts: blob(1000, 620, 660, 440, -20 * D, 0.1, 0.3), light: [-1, -0.4], blur: 26, alpha: 0.9, halo: 150, haloA: 0.3, hi: mix(CREAM, AMBER, 0.5) });
+    surface({ pts: blob(700, 760, 560, 380, 12 * D, 0.1, 0.3), light: [-1, -0.7], blur: 5, halo: 140, haloA: 0.35, focus: { x: 480, y: 700, r: 300, k: 0.8, rot: 12 } });
+    cut(blob(820, 480, 220, 300, -30 * D, 0.1), 28);
+    journey([W, 0], [0, H], 0.4); falloff(780, 580); },
+  // A huge crescent filling the lower frame, its upper rim crisp and curved, light bleeding above it.
+  '039': () => { ambient(760, 300, 1300, 0.85);
+    surface({ pts: blob(760, 1000, 1400, 700, 0, 0.03), light: [-0.4, -1], blur: 6, halo: 220, haloA: 0.55, rimWidth: 0.05, focus: { x: 520, y: 420, r: 460, k: 0.35, rot: -8 } });
+    cut(blob(760, -100, 1500, 560, 0, 0.03), 30);
+    journey([0, H], [W, 0], 0.35); falloff(760, 640, 0.55); },
+  // A large dark crescent, cropped, whose one bright rim is the thread, crisp at one point.
+  '038': () => { ambient(760, 512, 1200, 0.85);
+    surface({ pts: blob(900, 640, 820, 780, 0, 0.03), light: [-1, -0.6], blur: 8, alpha: 0.95, halo: 150, haloA: 0.28, rimWidth: 0.03, core: WHITE, hi: CREAM, mid: mix(AMBER, DEEP, 0.5), lo: mix(EMBER, DEEP, 0.8), focus: { x: 380, y: 300, r: 340, k: 0.9, rot: 30 } });
+    cut(blob(1000, 720, 800, 760, 0, 0.03), 22);
+    journey([0, 0], [W, H], 0.35); falloff(760, 560); },
+  // One warm petal and its three softer echoes stepping back. (v2 PASS, kept)
+  '041': () => { ambient(700, 560, 1100, 0.8);
+    for (let i = 3; i >= 0; i--) { const t = i / 3;
+      surface({ pts: blob(420 + i * 270, 560 - i * 80, 520 - i * 40, 300 - i * 30, (70 + i * 6) * D, 0.08, 0.5), light: [-1, -0.7], blur: i === 0 ? 5 : 14 + i * 16, alpha: 1 - t * 0.5, halo: 140, haloA: 0.3, hi: mix(CREAM, AMBER, t), focus: i === 0 ? { x: 380, y: 420, r: 300, k: 0.7, rot: 70 } : null }); }
+    journey([0, H], [W, 0], 0.4); falloff(600, 560); },
+  // Three crescents stepping diagonally up and to the right, each smaller and cooler.
+  '045': () => { ambient(600, 700, 1200, 0.85);
+    for (let i = 2; i >= 0; i--) { const t = i / 2;
+      surface({ pts: blob(420 + i * 380, 760 - i * 260, 640 - i * 120, 560 - i * 100, -20 * D, 0.05), light: [-1, -0.8], blur: i === 0 ? 6 : 16 + i * 14, alpha: 1 - t * 0.4, halo: 150, haloA: 0.3, core: mix(WHITE, COOLHI, t), hi: mix(CREAM, COOLHI, t), mid: mix(AMBER, mix(COOLHI, DEEP, 0.4), t), lo: mix(EMBER, mix(COOLHI, DEEP, 0.75), t), focus: i === 0 ? { x: 160, y: 620, r: 340, k: 0.9, rot: -20 } : null });
+      cut(blob(560 + i * 380, 700 - i * 260, 600 - i * 120, 520 - i * 100, -20 * D, 0.05), 24); }
+    journey([0, H], [W, 0], 0.4); falloff(700, 600); },
+  // Two petals leaning apart, warm and cool, a dark curved gap between them.
+  '044': () => { ambient(760, 512, 1200, 0.85);
+    surface({ pts: blob(480, 600, 900, 360, -70 * D, 0.07, 0.4), light: [-1, -0.4], blur: 6, halo: 150, haloA: 0.35, focus: { x: 320, y: 480, r: 340, k: 0.7, rot: -70 } });
+    surface({ pts: blob(1060, 480, 900, 360, -110 * D, 0.07, 0.4), light: [1, -0.4], blur: 24, alpha: 0.85, halo: 150, haloA: 0.25, core: WHITE, hi: COOLHI, mid: mix(COOLHI, DEEP, 0.4), lo: mix(COOLHI, DEEP, 0.75) });
+    cut(blob(780, 560, 90, 900, -85 * D, 0.06), 30);
+    journey([0, 0], [W, 0], 0.4); falloff(765, 520); },
+  // Two large petals leaning toward each other, tips almost touching. (v2 PASS, the small ball removed)
+  '052': () => { ambient(760, 512, 1200, 0.8);
+    surface({ pts: blob(330, 680, 720, 320, -35 * D, 0.08, 0.6), light: [-1, -0.4], blur: 26, halo: 160, haloA: 0.35 });
+    surface({ pts: blob(1200, 360, 720, 320, 145 * D, 0.08, 0.6), light: [1, -0.6], blur: 6, halo: 160, haloA: 0.45, focus: { x: 860, y: 520, r: 300, k: 0.8, rot: -35 } });
+    journey([0, H], [W, 0], 0.4); falloff(800, 520); },
+};
+
+black();
+(P[n] || P['054'])();
+grain(n === '036' || n === '031' ? 30 : 20);
+document.title = 'plate ' + n;
+</script></body></html>
