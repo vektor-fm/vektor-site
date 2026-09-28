@@ -73,4 +73,4 @@ Browser check of the built pages (local server, 2026-09-27): 39 issues in the co
 
 ## 7. Founder call 2026-09-28: ship all 19, widen the palette
 
-Founder on the v3 sheet: "those are good but use a wide palette of colours, not just that yellow." The founder's eye overrules the judge's 13 fails; all 19 plates ship. v4 gives each plate its own colour family (cobalt, rose, teal, violet, crimson, emerald, copper, ice, magenta, one gold), spread so neighbouring cards differ; the shadow tint and the colour drift follow the family. Sheet: . Zero blank cards after build;  OK.
+Founder on the v3 sheet: "those are good but use a wide palette of colours, not just that yellow." The founder eye overrules the judge 13 fails; all 19 plates ship. v4 gives each plate its own colour family (cobalt, rose, teal, violet, crimson, emerald, copper, ice, magenta, one gold), spread so neighbouring cards differ; the shadow tint and the colour drift follow the family. Sheet: reports/plates-contact-2026-09-28.png. Zero blank cards after build; build.mjs --check OK.
