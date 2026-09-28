@@ -1,6 +1,6 @@
 <!doctype html>
 <!--
-  plates-gen.html — the FREE plate generator (2026-09-27, v3).
+  plates-gen.html — the FREE plate generator (2026-09-27, v4: per-plate palettes 2026-09-28).
 
   Renders one card plate procedurally in a 1536x1024 canvas. The recipe is the
   locked one from reports/PLATE-PROMPTS.md, minus the image model: one large
@@ -34,9 +34,27 @@ const rnd = () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(s
 const rr = (a, b) => a + (b - a) * rnd();
 
 // ---- palette ----
-const WHITE = [255, 250, 238], CREAM = [244, 228, 196], AMBER = [226, 172, 92], EMBER = [148, 96, 46];
-const DEEP = [14, 32, 28];              // the shadow side: cool, desaturated green-black
-const COOLHI = [190, 214, 200];         // a cool highlight for warm-vs-cool subjects
+// ---- palettes (v4, founder 2026-09-28: a wide palette, not just the gold) ----
+// Each plate picks one family. The names are kept from v3 so the subject code
+// reads the same: WHITE = the hot core, CREAM = the lit rim, AMBER = the body
+// hue, EMBER = the deep hue, DEEP = the shadow tint, COOLHI = the contrast
+// highlight used where a subject wants a second temperature.
+const PALETTES = {
+  gold:    { CREAM: [244, 228, 196], AMBER: [226, 172, 92],  EMBER: [148, 96, 46],  DEEP: [14, 32, 28],  COOLHI: [190, 214, 200] },
+  cobalt:  { CREAM: [204, 222, 255], AMBER: [72, 122, 232],  EMBER: [24, 48, 140],  DEEP: [8, 12, 40],   COOLHI: [255, 214, 170] },
+  rose:    { CREAM: [255, 216, 224], AMBER: [232, 92, 132],  EMBER: [140, 30, 70],  DEEP: [40, 10, 24],  COOLHI: [200, 232, 222] },
+  teal:    { CREAM: [204, 242, 234], AMBER: [52, 190, 172],  EMBER: [14, 92, 92],   DEEP: [6, 28, 30],   COOLHI: [255, 222, 182] },
+  violet:  { CREAM: [228, 212, 255], AMBER: [152, 92, 232],  EMBER: [70, 30, 140],  DEEP: [22, 10, 44],  COOLHI: [255, 230, 190] },
+  crimson: { CREAM: [255, 204, 186], AMBER: [222, 64, 44],   EMBER: [122, 20, 22],  DEEP: [36, 8, 10],   COOLHI: [200, 220, 240] },
+  emerald: { CREAM: [214, 246, 214], AMBER: [64, 182, 94],   EMBER: [16, 82, 42],   DEEP: [6, 26, 16],   COOLHI: [255, 230, 200] },
+  copper:  { CREAM: [255, 222, 194], AMBER: [212, 122, 72],  EMBER: [112, 52, 30],  DEEP: [30, 14, 10],  COOLHI: [190, 220, 232] },
+  ice:     { CREAM: [232, 246, 255], AMBER: [142, 202, 242], EMBER: [42, 92, 152],  DEEP: [10, 20, 40],  COOLHI: [255, 212, 162] },
+  magenta: { CREAM: [255, 204, 242], AMBER: [222, 72, 202],  EMBER: [122, 22, 112], DEEP: [36, 8, 34],   COOLHI: [200, 240, 222] },
+};
+// Spread across the grid so neighbouring cards differ (index order: 054 053 052 047 | 046 033 031 030 028 026 ...).
+const PALETTE_OF = { '054': 'cobalt', '053': 'rose', '052': 'teal', '047': 'violet', '046': 'crimson', '031': 'emerald', '030': 'magenta', '028': 'ice', '026': 'copper', '014': 'cobalt', '034': 'teal', '035': 'rose', '036': 'violet', '037': 'emerald', '039': 'crimson', '038': 'ice', '041': 'gold', '045': 'magenta', '044': 'cobalt' };
+const PAL = PALETTES[PALETTE_OF[n]] || PALETTES.gold;
+const WHITE = [255, 250, 240], CREAM = PAL.CREAM, AMBER = PAL.AMBER, EMBER = PAL.EMBER, DEEP = PAL.DEEP, COOLHI = PAL.COOLHI;
 const rgba = (c, a = 1) => `rgba(${c[0]},${c[1]},${c[2]},${a})`;
 const mix = (a, b, t) => a.map((v, i) => Math.round(v + (b[i] - v) * t));
 
@@ -123,13 +141,13 @@ function cut(pts, blur = 14) {
 }
 function ambient(x, y, r, a) {
   ctx.save(); const g = ctx.createRadialGradient(x, y, 0, x, y, r);
-  g.addColorStop(0, `rgba(20,42,34,${a})`); g.addColorStop(1, 'rgba(0,0,0,0)');
+  g.addColorStop(0, rgba(mix(DEEP, [0, 0, 0], 0.2), a)); g.addColorStop(1, 'rgba(0,0,0,0)');
   ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); ctx.restore();
 }
 function journey(from, to, a) {
   ctx.save(); ctx.globalCompositeOperation = 'soft-light';
   const g = ctx.createLinearGradient(from[0], from[1], to[0], to[1]);
-  g.addColorStop(0, `rgba(255,176,70,${a})`); g.addColorStop(1, `rgba(16,60,48,${a})`);
+  g.addColorStop(0, rgba(AMBER, a)); g.addColorStop(1, rgba(mix(DEEP, EMBER, 0.3), a));
   ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); ctx.restore();
 }
 function falloff(cx, cy, a = 0.7) {

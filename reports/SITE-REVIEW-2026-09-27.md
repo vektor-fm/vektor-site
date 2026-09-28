@@ -70,3 +70,7 @@ Third pass (Opus judge, one pass, contact sheet vs 4 references, 2026-09-27): PA
 Staged: the 6 that passed. The 13 that failed stay BLANK (a bad plate beside the references is worse than a gap; the judge is the gate). All 19 renders are on the contact sheet at `reports/plates-contact-2026-09-27.png` for the founder's own eye. To ship any of the 13 anyway: `node gen-plates-free.mjs <num> && node ingest-plates.mjs && node build.mjs`. To replace them with the paid route: `node gen-plates.mjs <nums>` then the same ingest + build.
 
 Browser check of the built pages (local server, 2026-09-27): 39 issues in the count, 3 teardown rows, nav Packs panel = 4 newest titles, packs section = 046 + 033, reel button creates the YouTube iframe on click, wordmark at x=16, about.html renders with 5 cards and no unfilled tokens, `node build.mjs --check` OK.
+
+## 7. Founder call 2026-09-28: ship all 19, widen the palette
+
+Founder on the v3 sheet: "those are good but use a wide palette of colours, not just that yellow." The founder's eye overrules the judge's 13 fails; all 19 plates ship. v4 gives each plate its own colour family (cobalt, rose, teal, violet, crimson, emerald, copper, ice, magenta, one gold), spread so neighbouring cards differ; the shadow tint and the colour drift follow the family. Sheet: . Zero blank cards after build;  OK.
