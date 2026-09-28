@@ -86,7 +86,7 @@
 .menu.nav-visible, .menu:focus-within{ transform:translateZ(0); }
 .menu .bar{
   display:flex; justify-content:space-between; align-items:center;
-  padding:var(--p-s); height:44px; background:var(--bg);
+  padding:var(--p-s) var(--p-m); height:44px; background:var(--bg);   /* horizontal = the content gutter, so the wordmark is not 8px off the screen edge (2026-09-27) */
   outline:1px solid var(--rule);   /* outline, not border — sprind surrounds the bar */
 }
 /* ======================= THE LOGO — THE REAL ONE =======================
@@ -765,7 +765,7 @@ pre.code code{font-size:inherit;}
 
 <div class="menu">
   <div class="bar">
-    <a class="wm" href="#top" aria-label="vektor"><span class="wm-plate wm-acid" aria-hidden="true">vektor</span><span class="wm-plate wm-orchid" aria-hidden="true">vektor</span><span class="wm-main"><span class="ch" style="--i:0"><span class="g">%</span><span class="l">v</span></span><span class="ch" style="--i:1"><span class="g">#</span><span class="l">e</span></span><span class="ch" style="--i:2"><span class="g">Z</span><span class="l">k</span></span><span class="ch" style="--i:3"><span class="g">8</span><span class="l">t</span></span><span class="ch" style="--i:4"><span class="g">@</span><span class="l">o</span></span><span class="ch" style="--i:5"><span class="g">W</span><span class="l">r</span></span></span></a>
+    <a class="wm" href="./index.html#top" aria-label="vektor"><span class="wm-plate wm-acid" aria-hidden="true">vektor</span><span class="wm-plate wm-orchid" aria-hidden="true">vektor</span><span class="wm-main"><span class="ch" style="--i:0"><span class="g">%</span><span class="l">v</span></span><span class="ch" style="--i:1"><span class="g">#</span><span class="l">e</span></span><span class="ch" style="--i:2"><span class="g">Z</span><span class="l">k</span></span><span class="ch" style="--i:3"><span class="g">8</span><span class="l">t</span></span><span class="ch" style="--i:4"><span class="g">@</span><span class="l">o</span></span><span class="ch" style="--i:5"><span class="g">W</span><span class="l">r</span></span></span></a>
     <span class="mid">The Index</span>
     <div class="util">
       <button class="menu-word" type="button" aria-label="Open menu" aria-expanded="false"><span class="rules" aria-hidden="true"><i></i><i></i></span><span class="lbl">Menu</span></button>
@@ -778,11 +778,11 @@ pre.code code{font-size:inherit;}
   <div class="nav-submenu">
   <ul class="navgrid">
     <li>
-      <a class="top" href="#latest">Issues</a>
+      <a class="top" href="./index.html#latest">Issues</a>
       <div class="panel">
         <ul>
-          <li><a href="#latest"><span class="a">→</span><span>Latest</span></a></li>
-          <li><a href="#archive"><span class="a">→</span><span>The archive</span></a></li>
+          <li><a href="./index.html#latest"><span class="a">→</span><span>Latest</span></a></li>
+          <li><a href="./index.html#archive"><span class="a">→</span><span>The archive</span></a></li>
           <li><a href="https://instagram.com/vektor.fm" target="_blank" rel="noopener"><span class="a">→</span><span>Submit a topic</span></a></li>
         </ul>
         <p class="info">Every issue is one short film and one working pack — config, prompts, links.</p>
@@ -792,24 +792,24 @@ pre.code code{font-size:inherit;}
       <a class="top" href="./pack.html">Packs</a>
       <div class="panel">
         <ul>
-          <li><a href="./no-004.html"><span class="a">→</span><span>Skills</span></a></li>
-          <li><a href="./no-013.html"><span class="a">→</span><span>Agent starter kit</span></a></li>
-          <li><a href="./no-015.html"><span class="a">→</span><span>Loops</span></a></li>
-          <li><a href="./no-010.html"><span class="a">→</span><span>CLAUDE.md files</span></a></li>
+          <li><a href="./no-054.html"><span class="a">→</span><span>Your CLAUDE.md is slowing Claude Code down</span></a></li>
+          <li><a href="./no-053.html"><span class="a">→</span><span>Which of the five roles are you</span></a></li>
+          <li><a href="./no-052.html"><span class="a">→</span><span>Two mathematicians, one phone call</span></a></li>
+          <li><a href="./no-047.html"><span class="a">→</span><span>Convert files locally</span></a></li>
         </ul>
-        <p class="info">The files behind the films. One email opens any of them.</p>
+        <p class="info">The files behind the films. Every one of them is on its issue page, free.</p>
       </div>
     </li>
     <li>
-      <a class="top" href="#about">About</a>
+      <a class="top" href="./about.html">About</a>
       <div class="panel">
         <ul>
-          <li><a href="#about"><span class="a">→</span><span>What vektor is</span></a></li>
-          <li><a href="#subscribe"><span class="a">→</span><span>The Teardown</span></a></li>
+          <li><a href="./about.html"><span class="a">→</span><span>What vektor is</span></a></li>
+          <li><a href="./index.html#teardown"><span class="a">→</span><span>The Teardown</span></a></li>
           <li><a href="https://youtube.com/@vektorfm" target="_blank" rel="noopener"><span class="a">→</span><span>Watch</span></a></li>
           <li><a href="./privacy.html"><span class="a">→</span><span>Privacy</span></a></li>
         </ul>
-        <p class="info">Daily shorts on the Claude and AI tooling that actually matters.</p>
+        <p class="info">Short films on the Claude and AI tooling that actually matters, every week.</p>
       </div>
     </li>
   </ul>
@@ -823,7 +823,7 @@ pre.code code{font-size:inherit;}
       <li><a href="https://x.com/vektordotfm" target="_blank" rel="noopener"><span>X</span></a></li>
     </ul>
     <ul class="legal">
-      <li><a href="#subscribe"><span class="a">→</span><span>Subscribe</span></a></li>
+      <li><a href="./index.html#subscribe"><span class="a">→</span><span>Subscribe</span></a></li>
       <li><a href="./privacy.html"><span class="a">→</span><span>Privacy</span></a></li>
       <li><a href="./thanks.html"><span class="a">→</span><span>Contact</span></a></li>
     </ul>
@@ -971,7 +971,7 @@ pre.code code{font-size:inherit;}
     <a href="./privacy.html">Privacy</a>
   </nav>
 
-  <div class="backref">A new keyword drops every day — <b>catch it first on the reel</b> — follow @vektor.fm. More like this: <a href="./no-012.html">The CLAUDE.md git rules →</a></div>
+  <div class="backref">A new keyword drops every week — <b>catch it first on the reel</b> — follow @vektor.fm. More like this: <a href="./no-012.html">The CLAUDE.md git rules →</a></div>
 
   <div class="wordmark-foot">
     <span class="wm-foot" id="wmFoot" aria-label="vektor"><span class="ch2" style="--i:0"><span class="g">%</span><span class="l">v</span></span><span class="ch2" style="--i:1"><span class="g">#</span><span class="l">e</span></span><span class="ch2" style="--i:2"><span class="g">Z</span><span class="l">k</span></span><span class="ch2" style="--i:3"><span class="g">8</span><span class="l">t</span></span><span class="ch2" style="--i:4"><span class="g">@</span><span class="l">o</span></span><span class="ch2" style="--i:5"><span class="g">W</span><span class="l">r</span></span></span>

@@ -1,0 +1,242 @@
+<style>
+  /* this page only: the same extra air above each section heading no-047 uses,
+     so a heading band never crowds the paragraph above it on a tall phone */
+  .fig{padding-top:calc(var(--p-2xl) + 40px);}
+</style>
+<section class="hero">
+  <div class="kick eye">OpenAI · Navier–Stokes · Credit</div>
+  <h1 class="disp">Two mathematicians,<br>one phone call,<br>two days<span class="dot">.</span></h1>
+  <p class="sub">On Sunday 6 September 2026, Tristan Buckmaster took two calls with OpenAI about the problem he and Levent Alpöge had been working on. Two days later, both sides published. This page collects the primary documents and nothing else: three preprints, Buckmaster's four-page signed statement, OpenAI's 166-page paper and its own announcement, Terence Tao's two posts, and the Clay Mathematics Institute's actual position — which is a great deal smaller than the headlines. Every PDF below was downloaded and read for this page on 2026-09-14. Where something was not read, it says so.</p>
+  <div class="actions">
+    <a class="btn primary" href="#papers">Read the documents ↓</a>
+    <a class="btn" href="#statement">Buckmaster's own account →</a>
+    <a class="btn" href="./files/credit.md">Download the whole sheet (.md) &darr;</a>
+    <button class="btn" id="shareBtn" type="button">Send this to someone who read the headline</button>
+  </div>
+  <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+</section>
+
+<!-- ======================= 01 — THE PAPERS ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 01 ·</h2>
+  <h2 class="disp">Three papers, not one<span class="dot">.</span></h2>
+  <p class="sub">Almost every write-up mentions the Euler paper. There are three, and the third one is the tell.</p>
+</div>
+
+<section class="issues" id="papers">
+  <article class="issue">
+    <h3>Euler — 112 pages</h3>
+    <p><i>Blowup for the Euler Equations with Smooth Forcing.</i> The headline result: a finite-time singularity for incompressible Euler on R³ with a force that stays smooth right up to the blowup time. Its abstract says in plain terms that it continues the program of Diego Córdoba and Luis Martínez-Zoroa.</p>
+    <p class="meta">PDF built 2026-09-07, 19:04 (−04:00). Downloaded and read 2026-09-14. <a href="https://cims.nyu.edu/~tristanb/euler.pdf">cims.nyu.edu/~tristanb/euler.pdf →</a></p>
+  </article>
+
+  <article class="issue">
+    <h3>Boussinesq — 76 pages</h3>
+    <p><i>Blowup for the Boussinesq Equations with Smooth Forcing,</i> by Levent Alpöge and Tristan Buckmaster. The companion construction the Euler paper leans on. It too opens by naming the Córdoba and Martínez-Zoroa program as the thing it follows.</p>
+    <p class="meta">PDF built 2026-09-07, 21:22 (−04:00). Downloaded and read 2026-09-14. <a href="https://cims.nyu.edu/~tristanb/boussinesq.pdf">cims.nyu.edu/~tristanb/boussinesq.pdf →</a></p>
+  </article>
+
+  <article class="issue">
+    <h3>IPM — 57 pages, and a third author</h3>
+    <p><i>Extending the Córdoba–Martínez-Zoroa IPM Blow-Up to Uniformly Space-Time Smooth Forcing,</i> by Alpöge, Buckmaster and Matei P. Coiculescu. This is the earlier, slower result — and the title alone tells you whose program this is.</p>
+    <p class="meta">PDF built 2026-09-08, 03:36 UTC. Downloaded and read 2026-09-14. <a href="https://cims.nyu.edu/~tristanb/ipm.pdf">cims.nyu.edu/~tristanb/ipm.pdf →</a></p>
+  </article>
+
+  <article class="issue">
+    <h3>The fourth paper they did not release</h3>
+    <p>Buckmaster's statement says they believe they also have blowup for hypo-dissipative Navier–Stokes, and that they held it back for one reason: the Lean verification had not finished. He calls it suggestive of a path to unforced Euler.</p>
+    <p class="meta">Read from the statement PDF, 2026-09-14.</p>
+  </article>
+
+  <article class="issue">
+    <h3>None of them is on arXiv</h3>
+    <p>They sit on Buckmaster's NYU Courant page. arXiv is where mathematicians timestamp priority, so a paper that only ever lived on a personal page has no public clock on it. That is part of why this fight cannot be settled by looking at dates — and why the PDF build dates above are worth having.</p>
+    <p class="meta">Checked 2026-09-14: all three resolve on the personal page; none on arXiv.</p>
+  </article>
+</section>
+
+<!-- ======================= 02 — THE STATEMENT ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 02 ·</h2>
+  <h2 class="disp">Buckmaster's four pages<span class="dot">.</span></h2>
+  <p class="sub">If you read one document on this page, read this one. It is short, it is signed, and it quotes its own emails.</p>
+</div>
+
+<section class="issues" id="statement">
+  <article class="issue">
+    <h3>The statement itself</h3>
+    <p>Four pages, in his own words, published the same morning as the papers. He sets out a timeline: slow progress for most of a year, then results for Boussinesq and Euler on 15 August, Lean verification finishing on 22 August. He quotes his 3 September email to OpenAI in full, and describes two calls on Sunday 6 September.</p>
+    <p class="meta">PDF built 2026-09-08, 02:38 UTC. Downloaded and read end to end, 2026-09-14. <a href="https://cims.nyu.edu/~tristanb/statement.pdf">cims.nyu.edu/~tristanb/statement.pdf →</a></p>
+  </article>
+
+  <article class="issue">
+    <h3>What he says he was told, and what changed</h3>
+    <p>He writes that he was shown a prompt and told the model had simply been given the problem statement, with very little human input — and that over the course of the call this turned out not to be so. His account is that an entire team had been working on it, that the prompt he had been shown was itself written by prompting Codex, and that the first prompt had gone out only in the previous few days, after word of his work reached OpenAI.</p>
+    <p class="meta">This is his account of a private call. OpenAI's published position is in Fig. 03.</p>
+  </article>
+
+  <article class="issue">
+    <h3>The question that did not get an answer</h3>
+    <p>He asked whether the model had been trained on, or had access to, the Codex sessions he and Alpöge had been putting every draft into. He writes that he was told the model did not look up user data — and that when he asked again, about training specifically, he did not get an answer.</p>
+    <p class="meta">Note the shape of it: the two questions are not the same question.</p>
+  </article>
+
+  <article class="issue">
+    <h3>What he explicitly does not claim</h3>
+    <p>He states that he has not seen OpenAI's proof, does not know what their model did, does not know whether his data was used, and is not accusing anyone of anything. He says he is setting out what he was told, when, and what was proposed to him.</p>
+    <p class="meta">Anyone citing this statement as proof of theft is claiming more than its author does.</p>
+  </article>
+
+  <article class="issue">
+    <h3>He is also hard on his own papers</h3>
+    <p>He is unhappy with the presentation, says the write-ups are much closer to what models produce under human direction than to a paper written by a person, and describes the Euler write-up in terms nobody would use about their own work unless they meant it. He apologises for it and blames the rush.</p>
+    <p class="meta">Worth knowing before you treat 112 pages as 112 pages of finished mathematics.</p>
+  </article>
+</section>
+
+<!-- ======================= 03 — WHAT OPENAI PUBLISHED ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 03 ·</h2>
+  <h2 class="disp">What OpenAI published<span class="dot">.</span></h2>
+  <p class="sub">Read their own words before anyone's summary of them, including this one. They concede more than the coverage suggests — and omit one thing entirely.</p>
+</div>
+
+<section class="issues" id="openai">
+  <article class="issue">
+    <h3>The announcement</h3>
+    <p><i>On the Navier–Stokes Millennium Prize Problem,</i> dated 8 September 2026, bylined to OpenAI rather than to any person. It says their effort began on 1 September, after a rumour they later connected to Alpöge and Buckmaster.</p>
+    <p class="meta">Read directly in a browser on 2026-09-14 (a plain fetch returns 403). <a href="https://openai.com/index/navier-stokes-solution/">openai.com/index/navier-stokes-solution →</a></p>
+  </article>
+
+  <article class="issue">
+    <h3>Two things they say out loud</h3>
+    <p>They state that they do not intend to claim the Millennium Prize for this result. They also recognise the priority of the mathematicians' work on forced Euler and congratulate them on it. Both sentences are on their own page, in their own words.</p>
+    <p class="meta">Read directly 2026-09-14. If your feed told you OpenAI claimed the prize, your feed did not read the post.</p>
+  </article>
+
+  <article class="issue">
+    <h3>The distinction the whole fight turns on</h3>
+    <p>OpenAI's page draws it explicitly: in the Euler case, Alpöge and Buckmaster proved a result <b>with</b> external forcing, while OpenAI's system proved one <b>without</b>. Forced and unforced are different theorems. Whether removing the force is a footnote or the entire mountain is exactly what is in dispute.</p>
+    <p class="meta">Read directly 2026-09-14.</p>
+  </article>
+
+  <article class="issue">
+    <h3>The paper — 166 pages, author "OPENAI"</h3>
+    <p><i>Finite Time Blowup for Navier–Stokes.</i> No individual authors. No acknowledgements section anywhere in it. Twenty-two references. It cites Buckmaster once, for a 2019 paper with Vlad Vicol that has nothing to do with this work — and it never names Alpöge, in the text or in the bibliography.</p>
+    <p class="meta">Downloaded and searched 2026-09-14: zero occurrences of "Alp" in 166 pages; PDF built 2026-09-08, 19:06 UTC. <a href="https://cdn.openai.com/pdf/32d9f210-8b73-45e0-91bc-82a30aef8a9a/navier-stokes.pdf">cdn.openai.com · navier-stokes.pdf →</a></p>
+  </article>
+
+  <article class="issue">
+    <h3>Who published first</h3>
+    <p>Buckmaster's statement was built at 02:38 UTC on 8 September. OpenAI's paper was built at 19:06 UTC the same day, about sixteen and a half hours later. Both timestamps come from the PDFs themselves.</p>
+    <p class="meta">Read from PDF metadata, 2026-09-14. A build time is when a file was compiled, not when it was posted — treat it as a floor, not a publication time.</p>
+  </article>
+
+  <article class="issue">
+    <h3>The Lean formalisation</h3>
+    <p>A Lean 4 proof is one a computer checks line by line. OpenAI published one for its results. So did the mathematicians — Buckmaster's statement says the Lean verification for the three released papers finished on 22 August, which is why the fourth paper stayed in the drawer. Being machine-checked is not what separates these two bodies of work.</p>
+    <p class="meta">OpenAI's repo README, read directly 2026-09-14. <a href="https://github.com/openai/NavierStokesAndEuler">github.com/openai/NavierStokesAndEuler →</a></p>
+  </article>
+</section>
+
+<!-- ======================= 04 — WHERE THE CREDIT STARTS ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 04 ·</h2>
+  <h2 class="disp">Where the credit actually starts<span class="dot">.</span></h2>
+  <p class="sub">Two names that are in almost none of the coverage, and in every one of the documents.</p>
+</div>
+
+<section class="issues" id="credit">
+  <article class="issue">
+    <h3>Córdoba and Martínez-Zoroa</h3>
+    <p>Diego Córdoba and Luis Martínez-Zoroa spent years building blowup constructions with rough forcing. Every paper in this story is built on that program. Buckmaster's own statement says the idea was not started by him, not proposed by a language model, and that the credit for it belongs to them — and he writes that in his view Martínez-Zoroa deserves a Fields Medal.</p>
+    <p class="meta">Read from the statement PDF, 2026-09-14.</p>
+  </article>
+
+  <article class="issue">
+    <h3>OpenAI cites them too</h3>
+    <p>This is not a contested point. OpenAI's own 166-page paper cites Córdoba and Martínez-Zoroa five times across its introduction and bibliography, including the hypodissipative Navier–Stokes work with Fan Zheng. Both sides agree on whose program this is. They disagree about who finished it.</p>
+    <p class="meta">Searched in the downloaded PDF, 2026-09-14.</p>
+  </article>
+
+  <article class="issue">
+    <h3>What the mathematicians say the LLMs did</h3>
+    <p>Buckmaster's account is that he and Alpöge took the existing program and used models to push it from rough forcing to smooth forcing and on to Euler — Claude, Codex, and later models for write-ups and auditing. He is explicit that it was a personal collaboration with no institutional agreement on either side, and that he paid the bills out of his own research funds.</p>
+    <p class="meta">Read from the statement PDF, 2026-09-14.</p>
+  </article>
+</section>
+
+<!-- ======================= 05 — TAO ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 05 ·</h2>
+  <h2 class="disp">Tao, twice<span class="dot">.</span></h2>
+  <p class="sub">A Fields medallist, and about as close to a neutral referee as this field has. He wrote about the maths first and the pattern second.</p>
+</div>
+
+<section class="issues" id="tao">
+  <article class="issue">
+    <h3>The blog post, 7 September — the maths</h3>
+    <p>Written before OpenAI's announcement and not mentioning it. Tao walks through the mathematicians' construction, places it in the Córdoba and Martínez-Zoroa lineage, and notes that their work has also been formalised in Lean. His title names all three equations — porous medium, Boussinesq and Euler — which is one more confirmation that the Euler paper was never the whole story.</p>
+    <p class="meta">Read directly 2026-09-14. <a href="https://terrytao.wordpress.com/2026/09/07/finite-time-blowup-with-smooth-forcing-term-for-the-incompressible-porous-medium-boussinesq-and-incompressible-euler-equations/">terrytao.wordpress.com · 7 Sep 2026 →</a></p>
+  </article>
+
+  <article class="issue">
+    <h3>The Mastodon post — the pattern</h3>
+    <p>His point is about scarcity: it is now the identification of a promising problem that is the rare and precious resource. And that we have now seen the mere rumour of someone working on a problem trigger enough AI-powered effort to flatten it before the original project reaches its full potential.</p>
+    <p class="meta">Read directly on mathstodon 2026-09-14. <a href="https://mathstodon.xyz/@tao/117237320796901560">mathstodon.xyz/@tao →</a></p>
+  </article>
+</section>
+
+<!-- ======================= 06 — CLAY ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 06 ·</h2>
+  <h2 class="disp">What the Clay Institute actually said<span class="dot">.</span></h2>
+  <p class="sub">This is the part most of the coverage skipped. Read it twice.</p>
+</div>
+
+<section class="issues" id="clay">
+  <article class="issue">
+    <h3>The problem page has not changed</h3>
+    <p>The Millennium Prize page still describes Navier–Stokes as originally stated. It does not mention OpenAI, and it does not record a 2026 resolution.</p>
+    <p class="meta">Fetched and read 2026-09-14. <a href="https://www.claymath.org/millennium/navier-stokes-equation/">claymath.org · the problem →</a></p>
+  </article>
+
+  <article class="issue">
+    <h3>The announcement, 2026-09-11</h3>
+    <p>A separate page says CMI is "excited" and that the problem "has apparently been settled" — and that its evaluation will be <b>"deliberately unhurried"</b> under the prize rules.</p>
+    <p class="meta">Fetched and read 2026-09-14. <a href="https://www.claymath.org/news/navier-stokes-announcement/">claymath.org · the announcement →</a></p>
+  </article>
+
+  <article class="issue">
+    <h3>Nothing has been awarded</h3>
+    <p>As of 2026-09-14 the Clay Mathematics Institute has confirmed nothing and awarded nothing. Anyone telling you a Millennium Prize has been won is ahead of the only organisation that can award one — and ahead of OpenAI, which says it is not claiming it.</p>
+    <p class="meta">"Apparently settled" and "unhurried evaluation" are the two phrases to hold on to.</p>
+  </article>
+</section>
+
+<!-- ======================= 07 — HOW TO READ THIS PAGE ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 07 ·</h2>
+  <h2 class="disp">How to read this page<span class="dot">.</span></h2>
+  <p class="sub">What was read end to end, what was only linked, and where to go for the maths.</p>
+</div>
+
+<section class="issues" id="provenance">
+  <article class="issue">
+    <h3>Read directly for this page</h3>
+    <p>All four NYU PDFs were downloaded and their text extracted — the statement end to end, the three preprints for titles, authors, abstracts and build dates. OpenAI's 166-page paper was downloaded and searched. OpenAI's announcement, Tao's blog post, Tao's Mastodon post, the Lean repository README and both Clay Mathematics Institute pages were read on the page itself.</p>
+    <p class="meta">All on 2026-09-14. Every date and page count above came from the file, not from coverage of it.</p>
+  </article>
+
+  <article class="issue">
+    <h3>What this page will not do</h3>
+    <p>It will not tell you whether OpenAI trained on anyone's Codex sessions. Nobody outside OpenAI knows that, and the man at the centre of it says plainly that he does not know either. Where an account is one side's account of a private call, this page says whose.</p>
+    <p class="meta">Every link here goes to a primary source, never to coverage of one.</p>
+  </article>
+
+  <article class="issue">
+    <h3>Want the maths, not the fight?</h3>
+    <p>What finite-time blowup means, why smoothness is the thing at stake, and how to inspect the proof yourself — on its own page.</p>
+    <p class="meta"><a href="./navier-stokes.html">The vortex that breaks smoothness →</a> · <a href="./files/credit.md">Or take this whole sheet with you (.md) →</a></p>
+  </article>
+</section>

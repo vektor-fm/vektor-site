@@ -37,7 +37,7 @@
 .menu.nav-visible, .menu:focus-within{ transform:translateZ(0); }
 .menu .bar{
   display:flex; justify-content:space-between; align-items:center;
-  padding:var(--p-s); height:44px; background:var(--bg);
+  padding:var(--p-s) var(--p-m); height:44px; background:var(--bg);   /* horizontal = the content gutter, so the wordmark is not 8px off the screen edge (2026-09-27) */
   outline:1px solid var(--rule);   /* outline, not border — sprind surrounds the bar */
 }
 /* ======================= THE LOGO — THE REAL ONE =======================

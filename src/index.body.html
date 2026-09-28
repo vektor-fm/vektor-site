@@ -3,11 +3,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>vektor /// the index — the AI frontier, cut to what ships</title>
-<meta name="description" content="Daily shorts on the Claude &amp; AI tooling that actually matters — and every issue delivers the goods. Join The Teardown.">
+<meta name="description" content="Short films on the Claude &amp; AI tooling that actually matters, every week — and every issue ships the working files behind it. Join The Teardown.">
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="VEKTOR — the AI frontier, cut to what ships.">
-<meta property="og:description" content="Daily shorts on the Claude &amp; AI tooling that actually matters. Get The Teardown — one email a week.">
+<meta property="og:description" content="Short films on the Claude &amp; AI tooling that actually matters, every week. Get The Teardown — one email a week.">
 <meta property="og:image" content="https://vektor-fm.github.io/vektor-site/og/index.png?v=2026-08-17">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -415,9 +415,6 @@ main{ padding-top:0; }
 }
 .film .play:hover{ background:#fff; color:#000; }
 .film .scrub{ position:absolute; left:var(--p-m); right:var(--p-m); bottom:var(--p-l); }
-.film .track{ position:relative; height:1px; background:rgba(255,255,255,.25); transition:height .2s ease; }
-.film:hover .track{ height:4px; }
-.film .track i{ position:absolute; inset:0 62% 0 0; background:#fff; }
 .film .times{ display:flex; justify-content:space-between; color:#fff; font-size:var(--fs-xs); padding-top:8px; font-variant-numeric:tabular-nums; }
 
 /* ===================== SECTION-HEADER COPY-LINK ======================
@@ -793,7 +790,7 @@ input,select,textarea{font-size:16px !important;}   /* iOS zooms below 16 */
   <section class="module band-lift" id="latest">
     <div class="modhead">
       <h2 class="heading1">Latest</h2>
-      <a class="alink u" href="#archive"><span class="a">→</span><span>All 22 issues</span></a>
+      <a class="alink u" href="#archive"><span class="a">→</span><span>All {{TOTAL_COUNT}} issues</span></a>
     </div>
     <div class="cards">
 {{LATEST_CARDS}}
@@ -801,12 +798,11 @@ input,select,textarea{font-size:16px !important;}   /* iOS zooms below 16 */
   </section>
 
   <section class="module-flush band-lift">
-    <div class="film">
-      <img src="og/plate-no-017-hero.webp" alt="">
-      <div class="veil"><button class="play">Play the reel</button></div>
+    <div class="film" id="reel" data-yt="hdzmUkqMkY8">
+      <img src="og/plate-no-006-hero.webp" alt="">
+      <div class="veil"><button class="play" type="button" aria-label="Play NO. 006, One file. 188,000 stars. Sixty seconds, on YouTube.">Play the reel</button></div>
       <div class="scrub">
-        <div class="track"><i></i></div>
-        <div class="times"><span>00:24</span><span>00:38</span></div>
+        <div class="times"><span>NO. 006 &middot; One file. 188,000 stars.</span><span>01:00</span></div>
       </div>
     </div>
   </section>
@@ -839,25 +835,10 @@ input,select,textarea{font-size:16px !important;}   /* iOS zooms below 16 */
   <section class="module band-base" id="packs">
     <div class="modhead">
       <h2 class="heading1">The packs<button class="copylink" type="button" aria-label="Copy link to this section">#</button></h2>
-      <a class="alink u" href="./pack.html"><span class="a">→</span><span>Browse every pack</span></a>
+      <a class="alink u" href="#archive"><span class="a">→</span><span>Every issue ships one</span></a>
     </div>
     <div class="bigcards">
-      <a class="bigcard" href="./no-004.html">
-        <div class="img"><img loading="lazy" decoding="async" width="700" height="467" src="og/plate-no-004-card.webp" alt=""></div>
-        <div class="body">
-          <h3 class="heading2">Skills</h3>
-          <h3 class="heading2 plain">Five that carry the rest of the toolchain</h3>
-          <span class="defaultS">Open the pack</span>
-        </div>
-      </a>
-      <a class="bigcard" href="./no-020.html">
-        <div class="img"><img loading="lazy" decoding="async" width="700" height="467" src="og/plate-no-020-card.webp" alt=""></div>
-        <div class="body">
-          <h3 class="heading2">Subagents</h3>
-          <h3 class="heading2 plain">Four working in parallel, not one long chat</h3>
-          <span class="defaultS">Open the pack</span>
-        </div>
-      </a>
+{{PACK_CARDS}}
     </div>
   </section>
 
@@ -869,7 +850,7 @@ input,select,textarea{font-size:16px !important;}   /* iOS zooms below 16 */
       <div class="split">
         <h2 class="heading1 up">The Teardown<button class="copylink" type="button" aria-label="Copy link to this section">#</button></h2>
         <div style="display:flex;justify-content:flex-end;align-items:flex-start">
-          <a class="alink u" href="#subscribe"><span class="a">→</span><span>Subscribe</span></a>
+          <a class="alink u" href="./newsletter.html"><span class="a">→</span><span>All {{TEARDOWN_COUNT}} editions</span></a>
         </div>
       </div>
       <div class="split">
@@ -883,7 +864,8 @@ input,select,textarea{font-size:16px !important;}   /* iOS zooms below 16 */
           </ul>
         </div>
         <div class="eplist">
-          <form class="nl-inline" method="post" action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" data-capture="lp-teardown">
+{{TEARDOWN_ROWS}}
+          <form class="nl-inline" style="padding-top:var(--p-xl)" method="post" action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" data-capture="lp-teardown">
       <input type="hidden" name="tag" value="index-lp-teardown">
       <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
             <label class="sr-only" for="tdEmail">Email address</label>
@@ -916,7 +898,7 @@ input,select,textarea{font-size:16px !important;}   /* iOS zooms below 16 */
     <a class="bigrow" href="https://youtube.com/@vektorfm" target="_blank" rel="noopener">
       <div class="img"><img loading="lazy" decoding="async" width="700" height="467" src="og/plate-no-009-card.webp" alt=""></div>
       <div class="side">
-        <h3 class="heading2">One short a day, on every platform that will carry it — no intro, no outro, no sixty seconds of throat-clearing.</h3>
+        <h3 class="heading2">New shorts every week, on every platform that will carry them — no intro, no outro, no sixty seconds of throat-clearing.</h3>
         <span class="cta">Watch the latest</span>
       </div>
     </a>
@@ -925,12 +907,12 @@ input,select,textarea{font-size:16px !important;}   /* iOS zooms below 16 */
   <section class="module band-base" id="about">
     <div class="modhead">
       <h2 class="heading1">About<button class="copylink" type="button" aria-label="Copy link to this section">#</button></h2>
-      <a class="alink u" href="#about"><span class="a">→</span><span>The long version</span></a>
+      <a class="alink u" href="./about.html"><span class="a">→</span><span>The long version</span></a>
     </div>
-    <a class="bigrow" href="#about">
+    <a class="bigrow" href="./about.html">
       <div class="img"><img loading="lazy" decoding="async" width="700" height="467" src="og/plate-no-006-card.webp" alt=""></div>
       <div class="side">
-        <h3 class="heading2">Daily shorts on the Claude and AI tooling that actually matters — and every issue ships the working files behind it, free.</h3>
+        <h3 class="heading2">Short films on the Claude and AI tooling that actually matters, every week — and every issue ships the working files behind it, free.</h3>
         <span class="cta">Read more</span>
       </div>
     </a>
@@ -977,6 +959,21 @@ input,select,textarea{font-size:16px !important;}   /* iOS zooms below 16 */
 document.querySelectorAll('.acc .row button').forEach(b=>{
   b.addEventListener('click',()=> b.parentElement.classList.toggle('open'));
 });
+
+/* The reel: the YouTube player is created on click only, so the page loads no
+   third-party frame until the visitor asks for it (youtube-nocookie). */
+const reel = document.getElementById('reel');
+if (reel) {
+  reel.querySelector('.play').addEventListener('click', () => {
+    const f = document.createElement('iframe');
+    f.src = 'https://www.youtube-nocookie.com/embed/' + reel.dataset.yt + '?autoplay=1&rel=0&modestbranding=1&playsinline=1';
+    f.title = 'vektor NO. 006';
+    f.allow = 'autoplay; encrypted-media; picture-in-picture';
+    f.allowFullscreen = true;
+    f.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:0;background:#000';
+    reel.replaceChildren(f);
+  });
+}
 
 /* Stacked slider — rotate which card sits at data-i="0". The transforms live
    in CSS keyed off data-i, so stepping is just a re-index. */

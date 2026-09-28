@@ -29,7 +29,16 @@ const site = JSON.parse(read('site.json'));
 // The nav is one component shared by the landing page and all 20 issue pages.
 // It lives in partials/nav.html + partials/nav-css.html and is injected into
 // both via {{NAV}} / {{NAV_CSS}}. Keeping two copies is how they drift.
-const NAV = read('partials/nav.html');
+const NAV_TPL = read('partials/nav.html');
+// The nav's Packs panel lists the four newest issues and its section anchors
+// (#latest, #about, #subscribe) only exist on the index — off the index they
+// were dead links (audit 2026-09-27). HOME is '' on the index and
+// './index.html' everywhere else; the panel is generated from site.json.
+function navFor(home) {
+  const packs = BUILT.slice(0, 4).map((i) =>
+    '          <li><a href="./no-' + i.number + '.html"><span class="a">→</span><span>' + esc(i.title_short) + '</span></a></li>').join('\n');
+  return fill(NAV_TPL, { HOME: home, NAV_PACKS: packs });
+}
 const NAV_CSS = read('partials/nav-css.html');
 // The gate (2026-08-26). CAPTURE is the sticky bar + pop-up, injected into
 // public pages only; GATE is the email wall that replaces the payload; UNLOCKED
@@ -38,6 +47,7 @@ const CAPTURE = read('partials/capture.html');
 const GATE = read('partials/gate.html');
 const UNLOCKED = read('partials/unlocked.html');
 const BUILT = site.issues.filter((i) => i.built);
+const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 // Newsletter issues. Separate from site.issues[] because a Teardown is not a
 // reel landing page: it has no keyword, no funnel, and no OG plate art.
 const TEARDOWNS = site.teardowns ?? [];
@@ -170,7 +180,7 @@ function renderIssue(num, { unlocked = false } = {}) {
   const gateList = payloadManifest(payload);
 
   const map = {
-    NAV, NAV_CSS,
+    NAV: navFor('./index.html'), NAV_CSS,
     MAGNET: magnet,
     GATE_META: gateList.meta,
     GATE_TITLE: man.gate_title || `${magnet[0].toUpperCase()}${magnet.slice(1)}, in full.`,
@@ -265,8 +275,6 @@ function renderOgCard(slug, card) {
 // with no plate yet renders an empty cell rather than a broken image — the gap
 // should be visible as a gap, not as a 404.
 
-const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-
 function plateHtml(num) {
   const card = `og/plate-no-${num}-card.webp`;
   return exists(card)
@@ -307,12 +315,41 @@ function magCard(i, idx) {
     + `      </a>`;
 }
 
+// "The packs" features the two newest issues that are NOT already in Latest,
+// so the front page shows six different films instead of repeating two.
+function packCard(i) {
+  return '      <a class="bigcard" href="./no-' + i.number + '.html">\n'
+    + '        ' + plateHtml(i.number) + '\n'
+    + '        <div class="body">\n'
+    + '          <h3 class="heading2">' + esc(i.section) + '</h3>\n'
+    + '          <h3 class="heading2 plain">' + esc(i.title_short) + '</h3>\n'
+    + '          <span class="defaultS">Open the pack</span>\n'
+    + '        </div>\n'
+    + '      </a>';
+}
+
+// The Teardown band lists the three newest editions above the subscribe form.
+// Before 2026-09-27 the band was a form with nothing to read behind it.
+function teardownRow(t) {
+  return '          <a class="episode" href="./teardown-' + t.number + '.html">\n'
+    + '            <span class="play-ep" aria-hidden="true">→</span>\n'
+    + '            <div class="epbody">\n'
+    + '              <div class="ephead"><h4>' + esc(t.title) + '</h4><span class="dur">' + esc(t.date) + '</span></div>\n'
+    + '              <div class="epacts"><span class="defaultS">Teardown ' + t.number + ' · Read</span></div>\n'
+    + '            </div>\n'
+    + '          </a>';
+}
+
 function renderIndex() {
   const latest = BUILT[0];
   const inLatest = BUILT.slice(0, 4);
   const inArchive = BUILT.slice(4);
+  const newestTeardowns = [...TEARDOWNS].sort((a, b) => b.number.localeCompare(a.number)).slice(0, 3);
   const map = {
-    NAV, NAV_CSS,
+    NAV: navFor(''), NAV_CSS,
+    PACK_CARDS: inArchive.slice(0, 2).map(packCard).join('\n'),
+    TEARDOWN_ROWS: newestTeardowns.map(teardownRow).join('\n'),
+    TEARDOWN_COUNT: String(TEARDOWNS.length),
     LATEST_CARDS: inLatest.map(teaserCard).join('\n'),
     ARCHIVE_CARDS: inArchive.map(magCard).join('\n'),
     ARCHIVE_COUNT: String(inArchive.length),
@@ -328,11 +365,16 @@ function renderIndex() {
 
 // ---- sitemap.xml (ascending by number, index first) ----
 function renderSitemap() {
-  const asc = [...site.issues].sort((a, b) => a.number.localeCompare(b.number));
-  const urls = [`  <url>\n    <loc>https://vektor-fm.github.io/vektor-site/</loc>\n    <lastmod>${site.index.lastmod}</lastmod>\n  </url>`]
-    .concat(asc.map((i) =>
-      `  <url>\n    <loc>https://vektor-fm.github.io/vektor-site/no-${i.number}.html</loc>\n    <lastmod>${i.lastmod}</lastmod>\n  </url>`));
-  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join('\n')}\n</urlset>\n`;
+  const B = 'https://vektor-fm.github.io/vektor-site/';
+  const url = (path, lastmod) => '  <url>\n    <loc>' + B + path + '</loc>\n    <lastmod>' + lastmod + '</lastmod>\n  </url>';
+  // Only pages the build writes: built issues, teardowns and the static pages.
+  // Unbuilt issues[] rows used to be listed here and 404'd (audit 2026-09-27).
+  const asc = [...BUILT].sort((a, b) => a.number.localeCompare(b.number));
+  const urls = [url('', site.index.lastmod)]
+    .concat(asc.map((i) => url('no-' + i.number + '.html', i.lastmod)))
+    .concat([...TEARDOWNS].sort((a, b) => a.number.localeCompare(b.number)).map((t) => url('teardown-' + t.number + '.html', t.date)))
+    .concat([url('newsletter.html', site.index.lastmod), url('about.html', site.index.lastmod)]);
+  return '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + urls.join('\n') + '\n</urlset>\n';
 }
 
 // ---- newsletter issue page (the web version of an emailed Teardown) ----
@@ -350,7 +392,7 @@ function renderTeardown(num) {
     if (man[k] == null) throw new Error(`teardown-${num}: missing ${k}`);
   }
   const map = {
-    NAV, NAV_CSS,
+    NAV: navFor('./index.html'), NAV_CSS,
     MAGNET: 'the config pack',
     MAGNET_TITLE: 'Keep the whole toolkit.',
     // A Teardown is the newsletter itself, published on the web. It is not
@@ -384,7 +426,7 @@ function renderTeardown(num) {
 function renderNewsletter() {
   const man = JSON.parse(read('manifest/newsletter.json'));
   const map = {
-    NAV, NAV_CSS,
+    NAV: navFor('./index.html'), NAV_CSS,
     MAGNET: 'the newest pack',
     MAGNET_TITLE: 'Keep the whole toolkit.',
     ROBOTS: '',
@@ -409,6 +451,33 @@ function renderNewsletter() {
   return out;
 }
 
+// ---- the About page (2026-09-27) ----
+// The index's "The long version" and "Read more" both pointed back at #about,
+// a loop with no long version anywhere. This is the long version.
+function renderAbout() {
+  const man = JSON.parse(read('manifest/about.json'));
+  const map = {
+    NAV: navFor('./index.html'), NAV_CSS,
+    ROBOTS: '', CAPTURE: '',
+    TITLE: man.title, DESCRIPTION: man.description,
+    OG_TITLE: man.og_title, OG_DESCRIPTION: man.og_description, OG_IMAGE: man.og_image,
+    OG_ALT: man.og_alt, OG_URL: man.og_url, CANONICAL: man.canonical,
+    TW_TITLE: man.tw_title, TW_DESCRIPTION: man.tw_description, TW_IMAGE: man.tw_image,
+    MARKER: man.marker, SLUG: man.slug,
+    BACKREF_HTML: man.backref_html, FOOTER_META: man.footer_meta,
+    COPY_EVENT_JS: 'null', SUBSCRIBE_BLOCK: '',
+    ISSUE_COUNT: String(BUILT.length), TEARDOWN_COUNT: String(TEARDOWNS.length),
+    LATEST_NUM: BUILT[0].number, LATEST_TITLE: esc(BUILT[0].title_short),
+  };
+  const out = fill(read('partials/head.html'), map)
+    + fill(read('partials/masthead.html'), map)
+    + fill(read('src/about.body.html'), map)
+    + fill(read('partials/footer.html'), map)
+    + fill(read('partials/scripts.html'), map);
+  assertNoTokens(out, 'about');
+  return out;
+}
+
 // ---- outputs map ----
 function outputs() {
   const o = {};
@@ -425,6 +494,7 @@ function outputs() {
   for (const t of TEARDOWNS) o[`teardown-${t.number}.html`] = renderTeardown(t.number);
   o['index.html'] = renderIndex();
   o['newsletter.html'] = renderNewsletter();
+  o['about.html'] = renderAbout();
   // The hub's card lives in site.json rather than a manifest, because the hub
   // has no manifest — it is configured entirely from site.json.
   if (site.index.og_card) o['og-src-index.html'] = renderOgCard('index', site.index.og_card);

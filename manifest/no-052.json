@@ -1,0 +1,32 @@
+{
+  "number": "052",
+  "title": "vektor /// no. 052 — Two mathematicians, one phone call, two days.",
+  "description": "On Sunday 6 September 2026 Tristan Buckmaster took two calls with OpenAI about the problem he and Levent Alpöge had been working on. Two days later both sides published. Every primary document is on this page — all three preprints, Buckmaster's four-page signed statement, OpenAI's 166-page paper and its own announcement, Tao's two posts, and what the Clay Mathematics Institute has actually said, which is far less than the headlines.",
+  "og_title": "Two mathematicians, one phone call, two days. — vektor /// no. 052",
+  "og_description": "OpenAI's own announcement says it is not claiming the Millennium Prize. Its 166-page paper never names Alpöge. Clay has awarded nothing. Every primary document in the Navier–Stokes credit dispute, on one page.",
+  "og_image": "https://vektor-fm.github.io/vektor-site/og/no-052.png",
+  "og_alt": "Two mathematicians, one phone call, two days — vektor /// no. 052",
+  "og_url": "https://vektor-fm.github.io/vektor-site/no-052.html",
+  "canonical": "https://vektor-fm.github.io/vektor-site/no-052.html",
+  "tw_title": "Two mathematicians, one phone call, two days. — vektor /// no. 052",
+  "tw_description": "Every primary document in the OpenAI Navier–Stokes credit dispute, and the facts the headlines skipped: OpenAI is not claiming the prize, and the Clay Institute has awarded nothing.",
+  "tw_image": "https://vektor-fm.github.io/vektor-site/og/no-052.png",
+  "marker": "OpenAI · Navier–Stokes · Credit",
+  "sticky_text": "Follow <b>@vektor.fm</b> → a new keyword every week",
+  "backref_html": "A new keyword drops every week — <b>catch it first on the reel</b> — follow @vektor.fm. Want the maths instead of the fight? <a href=\"./navier-stokes.html\">The vortex that breaks smoothness →</a>",
+  "footer_meta": "/// no. 052 / credit / 09-2026 · every primary document, read and dated",
+  "copy_event": "copy-credit",
+  "subscribe_track": true,
+  "slug": "no052",
+  "gate_title": "Every document, in full.",
+  "gate_lede": "All three preprints, the four-page statement, OpenAI's paper and Lean repo, Tao's posts and the Clay Institute's actual position — all of it on the next screen.",
+  "og_card": {
+    "accent": "#E7371A",
+    "kick": "OpenAI · Navier–Stokes · Credit",
+    "h1_html": "Two mathematicians,<br>one phone call,<br>two days<span class=\"dot\">.</span>",
+    "h1_size": 62,
+    "sub_mt": 18,
+    "sub_html": "Every primary document in the credit dispute, on one page — including the ones the headlines skipped: OpenAI is not claiming the prize, and the Clay Institute has confirmed nothing.",
+    "meta_html": "/// no. 052 / credit / 09-2026 · <b>vektor-fm.github.io</b>"
+  }
+}
