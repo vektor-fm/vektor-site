@@ -1,0 +1,91 @@
+<section class="hero">
+  <div class="kick eye">Claude Code · skills</div>
+  <h1 class="disp">Rules that load<br>only when<br>they apply<span class="dot">.</span></h1>
+  <p class="sub">Somewhere in your CLAUDE.md is a procedure Claude reads at every startup and you only need on one kind of day. Anthropic's docs say to move it into a skill. I moved 24 lines of mine on 29 September 2026. Below: the skill file itself, a blank template, and the one-page rule for what moves and what stays.</p>
+  <div class="actions">
+    <a class="btn primary" href="#files">Get the skill file ↓</a>
+    <a class="btn" href="#rule">See the sorting rule →</a>
+    <a class="btn" href="./files/no-058/sorting-rule.md">Download the sorting rule (.md) &darr;</a>
+    <button class="btn" id="shareBtn" type="button">Send to whoever's CLAUDE.md holds a whole release checklist</button>
+  </div>
+  <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+</section>
+
+<!-- ======================= THE MECHANISM ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 01 ·</h2>
+  <h2 class="disp">Two files, two loading rules<span class="dot">.</span></h2>
+  <p class="sub">CLAUDE.md and a skill both hold instructions. They reach Claude's context at different times.</p>
+</div>
+
+<section class="issues" id="mechanism">
+  <article class="issue">
+    <h3>CLAUDE.md loads whole, every session</h3>
+    <p>&ldquo;CLAUDE.md files are loaded into the context window at the start of every session, consuming tokens alongside your conversation.&rdquo; A procedure written there costs context in every session, including the ones that never run it.</p>
+    <p class="meta">Docs: <a href="https://code.claude.com/docs/en/memory" target="_blank" rel="noopener">code.claude.com/docs/en/memory</a> (read 2026-09-29)</p>
+  </article>
+  <article class="issue">
+    <h3>A skill loads its name and description, then waits</h3>
+    <p>At startup Claude Code puts a listing of skill names and descriptions into context. The SKILL.md body stays on disk until a request matches the description. Then it enters the conversation as a single message and stays there for later turns.</p>
+    <p class="meta">Docs: <a href="https://code.claude.com/docs/en/skills" target="_blank" rel="noopener">code.claude.com/docs/en/skills</a> (read 2026-09-29)</p>
+  </article>
+</section>
+
+<!-- ======================= WHAT I MOVED ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 02 ·</h2>
+  <h2 class="disp">What I moved<span class="dot">.</span></h2>
+  <p class="sub">Measured with <code>wc</code> on my own repo, 29 September 2026. Not a general claim about every CLAUDE.md.</p>
+</div>
+
+<section class="ledger" aria-label="The move in numbers">
+  <div class="lrow"><span class="n">492</span><span class="t">Lines across my three CLAUDE.md files, every session, before the move</span></div>
+  <div class="lrow"><span class="n">24</span><span class="t">Lines of ship-day checks and pipeline order (204 words) moved into one SKILL.md</span></div>
+  <div class="lrow"><span class="n">57</span><span class="t">Words of name and description that stay in the listing instead</span></div>
+</section>
+
+<!-- ======================= THE SORTING RULE ======================= -->
+<div class="fig" id="rule">
+  <h2 class="kick">Fig. 03 ·</h2>
+  <h2 class="disp">What moves, what stays<span class="dot">.</span></h2>
+  <p class="sub">Anthropic's own sorting rule: &ldquo;If an entry is a multi-step procedure or only matters for one part of the codebase, move it to a skill or a path-scoped rule instead.&rdquo;</p>
+</div>
+
+<section class="issues" id="sort">
+  <article class="issue">
+    <h3>Stays in CLAUDE.md</h3>
+    <p>Build commands, conventions, project layout, and &ldquo;always do X&rdquo; rules every session needs. Mine: never <code>git add -A</code>, stage explicit paths. That one stayed.</p>
+  </article>
+  <article class="issue">
+    <h3>Moves to a skill</h3>
+    <p>A multi-step procedure you run on one kind of day: a release checklist, a pre-delivery gate, a migration runbook. Reference material only one task needs.</p>
+  </article>
+  <article class="issue">
+    <h3>If a skill never fires, check the description</h3>
+    <p>Claude makes the match, so the description needs the words you'd type. Mine ends: &ldquo;Use when asked to gate, QA, check, or vet a rendered vektor video&rdquo;. Put the trigger words first: the listing cuts description and when_to_use at 1,536 characters.</p>
+    <p class="meta"><a href="./files/no-058/sorting-rule.md">The full one-page rule, with the test to run on each block →</a></p>
+  </article>
+</section>
+
+<!-- ======================= THE FILES ======================= -->
+<div class="fig" id="files">
+  <h2 class="kick">Fig. 04 ·</h2>
+  <h2 class="disp">The files<span class="dot">.</span></h2>
+  <p class="sub">Free, no email needed. Drop a skill in <code>.claude/skills/&lt;name&gt;/SKILL.md</code> for one repo, or <code>~/.claude/skills/&lt;name&gt;/SKILL.md</code> for all of them.</p>
+</div>
+
+<section class="issues" id="download">
+  <article class="card c-cream">
+    <div class="top">
+      <span class="tag">SKILL.md · as moved 2026-09-29</span>
+      <span class="goth">the real one</span>
+    </div>
+    <h2>My gate-video skill</h2>
+    <p class="one">The 24 lines that left my CLAUDE.md, with the frontmatter that makes them load on demand. The commands are mine, and some point at a render system I have since frozen: keep the shape, swap in your own steps.</p>
+    <div class="actions">
+      <a class="btn" href="./files/no-058/gate-video-SKILL.md">Download gate-video SKILL.md &darr;</a>
+      <a class="btn" href="./files/no-058/SKILL-template.md">Download the blank template &darr;</a>
+      <a class="btn" href="./files/no-058/sorting-rule.md">Download the sorting rule &darr;</a>
+    </div>
+  </article>
+</section>

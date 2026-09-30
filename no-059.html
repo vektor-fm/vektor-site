@@ -2,25 +2,25 @@
 <html lang="en" id="top"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>vektor /// about — the AI frontier, cut to what ships</title>
-<meta name="description" content="What vektor is: one short film and one working pack per issue, a weekly Teardown by email, and how all of it is made. Free, no paywall.">
+<title>vektor /// no. 059 · It keeps working after you close the chat.</title>
+<meta name="description" content="OpenAI launched dots on 29 September 2026, an always-on agent inside ChatGPT that keeps working after you close the chat. The four Custom Rules in OpenAI's wording, the setup steps, what always stays with you, and which plans have it in the EEA, Switzerland and the UK (OpenAI docs, read 2026-09-30).">
 
 <!-- OG / social preview (traffic arrives via DM) -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="About vektor — the AI frontier, cut to what ships">
-<meta property="og:description" content="One short film and one working pack per issue. A weekly Teardown by email. Made with the same tools every issue is about.">
-<meta property="og:image" content="https://vektor-fm.github.io/vektor-site/og/index.png">
+<meta property="og:title" content="It keeps working after you close the chat · vektor /// no. 059">
+<meta property="og:description" content="OpenAI dots: the four Custom Rules in OpenAI's wording, the setup steps, and which plans have it in Europe.">
+<meta property="og:image" content="https://vektor-fm.github.io/vektor-site/og/no-059.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="vektor — the AI frontier, cut to what ships">
+<meta property="og:image:alt" content="It keeps working after you close the chat · vektor /// no. 059">
 <meta property="og:site_name" content="vektor">
-<meta property="og:url" content="https://vektor-fm.github.io/vektor-site/about.html">
-<link rel="canonical" href="https://vektor-fm.github.io/vektor-site/about.html">
+<meta property="og:url" content="https://vektor-fm.github.io/vektor-site/no-059.html">
+<link rel="canonical" href="https://vektor-fm.github.io/vektor-site/no-059.html">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="About vektor — the AI frontier, cut to what ships">
-<meta name="twitter:description" content="One short film and one working pack per issue. A weekly Teardown by email. Made with the same tools every issue is about.">
-<meta name="twitter:image" content="https://vektor-fm.github.io/vektor-site/og/index.png">
+<meta name="twitter:title" content="It keeps working after you close the chat · vektor /// no. 059">
+<meta name="twitter:description" content="How far an always-on ChatGPT agent goes on its own is four rules. All four in OpenAI's wording, plus setup and who can get it.">
+<meta name="twitter:image" content="https://vektor-fm.github.io/vektor-site/og/no-059.png">
 <meta name="theme-color" content="#000000">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000000'/%3E%3Ctext x='32' y='47' font-family='Arial' font-size='46' font-weight='600' text-anchor='middle' fill='%23EFEADD'%3Ev%3C/text%3E%3C/svg%3E">
 <link rel="preload" href="fonts/archivo-expanded-400.woff2" as="font" type="font/woff2" crossorigin>
@@ -833,94 +833,221 @@ pre.code code{font-size:inherit;}
 
 
 <!-- the issue marker, kept: it is the only per-page label in the bar -->
-<div class="issue-marker">About</div>
+<div class="issue-marker">ChatGPT · dots</div>
 
 <!-- The capture furniture (sticky bar + pop-up) lives in partials/capture.html
      and is injected ONLY into public pages. Unlock pages get an empty string
      here — see build.mjs. The weave stays on both: it is structure, not an ask. -->
+<!-- Sticky ask. This used to be a Follow link back to Instagram, which spent
+     an IG click to win a visit and then returned the visitor to IG without
+     capturing anything. The goal is the email address, so the persistent ask
+     is now the email. Follow demotes to the footer.
+
+     THE PACK IS NO LONGER BEHIND THE EMAIL (founder, 2026-09-01). The reader
+     paid a follow in the DM; charging a second toll on the page spent funnel
+     conversion to grow a list that had sent one issue in its life. So the
+     sticky bar no longer promises to "open" anything — the payload is already
+     open, three screens down. It sells the WEEKLY, which is the only honest
+     thing left to sell. Wording that implies a lock is a lie now, not copy.
+     Full argument: vektor/reports/2026-09-01-email-gate-decision.md.
+
+     ABOVE-THE-FOLD FROM LOAD (v2, 2026-09-24). Evidence: the five biggest
+     keyword campaigns drew 1,097 opens and captured 41 emails lifetime (~4 per
+     100; worker /report). This bar previously stayed translateY(110%) — off
+     screen — until the reader scrolled past the LAST card on the page, i.e.
+     past the entire free payload. On mobile that is several screens down, so
+     most readers who bounce before finishing the page never saw an ask at
+     all. It now ships .show by default (scripts.html) so it is inside the
+     initial viewport on load, same as a cookie bar — it does not cover the
+     hook or the payload, it just rides the bottom 130-190px. Dismiss (the ×)
+     still hides it for the session.
+
+     ROLE PILLS (v2). One optional tap, POSTs as `role` alongside the email.
+     The worker (signup.js → Buttondown) does not yet turn it into a tag —
+     see vektor-site/WORKER-CHANGE-NEEDED.md for the exact change. Until that
+     ships the value still reaches the funnel worker's logs/notes field, it
+     is just not yet a Buttondown tag.
+
+     The tag still carries the PAGE slug (no059-sticky) — the worker no
+     longer needs it to decide what to unlock, but it is the only per-source
+     attribution we get in Buttondown and in /report's count:email:<source>.
+
+     This whole file is omitted from unlock pages — asking a reader for the
+     email they just gave you is how a funnel reads as a machine. -->
+<div class="sticky-cta" id="stickyCta" aria-hidden="true">
+  <div class="ask-copy">
+    <span class="t">The files stay free. One email a week — unsubscribe anytime.</span>
+    <fieldset class="role-pick">
+      <legend class="sr-only">What do you do? (optional)</legend>
+      <label class="pill"><input type="radio" name="role" value="developer" form="stickyForm"><span>Developer</span></label>
+      <label class="pill"><input type="radio" name="role" value="founder-operator" form="stickyForm"><span>Founder/operator</span></label>
+      <label class="pill"><input type="radio" name="role" value="other" form="stickyForm"><span>Other</span></label>
+    </fieldset>
+  </div>
+  <form class="sticky-form" id="stickyForm" method="post" action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" data-capture="sticky">
+      <input type="hidden" name="tag" value="no059-sticky">
+      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+    <label class="sr-only" for="stickyEmail">Email address</label>
+    <input id="stickyEmail" name="email" type="email" placeholder="you@email.com" autocomplete="email" required>
+    <button class="btn primary" type="submit">Subscribe &rarr;</button>
+  </form>
+  <button class="x" id="ctaClose" type="button" aria-label="Dismiss">&times;</button>
+</div>
+
+<!-- THE ASK MODAL — one markup, two triggers, running as an A/B (2026-09-01).
+     Founder call after the evidence: the pop-up in its 50%-scroll form was
+     viewed ~47 times and dismissed ~46 of those across NO.006/034/036/038/039
+     (live /report, 30 d, pulled 2026-09-01), with no signup attributable to it.
+     The founder's read is that the ask should land at PEAK ATTENTION; the
+     disagreement was only about what signals attention — a clock or an action.
+     So both are built and split 50/50 rather than argued:
+
+       arm A — 6 s timer (the founder's version)
+       arm B — fires on the download / copy action, i.e. the moment the reader
+               takes the thing they came for
+
+     The trigger is the ONLY difference. Same markup, same copy, same cooldown,
+     so a difference in the numbers is a difference in the trigger. The arm is
+     sticky per browser (localStorage) so one reader never sees both.
+
+     The copy has to be true for BOTH arms, which is why it does not say "that
+     one's yours" (arm A fires before any download) and does not say "opens on
+     the next screen" (nothing is locked any more). It sells the weekly. -->
+<div class="pop" id="askPop" hidden>
+  <div class="pop-scrim" data-pop-close></div>
+  <div class="pop-card" role="dialog" aria-modal="true" aria-labelledby="askPopH">
+    <button class="pop-x" type="button" data-pop-close aria-label="Close">×</button>
+    <span class="k">One email a week · the working setup</span>
+    <h2 id="askPopH">Where the next one comes from.</h2>
+    <p>the ChatGPT pack is yours, free, no email needed — it is on this page. The weekly teardown is where the next one gets built: one working AI setup, every week, with the numbers checked at source.</p>
+    <form action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="ask">
+      <input type="hidden" name="tag" id="askTag" value="no059-ask">
+      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+      <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
+      <button class="btn" type="submit">Send me the weekly →</button>
+    </form>
+    <div class="note">One email a week. Unsubscribe in one click.</div>
+  </div>
+</div>
 
 <div class="weave" aria-hidden="true"></div>
 
 <main>
 <section class="hero">
-  <div class="kick eye">About · the long version</div>
-  <h1 class="disp">The AI frontier, cut to what ships<span class="dot">.</span></h1>
-  <p class="sub">vektor is a short-film series about the Claude and AI tooling that actually changes how you work. Every issue is one film and one working pack: the config, the prompts, the install lines, the sources. Nothing is held back and nothing is behind a paywall.</p>
+  <div class="kick eye">ChatGPT · dots</div>
+  <h1 class="disp">It keeps working<br>after you<br>close the chat<span class="dot">.</span></h1>
+  <p class="sub">OpenAI launched dots on 29 September 2026: an always-on agent inside ChatGPT with its own cloud computer. How far it goes on its own is set by four Custom Rules. Below: all four in OpenAI's wording, the setup steps, what always stays with you, and which plans have it in Europe.</p>
+  <div class="actions">
+    <a class="btn primary" href="#rules">See the four rules ↓</a>
+    <a class="btn" href="#access">Can I get it? →</a>
+    <a class="btn" href="./files/no-059/dots-rules-and-setup.md">Download the one-page sheet (.md) &darr;</a>
+    <button class="btn" id="shareBtn" type="button">Send to whoever asked if ChatGPT can do this yet</button>
+  </div>
+  <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
 </section>
 
-<div class="fig">
+<!-- ======================= ACCESS FIRST ======================= -->
+<div class="fig" id="access">
   <h2 class="kick">Fig. 01 ·</h2>
-  <h2 class="disp">One issue, three parts<span class="dot">.</span></h2>
-  <p class="sub">The film sells nothing. It shows one thing that works, then hands you the files.</p>
+  <h2 class="disp">Can you get it<span class="dot">?</span></h2>
+  <p class="sub">Check this before anything else. From OpenAI's &ldquo;Meet dots&rdquo;, section Access, read 30 September 2026. It is rolling out gradually, so an eligible plan may not show it yet.</p>
 </div>
 
-<section class="issues" id="how">
-  <article class="card c-ink">
-    <div class="top">
-      <span class="tag">The film</span>
-      <span class="goth">sixty seconds</span>
-    </div>
-    <h2>One thing that works, shown working.</h2>
-    <p class="one">A vertical short on TikTok, Instagram, YouTube and X. No intro, no outro, no throat-clearing. New films every week; the archive holds 41 issues so far.</p>
+<section class="issues" id="plans">
+  <article class="issue">
+    <h3>Pro</h3>
+    <p>Users over 18 <b>outside</b> the European Economic Area, the United Kingdom and Switzerland. On Pro in the EU, Norway, Iceland, Liechtenstein, Switzerland or the UK, you will not see it for now.</p>
   </article>
-  <article class="card c-ink">
-    <div class="top">
-      <span class="tag">The keyword</span>
-      <span class="goth">one word</span>
-    </div>
-    <h2>Every film ends on a single word.</h2>
-    <p class="one">Comment it under the reel and the bot sends you the link to the issue page in a DM. The same page is linked from the archive here, so the keyword is a shortcut, not a lock.</p>
+  <article class="issue">
+    <h3>Business Premium</h3>
+    <p>Rolling out worldwide, Europe included.</p>
   </article>
-  <article class="card c-ink">
-    <div class="top">
-      <span class="tag">The pack</span>
-      <span class="goth">the working files</span>
-    </div>
-    <h2>The files behind the film, on the issue page.</h2>
-    <p class="one">Config files, prompts written out in full, one-line installs, the repos and papers the film cites. Where a number was measured, the page says how. Where a claim could not be verified, the page says that too.</p>
-    <div class="actions">
-      <a class="btn" href="./index.html#archive">Browse the archive →</a>
-      <a class="btn" href="./no-054.html">Latest: Your CLAUDE.md is slowing Claude Code down →</a>
-    </div>
+  <article class="issue">
+    <h3>Enterprise</h3>
+    <p>Rolling out worldwide, off by default: a workspace administrator must enable it. OpenAI's launch post calls this route a beta.</p>
+    <p class="meta">Docs: <a href="https://learn.chatgpt.com/docs/dots" target="_blank" rel="noopener">learn.chatgpt.com/docs/dots</a> (read 2026-09-30)</p>
   </article>
 </section>
 
+<!-- ======================= THE MECHANISM ======================= -->
 <div class="fig">
   <h2 class="kick">Fig. 02 ·</h2>
-  <h2 class="disp">The Teardown<span class="dot">.</span></h2>
-  <p class="sub">The one thing you can sign up for.</p>
+  <h2 class="disp">What changed from agent mode<span class="dot">.</span></h2>
+  <p class="sub">Agent mode ran a task and stopped when the task did. A dot holds on to a goal between conversations.</p>
 </div>
 
-<section class="issues" id="teardown">
-  <article class="card c-ink">
-    <div class="top">
-      <span class="tag">Email · weekly</span>
-      <span class="goth">5 editions so far</span>
-    </div>
-    <h2>One automation a week, pulled apart in public.</h2>
-    <p class="one">What it replaced, what it broke, what it actually cost when we ran it. Each edition is also published here as a web page, so you can read one before you subscribe. Free, one-click unsubscribe, and the address is used for nothing else.</p>
-    <div class="actions">
-      <a class="btn primary" href="./newsletter.html">Read the editions and subscribe →</a>
-      <a class="btn" href="./privacy.html">What we do with your email →</a>
-    </div>
+<section class="issues" id="mechanism">
+  <article class="issue">
+    <h3>It owns a goal between chats</h3>
+    <p>Your dot runs on GPT-6 Astra with its own computer and browser in the cloud, so work can continue while your devices are off. It tracks progress, follows up as things change, and comes back with results or a decision that needs you.</p>
+    <p class="meta">Docs: <a href="https://learn.chatgpt.com/docs/dots" target="_blank" rel="noopener">learn.chatgpt.com/docs/dots</a> (read 2026-09-30)</p>
+  </article>
+  <article class="issue">
+    <h3>What OpenAI showed at launch</h3>
+    <p>In OpenAI's demo, Todd noticed a meeting ran through dinner and offered two takeout options; nobody asked about dinner, and it waited for a yes before ordering. In the launch film, Alfred booked the kids' after-school lessons on its own computer the moment registration opened. These are OpenAI's demos, not our use: we are in Spain on Pro, where dots is not available.</p>
+    <p class="meta">OpenAI, <a href="https://openai.com/index/introducing-dots/" target="_blank" rel="noopener">&ldquo;Introducing dots&rdquo;</a> and its demo films, 2026-09-29, read 2026-09-30</p>
   </article>
 </section>
 
-<div class="fig">
+<!-- ======================= THE FOUR RULES ======================= -->
+<div class="fig" id="rules">
   <h2 class="kick">Fig. 03 ·</h2>
-  <h2 class="disp">How it is made<span class="dot">.</span></h2>
-  <p class="sub">With the same tools every issue is about.</p>
+  <h2 class="disp">The four rules<span class="dot">.</span></h2>
+  <p class="sub">In OpenAI's wording, with OpenAI's own one-line meaning. Set them in Settings → Personalization → Custom rules (under Permissions): Add, describe the action, pick one, Add rule.</p>
 </div>
 
-<section class="issues" id="made">
-  <article class="card c-ink">
+<section class="ledger" aria-label="The four Custom Rules">
+  <div class="lrow"><span class="n">1</span><span class="t"><b>Take action without asking.</b> Take the specified action without asking for approval.</span></div>
+  <div class="lrow"><span class="n">2</span><span class="t"><b>Take action when you say so.</b> Proceed when you explicitly request the action; otherwise ask immediately before acting. (OpenAI's Help Center calls this tier &ldquo;Take action if pre-approved&rdquo;.)</span></div>
+  <div class="lrow"><span class="n">3</span><span class="t"><b>Ask before taking action.</b> Ask for approval before taking the specified action.</span></div>
+  <div class="lrow"><span class="n">4</span><span class="t"><b>Hand off to you.</b> Ask you to take the action instead.</span></div>
+</section>
+
+<section class="issues" id="guard">
+  <article class="issue">
+    <h3>What always stays with you</h3>
+    <p>No rule switches these off: changing a password and transferring money. Your dot hands them over; open its computer, select Take over, then Return control when you're done.</p>
+    <p class="meta">Docs: <a href="https://learn.chatgpt.com/docs/dots/controls" target="_blank" rel="noopener">learn.chatgpt.com/docs/dots/controls</a> · help.openai.com, &ldquo;Dots privacy, security, and safety FAQs&rdquo; (read 2026-09-30)</p>
+  </article>
+  <article class="issue">
+    <h3>Rules are instructions, not guarantees</h3>
+    <p>OpenAI's words: custom rules are &ldquo;instructions your dot tries to follow, and it can make mistakes&rdquo;. Asking it to draft replies does not give it permission to send them. Start with clear instructions; add a rule only for a boundary that has to hold every time.</p>
+  </article>
+</section>
+
+<!-- ======================= SETUP ======================= -->
+<div class="fig" id="setup">
+  <h2 class="kick">Fig. 04 ·</h2>
+  <h2 class="disp">Set it up<span class="dot">.</span></h2>
+  <p class="sub">From OpenAI's &ldquo;Get started with your dot&rdquo;, read 30 September 2026. Desktop only to start: the ChatGPT desktop app or a desktop browser. Mobile web is not supported.</p>
+</div>
+
+<section class="ledger" aria-label="Setup steps">
+  <div class="lrow"><span class="n">1</span><span class="t">Open dots in ChatGPT and follow the introduction.</span></div>
+  <div class="lrow"><span class="n">2</span><span class="t">Connect apps such as email, calendar and files, or skip and add them later.</span></div>
+  <div class="lrow"><span class="n">3</span><span class="t">In the desktop app, choose whether to connect your computer (it must stay online with the ChatGPT app open).</span></div>
+  <div class="lrow"><span class="n">4</span><span class="t">Name it. The name updates its handle; the look is yours to change any time.</span></div>
+  <div class="lrow"><span class="n">5</span><span class="t">Set its rules (Fig. 03), then give it the job you dread, close the chat, and check tomorrow.</span></div>
+</section>
+
+<!-- ======================= THE FILE ======================= -->
+<div class="fig" id="files">
+  <h2 class="kick">Fig. 05 ·</h2>
+  <h2 class="disp">The file<span class="dot">.</span></h2>
+  <p class="sub">Free, no email needed. Everything above on one page, with every source and the date it was read.</p>
+</div>
+
+<section class="issues" id="download">
+  <article class="card c-cream">
     <div class="top">
-      <span class="tag">The workshop</span>
-      <span class="goth">one person, one pipeline</span>
+      <span class="tag">dots · checked 2026-09-30</span>
+      <span class="goth">one page</span>
     </div>
-    <h2>Scripted, rendered and gated by the tooling in the films.</h2>
-    <p class="one">vektor is made by one person. The scripts are checked against a written spec before a voice is generated, the visuals are built in a design system with an automated gate, and the packs are the files that pipeline actually uses. When an issue says a setup works, it is because it is running here.</p>
-    <p class="meta">Corrections, sources and topic requests: the reel comments are read, and <a href="./thanks.html">the contact page</a> reaches a human.</p>
+    <h2>The four rules and the setup sheet</h2>
+    <p class="one">Who can get it, the setup steps, all four Custom Rules in OpenAI's wording, what always hands off to you, how to stop it, and a first job to give it. dots is rolling out gradually; re-check the linked docs before you rely on a line.</p>
+    <div class="actions">
+      <a class="btn" href="./files/no-059/dots-rules-and-setup.md">Download the sheet (.md) &darr;</a>
+    </div>
   </article>
 </section>
 </main>
@@ -943,18 +1070,18 @@ pre.code code{font-size:inherit;}
   </div>
 
   <nav class="socials" aria-label="Social links">
-    <a data-goatcounter-click="about-follow-tiktok-foot" href="https://tiktok.com/@vektor.fm" target="_blank" rel="noopener">TikTok · @vektor.fm</a>
-    <a data-goatcounter-click="about-follow-instagram-foot" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Instagram · @vektor.fm</a>
-    <a data-goatcounter-click="about-follow-youtube-foot" href="https://youtube.com/@vektorfm" target="_blank" rel="noopener">YouTube · @vektorfm</a>
-    <a data-goatcounter-click="about-follow-x-foot" href="https://x.com/vektordotfm" target="_blank" rel="noopener">X · @vektordotfm</a>
+    <a data-goatcounter-click="no059-follow-tiktok-foot" href="https://tiktok.com/@vektor.fm" target="_blank" rel="noopener">TikTok · @vektor.fm</a>
+    <a data-goatcounter-click="no059-follow-instagram-foot" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Instagram · @vektor.fm</a>
+    <a data-goatcounter-click="no059-follow-youtube-foot" href="https://youtube.com/@vektorfm" target="_blank" rel="noopener">YouTube · @vektorfm</a>
+    <a data-goatcounter-click="no059-follow-x-foot" href="https://x.com/vektordotfm" target="_blank" rel="noopener">X · @vektordotfm</a>
     <a href="./privacy.html">Privacy</a>
   </nav>
 
-  <div class="backref">New films every week — <b>catch the keyword on the reel</b> — follow @vektor.fm.</div>
+  <div class="backref">A new keyword drops every week — <b>catch it first on the reel</b> — follow @vektor.fm. More like this: <a href="./no-054.html">Your CLAUDE.md is slowing Claude Code down →</a></div>
 
   <div class="wordmark-foot">
     <span class="wm-foot" id="wmFoot" aria-label="vektor"><span class="ch2" style="--i:0"><span class="g">%</span><span class="l">v</span></span><span class="ch2" style="--i:1"><span class="g">#</span><span class="l">e</span></span><span class="ch2" style="--i:2"><span class="g">Z</span><span class="l">k</span></span><span class="ch2" style="--i:3"><span class="g">8</span><span class="l">t</span></span><span class="ch2" style="--i:4"><span class="g">@</span><span class="l">o</span></span><span class="ch2" style="--i:5"><span class="g">W</span><span class="l">r</span></span></span>
-    <span class="m">/// about · what vektor is and how it is made</span>
+    <span class="m">/// no. 059 / dots / 09-2026 · openai, chatgpt, always-on agents</span>
   </div>
 </footer>
 
@@ -967,7 +1094,7 @@ pre.code code{font-size:inherit;}
   function fallback(text){ var t=document.createElement('textarea'); t.value=text; t.style.position='fixed'; t.style.opacity='0'; document.body.appendChild(t); t.focus(); t.select(); try{ document.execCommand('copy'); }catch(e){} document.body.removeChild(t); }
   function copyText(text, btn, doneLabel){ var o=btn.textContent, done=function(){ btn.textContent=doneLabel; setTimeout(function(){btn.textContent=o;},1600); }; if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(done).catch(function(){ fallback(text); done(); }); } else { fallback(text); done(); } }
   function gcEvent(name){ if(name && window.goatcounter && goatcounter.count){ goatcounter.count({path:name, event:true}); } }
-  var COPY_EVENT=null;
+  var COPY_EVENT='copy-dots-rules';
   document.querySelectorAll('.copybtn').forEach(function(btn){ btn.addEventListener('click', function(){ copyText(btn.getAttribute('data-copy'), btn, 'Copied ✓'); gcEvent(COPY_EVENT); }); });
   var snip=document.getElementById('snipCopy');
   if(snip){ snip.addEventListener('click', function(){ var el=document.getElementById('snipText'); copyText(el.textContent, snip, 'Copied ✓'); gcEvent(COPY_EVENT); }); }
@@ -976,7 +1103,7 @@ pre.code code{font-size:inherit;}
   var camp=(location.pathname.split('/').pop()||'index').replace(/\.html$/,'')||'index';
   document.querySelectorAll('a[href^="http"]').forEach(function(a){ try{ var u=new URL(a.href); if(u.hostname==='github.com'){return;} if(!u.searchParams.has('utm_source')){ u.searchParams.set('utm_source','vektor'); u.searchParams.set('utm_medium','dm'); u.searchParams.set('utm_campaign',camp); a.href=u.toString(); } }catch(e){} });
   var sh=document.getElementById('shareBtn');
-  if(sh){ sh.addEventListener('click', function(){ gcEvent('about-share'); if(navigator.share){ navigator.share({title:document.title, url:location.href}).catch(function(){}); } else { copyText(location.href, sh, 'Link copied — paste it ✓'); } }); }
+  if(sh){ sh.addEventListener('click', function(){ gcEvent('no059-share'); if(navigator.share){ navigator.share({title:document.title, url:location.href}).catch(function(){}); } else { copyText(location.href, sh, 'Link copied — paste it ✓'); } }); }
   var sticky=document.getElementById('stickyCta'), sub=document.getElementById('subscribe'), dismissed=false, stickyViewed=false;
   var midcap=document.querySelector('.midcap');
   // v2 (2026-09-24): visible FROM LOAD, not after scrolling past the whole
@@ -1001,7 +1128,7 @@ pre.code code{font-size:inherit;}
       sticky.setAttribute('aria-hidden', show?'false':'true');
       // view-of-ask event, once per page view, the moment it first becomes visible
       // (almost always on load) — gives the submit counts a denominator.
-      if(show && !stickyViewed){ stickyViewed=true; gcEvent('about-sticky-view'); }
+      if(show && !stickyViewed){ stickyViewed=true; gcEvent('no059-sticky-view'); }
     }
     window.addEventListener('scroll',updCta,{passive:true}); window.addEventListener('resize',updCta); updCta();
     var ctaClose=document.getElementById('ctaClose');
@@ -1011,7 +1138,7 @@ pre.code code{font-size:inherit;}
     // nested inside it). Its own event per tap, so the choice is measurable
     // even from a reader who taps a pill and never submits.
     document.querySelectorAll('.role-pick input[type="radio"]').forEach(function(r){
-      r.addEventListener('change', function(){ if(r.checked){ gcEvent('about-sticky-role-'+r.value); } });
+      r.addEventListener('change', function(){ if(r.checked){ gcEvent('no059-sticky-role-'+r.value); } });
     });
   }
   var wmFoot=document.getElementById('wmFoot');
@@ -1037,7 +1164,7 @@ pre.code code{font-size:inherit;}
   //
   // Read the result off count:email:<slug>-ask-a vs -ask-b in /report (the tag
   // travels to Buttondown, so it survives ad-blockers that eat GoatCounter) and
-  // off about-ask-view-a/-dismiss-a vs the -b pair for the dismissal rate.
+  // off no059-ask-view-a/-dismiss-a vs the -b pair for the dismissal rate.
   // Decide after 3 films, not after one — at ~40-60 page opens per film, one
   // film cannot separate these.
   (function(){
@@ -1063,17 +1190,17 @@ pre.code code{font-size:inherit;}
       }
     }
     var tag=document.getElementById('askTag');
-    if(tag){ tag.value='about-ask-'+arm; }
+    if(tag){ tag.value='no059-ask-'+arm; }
 
     if(!force){ try{ var last=parseInt(localStorage.getItem(KEY)||'0',10); if(last && (Date.now()-last)<TTL){ return; } }catch(e){} }
     function seen(){ try{ localStorage.setItem(KEY, String(Date.now())); }catch(e){} }
     function esc(e){ if(e.key==='Escape'){ close(); } }
-    function close(){ pop.setAttribute('hidden',''); seen(); document.removeEventListener('keydown',esc); gcEvent('about-ask-dismiss-'+arm); }
+    function close(){ pop.setAttribute('hidden',''); seen(); document.removeEventListener('keydown',esc); gcEvent('no059-ask-dismiss-'+arm); }
     pop.querySelectorAll('[data-pop-close]').forEach(function(el){ el.addEventListener('click', close); });
     // submit fires seen() but NOT close(), so a dismissal count is never
     // inflated by a conversion — dismiss ≈ view is then a real read.
     var f=pop.querySelector('form');
-    if(f){ f.addEventListener('submit', function(){ seen(); gcEvent('about-ask-submit-'+arm); }); }
+    if(f){ f.addEventListener('submit', function(){ seen(); gcEvent('no059-ask-submit-'+arm); }); }
 
     var fired=false;
     function open(){
@@ -1081,7 +1208,7 @@ pre.code code{font-size:inherit;}
       fired=true;
       pop.removeAttribute('hidden');
       document.addEventListener('keydown',esc);
-      gcEvent('about-ask-view-'+arm);
+      gcEvent('no059-ask-view-'+arm);
       var x=pop.querySelector('.pop-x'); if(x){ try{ x.focus(); }catch(e){} }
     }
 
@@ -1105,6 +1232,7 @@ pre.code code{font-size:inherit;}
       }, true);
     }
   })();
+  document.querySelectorAll('form').forEach(function(f){ f.addEventListener('submit', function(){ gcEvent('no059-subscribe-submit'); }); });
 
   // ---- shared nav: reveal + mobile drawer ----
   // The header sits off-screen until a 24px hover strip is entered (desktop) or
@@ -1138,7 +1266,7 @@ pre.code code{font-size:inherit;}
   // would even exist, so that path would have gone silent.)
   document.querySelectorAll('form[data-capture]').forEach(function(f){
     f.addEventListener('submit', function(){
-      gcEvent('about-sub-' + f.getAttribute('data-capture'));
+      gcEvent('no059-sub-' + f.getAttribute('data-capture'));
     });
   });
 </script>
