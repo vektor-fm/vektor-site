@@ -1,0 +1,32 @@
+{
+  "number": "058",
+  "title": "vektor /// no. 058 — Rules that load only when they apply.",
+  "description": "Somewhere in your CLAUDE.md is a procedure Claude reads at every startup and only needs on one kind of day. CLAUDE.md loads in full every session; a skill loads only its name and description until a request matches (code.claude.com docs, read 2026-09-29). I moved 24 lines of ship-day checks into one SKILL.md (measured with wc, 2026-09-29): the skill file, a blank template and the one-page sorting rule for what moves and what stays.",
+  "og_title": "Rules that load only when they apply — vektor /// no. 058",
+  "og_description": "CLAUDE.md loads whole every session. A skill loads only its name and description until you need it. The skill file I moved 24 lines into, and the rule for what moves.",
+  "og_image": "https://vektor-fm.github.io/vektor-site/og/no-058.png",
+  "og_alt": "Rules that load only when they apply — vektor /// no. 058",
+  "og_url": "https://vektor-fm.github.io/vektor-site/no-058.html",
+  "canonical": "https://vektor-fm.github.io/vektor-site/no-058.html",
+  "tw_title": "Rules that load only when they apply — vektor /// no. 058",
+  "tw_description": "A procedure in CLAUDE.md costs context every session. In a skill it costs 57 words until the day you need it. The skill file and the sorting rule.",
+  "tw_image": "https://vektor-fm.github.io/vektor-site/og/no-058.png",
+  "marker": "Claude Code · skills",
+  "sticky_text": "Follow <b>@vektor.fm</b> → a new keyword every week",
+  "backref_html": "A new keyword drops every week — <b>catch it first on the reel</b> — follow @vektor.fm. More like this: <a href=\"./no-054.html\">Your CLAUDE.md is slowing Claude Code down →</a>",
+  "footer_meta": "/// no. 058 / trigger / 10-2026 · claude.md, skills, context engineering",
+  "copy_event": "copy-skill-file",
+  "subscribe_track": true,
+  "slug": "no058",
+  "gate_title": "The skill file, in full.",
+  "gate_lede": "The SKILL.md I moved 24 lines into, a blank template to make your own, and the one-page rule for what moves out of CLAUDE.md and what stays — all on the next screen.",
+  "og_card": {
+    "accent": "#E7371A",
+    "kick": "Claude Code · skills",
+    "h1_html": "Rules that load<br>only when they<br>apply<span class=\"dot\">.</span>",
+    "h1_size": 62,
+    "sub_mt": 18,
+    "sub_html": "CLAUDE.md loads whole every session. A skill loads only its name and description until you need it. The skill file I moved 24 lines into, and the rule for what moves.",
+    "meta_html": "/// no. 058 / trigger / 10-2026 · <b>vektor-fm.github.io</b>"
+  }
+}

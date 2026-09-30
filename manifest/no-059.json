@@ -1,0 +1,32 @@
+{
+  "number": "059",
+  "title": "vektor /// no. 059 · It keeps working after you close the chat.",
+  "description": "OpenAI launched dots on 29 September 2026, an always-on agent inside ChatGPT that keeps working after you close the chat. The four Custom Rules in OpenAI's wording, the setup steps, what always stays with you, and which plans have it in the EEA, Switzerland and the UK (OpenAI docs, read 2026-09-30).",
+  "og_title": "It keeps working after you close the chat · vektor /// no. 059",
+  "og_description": "OpenAI dots: the four Custom Rules in OpenAI's wording, the setup steps, and which plans have it in Europe.",
+  "og_image": "https://vektor-fm.github.io/vektor-site/og/no-059.png",
+  "og_alt": "It keeps working after you close the chat · vektor /// no. 059",
+  "og_url": "https://vektor-fm.github.io/vektor-site/no-059.html",
+  "canonical": "https://vektor-fm.github.io/vektor-site/no-059.html",
+  "tw_title": "It keeps working after you close the chat · vektor /// no. 059",
+  "tw_description": "How far an always-on ChatGPT agent goes on its own is four rules. All four in OpenAI's wording, plus setup and who can get it.",
+  "tw_image": "https://vektor-fm.github.io/vektor-site/og/no-059.png",
+  "marker": "ChatGPT · dots",
+  "sticky_text": "Follow <b>@vektor.fm</b> → a new keyword every week",
+  "backref_html": "A new keyword drops every week — <b>catch it first on the reel</b> — follow @vektor.fm. More like this: <a href=\"./no-054.html\">Your CLAUDE.md is slowing Claude Code down →</a>",
+  "footer_meta": "/// no. 059 / dots / 09-2026 · openai, chatgpt, always-on agents",
+  "copy_event": "copy-dots-rules",
+  "subscribe_track": true,
+  "slug": "no059",
+  "gate_title": "All four rules and the setup, in full.",
+  "gate_lede": "The four Custom Rules in OpenAI's own wording, the setup steps, and the plan-by-region table — all on the next screen. One email opens all of it.",
+  "og_card": {
+    "accent": "#E7371A",
+    "kick": "ChatGPT · dots",
+    "h1_html": "It keeps working<br>after you close<br>the chat<span class=\"dot\">.</span>",
+    "h1_size": 62,
+    "sub_mt": 18,
+    "sub_html": "OpenAI dots: the four Custom Rules in OpenAI's wording, the setup steps, and which plans have it in Europe.",
+    "meta_html": "/// no. 059 / dots / 09-2026 · <b>vektor-fm.github.io</b>"
+  }
+}

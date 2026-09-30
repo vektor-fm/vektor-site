@@ -401,6 +401,26 @@
       "lastmod": "2026-08-31",
       "built": true,
       "unlock": "bc0ebb4516"
+    },
+    {
+      "number": "058",
+      "title_short": "Rules that load only when they apply",
+      "section": "Claude Code",
+      "date": "10-2026",
+      "keyword": "TRIGGER",
+      "lastmod": "2026-09-30",
+      "built": true,
+      "unlock": "067d14219a"
+    },
+    {
+      "number": "059",
+      "title_short": "It keeps working after you close the chat",
+      "section": "ChatGPT",
+      "date": "09-2026",
+      "keyword": "DOTS",
+      "lastmod": "2026-09-30",
+      "built": true,
+      "unlock": "67afc46ab6"
     }
   ],
   "teardowns": [
