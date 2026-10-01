@@ -2,25 +2,25 @@
 <html lang="en" id="top"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>vektor /// about — the AI frontier, cut to what ships</title>
-<meta name="description" content="What vektor is: one short film and one working pack per issue, a weekly Teardown by email, and how all of it is made. Free, no paywall.">
+<title>vektor /// no. 060 · The PDF goes in as Markdown.</title>
+<meta name="description" content="Anthropic's docs say a PDF goes into Claude twice per page: once as text, once as a picture. Microsoft's MarkItDown converts it to Markdown first. The install line, the command, and Auto-Markdown for Claude Code: a tested hook that converts PDFs automatically, with fallbacks for scans and chart-heavy files.">
 
 <!-- OG / social preview (traffic arrives via DM) -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="About vektor — the AI frontier, cut to what ships">
-<meta property="og:description" content="One short film and one working pack per issue. A weekly Teardown by email. Made with the same tools every issue is about.">
-<meta property="og:image" content="https://vektor-fm.github.io/vektor-site/og/index.png">
+<meta property="og:title" content="The PDF goes in as Markdown · vektor /// no. 060">
+<meta property="og:description" content="The MarkItDown install line, the command, and a Claude Code hook that converts PDFs before Claude reads them.">
+<meta property="og:image" content="https://vektor-fm.github.io/vektor-site/og/no-060.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="vektor — the AI frontier, cut to what ships">
+<meta property="og:image:alt" content="The PDF goes in as Markdown · vektor /// no. 060">
 <meta property="og:site_name" content="vektor">
-<meta property="og:url" content="https://vektor-fm.github.io/vektor-site/about.html">
-<link rel="canonical" href="https://vektor-fm.github.io/vektor-site/about.html">
+<meta property="og:url" content="https://vektor-fm.github.io/vektor-site/no-060.html">
+<link rel="canonical" href="https://vektor-fm.github.io/vektor-site/no-060.html">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="About vektor — the AI frontier, cut to what ships">
-<meta name="twitter:description" content="One short film and one working pack per issue. A weekly Teardown by email. Made with the same tools every issue is about.">
-<meta name="twitter:image" content="https://vektor-fm.github.io/vektor-site/og/index.png">
+<meta name="twitter:title" content="The PDF goes in as Markdown · vektor /// no. 060">
+<meta name="twitter:description" content="One Microsoft command turns a PDF into Markdown before Claude reads it. Plus a hook that does it for you, and when not to.">
+<meta name="twitter:image" content="https://vektor-fm.github.io/vektor-site/og/no-060.png">
 <meta name="theme-color" content="#000000">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000000'/%3E%3Ctext x='32' y='47' font-family='Arial' font-size='46' font-weight='600' text-anchor='middle' fill='%23EFEADD'%3Ev%3C/text%3E%3C/svg%3E">
 <link rel="preload" href="fonts/archivo-expanded-400.woff2" as="font" type="font/woff2" crossorigin>
@@ -833,94 +833,253 @@ pre.code code{font-size:inherit;}
 
 
 <!-- the issue marker, kept: it is the only per-page label in the bar -->
-<div class="issue-marker">About</div>
+<div class="issue-marker">Claude Code · MarkItDown</div>
 
 <!-- The capture furniture (sticky bar + pop-up) lives in partials/capture.html
      and is injected ONLY into public pages. Unlock pages get an empty string
      here — see build.mjs. The weave stays on both: it is structure, not an ask. -->
+<!-- Sticky ask. This used to be a Follow link back to Instagram, which spent
+     an IG click to win a visit and then returned the visitor to IG without
+     capturing anything. The goal is the email address, so the persistent ask
+     is now the email. Follow demotes to the footer.
+
+     THE PACK IS NO LONGER BEHIND THE EMAIL (founder, 2026-09-01). The reader
+     paid a follow in the DM; charging a second toll on the page spent funnel
+     conversion to grow a list that had sent one issue in its life. So the
+     sticky bar no longer promises to "open" anything — the payload is already
+     open, three screens down. It sells the WEEKLY, which is the only honest
+     thing left to sell. Wording that implies a lock is a lie now, not copy.
+     Full argument: vektor/reports/2026-09-01-email-gate-decision.md.
+
+     ABOVE-THE-FOLD FROM LOAD (v2, 2026-09-24). Evidence: the five biggest
+     keyword campaigns drew 1,097 opens and captured 41 emails lifetime (~4 per
+     100; worker /report). This bar previously stayed translateY(110%) — off
+     screen — until the reader scrolled past the LAST card on the page, i.e.
+     past the entire free payload. On mobile that is several screens down, so
+     most readers who bounce before finishing the page never saw an ask at
+     all. It now ships .show by default (scripts.html) so it is inside the
+     initial viewport on load, same as a cookie bar — it does not cover the
+     hook or the payload, it just rides the bottom 130-190px. Dismiss (the ×)
+     still hides it for the session.
+
+     ROLE PILLS (v2). One optional tap, POSTs as `role` alongside the email.
+     The worker (signup.js → Buttondown) does not yet turn it into a tag —
+     see vektor-site/WORKER-CHANGE-NEEDED.md for the exact change. Until that
+     ships the value still reaches the funnel worker's logs/notes field, it
+     is just not yet a Buttondown tag.
+
+     The tag still carries the PAGE slug (no060-sticky) — the worker no
+     longer needs it to decide what to unlock, but it is the only per-source
+     attribution we get in Buttondown and in /report's count:email:<source>.
+
+     This whole file is omitted from unlock pages — asking a reader for the
+     email they just gave you is how a funnel reads as a machine. -->
+<div class="sticky-cta" id="stickyCta" aria-hidden="true">
+  <div class="ask-copy">
+    <span class="t">The files stay free. One email a week — unsubscribe anytime.</span>
+    <fieldset class="role-pick">
+      <legend class="sr-only">What do you do? (optional)</legend>
+      <label class="pill"><input type="radio" name="role" value="developer" form="stickyForm"><span>Developer</span></label>
+      <label class="pill"><input type="radio" name="role" value="founder-operator" form="stickyForm"><span>Founder/operator</span></label>
+      <label class="pill"><input type="radio" name="role" value="other" form="stickyForm"><span>Other</span></label>
+    </fieldset>
+  </div>
+  <form class="sticky-form" id="stickyForm" method="post" action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" data-capture="sticky">
+      <input type="hidden" name="tag" value="no060-sticky">
+      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+    <label class="sr-only" for="stickyEmail">Email address</label>
+    <input id="stickyEmail" name="email" type="email" placeholder="you@email.com" autocomplete="email" required>
+    <button class="btn primary" type="submit">Subscribe &rarr;</button>
+  </form>
+  <button class="x" id="ctaClose" type="button" aria-label="Dismiss">&times;</button>
+</div>
+
+<!-- THE ASK MODAL — one markup, two triggers, running as an A/B (2026-09-01).
+     Founder call after the evidence: the pop-up in its 50%-scroll form was
+     viewed ~47 times and dismissed ~46 of those across NO.006/034/036/038/039
+     (live /report, 30 d, pulled 2026-09-01), with no signup attributable to it.
+     The founder's read is that the ask should land at PEAK ATTENTION; the
+     disagreement was only about what signals attention — a clock or an action.
+     So both are built and split 50/50 rather than argued:
+
+       arm A — 6 s timer (the founder's version)
+       arm B — fires on the download / copy action, i.e. the moment the reader
+               takes the thing they came for
+
+     The trigger is the ONLY difference. Same markup, same copy, same cooldown,
+     so a difference in the numbers is a difference in the trigger. The arm is
+     sticky per browser (localStorage) so one reader never sees both.
+
+     The copy has to be true for BOTH arms, which is why it does not say "that
+     one's yours" (arm A fires before any download) and does not say "opens on
+     the next screen" (nothing is locked any more). It sells the weekly. -->
+<div class="pop" id="askPop" hidden>
+  <div class="pop-scrim" data-pop-close></div>
+  <div class="pop-card" role="dialog" aria-modal="true" aria-labelledby="askPopH">
+    <button class="pop-x" type="button" data-pop-close aria-label="Close">×</button>
+    <span class="k">One email a week · the working setup</span>
+    <h2 id="askPopH">Where the next one comes from.</h2>
+    <p>the Claude Code pack is yours, free, no email needed — it is on this page. The weekly teardown is where the next one gets built: one working AI setup, every week, with the numbers checked at source.</p>
+    <form action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="ask">
+      <input type="hidden" name="tag" id="askTag" value="no060-ask">
+      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+      <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
+      <button class="btn" type="submit">Send me the weekly →</button>
+    </form>
+    <div class="note">One email a week. Unsubscribe in one click.</div>
+  </div>
+</div>
 
 <div class="weave" aria-hidden="true"></div>
 
 <main>
 <section class="hero">
-  <div class="kick eye">About · the long version</div>
-  <h1 class="disp">The AI frontier, cut to what ships<span class="dot">.</span></h1>
-  <p class="sub">vektor is a short-film series about the Claude and AI tooling that actually changes how you work. Every issue is one film and one working pack: the config, the prompts, the install lines, the sources. Nothing is held back and nothing is behind a paywall.</p>
+  <div class="kick eye">Claude Code · MarkItDown</div>
+  <h1 class="disp">The PDF goes in<br>as Markdown<span class="dot">.</span></h1>
+  <p class="sub">Hand Claude a PDF and Anthropic's docs say every page goes in twice: once as text, once as a picture of the page. Microsoft's MarkItDown turns it into Markdown first, so only the text goes in. Below: the install line and the command from the film, then <b>Auto-Markdown for Claude Code</b>, a hook that does the conversion for you every time Claude opens a PDF, and when not to use it.</p>
+  <div class="actions">
+    <a class="btn primary" href="#command">The install line + command ↓</a>
+    <a class="btn" href="#kit">Install the hook →</a>
+    <a class="btn" href="./files/markitdown-claude-kit.zip">Download the kit (.zip) &darr;</a>
+    <button class="btn" id="shareBtn" type="button">Send to whoever keeps pasting PDFs into Claude</button>
+  </div>
+  <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
 </section>
 
-<div class="fig">
+<!-- ======================= THE PROMISE: INSTALL + COMMAND ======================= -->
+<div class="fig" id="command">
   <h2 class="kick">Fig. 01 ·</h2>
-  <h2 class="disp">One issue, three parts<span class="dot">.</span></h2>
-  <p class="sub">The film sells nothing. It shows one thing that works, then hands you the files.</p>
+  <h2 class="disp">The install line and the command<span class="dot">.</span></h2>
+  <p class="sub">What the DM promised. Needs Python. Tested with markitdown 0.1.8 on 1 October 2026.</p>
 </div>
 
-<section class="issues" id="how">
-  <article class="card c-ink">
-    <div class="top">
-      <span class="tag">The film</span>
-      <span class="goth">sixty seconds</span>
-    </div>
-    <h2>One thing that works, shown working.</h2>
-    <p class="one">A vertical short on TikTok, Instagram, YouTube and X. No intro, no outro, no throat-clearing. New films every week; the archive holds 42 issues so far.</p>
+<section class="issues" id="manual">
+  <article class="issue">
+    <h3>1 · Install</h3>
+    <div class="copy"><code>pip install "markitdown[pdf]"</code><button class="copybtn" data-copy='pip install "markitdown[pdf]"'>Copy</button></div>
+    <p>Double quotes work everywhere. MarkItDown's own README writes it with single quotes, which is a bash habit: Windows <code>cmd</code> and PowerShell pass single quotes through literally and the install breaks. <code>uv tool install "markitdown[pdf]"</code> or <code>pipx install "markitdown[pdf]"</code> keep it in its own environment. Check with <code>markitdown --version</code>.</p>
   </article>
-  <article class="card c-ink">
-    <div class="top">
-      <span class="tag">The keyword</span>
-      <span class="goth">one word</span>
-    </div>
-    <h2>Every film ends on a single word.</h2>
-    <p class="one">Comment it under the reel and the bot sends you the link to the issue page in a DM. The same page is linked from the archive here, so the keyword is a shortcut, not a lock.</p>
-  </article>
-  <article class="card c-ink">
-    <div class="top">
-      <span class="tag">The pack</span>
-      <span class="goth">the working files</span>
-    </div>
-    <h2>The files behind the film, on the issue page.</h2>
-    <p class="one">Config files, prompts written out in full, one-line installs, the repos and papers the film cites. Where a number was measured, the page says how. Where a claim could not be verified, the page says that too.</p>
-    <div class="actions">
-      <a class="btn" href="./index.html#archive">Browse the archive →</a>
-      <a class="btn" href="./no-054.html">Latest: Your CLAUDE.md is slowing Claude Code down →</a>
-    </div>
+  <article class="issue">
+    <h3>2 · Convert</h3>
+    <div class="copy"><code>markitdown report.pdf -o report.md</code><button class="copybtn" data-copy="markitdown report.pdf -o report.md">Copy</button></div>
+    <p>The film types <code>markitdown report.pdf &gt; report.md</code>, which is fine on macOS and Linux. On Windows use <code>-o</code>: our first run through a <code>&gt;</code> redirect wrote the file in the console's cp1252 encoding instead of UTF-8. Then hand Claude <code>report.md</code> instead of the PDF.</p>
+    <p class="meta">Source: <a href="https://github.com/microsoft/markitdown" target="_blank" rel="noopener">github.com/microsoft/markitdown</a> (MIT licence, read 2026-10-01)</p>
   </article>
 </section>
 
+<!-- ======================= WHY ======================= -->
 <div class="fig">
   <h2 class="kick">Fig. 02 ·</h2>
-  <h2 class="disp">The Teardown<span class="dot">.</span></h2>
-  <p class="sub">The one thing you can sign up for.</p>
+  <h2 class="disp">Why the PDF goes in twice<span class="dot">.</span></h2>
+  <p class="sub">What the docs actually say, read 1 October 2026.</p>
 </div>
 
-<section class="issues" id="teardown">
-  <article class="card c-ink">
-    <div class="top">
-      <span class="tag">Email · weekly</span>
-      <span class="goth">5 editions so far</span>
-    </div>
-    <h2>One automation a week, pulled apart in public.</h2>
-    <p class="one">What it replaced, what it broke, what it actually cost when we ran it. Each edition is also published here as a web page, so you can read one before you subscribe. Free, one-click unsubscribe, and the address is used for nothing else.</p>
-    <div class="actions">
-      <a class="btn primary" href="./newsletter.html">Read the editions and subscribe →</a>
-      <a class="btn" href="./privacy.html">What we do with your email →</a>
-    </div>
+<section class="issues" id="docs">
+  <article class="issue">
+    <h3>Claude's PDF support</h3>
+    <p>&ldquo;The system converts each page of the document into an image. The text from each page is extracted and provided alongside each page's image.&rdquo; Text costs &ldquo;1,500–3,000 tokens per page depending on content density&rdquo;, and each page image is billed on top of that, the same way as any image.</p>
+    <p class="meta">Docs: <a href="https://platform.claude.com/docs/en/build-with-claude/pdf-support" target="_blank" rel="noopener">platform.claude.com/docs/en/build-with-claude/pdf-support</a> (read 2026-10-01)</p>
+  </article>
+  <article class="issue">
+    <h3>Claude Code's Read tool</h3>
+    <p>&ldquo;Claude reads short .pdf files whole. For PDFs longer than 10 pages, it reads in ranges with a pages parameter&rdquo;, and &ldquo;page-range reads render pages with pdftoppm&rdquo;. A Markdown file is text only, so no page pictures are made for it.</p>
+    <p class="meta">Docs: <a href="https://code.claude.com/docs/en/tools-reference" target="_blank" rel="noopener">code.claude.com/docs/en/tools-reference</a> (read 2026-10-01)</p>
   </article>
 </section>
 
-<div class="fig">
+<!-- ======================= THE KIT ======================= -->
+<div class="fig" id="kit">
   <h2 class="kick">Fig. 03 ·</h2>
-  <h2 class="disp">How it is made<span class="dot">.</span></h2>
-  <p class="sub">With the same tools every issue is about.</p>
+  <h2 class="disp">Auto-Markdown for Claude Code<span class="dot">.</span></h2>
+  <p class="sub">A PreToolUse hook on Claude Code's Read tool. When Claude is about to read a <code>.pdf</code>, the hook runs MarkItDown on it, caches the <code>.md</code>, and points the read at the Markdown instead. Install once, never type the command again. Node built-ins only, no npm packages.</p>
 </div>
 
-<section class="issues" id="made">
-  <article class="card c-ink">
+<section class="issues" id="install">
+  <article class="issue">
+    <h3>1 · Get the hook (one line)</h3>
+    <div class="copy"><code>curl -LO …/markitdown-claude-kit.zip &amp;&amp; unzip …</code><button class="copybtn" data-copy="curl -LO https://vektor-fm.github.io/vektor-site/files/markitdown-claude-kit.zip &amp;&amp; unzip -o markitdown-claude-kit.zip &amp;&amp; mkdir -p ~/.claude/hooks &amp;&amp; cp markitdown-claude-kit/.claude/hooks/markitdown-pretooluse.mjs ~/.claude/hooks/">Copy</button></div>
+    <p>Downloads the kit and puts the hook at <code>~/.claude/hooks/markitdown-pretooluse.mjs</code>, so it works in every project. macOS, Linux, or Git Bash on Windows. Prefer clicking? <a href="./files/markitdown-claude-kit.zip">Download the zip</a> and copy that one file by hand.</p>
+  </article>
+
+  <article class="card c-cream">
     <div class="top">
-      <span class="tag">The workshop</span>
-      <span class="goth">one person, one pipeline</span>
+      <span class="tag">~/.claude/settings.json</span>
+      <span class="goth">2 · copy this in</span>
     </div>
-    <h2>Scripted, rendered and gated by the tooling in the films.</h2>
-    <p class="one">vektor is made by one person. The scripts are checked against a written spec before a voice is generated, the visuals are built in a design system with an automated gate, and the packs are the files that pipeline actually uses. When an issue says a setup works, it is because it is running here.</p>
-    <p class="meta">Corrections, sources and topic requests: the reel comments are read, and <a href="./thanks.html">the contact page</a> reaches a human.</p>
+    <h2>Wire it up</h2>
+    <p class="one">Merge this into the <code>hooks</code> block of <code>~/.claude/settings.json</code>. If you already have hooks, add the entry to your existing <code>PreToolUse</code> array rather than overwriting the file.</p>
+    <div class="snippet">
+      <div class="bar"><span class="f">settings.snippet.user.json</span><button class="snipbtn" id="snipCopy" type="button">Copy snippet</button></div>
+      <pre id="snipText">{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Read",
+        "hooks": [
+          { "type": "command", "command": "node \"$HOME/.claude/hooks/markitdown-pretooluse.mjs\"" }
+        ]
+      }
+    ]
+  }
+}</pre>
+    </div>
+    <p class="one">Keep <code>$HOME</code>, even on Windows: Claude Code runs hook commands through a POSIX-style shell, and <code>%USERPROFILE%</code> silently never ran in our test. For one project only, use <code>settings.snippet.project.json</code> from the zip with <code>.claude/settings.json</code> in the repo. A running session needs <code>/hooks</code> or a restart to pick it up.</p>
+  </article>
+
+  <article class="issue">
+    <h3>3 · Check it worked</h3>
+    <p>Ask Claude to read a PDF, then look in <code>.claude/markitdown-cache/log.jsonl</code> in your project: one line per decision, <code>convert</code>, <code>cache-hit</code> or <code>fallback</code> with the reason. Tested 1 October 2026 on Claude Code 2.1.285: 9 of 9 checks passed (conversion end to end, every fallback, both bypasses, the override, the cache).</p>
+  </article>
+</section>
+
+<!-- ======================= WHEN NOT TO ======================= -->
+<div class="fig" id="caveats">
+  <h2 class="kick">Fig. 04 ·</h2>
+  <h2 class="disp">When not to use it<span class="dot">.</span></h2>
+  <p class="sub">The page picture is how Claude sees a page. Converting throws it away, so this is a trade, not a free win.</p>
+</div>
+
+<section class="ledger" aria-label="When not to use it">
+  <div class="lrow"><span class="n">1</span><span class="t"><b>Charts and diagrams.</b> If the figure is the content, Claude only gets the caption text after conversion. The hook guesses figure-heavy files (roughly 0.5 images per page and up) and leaves them as PDF, but it is a byte-scan heuristic: for anything you know is visual, name it <code>something.images.pdf</code> and it is never converted.</span></div>
+  <div class="lrow"><span class="n">2</span><span class="t"><b>Scanned PDFs.</b> No text layer, and the base MarkItDown install does no OCR. The hook spots the near-empty result and hands Claude the original PDF instead.</span></div>
+  <div class="lrow"><span class="n">3</span><span class="t"><b>Tables.</b> On our 48-page test file the cover page and several tables came out as broken pipe rows. Readable as text, not as a clean table. Check those.</span></div>
+  <div class="lrow"><span class="n">4</span><span class="t"><b>Turn it off.</b> <code>MARKITDOWN_SKIP=1</code> for the session; <code>MARKITDOWN_FORCE=1</code> overrides the figure guess (never the scan guard). No MarkItDown on PATH means the hook steps aside and nothing breaks.</span></div>
+  <div class="lrow"><span class="n">5</span><span class="t"><b>Know what it approves.</b> When it converts, the hook answers Claude Code's permission check with &ldquo;allow&rdquo; for the read of its own cached <code>.md</code>, so that one read does not prompt you. It only hooks the Read tool; a <code>cat</code> through Bash still sees the PDF.</span></div>
+</section>
+
+<!-- ======================= MEASURED ======================= -->
+<div class="fig" id="measured">
+  <h2 class="kick">Fig. 05 ·</h2>
+  <h2 class="disp">What we measured, and what we did not<span class="dot">.</span></h2>
+  <p class="sub">Our own run, recorded 1 October 2026: fresh Python 3.12 environment, markitdown 0.1.8, on NIST AI 100-1 (AI Risk Management Framework, January 2023, public domain).</p>
+</div>
+
+<section class="ledger" aria-label="Measured">
+  <div class="lrow"><span class="n">PDF</span><span class="t">48 pages · 1,946,127 bytes</span></div>
+  <div class="lrow"><span class="n">MD</span><span class="t">113,989 bytes · 12,625 words · 1,705 lines</span></div>
+  <div class="lrow"><span class="n">Time</span><span class="t">3.4 s for the whole conversion</span></div>
+  <div class="lrow"><span class="n">Tokens</span><span class="t"><b>Not measured.</b> We never ran either file through Claude's own token counter, so we do not claim a saving. Measure yours: run <code>/context</code> in Claude Code before and after reading the PDF, then again with the <code>.md</code>, and compare.</span></div>
+</section>
+
+<!-- ======================= THE FILE ======================= -->
+<div class="fig" id="files">
+  <h2 class="kick">Fig. 06 ·</h2>
+  <h2 class="disp">The kit<span class="dot">.</span></h2>
+  <p class="sub">Free, no email needed.</p>
+</div>
+
+<section class="issues" id="download">
+  <article class="card c-cream">
+    <div class="top">
+      <span class="tag">Auto-Markdown · tested 2026-10-01</span>
+      <span class="goth">one zip</span>
+    </div>
+    <h2>Auto-Markdown for Claude Code</h2>
+    <p class="one">The hook, both settings snippets (every project, or one project), and a README with the install table for uv, pipx and pip, every fallback, the limits and the measured numbers.</p>
+    <div class="actions">
+      <a class="btn" href="./files/markitdown-claude-kit.zip">Download the kit (.zip) &darr;</a>
+      <a class="btn" href="./files/markitdown-claude-kit/README.md">Read the README first →</a>
+    </div>
   </article>
 </section>
 </main>
@@ -943,18 +1102,18 @@ pre.code code{font-size:inherit;}
   </div>
 
   <nav class="socials" aria-label="Social links">
-    <a data-goatcounter-click="about-follow-tiktok-foot" href="https://tiktok.com/@vektor.fm" target="_blank" rel="noopener">TikTok · @vektor.fm</a>
-    <a data-goatcounter-click="about-follow-instagram-foot" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Instagram · @vektor.fm</a>
-    <a data-goatcounter-click="about-follow-youtube-foot" href="https://youtube.com/@vektorfm" target="_blank" rel="noopener">YouTube · @vektorfm</a>
-    <a data-goatcounter-click="about-follow-x-foot" href="https://x.com/vektordotfm" target="_blank" rel="noopener">X · @vektordotfm</a>
+    <a data-goatcounter-click="no060-follow-tiktok-foot" href="https://tiktok.com/@vektor.fm" target="_blank" rel="noopener">TikTok · @vektor.fm</a>
+    <a data-goatcounter-click="no060-follow-instagram-foot" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Instagram · @vektor.fm</a>
+    <a data-goatcounter-click="no060-follow-youtube-foot" href="https://youtube.com/@vektorfm" target="_blank" rel="noopener">YouTube · @vektorfm</a>
+    <a data-goatcounter-click="no060-follow-x-foot" href="https://x.com/vektordotfm" target="_blank" rel="noopener">X · @vektordotfm</a>
     <a href="./privacy.html">Privacy</a>
   </nav>
 
-  <div class="backref">New films every week — <b>catch the keyword on the reel</b> — follow @vektor.fm.</div>
+  <div class="backref">A new keyword drops every week — <b>catch it first on the reel</b> — follow @vektor.fm. More like this: <a href="./no-047.html">Convert files locally, never upload them →</a></div>
 
   <div class="wordmark-foot">
     <span class="wm-foot" id="wmFoot" aria-label="vektor"><span class="ch2" style="--i:0"><span class="g">%</span><span class="l">v</span></span><span class="ch2" style="--i:1"><span class="g">#</span><span class="l">e</span></span><span class="ch2" style="--i:2"><span class="g">Z</span><span class="l">k</span></span><span class="ch2" style="--i:3"><span class="g">8</span><span class="l">t</span></span><span class="ch2" style="--i:4"><span class="g">@</span><span class="l">o</span></span><span class="ch2" style="--i:5"><span class="g">W</span><span class="l">r</span></span></span>
-    <span class="m">/// about · what vektor is and how it is made</span>
+    <span class="m">/// no. 060 / markdown / 10-2026 · claude code, markitdown, pdf</span>
   </div>
 </footer>
 
@@ -967,7 +1126,7 @@ pre.code code{font-size:inherit;}
   function fallback(text){ var t=document.createElement('textarea'); t.value=text; t.style.position='fixed'; t.style.opacity='0'; document.body.appendChild(t); t.focus(); t.select(); try{ document.execCommand('copy'); }catch(e){} document.body.removeChild(t); }
   function copyText(text, btn, doneLabel){ var o=btn.textContent, done=function(){ btn.textContent=doneLabel; setTimeout(function(){btn.textContent=o;},1600); }; if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(done).catch(function(){ fallback(text); done(); }); } else { fallback(text); done(); } }
   function gcEvent(name){ if(name && window.goatcounter && goatcounter.count){ goatcounter.count({path:name, event:true}); } }
-  var COPY_EVENT=null;
+  var COPY_EVENT='copy-markdown-kit';
   document.querySelectorAll('.copybtn').forEach(function(btn){ btn.addEventListener('click', function(){ copyText(btn.getAttribute('data-copy'), btn, 'Copied ✓'); gcEvent(COPY_EVENT); }); });
   var snip=document.getElementById('snipCopy');
   if(snip){ snip.addEventListener('click', function(){ var el=document.getElementById('snipText'); copyText(el.textContent, snip, 'Copied ✓'); gcEvent(COPY_EVENT); }); }
@@ -976,7 +1135,7 @@ pre.code code{font-size:inherit;}
   var camp=(location.pathname.split('/').pop()||'index').replace(/\.html$/,'')||'index';
   document.querySelectorAll('a[href^="http"]').forEach(function(a){ try{ var u=new URL(a.href); if(u.hostname==='github.com'){return;} if(!u.searchParams.has('utm_source')){ u.searchParams.set('utm_source','vektor'); u.searchParams.set('utm_medium','dm'); u.searchParams.set('utm_campaign',camp); a.href=u.toString(); } }catch(e){} });
   var sh=document.getElementById('shareBtn');
-  if(sh){ sh.addEventListener('click', function(){ gcEvent('about-share'); if(navigator.share){ navigator.share({title:document.title, url:location.href}).catch(function(){}); } else { copyText(location.href, sh, 'Link copied — paste it ✓'); } }); }
+  if(sh){ sh.addEventListener('click', function(){ gcEvent('no060-share'); if(navigator.share){ navigator.share({title:document.title, url:location.href}).catch(function(){}); } else { copyText(location.href, sh, 'Link copied — paste it ✓'); } }); }
   var sticky=document.getElementById('stickyCta'), sub=document.getElementById('subscribe'), dismissed=false, stickyViewed=false;
   var midcap=document.querySelector('.midcap');
   // v2 (2026-09-24): visible FROM LOAD, not after scrolling past the whole
@@ -1001,7 +1160,7 @@ pre.code code{font-size:inherit;}
       sticky.setAttribute('aria-hidden', show?'false':'true');
       // view-of-ask event, once per page view, the moment it first becomes visible
       // (almost always on load) — gives the submit counts a denominator.
-      if(show && !stickyViewed){ stickyViewed=true; gcEvent('about-sticky-view'); }
+      if(show && !stickyViewed){ stickyViewed=true; gcEvent('no060-sticky-view'); }
     }
     window.addEventListener('scroll',updCta,{passive:true}); window.addEventListener('resize',updCta); updCta();
     var ctaClose=document.getElementById('ctaClose');
@@ -1011,7 +1170,7 @@ pre.code code{font-size:inherit;}
     // nested inside it). Its own event per tap, so the choice is measurable
     // even from a reader who taps a pill and never submits.
     document.querySelectorAll('.role-pick input[type="radio"]').forEach(function(r){
-      r.addEventListener('change', function(){ if(r.checked){ gcEvent('about-sticky-role-'+r.value); } });
+      r.addEventListener('change', function(){ if(r.checked){ gcEvent('no060-sticky-role-'+r.value); } });
     });
   }
   var wmFoot=document.getElementById('wmFoot');
@@ -1037,7 +1196,7 @@ pre.code code{font-size:inherit;}
   //
   // Read the result off count:email:<slug>-ask-a vs -ask-b in /report (the tag
   // travels to Buttondown, so it survives ad-blockers that eat GoatCounter) and
-  // off about-ask-view-a/-dismiss-a vs the -b pair for the dismissal rate.
+  // off no060-ask-view-a/-dismiss-a vs the -b pair for the dismissal rate.
   // Decide after 3 films, not after one — at ~40-60 page opens per film, one
   // film cannot separate these.
   (function(){
@@ -1063,17 +1222,17 @@ pre.code code{font-size:inherit;}
       }
     }
     var tag=document.getElementById('askTag');
-    if(tag){ tag.value='about-ask-'+arm; }
+    if(tag){ tag.value='no060-ask-'+arm; }
 
     if(!force){ try{ var last=parseInt(localStorage.getItem(KEY)||'0',10); if(last && (Date.now()-last)<TTL){ return; } }catch(e){} }
     function seen(){ try{ localStorage.setItem(KEY, String(Date.now())); }catch(e){} }
     function esc(e){ if(e.key==='Escape'){ close(); } }
-    function close(){ pop.setAttribute('hidden',''); seen(); document.removeEventListener('keydown',esc); gcEvent('about-ask-dismiss-'+arm); }
+    function close(){ pop.setAttribute('hidden',''); seen(); document.removeEventListener('keydown',esc); gcEvent('no060-ask-dismiss-'+arm); }
     pop.querySelectorAll('[data-pop-close]').forEach(function(el){ el.addEventListener('click', close); });
     // submit fires seen() but NOT close(), so a dismissal count is never
     // inflated by a conversion — dismiss ≈ view is then a real read.
     var f=pop.querySelector('form');
-    if(f){ f.addEventListener('submit', function(){ seen(); gcEvent('about-ask-submit-'+arm); }); }
+    if(f){ f.addEventListener('submit', function(){ seen(); gcEvent('no060-ask-submit-'+arm); }); }
 
     var fired=false;
     function open(){
@@ -1081,7 +1240,7 @@ pre.code code{font-size:inherit;}
       fired=true;
       pop.removeAttribute('hidden');
       document.addEventListener('keydown',esc);
-      gcEvent('about-ask-view-'+arm);
+      gcEvent('no060-ask-view-'+arm);
       var x=pop.querySelector('.pop-x'); if(x){ try{ x.focus(); }catch(e){} }
     }
 
@@ -1105,6 +1264,7 @@ pre.code code{font-size:inherit;}
       }, true);
     }
   })();
+  document.querySelectorAll('form').forEach(function(f){ f.addEventListener('submit', function(){ gcEvent('no060-subscribe-submit'); }); });
 
   // ---- shared nav: reveal + mobile drawer ----
   // The header sits off-screen until a 24px hover strip is entered (desktop) or
@@ -1138,7 +1298,7 @@ pre.code code{font-size:inherit;}
   // would even exist, so that path would have gone silent.)
   document.querySelectorAll('form[data-capture]').forEach(function(f){
     f.addEventListener('submit', function(){
-      gcEvent('about-sub-' + f.getAttribute('data-capture'));
+      gcEvent('no060-sub-' + f.getAttribute('data-capture'));
     });
   });
 </script>
