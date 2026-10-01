@@ -421,6 +421,16 @@
       "lastmod": "2026-09-30",
       "built": true,
       "unlock": "67afc46ab6"
+    },
+    {
+      "number": "060",
+      "title_short": "The PDF goes in as Markdown",
+      "section": "Claude Code",
+      "date": "10-2026",
+      "keyword": "MARKDOWN",
+      "lastmod": "2026-10-01",
+      "built": true,
+      "unlock": "45ef2105b0"
     }
   ],
   "teardowns": [

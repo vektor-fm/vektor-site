@@ -1,0 +1,32 @@
+{
+  "number": "060",
+  "title": "vektor /// no. 060 · The PDF goes in as Markdown.",
+  "description": "Anthropic's docs say a PDF goes into Claude twice per page: once as text, once as a picture. Microsoft's MarkItDown converts it to Markdown first. The install line, the command, and Auto-Markdown for Claude Code: a tested hook that converts PDFs automatically, with fallbacks for scans and chart-heavy files.",
+  "og_title": "The PDF goes in as Markdown · vektor /// no. 060",
+  "og_description": "The MarkItDown install line, the command, and a Claude Code hook that converts PDFs before Claude reads them.",
+  "og_image": "https://vektor-fm.github.io/vektor-site/og/no-060.png",
+  "og_alt": "The PDF goes in as Markdown · vektor /// no. 060",
+  "og_url": "https://vektor-fm.github.io/vektor-site/no-060.html",
+  "canonical": "https://vektor-fm.github.io/vektor-site/no-060.html",
+  "tw_title": "The PDF goes in as Markdown · vektor /// no. 060",
+  "tw_description": "One Microsoft command turns a PDF into Markdown before Claude reads it. Plus a hook that does it for you, and when not to.",
+  "tw_image": "https://vektor-fm.github.io/vektor-site/og/no-060.png",
+  "marker": "Claude Code · MarkItDown",
+  "sticky_text": "Follow <b>@vektor.fm</b> → a new keyword every week",
+  "backref_html": "A new keyword drops every week — <b>catch it first on the reel</b> — follow @vektor.fm. More like this: <a href=\"./no-047.html\">Convert files locally, never upload them →</a>",
+  "footer_meta": "/// no. 060 / markdown / 10-2026 · claude code, markitdown, pdf",
+  "copy_event": "copy-markdown-kit",
+  "subscribe_track": true,
+  "slug": "no060",
+  "gate_title": "The install line, the command and the hook kit.",
+  "gate_lede": "The install line, the command, and the Auto-Markdown hook kit, all on the next screen. One email opens all of it.",
+  "og_card": {
+    "accent": "#E7371A",
+    "kick": "Claude Code · MarkItDown",
+    "h1_html": "The PDF goes in<br>as Markdown<span class=\"dot\">.</span>",
+    "h1_size": 62,
+    "sub_mt": 18,
+    "sub_html": "The MarkItDown install line, the command, and a Claude Code hook that converts PDFs before Claude reads them.",
+    "meta_html": "/// no. 060 / markdown / 10-2026 · <b>vektor-fm.github.io</b>"
+  }
+}
