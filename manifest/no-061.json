@@ -1,0 +1,32 @@
+{
+  "number": "061",
+  "title": "vektor /// no. 061 · AI executes your vision. It can't give you one.",
+  "description": "Dan Koe's three groups of AI users, and the one file that keeps you in the third: a VISION.md template imported from CLAUDE.md, plan mode so Claude proposes before it edits, the tested setup lines for bash and PowerShell, and the caveats we hit testing it.",
+  "og_title": "AI executes your vision. It can't give you one · vektor /// no. 061",
+  "og_description": "The VISION.md template, the one-line CLAUDE.md import, and plan mode, so Claude plans against your picture and waits for your yes.",
+  "og_image": "https://vektor-fm.github.io/vektor-site/og/no-061.png",
+  "og_alt": "AI executes your vision. It can't give you one · vektor /// no. 061",
+  "og_url": "https://vektor-fm.github.io/vektor-site/no-061.html",
+  "canonical": "https://vektor-fm.github.io/vektor-site/no-061.html",
+  "tw_title": "AI executes your vision. It can't give you one · vektor /// no. 061",
+  "tw_description": "One file tells Claude Code what you're building and what good looks like. Plan mode makes it wait for your yes. Tested, with the traps.",
+  "tw_image": "https://vektor-fm.github.io/vektor-site/og/no-061.png",
+  "marker": "Claude Code · VISION.md",
+  "sticky_text": "Follow <b>@vektor.fm</b> → a new keyword every week",
+  "backref_html": "A new keyword drops every week — <b>catch it first on the reel</b> — follow @vektor.fm. More like this: <a href=\"./no-060.html\">The PDF goes in as Markdown →</a>",
+  "footer_meta": "/// no. 061 / vision / 10-2026 · claude code, claude.md, plan mode",
+  "copy_event": "copy-vision-kit",
+  "subscribe_track": true,
+  "slug": "no061",
+  "gate_title": "The template, the setup lines and the caveats.",
+  "gate_lede": "The VISION.md template, the tested setup for bash and PowerShell, and plan mode, all on the next screen. One email opens all of it.",
+  "og_card": {
+    "accent": "#E7371A",
+    "kick": "Claude Code · VISION.md",
+    "h1_html": "AI executes your vision.<br>It can't give you one<span class=\"dot\">.</span>",
+    "h1_size": 55,
+    "sub_mt": 18,
+    "sub_html": "The VISION.md template, the one-line CLAUDE.md import, and plan mode, so Claude waits for your yes.",
+    "meta_html": "/// no. 061 / vision / 10-2026 · <b>vektor-fm.github.io</b>"
+  }
+}

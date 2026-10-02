@@ -431,6 +431,16 @@
       "lastmod": "2026-10-01",
       "built": true,
       "unlock": "45ef2105b0"
+    },
+    {
+      "number": "061",
+      "title_short": "AI executes your vision, it can't give you one",
+      "section": "Claude Code",
+      "date": "10-2026",
+      "keyword": "VISION",
+      "lastmod": "2026-10-02",
+      "built": true,
+      "unlock": "0e36bfe313"
     }
   ],
   "teardowns": [
