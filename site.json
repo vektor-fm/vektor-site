@@ -441,6 +441,16 @@
       "lastmod": "2026-10-02",
       "built": true,
       "unlock": "0e36bfe313"
+    },
+    {
+      "number": "062",
+      "title_short": "Throw the dice ten times",
+      "section": "Maths for life",
+      "date": "10-2026",
+      "keyword": "THROW",
+      "lastmod": "2026-10-03",
+      "built": true,
+      "unlock": "475a20265f"
     }
   ],
   "teardowns": [
