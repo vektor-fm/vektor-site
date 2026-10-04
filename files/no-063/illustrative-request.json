@@ -1,0 +1,34 @@
+{
+  "state": {
+    "example_kind": "synthetic-not-market-data",
+    "snapshot_id": "vektor-no063-example-001",
+    "instrument": "ILLUSTRATIVE",
+    "units": "arbitrary-example-units",
+    "best_bid": 99,
+    "best_ask": 101,
+    "midpoint": 100,
+    "waiting_buy_size": 3,
+    "waiting_sell_size": 4,
+    "market_event": "A hypothetical buying burst. No real trade history or informed-trading labels are supplied."
+  },
+  "model": "jev-latest",
+  "questions": {
+    "flow_character": {
+      "type": "choice",
+      "instructions": "For this prompt experiment, does the supplied evidence make the described buying burst look more like informed trading or noise? The state is synthetic and incomplete; this question cannot establish real informed trading.",
+      "criteria": {
+        "informed": "Evidence consistent with information-driven buying, if such evidence is supplied.",
+        "noise": "Evidence consistent with transient or uninformative buying, if such evidence is supplied."
+      }
+    },
+    "price_pressure": {
+      "type": "choice",
+      "instructions": "Which side, if any, has more visible pressure in the supplied state? This is a synthetic prompt experiment, not a prediction of future returns.",
+      "criteria": {
+        "buy": "The supplied evidence supports greater buying pressure.",
+        "sell": "The supplied evidence supports greater selling pressure.",
+        "unclear": "The available evidence is insufficient or balanced."
+      }
+    }
+  }
+}
