@@ -1,0 +1,96 @@
+<style>
+/* Film-local layout only; shared site templates and tokens stay unchanged. */
+#no063-page .fig{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:baseline;}
+#no063-page .fig .kick{font-size:var(--fs-s);}
+#no063-page .fig .disp{min-width:0;overflow-wrap:break-word;}
+#no063-page .fig .sub{grid-column:1 / -1;min-width:0;max-width:64ch;overflow-wrap:anywhere;font-size:var(--fs-m);line-height:var(--lh-xl);color:var(--dim);}
+@media(max-width:640px){
+  #no063-page .fig{grid-template-columns:minmax(0,1fr);}
+  #no063-page .fig .sub{grid-column:1;}
+  #no063-page .card .top{flex-wrap:wrap;}
+}
+</style>
+<div id="no063-page">
+<section class="hero">
+  <div class="kick eye">AI tools · Jev and your code</div>
+  <h1 class="disp">A market snapshot.<br>A typed judgment.<br>Your code decides<span class="dot">.</span></h1>
+  <p class="sub">The setup outline from NO.063: give Jev a market snapshot, ask focused questions, then keep prices, limits and order decisions in your code. This is an <b>illustrative prototype architecture</b>. HFT suitability, latency, market accuracy, live exchange execution and profitability are unverified.</p>
+  <div class="actions">
+    <a class="btn primary" href="#setup">Read the setup ↓</a>
+    <a class="btn" href="./files/no-063/hft-setup-outline.md">Download the outline (.md) ↓</a>
+    <a class="btn" href="#tools">Official tool links →</a>
+    <button class="btn" id="shareBtn" type="button">Send to a builder</button>
+  </div>
+  <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+</section>
+
+<div class="fig">
+  <h2 class="kick">Fig. 01 ·</h2>
+  <h2 class="disp">Three parts, one state<span class="dot">.</span></h2>
+  <p class="sub">The picture in the film follows the same snapshot through these boundaries. Each part has a different job.</p>
+</div>
+
+<section class="ledger" id="setup" aria-label="Setup outline">
+  <div class="lrow"><span class="n">1</span><span class="t"><b>Feed → snapshot.</b> Your adapter normalizes the exchange data. Preserve the instrument, units, prices, waiting orders, sequence and timestamps. Begin with the synthetic file below; no exchange adapter is supplied.</span></div>
+  <div class="lrow"><span class="n">2</span><span class="t"><b>Snapshot → Jev questions.</b> Send the state with narrowly defined questions and fixed answer options. TypeSafe documents independent evaluation against the same state; the sample request is an unvalidated prompt experiment, not a recorded API result.</span></div>
+  <div class="lrow"><span class="n">3</span><span class="t"><b>Answers → your code.</b> Your application applies its quote policy and account limits, then proposes a cancel, submit or no-action decision. Inspect those proposals in replay or paper mode before considering any exchange integration.</span></div>
+</section>
+
+<div class="fig" id="example">
+  <h2 class="kick">Fig. 02 ·</h2>
+  <h2 class="disp">The illustrative snapshot<span class="dot">.</span></h2>
+  <p class="sub">Synthetic example, authored by Vektor on 2026-10-04. Prices and quantities use arbitrary units. This is not market data.</p>
+</div>
+
+<section class="issues">
+  <article class="card c-cream">
+    <div class="top"><span class="tag">ILLUSTRATIVE · no-063-example-001</span><span class="goth">Vektor, 2026-10-04</span></div>
+    <h2>Freeze what the code actually knows</h2>
+    <div class="snippet"><div class="bar"><span class="f">illustrative-snapshot.json</span><button class="snipbtn" id="snipCopy" type="button">Copy example</button></div>
+      <pre id="snipText">best bid              99
+best ask             101
+midpoint             100
+waiting buy size       3
+waiting sell size      4
+snapshot         example-001</pre>
+    </div>
+    <p class="one">A single static snapshot cannot tell you who is informed. A buying-burst experiment needs relevant history and labels. The example request deliberately documents that missing evidence; it does not establish a useful trading signal.</p>
+    <div class="actions"><a class="btn" href="./files/no-063/illustrative-snapshot.json">Inspect the snapshot →</a><a class="btn" href="./files/no-063/illustrative-request.json">Inspect the typed request →</a></div>
+  </article>
+</section>
+
+<div class="fig" id="certainty">
+  <h2 class="kick">Fig. 03 ·</h2>
+  <h2 class="disp">Certainty needs a test<span class="dot">.</span></h2>
+  <p class="sub">Jev's confidence summarizes its answer distribution. It does not establish market correctness.</p>
+</div>
+
+<section class="issues">
+  <article class="issue"><h3>The film's two-option example</h3><p>Illustrative probabilities 0.70 / 0.30 give confidence 0.40 using TypeSafe's <a href="https://docs.typesafe.ai/confidence" target="_blank" rel="noopener">Choice formula</a>. Arithmetic checked 2026-10-04; not an API result, trading win rate or chance of making money.</p></article>
+  <article class="issue"><h3>What still needs proving</h3><p>Test the judgments on held-out market data, measure the whole feed-to-exchange path, and validate the execution policy, fees, inventory limits and failure recovery. No such validation or live order execution was performed for this resource.</p></article>
+</section>
+
+<div class="fig" id="tools">
+  <h2 class="kick">Fig. 04 ·</h2>
+  <h2 class="disp">The official tools<span class="dot">.</span></h2>
+  <p class="sub">Primary documentation opened and checked on 2026-10-04. Vendor interface documentation is not independent proof of trading performance.</p>
+</div>
+
+<section class="issues">
+  <article class="issue"><h3>Understand the interface</h3><p><a href="https://docs.typesafe.ai/introduction" target="_blank" rel="noopener">TypeSafe introduction</a> · <a href="https://docs.typesafe.ai/primitives/choice" target="_blank" rel="noopener">Choice questions</a> · <a href="https://docs.typesafe.ai/confidence" target="_blank" rel="noopener">Confidence</a>.</p></article>
+  <article class="issue"><h3>Set up the adapter</h3><p><a href="https://docs.typesafe.ai/introduction/quickstart" target="_blank" rel="noopener">Quick start</a> · <a href="https://docs.typesafe.ai/sdk" target="_blank" rel="noopener">Client SDKs</a> · <a href="https://docs.typesafe.ai/api" target="_blank" rel="noopener">HTTP API reference</a>. The outline contains no credentials and no paid API call was made.</p></article>
+</section>
+
+<div class="fig" id="download">
+  <h2 class="kick">Fig. 05 ·</h2>
+  <h2 class="disp">Keep the outline<span class="dot">.</span></h2>
+  <p class="sub">The resource promised in the film: the setup outline and official links, with an inspectable synthetic example. No ready-to-trade bot or return promise.</p>
+</div>
+
+<section class="issues">
+  <article class="card c-cream"><div class="top"><span class="tag">NO.063 / HFT</span><span class="goth">2026-10-04</span></div><h2>Setup outline and example files</h2><p class="one">Read the component boundaries, the starting steps and the evidence still needed before anyone calls this HFT. The request file is example JSON, not a successful API receipt.</p><div class="actions"><a class="btn primary" href="./files/no-063/hft-setup-outline.md">Download the outline (.md) ↓</a><a class="btn" href="./files/no-063/illustrative-snapshot.json">Snapshot (.json) →</a><a class="btn" href="./files/no-063/illustrative-request.json">Request (.json) →</a></div></article>
+</section>
+
+<div class="fig" id="credit"><h2 class="kick">Fig. 06 ·</h2><h2 class="disp">Where it started<span class="dot">.</span></h2></div>
+<section class="issues"><article class="issue"><h3>Trading-workflow concept</h3><p><a href="https://www.instagram.com/p/DeAr43JPbqv/" target="_blank" rel="noopener">@raycfu / Rui Fu's reference reel</a>. The film, its charts, this outline and its synthetic example are Vektor's. The tool links establish interface details; they do not verify the reference reel's trading-performance claims.</p></article></section>
+</div>
