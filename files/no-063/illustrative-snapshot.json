@@ -1,0 +1,14 @@
+{
+  "example_kind": "synthetic-not-market-data",
+  "snapshot_id": "vektor-no063-example-001",
+  "authored_on": "2026-10-04",
+  "instrument": "ILLUSTRATIVE",
+  "units": "arbitrary-example-units",
+  "best_bid": 99,
+  "best_ask": 101,
+  "midpoint": 100,
+  "waiting_buy_size": 3,
+  "waiting_sell_size": 4,
+  "market_event": "Buying burst is the film's hypothetical scenario. No actual trade history or informed-trading labels are supplied.",
+  "limitations": "Synthetic static snapshot; not adequate evidence of informed trading, market direction, latency, a fill or profitability."
+}

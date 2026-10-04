@@ -2,25 +2,25 @@
 <html lang="en" id="top"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>vektor /// about — the AI frontier, cut to what ships</title>
-<meta name="description" content="What vektor is: one short film and one working pack per issue, a weekly Teardown by email, and how all of it is made. Free, no paywall.">
+<title>vektor /// no. 058 — Rules that load only when they apply.</title>
+<meta name="description" content="Somewhere in your CLAUDE.md is a procedure Claude reads at every startup and only needs on one kind of day. CLAUDE.md loads in full every session; a skill loads only its name and description until a request matches (code.claude.com docs, read 2026-09-29). I moved 24 lines of ship-day checks into one SKILL.md (measured with wc, 2026-09-29): the skill file, a blank template and the one-page sorting rule for what moves and what stays.">
 
 <!-- OG / social preview (traffic arrives via DM) -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="About vektor — the AI frontier, cut to what ships">
-<meta property="og:description" content="One short film and one working pack per issue. A weekly Teardown by email. Made with the same tools every issue is about.">
-<meta property="og:image" content="https://vektor-fm.github.io/vektor-site/og/index.png">
+<meta property="og:title" content="Rules that load only when they apply — vektor /// no. 058">
+<meta property="og:description" content="CLAUDE.md loads whole every session. A skill loads only its name and description until you need it. The skill file I moved 24 lines into, and the rule for what moves.">
+<meta property="og:image" content="https://vektor-fm.github.io/vektor-site/og/no-058.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="vektor — the AI frontier, cut to what ships">
+<meta property="og:image:alt" content="Rules that load only when they apply — vektor /// no. 058">
 <meta property="og:site_name" content="vektor">
-<meta property="og:url" content="https://vektor-fm.github.io/vektor-site/about.html">
-<link rel="canonical" href="https://vektor-fm.github.io/vektor-site/about.html">
+<meta property="og:url" content="https://vektor-fm.github.io/vektor-site/no-058.html">
+<link rel="canonical" href="https://vektor-fm.github.io/vektor-site/no-058.html">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="About vektor — the AI frontier, cut to what ships">
-<meta name="twitter:description" content="One short film and one working pack per issue. A weekly Teardown by email. Made with the same tools every issue is about.">
-<meta name="twitter:image" content="https://vektor-fm.github.io/vektor-site/og/index.png">
+<meta name="twitter:title" content="Rules that load only when they apply — vektor /// no. 058">
+<meta name="twitter:description" content="A procedure in CLAUDE.md costs context every session. In a skill it costs 57 words until the day you need it. The skill file and the sorting rule.">
+<meta name="twitter:image" content="https://vektor-fm.github.io/vektor-site/og/no-058.png">
 <meta name="theme-color" content="#000000">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000000'/%3E%3Ctext x='32' y='47' font-family='Arial' font-size='46' font-weight='600' text-anchor='middle' fill='%23EFEADD'%3Ev%3C/text%3E%3C/svg%3E">
 <link rel="preload" href="fonts/archivo-expanded-400.woff2" as="font" type="font/woff2" crossorigin>
@@ -833,94 +833,195 @@ pre.code code{font-size:inherit;}
 
 
 <!-- the issue marker, kept: it is the only per-page label in the bar -->
-<div class="issue-marker">About</div>
+<div class="issue-marker">Claude Code · skills</div>
 
 <!-- The capture furniture (sticky bar + pop-up) lives in partials/capture.html
      and is injected ONLY into public pages. Unlock pages get an empty string
      here — see build.mjs. The weave stays on both: it is structure, not an ask. -->
+<!-- Sticky ask. This used to be a Follow link back to Instagram, which spent
+     an IG click to win a visit and then returned the visitor to IG without
+     capturing anything. The goal is the email address, so the persistent ask
+     is now the email. Follow demotes to the footer.
+
+     THE PACK IS NO LONGER BEHIND THE EMAIL (founder, 2026-09-01). The reader
+     paid a follow in the DM; charging a second toll on the page spent funnel
+     conversion to grow a list that had sent one issue in its life. So the
+     sticky bar no longer promises to "open" anything — the payload is already
+     open, three screens down. It sells the WEEKLY, which is the only honest
+     thing left to sell. Wording that implies a lock is a lie now, not copy.
+     Full argument: vektor/reports/2026-09-01-email-gate-decision.md.
+
+     ABOVE-THE-FOLD FROM LOAD (v2, 2026-09-24). Evidence: the five biggest
+     keyword campaigns drew 1,097 opens and captured 41 emails lifetime (~4 per
+     100; worker /report). This bar previously stayed translateY(110%) — off
+     screen — until the reader scrolled past the LAST card on the page, i.e.
+     past the entire free payload. On mobile that is several screens down, so
+     most readers who bounce before finishing the page never saw an ask at
+     all. It now ships .show by default (scripts.html) so it is inside the
+     initial viewport on load, same as a cookie bar — it does not cover the
+     hook or the payload, it just rides the bottom 130-190px. Dismiss (the ×)
+     still hides it for the session.
+
+     ROLE PILLS (v2). One optional tap, POSTs as `role` alongside the email.
+     The worker (signup.js → Buttondown) does not yet turn it into a tag —
+     see vektor-site/WORKER-CHANGE-NEEDED.md for the exact change. Until that
+     ships the value still reaches the funnel worker's logs/notes field, it
+     is just not yet a Buttondown tag.
+
+     The tag still carries the PAGE slug (no058-sticky) — the worker no
+     longer needs it to decide what to unlock, but it is the only per-source
+     attribution we get in Buttondown and in /report's count:email:<source>.
+
+     This whole file is omitted from unlock pages — asking a reader for the
+     email they just gave you is how a funnel reads as a machine. -->
+<div class="sticky-cta" id="stickyCta" aria-hidden="true">
+  <div class="ask-copy">
+    <span class="t">The files stay free. One email a week — unsubscribe anytime.</span>
+    <fieldset class="role-pick">
+      <legend class="sr-only">What do you do? (optional)</legend>
+      <label class="pill"><input type="radio" name="role" value="developer" form="stickyForm"><span>Developer</span></label>
+      <label class="pill"><input type="radio" name="role" value="founder-operator" form="stickyForm"><span>Founder/operator</span></label>
+      <label class="pill"><input type="radio" name="role" value="other" form="stickyForm"><span>Other</span></label>
+    </fieldset>
+  </div>
+  <form class="sticky-form" id="stickyForm" method="post" action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" data-capture="sticky">
+      <input type="hidden" name="tag" value="no058-sticky">
+      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+    <label class="sr-only" for="stickyEmail">Email address</label>
+    <input id="stickyEmail" name="email" type="email" placeholder="you@email.com" autocomplete="email" required>
+    <button class="btn primary" type="submit">Subscribe &rarr;</button>
+  </form>
+  <button class="x" id="ctaClose" type="button" aria-label="Dismiss">&times;</button>
+</div>
+
+<!-- THE ASK MODAL — one markup, two triggers, running as an A/B (2026-09-01).
+     Founder call after the evidence: the pop-up in its 50%-scroll form was
+     viewed ~47 times and dismissed ~46 of those across NO.006/034/036/038/039
+     (live /report, 30 d, pulled 2026-09-01), with no signup attributable to it.
+     The founder's read is that the ask should land at PEAK ATTENTION; the
+     disagreement was only about what signals attention — a clock or an action.
+     So both are built and split 50/50 rather than argued:
+
+       arm A — 6 s timer (the founder's version)
+       arm B — fires on the download / copy action, i.e. the moment the reader
+               takes the thing they came for
+
+     The trigger is the ONLY difference. Same markup, same copy, same cooldown,
+     so a difference in the numbers is a difference in the trigger. The arm is
+     sticky per browser (localStorage) so one reader never sees both.
+
+     The copy has to be true for BOTH arms, which is why it does not say "that
+     one's yours" (arm A fires before any download) and does not say "opens on
+     the next screen" (nothing is locked any more). It sells the weekly. -->
+<div class="pop" id="askPop" hidden>
+  <div class="pop-scrim" data-pop-close></div>
+  <div class="pop-card" role="dialog" aria-modal="true" aria-labelledby="askPopH">
+    <button class="pop-x" type="button" data-pop-close aria-label="Close">×</button>
+    <span class="k">One email a week · the working setup</span>
+    <h2 id="askPopH">Where the next one comes from.</h2>
+    <p>the Claude Code pack is yours, free, no email needed — it is on this page. The weekly teardown is where the next one gets built: one working AI setup, every week, with the numbers checked at source.</p>
+    <form action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="ask">
+      <input type="hidden" name="tag" id="askTag" value="no058-ask">
+      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+      <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
+      <button class="btn" type="submit">Send me the weekly →</button>
+    </form>
+    <div class="note">One email a week. Unsubscribe in one click.</div>
+  </div>
+</div>
 
 <div class="weave" aria-hidden="true"></div>
 
 <main>
 <section class="hero">
-  <div class="kick eye">About · the long version</div>
-  <h1 class="disp">The AI frontier, cut to what ships<span class="dot">.</span></h1>
-  <p class="sub">vektor is a short-film series about the Claude and AI tooling that actually changes how you work. Every issue is one film and one working pack: the config, the prompts, the install lines, the sources. Nothing is held back and nothing is behind a paywall.</p>
+  <div class="kick eye">Claude Code · skills</div>
+  <h1 class="disp">Rules that load<br>only when<br>they apply<span class="dot">.</span></h1>
+  <p class="sub">Somewhere in your CLAUDE.md is a procedure Claude reads at every startup and you only need on one kind of day. Anthropic's docs say to move it into a skill. I moved 24 lines of mine on 29 September 2026. Below: the skill file itself, a blank template, and the one-page rule for what moves and what stays.</p>
+  <div class="actions">
+    <a class="btn primary" href="#files">Get the skill file ↓</a>
+    <a class="btn" href="#rule">See the sorting rule →</a>
+    <a class="btn" href="./files/no-058/sorting-rule.md">Download the sorting rule (.md) &darr;</a>
+    <button class="btn" id="shareBtn" type="button">Send to whoever's CLAUDE.md holds a whole release checklist</button>
+  </div>
+  <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
 </section>
 
+<!-- ======================= THE MECHANISM ======================= -->
 <div class="fig">
   <h2 class="kick">Fig. 01 ·</h2>
-  <h2 class="disp">One issue, three parts<span class="dot">.</span></h2>
-  <p class="sub">The film sells nothing. It shows one thing that works, then hands you the files.</p>
+  <h2 class="disp">Two files, two loading rules<span class="dot">.</span></h2>
+  <p class="sub">CLAUDE.md and a skill both hold instructions. They reach Claude's context at different times.</p>
 </div>
 
-<section class="issues" id="how">
-  <article class="card c-ink">
-    <div class="top">
-      <span class="tag">The film</span>
-      <span class="goth">sixty seconds</span>
-    </div>
-    <h2>One thing that works, shown working.</h2>
-    <p class="one">A vertical short on TikTok, Instagram, YouTube and X. No intro, no outro, no throat-clearing. New films every week; the archive holds 45 issues so far.</p>
+<section class="issues" id="mechanism">
+  <article class="issue">
+    <h3>CLAUDE.md loads whole, every session</h3>
+    <p>&ldquo;CLAUDE.md files are loaded into the context window at the start of every session, consuming tokens alongside your conversation.&rdquo; A procedure written there costs context in every session, including the ones that never run it.</p>
+    <p class="meta">Docs: <a href="https://code.claude.com/docs/en/memory" target="_blank" rel="noopener">code.claude.com/docs/en/memory</a> (read 2026-09-29)</p>
   </article>
-  <article class="card c-ink">
-    <div class="top">
-      <span class="tag">The keyword</span>
-      <span class="goth">one word</span>
-    </div>
-    <h2>Every film ends on a single word.</h2>
-    <p class="one">Comment it under the reel and the bot sends you the link to the issue page in a DM. The same page is linked from the archive here, so the keyword is a shortcut, not a lock.</p>
-  </article>
-  <article class="card c-ink">
-    <div class="top">
-      <span class="tag">The pack</span>
-      <span class="goth">the working files</span>
-    </div>
-    <h2>The files behind the film, on the issue page.</h2>
-    <p class="one">Config files, prompts written out in full, one-line installs, the repos and papers the film cites. Where a number was measured, the page says how. Where a claim could not be verified, the page says that too.</p>
-    <div class="actions">
-      <a class="btn" href="./index.html#archive">Browse the archive →</a>
-      <a class="btn" href="./no-054.html">Latest: Your CLAUDE.md is slowing Claude Code down →</a>
-    </div>
+  <article class="issue">
+    <h3>A skill loads its name and description, then waits</h3>
+    <p>At startup Claude Code puts a listing of skill names and descriptions into context. The SKILL.md body stays on disk until a request matches the description. Then it enters the conversation as a single message and stays there for later turns.</p>
+    <p class="meta">Docs: <a href="https://code.claude.com/docs/en/skills" target="_blank" rel="noopener">code.claude.com/docs/en/skills</a> (read 2026-09-29)</p>
   </article>
 </section>
 
+<!-- ======================= WHAT I MOVED ======================= -->
 <div class="fig">
   <h2 class="kick">Fig. 02 ·</h2>
-  <h2 class="disp">The Teardown<span class="dot">.</span></h2>
-  <p class="sub">The one thing you can sign up for.</p>
+  <h2 class="disp">What I moved<span class="dot">.</span></h2>
+  <p class="sub">Measured with <code>wc</code> on my own repo, 29 September 2026. Not a general claim about every CLAUDE.md.</p>
 </div>
 
-<section class="issues" id="teardown">
-  <article class="card c-ink">
-    <div class="top">
-      <span class="tag">Email · weekly</span>
-      <span class="goth">5 editions so far</span>
-    </div>
-    <h2>One automation a week, pulled apart in public.</h2>
-    <p class="one">What it replaced, what it broke, what it actually cost when we ran it. Each edition is also published here as a web page, so you can read one before you subscribe. Free, one-click unsubscribe, and the address is used for nothing else.</p>
-    <div class="actions">
-      <a class="btn primary" href="./newsletter.html">Read the editions and subscribe →</a>
-      <a class="btn" href="./privacy.html">What we do with your email →</a>
-    </div>
+<section class="ledger" aria-label="The move in numbers">
+  <div class="lrow"><span class="n">492</span><span class="t">Lines across my three CLAUDE.md files, every session, before the move</span></div>
+  <div class="lrow"><span class="n">24</span><span class="t">Lines of ship-day checks and pipeline order (204 words) moved into one SKILL.md</span></div>
+  <div class="lrow"><span class="n">57</span><span class="t">Words of name and description that stay in the listing instead</span></div>
+</section>
+
+<!-- ======================= THE SORTING RULE ======================= -->
+<div class="fig" id="rule">
+  <h2 class="kick">Fig. 03 ·</h2>
+  <h2 class="disp">What moves, what stays<span class="dot">.</span></h2>
+  <p class="sub">Anthropic's own sorting rule: &ldquo;If an entry is a multi-step procedure or only matters for one part of the codebase, move it to a skill or a path-scoped rule instead.&rdquo;</p>
+</div>
+
+<section class="issues" id="sort">
+  <article class="issue">
+    <h3>Stays in CLAUDE.md</h3>
+    <p>Build commands, conventions, project layout, and &ldquo;always do X&rdquo; rules every session needs. Mine: never <code>git add -A</code>, stage explicit paths. That one stayed.</p>
+  </article>
+  <article class="issue">
+    <h3>Moves to a skill</h3>
+    <p>A multi-step procedure you run on one kind of day: a release checklist, a pre-delivery gate, a migration runbook. Reference material only one task needs.</p>
+  </article>
+  <article class="issue">
+    <h3>If a skill never fires, check the description</h3>
+    <p>Claude makes the match, so the description needs the words you'd type. Mine ends: &ldquo;Use when asked to gate, QA, check, or vet a rendered vektor video&rdquo;. Put the trigger words first: the listing cuts description and when_to_use at 1,536 characters.</p>
+    <p class="meta"><a href="./files/no-058/sorting-rule.md">The full one-page rule, with the test to run on each block →</a></p>
   </article>
 </section>
 
-<div class="fig">
-  <h2 class="kick">Fig. 03 ·</h2>
-  <h2 class="disp">How it is made<span class="dot">.</span></h2>
-  <p class="sub">With the same tools every issue is about.</p>
+<!-- ======================= THE FILES ======================= -->
+<div class="fig" id="files">
+  <h2 class="kick">Fig. 04 ·</h2>
+  <h2 class="disp">The files<span class="dot">.</span></h2>
+  <p class="sub">Free, no email needed. Drop a skill in <code>.claude/skills/&lt;name&gt;/SKILL.md</code> for one repo, or <code>~/.claude/skills/&lt;name&gt;/SKILL.md</code> for all of them.</p>
 </div>
 
-<section class="issues" id="made">
-  <article class="card c-ink">
+<section class="issues" id="download">
+  <article class="card c-cream">
     <div class="top">
-      <span class="tag">The workshop</span>
-      <span class="goth">one person, one pipeline</span>
+      <span class="tag">SKILL.md · as moved 2026-09-29</span>
+      <span class="goth">the real one</span>
     </div>
-    <h2>Scripted, rendered and gated by the tooling in the films.</h2>
-    <p class="one">vektor is made by one person. The scripts are checked against a written spec before a voice is generated, the visuals are built in a design system with an automated gate, and the packs are the files that pipeline actually uses. When an issue says a setup works, it is because it is running here.</p>
-    <p class="meta">Corrections, sources and topic requests: the reel comments are read, and <a href="./thanks.html">the contact page</a> reaches a human.</p>
+    <h2>My gate-video skill</h2>
+    <p class="one">The 24 lines that left my CLAUDE.md, with the frontmatter that makes them load on demand. The commands are mine, and some point at a render system I have since frozen: keep the shape, swap in your own steps.</p>
+    <div class="actions">
+      <a class="btn" href="./files/no-058/gate-video-SKILL.md">Download gate-video SKILL.md &darr;</a>
+      <a class="btn" href="./files/no-058/SKILL-template.md">Download the blank template &darr;</a>
+      <a class="btn" href="./files/no-058/sorting-rule.md">Download the sorting rule &darr;</a>
+    </div>
   </article>
 </section>
 </main>
@@ -943,18 +1044,18 @@ pre.code code{font-size:inherit;}
   </div>
 
   <nav class="socials" aria-label="Social links">
-    <a data-goatcounter-click="about-follow-tiktok-foot" href="https://tiktok.com/@vektor.fm" target="_blank" rel="noopener">TikTok · @vektor.fm</a>
-    <a data-goatcounter-click="about-follow-instagram-foot" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Instagram · @vektor.fm</a>
-    <a data-goatcounter-click="about-follow-youtube-foot" href="https://youtube.com/@vektorfm" target="_blank" rel="noopener">YouTube · @vektorfm</a>
-    <a data-goatcounter-click="about-follow-x-foot" href="https://x.com/vektordotfm" target="_blank" rel="noopener">X · @vektordotfm</a>
+    <a data-goatcounter-click="no058-follow-tiktok-foot" href="https://tiktok.com/@vektor.fm" target="_blank" rel="noopener">TikTok · @vektor.fm</a>
+    <a data-goatcounter-click="no058-follow-instagram-foot" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Instagram · @vektor.fm</a>
+    <a data-goatcounter-click="no058-follow-youtube-foot" href="https://youtube.com/@vektorfm" target="_blank" rel="noopener">YouTube · @vektorfm</a>
+    <a data-goatcounter-click="no058-follow-x-foot" href="https://x.com/vektordotfm" target="_blank" rel="noopener">X · @vektordotfm</a>
     <a href="./privacy.html">Privacy</a>
   </nav>
 
-  <div class="backref">New films every week — <b>catch the keyword on the reel</b> — follow @vektor.fm.</div>
+  <div class="backref">A new keyword drops every week — <b>catch it first on the reel</b> — follow @vektor.fm. More like this: <a href="./no-054.html">Your CLAUDE.md is slowing Claude Code down →</a></div>
 
   <div class="wordmark-foot">
     <span class="wm-foot" id="wmFoot" aria-label="vektor"><span class="ch2" style="--i:0"><span class="g">%</span><span class="l">v</span></span><span class="ch2" style="--i:1"><span class="g">#</span><span class="l">e</span></span><span class="ch2" style="--i:2"><span class="g">Z</span><span class="l">k</span></span><span class="ch2" style="--i:3"><span class="g">8</span><span class="l">t</span></span><span class="ch2" style="--i:4"><span class="g">@</span><span class="l">o</span></span><span class="ch2" style="--i:5"><span class="g">W</span><span class="l">r</span></span></span>
-    <span class="m">/// about · what vektor is and how it is made</span>
+    <span class="m">/// no. 058 / trigger / 10-2026 · claude.md, skills, context engineering</span>
   </div>
 </footer>
 
@@ -967,7 +1068,7 @@ pre.code code{font-size:inherit;}
   function fallback(text){ var t=document.createElement('textarea'); t.value=text; t.style.position='fixed'; t.style.opacity='0'; document.body.appendChild(t); t.focus(); t.select(); try{ document.execCommand('copy'); }catch(e){} document.body.removeChild(t); }
   function copyText(text, btn, doneLabel){ var o=btn.textContent, done=function(){ btn.textContent=doneLabel; setTimeout(function(){btn.textContent=o;},1600); }; if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(done).catch(function(){ fallback(text); done(); }); } else { fallback(text); done(); } }
   function gcEvent(name){ if(name && window.goatcounter && goatcounter.count){ goatcounter.count({path:name, event:true}); } }
-  var COPY_EVENT=null;
+  var COPY_EVENT='copy-skill-file';
   document.querySelectorAll('.copybtn').forEach(function(btn){ btn.addEventListener('click', function(){ copyText(btn.getAttribute('data-copy'), btn, 'Copied ✓'); gcEvent(COPY_EVENT); }); });
   var snip=document.getElementById('snipCopy');
   if(snip){ snip.addEventListener('click', function(){ var el=document.getElementById('snipText'); copyText(el.textContent, snip, 'Copied ✓'); gcEvent(COPY_EVENT); }); }
@@ -976,7 +1077,7 @@ pre.code code{font-size:inherit;}
   var camp=(location.pathname.split('/').pop()||'index').replace(/\.html$/,'')||'index';
   document.querySelectorAll('a[href^="http"]').forEach(function(a){ try{ var u=new URL(a.href); if(u.hostname==='github.com'){return;} if(!u.searchParams.has('utm_source')){ u.searchParams.set('utm_source','vektor'); u.searchParams.set('utm_medium','dm'); u.searchParams.set('utm_campaign',camp); a.href=u.toString(); } }catch(e){} });
   var sh=document.getElementById('shareBtn');
-  if(sh){ sh.addEventListener('click', function(){ gcEvent('about-share'); if(navigator.share){ navigator.share({title:document.title, url:location.href}).catch(function(){}); } else { copyText(location.href, sh, 'Link copied — paste it ✓'); } }); }
+  if(sh){ sh.addEventListener('click', function(){ gcEvent('no058-share'); if(navigator.share){ navigator.share({title:document.title, url:location.href}).catch(function(){}); } else { copyText(location.href, sh, 'Link copied — paste it ✓'); } }); }
   var sticky=document.getElementById('stickyCta'), sub=document.getElementById('subscribe'), dismissed=false, stickyViewed=false;
   var midcap=document.querySelector('.midcap');
   // v2 (2026-09-24): visible FROM LOAD, not after scrolling past the whole
@@ -1001,7 +1102,7 @@ pre.code code{font-size:inherit;}
       sticky.setAttribute('aria-hidden', show?'false':'true');
       // view-of-ask event, once per page view, the moment it first becomes visible
       // (almost always on load) — gives the submit counts a denominator.
-      if(show && !stickyViewed){ stickyViewed=true; gcEvent('about-sticky-view'); }
+      if(show && !stickyViewed){ stickyViewed=true; gcEvent('no058-sticky-view'); }
     }
     window.addEventListener('scroll',updCta,{passive:true}); window.addEventListener('resize',updCta); updCta();
     var ctaClose=document.getElementById('ctaClose');
@@ -1011,7 +1112,7 @@ pre.code code{font-size:inherit;}
     // nested inside it). Its own event per tap, so the choice is measurable
     // even from a reader who taps a pill and never submits.
     document.querySelectorAll('.role-pick input[type="radio"]').forEach(function(r){
-      r.addEventListener('change', function(){ if(r.checked){ gcEvent('about-sticky-role-'+r.value); } });
+      r.addEventListener('change', function(){ if(r.checked){ gcEvent('no058-sticky-role-'+r.value); } });
     });
   }
   var wmFoot=document.getElementById('wmFoot');
@@ -1037,7 +1138,7 @@ pre.code code{font-size:inherit;}
   //
   // Read the result off count:email:<slug>-ask-a vs -ask-b in /report (the tag
   // travels to Buttondown, so it survives ad-blockers that eat GoatCounter) and
-  // off about-ask-view-a/-dismiss-a vs the -b pair for the dismissal rate.
+  // off no058-ask-view-a/-dismiss-a vs the -b pair for the dismissal rate.
   // Decide after 3 films, not after one — at ~40-60 page opens per film, one
   // film cannot separate these.
   (function(){
@@ -1063,17 +1164,17 @@ pre.code code{font-size:inherit;}
       }
     }
     var tag=document.getElementById('askTag');
-    if(tag){ tag.value='about-ask-'+arm; }
+    if(tag){ tag.value='no058-ask-'+arm; }
 
     if(!force){ try{ var last=parseInt(localStorage.getItem(KEY)||'0',10); if(last && (Date.now()-last)<TTL){ return; } }catch(e){} }
     function seen(){ try{ localStorage.setItem(KEY, String(Date.now())); }catch(e){} }
     function esc(e){ if(e.key==='Escape'){ close(); } }
-    function close(){ pop.setAttribute('hidden',''); seen(); document.removeEventListener('keydown',esc); gcEvent('about-ask-dismiss-'+arm); }
+    function close(){ pop.setAttribute('hidden',''); seen(); document.removeEventListener('keydown',esc); gcEvent('no058-ask-dismiss-'+arm); }
     pop.querySelectorAll('[data-pop-close]').forEach(function(el){ el.addEventListener('click', close); });
     // submit fires seen() but NOT close(), so a dismissal count is never
     // inflated by a conversion — dismiss ≈ view is then a real read.
     var f=pop.querySelector('form');
-    if(f){ f.addEventListener('submit', function(){ seen(); gcEvent('about-ask-submit-'+arm); }); }
+    if(f){ f.addEventListener('submit', function(){ seen(); gcEvent('no058-ask-submit-'+arm); }); }
 
     var fired=false;
     function open(){
@@ -1081,7 +1182,7 @@ pre.code code{font-size:inherit;}
       fired=true;
       pop.removeAttribute('hidden');
       document.addEventListener('keydown',esc);
-      gcEvent('about-ask-view-'+arm);
+      gcEvent('no058-ask-view-'+arm);
       var x=pop.querySelector('.pop-x'); if(x){ try{ x.focus(); }catch(e){} }
     }
 
@@ -1105,6 +1206,7 @@ pre.code code{font-size:inherit;}
       }, true);
     }
   })();
+  document.querySelectorAll('form').forEach(function(f){ f.addEventListener('submit', function(){ gcEvent('no058-subscribe-submit'); }); });
 
   // ---- shared nav: reveal + mobile drawer ----
   // The header sits off-screen until a 24px hover strip is entered (desktop) or
@@ -1138,7 +1240,7 @@ pre.code code{font-size:inherit;}
   // would even exist, so that path would have gone silent.)
   document.querySelectorAll('form[data-capture]').forEach(function(f){
     f.addEventListener('submit', function(){
-      gcEvent('about-sub-' + f.getAttribute('data-capture'));
+      gcEvent('no058-sub-' + f.getAttribute('data-capture'));
     });
   });
 </script>

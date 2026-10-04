@@ -2,25 +2,25 @@
 <html lang="en" id="top"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>vektor /// about — the AI frontier, cut to what ships</title>
-<meta name="description" content="What vektor is: one short film and one working pack per issue, a weekly Teardown by email, and how all of it is made. Free, no paywall.">
+<title>vektor /// no. 063 - Jev trading workflow: the setup outline</title>
+<meta name="description" content="The setup outline and official tools from NO.063: a market snapshot, typed Jev questions and code-controlled order decisions. Illustrative prototype; HFT suitability and trading performance are unverified.">
 
 <!-- OG / social preview (traffic arrives via DM) -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="About vektor — the AI frontier, cut to what ships">
-<meta property="og:description" content="One short film and one working pack per issue. A weekly Teardown by email. Made with the same tools every issue is about.">
-<meta property="og:image" content="https://vektor-fm.github.io/vektor-site/og/index.png">
+<meta property="og:title" content="Jev trading workflow: the setup outline - vektor no. 063">
+<meta property="og:description" content="Snapshot, typed questions, your code. The promised outline and official links, with a synthetic example and explicit validation limits.">
+<meta property="og:image" content="https://vektor-fm.github.io/vektor-site/og/vektor-og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="vektor — the AI frontier, cut to what ships">
+<meta property="og:image:alt" content="Vektor - the AI frontier, cut to what ships">
 <meta property="og:site_name" content="vektor">
-<meta property="og:url" content="https://vektor-fm.github.io/vektor-site/about.html">
-<link rel="canonical" href="https://vektor-fm.github.io/vektor-site/about.html">
-
+<meta property="og:url" content="https://vektor-fm.github.io/vektor-site/no-063.html">
+<link rel="canonical" href="https://vektor-fm.github.io/vektor-site/no-063.html">
+<meta name="robots" content="noindex,nofollow">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="About vektor — the AI frontier, cut to what ships">
-<meta name="twitter:description" content="One short film and one working pack per issue. A weekly Teardown by email. Made with the same tools every issue is about.">
-<meta name="twitter:image" content="https://vektor-fm.github.io/vektor-site/og/index.png">
+<meta name="twitter:title" content="Jev trading workflow: the setup outline - vektor no. 063">
+<meta name="twitter:description" content="The NO.063 setup outline, official tool links and inspectable synthetic request. No tested HFT or profitability claim.">
+<meta name="twitter:image" content="https://vektor-fm.github.io/vektor-site/og/vektor-og.png">
 <meta name="theme-color" content="#000000">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000000'/%3E%3Ctext x='32' y='47' font-family='Arial' font-size='46' font-weight='600' text-anchor='middle' fill='%23EFEADD'%3Ev%3C/text%3E%3C/svg%3E">
 <link rel="preload" href="fonts/archivo-expanded-400.woff2" as="font" type="font/woff2" crossorigin>
@@ -833,7 +833,7 @@ pre.code code{font-size:inherit;}
 
 
 <!-- the issue marker, kept: it is the only per-page label in the bar -->
-<div class="issue-marker">About</div>
+<div class="issue-marker">AI tools - Jev and your code</div>
 
 <!-- The capture furniture (sticky bar + pop-up) lives in partials/capture.html
      and is injected ONLY into public pages. Unlock pages get an empty string
@@ -842,87 +842,112 @@ pre.code code{font-size:inherit;}
 <div class="weave" aria-hidden="true"></div>
 
 <main>
+<!-- Shown at the top of an unlock page: the receipt for the email that was just
+     given. It exists because a redirect with no acknowledgement reads as an
+     error — the reader typed something, the screen changed, and nothing told
+     them it worked. It also carries the ONE instruction that protects the list:
+     the first issue arrives from this address, so whitelist it. -->
+<section class="unlocked">
+  <span class="k">Unlocked · AI tools - Jev and your code</span>
+  <h2>You're in. The pack is below.</h2>
+  <p>Bookmark this page — the link keeps working. The weekly setup lands on Thursday; if it isn't in your inbox, check Promotions and drag it across once.</p>
+</section>
+<style>
+/* Film-local layout only; shared site templates and tokens stay unchanged. */
+#no063-page .fig{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:baseline;}
+#no063-page .fig .kick{font-size:var(--fs-s);}
+#no063-page .fig .disp{min-width:0;overflow-wrap:break-word;}
+#no063-page .fig .sub{grid-column:1 / -1;min-width:0;max-width:64ch;overflow-wrap:anywhere;font-size:var(--fs-m);line-height:var(--lh-xl);color:var(--dim);}
+@media(max-width:640px){
+  #no063-page .fig{grid-template-columns:minmax(0,1fr);}
+  #no063-page .fig .sub{grid-column:1;}
+  #no063-page .card .top{flex-wrap:wrap;}
+}
+</style>
+<div id="no063-page">
 <section class="hero">
-  <div class="kick eye">About · the long version</div>
-  <h1 class="disp">The AI frontier, cut to what ships<span class="dot">.</span></h1>
-  <p class="sub">vektor is a short-film series about the Claude and AI tooling that actually changes how you work. Every issue is one film and one working pack: the config, the prompts, the install lines, the sources. Nothing is held back and nothing is behind a paywall.</p>
+  <div class="kick eye">AI tools · Jev and your code</div>
+  <h1 class="disp">A market snapshot.<br>A typed judgment.<br>Your code decides<span class="dot">.</span></h1>
+  <p class="sub">The setup outline from NO.063: give Jev a market snapshot, ask focused questions, then keep prices, limits and order decisions in your code. This is an <b>illustrative prototype architecture</b>. HFT suitability, latency, market accuracy, live exchange execution and profitability are unverified.</p>
+  <div class="actions">
+    <a class="btn primary" href="#setup">Read the setup ↓</a>
+    <a class="btn" href="./files/no-063/hft-setup-outline.md">Download the outline (.md) ↓</a>
+    <a class="btn" href="#tools">Official tool links →</a>
+    <button class="btn" id="shareBtn" type="button">Send to a builder</button>
+  </div>
+  <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
 </section>
 
 <div class="fig">
   <h2 class="kick">Fig. 01 ·</h2>
-  <h2 class="disp">One issue, three parts<span class="dot">.</span></h2>
-  <p class="sub">The film sells nothing. It shows one thing that works, then hands you the files.</p>
+  <h2 class="disp">Three parts, one state<span class="dot">.</span></h2>
+  <p class="sub">The picture in the film follows the same snapshot through these boundaries. Each part has a different job.</p>
 </div>
 
-<section class="issues" id="how">
-  <article class="card c-ink">
-    <div class="top">
-      <span class="tag">The film</span>
-      <span class="goth">sixty seconds</span>
-    </div>
-    <h2>One thing that works, shown working.</h2>
-    <p class="one">A vertical short on TikTok, Instagram, YouTube and X. No intro, no outro, no throat-clearing. New films every week; the archive holds 45 issues so far.</p>
-  </article>
-  <article class="card c-ink">
-    <div class="top">
-      <span class="tag">The keyword</span>
-      <span class="goth">one word</span>
-    </div>
-    <h2>Every film ends on a single word.</h2>
-    <p class="one">Comment it under the reel and the bot sends you the link to the issue page in a DM. The same page is linked from the archive here, so the keyword is a shortcut, not a lock.</p>
-  </article>
-  <article class="card c-ink">
-    <div class="top">
-      <span class="tag">The pack</span>
-      <span class="goth">the working files</span>
-    </div>
-    <h2>The files behind the film, on the issue page.</h2>
-    <p class="one">Config files, prompts written out in full, one-line installs, the repos and papers the film cites. Where a number was measured, the page says how. Where a claim could not be verified, the page says that too.</p>
-    <div class="actions">
-      <a class="btn" href="./index.html#archive">Browse the archive →</a>
-      <a class="btn" href="./no-054.html">Latest: Your CLAUDE.md is slowing Claude Code down →</a>
-    </div>
-  </article>
+<section class="ledger" id="setup" aria-label="Setup outline">
+  <div class="lrow"><span class="n">1</span><span class="t"><b>Feed → snapshot.</b> Your adapter normalizes the exchange data. Preserve the instrument, units, prices, waiting orders, sequence and timestamps. Begin with the synthetic file below; no exchange adapter is supplied.</span></div>
+  <div class="lrow"><span class="n">2</span><span class="t"><b>Snapshot → Jev questions.</b> Send the state with narrowly defined questions and fixed answer options. TypeSafe documents independent evaluation against the same state; the sample request is an unvalidated prompt experiment, not a recorded API result.</span></div>
+  <div class="lrow"><span class="n">3</span><span class="t"><b>Answers → your code.</b> Your application applies its quote policy and account limits, then proposes a cancel, submit or no-action decision. Inspect those proposals in replay or paper mode before considering any exchange integration.</span></div>
 </section>
 
-<div class="fig">
+<div class="fig" id="example">
   <h2 class="kick">Fig. 02 ·</h2>
-  <h2 class="disp">The Teardown<span class="dot">.</span></h2>
-  <p class="sub">The one thing you can sign up for.</p>
+  <h2 class="disp">The illustrative snapshot<span class="dot">.</span></h2>
+  <p class="sub">Synthetic example, authored by Vektor on 2026-10-04. Prices and quantities use arbitrary units. This is not market data.</p>
 </div>
 
-<section class="issues" id="teardown">
-  <article class="card c-ink">
-    <div class="top">
-      <span class="tag">Email · weekly</span>
-      <span class="goth">5 editions so far</span>
+<section class="issues">
+  <article class="card c-cream">
+    <div class="top"><span class="tag">ILLUSTRATIVE · no-063-example-001</span><span class="goth">Vektor, 2026-10-04</span></div>
+    <h2>Freeze what the code actually knows</h2>
+    <div class="snippet"><div class="bar"><span class="f">illustrative-snapshot.json</span><button class="snipbtn" id="snipCopy" type="button">Copy example</button></div>
+      <pre id="snipText">best bid              99
+best ask             101
+midpoint             100
+waiting buy size       3
+waiting sell size      4
+snapshot         example-001</pre>
     </div>
-    <h2>One automation a week, pulled apart in public.</h2>
-    <p class="one">What it replaced, what it broke, what it actually cost when we ran it. Each edition is also published here as a web page, so you can read one before you subscribe. Free, one-click unsubscribe, and the address is used for nothing else.</p>
-    <div class="actions">
-      <a class="btn primary" href="./newsletter.html">Read the editions and subscribe →</a>
-      <a class="btn" href="./privacy.html">What we do with your email →</a>
-    </div>
+    <p class="one">A single static snapshot cannot tell you who is informed. A buying-burst experiment needs relevant history and labels. The example request deliberately documents that missing evidence; it does not establish a useful trading signal.</p>
+    <div class="actions"><a class="btn" href="./files/no-063/illustrative-snapshot.json">Inspect the snapshot →</a><a class="btn" href="./files/no-063/illustrative-request.json">Inspect the typed request →</a></div>
   </article>
 </section>
 
-<div class="fig">
+<div class="fig" id="certainty">
   <h2 class="kick">Fig. 03 ·</h2>
-  <h2 class="disp">How it is made<span class="dot">.</span></h2>
-  <p class="sub">With the same tools every issue is about.</p>
+  <h2 class="disp">Certainty needs a test<span class="dot">.</span></h2>
+  <p class="sub">Jev's confidence summarizes its answer distribution. It does not establish market correctness.</p>
 </div>
 
-<section class="issues" id="made">
-  <article class="card c-ink">
-    <div class="top">
-      <span class="tag">The workshop</span>
-      <span class="goth">one person, one pipeline</span>
-    </div>
-    <h2>Scripted, rendered and gated by the tooling in the films.</h2>
-    <p class="one">vektor is made by one person. The scripts are checked against a written spec before a voice is generated, the visuals are built in a design system with an automated gate, and the packs are the files that pipeline actually uses. When an issue says a setup works, it is because it is running here.</p>
-    <p class="meta">Corrections, sources and topic requests: the reel comments are read, and <a href="./thanks.html">the contact page</a> reaches a human.</p>
-  </article>
+<section class="issues">
+  <article class="issue"><h3>The film's two-option example</h3><p>Illustrative probabilities 0.70 / 0.30 give confidence 0.40 using TypeSafe's <a href="https://docs.typesafe.ai/confidence" target="_blank" rel="noopener">Choice formula</a>. Arithmetic checked 2026-10-04; not an API result, trading win rate or chance of making money.</p></article>
+  <article class="issue"><h3>What still needs proving</h3><p>Test the judgments on held-out market data, measure the whole feed-to-exchange path, and validate the execution policy, fees, inventory limits and failure recovery. No such validation or live order execution was performed for this resource.</p></article>
 </section>
+
+<div class="fig" id="tools">
+  <h2 class="kick">Fig. 04 ·</h2>
+  <h2 class="disp">The official tools<span class="dot">.</span></h2>
+  <p class="sub">Primary documentation opened and checked on 2026-10-04. Vendor interface documentation is not independent proof of trading performance.</p>
+</div>
+
+<section class="issues">
+  <article class="issue"><h3>Understand the interface</h3><p><a href="https://docs.typesafe.ai/introduction" target="_blank" rel="noopener">TypeSafe introduction</a> · <a href="https://docs.typesafe.ai/primitives/choice" target="_blank" rel="noopener">Choice questions</a> · <a href="https://docs.typesafe.ai/confidence" target="_blank" rel="noopener">Confidence</a>.</p></article>
+  <article class="issue"><h3>Set up the adapter</h3><p><a href="https://docs.typesafe.ai/introduction/quickstart" target="_blank" rel="noopener">Quick start</a> · <a href="https://docs.typesafe.ai/sdk" target="_blank" rel="noopener">Client SDKs</a> · <a href="https://docs.typesafe.ai/api" target="_blank" rel="noopener">HTTP API reference</a>. The outline contains no credentials and no paid API call was made.</p></article>
+</section>
+
+<div class="fig" id="download">
+  <h2 class="kick">Fig. 05 ·</h2>
+  <h2 class="disp">Keep the outline<span class="dot">.</span></h2>
+  <p class="sub">The resource promised in the film: the setup outline and official links, with an inspectable synthetic example. No ready-to-trade bot or return promise.</p>
+</div>
+
+<section class="issues">
+  <article class="card c-cream"><div class="top"><span class="tag">NO.063 / HFT</span><span class="goth">2026-10-04</span></div><h2>Setup outline and example files</h2><p class="one">Read the component boundaries, the starting steps and the evidence still needed before anyone calls this HFT. The request file is example JSON, not a successful API receipt.</p><div class="actions"><a class="btn primary" href="./files/no-063/hft-setup-outline.md">Download the outline (.md) ↓</a><a class="btn" href="./files/no-063/illustrative-snapshot.json">Snapshot (.json) →</a><a class="btn" href="./files/no-063/illustrative-request.json">Request (.json) →</a></div></article>
+</section>
+
+<div class="fig" id="credit"><h2 class="kick">Fig. 06 ·</h2><h2 class="disp">Where it started<span class="dot">.</span></h2></div>
+<section class="issues"><article class="issue"><h3>Trading-workflow concept</h3><p><a href="https://www.instagram.com/p/DeAr43JPbqv/" target="_blank" rel="noopener">@raycfu / Rui Fu's reference reel</a>. The film, its charts, this outline and its synthetic example are Vektor's. The tool links establish interface details; they do not verify the reference reel's trading-performance claims.</p></article></section>
+</div>
 </main>
 
 <footer>
@@ -943,18 +968,18 @@ pre.code code{font-size:inherit;}
   </div>
 
   <nav class="socials" aria-label="Social links">
-    <a data-goatcounter-click="about-follow-tiktok-foot" href="https://tiktok.com/@vektor.fm" target="_blank" rel="noopener">TikTok · @vektor.fm</a>
-    <a data-goatcounter-click="about-follow-instagram-foot" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Instagram · @vektor.fm</a>
-    <a data-goatcounter-click="about-follow-youtube-foot" href="https://youtube.com/@vektorfm" target="_blank" rel="noopener">YouTube · @vektorfm</a>
-    <a data-goatcounter-click="about-follow-x-foot" href="https://x.com/vektordotfm" target="_blank" rel="noopener">X · @vektordotfm</a>
+    <a data-goatcounter-click="no063-follow-tiktok-foot" href="https://tiktok.com/@vektor.fm" target="_blank" rel="noopener">TikTok · @vektor.fm</a>
+    <a data-goatcounter-click="no063-follow-instagram-foot" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Instagram · @vektor.fm</a>
+    <a data-goatcounter-click="no063-follow-youtube-foot" href="https://youtube.com/@vektorfm" target="_blank" rel="noopener">YouTube · @vektorfm</a>
+    <a data-goatcounter-click="no063-follow-x-foot" href="https://x.com/vektordotfm" target="_blank" rel="noopener">X · @vektordotfm</a>
     <a href="./privacy.html">Privacy</a>
   </nav>
 
-  <div class="backref">New films every week — <b>catch the keyword on the reel</b> — follow @vektor.fm.</div>
+  <div class="backref">Follow @vektor.fm for more AI systems you can build. <a href="./index.html">Back to the index</a></div>
 
   <div class="wordmark-foot">
     <span class="wm-foot" id="wmFoot" aria-label="vektor"><span class="ch2" style="--i:0"><span class="g">%</span><span class="l">v</span></span><span class="ch2" style="--i:1"><span class="g">#</span><span class="l">e</span></span><span class="ch2" style="--i:2"><span class="g">Z</span><span class="l">k</span></span><span class="ch2" style="--i:3"><span class="g">8</span><span class="l">t</span></span><span class="ch2" style="--i:4"><span class="g">@</span><span class="l">o</span></span><span class="ch2" style="--i:5"><span class="g">W</span><span class="l">r</span></span></span>
-    <span class="m">/// about · what vektor is and how it is made</span>
+    <span class="m">/// no. 063 / hft / 10-2026 - Jev, TypeSafe, trading-workflow outline</span>
   </div>
 </footer>
 
@@ -967,7 +992,7 @@ pre.code code{font-size:inherit;}
   function fallback(text){ var t=document.createElement('textarea'); t.value=text; t.style.position='fixed'; t.style.opacity='0'; document.body.appendChild(t); t.focus(); t.select(); try{ document.execCommand('copy'); }catch(e){} document.body.removeChild(t); }
   function copyText(text, btn, doneLabel){ var o=btn.textContent, done=function(){ btn.textContent=doneLabel; setTimeout(function(){btn.textContent=o;},1600); }; if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(done).catch(function(){ fallback(text); done(); }); } else { fallback(text); done(); } }
   function gcEvent(name){ if(name && window.goatcounter && goatcounter.count){ goatcounter.count({path:name, event:true}); } }
-  var COPY_EVENT=null;
+  var COPY_EVENT='copy-hft-snapshot';
   document.querySelectorAll('.copybtn').forEach(function(btn){ btn.addEventListener('click', function(){ copyText(btn.getAttribute('data-copy'), btn, 'Copied ✓'); gcEvent(COPY_EVENT); }); });
   var snip=document.getElementById('snipCopy');
   if(snip){ snip.addEventListener('click', function(){ var el=document.getElementById('snipText'); copyText(el.textContent, snip, 'Copied ✓'); gcEvent(COPY_EVENT); }); }
@@ -976,7 +1001,7 @@ pre.code code{font-size:inherit;}
   var camp=(location.pathname.split('/').pop()||'index').replace(/\.html$/,'')||'index';
   document.querySelectorAll('a[href^="http"]').forEach(function(a){ try{ var u=new URL(a.href); if(u.hostname==='github.com'){return;} if(!u.searchParams.has('utm_source')){ u.searchParams.set('utm_source','vektor'); u.searchParams.set('utm_medium','dm'); u.searchParams.set('utm_campaign',camp); a.href=u.toString(); } }catch(e){} });
   var sh=document.getElementById('shareBtn');
-  if(sh){ sh.addEventListener('click', function(){ gcEvent('about-share'); if(navigator.share){ navigator.share({title:document.title, url:location.href}).catch(function(){}); } else { copyText(location.href, sh, 'Link copied — paste it ✓'); } }); }
+  if(sh){ sh.addEventListener('click', function(){ gcEvent('no063-share'); if(navigator.share){ navigator.share({title:document.title, url:location.href}).catch(function(){}); } else { copyText(location.href, sh, 'Link copied — paste it ✓'); } }); }
   var sticky=document.getElementById('stickyCta'), sub=document.getElementById('subscribe'), dismissed=false, stickyViewed=false;
   var midcap=document.querySelector('.midcap');
   // v2 (2026-09-24): visible FROM LOAD, not after scrolling past the whole
@@ -1001,7 +1026,7 @@ pre.code code{font-size:inherit;}
       sticky.setAttribute('aria-hidden', show?'false':'true');
       // view-of-ask event, once per page view, the moment it first becomes visible
       // (almost always on load) — gives the submit counts a denominator.
-      if(show && !stickyViewed){ stickyViewed=true; gcEvent('about-sticky-view'); }
+      if(show && !stickyViewed){ stickyViewed=true; gcEvent('no063-sticky-view'); }
     }
     window.addEventListener('scroll',updCta,{passive:true}); window.addEventListener('resize',updCta); updCta();
     var ctaClose=document.getElementById('ctaClose');
@@ -1011,7 +1036,7 @@ pre.code code{font-size:inherit;}
     // nested inside it). Its own event per tap, so the choice is measurable
     // even from a reader who taps a pill and never submits.
     document.querySelectorAll('.role-pick input[type="radio"]').forEach(function(r){
-      r.addEventListener('change', function(){ if(r.checked){ gcEvent('about-sticky-role-'+r.value); } });
+      r.addEventListener('change', function(){ if(r.checked){ gcEvent('no063-sticky-role-'+r.value); } });
     });
   }
   var wmFoot=document.getElementById('wmFoot');
@@ -1037,7 +1062,7 @@ pre.code code{font-size:inherit;}
   //
   // Read the result off count:email:<slug>-ask-a vs -ask-b in /report (the tag
   // travels to Buttondown, so it survives ad-blockers that eat GoatCounter) and
-  // off about-ask-view-a/-dismiss-a vs the -b pair for the dismissal rate.
+  // off no063-ask-view-a/-dismiss-a vs the -b pair for the dismissal rate.
   // Decide after 3 films, not after one — at ~40-60 page opens per film, one
   // film cannot separate these.
   (function(){
@@ -1063,17 +1088,17 @@ pre.code code{font-size:inherit;}
       }
     }
     var tag=document.getElementById('askTag');
-    if(tag){ tag.value='about-ask-'+arm; }
+    if(tag){ tag.value='no063-ask-'+arm; }
 
     if(!force){ try{ var last=parseInt(localStorage.getItem(KEY)||'0',10); if(last && (Date.now()-last)<TTL){ return; } }catch(e){} }
     function seen(){ try{ localStorage.setItem(KEY, String(Date.now())); }catch(e){} }
     function esc(e){ if(e.key==='Escape'){ close(); } }
-    function close(){ pop.setAttribute('hidden',''); seen(); document.removeEventListener('keydown',esc); gcEvent('about-ask-dismiss-'+arm); }
+    function close(){ pop.setAttribute('hidden',''); seen(); document.removeEventListener('keydown',esc); gcEvent('no063-ask-dismiss-'+arm); }
     pop.querySelectorAll('[data-pop-close]').forEach(function(el){ el.addEventListener('click', close); });
     // submit fires seen() but NOT close(), so a dismissal count is never
     // inflated by a conversion — dismiss ≈ view is then a real read.
     var f=pop.querySelector('form');
-    if(f){ f.addEventListener('submit', function(){ seen(); gcEvent('about-ask-submit-'+arm); }); }
+    if(f){ f.addEventListener('submit', function(){ seen(); gcEvent('no063-ask-submit-'+arm); }); }
 
     var fired=false;
     function open(){
@@ -1081,7 +1106,7 @@ pre.code code{font-size:inherit;}
       fired=true;
       pop.removeAttribute('hidden');
       document.addEventListener('keydown',esc);
-      gcEvent('about-ask-view-'+arm);
+      gcEvent('no063-ask-view-'+arm);
       var x=pop.querySelector('.pop-x'); if(x){ try{ x.focus(); }catch(e){} }
     }
 
@@ -1105,6 +1130,7 @@ pre.code code{font-size:inherit;}
       }, true);
     }
   })();
+  document.querySelectorAll('form').forEach(function(f){ f.addEventListener('submit', function(){ gcEvent('no063-subscribe-submit'); }); });
 
   // ---- shared nav: reveal + mobile drawer ----
   // The header sits off-screen until a 24px hover strip is entered (desktop) or
@@ -1138,7 +1164,7 @@ pre.code code{font-size:inherit;}
   // would even exist, so that path would have gone silent.)
   document.querySelectorAll('form[data-capture]').forEach(function(f){
     f.addEventListener('submit', function(){
-      gcEvent('about-sub-' + f.getAttribute('data-capture'));
+      gcEvent('no063-sub-' + f.getAttribute('data-capture'));
     });
   });
 </script>

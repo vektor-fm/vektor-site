@@ -1,0 +1,32 @@
+{
+  "number": "062",
+  "title": "vektor /// no. 062 · Throw the dice ten times.",
+  "description": "One throw of a dice gives a 16.7% chance of a six; ten throws give 83.8%. The odds table for 1-in-6, 1-in-20 and 1-in-100 ideas, why the count only works if the dice has a six and the tray holds it, and the four things to rework before you swap the idea or the market.",
+  "og_title": "Throw the dice ten times · vektor /// no. 062",
+  "og_description": "The odds table for a few throws, not a hundred, and the four things to rework first: product, offer, price, channel.",
+  "og_image": "https://vektor-fm.github.io/vektor-site/og/no-062.png",
+  "og_alt": "Throw the dice ten times · vektor /// no. 062",
+  "og_url": "https://vektor-fm.github.io/vektor-site/no-062.html",
+  "canonical": "https://vektor-fm.github.io/vektor-site/no-062.html",
+  "tw_title": "Throw the dice ten times · vektor /// no. 062",
+  "tw_description": "One throw: 16.7%. Ten throws: 83.8%. The odds table, and the four things to rework before you swap the dice.",
+  "tw_image": "https://vektor-fm.github.io/vektor-site/og/no-062.png",
+  "marker": "Maths for life · the odds table",
+  "sticky_text": "Follow <b>@vektor.fm</b> → a new keyword every week",
+  "backref_html": "A new keyword drops every week — <b>catch it first on the reel</b> — follow @vektor.fm. More like this: <a href=\"./no-061.html\">AI executes your vision, it can't give you one →</a>",
+  "footer_meta": "/// no. 062 / throw / 10-2026 · probability, startups, shiny object syndrome",
+  "copy_event": "copy-throw-table",
+  "subscribe_track": true,
+  "slug": "no062",
+  "gate_title": "The odds table and the four reworks.",
+  "gate_lede": "The table for 1-in-6, 1-in-20 and 1-in-100 ideas, and the four things to rework first, on the next screen.",
+  "og_card": {
+    "accent": "#E7371A",
+    "kick": "Maths for life · the odds table",
+    "h1_html": "Throw the dice<br>ten times<span class=\"dot\">.</span>",
+    "h1_size": 55,
+    "sub_mt": 18,
+    "sub_html": "One throw: 16.7%. Ten throws: 83.8%. The odds table, and the four things to rework before you swap the dice.",
+    "meta_html": "/// no. 062 / throw / 10-2026 · <b>vektor-fm.github.io</b>"
+  }
+}

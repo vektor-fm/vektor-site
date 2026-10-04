@@ -1,0 +1,175 @@
+<section class="hero">
+  <div class="kick eye">Claude Code · VISION.md</div>
+  <h1 class="disp">AI executes your vision.<br>It can't give you one<span class="dot">.</span></h1>
+  <p class="sub">Dan Koe sorts AI users into three groups: the Purists who walk away, the Automatons who hand it every decision, and the people who use it hardest and keep the judgment. Claude builds what you picture, but it won't do the picturing for you. Below: the <b>vision file</b> my Claude Code setup starts with, the one line that loads it every session, plan mode so Claude waits for your yes, and the traps we hit testing it.</p>
+  <div class="actions">
+    <a class="btn primary" href="#template">The VISION.md template ↓</a>
+    <a class="btn" href="#setup">The setup lines →</a>
+    <a class="btn" href="./files/vision-file-kit.zip">Download the kit (.zip) &darr;</a>
+    <button class="btn" id="shareBtn" type="button">Send to whoever lets Claude make every call</button>
+  </div>
+  <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+</section>
+
+<!-- ======================= THE PROMISE: THE TEMPLATE ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 01 ·</h2>
+  <h2 class="disp">The vision file<span class="dot">.</span></h2>
+  <p class="sub">What the DM promised. Five sections: what you're building, what good looks like, what you'd kill on sight, the calls that stay yours, and how to work with you. Fill the angle brackets, keep it short.</p>
+</div>
+
+<section class="issues" id="template">
+  <article class="card c-cream">
+    <div class="top">
+      <span class="tag">VISION.md · project root</span>
+      <span class="goth">1 · copy this in</span>
+    </div>
+    <h2>VISION.md</h2>
+    <p class="one">Save it next to your <code>CLAUDE.md</code>. Or copy it from the kit: <code>cp vision-file-kit/VISION.md ./VISION.md</code> (macOS, Linux, Git Bash) or <code>Copy-Item vision-file-kit\VISION.md .\VISION.md</code> (PowerShell).</p>
+    <div class="snippet">
+      <div class="bar"><span class="f">VISION.md</span><button class="snipbtn" id="snipCopy" type="button">Copy template</button></div>
+      <pre id="snipText"># VISION.md
+
+Read this before any plan. It says what I am building, what good looks like to me, and which calls stay
+mine. If a task is not covered here, ask me one question before planning; do not guess my taste.
+
+## 1. What I am building
+
+&lt;One paragraph. The product, who it is for, and the one thing it must do well.&gt;
+
+## 2. What good looks like
+
+&lt;Five to seven rules you would use to reject a draft. Concrete enough to check.&gt;
+- Plain sentences. If I would not say it to a colleague, it is wrong.
+- Every number carries its date and source, in the same line.
+- One idea per screen. If a view needs a second idea, it is two views.
+
+## 3. What I would kill on sight
+
+&lt;Three to five things that look fine to a model and wrong to me.&gt;
+- A feature added because it was easy, not because it was asked for.
+- A "quick fix" that leaves the root cause in place.
+
+## 4. The calls that stay mine
+
+&lt;Decisions Claude proposes and never makes.&gt;
+- Anything that changes what the product is for, or who it is for.
+- Deleting or renaming public interfaces, routes, files other people depend on.
+- Spending money, sending messages, posting, deploying.
+
+For these: write the plan, name the options, say which one you would pick and why, then stop and wait.
+
+## 5. How to work with me
+
+- Start in plan mode for anything that touches more than one file. Propose, then wait.
+- When the vision does not cover a case, ask one question. One, not five.
+- Push back when I ask for something that breaks section 2 or 3. Say why in one line.</pre>
+    </div>
+    <p class="one">This is the short version. The kit's <a href="./files/vision-file-kit/VISION.md">VISION.md</a> has more worked examples per section. Keep yours short: Anthropic's docs target under 200 lines per CLAUDE.md file, and &ldquo;imported files also load at launch&rdquo;, so every line costs context in every session.</p>
+  </article>
+</section>
+
+<!-- ======================= SETUP ======================= -->
+<div class="fig" id="setup">
+  <h2 class="kick">Fig. 02 ·</h2>
+  <h2 class="disp">One line imports it every session<span class="dot">.</span></h2>
+  <p class="sub">Run from your project folder. Both lines append the import to an existing <code>CLAUDE.md</code> without touching what is already there. Tested 2 October 2026 on Claude Code 2.1.285, Windows 11, in both shells.</p>
+</div>
+
+<section class="issues" id="import">
+  <article class="issue">
+    <h3>2 · macOS / Linux / Git Bash</h3>
+    <div class="copy"><code>printf '\n# Vision\n@VISION.md\n…' &gt;&gt; CLAUDE.md</code><button class="copybtn" data-copy="printf '\n# Vision\n@VISION.md\n\nBefore planning anything that touches more than one file, read VISION.md section 4 and stop at the calls that stay mine.\n' >> CLAUDE.md">Copy</button></div>
+  </article>
+  <article class="issue">
+    <h3>2 · Windows PowerShell</h3>
+    <div class="copy"><code>Add-Content .\CLAUDE.md "`n# Vision`n@VISION.md…"</code><button class="copybtn" data-copy="Add-Content .\CLAUDE.md &quot;`n# Vision`n@VISION.md`n`nBefore planning anything that touches more than one file, read VISION.md section 4 and stop at the calls that stay mine.&quot;">Copy</button></div>
+    <p>What both lines write, if you'd rather type it: a <code># Vision</code> heading, the bare line <code>@VISION.md</code>, and one sentence telling Claude to stop at section 4. In our test Claude answered a question only VISION.md could answer in its first turn, with no file read, so the file was in context from launch.</p>
+  </article>
+  <article class="issue">
+    <h3>Check it loaded</h3>
+    <p>Run <code>/context</code> in an interactive session and look for <code>VISION.md</code> under Memory files. <code>/context</code> only works interactively; in a headless <code>claude -p</code> run, ask a question only VISION.md can answer instead.</p>
+    <p class="meta">Docs: &ldquo;CLAUDE.md files can import additional files using @path/to/import syntax. Imported files are expanded and loaded into context at launch alongside the CLAUDE.md that references them.&rdquo; <a href="https://code.claude.com/docs/en/memory" target="_blank" rel="noopener">code.claude.com/docs/en/memory</a> (read 2026-10-01, re-read 2026-10-02)</p>
+  </article>
+</section>
+
+<!-- ======================= PLAN MODE ======================= -->
+<div class="fig" id="plan">
+  <h2 class="kick">Fig. 03 ·</h2>
+  <h2 class="disp">Plan mode: Claude proposes, you decide<span class="dot">.</span></h2>
+  <p class="sub">The file says what good looks like. Plan mode is what makes Claude stop and show you the plan before it edits.</p>
+</div>
+
+<section class="issues" id="planmode">
+  <article class="issue">
+    <h3>3 · Turn it on</h3>
+    <p>Press <code>Shift+Tab</code> until the status bar reads <code>⏸ plan mode on</code>. On a current install that is rarely one press: the cycle starts in auto mode. Or prefix one prompt with <code>/plan</code>, or start the session with:</p>
+    <div class="copy"><code>claude --permission-mode plan</code><button class="copybtn" data-copy="claude --permission-mode plan">Copy</button></div>
+  </article>
+  <article class="issue">
+    <h3>Make it the project default</h3>
+    <div class="copy"><code>{ "permissions": { "defaultMode": "plan" } }</code><button class="copybtn" data-copy='{ "permissions": { "defaultMode": "plan" } }'>Copy</button></div>
+    <p>In <code>.claude/settings.json</code>. Tested 2 October 2026, headless, in a throwaway folder: with the flag and with this setting alone, Claude was asked to create a file and never did; it returned a plan instead. VS Code sessions don't read this for the starting mode: set <code>claudeCode.initialPermissionMode</code> to <code>plan</code> in VS Code user settings.</p>
+  </article>
+  <article class="issue">
+    <h3>When the plan is ready</h3>
+    <p>Claude asks how to proceed: <b>Yes, and use auto mode</b> (or <b>Yes, auto-accept edits</b> where auto mode is unavailable), <b>Yes, manually approve edits</b>, or <b>No, keep planning</b>. <code>Ctrl+G</code> opens the plan in your editor so you can change it first.</p>
+    <p class="meta">Docs: <a href="https://code.claude.com/docs/en/permission-modes" target="_blank" rel="noopener">code.claude.com/docs/en/permission-modes</a> (read 2026-10-01, re-read 2026-10-02)</p>
+  </article>
+</section>
+
+<!-- ======================= CAVEATS ======================= -->
+<div class="fig" id="caveats">
+  <h2 class="kick">Fig. 04 ·</h2>
+  <h2 class="disp">What it does not do<span class="dot">.</span></h2>
+  <p class="sub">Five things we found reading the docs and testing the kit. Know them before you trust the setup.</p>
+</div>
+
+<section class="ledger" aria-label="Caveats">
+  <div class="lrow"><span class="n">1</span><span class="t"><b>It guides, it does not enforce.</b> Docs: &ldquo;Claude treats CLAUDE.md files as context, not enforced configuration.&rdquo; The file is what the plan gets judged against; plan mode is the gate. To block an action whatever Claude decides, you need a hook.</span></div>
+  <div class="lrow"><span class="n">2</span><span class="t"><b>Don't paste the snippet file whole.</b> The kit's <code>CLAUDE.md.snippet.md</code> wraps its example in a code fence so it reads well on GitHub, and &ldquo;import parsing skips Markdown code spans and fenced code blocks&rdquo;. Appending the whole file left <code>@VISION.md</code> inside the fence and it never loaded at launch. Use the one-liners above, or copy only the text between the fences. Same trap: a path in backticks is not imported.</span></div>
+  <div class="lrow"><span class="n">3</span><span class="t"><b>Claude Code now starts in auto mode.</b> From 2.1.283, an interactive terminal session starts in auto mode, where a classifier reviews actions instead of asking you about each one. Without step 3, Claude edits and runs whatever the classifier allows.</span></div>
+  <div class="lrow"><span class="n">4</span><span class="t"><b>Bypass permissions beats plan mode.</b> Docs: &ldquo;Except in interactive terminal sessions with bypass permissions available, edits stay blocked until you approve the plan.&rdquo; If you run with <code>--dangerously-skip-permissions</code>, plan mode is advice only.</span></div>
+  <div class="lrow"><span class="n">5</span><span class="t"><b>Relative paths.</b> &ldquo;Relative paths resolve relative to the file containing the import, not the working directory.&rdquo; Keep VISION.md next to the CLAUDE.md that imports it.</span></div>
+</section>
+
+<!-- ======================= THE IDEA ======================= -->
+<div class="fig" id="groups">
+  <h2 class="kick">Fig. 05 ·</h2>
+  <h2 class="disp">Where the three groups come from<span class="dot">.</span></h2>
+  <p class="sub">Credit where it's due, and what is ours.</p>
+</div>
+
+<section class="issues" id="credit">
+  <article class="issue">
+    <h3>Dan Koe's letter, 27 August 2026</h3>
+    <p>The three groups, their names, and the line that &ldquo;the future belongs to those who become multi-dimensional&rdquo; are his. So is the figure: &ldquo;One person can now do what a 10-50 person team used to do, depending on the task.&rdquo;</p>
+    <p class="meta">Source: <a href="https://letters.thedankoe.com/p/we-are-in-the-middle-of-the-digital" target="_blank" rel="noopener">letters.thedankoe.com</a>, &ldquo;We are in the middle of the digital renaissance, please take advantage of it&rdquo; (read 2026-10-01)</p>
+  </article>
+  <article class="issue">
+    <h3>Ours, not his</h3>
+    <p>&ldquo;Claude builds what you picture, but it won't do the picturing for you&rdquo;, the taste point, and the vision file are ours. The film's opening line and framing come from <a href="https://www.instagram.com/reel/DcvmmuBypHp/" target="_blank" rel="noopener">@itsmariahbrunner's reel</a>.</p>
+  </article>
+</section>
+
+<!-- ======================= THE FILE ======================= -->
+<div class="fig" id="files">
+  <h2 class="kick">Fig. 06 ·</h2>
+  <h2 class="disp">The kit<span class="dot">.</span></h2>
+  <p class="sub">Free, no email needed.</p>
+</div>
+
+<section class="issues" id="download">
+  <article class="card c-cream">
+    <div class="top">
+      <span class="tag">vision file kit · tested 2026-10-02</span>
+      <span class="goth">one zip</span>
+    </div>
+    <h2>The vision file kit</h2>
+    <p class="one">The full VISION.md template, the CLAUDE.md snippet with the optional plan-mode default, and a README with the bash and PowerShell setup, the plan-mode test, and every caveat above.</p>
+    <div class="actions">
+      <a class="btn" href="./files/vision-file-kit.zip">Download the kit (.zip) &darr;</a>
+      <a class="btn" href="./files/vision-file-kit/README.md">Read the README first →</a>
+    </div>
+  </article>
+</section>

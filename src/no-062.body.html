@@ -1,0 +1,126 @@
+<section class="hero">
+  <div class="kick eye">Maths for life · the odds table</div>
+  <h1 class="disp">Throw the dice<br>ten times<span class="dot">.</span></h1>
+  <p class="sub">One throw of a dice gives a 16.7% chance of a six. Ten throws give 83.8%. On paper, enough throws make anything likely. In real life you get a few throws, the dice is your idea and the tray is your market. Below: the <b>odds table</b> for a few throws at 1 in 6, 1 in 20 and 1 in 100, what it quietly assumes, and the <b>four things to rework first</b>, before you swap the dice.</p>
+  <div class="actions">
+    <a class="btn primary" href="#table">The odds table ↓</a>
+    <a class="btn" href="#rework">The four reworks →</a>
+    <a class="btn" href="./files/throw-odds/odds-table.csv">Download the table (.csv) &darr;</a>
+    <button class="btn" id="shareBtn" type="button">Send to whoever has a new idea every week</button>
+  </div>
+  <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+</section>
+
+<!-- ======================= THE PROMISE: THE TABLE ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 01 ·</h2>
+  <h2 class="disp">The odds table<span class="dot">.</span></h2>
+  <p class="sub">What the DM promised. The chance that at least one throw lands, for three kinds of dice. Each throw misses with probability 1 &minus; p, all n miss with (1 &minus; p)<sup>n</sup>, and everything else is a six.</p>
+</div>
+
+<section class="issues" id="table">
+  <article class="card c-cream">
+    <div class="top">
+      <span class="tag">P(at least one) = 1 &minus; (1 &minus; p)<sup>n</sup></span>
+      <span class="goth">arithmetic, 2026-10-03</span>
+    </div>
+    <h2>At least one six</h2>
+    <div class="snippet">
+      <div class="bar"><span class="f">odds-table.txt</span><button class="snipbtn" id="snipCopy" type="button">Copy table</button></div>
+      <pre id="snipText">throws   1 in 6    1 in 20   1 in 100
+     1    16.7%      5.0%      1.0%
+     2    30.6%      9.8%      2.0%
+     3    42.1%     14.3%      3.0%
+     5    59.8%     22.6%      4.9%
+    10    83.8%     40.1%      9.6%
+    20    97.4%     64.2%     18.2%
+    50   &gt;99.9%     92.3%     39.5%
+   100   &gt;99.9%     99.4%     63.4%
+
+even chance (50%) after: 4 throws at 1 in 6,
+14 at 1 in 20, 69 at 1 in 100</pre>
+    </div>
+    <p class="one">The film says &ldquo;sixteen percent&rdquo; for one throw; the exact figure is 1/6 = 16.7%. The full table, 1 to 100 throws, is in the <a href="./files/throw-odds/odds-table.csv">CSV</a>.</p>
+  </article>
+</section>
+
+<!-- ======================= ASSUMPTIONS ======================= -->
+<div class="fig" id="assumes">
+  <h2 class="kick">Fig. 02 ·</h2>
+  <h2 class="disp">What the table assumes<span class="dot">.</span></h2>
+  <p class="sub">Four conditions sit under every number above. Real life breaks each one.</p>
+</div>
+
+<section class="ledger" aria-label="Assumptions">
+  <div class="lrow"><span class="n">1</span><span class="t"><b>The same dice every throw.</b> The table only holds if every throw has the same odds. Swap the idea after a miss and you trade a dice you know has a six for one you don't: it might be worse, or have no six at all. Changing the idea after one miss has a name: shiny object syndrome.</span></div>
+  <div class="lrow"><span class="n">2</span><span class="t"><b>The dice has a six on it.</b> A wrong idea is a dice with no six: 0% at any number of throws. More throws do not fix it.</span></div>
+  <div class="lrow"><span class="n">3</span><span class="t"><b>The tray holds the dice.</b> A market too small, or a problem nobody has, is a tray the dice slides off. The throw never counts.</span></div>
+  <div class="lrow"><span class="n">4</span><span class="t"><b>Each throw is independent.</b> Real attempts are not: each one teaches you something. Keep the dice, change the throw, and later throws can land more often than the first, so the table is a floor. Change everything at once and you learn nothing about which change mattered.</span></div>
+</section>
+
+<!-- ======================= THE FOUR REWORKS ======================= -->
+<div class="fig" id="rework">
+  <h2 class="kick">Fig. 03 ·</h2>
+  <h2 class="disp">Rework the throw first<span class="dot">.</span></h2>
+  <p class="sub">Before you swap the dice (the idea) or the tray (the market), rework the four parts of the throw the film names, in this order.</p>
+</div>
+
+<section class="issues" id="four">
+  <article class="issue">
+    <h3>1 · The product</h3>
+    <p>Does it do the one job it promises, for the person it is for? Rework where people stall, not where you would like to add something.</p>
+  </article>
+  <article class="issue">
+    <h3>2 · The offer</h3>
+    <p>What exactly they get, who it is for, and why now, in one sentence. The same product can miss on one offer and land on another.</p>
+  </article>
+  <article class="issue">
+    <h3>3 · The price</h3>
+    <p>The number and the model: one-off, subscription, free tier. Change one of them per throw.</p>
+  </article>
+  <article class="issue">
+    <h3>4 · The channel</h3>
+    <p>Where the people who have the problem find you. Give one channel enough throws to read a result before you switch.</p>
+    <p class="meta">One rule across all four: change one thing per throw, so you can tell which one moved the result.</p>
+  </article>
+</section>
+
+<!-- ======================= CREDIT ======================= -->
+<div class="fig" id="credit">
+  <h2 class="kick">Fig. 04 ·</h2>
+  <h2 class="disp">Where the dice come from<span class="dot">.</span></h2>
+  <p class="sub">Credit where it's due, and what is ours.</p>
+</div>
+
+<section class="issues" id="source">
+  <article class="issue">
+    <h3>@dr.fahimp's reel</h3>
+    <p>The dice-and-tray idea, one throw against ten, comes from <a href="https://www.instagram.com/reel/Db5hdQOof9y/" target="_blank" rel="noopener">@dr.fahimp's reel on Instagram</a>.</p>
+  </article>
+  <article class="issue">
+    <h3>Ours</h3>
+    <p>The film, its drawings, this table, the four assumptions and the rework notes are Vektor's. Every figure on this page is arithmetic from the formula in Fig. 01.</p>
+  </article>
+</section>
+
+<!-- ======================= THE FILE ======================= -->
+<div class="fig" id="files">
+  <h2 class="kick">Fig. 05 ·</h2>
+  <h2 class="disp">The files<span class="dot">.</span></h2>
+  <p class="sub">Free, no email needed.</p>
+</div>
+
+<section class="issues" id="download">
+  <article class="card c-cream">
+    <div class="top">
+      <span class="tag">odds table · 2026-10-03</span>
+      <span class="goth">two files</span>
+    </div>
+    <h2>The odds table and the four reworks</h2>
+    <p class="one">The table from 1 to 100 throws as a CSV, and a one-page README with the formula, the four assumptions and the four reworks.</p>
+    <div class="actions">
+      <a class="btn" href="./files/throw-odds/odds-table.csv">Download the table (.csv) &darr;</a>
+      <a class="btn" href="./files/throw-odds/README.md">Read the README →</a>
+    </div>
+  </article>
+</section>

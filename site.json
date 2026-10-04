@@ -401,6 +401,66 @@
       "lastmod": "2026-08-31",
       "built": true,
       "unlock": "bc0ebb4516"
+    },
+    {
+      "number": "058",
+      "title_short": "Rules that load only when they apply",
+      "section": "Claude Code",
+      "date": "10-2026",
+      "keyword": "TRIGGER",
+      "lastmod": "2026-09-30",
+      "built": true,
+      "unlock": "067d14219a"
+    },
+    {
+      "number": "059",
+      "title_short": "It keeps working after you close the chat",
+      "section": "ChatGPT",
+      "date": "09-2026",
+      "keyword": "DOTS",
+      "lastmod": "2026-09-30",
+      "built": true,
+      "unlock": "67afc46ab6"
+    },
+    {
+      "number": "060",
+      "title_short": "The PDF goes in as Markdown",
+      "section": "Claude Code",
+      "date": "10-2026",
+      "keyword": "MARKDOWN",
+      "lastmod": "2026-10-01",
+      "built": true,
+      "unlock": "45ef2105b0"
+    },
+    {
+      "number": "061",
+      "title_short": "AI executes your vision, it can't give you one",
+      "section": "Claude Code",
+      "date": "10-2026",
+      "keyword": "VISION",
+      "lastmod": "2026-10-02",
+      "built": true,
+      "unlock": "0e36bfe313"
+    },
+    {
+      "number": "062",
+      "title_short": "Throw the dice ten times",
+      "section": "Maths for life",
+      "date": "10-2026",
+      "keyword": "THROW",
+      "lastmod": "2026-10-03",
+      "built": true,
+      "unlock": "475a20265f"
+    },
+    {
+      "number": "063",
+      "title_short": "A market snapshot, a Jev judgment, your code",
+      "section": "Jev workflow",
+      "date": "10-2026",
+      "keyword": "HFT",
+      "lastmod": "2026-10-04",
+      "built": true,
+      "unlock": "f274891b63"
     }
   ],
   "teardowns": [
