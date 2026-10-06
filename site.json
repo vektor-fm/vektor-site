@@ -461,6 +461,16 @@
       "lastmod": "2026-10-04",
       "built": true,
       "unlock": "f274891b63"
+    },
+    {
+      "number": "067",
+      "title_short": "Give Claude a workflow for your job",
+      "section": "Claude role plugins",
+      "date": "10-2026",
+      "keyword": "PLUGIN",
+      "lastmod": "2026-10-06",
+      "built": true,
+      "unlock": "r4flat067"
     }
   ],
   "teardowns": [
