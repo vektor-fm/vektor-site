@@ -481,6 +481,16 @@
       "lastmod": "2026-10-06",
       "built": true,
       "unlock": "r4flat067"
+    },
+    {
+      "number": "068",
+      "title_short": "Today's docs before Claude writes a line",
+      "section": "Claude Code",
+      "date": "10-2026",
+      "keyword": "DOCS",
+      "lastmod": "2026-10-13",
+      "built": true,
+      "unlock": "3e02b31e11"
     }
   ],
   "teardowns": [

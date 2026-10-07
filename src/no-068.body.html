@@ -1,0 +1,125 @@
+<style>
+#no068-page .fig{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:baseline;}
+#no068-page .fig .kick{font-size:var(--fs-s);}
+#no068-page .fig .disp{min-width:0;overflow-wrap:break-word;}
+#no068-page .fig .sub{grid-column:1 / -1;min-width:0;max-width:64ch;overflow-wrap:anywhere;font-size:var(--fs-m);line-height:var(--lh-xl);color:var(--dim);}
+#no068-page pre{white-space:pre-wrap;overflow-wrap:anywhere;}
+@media(max-width:640px){#no068-page .fig{grid-template-columns:minmax(0,1fr);}#no068-page .fig .sub{grid-column:1;}#no068-page .card .top{flex-wrap:wrap;}}
+</style>
+<div id="no068-page">
+<section class="hero">
+  <div class="kick eye">Claude Code · Context7</div>
+  <h1 class="disp">Today's docs before<br>Claude writes a line<span class="dot">.</span></h1>
+  <p class="sub">Claude writes code for the library version it learned in training, not the one in your lockfile. Context7 looks the library up and puts its current docs into Claude's context first. Below: the <b>two commands</b> that add the Context7 plugin to Claude Code, the <b>one sign-in step</b>, and the <b>CLAUDE.md rule</b> that makes Claude use it without being asked.</p>
+  <div class="actions">
+    <a class="btn primary" href="#install">Get the two commands ↓</a>
+    <a class="btn" href="#rule">The CLAUDE.md rule ↓</a>
+    <button class="btn" id="shareBtn" type="button">Send to whoever still pastes docs into Claude</button>
+  </div>
+  <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+</section>
+
+<!-- ======================= THE PROMISE: TWO COMMANDS ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 01 ·</h2>
+  <h2 class="disp">Two commands<span class="dot">.</span></h2>
+  <p class="sub">Run them inside Claude Code, one after the other. Copied from <a href="https://context7.com/docs/clients/claude-code" target="_blank" rel="noopener">Context7's own Claude Code page</a>, checked 2026-10-07.</p>
+</div>
+
+<section class="issues" id="install">
+  <article class="card c-cream">
+    <div class="top">
+      <span class="tag">Context7 plugin · Claude Code</span>
+      <span class="goth">1 · 2</span>
+    </div>
+    <h2>Add the plugin</h2>
+    <div class="snippet">
+      <div class="bar"><span class="f">inside Claude Code</span><button class="snipbtn" id="snipCopy" type="button">Copy both</button></div>
+      <pre id="snipText">/plugin marketplace add upstash/context7
+/plugin install context7@context7-marketplace</pre>
+    </div>
+    <p class="one">The plugin connects Claude Code to Context7's hosted server and adds two tools: <code>resolve-library-id</code>, which turns a library's name into a Context7 ID, and <code>query-docs</code>, which fetches that library's docs for your question. No local Node.js, npm or npx needed.</p>
+  </article>
+</section>
+
+<!-- ======================= SIGN IN ======================= -->
+<div class="fig" id="signin">
+  <h2 class="kick">Fig. 02 ·</h2>
+  <h2 class="disp">One sign-in<span class="dot">.</span></h2>
+  <p class="sub">Context7's docs: "No API key is required."</p>
+</div>
+
+<section class="ledger" aria-label="Sign-in steps">
+  <div class="lrow"><span class="n">1</span><span class="t"><b>Restart Claude Code.</b> After the install finishes.</span></div>
+  <div class="lrow"><span class="n">2</span><span class="t"><b>Run <code>/mcp</code>.</b> Select <b>Context7</b> and follow the browser sign-in flow.</span></div>
+  <div class="lrow"><span class="n">3</span><span class="t"><b>Ask for it.</b> End any prompt with <code>use context7</code> and Claude looks the library up before it writes code.</span></div>
+</section>
+
+<!-- ======================= THE RULE ======================= -->
+<div class="fig" id="rule">
+  <h2 class="kick">Fig. 03 ·</h2>
+  <h2 class="disp">Make it automatic<span class="dot">.</span></h2>
+  <p class="sub">Stop typing "use context7". Paste this line into your project's <code>CLAUDE.md</code>. It is the example rule from Context7's own README, which names <code>CLAUDE.md</code> as the place for it in Claude Code.</p>
+</div>
+
+<section class="issues">
+  <article class="card c-cream">
+    <div class="snippet">
+      <div class="bar"><span class="f">CLAUDE.md</span><button class="copybtn snipbtn" type="button" data-copy="Always use Context7 when I need library/API documentation, code generation, setup or configuration steps without me having to explicitly ask.">Copy rule</button></div>
+      <pre>Always use Context7 when I need library/API documentation, code generation, setup or configuration steps without me having to explicitly ask.</pre>
+    </div>
+    <p class="one">Source: <a href="https://github.com/upstash/context7#add-a-rule" target="_blank" rel="noopener">upstash/context7 README, "Add a Rule"</a>, checked 2026-10-07.</p>
+  </article>
+</section>
+
+<!-- ======================= THE RUN ======================= -->
+<div class="fig" id="run">
+  <h2 class="kick">Fig. 04 ·</h2>
+  <h2 class="disp">The before and after from the film<span class="dot">.</span></h2>
+  <p class="sub">One fresh SvelteKit 3 project, whose <code>package.json</code> already declared the <code>#lib</code> alias. The same prompt, run twice on 2026-10-06 in headless Claude Code on Sonnet 5.5.</p>
+</div>
+
+<section class="issues" id="found">
+  <article class="issue">
+    <h3>Without Context7</h3>
+    <p>No docs lookup. Claude wrote the alias it learned in training:</p>
+    <p><code>import { greet } from '$lib/greet';</code></p>
+  </article>
+  <article class="issue">
+    <h3>With Context7</h3>
+    <p>The prompt ended in <code>use context7</code>. Claude called <code>resolve-library-id</code>, then <code>query-docs</code> for <code>/sveltejs/kit</code>, then wrote the files:</p>
+    <p><code>import { greet } from '#lib/greet.js';</code></p>
+  </article>
+  <article class="issue">
+    <h3>Why it matters</h3>
+    <p>SvelteKit 3.0.0 was released on 2026-10-01. Its migration guide: the <code>$lib</code> alias "is no longer generated automatically", it is replaced by a <code>#lib</code> alias declared in your <code>package.json</code>, and imports need the module extension. Sonnet 5.5's training data stops in June 2026.</p>
+    <p class="meta">One headless run per side, with Context7 attached for that session only. The plugin install, the sign-in and the CLAUDE.md rule above come from Context7's docs; they were not run for the film.</p>
+  </article>
+</section>
+
+<!-- ======================= LIMITS ======================= -->
+<div class="fig" id="limits">
+  <h2 class="kick">Fig. 05 ·</h2>
+  <h2 class="disp">Know what you're adding<span class="dot">.</span></h2>
+  <p class="sub">Read this before you rely on it.</p>
+</div>
+
+<section class="ledger" aria-label="Limits">
+  <div class="lrow"><span class="n">1</span><span class="t"><b>Free has a limit.</b> Context7's Free plan includes 1,000 API calls a month (<a href="https://context7.com/plans" target="_blank" rel="noopener">context7.com/plans</a>, checked 2026-10-07). Check the page before you rely on it; plans change.</span></div>
+  <div class="lrow"><span class="n">2</span><span class="t"><b>It helps where the library moved.</b> If a library has not changed since the model's training data, Claude without Context7 may already be right. Context7 can only help for libraries it has docs for.</span></div>
+  <div class="lrow"><span class="n">3</span><span class="t"><b>Headless, SSH or CI machines.</b> The plugin does not read <code>CONTEXT7_API_KEY</code>. Where a browser sign-in is not possible, Context7's docs point to <code>npx ctx7 setup --claude</code> or to adding the server by hand (<a href="https://context7.com/docs/resources/all-clients" target="_blank" rel="noopener">all MCP clients</a>).</span></div>
+</section>
+
+<!-- ======================= SOURCES ======================= -->
+<div class="fig" id="sources">
+  <h2 class="kick">Fig. 06 ·</h2>
+  <h2 class="disp">The sources<span class="dot">.</span></h2>
+</div>
+
+<section class="issues">
+  <article class="issue">
+    <p><a href="https://context7.com/docs/clients/claude-code" target="_blank" rel="noopener">Context7: Claude Code setup</a> · <a href="https://github.com/upstash/context7" target="_blank" rel="noopener">upstash/context7 README</a> · <a href="https://context7.com/plans" target="_blank" rel="noopener">Context7 plans</a> · <a href="https://svelte.dev/docs/kit/migrating-to-sveltekit-3" target="_blank" rel="noopener">SvelteKit 3 migration guide</a> · <a href="https://github.com/sveltejs/kit/releases/tag/%40sveltejs%2Fkit%403.0.0" target="_blank" rel="noopener">SvelteKit 3.0.0 release</a> · <a href="https://platform.claude.com/docs/en/about-claude/models/overview" target="_blank" rel="noopener">Anthropic models overview</a>.</p>
+    <p class="meta">All checked 2026-10-07.</p>
+  </article>
+</section>
+</div>

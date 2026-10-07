@@ -1,0 +1,32 @@
+{
+  "number": "068",
+  "title": "vektor /// no. 068 · Today's docs before Claude writes a line.",
+  "description": "The two Claude Code commands that add the Context7 plugin, the one browser sign-in step, and the CLAUDE.md rule that makes Claude use Context7 without being asked. Commands from Context7's own docs, plus the before and after from the film.",
+  "og_title": "Today's docs before Claude writes a line · vektor /// no. 068",
+  "og_description": "Two commands add Context7 to Claude Code, one browser sign-in, no API key. Plus the CLAUDE.md rule that makes it automatic.",
+  "og_image": "https://vektor-fm.github.io/vektor-site/og/vektor-og.png",
+  "og_alt": "Vektor · Context7 for Claude Code",
+  "og_url": "https://vektor-fm.github.io/vektor-site/no-068.html",
+  "canonical": "https://vektor-fm.github.io/vektor-site/no-068.html",
+  "tw_title": "Today's docs before Claude writes a line · vektor /// no. 068",
+  "tw_description": "Two commands add Context7 to Claude Code, one browser sign-in, no API key. Plus the CLAUDE.md rule that makes it automatic.",
+  "tw_image": "https://vektor-fm.github.io/vektor-site/og/vektor-og.png",
+  "marker": "Claude Code · Context7",
+  "sticky_text": "Follow <b>@vektor.fm</b> → a new keyword every week",
+  "backref_html": "A new keyword drops every week — <b>catch it first on the reel</b> — follow @vektor.fm. More like this: <a href=\"./no-054.html\">Your CLAUDE.md is slowing Claude Code down →</a>",
+  "footer_meta": "/// no. 068 / docs / 10-2026 · claude code, context7, claude.md",
+  "copy_event": "copy-docs-setup",
+  "subscribe_track": true,
+  "slug": "no068",
+  "gate_title": "The Context7 setup, in full.",
+  "gate_lede": "The two commands, the sign-in step and the CLAUDE.md rule, on the next screen.",
+  "og_card": {
+    "accent": "#E7371A",
+    "kick": "Claude Code · Context7",
+    "h1_html": "Today's docs before<br>Claude writes a line<span class=\"dot\">.</span>",
+    "h1_size": 52,
+    "sub_mt": 18,
+    "sub_html": "Two commands add Context7 to Claude Code, one browser sign-in, no API key. Plus the CLAUDE.md rule that makes it automatic.",
+    "meta_html": "/// no. 068 / docs / 10-2026 · <b>vektor-fm.github.io</b>"
+  }
+}
