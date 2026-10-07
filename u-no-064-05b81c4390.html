@@ -2,25 +2,25 @@
 <html lang="en" id="top"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>vektor /// about — the AI frontier, cut to what ships</title>
-<meta name="description" content="What vektor is: one short film and one working pack per issue, a weekly Teardown by email, and how all of it is made. Free, no paywall.">
+<title>vektor /// no. 064 · Claude Code that improves itself from its sessions.</title>
+<meta name="description" content="Claude Code saves every session to a folder on your computer and deletes it after 30 days by default. The free Vektor plugin reads those local sessions, reports what keeps going wrong, and drafts skills and CLAUDE.md lines for you to check. Three setup steps, and exactly what it reads.">
 
 <!-- OG / social preview (traffic arrives via DM) -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="About vektor — the AI frontier, cut to what ships">
-<meta property="og:description" content="One short film and one working pack per issue. A weekly Teardown by email. Made with the same tools every issue is about.">
-<meta property="og:image" content="https://vektor-fm.github.io/vektor-site/og/index.png">
+<meta property="og:title" content="Claude Code that improves itself from its sessions · vektor /// no. 064">
+<meta property="og:description" content="One free plugin reads your own Claude Code sessions and drafts the skills you are missing. Three steps, installs nothing.">
+<meta property="og:image" content="https://vektor-fm.github.io/vektor-site/og/no-064.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="vektor — the AI frontier, cut to what ships">
+<meta property="og:image:alt" content="Claude Code that improves itself from its sessions · vektor /// no. 064">
 <meta property="og:site_name" content="vektor">
-<meta property="og:url" content="https://vektor-fm.github.io/vektor-site/about.html">
-<link rel="canonical" href="https://vektor-fm.github.io/vektor-site/about.html">
-
+<meta property="og:url" content="https://vektor-fm.github.io/vektor-site/no-064.html">
+<link rel="canonical" href="https://vektor-fm.github.io/vektor-site/no-064.html">
+<meta name="robots" content="noindex,nofollow">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="About vektor — the AI frontier, cut to what ships">
-<meta name="twitter:description" content="One short film and one working pack per issue. A weekly Teardown by email. Made with the same tools every issue is about.">
-<meta name="twitter:image" content="https://vektor-fm.github.io/vektor-site/og/index.png">
+<meta name="twitter:title" content="Claude Code that improves itself from its sessions · vektor /// no. 064">
+<meta name="twitter:description" content="One free plugin reads your own Claude Code sessions and drafts the skills you are missing. Three steps, installs nothing.">
+<meta name="twitter:image" content="https://vektor-fm.github.io/vektor-site/og/no-064.png">
 <meta name="theme-color" content="#000000">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000000'/%3E%3Ctext x='32' y='47' font-family='Arial' font-size='46' font-weight='600' text-anchor='middle' fill='%23EFEADD'%3Ev%3C/text%3E%3C/svg%3E">
 <link rel="preload" href="fonts/archivo-expanded-400.woff2" as="font" type="font/woff2" crossorigin>
@@ -833,7 +833,7 @@ pre.code code{font-size:inherit;}
 
 
 <!-- the issue marker, kept: it is the only per-page label in the bar -->
-<div class="issue-marker">About</div>
+<div class="issue-marker">Claude Code · the session review</div>
 
 <!-- The capture furniture (sticky bar + pop-up) lives in partials/capture.html
      and is injected ONLY into public pages. Unlock pages get an empty string
@@ -842,85 +842,148 @@ pre.code code{font-size:inherit;}
 <div class="weave" aria-hidden="true"></div>
 
 <main>
+<!-- Shown at the top of an unlock page: the receipt for the email that was just
+     given. It exists because a redirect with no acknowledgement reads as an
+     error — the reader typed something, the screen changed, and nothing told
+     them it worked. It also carries the ONE instruction that protects the list:
+     the first issue arrives from this address, so whitelist it. -->
+<section class="unlocked">
+  <span class="k">Unlocked · Claude Code · the session review</span>
+  <h2>You're in. The pack is below.</h2>
+  <p>Bookmark this page — the link keeps working. The weekly setup lands on Thursday; if it isn't in your inbox, check Promotions and drag it across once.</p>
+</section>
 <section class="hero">
-  <div class="kick eye">About · the long version</div>
-  <h1 class="disp">The AI frontier, cut to what ships<span class="dot">.</span></h1>
-  <p class="sub">vektor is a short-film series about the Claude and AI tooling that actually changes how you work. Every issue is one film and one working pack: the config, the prompts, the install lines, the sources. Nothing is held back and nothing is behind a paywall.</p>
+  <div class="kick eye">Claude Code · the session review</div>
+  <h1 class="disp">Claude Code that improves<br>itself from its sessions<span class="dot">.</span></h1>
+  <p class="sub">Claude Code writes every session you run to a folder on your computer and, by default, deletes each one after 30 days. That folder is a record of what you keep correcting and what you keep doing by hand. Below: the <b>free plugin</b> from the film, the <b>three setup steps</b>, and exactly what it does and does not do with your sessions.</p>
+  <div class="actions">
+    <a class="btn primary" href="./files/vektor-improve-plugin-v1.1.zip">Download the plugin (.zip) &darr;</a>
+    <a class="btn" href="#setup">The setup steps ↓</a>
+    <a class="btn" href="#privacy">What it reads →</a>
+    <button class="btn" id="shareBtn" type="button">Send to whoever corrects Claude on the same thing twice</button>
+  </div>
+  <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
 </section>
 
+<!-- ======================= THE PROMISE: THE SETUP ======================= -->
 <div class="fig">
   <h2 class="kick">Fig. 01 ·</h2>
-  <h2 class="disp">One issue, three parts<span class="dot">.</span></h2>
-  <p class="sub">The film sells nothing. It shows one thing that works, then hands you the files.</p>
+  <h2 class="disp">Three steps<span class="dot">.</span></h2>
+  <p class="sub">What the DM promised. You need Claude Code, your own Claude plan, and Node.js 20 or later on your PATH (<code>node --version</code>). No npm install.</p>
 </div>
 
-<section class="issues" id="how">
-  <article class="card c-ink">
+<section class="issues" id="setup">
+  <article class="card c-cream">
     <div class="top">
-      <span class="tag">The film</span>
-      <span class="goth">sixty seconds</span>
+      <span class="tag">vektor-improve-plugin-v1.1.zip · 60 KB · MIT</span>
+      <span class="goth">1 · 2 · 3</span>
     </div>
-    <h2>One thing that works, shown working.</h2>
-    <p class="one">A vertical short on TikTok, Instagram, YouTube and X. No intro, no outro, no throat-clearing. New films every week; the archive holds 47 issues so far.</p>
-  </article>
-  <article class="card c-ink">
-    <div class="top">
-      <span class="tag">The keyword</span>
-      <span class="goth">one word</span>
+    <h2>Run it on your own sessions</h2>
+    <div class="snippet">
+      <div class="bar"><span class="f">setup.txt</span><button class="snipbtn" id="snipCopy" type="button">Copy steps</button></div>
+      <pre id="snipText">1. Unzip vektor-improve-plugin-v1.1.zip
+
+2. In a terminal, in the project folder you want the report in:
+   claude --plugin-dir &lt;unzipped&gt;/vektor-skills/plugins/session-review
+
+3. In Claude Code, type:
+   /vektor:improve</pre>
     </div>
-    <h2>Every film ends on a single word.</h2>
-    <p class="one">Comment it under the reel and the bot sends you the link to the issue page in a DM. The same page is linked from the archive here, so the keyword is a shortcut, not a lock.</p>
-  </article>
-  <article class="card c-ink">
-    <div class="top">
-      <span class="tag">The pack</span>
-      <span class="goth">the working files</span>
-    </div>
-    <h2>The files behind the film, on the issue page.</h2>
-    <p class="one">Config files, prompts written out in full, one-line installs, the repos and papers the film cites. Where a number was measured, the page says how. Where a claim could not be verified, the page says that too.</p>
-    <div class="actions">
-      <a class="btn" href="./index.html#archive">Browse the archive →</a>
-      <a class="btn" href="./no-054.html">Latest: Your CLAUDE.md is slowing Claude Code down →</a>
-    </div>
+    <p class="one">It reads your recent local Claude Code sessions, writes a short report (what keeps going wrong, skills you are missing, lines to add to CLAUDE.md) and stages up to three skill drafts. Everything lands in <code>.improve-output/</code> in the folder you ran it from. Keep that folder out of commits and cloud-sync folders.</p>
   </article>
 </section>
 
-<div class="fig">
+<!-- ======================= PRIVACY ======================= -->
+<div class="fig" id="privacy">
   <h2 class="kick">Fig. 02 ·</h2>
-  <h2 class="disp">The Teardown<span class="dot">.</span></h2>
-  <p class="sub">The one thing you can sign up for.</p>
+  <h2 class="disp">What it reads, and what it doesn't do<span class="dot">.</span></h2>
+  <p class="sub">Read this before you run it.</p>
 </div>
 
-<section class="issues" id="teardown">
-  <article class="card c-ink">
-    <div class="top">
-      <span class="tag">Email · weekly</span>
-      <span class="goth">5 editions so far</span>
-    </div>
-    <h2>One automation a week, pulled apart in public.</h2>
-    <p class="one">What it replaced, what it broke, what it actually cost when we ran it. Each edition is also published here as a web page, so you can read one before you subscribe. Free, one-click unsubscribe, and the address is used for nothing else.</p>
-    <div class="actions">
-      <a class="btn primary" href="./newsletter.html">Read the editions and subscribe →</a>
-      <a class="btn" href="./privacy.html">What we do with your email →</a>
+<section class="ledger" aria-label="Privacy">
+  <div class="lrow"><span class="n">1</span><span class="t"><b>Your own sessions, on your own machine.</b> The helper reads the session files under <code>~/.claude/projects</code> and keeps only your own messages. It makes no network calls and has no analytics.</span></div>
+  <div class="lrow"><span class="n">2</span><span class="t"><b>Not fully offline.</b> The masked evidence goes into your normal Claude Code conversation, so the analysis runs on your Claude plan and your plan's usage limits apply. No Vektor account, key or credits.</span></div>
+  <div class="lrow"><span class="n">3</span><span class="t"><b>Nothing installed, nothing edited.</b> Drafts are review files. It never installs a skill, never edits CLAUDE.md or your settings, and never deletes your history.</span></div>
+  <div class="lrow"><span class="n">4</span><span class="t"><b>Review before you share.</b> Secret-shaped strings are masked, but masking cannot catch everything, and project names and personal details in ordinary text stay in. Read the report and drafts before you share or record them.</span></div>
+</section>
+
+<!-- ======================= THE RUN ======================= -->
+<div class="fig" id="run">
+  <h2 class="kick">Fig. 03 ·</h2>
+  <h2 class="disp">What it found in mine<span class="dot">.</span></h2>
+  <p class="sub">The run in the film, 2026-10-06, 2 min 42 s from command to report.</p>
+</div>
+
+<section class="issues" id="found">
+  <article class="issue">
+    <h3>36 sessions read</h3>
+    <p>213 of my messages, a 4-day sample of my history. The report says how much it read, and which dates it missed.</p>
+  </article>
+  <article class="issue">
+    <h3>3 skill drafts</h3>
+    <p><code>producer-gate-audit</code>, <code>production-retro</code>, <code>codex-parity-check</code>. The first is a check I had done by hand in three different sessions.</p>
+  </article>
+  <article class="issue">
+    <h3>5 CLAUDE.md lines</h3>
+    <p>Proposed, with the dated messages behind each one. I check them against my files before adding any.</p>
+    <p class="meta">Counts are messages it cited, not proven time saved. Grouping and drafts are the model's judgment.</p>
+  </article>
+</section>
+
+<!-- ======================= KEEP MORE HISTORY ======================= -->
+<div class="fig" id="history">
+  <h2 class="kick">Fig. 04 ·</h2>
+  <h2 class="disp">Keep more than 30 days<span class="dot">.</span></h2>
+  <p class="sub">Optional. Claude Code deletes sessions older than <code>cleanupPeriodDays</code> when it starts; the documented default is 30. To keep more future history, merge this into your existing <code>~/.claude/settings.json</code> (don't replace the file). Deleted sessions cannot be recovered.</p>
+</div>
+
+<section class="issues" id="keep">
+  <article class="card c-cream">
+    <div class="snippet">
+      <div class="bar"><span class="f">~/.claude/settings.json</span><button class="copybtn snipbtn" type="button" data-copy='"cleanupPeriodDays": 90'>Copy line</button></div>
+      <pre>{
+  "cleanupPeriodDays": 90
+}</pre>
     </div>
   </article>
 </section>
 
-<div class="fig">
-  <h2 class="kick">Fig. 03 ·</h2>
-  <h2 class="disp">How it is made<span class="dot">.</span></h2>
-  <p class="sub">With the same tools every issue is about.</p>
+<!-- ======================= CREDIT ======================= -->
+<div class="fig" id="credit">
+  <h2 class="kick">Fig. 05 ·</h2>
+  <h2 class="disp">Credit<span class="dot">.</span></h2>
+  <p class="sub">Credit where it's due, and what is ours.</p>
 </div>
 
-<section class="issues" id="made">
-  <article class="card c-ink">
+<section class="issues" id="source">
+  <article class="issue">
+    <h3>@austin.marchese's reel</h3>
+    <p>The film's beat order comes from <a href="https://www.instagram.com/p/DeAne_MjMoi/" target="_blank" rel="noopener">@austin.marchese's reel on Instagram</a>.</p>
+  </article>
+  <article class="issue">
+    <h3>Ours</h3>
+    <p>The script, the drawings and the plugin are Vektor's. The plugin is MIT-licensed; the licence is in the zip.</p>
+  </article>
+</section>
+
+<!-- ======================= THE FILE ======================= -->
+<div class="fig" id="files">
+  <h2 class="kick">Fig. 06 ·</h2>
+  <h2 class="disp">The file<span class="dot">.</span></h2>
+  <p class="sub">Free, no email needed.</p>
+</div>
+
+<section class="issues" id="download">
+  <article class="card c-cream">
     <div class="top">
-      <span class="tag">The workshop</span>
-      <span class="goth">one person, one pipeline</span>
+      <span class="tag">plugin v1.1 · 2026-10-07</span>
+      <span class="goth">one zip</span>
     </div>
-    <h2>Scripted, rendered and gated by the tooling in the films.</h2>
-    <p class="one">vektor is made by one person. The scripts are checked against a written spec before a voice is generated, the visuals are built in a design system with an automated gate, and the packs are the files that pipeline actually uses. When an issue says a setup works, it is because it is running here.</p>
-    <p class="meta">Corrections, sources and topic requests: the reel comments are read, and <a href="./thanks.html">the contact page</a> reaches a human.</p>
+    <h2>The session-review plugin</h2>
+    <p class="one">The plugin, its README (requirements, privacy limits, every cap) and its tests. Not yet in the Claude Code plugin marketplace: load it with <code>--plugin-dir</code> as above.</p>
+    <div class="actions">
+      <a class="btn" href="./files/vektor-improve-plugin-v1.1.zip">Download the plugin (.zip) &darr;</a>
+    </div>
   </article>
 </section>
 </main>
@@ -943,18 +1006,18 @@ pre.code code{font-size:inherit;}
   </div>
 
   <nav class="socials" aria-label="Social links">
-    <a data-goatcounter-click="about-follow-tiktok-foot" href="https://tiktok.com/@vektor.fm" target="_blank" rel="noopener">TikTok · @vektor.fm</a>
-    <a data-goatcounter-click="about-follow-instagram-foot" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Instagram · @vektor.fm</a>
-    <a data-goatcounter-click="about-follow-youtube-foot" href="https://youtube.com/@vektorfm" target="_blank" rel="noopener">YouTube · @vektorfm</a>
-    <a data-goatcounter-click="about-follow-x-foot" href="https://x.com/vektordotfm" target="_blank" rel="noopener">X · @vektordotfm</a>
+    <a data-goatcounter-click="no064-follow-tiktok-foot" href="https://tiktok.com/@vektor.fm" target="_blank" rel="noopener">TikTok · @vektor.fm</a>
+    <a data-goatcounter-click="no064-follow-instagram-foot" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Instagram · @vektor.fm</a>
+    <a data-goatcounter-click="no064-follow-youtube-foot" href="https://youtube.com/@vektorfm" target="_blank" rel="noopener">YouTube · @vektorfm</a>
+    <a data-goatcounter-click="no064-follow-x-foot" href="https://x.com/vektordotfm" target="_blank" rel="noopener">X · @vektordotfm</a>
     <a href="./privacy.html">Privacy</a>
   </nav>
 
-  <div class="backref">New films every week — <b>catch the keyword on the reel</b> — follow @vektor.fm.</div>
+  <div class="backref">A new keyword drops every week — <b>catch it first on the reel</b> — follow @vektor.fm. More like this: <a href="./no-062.html">Throw the dice ten times →</a></div>
 
   <div class="wordmark-foot">
     <span class="wm-foot" id="wmFoot" aria-label="vektor"><span class="ch2" style="--i:0"><span class="g">%</span><span class="l">v</span></span><span class="ch2" style="--i:1"><span class="g">#</span><span class="l">e</span></span><span class="ch2" style="--i:2"><span class="g">Z</span><span class="l">k</span></span><span class="ch2" style="--i:3"><span class="g">8</span><span class="l">t</span></span><span class="ch2" style="--i:4"><span class="g">@</span><span class="l">o</span></span><span class="ch2" style="--i:5"><span class="g">W</span><span class="l">r</span></span></span>
-    <span class="m">/// about · what vektor is and how it is made</span>
+    <span class="m">/// no. 064 / sessions / 10-2026 · claude code, skills, claude.md</span>
   </div>
 </footer>
 
@@ -967,7 +1030,7 @@ pre.code code{font-size:inherit;}
   function fallback(text){ var t=document.createElement('textarea'); t.value=text; t.style.position='fixed'; t.style.opacity='0'; document.body.appendChild(t); t.focus(); t.select(); try{ document.execCommand('copy'); }catch(e){} document.body.removeChild(t); }
   function copyText(text, btn, doneLabel){ var o=btn.textContent, done=function(){ btn.textContent=doneLabel; setTimeout(function(){btn.textContent=o;},1600); }; if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(done).catch(function(){ fallback(text); done(); }); } else { fallback(text); done(); } }
   function gcEvent(name){ if(name && window.goatcounter && goatcounter.count){ goatcounter.count({path:name, event:true}); } }
-  var COPY_EVENT=null;
+  var COPY_EVENT='copy-sessions-setup';
   document.querySelectorAll('.copybtn').forEach(function(btn){ btn.addEventListener('click', function(){ copyText(btn.getAttribute('data-copy'), btn, 'Copied ✓'); gcEvent(COPY_EVENT); }); });
   var snip=document.getElementById('snipCopy');
   if(snip){ snip.addEventListener('click', function(){ var el=document.getElementById('snipText'); copyText(el.textContent, snip, 'Copied ✓'); gcEvent(COPY_EVENT); }); }
@@ -976,7 +1039,7 @@ pre.code code{font-size:inherit;}
   var camp=(location.pathname.split('/').pop()||'index').replace(/\.html$/,'')||'index';
   document.querySelectorAll('a[href^="http"]').forEach(function(a){ try{ var u=new URL(a.href); if(u.hostname==='github.com'){return;} if(!u.searchParams.has('utm_source')){ u.searchParams.set('utm_source','vektor'); u.searchParams.set('utm_medium','dm'); u.searchParams.set('utm_campaign',camp); a.href=u.toString(); } }catch(e){} });
   var sh=document.getElementById('shareBtn');
-  if(sh){ sh.addEventListener('click', function(){ gcEvent('about-share'); if(navigator.share){ navigator.share({title:document.title, url:location.href}).catch(function(){}); } else { copyText(location.href, sh, 'Link copied — paste it ✓'); } }); }
+  if(sh){ sh.addEventListener('click', function(){ gcEvent('no064-share'); if(navigator.share){ navigator.share({title:document.title, url:location.href}).catch(function(){}); } else { copyText(location.href, sh, 'Link copied — paste it ✓'); } }); }
   var sticky=document.getElementById('stickyCta'), sub=document.getElementById('subscribe'), dismissed=false, stickyViewed=false;
   var midcap=document.querySelector('.midcap');
   // v2 (2026-09-24): visible FROM LOAD, not after scrolling past the whole
@@ -1001,7 +1064,7 @@ pre.code code{font-size:inherit;}
       sticky.setAttribute('aria-hidden', show?'false':'true');
       // view-of-ask event, once per page view, the moment it first becomes visible
       // (almost always on load) — gives the submit counts a denominator.
-      if(show && !stickyViewed){ stickyViewed=true; gcEvent('about-sticky-view'); }
+      if(show && !stickyViewed){ stickyViewed=true; gcEvent('no064-sticky-view'); }
     }
     window.addEventListener('scroll',updCta,{passive:true}); window.addEventListener('resize',updCta); updCta();
     var ctaClose=document.getElementById('ctaClose');
@@ -1011,7 +1074,7 @@ pre.code code{font-size:inherit;}
     // nested inside it). Its own event per tap, so the choice is measurable
     // even from a reader who taps a pill and never submits.
     document.querySelectorAll('.role-pick input[type="radio"]').forEach(function(r){
-      r.addEventListener('change', function(){ if(r.checked){ gcEvent('about-sticky-role-'+r.value); } });
+      r.addEventListener('change', function(){ if(r.checked){ gcEvent('no064-sticky-role-'+r.value); } });
     });
   }
   var wmFoot=document.getElementById('wmFoot');
@@ -1037,7 +1100,7 @@ pre.code code{font-size:inherit;}
   //
   // Read the result off count:email:<slug>-ask-a vs -ask-b in /report (the tag
   // travels to Buttondown, so it survives ad-blockers that eat GoatCounter) and
-  // off about-ask-view-a/-dismiss-a vs the -b pair for the dismissal rate.
+  // off no064-ask-view-a/-dismiss-a vs the -b pair for the dismissal rate.
   // Decide after 3 films, not after one — at ~40-60 page opens per film, one
   // film cannot separate these.
   (function(){
@@ -1063,17 +1126,17 @@ pre.code code{font-size:inherit;}
       }
     }
     var tag=document.getElementById('askTag');
-    if(tag){ tag.value='about-ask-'+arm; }
+    if(tag){ tag.value='no064-ask-'+arm; }
 
     if(!force){ try{ var last=parseInt(localStorage.getItem(KEY)||'0',10); if(last && (Date.now()-last)<TTL){ return; } }catch(e){} }
     function seen(){ try{ localStorage.setItem(KEY, String(Date.now())); }catch(e){} }
     function esc(e){ if(e.key==='Escape'){ close(); } }
-    function close(){ pop.setAttribute('hidden',''); seen(); document.removeEventListener('keydown',esc); gcEvent('about-ask-dismiss-'+arm); }
+    function close(){ pop.setAttribute('hidden',''); seen(); document.removeEventListener('keydown',esc); gcEvent('no064-ask-dismiss-'+arm); }
     pop.querySelectorAll('[data-pop-close]').forEach(function(el){ el.addEventListener('click', close); });
     // submit fires seen() but NOT close(), so a dismissal count is never
     // inflated by a conversion — dismiss ≈ view is then a real read.
     var f=pop.querySelector('form');
-    if(f){ f.addEventListener('submit', function(){ seen(); gcEvent('about-ask-submit-'+arm); }); }
+    if(f){ f.addEventListener('submit', function(){ seen(); gcEvent('no064-ask-submit-'+arm); }); }
 
     var fired=false;
     function open(){
@@ -1081,7 +1144,7 @@ pre.code code{font-size:inherit;}
       fired=true;
       pop.removeAttribute('hidden');
       document.addEventListener('keydown',esc);
-      gcEvent('about-ask-view-'+arm);
+      gcEvent('no064-ask-view-'+arm);
       var x=pop.querySelector('.pop-x'); if(x){ try{ x.focus(); }catch(e){} }
     }
 
@@ -1105,6 +1168,7 @@ pre.code code{font-size:inherit;}
       }, true);
     }
   })();
+  document.querySelectorAll('form').forEach(function(f){ f.addEventListener('submit', function(){ gcEvent('no064-subscribe-submit'); }); });
 
   // ---- shared nav: reveal + mobile drawer ----
   // The header sits off-screen until a 24px hover strip is entered (desktop) or
@@ -1138,7 +1202,7 @@ pre.code code{font-size:inherit;}
   // would even exist, so that path would have gone silent.)
   document.querySelectorAll('form[data-capture]').forEach(function(f){
     f.addEventListener('submit', function(){
-      gcEvent('about-sub-' + f.getAttribute('data-capture'));
+      gcEvent('no064-sub-' + f.getAttribute('data-capture'));
     });
   });
 </script>

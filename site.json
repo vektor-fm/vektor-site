@@ -453,6 +453,16 @@
       "unlock": "475a20265f"
     },
     {
+      "number": "064",
+      "title_short": "Claude Code that improves itself from its sessions",
+      "section": "Claude Code",
+      "date": "10-2026",
+      "keyword": "SESSIONS",
+      "lastmod": "2026-10-08",
+      "built": true,
+      "unlock": "05b81c4390"
+    },
+    {
       "number": "063",
       "title_short": "A market snapshot, a Jev judgment, your code",
       "section": "Jev workflow",

@@ -1,0 +1,32 @@
+{
+  "number": "064",
+  "title": "vektor /// no. 064 · Claude Code that improves itself from its sessions.",
+  "description": "Claude Code saves every session to a folder on your computer and deletes it after 30 days by default. The free Vektor plugin reads those local sessions, reports what keeps going wrong, and drafts skills and CLAUDE.md lines for you to check. Three setup steps, and exactly what it reads.",
+  "og_title": "Claude Code that improves itself from its sessions · vektor /// no. 064",
+  "og_description": "One free plugin reads your own Claude Code sessions and drafts the skills you are missing. Three steps, installs nothing.",
+  "og_image": "https://vektor-fm.github.io/vektor-site/og/no-064.png",
+  "og_alt": "Claude Code that improves itself from its sessions · vektor /// no. 064",
+  "og_url": "https://vektor-fm.github.io/vektor-site/no-064.html",
+  "canonical": "https://vektor-fm.github.io/vektor-site/no-064.html",
+  "tw_title": "Claude Code that improves itself from its sessions · vektor /// no. 064",
+  "tw_description": "One free plugin reads your own Claude Code sessions and drafts the skills you are missing. Three steps, installs nothing.",
+  "tw_image": "https://vektor-fm.github.io/vektor-site/og/no-064.png",
+  "marker": "Claude Code · the session review",
+  "sticky_text": "Follow <b>@vektor.fm</b> → a new keyword every week",
+  "backref_html": "A new keyword drops every week — <b>catch it first on the reel</b> — follow @vektor.fm. More like this: <a href=\"./no-062.html\">Throw the dice ten times →</a>",
+  "footer_meta": "/// no. 064 / sessions / 10-2026 · claude code, skills, claude.md",
+  "copy_event": "copy-sessions-setup",
+  "subscribe_track": true,
+  "slug": "no064",
+  "gate_title": "The session-review plugin, in full.",
+  "gate_lede": "The plugin, the three setup steps and exactly what it reads, on the next screen.",
+  "og_card": {
+    "accent": "#E7371A",
+    "kick": "Claude Code · the session review",
+    "h1_html": "Claude Code that improves<br>itself from its sessions<span class=\"dot\">.</span>",
+    "h1_size": 52,
+    "sub_mt": 18,
+    "sub_html": "One free plugin reads your own Claude Code sessions and drafts the skills you are missing. Three steps, installs nothing.",
+    "meta_html": "/// no. 064 / sessions / 10-2026 · <b>vektor-fm.github.io</b>"
+  }
+}
