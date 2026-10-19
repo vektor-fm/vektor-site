@@ -523,6 +523,12 @@
       "title": "Asked for Fable, got Opus",
       "date": "2026-09-22",
       "subject": "We asked for Fable, got Opus"
+    },
+    {
+      "number": "006",
+      "title": "The hook that asks before it greps",
+      "date": "2026-10-20",
+      "subject": "The hook that asks before grep"
     }
   ],
   "proof": {

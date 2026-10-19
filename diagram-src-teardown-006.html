@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>When the guard blocks — diagram</title>
+<!-- Rendered to diagrams/teardown-006.png by render-diagram.mjs. 1200x750 (email shows ~600px, 2x for retina).
+     PNG, not SVG: Outlook and Gmail do not render inline SVG.
+
+     WHY A SYSTEM DIAGRAM. The hardest thing in this issue is a decision order: one tool call enters, the
+     guard asks five questions in sequence, and only one path ends in a refusal. Prose needs a paragraph of
+     "only if"; a drawing shows the single deny at the end of the chain. The deny path is drawn in accent
+     because it is the one outcome that changes what Claude does; every other path is a nudge and the
+     search or read still runs. Read from graphify 0.9.46 cli.py (_run_hook_guard) and confirmed by running
+     guard-check.sh on 2026-10-19. -->
+<style>
+@font-face{font-family:'Archivo Expanded';src:url(fonts/archivo-expanded-400.woff2) format('woff2');font-weight:400;font-display:block}
+@font-face{font-family:'Archivo Text';src:url(fonts/archivo-400.woff2) format('woff2');font-weight:400;font-display:block}
+@font-face{font-family:'Printvetica';src:url(fonts/printvetica-caps.woff2) format('woff2');font-weight:400;font-display:block}
+@font-face{font-family:'IBM Plex Mono';src:url(fonts/ibm-plex-mono-400-latin.woff2) format('woff2');font-weight:400;font-display:block}
+:root{--bg:#000;--fg:#FFF;--rule:#C9C9C9;--meta:#999;--dim:#B4B4B4;--accent:#0E9C86;
+  --extended:'Archivo Expanded','Archivo Text',system-ui,sans-serif;--sans:'Archivo Text',system-ui,sans-serif;
+  --label:'Printvetica','Archivo Text',system-ui,sans-serif;--mono:'IBM Plex Mono',ui-monospace,monospace;}
+*{box-sizing:border-box;margin:0}
+html,body{width:1200px;height:750px;overflow:hidden}
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);padding:44px 48px;display:flex;flex-direction:column;}
+.head{display:flex;justify-content:space-between;align-items:baseline;padding-bottom:14px;border-bottom:1px solid var(--rule);}
+.head .t{font-family:var(--extended);text-transform:uppercase;font-size:30px;line-height:1;}
+.head .m{font-family:var(--label);text-transform:uppercase;letter-spacing:.025em;font-size:15px;color:var(--meta);}
+.entry{margin-top:22px;border:1px solid var(--rule);padding:12px 16px;font-family:var(--mono);font-size:14px;display:flex;justify-content:space-between;}
+.entry .s{color:var(--dim);}
+.chain{margin-top:14px;display:flex;flex-direction:column;}
+.step{display:flex;align-items:stretch;border:1px solid #444;border-top:0;}
+.step:first-child{border-top:1px solid #444;}
+.q{flex:1;padding:11px 16px;font-family:var(--mono);font-size:14px;line-height:19px;}
+.q .k{display:block;font-family:var(--label);text-transform:uppercase;letter-spacing:.025em;font-size:11px;color:var(--meta);margin-bottom:3px;}
+.out{width:360px;padding:11px 16px;border-left:1px solid #444;font-family:var(--mono);font-size:13px;line-height:18px;color:var(--dim);}
+.out b{display:block;font-family:var(--label);font-weight:400;text-transform:uppercase;letter-spacing:.025em;font-size:12px;color:var(--fg);margin-bottom:2px;}
+.deny{border:1px solid var(--accent);margin-top:14px;display:flex;}
+.deny .q{color:var(--fg);}
+.deny .q .k{color:var(--accent);}
+.deny .out{border-left:1px solid var(--accent);color:var(--fg);}
+.deny .out b{color:var(--accent);}
+.prov{margin-top:auto;padding-top:14px;border-top:1px solid var(--rule);display:flex;gap:26px;align-items:baseline;}
+.prov .k{font-family:var(--label);text-transform:uppercase;letter-spacing:.025em;font-size:13px;color:var(--accent);flex:none;}
+.prov .v{font-family:var(--mono);font-size:12px;line-height:18px;color:var(--dim);}
+</style>
+</head>
+<body>
+<div class="head"><div class="t">When the guard says no</div><div class="m">The Teardown · 006</div></div>
+
+<div class="entry"><span>Claude is about to call a tool</span><span class="s">Grep · Bash · Read · Glob</span></div>
+
+<div class="chain">
+  <div class="step"><div class="q"><span class="k">1 · is there a graph?</span>no graphify-out/graph.json</div><div class="out"><b>Silent</b>nothing printed, the tool runs</div></div>
+  <div class="step"><div class="q"><span class="k">2 · is it a search?</span>Grep tool, or Bash with grep, rg, find, fd, ack, ag</div><div class="out"><b>Nudge</b>"query the graph first"; the search still runs</div></div>
+  <div class="step"><div class="q"><span class="k">3 · is it a source file inside the project?</span>a Read of .json or a path outside the repo</div><div class="out"><b>Silent</b>nothing printed, the read runs</div></div>
+  <div class="step"><div class="q"><span class="k">4 · is the graph fresh for that file?</span>file edited after the last graphify update</div><div class="out"><b>Soft nudge</b>"graph may be stale"; never a block</div></div>
+  <div class="step"><div class="q"><span class="k">5 · any reason to let it through?</span>file not in the manifest · query in last 1,800 s · already blocked once this session</div><div class="out"><b>Nudge</b>the read runs</div></div>
+</div>
+
+<div class="deny">
+  <div class="q"><span class="k">All five passed</span>first Read of an indexed, unchanged source file; strict on; no recent query</div>
+  <div class="out"><b>Deny, once</b>reason shown to Claude: run graphify query, then re-issue the Read</div>
+</div>
+
+<div class="prov">
+  <span class="k">Source</span>
+  <span class="v">graphify 0.9.46 cli.py (_run_hook_guard), read 2026-10-19; behaviour confirmed by guard-check.sh on the same day: deny, nudge, nudge.<br>GRAPHIFY_HOOK_STRICT=0 switches strict off without a reinstall. Steps drawn in the order the code tests them; the 1,800 s window and the once-per-session marker are the last two checks.</span>
+</div>
+</body>
+</html>
