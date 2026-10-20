@@ -2,24 +2,24 @@
 <html lang="en" id="top"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>vektor /// no. 075 · Before AI took over: 11 weird, useful websites that still work</title>
-<meta name="description" content="The full list from the Vektor carousel: 11 free, weird and useful websites, every one re-checked on 18 October 2026.">
+<title>vektor /// no. 075 · A code reviewer that reads the diff cold</title>
+<meta name="description" content="The cold reviewer subagent for Claude Code: one file for .claude/agents that reviews your diff from a fresh context, how to call it, and what it caught in our seven-run test.">
 
 <!-- OG / social preview (traffic arrives via DM) -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="11 free websites that still work · vektor /// no. 075">
-<meta property="og:description" content="The full list from the Vektor carousel: 11 free, weird and useful websites, every one re-checked on 18 October 2026.">
+<meta property="og:title" content="A code reviewer that reads the diff cold · vektor /// no. 075">
+<meta property="og:description" content="The cold reviewer subagent file for Claude Code, ready to drop into .claude/agents.">
 <meta property="og:image" content="https://vektor-fm.github.io/vektor-site/og/vektor-og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Vektor · the FREE page">
+<meta property="og:image:alt" content="Vektor · the COLD page">
 <meta property="og:site_name" content="vektor">
 <meta property="og:url" content="https://vektor-fm.github.io/vektor-site/no-075.html">
 <link rel="canonical" href="https://vektor-fm.github.io/vektor-site/no-075.html">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="11 free websites that still work · vektor /// no. 075">
-<meta name="twitter:description" content="The full list from the Vektor carousel: 11 free, weird and useful websites, every one re-checked on 18 October 2026.">
+<meta name="twitter:title" content="A code reviewer that reads the diff cold · vektor /// no. 075">
+<meta name="twitter:description" content="The cold reviewer subagent file for Claude Code, ready to drop into .claude/agents.">
 <meta name="twitter:image" content="https://vektor-fm.github.io/vektor-site/og/vektor-og.png">
 <meta name="theme-color" content="#000000">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000000'/%3E%3Ctext x='32' y='47' font-family='Arial' font-size='46' font-weight='600' text-anchor='middle' fill='%23EFEADD'%3Ev%3C/text%3E%3C/svg%3E">
@@ -833,7 +833,7 @@ pre.code code{font-size:inherit;}
 
 
 <!-- the issue marker, kept: it is the only per-page label in the bar -->
-<div class="issue-marker">The FREE page · 11 websites, all re-checked</div>
+<div class="issue-marker">The COLD page · the reviewer file</div>
 
 <!-- The capture furniture (sticky bar + pop-up) lives in partials/capture.html
      and is injected ONLY into public pages. Unlock pages get an empty string
@@ -919,7 +919,7 @@ pre.code code{font-size:inherit;}
     <button class="pop-x" type="button" data-pop-close aria-label="Close">×</button>
     <span class="k">One email a week · the working setup</span>
     <h2 id="askPopH">Where the next one comes from.</h2>
-    <p>the FREE page is yours, free, no email needed — everything is on this page. The weekly teardown is where the next one gets built: one working AI setup, every week, with the numbers checked at source.</p>
+    <p>the COLD page is yours, free, no email needed — everything is on this page. The weekly teardown is where the next one gets built: one working AI setup, every week, with the numbers checked at source.</p>
     <form action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="ask">
       <input type="hidden" name="tag" id="askTag" value="no075-ask">
       <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
@@ -933,43 +933,47 @@ pre.code code{font-size:inherit;}
 <div class="weave" aria-hidden="true"></div>
 
 <main>
-<!-- NO.075 FREE: landing page for the C1 carousel (vektor-carousel-inspiration data/2026-10-18-carousel-c1-before-ai/), live 2026-10-18. -->
+<!-- DRAFT for NO.075 / COLD, prepared 2026-10-20 by the Publisher from script.txt (gate 2 approved 2026-10-19), SCRIPT.md
+     Sources, CUT-NOTES-A.md / CUT-NOTES-C.md and .tmp/no075-cold-review/RUN.md + code-reviewer.md in vektor-producer.
+     Cloned by post-kit.mjs from vektor-site/no-074.html (itself an uncommitted draft); same structure. UNCOMMITTED: the
+     founder reviews, then someone with founder approval commits and pushes it. It returns 404 until then. The reviewer
+     file is inline (Fig. 01, copy button); no file under files/ is needed. -->
 <style>
 #no075-page .fig{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:baseline;}
 #no075-page .fig .kick{font-size:var(--fs-s);}
 #no075-page .fig .disp{min-width:0;overflow-wrap:break-word;}
 #no075-page .fig .sub{grid-column:1 / -1;min-width:0;max-width:64ch;overflow-wrap:anywhere;font-size:var(--fs-m);line-height:var(--lh-xl);color:var(--dim);}
-#no075-page .lrow .t{text-transform:none;min-width:0;overflow-wrap:anywhere;}
-#no075-page .lrow .t a{color:inherit;text-decoration:underline;text-underline-offset:3px;}
-#no075-page .lrow .lmeta{display:block;margin-top:var(--p-s);}
 #no075-page .snippet pre{white-space:pre-wrap;overflow-wrap:anywhere;}
-@media(max-width:640px){#no075-page .fig{grid-template-columns:minmax(0,1fr);}#no075-page .fig .sub{grid-column:1;}}
+@media(max-width:640px){#no075-page .fig{grid-template-columns:minmax(0,1fr);}#no075-page .fig .sub{grid-column:1;}#no075-page .card .top{flex-wrap:wrap;}}
 </style>
 <div id="no075-page">
 <section class="hero">
-  <div class="kick eye">The FREE page · 11 websites, all re-checked</div>
-  <h1 class="disp">Before AI took over: 11 weird, useful websites that still work<span class="dot">.</span></h1>
-  <p class="sub">Before AI took over, people built weird, useful websites and gave them away. These 11 still load, still cost nothing and need nothing installed. We opened every one on 18 October 2026.</p>
-  <div class="actions"><a class="btn primary" data-goatcounter-click="no075-list" href="#list">See the list &darr;</a><a class="btn" href="#copy">Copy all links &darr;</a></div>
+  <div class="kick eye">The COLD page · the reviewer file</div>
+  <h1 class="disp">A code reviewer that reads the diff cold<span class="dot">.</span></h1>
+  <p class="sub">When Claude Code checks the code it just wrote, it reviews with the whole conversation behind it. A reviewer subagent starts in a fresh context, runs <code>git diff</code> itself and reviews what changed. In our seven small test changes, each check caught something the other missed, so keep the self-review and hand the diff to the cold reviewer after it.</p>
+  <div class="actions"><a class="btn primary" data-goatcounter-click="no075-reviewer" href="#reviewer">Get the reviewer file &darr;</a><a class="btn" href="#call">How to call it &darr;</a></div>
 </section>
-<div class="fig" id="list"><h2 class="kick">Fig. 01 ·</h2><h2 class="disp">The 11 sites<span class="dot">.</span></h2><p class="sub">In the carousel's order. Every site returned HTTP 200 on 18 October 2026, 10:27-10:32 UTC, in our own capture run.</p></div>
-<section class="ledger" aria-label="The 11 sites"><div class="lrow"><span class="n">1</span><span class="t"><b><a href="https://radio.garden" target="_blank" rel="noopener" data-goatcounter-click="no075-link-1">radio.garden</a></b> Spin the globe and tap any green dot: you hear a live radio station from that town.<span class="meta lmeta">Free · nothing to install · radio.garden</span></span></div><div class="lrow"><span class="n">2</span><span class="t"><b><a href="https://web.archive.org" target="_blank" rel="noopener" data-goatcounter-click="no075-link-2">archive.org (Wayback Machine)</a></b> Type any address and see how that site looked years ago. More than a trillion pages are saved.<span class="meta lmeta">1 trillion+ pages · archive.org, read 2026-10-18 · web.archive.org</span></span></div><div class="lrow"><span class="n">3</span><span class="t"><b><a href="https://www.remove.bg" target="_blank" rel="noopener" data-goatcounter-click="no075-link-3">remove.bg</a></b> Upload a photo and the background is gone in seconds.<span class="meta lmeta">Its own site says the standalone website closes on 1 December 2026, 09:00 CET, and moves to Canva (read 2026-10-18) · www.remove.bg</span></span></div><div class="lrow"><span class="n">4</span><span class="t"><b><a href="https://earth.nullschool.net" target="_blank" rel="noopener" data-goatcounter-click="no075-link-4">earth.nullschool.net</a></b> A live globe of the planet's winds, drawn as flowing lines. Switch layers to see ocean currents.<span class="meta lmeta">Free · nothing to install · earth.nullschool.net</span></span></div><div class="lrow"><span class="n">5</span><span class="t"><b><a href="https://www.photopea.com" target="_blank" rel="noopener" data-goatcounter-click="no075-link-5">Photopea</a></b> A full photo editor in your browser that opens PSD files. Your picture is not uploaded; it runs on your device.<span class="meta lmeta">Free with ads · nothing to install · www.photopea.com</span></span></div><div class="lrow"><span class="n">6</span><span class="t"><b><a href="https://haveibeenpwned.com" target="_blank" rel="noopener" data-goatcounter-click="no075-link-6">Have I Been Pwned</a></b> Type in your email and see if it leaked in a known breach.<span class="meta lmeta">1,046 pwned websites · haveibeenpwned.com, read 2026-10-18 · haveibeenpwned.com</span></span></div><div class="lrow"><span class="n">7</span><span class="t"><b><a href="https://justdeleteme.xyz" target="_blank" rel="noopener" data-goatcounter-click="no075-link-7">JustDeleteMe</a></b> Direct links to delete your account on hundreds of services, each rated from easy to impossible.<span class="meta lmeta">Free · nothing to install · justdeleteme.xyz</span></span></div><div class="lrow"><span class="n">8</span><span class="t"><b><a href="https://excalidraw.com" target="_blank" rel="noopener" data-goatcounter-click="no075-link-8">Excalidraw</a></b> A free whiteboard with a hand-drawn look. Sketch alone or live with others.<span class="meta lmeta">Free · no sign-up · excalidraw.com</span></span></div><div class="lrow"><span class="n">9</span><span class="t"><b><a href="https://histography.io" target="_blank" rel="noopener" data-goatcounter-click="no075-link-9">Histography</a></b> Every dot is a historic event from Wikipedia, from the Big Bang to today. Filter by wars or inventions.<span class="meta lmeta">Free · nothing to install · histography.io</span></span></div><div class="lrow"><span class="n">10</span><span class="t"><b><a href="https://www.window-swap.com" target="_blank" rel="noopener" data-goatcounter-click="no075-link-10">WindowSwap</a></b> Press one button and look out of a stranger's real window somewhere in the world, sound included.<span class="meta lmeta">Free · nothing to install · www.window-swap.com</span></span></div><div class="lrow"><span class="n">11</span><span class="t"><b><a href="https://www.gutenberg.org" target="_blank" rel="noopener" data-goatcounter-click="no075-link-11">Project Gutenberg</a></b> Free e-books whose copyright has expired. No account, no fees.<span class="meta lmeta">79,633 free eBooks · gutenberg.org, read 2026-10-18 · www.gutenberg.org</span></span></div></section>
-<div class="fig" id="copy"><h2 class="kick">Fig. 02 ·</h2><h2 class="disp">All links in one block<span class="dot">.</span></h2><p class="sub">Paste them into your notes or send them to a friend.</p></div>
-<section class="issues"><article class="card c-cream"><div class="snippet"><div class="bar"><span class="f">the list · 11 links</span><button class="snipbtn" id="snipCopy" type="button">Copy all links</button></div><pre id="snipText">1. radio.garden: https://radio.garden
-2. archive.org (Wayback Machine): https://web.archive.org
-3. remove.bg: https://www.remove.bg
-4. earth.nullschool.net: https://earth.nullschool.net
-5. Photopea: https://www.photopea.com
-6. Have I Been Pwned: https://haveibeenpwned.com
-7. JustDeleteMe: https://justdeleteme.xyz
-8. Excalidraw: https://excalidraw.com
-9. Histography: https://histography.io
-10. WindowSwap: https://www.window-swap.com
-11. Project Gutenberg: https://www.gutenberg.org</pre></div></article></section>
-<div class="fig"><h2 class="kick">Fig. 03 ·</h2><h2 class="disp">Good to know<span class="dot">.</span></h2></div>
-<section class="issues"><article class="issue"><h3>Before you use them</h3><p>Free here means free to use today: Photopea shows ads, remove.bg is moving to Canva on 1 December 2026, and any free site can change its terms. Have I Been Pwned only checks breaches it knows about; a clean result is not a guarantee.</p></article></section>
+<div class="fig" id="reviewer"><h2 class="kick">Fig. 01 ·</h2><h2 class="disp">The reviewer file<span class="dot">.</span></h2><p class="sub">The exact file that ran in all seven of our test runs. Save it as <code>.claude/agents/code-reviewer.md</code> in your repo.</p></div>
+<section class="issues"><article class="card c-cream"><div class="snippet"><div class="bar"><span class="f">.claude/agents/code-reviewer.md</span><button class="snipbtn" id="snipCopy" type="button">Copy file</button></div><pre id="snipText">---
+name: code-reviewer
+description: Cold code reviewer. Use to review the last commit. Reads only the diff, with no knowledge of the author's intent or self-review.
+tools: Read, Grep, Bash(git diff *)
+model: sonnet
+---
+
+You are a cold code reviewer. You did not write this change and you have not seen the author's reasoning or any self-review.
+
+1. Run `git diff HEAD~1` yourself. Do not accept a diff pasted by anyone else.
+2. Review only that diff. Read surrounding code with Read or Grep only when needed to judge a line in the diff.
+3. Report defects by severity: Critical, High, Medium, Low. For each, quote the exact lines, say what goes wrong at runtime, and say what the caller would see.
+4. If you find no defects, say so plainly. Do not invent findings and do not praise.</pre></div><p class="one">It reviews the last commit (<code>git diff HEAD~1</code>), so commit the change first. Its tools are read-only plus <code>git diff</code>, so it can report but not edit. <code>model: sonnet</code> is what we tested with; change it if you prefer another model.</p></article></section>
+<div class="fig" id="call"><h2 class="kick">Fig. 02 ·</h2><h2 class="disp">How to call it<span class="dot">.</span></h2><p class="sub">From Claude Code's docs, "Subagents" (code.claude.com/docs/en/sub-agents, read 2026-10-19).</p></div>
+<section class="ledger" aria-label="How to call the reviewer"><div class="lrow"><span class="n">1</span><span class="t"><b>Let the writer review its own change first.</b> In our test it caught the one real bug the cold reviewer passed (Fig. 03).</span></div><div class="lrow"><span class="n">2</span><span class="t"><b>Open a new session in the repo.</b> A subagent "starts with a fresh, isolated context window. It doesn't see your conversation history" (the docs).</span></div><div class="lrow"><span class="n">3</span><span class="t"><b>Type <code>@code-rev</code> and pick <code>code-reviewer (agent)</code>.</b> An @-mention "ensures that specific subagent runs rather than leaving the choice to Claude"; naming it in a plain sentence lets Claude decide whether to delegate.</span></div></section>
+<section class="issues"><article class="card c-cream"><p class="one">Honest note: our seven runs called the reviewer with a plain sentence ("Use the code-reviewer subagent to review the last commit.") in a headless <code>claude -p</code> session. The @-mention is the docs' way to guarantee it runs; it is not what we measured.</p></article></section>
+<div class="fig"><h2 class="kick">Fig. 03 ·</h2><h2 class="disp">What each check caught<span class="dot">.</span></h2><p class="sub">Our test, 2026-10-19: seven one-file changes in our own repo, Sonnet as the writer and as the cold reviewer. A small test, not a benchmark.</p></div>
+<section class="ledger" aria-label="Seven runs"><div class="lrow"><span class="n">6</span><span class="t"><b>Only the writer caught it.</b> A new <code>--limit</code> flag: set to 1, a failing item stays first in the queue and is retried forever, so nothing behind it is reached. The cold reviewer said "Ship it."</span></div><div class="lrow"><span class="n">7</span><span class="t"><b>Only the cold reviewer caught it.</b> A dropped space in an output line (<code>14d:5 asked</code> instead of <code>14d: 5 asked</code>). Cosmetic: no script we found reads that line. The self-review said the logic was correct.</span></div><div class="lrow"><span class="n">2, 5</span><span class="t"><b>Both caught the same real defect.</b></span></div><div class="lrow"><span class="n">1, 3, 4</span><span class="t"><b>Neither found a real defect.</b></span></div></section>
 <div class="fig"><h2 class="kick">Fig. 04 ·</h2><h2 class="disp">Sources<span class="dot">.</span></h2></div>
-<section class="issues"><article class="issue"><p class="meta">Every site loaded in our own browser on 18 October 2026 (HTTP 200, titles logged). Figures read off each site's own page the same day: archive.org (1 trillion+ pages), haveibeenpwned.com (1,046 pwned websites), gutenberg.org (79,633 free eBooks), remove.bg (closing notice). The list format is adapted from a carousel by @esc8pe.reality; the checks, screenshots and design are Vektor's.</p></article></section>
+<section class="issues"><article class="issue"><p><a href="https://code.claude.com/docs/en/sub-agents" target="_blank" rel="noopener">Claude Code docs, Subagents</a></p><p class="meta">Docs read 2026-10-19. The seven runs are our own test log (2026-10-19): one tally of WIN 1, TIE 2, NONE 3, LOSS 1 for the cold reviewer against the self-review. "Real" means we traced an input that triggers the defect; the <code>--limit 1</code> queue failure was traced, not observed in production.</p></article></section>
 </div>
 </main>
 
@@ -1002,7 +1006,7 @@ pre.code code{font-size:inherit;}
 
   <div class="wordmark-foot">
     <span class="wm-foot" id="wmFoot" aria-label="vektor"><span class="ch2" style="--i:0"><span class="g">%</span><span class="l">v</span></span><span class="ch2" style="--i:1"><span class="g">#</span><span class="l">e</span></span><span class="ch2" style="--i:2"><span class="g">Z</span><span class="l">k</span></span><span class="ch2" style="--i:3"><span class="g">8</span><span class="l">t</span></span><span class="ch2" style="--i:4"><span class="g">@</span><span class="l">o</span></span><span class="ch2" style="--i:5"><span class="g">W</span><span class="l">r</span></span></span>
-    <span class="m">/// no. 075 / free / 10-2026 · 11 free websites that still work</span>
+    <span class="m">/// no. 075 / cold / 10-2026 · a reviewer that reads the diff cold</span>
   </div>
 </footer>
 
