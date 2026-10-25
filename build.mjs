@@ -46,6 +46,13 @@ const NAV_CSS = read('partials/nav-css.html');
 const CAPTURE = read('partials/capture.html');
 const GATE = read('partials/gate.html');
 const UNLOCKED = read('partials/unlocked.html');
+// Cursor smoke (2026-10-25): one <script> tag from partials/smoke.html, injected via {{SMOKE}} (scripts.html, index.body.html).
+const SMOKE = read('partials/smoke.html');
+// newsletter.html + about.html were hand-edited on main (Brevo disclosure, commit 967cab6/bc691e7) without
+// porting the footer note to partials/footer.html; kept here, scoped to those two pages, so the build
+// reproduces what is live. Move into partials/footer.html if it should reach every page.
+const FOOTER_NOTE_OLD = 'Unsubscribe anytime.</div>';
+const FOOTER_NOTE_BREVO = 'Unsubscribe anytime. Your address is stored by us and sent through Brevo. <a href="./privacy.html">Privacy</a>.</div>';
 const BUILT = site.issues.filter((i) => i.built);
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 // Newsletter issues. Separate from site.issues[] because a Teardown is not a
@@ -54,7 +61,7 @@ const TEARDOWNS = site.teardowns ?? [];
 
 // ---- template fill: {{TOKEN}} -> value (uppercase tokens only) ----
 function fill(tpl, map) {
-  return tpl.replace(/\{\{([A-Z0-9_]+)\}\}/g, (m, k) => (k in map ? map[k] : m));
+  return tpl.replace(/\{\{([A-Z0-9_]+)\}\}/g, (m, k) => (k in map ? map[k] : k === 'SMOKE' ? SMOKE : m));
 }
 function assertNoTokens(html, label) {
   const left = html.match(/\{\{[A-Z0-9_]+\}\}/g);
@@ -445,7 +452,7 @@ function renderNewsletter() {
   const out = fill(read('partials/head.html'), map)
     + fill(read('partials/masthead.html'), map)
     + read('src/newsletter.body.html')
-    + fill(read('partials/footer.html'), map)
+    + fill(read('partials/footer.html'), map).replace(FOOTER_NOTE_OLD, FOOTER_NOTE_BREVO)
     + fill(read('partials/scripts.html'), map);
   assertNoTokens(out, 'newsletter');
   return out;
@@ -472,7 +479,7 @@ function renderAbout() {
   const out = fill(read('partials/head.html'), map)
     + fill(read('partials/masthead.html'), map)
     + fill(read('src/about.body.html'), map)
-    + fill(read('partials/footer.html'), map)
+    + fill(read('partials/footer.html'), map).replace(FOOTER_NOTE_OLD, FOOTER_NOTE_BREVO)
     + fill(read('partials/scripts.html'), map);
   assertNoTokens(out, 'about');
   return out;
