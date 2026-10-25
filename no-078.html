@@ -2,24 +2,24 @@
 <html lang="en" id="top"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>vektor /// no. 078 · Six AI demos that run in your browser with the Wi-Fi off</title>
-<meta name="description" content="The six demos from the Vektor carousel: AI models that run inside a browser tab on your own device, each tested with the network cut on 18 October 2026.">
+<title>vektor /// no. 078 · How many flats to see before you say yes</title>
+<meta name="description" content="The STOP table: how many flats (or days) to turn down before you say yes, for 1 to 100 viewings, from the 37% stopping rule, with its assumptions.">
 
 <!-- OG / social preview (traffic arrives via DM) -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="Six in-browser AI demos that work offline · vektor /// no. 078">
-<meta property="og:description" content="The six demos from the Vektor carousel: AI models that run inside a browser tab on your own device, each tested with the network cut on 18 October 2026.">
+<meta property="og:title" content="How many flats to see before you say yes · vektor /// no. 078">
+<meta property="og:description" content="The STOP table: how many to turn down first, for 1 to 100 flats.">
 <meta property="og:image" content="https://vektor-fm.github.io/vektor-site/og/vektor-og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Vektor · the LOCAL page">
+<meta property="og:image:alt" content="Vektor · the STOP page">
 <meta property="og:site_name" content="vektor">
 <meta property="og:url" content="https://vektor-fm.github.io/vektor-site/no-078.html">
 <link rel="canonical" href="https://vektor-fm.github.io/vektor-site/no-078.html">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Six in-browser AI demos that work offline · vektor /// no. 078">
-<meta name="twitter:description" content="The six demos from the Vektor carousel: AI models that run inside a browser tab on your own device, each tested with the network cut on 18 October 2026.">
+<meta name="twitter:title" content="How many flats to see before you say yes · vektor /// no. 078">
+<meta name="twitter:description" content="The STOP table: how many to turn down first, for 1 to 100 flats.">
 <meta name="twitter:image" content="https://vektor-fm.github.io/vektor-site/og/vektor-og.png">
 <meta name="theme-color" content="#000000">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000000'/%3E%3Ctext x='32' y='47' font-family='Arial' font-size='46' font-weight='600' text-anchor='middle' fill='%23EFEADD'%3Ev%3C/text%3E%3C/svg%3E">
@@ -833,7 +833,7 @@ pre.code code{font-size:inherit;}
 
 
 <!-- the issue marker, kept: it is the only per-page label in the bar -->
-<div class="issue-marker">The LOCAL page · 6 demos, tested offline</div>
+<div class="issue-marker">The STOP page · how many to turn down before you say yes</div>
 
 <!-- The capture furniture (sticky bar + pop-up) lives in partials/capture.html
      and is injected ONLY into public pages. Unlock pages get an empty string
@@ -919,7 +919,7 @@ pre.code code{font-size:inherit;}
     <button class="pop-x" type="button" data-pop-close aria-label="Close">×</button>
     <span class="k">One email a week · the working setup</span>
     <h2 id="askPopH">Where the next one comes from.</h2>
-    <p>the LOCAL page is yours, free, no email needed — everything is on this page. The weekly teardown is where the next one gets built: one working AI setup, every week, with the numbers checked at source.</p>
+    <p>the STOP table is yours, free, no email needed — everything is on this page. The weekly is where the next one gets built: one working AI setup or one piece of everyday maths, every week, with the numbers checked at source.</p>
     <form action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="ask">
       <input type="hidden" name="tag" id="askTag" value="no078-ask">
       <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
@@ -933,38 +933,47 @@ pre.code code{font-size:inherit;}
 <div class="weave" aria-hidden="true"></div>
 
 <main>
-<!-- NO.078 LOCAL: landing page for the C3 carousel (vektor-carousel-inspiration data/2026-10-18-carousel-c3-ai-in-browser/), live 2026-10-18. -->
+<!-- DRAFT for NO.078 / STOP (re-checked 2026-10-25 after render_ok + cover_ok; still uncommitted to vektor-site), prepared 2026-10-24 by the Publisher from script.txt (approved 2026-10-24, sha 8d3e8673af68),
+     SCRIPT.md Sources (Wikipedia "Secretary problem" and Berkeley News 2016-04-26, read 2026-10-20) and
+     payoff/skip-table.json (exact secretary-problem formula, computed 2026-10-24, Monte Carlo cross-check) in vektor-producer.
+     Built on the structure of the NO.077 draft (itself cloned by post-kit.mjs from vektor-site/no-075.html). Kept in the film
+     folder, not in ../vektor-site, so NO.076's post-kit clone still lands on no-076. UNCOMMITTED: the founder reviews, then it
+     is copied to vektor-site/no-078.html and committed and pushed by someone with founder approval. It returns 404 until then.
+     The table is inline; no file under files/ is needed. -->
 <style>
 #no078-page .fig{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:baseline;}
 #no078-page .fig .kick{font-size:var(--fs-s);}
 #no078-page .fig .disp{min-width:0;overflow-wrap:break-word;}
 #no078-page .fig .sub{grid-column:1 / -1;min-width:0;max-width:64ch;overflow-wrap:anywhere;font-size:var(--fs-m);line-height:var(--lh-xl);color:var(--dim);}
-#no078-page .lrow .t{text-transform:none;min-width:0;overflow-wrap:anywhere;}
-#no078-page .lrow .t a{color:inherit;text-decoration:underline;text-underline-offset:3px;}
-#no078-page .lrow .lmeta{display:block;margin-top:var(--p-s);}
-#no078-page .snippet pre{white-space:pre-wrap;overflow-wrap:anywhere;}
+#no078-page .look{display:flex;flex-wrap:wrap;gap:var(--p-m);align-items:center;}
+#no078-page .look input{font:inherit;font-size:var(--fs-l);width:7ch;min-height:44px;padding:0 .4em;border:1px solid var(--rule);background:var(--band);color:inherit;}
+#no078-page .look output{font-family:var(--font-sans);font-size:var(--fs-m);line-height:var(--lh-xl);}
+#no078-page .tbl{overflow-x:auto;padding:0 var(--rail) var(--p-m);}
+#no078-page table{border-collapse:collapse;width:100%;max-width:40rem;font-variant-numeric:tabular-nums;}
+#no078-page th,#no078-page td{text-align:right;padding:.35em .8em;border-top:1px solid var(--rule);}
+#no078-page th{font-size:var(--fs-s);text-transform:uppercase;color:var(--dim);}
+#no078-page tr.hl td{color:var(--accent);}
 @media(max-width:640px){#no078-page .fig{grid-template-columns:minmax(0,1fr);}#no078-page .fig .sub{grid-column:1;}}
 </style>
 <div id="no078-page">
 <section class="hero">
-  <div class="kick eye">The LOCAL page · 6 demos, tested offline</div>
-  <h1 class="disp">Six AI demos that run in your browser with the Wi-Fi off<span class="dot">.</span></h1>
-  <p class="sub">Your browser can run AI models on your own device. I opened these six free demos in Chrome on my laptop, let each one download its model, then cut the network on 18 October 2026. All six kept working. No install and nothing to sign up for.</p>
-  <div class="actions"><a class="btn primary" data-goatcounter-click="no078-list" href="#list">See the list &darr;</a><a class="btn" href="#copy">Copy all links &darr;</a></div>
+  <div class="kick eye">The STOP page · how many to turn down before you say yes</div>
+  <h1 class="disp">How many flats to see before you say yes<span class="dot">.</span></h1>
+  <p class="sub">Viewing twenty flats? Turn down the first seven, even the perfect one, and remember the best of them. Then say yes to the first flat that beats it. Out of twenty, that lands the very best flat about 38% of the time, and no rule does better. Below: the number to skip for any run of 1 to 100 flats, or days.</p>
+  <div class="actions"><a class="btn primary" data-goatcounter-click="no078-lookup" href="#lookup">Your number &darr;</a><a class="btn" href="#table">The full table &darr;</a></div>
 </section>
-<div class="fig" id="list"><h2 class="kick">Fig. 01 ·</h2><h2 class="disp">The six demos<span class="dot">.</span></h2><p class="sub">Open one, wait for the first load to finish, then turn the Wi-Fi off and use it.</p></div>
-<section class="ledger" aria-label="The six demos"><div class="lrow"><span class="n">1</span><span class="t"><b><a href="https://chat.webllm.ai" target="_blank" rel="noopener" data-goatcounter-click="no078-link-1">WebLLM Chat</a></b> Chat with an open language model running on your own graphics chip.<span class="meta lmeta">Worked offline from the second visit, once the model had finished caching · on our laptop it wrote 0.7 to 1.2 tokens a second (Llama 3.2 1B, 2026-10-18) · chat.webllm.ai</span></span></div><div class="lrow"><span class="n">2</span><span class="t"><b><a href="https://huggingface.co/spaces/Xenova/whisper-web" target="_blank" rel="noopener" data-goatcounter-click="no078-link-2">Whisper Web</a></b> Transcribe an audio file or your microphone into text.<span class="meta lmeta">Built with Transformers.js · worked offline 2026-10-18 · huggingface.co/spaces/Xenova/whisper-web</span></span></div><div class="lrow"><span class="n">3</span><span class="t"><b><a href="https://huggingface.co/spaces/Xenova/realtime-whisper-webgpu" target="_blank" rel="noopener" data-goatcounter-click="no078-link-3">Real-time Whisper</a></b> Live speech to text while you talk.<span class="meta lmeta">Needs WebGPU · worked offline 2026-10-18 · huggingface.co/spaces/Xenova/realtime-whisper-webgpu</span></span></div><div class="lrow"><span class="n">4</span><span class="t"><b><a href="https://huggingface.co/spaces/webml-community/remove-background-webgpu" target="_blank" rel="noopener" data-goatcounter-click="no078-link-4">Remove Background</a></b> Cut a person out of a photo.<span class="meta lmeta">A portrait model: best on people · worked offline 2026-10-18 · huggingface.co/spaces/webml-community/remove-background-webgpu</span></span></div><div class="lrow"><span class="n">5</span><span class="t"><b><a href="https://huggingface.co/spaces/webml-community/kokoro-webgpu" target="_blank" rel="noopener" data-goatcounter-click="no078-link-5">Kokoro TTS</a></b> Turn text into natural speech.<span class="meta lmeta">Needs WebGPU · worked offline 2026-10-18 · huggingface.co/spaces/webml-community/kokoro-webgpu</span></span></div><div class="lrow"><span class="n">6</span><span class="t"><b><a href="https://huggingface.co/spaces/webml-community/segment-anything-webgpu" target="_blank" rel="noopener" data-goatcounter-click="no078-link-6">Segment Anything</a></b> Click an object in a photo and it outlines it.<span class="meta lmeta">Needs WebGPU · worked offline 2026-10-18 · huggingface.co/spaces/webml-community/segment-anything-webgpu</span></span></div></section>
-<div class="fig" id="copy"><h2 class="kick">Fig. 02 ·</h2><h2 class="disp">All links in one block<span class="dot">.</span></h2><p class="sub">Paste them into your notes or send them to a friend.</p></div>
-<section class="issues"><article class="card c-cream"><div class="snippet"><div class="bar"><span class="f">the list · 6 links</span><button class="snipbtn" id="snipCopy" type="button">Copy all links</button></div><pre id="snipText">1. WebLLM Chat: https://chat.webllm.ai
-2. Whisper Web: https://huggingface.co/spaces/Xenova/whisper-web
-3. Real-time Whisper: https://huggingface.co/spaces/Xenova/realtime-whisper-webgpu
-4. Remove Background: https://huggingface.co/spaces/webml-community/remove-background-webgpu
-5. Kokoro TTS: https://huggingface.co/spaces/webml-community/kokoro-webgpu
-6. Segment Anything: https://huggingface.co/spaces/webml-community/segment-anything-webgpu</pre></div></article></section>
-<div class="fig"><h2 class="kick">Fig. 03 ·</h2><h2 class="disp">Good to know<span class="dot">.</span></h2></div>
-<section class="issues"><article class="issue"><h3>What you need</h3><p>A browser with WebGPU: recent Chrome or Edge on a laptop or desktop works best. The first visit downloads the model into the tab, which can take a minute or more. On a laptop without a strong graphics card the chat model is slow.</p></article><article class="issue"><h3>How we tested</h3><p>Chrome on a Windows laptop with integrated Intel graphics, 18 October 2026. We loaded each demo online, produced a real output, cut the network and produced a new output. Not tested on Safari, Firefox or a phone. We left out a seventh demo (SmolVLM) because it gave no answer after 25 minutes online on this laptop.</p></article></section>
+<div class="fig" id="lookup"><h2 class="kick">Fig. 01 ·</h2><h2 class="disp">Your number<span class="dot">.</span></h2><p class="sub">Type how many flats you expect to see (or how many days you have to look). You get how many to turn down first, and the chance the rule lands the very best one.</p></div>
+<section class="issues"><article class="card c-cream"><div class="look"><label for="stopN">Flats or days</label><input id="stopN" type="number" min="1" max="100" value="20" inputmode="numeric"><output id="stopOut" for="stopN" aria-live="polite"></output></div></article></section>
+<div class="fig"><h2 class="kick">Fig. 02 ·</h2><h2 class="disp">The rule<span class="dot">.</span></h2></div>
+<section class="ledger" aria-label="The rule in three steps"><div class="lrow"><span class="n">1</span><span class="t"><b>Look.</b> For the first ones in the table you only look, and remember the best you have seen. You say no to every one of them, even a perfect one.</span></div><div class="lrow"><span class="n">2</span><span class="t"><b>Leap.</b> From the next one on, say yes to the first flat that beats the best of the ones you looked at.</span></div><div class="lrow"><span class="n">3</span><span class="t"><b>Days work too.</b> With a month to look, the first 11 days are just for looking (Christian &amp; Griffiths, Algorithms to Live By, via Berkeley News 2016-04-26).</span></div></section>
+<section class="issues"><article class="card c-cream"><p class="one">The rule assumes you see flats one at a time in no particular order, a flat you pass on is gone, you can only compare each flat with the ones before it, and you only count a win if you get the single best one. If you can go back to a flat, or a good-enough flat is fine, a shorter look phase does better. If no flat after the look phase beats the best one (it happens when the best was among the ones you turned down), the rule leaves you with the last flat.</p></article></section>
+<div class="fig" id="table"><h2 class="kick">Fig. 03 ·</h2><h2 class="disp">The full table<span class="dot">.</span></h2><p class="sub">Exact secretary-problem formula P = (k/n) &middot; sum over i = k+1..n of 1/(i-1), best k for each n; computed 2026-10-24, cross-checked by simulation (200k-400k trials per checked row). Around 100 the skip settles near 37% of n (1/e) and the chance near 37%.</p></div>
+<div class="tbl"><table aria-label="How many to turn down first, by number of flats"><thead><tr><th>Flats or days</th><th>Turn down first</th><th>Start saying yes at</th><th>Chance of the very best</th></tr></thead><tbody><tr><td>1</td><td>0</td><td>1</td><td>100.0%</td></tr><tr><td>2</td><td>0</td><td>1</td><td>50.0%</td></tr><tr><td>3</td><td>1</td><td>2</td><td>50.0%</td></tr><tr><td>4</td><td>1</td><td>2</td><td>45.8%</td></tr><tr><td>5</td><td>2</td><td>3</td><td>43.3%</td></tr><tr><td>6</td><td>2</td><td>3</td><td>42.8%</td></tr><tr><td>7</td><td>2</td><td>3</td><td>41.4%</td></tr><tr><td>8</td><td>3</td><td>4</td><td>41.0%</td></tr><tr><td>9</td><td>3</td><td>4</td><td>40.6%</td></tr><tr><td>10</td><td>3</td><td>4</td><td>39.9%</td></tr><tr><td>11</td><td>4</td><td>5</td><td>39.8%</td></tr><tr><td>12</td><td>4</td><td>5</td><td>39.6%</td></tr><tr><td>13</td><td>5</td><td>6</td><td>39.2%</td></tr><tr><td>14</td><td>5</td><td>6</td><td>39.2%</td></tr><tr><td>15</td><td>5</td><td>6</td><td>38.9%</td></tr><tr><td>16</td><td>6</td><td>7</td><td>38.8%</td></tr><tr><td>17</td><td>6</td><td>7</td><td>38.7%</td></tr><tr><td>18</td><td>6</td><td>7</td><td>38.5%</td></tr><tr><td>19</td><td>7</td><td>8</td><td>38.5%</td></tr><tr class="hl"><td>20</td><td>7</td><td>8</td><td>38.4%</td></tr><tr><td>21</td><td>8</td><td>9</td><td>38.3%</td></tr><tr><td>22</td><td>8</td><td>9</td><td>38.3%</td></tr><tr><td>23</td><td>8</td><td>9</td><td>38.2%</td></tr><tr><td>24</td><td>9</td><td>10</td><td>38.1%</td></tr><tr><td>25</td><td>9</td><td>10</td><td>38.1%</td></tr><tr><td>26</td><td>9</td><td>10</td><td>38.0%</td></tr><tr><td>27</td><td>10</td><td>11</td><td>38.0%</td></tr><tr><td>28</td><td>10</td><td>11</td><td>38.0%</td></tr><tr><td>29</td><td>10</td><td>11</td><td>37.9%</td></tr><tr class="hl"><td>30</td><td>11</td><td>12</td><td>37.9%</td></tr><tr><td>31</td><td>11</td><td>12</td><td>37.8%</td></tr><tr><td>32</td><td>12</td><td>13</td><td>37.8%</td></tr><tr><td>33</td><td>12</td><td>13</td><td>37.8%</td></tr><tr><td>34</td><td>12</td><td>13</td><td>37.7%</td></tr><tr><td>35</td><td>13</td><td>14</td><td>37.7%</td></tr><tr><td>36</td><td>13</td><td>14</td><td>37.7%</td></tr><tr><td>37</td><td>13</td><td>14</td><td>37.6%</td></tr><tr><td>38</td><td>14</td><td>15</td><td>37.6%</td></tr><tr><td>39</td><td>14</td><td>15</td><td>37.6%</td></tr><tr><td>40</td><td>15</td><td>16</td><td>37.6%</td></tr><tr><td>41</td><td>15</td><td>16</td><td>37.6%</td></tr><tr><td>42</td><td>15</td><td>16</td><td>37.5%</td></tr><tr><td>43</td><td>16</td><td>17</td><td>37.5%</td></tr><tr><td>44</td><td>16</td><td>17</td><td>37.5%</td></tr><tr><td>45</td><td>16</td><td>17</td><td>37.5%</td></tr><tr><td>46</td><td>17</td><td>18</td><td>37.5%</td></tr><tr><td>47</td><td>17</td><td>18</td><td>37.5%</td></tr><tr><td>48</td><td>17</td><td>18</td><td>37.4%</td></tr><tr><td>49</td><td>18</td><td>19</td><td>37.4%</td></tr><tr><td>50</td><td>18</td><td>19</td><td>37.4%</td></tr><tr><td>51</td><td>19</td><td>20</td><td>37.4%</td></tr><tr><td>52</td><td>19</td><td>20</td><td>37.4%</td></tr><tr><td>53</td><td>19</td><td>20</td><td>37.4%</td></tr><tr><td>54</td><td>20</td><td>21</td><td>37.4%</td></tr><tr><td>55</td><td>20</td><td>21</td><td>37.4%</td></tr><tr><td>56</td><td>20</td><td>21</td><td>37.4%</td></tr><tr><td>57</td><td>21</td><td>22</td><td>37.4%</td></tr><tr><td>58</td><td>21</td><td>22</td><td>37.3%</td></tr><tr><td>59</td><td>22</td><td>23</td><td>37.3%</td></tr><tr><td>60</td><td>22</td><td>23</td><td>37.3%</td></tr><tr><td>61</td><td>22</td><td>23</td><td>37.3%</td></tr><tr><td>62</td><td>23</td><td>24</td><td>37.3%</td></tr><tr><td>63</td><td>23</td><td>24</td><td>37.3%</td></tr><tr><td>64</td><td>23</td><td>24</td><td>37.3%</td></tr><tr><td>65</td><td>24</td><td>25</td><td>37.3%</td></tr><tr><td>66</td><td>24</td><td>25</td><td>37.3%</td></tr><tr><td>67</td><td>24</td><td>25</td><td>37.3%</td></tr><tr><td>68</td><td>25</td><td>26</td><td>37.3%</td></tr><tr><td>69</td><td>25</td><td>26</td><td>37.3%</td></tr><tr><td>70</td><td>26</td><td>27</td><td>37.2%</td></tr><tr><td>71</td><td>26</td><td>27</td><td>37.2%</td></tr><tr><td>72</td><td>26</td><td>27</td><td>37.2%</td></tr><tr><td>73</td><td>27</td><td>28</td><td>37.2%</td></tr><tr><td>74</td><td>27</td><td>28</td><td>37.2%</td></tr><tr><td>75</td><td>27</td><td>28</td><td>37.2%</td></tr><tr><td>76</td><td>28</td><td>29</td><td>37.2%</td></tr><tr><td>77</td><td>28</td><td>29</td><td>37.2%</td></tr><tr><td>78</td><td>29</td><td>30</td><td>37.2%</td></tr><tr><td>79</td><td>29</td><td>30</td><td>37.2%</td></tr><tr><td>80</td><td>29</td><td>30</td><td>37.2%</td></tr><tr><td>81</td><td>30</td><td>31</td><td>37.2%</td></tr><tr><td>82</td><td>30</td><td>31</td><td>37.2%</td></tr><tr><td>83</td><td>30</td><td>31</td><td>37.2%</td></tr><tr><td>84</td><td>31</td><td>32</td><td>37.2%</td></tr><tr><td>85</td><td>31</td><td>32</td><td>37.2%</td></tr><tr><td>86</td><td>31</td><td>32</td><td>37.1%</td></tr><tr><td>87</td><td>32</td><td>33</td><td>37.1%</td></tr><tr><td>88</td><td>32</td><td>33</td><td>37.1%</td></tr><tr><td>89</td><td>33</td><td>34</td><td>37.1%</td></tr><tr><td>90</td><td>33</td><td>34</td><td>37.1%</td></tr><tr><td>91</td><td>33</td><td>34</td><td>37.1%</td></tr><tr><td>92</td><td>34</td><td>35</td><td>37.1%</td></tr><tr><td>93</td><td>34</td><td>35</td><td>37.1%</td></tr><tr><td>94</td><td>34</td><td>35</td><td>37.1%</td></tr><tr><td>95</td><td>35</td><td>36</td><td>37.1%</td></tr><tr><td>96</td><td>35</td><td>36</td><td>37.1%</td></tr><tr><td>97</td><td>35</td><td>36</td><td>37.1%</td></tr><tr><td>98</td><td>36</td><td>37</td><td>37.1%</td></tr><tr><td>99</td><td>36</td><td>37</td><td>37.1%</td></tr><tr><td>100</td><td>37</td><td>38</td><td>37.1%</td></tr></tbody></table></div>
 <div class="fig"><h2 class="kick">Fig. 04 ·</h2><h2 class="disp">Sources<span class="dot">.</span></h2></div>
-<section class="issues"><article class="issue"><p class="meta">Each demo is an official project page: chat.webllm.ai from the MLC team; the others are Hugging Face Spaces built with Transformers.js. Offline results are from our own runs on 18 October 2026. The format is adapted from a carousel by @esc8pe.reality; we list only pages we loaded ourselves, never a third party's link list.</p></article></section>
+<section class="issues"><article class="issue"><p><a href="https://en.wikipedia.org/wiki/Secretary_problem" target="_blank" rel="noopener">Wikipedia, Secretary problem</a> (read 2026-10-20) · T. S. Ferguson, "Who solved the secretary problem?", Statistical Science 4(3), 1989 · Berkeley News, 2016-04-26, on Christian &amp; Griffiths, Algorithms to Live By.</p><p class="meta">Twenty flats: skip 7, chance 0.3842 (skip 6: 0.379, skip 8: 0.382), computed 2026-10-20 and re-checked 2026-10-24. This is maths about an idealised search, not advice about any flat or market.</p></article></section>
+<script>
+(function(){var T=[[1,0,1],[2,0,0.5],[3,1,0.5],[4,1,0.4583],[5,2,0.4333],[6,2,0.4278],[7,2,0.4143],[8,3,0.4098],[9,3,0.406],[10,3,0.3987],[11,4,0.3984],[12,4,0.3955],[13,5,0.3923],[14,5,0.3917],[15,5,0.3894],[16,6,0.3881],[17,6,0.3873],[18,6,0.3854],[19,7,0.385],[20,7,0.3842],[21,8,0.3828],[22,8,0.3827],[23,8,0.3819],[24,9,0.3812],[25,9,0.3809],[26,9,0.3801],[27,10,0.3798],[28,10,0.3795],[29,10,0.3787],[30,11,0.3787],[31,11,0.3783],[32,12,0.3778],[33,12,0.3777],[34,12,0.3773],[35,13,0.377],[36,13,0.3768],[37,13,0.3764],[38,14,0.3763],[39,14,0.3761],[40,15,0.3757],[41,15,0.3757],[42,15,0.3755],[43,16,0.3753],[44,16,0.3752],[45,16,0.3749],[46,17,0.3748],[47,17,0.3747],[48,17,0.3744],[49,18,0.3744],[50,18,0.3743],[51,19,0.3741],[52,19,0.374],[53,19,0.3739],[54,20,0.3738],[55,20,0.3737],[56,20,0.3735],[57,21,0.3735],[58,21,0.3734],[59,22,0.3732],[60,22,0.3732],[61,22,0.3731],[62,23,0.373],[63,23,0.373],[64,23,0.3728],[65,24,0.3728],[66,24,0.3727],[67,24,0.3726],[68,25,0.3726],[69,25,0.3725],[70,26,0.3724],[71,26,0.3724],[72,26,0.3723],[73,27,0.3722],[74,27,0.3722],[75,27,0.3721],[76,28,0.3721],[77,28,0.372],[78,29,0.3719],[79,29,0.3719],[80,29,0.3719],[81,30,0.3718],[82,30,0.3718],[83,30,0.3717],[84,31,0.3717],[85,31,0.3716],[86,31,0.3715],[87,32,0.3715],[88,32,0.3715],[89,33,0.3714],[90,33,0.3714],[91,33,0.3714],[92,34,0.3713],[93,34,0.3713],[94,34,0.3712],[95,35,0.3712],[96,35,0.3712],[97,35,0.3711],[98,36,0.3711],[99,36,0.3711],[100,37,0.371]];var n=document.getElementById('stopN'),o=document.getElementById('stopOut');if(!n||!o)return;function f(){var v=Math.round(Number(n.value));if(!(v>=1&&v<=100)){o.textContent='Pick a number from 1 to 100.';return;}var r=T[v-1];o.textContent=r[1]===0?'Out of '+v+': no look phase, say yes to the first one. Chance of the very best: '+(r[2]*100).toFixed(1)+'%.':'Out of '+v+': turn down the first '+r[1]+', then say yes to the first one that beats them all. Chance of the very best: '+(r[2]*100).toFixed(1)+'%.';}n.addEventListener('input',f);f();})();
+</script>
 </div>
 </main>
 
@@ -997,7 +1006,7 @@ pre.code code{font-size:inherit;}
 
   <div class="wordmark-foot">
     <span class="wm-foot" id="wmFoot" aria-label="vektor"><span class="ch2" style="--i:0"><span class="g">%</span><span class="l">v</span></span><span class="ch2" style="--i:1"><span class="g">#</span><span class="l">e</span></span><span class="ch2" style="--i:2"><span class="g">Z</span><span class="l">k</span></span><span class="ch2" style="--i:3"><span class="g">8</span><span class="l">t</span></span><span class="ch2" style="--i:4"><span class="g">@</span><span class="l">o</span></span><span class="ch2" style="--i:5"><span class="g">W</span><span class="l">r</span></span></span>
-    <span class="m">/// no. 078 / local / 10-2026 · six in-browser ai demos that work offline</span>
+    <span class="m">/// no. 078 / stop / 10-2026 · when to say yes</span>
   </div>
 </footer>
 
