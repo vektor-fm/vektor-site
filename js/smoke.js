@@ -35,7 +35,7 @@ function init () {
 try {
 const canvas = document.createElement('canvas');
 canvas.setAttribute('aria-hidden', 'true'); canvas.setAttribute('data-vsmoke', '');
-canvas.style.cssText = 'position:fixed;left:0;top:0;width:100vw;height:100vh;z-index:-1;pointer-events:none;display:block;background:#000;opacity:.6';
+canvas.style.cssText = 'position:fixed;left:0;top:0;width:100vw;height:100vh;z-index:45;pointer-events:none;display:block;background:#000;opacity:.3;mix-blend-mode:screen';
 const SMALL = Math.min(window.innerWidth, window.innerHeight) < 700 || /Mobi|Android/i.test(navigator.userAgent);
 const DPR_CAP = SMALL ? 1 : 1.5;
 document.body.insertBefore(canvas, document.body.firstChild);
