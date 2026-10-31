@@ -1,0 +1,31 @@
+{
+  "number": "067",
+  "title": "vektor /// no. 067 · Give Claude a workflow for your job",
+  "description": "The official Claude role-plugin collection, current install IDs and a practical installation guide. Workflow states are illustrative; permissions, data access and professional review still apply.",
+  "og_title": "Give Claude a workflow for your job · vektor /// no. 067",
+  "og_description": "Claude role plugins turn job workflows into a starting point. The official collection, current install IDs and setup limits.",
+  "og_image": "https://vektor-fm.github.io/vektor-site/og/vektor-og.png",
+  "og_alt": "Vektor · Claude role plugins",
+  "og_url": "https://vektor-fm.github.io/vektor-site/no-067.html",
+  "canonical": "https://vektor-fm.github.io/vektor-site/no-067.html",
+  "tw_title": "Give Claude a workflow for your job · vektor /// no. 067",
+  "tw_description": "The official collection, current install IDs and the practical limits around access, permissions and review.",
+  "tw_image": "https://vektor-fm.github.io/vektor-site/og/vektor-og.png",
+  "marker": "Claude role plugins · the collection and setup",
+  "sticky_text": "Follow <b>@vektor.fm</b> for AI setups you can use",
+  "backref_html": "A new keyword drops every week — <b>catch it first on the reel</b> — follow @vektor.fm. <a href=\"./index.html\">Back to the index</a>",
+  "footer_meta": "/// no. 067 / plugin / 10-2026 · Claude role workflows",
+  "slug": "no067",
+  "gate_title": "The collection and the setup guide.",
+  "gate_lede": "The current install IDs, setup steps and limits that still depend on your account, permissions and data.",
+  "og_card": {
+    "accent": "#F386A1",
+    "kick": "Claude role plugins · the collection and setup",
+    "h1_html": "Give Claude<br>a workflow<br>for your job<span class=\"dot\">.</span>",
+    "h1_size": 55,
+    "sub_mt": 18,
+    "sub_html": "The official collection, current install IDs and the limits around access, permissions and review.",
+    "meta_html": "/// no. 067 / plugin / <b>vektor-fm.github.io</b>"
+  }
+}
+

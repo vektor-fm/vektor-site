@@ -1,0 +1,134 @@
+<section class="hero">
+  <div class="kick eye">Claude Code · the session review</div>
+  <h1 class="disp">Claude Code that improves<br>itself from its sessions<span class="dot">.</span></h1>
+  <p class="sub">Claude Code writes every session you run to a folder on your computer and, by default, deletes each one after 30 days. That folder is a record of what you keep correcting and what you keep doing by hand. Below: the <b>free plugin</b> from the film, the <b>three setup steps</b>, and exactly what it does and does not do with your sessions.</p>
+  <div class="actions">
+    <a class="btn primary" href="./files/vektor-improve-plugin-v1.1.zip">Download the plugin (.zip) &darr;</a>
+    <a class="btn" href="#setup">The setup steps ↓</a>
+    <a class="btn" href="#privacy">What it reads →</a>
+    <button class="btn" id="shareBtn" type="button">Send to whoever corrects Claude on the same thing twice</button>
+  </div>
+  <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+</section>
+
+<!-- ======================= THE PROMISE: THE SETUP ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 01 ·</h2>
+  <h2 class="disp">Three steps<span class="dot">.</span></h2>
+  <p class="sub">What the DM promised. You need Claude Code, your own Claude plan, and Node.js 20 or later on your PATH (<code>node --version</code>). No npm install.</p>
+</div>
+
+<section class="issues" id="setup">
+  <article class="card c-cream">
+    <div class="top">
+      <span class="tag">vektor-improve-plugin-v1.1.zip · 60 KB · MIT</span>
+      <span class="goth">1 · 2 · 3</span>
+    </div>
+    <h2>Run it on your own sessions</h2>
+    <div class="snippet">
+      <div class="bar"><span class="f">setup.txt</span><button class="snipbtn" id="snipCopy" type="button">Copy steps</button></div>
+      <pre id="snipText">1. Unzip vektor-improve-plugin-v1.1.zip
+
+2. In a terminal, in the project folder you want the report in:
+   claude --plugin-dir &lt;unzipped&gt;/vektor-skills/plugins/session-review
+
+3. In Claude Code, type:
+   /vektor:improve</pre>
+    </div>
+    <p class="one">It reads your recent local Claude Code sessions, writes a short report (what keeps going wrong, skills you are missing, lines to add to CLAUDE.md) and stages up to three skill drafts. Everything lands in <code>.improve-output/</code> in the folder you ran it from. Keep that folder out of commits and cloud-sync folders.</p>
+  </article>
+</section>
+
+<!-- ======================= PRIVACY ======================= -->
+<div class="fig" id="privacy">
+  <h2 class="kick">Fig. 02 ·</h2>
+  <h2 class="disp">What it reads, and what it doesn't do<span class="dot">.</span></h2>
+  <p class="sub">Read this before you run it.</p>
+</div>
+
+<section class="ledger" aria-label="Privacy">
+  <div class="lrow"><span class="n">1</span><span class="t"><b>Your own sessions, on your own machine.</b> The helper reads the session files under <code>~/.claude/projects</code> and keeps only your own messages. It makes no network calls and has no analytics.</span></div>
+  <div class="lrow"><span class="n">2</span><span class="t"><b>Not fully offline.</b> The masked evidence goes into your normal Claude Code conversation, so the analysis runs on your Claude plan and your plan's usage limits apply. No Vektor account, key or credits.</span></div>
+  <div class="lrow"><span class="n">3</span><span class="t"><b>Nothing installed, nothing edited.</b> Drafts are review files. It never installs a skill, never edits CLAUDE.md or your settings, and never deletes your history.</span></div>
+  <div class="lrow"><span class="n">4</span><span class="t"><b>Review before you share.</b> Secret-shaped strings are masked, but masking cannot catch everything, and project names and personal details in ordinary text stay in. Read the report and drafts before you share or record them.</span></div>
+</section>
+
+<!-- ======================= THE RUN ======================= -->
+<div class="fig" id="run">
+  <h2 class="kick">Fig. 03 ·</h2>
+  <h2 class="disp">What it found in mine<span class="dot">.</span></h2>
+  <p class="sub">The run in the film, 2026-10-06, 2 min 42 s from command to report.</p>
+</div>
+
+<section class="issues" id="found">
+  <article class="issue">
+    <h3>36 sessions read</h3>
+    <p>213 of my messages, a 4-day sample of my history. The report says how much it read, and which dates it missed.</p>
+  </article>
+  <article class="issue">
+    <h3>3 skill drafts</h3>
+    <p><code>producer-gate-audit</code>, <code>production-retro</code>, <code>codex-parity-check</code>. The first is a check I had done by hand in three different sessions.</p>
+  </article>
+  <article class="issue">
+    <h3>5 CLAUDE.md lines</h3>
+    <p>Proposed, with the dated messages behind each one. I check them against my files before adding any.</p>
+    <p class="meta">Counts are messages it cited, not proven time saved. Grouping and drafts are the model's judgment.</p>
+  </article>
+</section>
+
+<!-- ======================= KEEP MORE HISTORY ======================= -->
+<div class="fig" id="history">
+  <h2 class="kick">Fig. 04 ·</h2>
+  <h2 class="disp">Keep more than 30 days<span class="dot">.</span></h2>
+  <p class="sub">Optional. Claude Code deletes sessions older than <code>cleanupPeriodDays</code> when it starts; the documented default is 30. To keep more future history, merge this into your existing <code>~/.claude/settings.json</code> (don't replace the file). Deleted sessions cannot be recovered.</p>
+</div>
+
+<section class="issues" id="keep">
+  <article class="card c-cream">
+    <div class="snippet">
+      <div class="bar"><span class="f">~/.claude/settings.json</span><button class="copybtn snipbtn" type="button" data-copy='"cleanupPeriodDays": 90'>Copy line</button></div>
+      <pre>{
+  "cleanupPeriodDays": 90
+}</pre>
+    </div>
+  </article>
+</section>
+
+<!-- ======================= CREDIT ======================= -->
+<div class="fig" id="credit">
+  <h2 class="kick">Fig. 05 ·</h2>
+  <h2 class="disp">Credit<span class="dot">.</span></h2>
+  <p class="sub">Credit where it's due, and what is ours.</p>
+</div>
+
+<section class="issues" id="source">
+  <article class="issue">
+    <h3>@austin.marchese's reel</h3>
+    <p>The film's beat order comes from <a href="https://www.instagram.com/p/DeAne_MjMoi/" target="_blank" rel="noopener">@austin.marchese's reel on Instagram</a>.</p>
+  </article>
+  <article class="issue">
+    <h3>Ours</h3>
+    <p>The script, the drawings and the plugin are Vektor's. The plugin is MIT-licensed; the licence is in the zip.</p>
+  </article>
+</section>
+
+<!-- ======================= THE FILE ======================= -->
+<div class="fig" id="files">
+  <h2 class="kick">Fig. 06 ·</h2>
+  <h2 class="disp">The file<span class="dot">.</span></h2>
+  <p class="sub">Free, no email needed.</p>
+</div>
+
+<section class="issues" id="download">
+  <article class="card c-cream">
+    <div class="top">
+      <span class="tag">plugin v1.1 · 2026-10-07</span>
+      <span class="goth">one zip</span>
+    </div>
+    <h2>The session-review plugin</h2>
+    <p class="one">The plugin, its README (requirements, privacy limits, every cap) and its tests. Not yet in the Claude Code plugin marketplace: load it with <code>--plugin-dir</code> as above.</p>
+    <div class="actions">
+      <a class="btn" href="./files/vektor-improve-plugin-v1.1.zip">Download the plugin (.zip) &darr;</a>
+    </div>
+  </article>
+</section>

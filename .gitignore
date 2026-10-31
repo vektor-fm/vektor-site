@@ -10,3 +10,4 @@ plates-src/
 # Secrets
 .env
 .env.*
+.tmp/

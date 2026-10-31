@@ -1,0 +1,130 @@
+<section class="hero">
+  <div class="kick eye">The Teardown · 006</div>
+  <h1 class="disp">The hook that asks<br>before it greps<span class="dot">.</span></h1>
+  <p class="sub">A CLAUDE.md line asks Claude to check your repo map once. Graphify's hook asks again before every search, and in strict mode it refuses the first raw file read of a session. We fed the guard fake tool calls on 2026-10-19 and read what it printed: it blocks once per session, never twice, and not at all for a file you edited after the graph was built.</p>
+  <div class="actions">
+    <a class="btn primary" href="#chain">The decision chain ↓</a>
+    <a class="btn" href="#file">The file →</a>
+    <button class="btn" id="shareBtn" type="button">Send to a dev friend</button>
+  </div>
+  <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+</section>
+
+<!-- ======================= THE FILM ======================= -->
+<div class="fig" id="board">
+  <h2 class="kick">Fig. 01 ·</h2>
+  <span class="gaccent">what the film said, and what is true</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues">
+  <article class="issue">
+    <p>The Vektor film of 2026-10-09 said that after <code>graphify claude install</code>, Claude Code runs Graphify's guard before it greps or opens a file, and that with <code>--strict</code> a session's first raw read is blocked and sent to the graph.<sup><a href="#s1">[1]</a></sup> Both statements hold. Neither has the conditions that decide whether you will ever see the block.</p>
+    <p>Graphify's README mentions strict mode once, in a section about a different editor, as "the <code>GRAPHIFY_HOOK_STRICT=1</code> once-per-session indexed-read denial".<sup><a href="#s1">[1]</a></sup> So the behaviour below is read from the installed program's source and then confirmed by running it, not taken from documentation.<sup><a href="#s2">[2]</a></sup></p>
+  </article>
+</section>
+
+<!-- ======================= THE CHAIN ======================= -->
+<div class="fig" id="chain">
+  <h2 class="kick">Fig. 02 ·</h2>
+  <span class="gaccent">the decision chain</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues">
+  <article class="issue">
+    <p><img src="./diagrams/teardown-006.png" alt="A decision chain. A tool call enters the graphify guard and passes five checks: is there a graph (no: silent), is it a search (nudge, search still runs), is it a source file inside the project (no: silent), is the graph fresh for that file (edited since the build: soft nudge, never a block), any reason to let it through (not indexed, queried in the last 1,800 seconds, or already blocked once this session: nudge). Only a first Read of an indexed, unchanged source file with strict on and no recent query ends in a single deny." style="width:100%;height:auto;display:block"></p>
+    <p>Claude Code runs a hook as a separate program before the tool call and reads its output. Two kinds of output matter. <code>additionalContext</code> is wrapped in a system reminder and placed in front of Claude; the tool still runs. A <code>permissionDecision</code> of <code>deny</code> stops the call and shows Claude the reason.<sup><a href="#s3">[3]</a></sup> The guard uses the first for everything and the second exactly once.</p>
+    <p>The matcher in settings decides which tools reach the guard. <code>"Bash|Grep"</code> is an exact list of two tool names; <code>"Read|Glob"</code> likewise.<sup><a href="#s3">[3]</a></sup> Inside the guard, the search side speaks only for the Grep tool and for Bash commands containing <code>grep</code>, <code>ripgrep</code>, <code>rg&nbsp;</code>, <code>find&nbsp;</code>, <code>fd&nbsp;</code>, <code>ack&nbsp;</code> or <code>ag&nbsp;</code>. An ordinary shell command passes in silence.<sup><a href="#s2">[2]</a></sup> Strict mode never blocks a search or a Glob; the source says a compound shell command has no single target to check and that blocking file listing would strand navigation.<sup><a href="#s2">[2]</a></sup></p>
+  </article>
+</section>
+
+<!-- ======================= THE RUN ======================= -->
+<div class="fig" id="run">
+  <h2 class="kick">Fig. 03 ·</h2>
+  <span class="gaccent">what we measured</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues">
+  <article class="issue">
+    <p>Measured 2026-10-19, Graphify 0.9.46, using the render engine's graph. Session A, first Read of an indexed file: <b>deny</b>. Session A, second Read: nudge, so the read runs. A new session B, after a <code>graphify query</code>: nudge, no block. With <code>GRAPHIFY_HOOK_STRICT=0</code> set: nudge. That is one block per session and zero after.<sup><a href="#s4">[4]</a></sup></p>
+    <p>We also hit the condition most people will hit first. Our first probe read a file the graph did not list and got the plain nudge, not a deny. The manifest check is real: a file outside the graph is never blocked.</p>
+    <p>Two further conditions come from the source and were not run separately: a file edited after the last graph build softens to a "graph may be stale" nudge and never blocks, and reads of non-source file types or paths outside the project are ignored.<sup><a href="#s2">[2]</a></sup> In practice that means a heavily edited file will not be blocked until you run <code>graphify update .</code>.</p>
+  </article>
+</section>
+
+<!-- ======================= THE COST ======================= -->
+<div class="fig" id="cost">
+  <h2 class="kick">Fig. 04 ·</h2>
+  <span class="gaccent">what the detour is worth</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues">
+  <article class="issue">
+    <p>On 2026-08-18 we ran one question about our render engine (196 files) two ways: about 2,000 tokens through <code>graphify query</code>, against about 27,184 tokens reading the six files involved. That is roughly 14 times fewer on that question.<sup><a href="#s4">[4]</a></sup> The file-side figure is a bytes-divided-by-four estimate, and it is one question on one repository, not an average. The full graph file is about 403,000 tokens, larger than the roughly 371,000 tokens of code it maps, so the saving comes from bounded answers, never from reading the graph.<sup><a href="#s4">[4]</a></sup></p>
+    <p>What we have not measured: how often Claude actually follows the nudge when a grep is one keystroke away. There is no current number for that.</p>
+  </article>
+</section>
+
+<!-- ======================= THE FILE ======================= -->
+<div class="fig" id="file">
+  <h2 class="kick">Fig. 05 ·</h2>
+  <span class="gaccent">the file</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues" id="file">
+  <article class="issue">
+    <p>Two parts. The settings fragment is what <code>graphify claude install</code> writes, with <code>--strict</code> added to the Read entry; the installer writes an absolute path to the graphify executable, so yours will differ. The script is ours and replays the three cases above on your own graph.</p>
+<pre class="code"><code>// .claude/settings.json
+{
+  "hooks": {
+    "PreToolUse": [
+      { "matcher": "Bash|Grep",
+        "hooks": [{ "type": "command",
+          "command": "graphify hook-guard search" }] },
+      { "matcher": "Read|Glob",
+        "hooks": [{ "type": "command",
+          "command": "graphify hook-guard read --strict" }] }
+    ]
+  }
+}</code></pre>
+<pre class="code"><code>#!/usr/bin/env bash
+# guard-check.sh &lt;file-the-graph-indexes&gt;
+# Run from a repo that has graphify-out/. Prints what the strict guard does.
+f="$1"
+rm -f graphify-out/cache/last_query_stamp          # forget any recent orientation
+verdict() {                                        # $1 = session id
+  printf '{"tool_name":"Read","tool_input":{"file_path":"%s"},"session_id":"%s"}' "$f" "$1" |
+    graphify hook-guard read --strict |
+    grep -o 'permissionDecision":"deny\|additionalContext' | head -1
+}
+echo "session A, read 1: $(verdict a-$$)"           # expect permissionDecision":"deny
+echo "session A, read 2: $(verdict a-$$)"           # expect additionalContext
+graphify query "what does this repo do" &gt;/dev/null 2&gt;&amp;1
+echo "session B, after a query: $(verdict b-$$)"    # expect additionalContext</code></pre>
+    <p>Install: <code>uv tool install graphifyy</code> (two y's); <code>graphify update .</code> in the repo (code only, AST, no API cost); <code>graphify claude install</code>; add <code>--strict</code> to the Read entry; then <code>bash guard-check.sh &lt;a file listed in graphify-out/manifest.json&gt;</code> and expect deny, nudge, nudge. The graph is a snapshot: rerun <code>graphify update .</code> after code changes, or <code>graphify hook install</code> to rebuild on commit.<sup><a href="#s5">[5]</a></sup></p>
+  </article>
+</section>
+
+<!-- ======================= SOURCES ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 06 ·</h2>
+  <span class="gaccent">sources</span>
+  <span class="line"></span>
+</div>
+
+<section class="issues" id="sources">
+  <article class="issue">
+    <ol class="ledger">
+      <li id="s1"><b>[1]</b> Graphify-Labs — <a href="https://github.com/Graphify-Labs/graphify" target="_blank" rel="noopener">graphify README</a>, github.com, read 2026-10-19 (128.6k stars; Apache-2.0 and MIT licences). Source of the install step, the hook description, and the single mention of <code>GRAPHIFY_HOOK_STRICT=1</code>. The Vektor film of 2026-10-09 (autonomy trial 2) is the first-party claim being checked.</li>
+      <li id="s2"><b>[2]</b> graphify 0.9.46 — <code>cli.py</code>, functions <code>_run_hook_guard</code>, <code>_mark_session_denied</code>, <code>_query_stamp_fresh</code>, <code>_hook_strict_enabled</code>, <code>_target_is_indexed</code>, the installed package on the author's machine, read 2026-10-19. Source of every condition on the guard, the 1,800 s default window (<code>GRAPHIFY_HOOK_STRICT_TTL</code>), and the search-command list.</li>
+      <li id="s3"><b>[3]</b> Anthropic — <a href="https://code.claude.com/docs/en/hooks" target="_blank" rel="noopener">Hooks reference</a>, Claude Code documentation, read 2026-10-19 (first 100,000 of about 273,000 characters; the PreToolUse decision-control section beyond that was not read). Source of the <code>deny</code> and <code>additionalContext</code> fields, matcher syntax and settings file locations.</li>
+      <li id="s4"><b>[4]</b> Vektor — first-party. <code>guard-check.sh</code> run on 2026-10-19 against the render engine's graph (deny, nudge, nudge; nudge with the kill switch set). The 2,000 versus 27,184 token figures and the 403k versus 371k comparison are from <code>data/2026-08-18-graphify-kt/facts.md</code>, measured 2026-08-18; the file side is a bytes/4 estimate.</li>
+      <li id="s5"><b>[5]</b> Graphify-Labs — README, same page as [1], for <code>graphify hook install</code> (rebuild on commit and branch checkout) and the advice to run <code>graphify update .</code> after pulling.</li>
+    </ol>
+    <p class="meta">The guard behaviour is from one version, 0.9.46, on one machine; a different version may differ. The first draft of this page said the guard fires on every Bash call and omitted the stale-file case; the source shows otherwise and both are corrected here. If something here is wrong, reply and tell me.</p>
+  </article>
+</section>

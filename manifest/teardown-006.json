@@ -1,0 +1,20 @@
+{
+  "number": "006",
+  "title": "The Teardown 006 — The hook that asks before it greps",
+  "description": "Graphify's Claude Code hook asks the repo map before every search, and in strict mode refuses the first raw file read of a session. We fed the guard fake tool calls on 2026-10-19: it blocks once per session, never twice, and never for a file edited after the graph was built. The decision chain, the settings fragment and a 14-line script that replays it on your own graph.",
+  "og_title": "The hook that asks before it greps — The Teardown 006",
+  "og_description": "Graphify's strict guard blocks the first raw read of a session, once. The five checks it runs first, the 14-line script that proves it, and the case where it never fires.",
+  "og_image": "https://vektor-fm.github.io/vektor-site/diagrams/teardown-006.png",
+  "og_alt": "A decision chain. A tool call enters the graphify guard and passes five checks: is there a graph (no: silent), is it a search (nudge, search still runs), is it a source file inside the project (no: silent), is the graph fresh for that file (edited since the build: soft nudge, never a block), any reason to let it through (not indexed, queried in the last 1,800 seconds, or already blocked once this session: nudge). Only a first Read of an indexed, unchanged source file with strict on and no recent query ends in a single deny.",
+  "og_url": "https://vektor-fm.github.io/vektor-site/teardown-006.html",
+  "canonical": "https://vektor-fm.github.io/vektor-site/teardown-006.html",
+  "tw_title": "The hook that asks before it greps — The Teardown 006",
+  "tw_description": "Graphify's strict guard blocks the first raw read of a session, once. The five checks it runs first and the script that proves it.",
+  "marker": "The Teardown · 006",
+  "sticky_text": "One teardown a week — <b>the working setup</b>",
+  "backref_html": "One teardown a week, the AI tooling that actually ships. The 60-second version of this issue is on Instagram: <a href=\"https://instagram.com/vektor.fm\">@vektor.fm →</a>",
+  "footer_meta": "/// the teardown / 006 / 10-2026 · the working setup, tested",
+  "copy_event": "teardown-006-copy",
+  "subscribe_track": true,
+  "slug": "teardown006"
+}

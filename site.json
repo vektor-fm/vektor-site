@@ -453,6 +453,16 @@
       "unlock": "475a20265f"
     },
     {
+      "number": "064",
+      "title_short": "Claude Code that improves itself from its sessions",
+      "section": "Claude Code",
+      "date": "10-2026",
+      "keyword": "SESSIONS",
+      "lastmod": "2026-10-08",
+      "built": true,
+      "unlock": "05b81c4390"
+    },
+    {
       "number": "063",
       "title_short": "A market snapshot, a Jev judgment, your code",
       "section": "Jev workflow",
@@ -461,6 +471,26 @@
       "lastmod": "2026-10-04",
       "built": true,
       "unlock": "f274891b63"
+    },
+    {
+      "number": "067",
+      "title_short": "Give Claude a workflow for your job",
+      "section": "Claude role plugins",
+      "date": "10-2026",
+      "keyword": "PLUGIN",
+      "lastmod": "2026-10-06",
+      "built": true,
+      "unlock": "r4flat067"
+    },
+    {
+      "number": "068",
+      "title_short": "Today's docs before Claude writes a line",
+      "section": "Claude Code",
+      "date": "10-2026",
+      "keyword": "DOCS",
+      "lastmod": "2026-10-13",
+      "built": true,
+      "unlock": "3e02b31e11"
     }
   ],
   "teardowns": [
@@ -493,6 +523,12 @@
       "title": "Asked for Fable, got Opus",
       "date": "2026-09-22",
       "subject": "We asked for Fable, got Opus"
+    },
+    {
+      "number": "006",
+      "title": "The hook that asks before it greps",
+      "date": "2026-10-20",
+      "subject": "The hook that asks before grep"
     }
   ],
   "proof": {
