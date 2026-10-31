@@ -18,6 +18,7 @@
 import { readFileSync, writeFileSync, existsSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join, basename } from 'node:path';
+import { injectTurnstile, checkAll as checkTurnstileAll, siteKey } from './scripts/turnstile.mjs';
 
 const ROOT = dirname(fileURLToPath(import.meta.url));
 const norm = (s) => s.replace(/\r\n/g, '\n');
@@ -506,6 +507,10 @@ function outputs() {
   // has no manifest — it is configured entirely from site.json.
   if (site.index.og_card) o['og-src-index.html'] = renderOgCard('index', site.index.og_card);
   o['sitemap.xml'] = renderSitemap();
+  // Turnstile (2026-10-31): the signup Worker fails closed without a token, so every
+  // signup form in every built page carries the widget (scripts/turnstile.mjs).
+  const key = siteKey(ROOT);
+  for (const name of Object.keys(o)) if (name.endsWith('.html')) o[name] = injectTurnstile(o[name], key);
   return o;
 }
 
@@ -577,8 +582,12 @@ if (check) {
   }
   const errs = guardrail();
   for (const e of errs) console.error(`BROKEN LINK: ${e}`);
-  if (bad || errs.length) { console.error(`\ncheck FAILED: ${bad} out-of-sync, ${errs.length} broken link(s).`); process.exit(1); }
-  console.log(`check OK: ${Object.keys(out).length} outputs in sync, all links/assets resolve.`);
+  // Every signup form on every root page (built or hand-authored) needs the Turnstile
+  // widget; --publish also refuses the __TURNSTILE_SITEKEY__ placeholder.
+  const ts = checkTurnstileAll({ publish: process.argv.includes('--publish'), root: ROOT });
+  for (const p of ts) console.error(`TURNSTILE: ${p}`);
+  if (bad || errs.length || ts.length) { console.error(`\ncheck FAILED: ${bad} out-of-sync, ${errs.length} broken link(s), ${ts.length} Turnstile problem(s).`); process.exit(1); }
+  console.log(`check OK: ${Object.keys(out).length} outputs in sync, all links/assets resolve, every signup form has Turnstile${process.argv.includes('--publish') ? ', no placeholder' : ''}.`);
 } else {
   let wrote = 0;
   for (const [name, content] of Object.entries(out)) {

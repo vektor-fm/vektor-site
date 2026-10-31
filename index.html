@@ -945,6 +945,8 @@ input,select,textarea{font-size:16px !important;}   /* iOS zooms below 16 */
 .role-pick .pill input:checked + span{background:var(--accent); border-color:var(--accent); color:#04120F;}
 .role-pick .pill input:focus-visible + span{outline:2px solid var(--fg); outline-offset:2px;}
 </style>
+<style id="cf-turnstile-css">form:has(> .cf-turnstile){flex-wrap:wrap;margin-bottom:calc(-1 * var(--p-s));}.cf-turnstile{flex:1 1 100%;min-width:0;line-height:0;}</style>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body>
 
@@ -974,6 +976,7 @@ input,select,textarea{font-size:16px !important;}   /* iOS zooms below 16 */
       <label class="sr-only" for="bioPopEmail">Email address</label>
       <input id="bioPopEmail" type="email" name="email" placeholder="you@email.com" autocomplete="email" required>
       <button class="btn" type="submit">Get the weekly pack &rarr;</button>
+      <div class="cf-turnstile" data-sitekey="__TURNSTILE_SITEKEY__" data-theme="auto" data-appearance="interaction-only"></div>
     </form>
     <div class="note">Free. The config pack lands in your inbox straight away. Unsubscribe anytime.</div>
     <p class="pop-done" role="status">Done &mdash; the pack is on its way to your inbox. Close this and have a look around.</p>
@@ -1228,6 +1231,7 @@ input,select,textarea{font-size:16px !important;}   /* iOS zooms below 16 */
             <label class="sr-only" for="tdEmail">Email address</label>
             <input id="tdEmail" name="email" type="email" placeholder="you@email.com" autocomplete="email" required>
             <button class="btn primary" type="submit">Get the next one &rarr;</button>
+            <div class="cf-turnstile" data-sitekey="__TURNSTILE_SITEKEY__" data-theme="auto" data-appearance="interaction-only"></div>
           </form>
           <p class="copyS" style="color:var(--meta);padding-top:var(--p-m)">Free. Unsubscribe anytime. No wall on any pack.</p>
         </div>
@@ -1643,6 +1647,7 @@ input,select,textarea{font-size:16px !important;}   /* iOS zooms below 16 */
         <label for="em">Email address *</label>
         <input id="em" name="email" type="email" placeholder="you@email.com" autocomplete="email" required>
         <button class="nl-cta" type="submit">Subscribe</button>
+        <div class="cf-turnstile" data-sitekey="__TURNSTILE_SITEKEY__" data-theme="auto" data-appearance="interaction-only"></div>
       </form>
       <div class="nl-note copyS">One email a week — the current drop's pack plus one teardown. Free, unsubscribe anytime. See the <a href="./privacy.html">privacy notice</a>.</div>
     </div>
@@ -1886,6 +1891,13 @@ document.querySelectorAll('.copylink').forEach(b => {
     }
     form.addEventListener('submit', function(e){
       if (!form.checkValidity()) { return; }
+      // TURNSTILE (2026-10-31): the Worker refuses a signup without a token. This fetch
+      // is opaque (no-cors), so a refusal would read as success. No token yet (widget not
+      // loaded, or still working) = do NOT intercept: the native post goes through and
+      // the Worker's own captcha redirect is what the visitor sees.
+      var tsInput = form.querySelector('input[name="cf-turnstile-response"]');
+      var tsToken = tsInput ? String(tsInput.value || '') : '';
+      if (!tsToken) { return; }
       e.preventDefault();
       var email = String(form.email.value || '').trim();
       if (!email) { return; }
@@ -1897,7 +1909,7 @@ document.querySelectorAll('.copylink').forEach(b => {
       fetch(form.action, {
         method: 'POST',
         mode: 'no-cors',
-        body: new URLSearchParams({ email: email, tag: 'bio-popup', company: '', role: role })
+        body: new URLSearchParams({ email: email, tag: 'bio-popup', company: '', role: role, 'cf-turnstile-response': tsToken })
       }).then(function(){
         card.classList.add('done');
         btn.disabled = false; btn.innerHTML = btnLabel;

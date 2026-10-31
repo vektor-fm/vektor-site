@@ -1,4 +1,6 @@
 {
+  "_turnstile_note": "PUBLIC Cloudflare Turnstile site key for every signup form (scripts/turnstile.mjs). Placeholder until the founder runs node scripts/set-turnstile-key.mjs <sitekey>; build.mjs --check --publish and the Pages workflow refuse the placeholder.",
+  "turnstile_sitekey": "__TURNSTILE_SITEKEY__",
   "index": {
     "lastmod": "2026-08-17",
     "latest_cta": "Open the mirror →",

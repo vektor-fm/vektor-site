@@ -1177,6 +1177,13 @@ document.querySelectorAll('.copylink').forEach(b => {
     }
     form.addEventListener('submit', function(e){
       if (!form.checkValidity()) { return; }
+      // TURNSTILE (2026-10-31): the Worker refuses a signup without a token. This fetch
+      // is opaque (no-cors), so a refusal would read as success. No token yet (widget not
+      // loaded, or still working) = do NOT intercept: the native post goes through and
+      // the Worker's own captcha redirect is what the visitor sees.
+      var tsInput = form.querySelector('input[name="cf-turnstile-response"]');
+      var tsToken = tsInput ? String(tsInput.value || '') : '';
+      if (!tsToken) { return; }
       e.preventDefault();
       var email = String(form.email.value || '').trim();
       if (!email) { return; }
@@ -1188,7 +1195,7 @@ document.querySelectorAll('.copylink').forEach(b => {
       fetch(form.action, {
         method: 'POST',
         mode: 'no-cors',
-        body: new URLSearchParams({ email: email, tag: 'bio-popup', company: '', role: role })
+        body: new URLSearchParams({ email: email, tag: 'bio-popup', company: '', role: role, 'cf-turnstile-response': tsToken })
       }).then(function(){
         card.classList.add('done');
         btn.disabled = false; btn.innerHTML = btnLabel;

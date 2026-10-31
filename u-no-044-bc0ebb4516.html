@@ -947,6 +947,7 @@ pre.code code{font-size:inherit;}
       <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
       <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
       <button class="btn" type="submit">Send me the pack →</button>
+      <div class="cf-turnstile" data-sitekey="__TURNSTILE_SITEKEY__" data-theme="auto" data-appearance="interaction-only"></div>
     </form>
     <div class="note">Free. The config pack lands in your inbox straight away. Unsubscribe anytime.</div>
   </div>
@@ -1157,4 +1158,6 @@ pre.code code{font-size:inherit;}
 <!-- Cursor smoke (WebGL fluid, MIT, see js/smoke.js). Variant is the one setting: data-smoke-variant="a" (site brand colours) or "b" (random rainbow). -->
 <script defer src="./js/smoke.js" data-smoke-variant="a"></script>
 
+<style id="cf-turnstile-css">form:has(> .cf-turnstile){flex-wrap:wrap;margin-bottom:calc(-1 * var(--p-s));}.cf-turnstile{flex:1 1 100%;min-width:0;line-height:0;}</style>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </body></html>

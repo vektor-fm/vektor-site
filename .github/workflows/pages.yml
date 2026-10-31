@@ -34,6 +34,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # Turnstile (2026-10-31): the signup Worker fails closed without a token. A page
+      # carrying the __TURNSTILE_SITEKEY__ placeholder renders a broken widget and every
+      # signup on it fails, so the deploy STOPS (the live site stays as it was) until the
+      # founder has run scripts/set-turnstile-key.mjs. A signup form without a widget is
+      # a warning only: failing the whole deploy would also hold back a new landing page
+      # the DM funnel already points at.
+      - name: Refuse the Turnstile placeholder
+        run: |
+          if grep -l '__TURNSTILE_SITEKEY__' *.html site.json; then
+            echo "::error::Turnstile site key is still the placeholder. Run: node scripts/set-turnstile-key.mjs <sitekey>"
+            exit 1
+          fi
+          node scripts/turnstile.mjs --check || echo "::warning::a signup form has no Turnstile widget: run node scripts/turnstile.mjs --apply"
+
       - name: Configure Pages
         uses: actions/configure-pages@v5
 
