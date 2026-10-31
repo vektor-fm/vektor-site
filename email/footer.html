@@ -1,17 +1,31 @@
-<!-- VEKTOR EMAIL FOOTER — pushed to Buttondown's newsletter.footer field by
-     vektor/scripts/newsletter-theme.mjs. Do not edit in the Buttondown UI.
+<!-- VEKTOR EMAIL FOOTER. Since the 2026-10-24 cutover it is inlined into every send by
+     vektor/scripts/newsletter-send.mjs (d1-brevo), which fills {{ unsubscribe_url }} with
+     Brevo's unsubscribe tag and {{ email_url }} with the web version. (It used to be
+     pushed to Buttondown's newsletter.footer field by newsletter-theme.mjs.)
 
      The sent issue 002 ended with a social icon row, "Unsubscribe anytime" in
      the body, an unsubscribe link in the footer and a Buttondown badge: four
      endings. This is one. The body no longer carries its own unsubscribe line
-     (see the visual policy) because {{ unsubscribe_url }} lives here.
+     (see the visual policy) because {{ unsubscribe_url }} lives here, and the send
+     REFUSES if this file loses that link (newsletter-d1.mjs checkUnsubscribe).
 
-     The Buttondown badge is a plan setting, not a template element, so it is not
-     removable from here.
+     SENDER IDENTITY (2026-10-31): the founder ruled the sender is Caelith Labs, Berlin,
+     and the footer must carry its legal name and postal address. The Caelith Labs site
+     has no imprint yet, so there is nothing to copy and nothing was invented. When the
+     imprint exists, add ONE element here with data-vk="sender-identity" carrying exactly
+     the imprint's legal name and address; until then every send prints an advisory.
+
+     THE CAELITH LABS LINE between labs:begin and labs:end renders ONLY for an issue whose
+     notes set labs_block: true (founder deferred the consent decision 2026-10-31). The
+     send script cuts the whole section otherwise. Keep both markers.
 
      Inline styles for the same reason as the header. -->
 <div style="background:#0B0B0B;padding:24px 46px 30px;margin-top:36px;font-family:'Inter Tight',Inter,'Helvetica Neue',Arial,sans-serif;">
   <div style="font-size:16px;font-weight:600;letter-spacing:-0.045em;color:#EFEADD;line-height:1;margin:0 0 12px;">vektor</div>
+  <div style="font-size:12px;line-height:1.6;color:#8C8C8C;margin:0 0 12px;">You get this because you signed up at Vektor (or in an Instagram DM).</div>
+<!-- labs:begin -->
+  <div style="font-size:12px;line-height:1.6;color:#8C8C8C;margin:0 0 12px;">Vektor is built and run by Caelith Labs. The funnels, automations and films we write about are the same systems we build for clients.</div>
+<!-- labs:end -->
   <div style="font-size:10px;letter-spacing:.1em;line-height:1.9;color:#8C8C8C;text-transform:uppercase;">
     The AI frontier, cut to what ships<br>
     <a href="{{ unsubscribe_url }}" style="color:#8C8C8C;text-decoration:underline;">Unsubscribe</a>

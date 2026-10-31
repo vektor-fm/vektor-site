@@ -27,9 +27,27 @@
 </style>
 </head>
 <body>
-<p class="tag">VEKTOR /// PRIVACY POLICY / 07-2026</p>
+<!-- DRAFT FOR LEGAL REVIEW (2026-10-31). Not yet reviewed by a lawyer. Open points:
+     1. Controller postal address and legal form: the founder ruled the identity is Caelith Labs,
+        Berlin (2026-10-31), but the Caelith Labs site has no imprint, so no address is given
+        here. Add exactly what the imprint says once it exists, here and in email/footer.html.
+     2. Processor legal entities, data-processing agreements and transfers outside the EU
+        (Brevo, Cloudflare, GitHub, GoatCounter, Meta) are named by brand only, not verified.
+     3. Cloudflare Turnstile ships with the same change as this text (signup forms carry the
+        widget; the worker checks the token, branch feature/newsletter-harden-worker). Check
+        the Turnstile wording against Cloudflare's own privacy addendum.
+     4. The site is hosted on GitHub Pages, not Cloudflare; Cloudflare runs the signup and
+        Instagram endpoints (Workers) and the list (D1).
+     5. The per-subscriber record holds no copy of the consent wording; the wording is kept
+        in version history (this public repository for the site forms, the private repository
+        for the DM wording). Confirm that is enough.
+     6. No deletion period is set for unconfirmed signups; decide one. -->
+<p class="tag">VEKTOR /// PRIVACY POLICY / 10-2026</p>
 <h1>Privacy policy</h1>
-<p>This policy covers the Vektor website (vektor-fm.github.io/vektor-site) and the Vektor companion app used to operate our Instagram account (@vektor.fm).</p>
+<p>This policy covers the Vektor website (vektor-fm.github.io/vektor-site), the Vektor newsletter, and the Vektor companion app used to operate our Instagram account (@vektor.fm).</p>
+
+<h2>Who is responsible</h2>
+<p>Vektor is built and run by Caelith Labs, Berlin, Germany. Caelith Labs is the controller for the data described here. Contact details are at the end of this page.</p>
 
 <h2>What the app does</h2>
 <p>The Vektor app responds to comments on our own Instagram posts. When you comment a keyword (e.g. "claude") on one of our posts, it sends you a single direct message containing the link we promised in that post, and may post one public reply under your comment.</p>
@@ -41,11 +59,23 @@
 <p>We store a short-lived technical marker of your comment's ID (not its content) for up to 30 days, only to make sure you never receive duplicate messages. Nothing else is retained.</p>
 
 <h2>Website</h2>
-<p>The website is a static site. We use privacy-friendly, cookieless analytics (GoatCounter) to count page views. If you subscribe to our newsletter, we store your email address, the page you signed up on, and when you signed up, confirmed or unsubscribed, in our own database (Cloudflare D1), and we use it only to send you the newsletter. The emails are sent through Brevo (Brevo SAS, France), which receives your email address in order to deliver them and keeps delivery and open/click statistics. When you sign up on this site, we email you a link to confirm your subscription, and every issue has an unsubscribe link; unsubscribing stops all further emails. To have your address deleted from our database and from Brevo, contact us (see below).</p>
+<p>The website is a static site hosted on GitHub Pages. We use privacy-friendly, cookieless analytics (GoatCounter) to count page views.</p>
+
+<h2>Newsletter: how you join</h2>
+<p>There are two ways onto the newsletter list. On this website, you enter your email address and we email you a link to confirm; you are only added once you click it. In an Instagram DM, after you comment on one of our posts, we may ask whether you want the newsletter; if you reply with your email address, that reply is your signup and you are added straight away, with no confirmation email. Either way you can unsubscribe at any time.</p>
+
+<h2>Newsletter: what we keep</h2>
+<p>For each address on the list we keep: your email address; where you signed up (the page on this site, or the Instagram post and DM); when you signed up, confirmed and unsubscribed; and your status (waiting for confirmation, subscribed, unsubscribed, or bounced). The wording you agreed to is the signup text shown at that place and time, and we keep every version of it in our version history. We use the list only to send you the newsletter. We do not sell it, share it for anyone else's marketing, or add you to any other list.</p>
+
+<h2>Newsletter: who processes it</h2>
+<p>Brevo (France) sends the emails: it receives your email address in order to deliver them, and keeps delivery and open/click statistics. Cloudflare runs our signup and Instagram endpoints (Cloudflare Workers) and stores the list in our own database (Cloudflare D1). The signup forms on this site use Cloudflare Turnstile to keep bots out: when a form loads, Turnstile checks your browser (it may read technical signals such as your IP address and browser details) and gives the form a token we verify when you sign up. We use its result only to accept or refuse the signup. Instagram (Meta) carries the DM conversation, including an email address you send us there, under its own terms.</p>
+
+<h2>Newsletter: how long we keep it</h2>
+<p>We keep your address for as long as you are subscribed. Every issue has an unsubscribe link, and unsubscribing stops all further emails at once. After you unsubscribe, or if your address bounces, we keep a suppressed record (your address, its status and the date) for one reason only: so we never email you again, including if your address is ever imported back by mistake. If you would rather we delete even that record, contact us (see below) and we will remove your address from our database and from Brevo.</p>
 
 <h2>Your choices &amp; contact</h2>
-<p>To have any stored marker removed or to ask anything about this policy, contact us at <a href="mailto:julianlaycock94@gmail.com">julianlaycock94@gmail.com</a> or by DM to <a href="https://www.instagram.com/vektor.fm/">@vektor.fm</a>.</p>
+<p>To unsubscribe, use the link at the foot of any issue. To have your address or any stored marker removed, to get a copy of what we hold about you, or to ask anything about this policy, contact us at <a href="mailto:julianlaycock94@gmail.com">julianlaycock94@gmail.com</a> or by DM to <a href="https://www.instagram.com/vektor.fm/">@vektor.fm</a>. You also have the right to complain to a data protection authority.</p>
 
-<p class="tag">EFFECTIVE 2026-07-05 · VEKTOR</p>
+<p class="tag">UPDATED 2026-10-31 · FIRST EFFECTIVE 2026-07-05 · VEKTOR / CAELITH LABS</p>
 </body>
 </html>

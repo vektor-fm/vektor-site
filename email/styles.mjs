@@ -144,7 +144,30 @@ export const blocks = {
     + `<p style="font-family:${DISPLAY};font-size:19px;line-height:1.35;color:${INK};margin:0;">${q}</p>`
     + (note ? `<p style="font-family:${SANS};font-size:13px;line-height:1.6;color:${DIM};margin:12px 0 0;">${note}</p>` : '')
     + '</div>',
+
+  // ---- added 2026-10-31: the one optional Caelith Labs block ----
+  // WORK WITH CAELITH LABS: small, quiet, below the sign-off, labelled "From Caelith Labs"
+  // so it reads as what it is, an ad from the people who run Vektor. Never pasted into an
+  // issue: newsletter-send.mjs appends it, and ONLY when the issue's notes set
+  // `labs_block: true` (off by default; the founder deferred the consent decision for
+  // existing subscribers on 2026-10-31). A plain text link, not a button, so it never
+  // competes with the issue's one CTA. ONE <div> with no <div> inside it: the shape check
+  // (vektor scripts/lib/newsletter-shape.mjs) finds the block by data-vk="labs" and its
+  // closing tag.
+  labs: ({ issue }) => {
+    if (!/^\d{3}$/.test(String(issue))) throw new Error(`blocks.labs needs a three-digit issue number (got "${issue}")`);
+    return `<div data-vk="labs" style="margin:40px 0 0;padding:14px 0 0;border-top:1px solid ${RULE};">`
+      + `<span style="display:block;font-family:${SANS};font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:${DIM};margin:0 0 6px;">From Caelith Labs</span>`
+      + `<p style="font-family:${SANS};font-size:13px;line-height:20px;color:${DIM};margin:0 0 6px;">${LABS_COPY}</p>`
+      + `<p style="font-family:${SANS};font-size:13px;line-height:20px;color:${DIM};margin:0;"><a href="${labsUrl(issue)}" style="color:${TEAL};text-decoration:underline;">Work with Caelith Labs</a></p>`
+      + '</div>';
+  },
 };
+
+// The Labs block's copy and link. Neutral, no hype, no em dashes (lint-copy blocks them).
+export const LABS_COPY = 'If you run a services firm and admin is eating your week, we build the systems from this issue for clients: fixed fee, three weeks. Free 30-minute call.';
+export const LABS_URL = 'https://www.caelithlabs.com/';
+export const labsUrl = (issue) => `${LABS_URL}?utm_source=vektor-newsletter&utm_medium=email&utm_campaign=issue-${issue}`;
 
 // Inject style="" into every tag in TAG_STYLES that does not already carry one.
 // "does not already carry one" is the important half: the authored blocks above
