@@ -156,16 +156,19 @@ export const blocks = {
   // closing tag.
   labs: ({ issue }) => {
     if (!/^\d{3}$/.test(String(issue))) throw new Error(`blocks.labs needs a three-digit issue number (got "${issue}")`);
-    return `<div data-vk="labs" style="margin:40px 0 0;padding:14px 0 0;border-top:1px solid ${RULE};">`
-      + `<span style="display:block;font-family:${SANS};font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:${DIM};margin:0 0 6px;">From Caelith Labs</span>`
-      + `<p style="font-family:${SANS};font-size:13px;line-height:20px;color:${DIM};margin:0 0 6px;">${LABS_COPY}</p>`
-      + `<p style="font-family:${SANS};font-size:13px;line-height:20px;color:${DIM};margin:0;"><a href="${labsUrl(issue)}" style="color:${TEAL};text-decoration:underline;">Work with Caelith Labs</a></p>`
+    // 2026-11-01 (founder, after the first test send: "completely hidden, no one will get to it"):
+    // a dark card with its own headline and ONE real button, still labelled "From Caelith Labs".
+    return `<div data-vk="labs" style="margin:44px 0 0;padding:28px 28px 30px;background:${INK};">`
+      + `<span style="display:block;font-family:${SANS};font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:${TEAL};margin:0 0 12px;">From Caelith Labs</span>`
+      + `<p style="font-family:${DISPLAY};font-size:22px;line-height:1.3;color:#FFFFFF;margin:0 0 12px;">Want systems like this running in your firm?</p>`
+      + `<p style="font-family:${SANS};font-size:15px;line-height:1.6;color:#C9C9C9;margin:0 0 20px;">${LABS_COPY}</p>`
+      + `<a href="${labsUrl(issue)}" style="display:inline-block;background:${TEAL};color:#04120F;font-family:${SANS};font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:13px 24px;text-decoration:none;">Book a free 30-minute call &rarr;</a>`
       + '</div>';
   },
 };
 
 // The Labs block's copy and link. Neutral, no hype, no em dashes (lint-copy blocks them).
-export const LABS_COPY = 'If you run a services firm and admin is eating your week, we build the systems from this issue for clients: fixed fee, three weeks. Free 30-minute call.';
+export const LABS_COPY = 'Caelith Labs builds the automations behind these issues for professional-services firms. Fixed fee, three weeks, and your team owns the system at handover.';
 export const LABS_URL = 'https://www.caelithlabs.com/';
 export const labsUrl = (issue) => `${LABS_URL}?utm_source=vektor-newsletter&utm_medium=email&utm_campaign=issue-${issue}`;
 

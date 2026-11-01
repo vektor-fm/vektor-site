@@ -1,0 +1,21 @@
+{
+  "number": "007",
+  "title": "The Teardown 007 · Find dead code before deleting it",
+  "description": "A report-only first routine for Claude Code: the complete prompt, web setup, /schedule shortcut, review checklist and dated sources. This Vektor prompt is untested.",
+  "og_title": "Find dead code before deleting it · The Teardown 007",
+  "og_description": "Ask Claude for a dead-code candidate and evidence before deciding what to remove. The complete report-only prompt, setup and review checklist.",
+  "og_image": "https://vektor-fm.github.io/vektor-site/covers/2026-10-30-claude-maintains-claude-no087.jpg",
+  "og_alt": "The cover of the Vektor film Claude Cleans Up Its Own Code.",
+  "og_url": "https://vektor-fm.github.io/vektor-site/teardown-007.html",
+  "canonical": "https://vektor-fm.github.io/vektor-site/teardown-007.html",
+  "tw_title": "Find dead code before deleting it · The Teardown 007",
+  "tw_image": "https://vektor-fm.github.io/vektor-site/covers/2026-10-30-claude-maintains-claude-no087.jpg",
+  "tw_description": "Ask Claude for a dead-code candidate and evidence before deciding what to remove. The complete report-only prompt, setup and review checklist.",
+  "marker": "The Teardown · 007",
+  "sticky_text": "One teardown a week · <b>the working setup</b>",
+  "backref_html": "A practical AI teardown from Vektor. This issue proposes a first run to inspect and review.",
+  "footer_meta": "/// the teardown / 007 / 11-2026 · report-only recipe, untested",
+  "copy_event": "teardown-007-copy",
+  "subscribe_track": true,
+  "slug": "teardown007"
+}
