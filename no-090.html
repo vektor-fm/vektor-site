@@ -724,6 +724,9 @@ pre.code code{font-size:inherit;}
 #no090-page .issue p{max-width:72ch;overflow-wrap:anywhere;line-height:var(--lh-xl);}
 #no090-page .actions{display:flex;flex-wrap:wrap;gap:var(--p-s);margin-top:var(--p-l);}
 #no090-page .issue h3{font-size:var(--fs-xl);}
+.issue-head{display:flex;align-items:center;gap:12px;margin-bottom:var(--p-m);}
+#no090-page .issue-head h3{min-width:0;margin:0;}
+.agent-monogram{width:40px;height:40px;flex:0 0 40px;display:inline-flex;align-items:center;justify-content:center;object-fit:contain;}
 @media(max-width:640px){#no090-page .fig{grid-template-columns:minmax(0,1fr);}#no090-page .fig .sub{grid-column:1;}}
 </style>
 <div id="no090-page">
@@ -735,9 +738,10 @@ pre.code code{font-size:inherit;}
 </section>
 <div class="fig" id="comparison"><h2 class="kick">The comparison ·</h2><h2 class="disp">Which job do you need done<span class="dot">?</span></h2><p class="sub">Product descriptions and prices below come from the research recorded on 2026-10-30. <!-- Source: C:/Users/julia/projects/vektor-producer/data/2026-11-05-six-agents-no090/SCRIPT.md ## Sources --> Missing prices stay marked. “Your machine” describes where the app or agent runs; the research does not establish that its models run locally.</p></div>
 <section class="issues" aria-label="Agent comparison">
+<!-- Logo provenance: data/2026-11-05-six-agents-no090/previews/marks/SOURCES.json (fetched 2026-10-30); official marks copied unchanged. -->
 <!-- Source: C:/Users/julia/projects/vektor-producer/data/2026-11-05-six-agents-no090/SCRIPT.md ## Sources, OpenAI Dots -->
 <article class="issue" id="dots">
-<h3>OpenAI Dots</h3>
+<div class="issue-head"><img class="agent-monogram" src="files/no-090/openai.png" alt="Dots" loading="lazy" width="40" height="40"><h3>OpenAI Dots</h3></div>
 <p><strong>Runs:</strong> Cloud, with its own computer and browser.</p>
 <p><strong>For:</strong> Ongoing responsibilities inside ChatGPT. It works between conversations and can use supported plugins enabled for your account.</p>
 <p><strong>Cost:</strong> Available on the Pro 100, Pro 200 and Pro 500 plans. The official page gives no dollar price. <a href="https://learn.chatgpt.com/docs/dots" target="_blank" rel="noopener">see the product page</a>. <!-- Source: https://learn.chatgpt.com/docs/dots, plan wording, fetched 2026-11-01 (subagent summary, plan names only) --></p>
@@ -746,7 +750,7 @@ pre.code code{font-size:inherit;}
 </article>
 <!-- Source: C:/Users/julia/projects/vektor-producer/data/2026-11-05-six-agents-no090/SCRIPT.md ## Sources, Meta Muse -->
 <article class="issue" id="muse">
-<h3>Meta Muse</h3>
+<div class="issue-head"><img class="agent-monogram" src="files/no-090/meta.png" alt="Muse" loading="lazy" width="40" height="40"><h3>Meta Muse</h3></div>
 <p><strong>Runs:</strong> Cloud, on its own dedicated computer.</p>
 <p><strong>For:</strong> Everyday tasks such as booking travel, buying things, filling out forms and turning longer-term goals into action plans.</p>
 <p><strong>Cost:</strong> Meta describes it as “free for most of what people need”. <!-- Source: C:/Users/julia/projects/vektor-producer/data/2026-11-05-six-agents-no090/SCRIPT.md ## Sources, Muse --> Exact limits and any paid pricing are unverified; <a href="https://about.fb.com/news/2026/09/introducing-muse-personal-ai-agent/" target="_blank" rel="noopener">see the product page</a>.</p>
@@ -754,7 +758,7 @@ pre.code code{font-size:inherit;}
 </article>
 <!-- Source: C:/Users/julia/projects/vektor-producer/data/2026-11-05-six-agents-no090/SCRIPT.md ## Sources, Grok Bot -->
 <article class="issue" id="grok-bot">
-<h3>Grok Bot</h3>
+<div class="issue-head"><img class="agent-monogram" src="files/no-090/grok.png" alt="Grok Bot" loading="lazy" width="40" height="40"><h3>Grok Bot</h3></div>
 <p><strong>Runs:</strong> Cloud, where the bots share a computer.</p>
 <p><strong>For:</strong> A team of always-on agents with specialist roles for sales, marketing, office operations and bug fixes, with a chief of staff above them.</p>
 <p><strong>Cost:</strong> No price is listed. It is in beta for SuperGrok, SuperGrok Plus and SuperGrok Heavy subscribers, and for Cursor Pro, Pro+, Ultra and Teams subscribers. <a href="https://x.ai/news/introducing-grok-bot" target="_blank" rel="noopener">see the product page</a>. <!-- Source: https://x.ai/news/introducing-grok-bot, read by Claude 2026-11-01: "beta and available today for SuperGrok, SuperGrok Plus, and SuperGrok Heavy; Cursor Pro, Pro+, and Ultra; and Cursor Teams Standard and Premium subscribers" --></p>
@@ -762,7 +766,7 @@ pre.code code{font-size:inherit;}
 </article>
 <!-- Source: C:/Users/julia/projects/vektor-producer/data/2026-11-05-six-agents-no090/SCRIPT.md ## Sources, OpenClaw -->
 <article class="issue" id="openclaw">
-<h3>OpenClaw</h3>
+<div class="issue-head"><img class="agent-monogram" src="files/no-090/openclaw.jpg" alt="OpenClaw" loading="lazy" width="40" height="40"><h3>OpenClaw</h3></div>
 <p><strong>Runs:</strong> Your machine, running in the background after a terminal setup.</p>
 <p><strong>For:</strong> An open-source assistant you can message through chat apps such as Telegram or WhatsApp.</p>
 <p><strong>Cost:</strong> Open source under MIT. The project says it has no paid tier, hosted service or token. It does not state what the model you connect will cost. <a href="https://github.com/openclaw/openclaw" target="_blank" rel="noopener">see the product page</a>. <!-- Source: github.com/openclaw/openclaw README, read by Claude 2026-11-01: "has no paid tier, hosted service, or token"; MIT per repo license --></p>
@@ -770,7 +774,7 @@ pre.code code{font-size:inherit;}
 </article>
 <!-- Source: C:/Users/julia/projects/vektor-producer/data/2026-11-05-six-agents-no090/SCRIPT.md ## Sources, Hermes Agent -->
 <article class="issue" id="hermes">
-<h3>Hermes Agent</h3>
+<div class="issue-head"><img class="agent-monogram" src="files/no-090/nous.png" alt="Hermes Agent" loading="lazy" width="40" height="40"><h3>Hermes Agent</h3></div>
 <p><strong>Runs:</strong> Your machine, through its desktop app or command-line agent.</p>
 <p><strong>For:</strong> Creates skills from experience and improves them during use. Profiles appear as bots with different roles, models and skills, and can deliberate in group chats.</p>
 <p><strong>Cost:</strong> Open source under MIT. The repository states no price or hosting cost. <a href="https://github.com/NousResearch/hermes-agent" target="_blank" rel="noopener">see the product page</a>. <!-- Source: github.com/NousResearch/hermes-agent, fetched 2026-11-01: MIT, no cost statement; license also per SCRIPT.md --></p>
@@ -778,13 +782,14 @@ pre.code code{font-size:inherit;}
 </article>
 <!-- Source: C:/Users/julia/projects/vektor-producer/data/2026-11-05-six-agents-no090/SCRIPT.md ## Sources, MausBot -->
 <article class="issue" id="mausbot">
-<h3>MausBot</h3>
+<div class="issue-head"><img class="agent-monogram" src="files/no-090/mausbot.png" alt="MausBot" loading="lazy" width="40" height="40"><h3>MausBot</h3></div>
 <p><strong>Runs:</strong> Your machine. Its desktop app runs the coding agents already installed there.</p>
 <p><strong>For:</strong> A manager layer for Claude Code, Codex and Grok, bringing them into a shared window as bots under a lead.</p>
 <p><strong>Cost:</strong> The desktop and companion apps are free <!-- Source: C:/Users/julia/projects/vektor-producer/data/2026-11-05-six-agents-no090/SCRIPT.md ## Sources, MausBot -->and open source under Apache-2.0. <!-- Source: C:/Users/julia/projects/vektor-producer/data/2026-11-05-six-agents-no090/concept.json names_installable_thing -->The site lists cloud plans at $15 <!-- Source: C:/Users/julia/projects/vektor-producer/data/2026-11-05-six-agents-no090/SCRIPT.md ## Sources, MausBot -->/ $49 <!-- Source: C:/Users/julia/projects/vektor-producer/data/2026-11-05-six-agents-no090/SCRIPT.md ## Sources, MausBot -->/ $99 a month. <!-- Source: C:/Users/julia/projects/vektor-producer/data/2026-11-05-six-agents-no090/SCRIPT.md ## Sources, MausBot -->The README says hosted/mobile connectivity is still being built. Cloud availability, plan inclusions and underlying agent/model costs are unverified; <a href="https://mausbot.com" target="_blank" rel="noopener">see the product page</a>.</p>
 <p><strong>Link:</strong> <a href="https://github.com/milind-soni/OpenMausBot" target="_blank" rel="noopener">milind-soni/OpenMausBot on GitHub</a></p>
 <p class="meta"><a href="https://mausbot.com" target="_blank" rel="noopener">mausbot.com</a></p>
 </article>
+<p class="meta">Logos belong to their respective owners and are shown to identify the products.</p>
 </section>
 <div class="fig" id="orchestrator"><h2 class="kick">The pattern ·</h2><h2 class="disp">A manager for your agents<span class="dot">.</span></h2></div>
 <section class="issues"><article class="issue">
