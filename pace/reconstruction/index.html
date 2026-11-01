@@ -128,4 +128,8 @@ function draw(){const t=window.__paceTime||0;range.value=t;clock.textContent='0:
 button.addEventListener('click',()=>{const tl=timeline();if(tl.paused()){if(tl.time()>=24)tl.seek(0);tl.play();button.textContent='Pause';draw();}else{tl.pause();button.textContent='Play';cancelAnimationFrame(animation);}});
 range.addEventListener('input',()=>{timeline().pause().seek(Number(range.value),false);button.textContent='Play';draw();});document.getElementById('viewer-reset').addEventListener('click',()=>{timeline().pause().seek(0,false);button.textContent='Play';draw();});document.addEventListener('visibilitychange',()=>{if(document.hidden){timeline().pause();button.textContent='Play';cancelAnimationFrame(animation);}});
 })();
-</script></body></html>
+</script><footer data-vk="legal-footer" style="padding:16px 24px;"><div data-vk="legal-links" style="display:flex;flex-wrap:wrap;gap:16px;padding:16px 0;font:inherit;line-height:1.6;">
+  <a href="../../privacy.html" style="color:inherit;text-decoration:underline;">Privacy</a>
+  <a href="../../legal-notice.html" style="color:inherit;text-decoration:underline;">Legal notice</a>
+</div></footer>
+</body></html>

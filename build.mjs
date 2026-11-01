@@ -41,6 +41,8 @@ function navFor(home) {
   return fill(NAV_TPL, { HOME: home, NAV_PACKS: packs });
 }
 const NAV_CSS = read('partials/nav-css.html');
+const LEGAL_LINKS_TPL = read('partials/legal-links.html').trimEnd();
+const LEGAL_LINKS = fill(LEGAL_LINKS_TPL, { LEGAL_BASE: './' });
 // The gate (2026-08-26). CAPTURE is the sticky bar + pop-up, injected into
 // public pages only; GATE is the email wall that replaces the payload; UNLOCKED
 // is the receipt at the top of an unlock page.
@@ -62,7 +64,7 @@ const TEARDOWNS = site.teardowns ?? [];
 
 // ---- template fill: {{TOKEN}} -> value (uppercase tokens only) ----
 function fill(tpl, map) {
-  return tpl.replace(/\{\{([A-Z0-9_]+)\}\}/g, (m, k) => (k in map ? map[k] : k === 'SMOKE' ? SMOKE : m));
+  return tpl.replace(/\{\{([A-Z0-9_]+)\}\}/g, (m, k) => (k in map ? map[k] : k === 'SMOKE' ? SMOKE : k === 'LEGAL_LINKS' ? LEGAL_LINKS : m));
 }
 function assertNoTokens(html, label) {
   const left = html.match(/\{\{[A-Z0-9_]+\}\}/g);
@@ -486,6 +488,67 @@ function renderAbout() {
   return out;
 }
 
+// Legal links also cover hand-authored landing pages and nested PACE pages.
+// Render artwork, source partials, downloads, reports and mocks are artifacts,
+// not site navigation pages. No form markup is rewritten by this pass.
+function visitorPages(dir = '') {
+  const pages = [];
+  for (const entry of readdirSync(join(ROOT, dir), { withFileTypes: true })) {
+    const path = dir ? dir + '/' + entry.name : entry.name;
+    if (entry.isDirectory() && (dir || entry.name === 'pace')) pages.push(...visitorPages(path));
+    else if (entry.isFile() && entry.name.endsWith('.html')
+      && !/^(og-src-|diagram-src-|plates-gen\.)/.test(entry.name)) pages.push(path);
+  }
+  return pages;
+}
+function withLegalLinks(html, name) {
+  const base = name === '404.html' ? 'https://vektor-fm.github.io/vektor-site/'
+    : '../'.repeat(name.split('/').length - 1) || './';
+  const links = fill(LEGAL_LINKS_TPL, { LEGAL_BASE: base });
+  const existing = /<div data-vk="legal-links"[^>]*>[\s\S]*?<\/div>/g;
+  if (existing.test(html)) return html.replace(existing, links);
+  if (/<\/footer>/i.test(html)) return html.replace(/<\/footer>/i, links + '\n</footer>');
+  const footer = '<footer data-vk="legal-footer" style="padding:16px 24px;">' + links + '</footer>\n';
+  return /<\/body>/i.test(html) ? html.replace(/<\/body>/i, footer + '</body>') : html + '\n' + footer;
+}
+function renderLegalNotice() {
+  const out = fill(read('partials/legal-page.html'), {
+    TITLE: 'Legal notice', DESCRIPTION: 'Provider and contact details for Vektor.',
+    PAGE: 'legal-notice', CONTENT: read('src/legal-notice.body.html'), LEGAL_LINKS,
+  });
+  assertNoTokens(out, 'legal-notice');
+  return out;
+}
+function identityFiles(dir = '') {
+  const paths = [];
+  for (const entry of readdirSync(join(ROOT, dir), { withFileTypes: true })) {
+    if (entry.name.startsWith('.') || entry.name === 'node_modules') continue;
+    const path = dir ? dir + '/' + entry.name : entry.name;
+    if (entry.isDirectory()) paths.push(...identityFiles(path));
+    else if (entry.isFile() && entry.name.endsWith('.html')) paths.push(path);
+  }
+  return paths;
+}
+function legalProblems() {
+  const errs = [];
+  for (const name of visitorPages()) {
+    const html = read(name);
+    if (html !== withLegalLinks(html, name)) errs.push(name + ': shared legal links missing or stale');
+    if (!/<a\b[^>]*href="[^"#]*legal-notice\.html"[^>]*>Legal notice<\/a>/.test(html)) errs.push(name + ': Legal notice link missing');
+    if (name !== 'legal-notice.html' && /julian|laycock/i.test(html.replaceAll('julian@caelithlabs.com', ''))) errs.push(name + ': personal name outside legal notice');
+  }
+  for (const name of identityFiles()) {
+    if (name === 'legal-notice.html' || name === 'src/legal-notice.body.html') continue;
+    if (/julian|laycock/i.test(read(name).replaceAll('julian@caelithlabs.com', ''))) errs.push(name + ': personal name outside legal notice');
+  }
+  const email = read('email/footer.html');
+  if (!email.includes('https://vektor-fm.github.io/vektor-site/legal-notice.html')) errs.push('email/footer.html: Legal notice link missing');
+  if (/julian|laycock/i.test(email.replaceAll('julian@caelithlabs.com', ''))) errs.push('email/footer.html: personal name');
+  if (!email.includes('Caelith Labs, Badensche Str. 52, 10825 Berlin, Germany')) errs.push('email/footer.html: sender identity missing');
+  if (!email.includes('<!-- labs:begin -->') || !email.includes('<!-- labs:end -->')) errs.push('email/footer.html: Labs opt-in markers missing');
+  return errs;
+}
+
 // ---- outputs map ----
 function outputs() {
   const o = {};
@@ -503,6 +566,7 @@ function outputs() {
   o['index.html'] = renderIndex();
   o['newsletter.html'] = renderNewsletter();
   o['about.html'] = renderAbout();
+  o['legal-notice.html'] = renderLegalNotice();
   // The hub's card lives in site.json rather than a manifest, because the hub
   // has no manifest — it is configured entirely from site.json.
   if (site.index.og_card) o['og-src-index.html'] = renderOgCard('index', site.index.og_card);
@@ -511,6 +575,8 @@ function outputs() {
   // signup form in every built page carries the widget (scripts/turnstile.mjs).
   const key = siteKey(ROOT);
   for (const name of Object.keys(o)) if (name.endsWith('.html')) o[name] = injectTurnstile(o[name], key);
+  for (const name of visitorPages()) o[name] = withLegalLinks(o[name] ?? read(name), name);
+  o['legal-notice.html'] = withLegalLinks(o['legal-notice.html'], 'legal-notice.html');
   return o;
 }
 
@@ -580,14 +646,14 @@ if (check) {
     const cur = exists(name) ? read(name) : null;
     if (cur !== content) { console.error(`OUT OF SYNC: ${name} (run: node build.mjs)`); bad++; }
   }
-  const errs = guardrail();
+  const errs = [...guardrail(), ...legalProblems()];
   for (const e of errs) console.error(`BROKEN LINK: ${e}`);
   // Every signup form on every root page (built or hand-authored) needs the Turnstile
   // widget; --publish also refuses the __TURNSTILE_SITEKEY__ placeholder.
   const ts = checkTurnstileAll({ publish: process.argv.includes('--publish'), root: ROOT });
   for (const p of ts) console.error(`TURNSTILE: ${p}`);
   if (bad || errs.length || ts.length) { console.error(`\ncheck FAILED: ${bad} out-of-sync, ${errs.length} broken link(s), ${ts.length} Turnstile problem(s).`); process.exit(1); }
-  console.log(`check OK: ${Object.keys(out).length} outputs in sync, all links/assets resolve, every signup form has Turnstile${process.argv.includes('--publish') ? ', no placeholder' : ''}.`);
+  console.log(`check OK: ${Object.keys(out).length} outputs in sync, all links/assets resolve, legal footers covered, every signup form has Turnstile${process.argv.includes('--publish') ? ', no placeholder' : ''}.`);
 } else {
   let wrote = 0;
   for (const [name, content] of Object.entries(out)) {

@@ -1,81 +1,216 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>vektor /// privacy</title>
 <meta name="robots" content="noindex">
+<title>Privacy notice | Vektor</title>
+<meta name="description" content="How Vektor handles website, newsletter and Instagram data.">
+<link rel="canonical" href="https://vektor-fm.github.io/vektor-site/privacy.html">
 <style>
-  body { background:#000000; color:#FFFFFF; font-family:'Archivo Text',system-ui,sans-serif; max-width:640px; margin:0 auto; padding:48px 20px; line-height:1.6; }
-  h1 { font-size:1.4rem; letter-spacing:.08em; text-transform:uppercase; }
-  h2 { font-size:1rem; letter-spacing:.06em; text-transform:uppercase; margin-top:2em; color:#8FC5C9; }
-  p { color:#b8b4a8; }
-  a { color:#0E9C86; }
-  .tag { color:#8f8b80; font-size:.8rem; letter-spacing:.15em; }
-
-  /* --- current design system, ported 2026-08-16 -------------------------
-     The retired skin used a 900-weight display face, an animated wordmark and
-     acid green as a UI accent. All three are gone: weight 400 everywhere, the
-     registration animation is retired, and teal is the only accent. */
-  h1,h2,h3,h4,h5,h6,.disp{font-weight:400 !important; letter-spacing:normal !important;}
-  .wm-plate{display:none !important;}
-  .wm-main .ch .l{opacity:1 !important; animation:none !important;}
-  .wm-main .ch .g{display:none !important;}
-  .weave{display:none !important;}
-  .rule,.foot-rule{height:1px !important; background:#C9C9C9 !important; font-size:0 !important; line-height:0 !important; color:transparent !important; overflow:hidden !important;}
-  .srow,.skill{border-color:#C9C9C9 !important;}
+@font-face{font-family:'Inter Tight';src:url('./fonts/inter-tight-600-latin.woff2') format('woff2');font-weight:600;font-display:swap}
+@font-face{font-family:'IBM Plex Mono';src:url('./fonts/ibm-plex-mono-400-latin.woff2') format('woff2');font-weight:400;font-display:swap}
+*{box-sizing:border-box}
+body{background:#1E1E1E;color:#FEFEFE;font-family:'Inter Tight',sans-serif;max-width:780px;margin:0 auto;padding:48px 24px;line-height:1.6;overflow-wrap:anywhere}
+h1{font-size:44px;line-height:1.1;font-weight:600;margin:24px 0}
+h2{font-size:24px;line-height:1.3;margin:40px 0 16px;color:#09AEA1}
+p,li{margin:16px 0}
+a{color:#09AEA1;text-underline-offset:3px}
+.tag{font-family:'IBM Plex Mono',monospace;font-size:14px;color:#ABBAB9}
+header,footer{padding:16px 0;border-bottom:1px solid #C4C4C4}
+footer{margin-top:40px;border-top:1px solid #C4C4C4;border-bottom:0}
+.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:16px}th,td{text-align:left;vertical-align:top;padding:16px;border-bottom:1px solid #C4C4C4}th{color:#09AEA1}
+@media(max-width:640px){body{padding:24px 16px}th,td{padding:8px}}
 </style>
 </head>
 <body>
-<!-- DRAFT FOR LEGAL REVIEW (2026-10-31). Not yet reviewed by a lawyer. Open points:
-     1. Controller: founder line 2026-11-01, trade name and address, no personal name (founder
-        ruling). Same line as email/footer.html. Legal review: German imprint rules usually
-        want the natural person named for an unregistered trade name.
-     2. Processor legal entities, data-processing agreements and transfers outside the EU
-        (Brevo, Cloudflare, GitHub, GoatCounter, Meta) are named by brand only, not verified.
-     3. Cloudflare Turnstile ships with the same change as this text (signup forms carry the
-        widget; the worker checks the token, branch feature/newsletter-harden-worker). Check
-        the Turnstile wording against Cloudflare's own privacy addendum.
-     4. The site is hosted on GitHub Pages, not Cloudflare; Cloudflare runs the signup and
-        Instagram endpoints (Workers) and the list (D1).
-     5. The per-subscriber record holds no copy of the consent wording; the wording is kept
-        in version history (this public repository for the site forms, the private repository
-        for the DM wording). Confirm that is enough.
-     6. No deletion period is set for unconfirmed signups; decide one. -->
-<p class="tag">VEKTOR /// PRIVACY POLICY / 10-2026</p>
-<h1>Privacy policy</h1>
-<p>This policy covers the Vektor website (vektor-fm.github.io/vektor-site), the Vektor newsletter, and the Vektor companion app used to operate our Instagram account (@vektor.fm).</p>
+<header><a href="./index.html">Vektor</a></header>
+<main>
+<!-- DRAFT FOR LEGAL REVIEW (2026-11-01). Not approved for publication.
+Adapted from ../vektor-producer/docs/proposals/privacy-codex/privacy-draft.md and
+lawyer-questions.md, dated 2026-11-01 and read in this run.
+Founder update: personal identification on legal-notice.html only; privacy and email link there.
+Contact: julian@caelithlabs.com. Labs card stays off by default.
+Open questions, updated from lawyer-questions.md:
+1. Does the legal-notice link suffice in privacy and email? Check DDG, GDPR identity,
+   MStV editorial duties, VAT status and the serviceable establishment address.
+2. Approve DM single opt-in and individual proof of delivered wording and assent.
+   Web wording is absent from rows; verify/fix the missing-sender fallback.
+3. Review consent by acquisition source before any Labs promotion. A default-off
+   card and a notice update do not expand existing consent.
+4. Verify Brevo open/click tracking. Approve optional audience-question purpose,
+   basis, identifiability and retention before any worker or form change.
+5. Assess Turnstile necessity, GoatCounter settings, popup storage, persistent
+   experiments and YouTube playback under TDDDG. No blanket exemption.
+6. Confirm vendor entities, DPAs, subprocessors, transfers and account settings.
+   Meta terms, IONOS forwarding/destination and Buttondown copies remain unverified.
+7. Approve and implement retention: pending rows, retries, confirmation expiry,
+   consent evidence, suppression, logs, provider copies and backups.
+8. Confirm establishment/address and any Swiss duties from actual operations.
+9. Review follow-up DMs and identifiable invitation experiments separately.
+10. Verify the receiving mailbox, rights process and withdrawal in Brevo and D1.
+No sends, live writes or end-to-end withdrawal tests occurred in this task.
+Primary legal sources checked 2026-11-01:
+https://cnpd.public.lu/en/legislation/droit-europ/union-europeenne/rgpd/chapitre-2.html
+https://cnpd.public.lu/en/legislation/droit-europ/union-europeenne/rgpd/chapitre-3.html
+https://cnpd.public.lu/en/legislation/droit-europ/union-europeenne/rgpd/chapitre-8.html
+https://www.gesetze-im-internet.de/uwg_2004/__7.html
+https://www.gesetze-im-internet.de/ttdsg/__25.html
+EUR-Lex direct retrieval blocked; DDG wording retrieved via official search result.
+Specific drafting review notes:
+1. The founder now permits personal identification on the legal-notice page only. Confirm that linking to that page identifies the controller sufficiently in this notice and email footer. Confirm the serviceable establishment address and that julian@caelithlabs.com receives requests. No mail test is authorised.
+2. approve these purpose-specific bases, especially analytics, DM follow-ups, experiment assignments, suppression and browser access under German TDDDG §25. This table proposes the legal analysis; it does not establish that consent controls or balancing assessments already exist.
+3. the inspected signup code can redirect to a resource page before newsletter confirmation. Verify the applicable resource routes before making a universal promise about immediate access.
+4. the website wording assumes the intended D1 and sender configuration. In the reviewed code, a missing sender can instead create an active web record without confirmation. Verify the deployed configuration and prevent that fallback before promising double opt-in. A bounced address also remains blocked through the web path.
+5. the current DM ask says “Vektor weekly”; it does not expressly describe Caelith Labs offers or link to the privacy notice. Do not treat this new notice as retrospective permission to expand existing consent. Review the original signup wording for each audience, including imports, and obtain any necessary fresh permission before adding promotional Labs content. The single-opt-in route needs a specific legal decision.
+6. Reserve this wording only. Do not add a field or claim collection is live. Before launch, approve the purpose, lawful basis, choices, link to the subscriber record, withdrawal/deletion route and retention period. Four to five choices are planned in the founder brief dated 2026-11-01; no enrichment or click-linked profiling is authorised.
+7. Brevo open and click measurement must be checked in the actual account and outgoing message configuration. The old notice says these statistics are kept; the files reviewed here do not establish the current setting or its lawful basis. Recommended publication state: disable recipient-level open and click tracking unless separately supported by valid consent. Publish a definite statement matching the verified state, not a generic “may track” clause. Necessary delivery and bounce records are a different purpose.
+8. do not restore the old promises “one message only”, “nothing else is retained” or “no profiles”. Verify the necessity, disclosure and lawful basis of optional follow-ups and experiments.
+9. insert the applicable Meta legal entity, its own processing role, locations and transfer safeguards from retrievable current official terms. The official [Instagram privacy page](https://privacycenter.instagram.com/policy/) and [Meta privacy page](https://www.facebook.com/privacy/policy/) were blocked or rate-limited during this review. No Meta entity, DPF status, transfer mechanism or retention period is asserted as verified. Do not call Meta merely an instructed processor.
+10. name the receiving mailbox provider and its safeguards too. An alias does not remove that recipient from the data flow.
+11. confirm applicable provider identity and add a clear prior notice and any necessary consent before loading. Proposed basis for optional playback processing is consent, Article 6(1)(a); an unexplained play click is not automatically valid consent.
+12. the code still conditionally copies confirmed website signups and new active DM signups to Buttondown when its credential is configured. No credential was inspected. Either verify this copying has ended and deal with retained legacy data, or add Buttondown's verified entity, purpose, location, contractual terms and safeguards here. Do not publish an exhaustive recipient list while this is unresolved.
+13. the technical expiry periods below are settings in the reviewed source, not verified production deletion promises. Database expiry excludes a record from ordinary reads; physical deletion depends on the sweep running. Logs, exports, provider copies and backups must be checked separately.
+14. agree a minimal suppression and consent-evidence schedule. An indefinite full subscriber row is not justified merely by calling it a suppression record.
+15. set deletion criteria linked to delivery troubleshooting, completed experiment analysis and any specific claim that requires evidence. Remove identifying experiment data once that analysis is complete; retain only non-identifying totals where possible.
+16. verify and document actual provider schedules, local exports and backups, and the receiving mailbox. For enquiries, delete after resolution unless a specific legal duty or claim requires retention, stating the applicable period or criterion. Do not promise immediate deletion from all backups.
+17. the seven-day pending proposal originates in the previous research note and is adopted here only as a proposal. Before publication, implement and verify the selected schedule, including retries, old confirmation links, provider copies and restored backups. Replace the review notes with the actual approved periods or clear criteria. Retention must not be left indefinite by default.
+18. TDDDG §25 covers storage and access on a device, not just cookies. Remove non-essential experiment storage or put it behind valid consent before publication. Check whether the dismissal preference is strictly necessary in its actual design. Verify GoatCounter settings and the shipped pages before choosing the final analytics basis. A privacy notice alone does not supply consent.
+19. confirm necessity, loading behaviour, any browser storage and the TDDDG §25 exception before relying on it.
+20. verify that both the sending provider and the D1 list honour withdrawals before the next send. The worker route and the Brevo campaign link are different paths; no end-to-end withdrawal test was performed in this drafting task.
+-->
+<p class="tag">Vektor / Privacy</p>
+<h1>Privacy notice</h1>
+<p>Draft dated 1 November 2026. Awaiting legal review before publication.</p>
+
+<p>This notice covers the Vektor website at vektor-fm.github.io/vektor-site, the Vektor newsletter and the tools used to handle comments and direct messages on Instagram at @vektor.fm.</p>
 
 <h2>Who is responsible</h2>
-<p>The controller for the data described here is Caelith Labs, Badensche Str. 52, 10825 Berlin, Germany. Contact details are at the end of this page.</p>
 
-<h2>What the app does</h2>
-<p>The Vektor app responds to comments on our own Instagram posts. When you comment a keyword (e.g. "claude") on one of our posts, it sends you a single direct message containing the link we promised in that post, and may post one public reply under your comment.</p>
+<p>The controller is the individual identified in the <a href="./legal-notice.html">legal notice</a>, trading as Caelith Labs. Caelith Labs is an unregistered freelance trade name. I run Vektor and decide how the personal data described in this notice is used.</p>
 
-<h2>Data we process</h2>
-<p>To do this, we process the comment you wrote, your Instagram username, and your Instagram user ID, as delivered to us by Meta's webhook. We use these solely to send the one reply you requested. We do not sell data, build profiles, run ads, or message you again unless you comment again.</p>
+<p>Postal contact: Caelith Labs, Badensche Str. 52, 10825 Berlin, Germany.</p>
 
-<h2>Data we store</h2>
-<p>We store a short-lived technical marker of your comment's ID (not its content) for up to 30 days, only to make sure you never receive duplicate messages. Nothing else is retained.</p>
+<p>Email: <a href="mailto:julian@caelithlabs.com">julian@caelithlabs.com</a>.</p>
 
-<h2>Website</h2>
-<p>The website is a static site hosted on GitHub Pages. We use privacy-friendly, cookieless analytics (GoatCounter) to count page views.</p>
+<h2>What I collect and why</h2>
 
-<h2>Newsletter: how you join</h2>
-<p>There are two ways onto the newsletter list. On this website, you enter your email address and we email you a link to confirm; you are only added once you click it. In an Instagram DM, after you comment on one of our posts, we may ask whether you want the newsletter; if you reply with your email address, that reply is your signup and you are added straight away, with no confirmation email. Either way you can unsubscribe at any time.</p>
+<div class="table-wrap"><table><thead><tr><th scope="col">Purpose</th><th scope="col">Data used</th><th scope="col">Legal basis proposed for this purpose</th></tr></thead><tbody><tr><td>Use hosting to display and protect the website</td><td>IP address, requested page and technical request information processed by the host</td><td>Proposed basis for my use of hosting: legitimate interests in providing a working, secure website, GDPR Article 6(1)(f). GitHub describes its own controller processing separately; the precise allocation of roles needs confirmation.</td></tr>
+<tr><td>Handle a requested Instagram resource or reply</td><td>Comment or message content, Instagram identifiers and username where supplied, campaign or keyword, follow-check and delivery state</td><td>Legitimate interests in answering your request and preventing duplicate replies, Article 6(1)(f). This does not authorise unrelated promotional messages.</td></tr>
+<tr><td>Register a newsletter subscription and send the newsletter</td><td>Email address, signup source, subscription status and confirmation information</td><td>Your consent, Article 6(1)(a).</td></tr>
+<tr><td>Record consent and investigate delivery failures</td><td>Signup and confirmation times, available consent wording, delivery records and error information</td><td>Legal obligations to demonstrate consent and accountability, Article 6(1)(c) with Articles 5(2) and 7(1); necessary troubleshooting and defence of claims, Article 6(1)(f).</td></tr>
+<tr><td>Prevent automated signups and abusive confirmation requests</td><td>IP-based counters, a derived inbox identifier, browser signals and Turnstile results</td><td>Legitimate interests in protecting the forms and preventing unwanted mail, Article 6(1)(f).</td></tr>
+<tr><td>Understand website use and improve the signup flow</td><td>Page and event counts, referrers, technical browser information and experiment assignments</td><td>Article 6(1)(f) is proposed for limited aggregate measurement after a documented balancing assessment. Consent under Article 6(1)(a) is proposed for non-essential browser experiment storage and any measurement requiring it.</td></tr>
+<tr><td>Answer enquiries and privacy requests</td><td>Your contact details, message and information needed to handle the request</td><td>Article 6(1)(f) for general correspondence; Article 6(1)(b) for enquiries about a requested freelance engagement; Article 6(1)(c) for statutory privacy requests.</td></tr></tbody></table></div>
 
-<h2>Newsletter: what we keep</h2>
-<p>For each address on the list we keep: your email address; where you signed up (the page on this site, or the Instagram post and DM); when you signed up, confirmed and unsubscribed; and your status (waiting for confirmation, subscribed, unsubscribed, or bounced). The wording you agreed to is the signup text shown at that place and time, and we keep every version of it in our version history. We use the list only to send you the newsletter. We do not sell it, share it for anyone else's marketing, or add you to any other list.</p>
+<h2>The newsletter and how you join</h2>
 
-<h2>Newsletter: who processes it</h2>
-<p>Brevo (France) sends the emails: it receives your email address in order to deliver them, and keeps delivery and open/click statistics. Cloudflare runs our signup and Instagram endpoints (Cloudflare Workers) and stores the list in our own database (Cloudflare D1). The signup forms on this site use Cloudflare Turnstile to keep bots out: when a form loads, Turnstile checks your browser (it may read technical signals such as your IP address and browser details) and gives the form a token we verify when you sign up. We use its result only to accept or refuse the signup. Instagram (Meta) carries the DM conversation, including an email address you send us there, under its own terms.</p>
+<p>The Vektor newsletter covers AI tools, practical workflows, resource packs and explanations of how systems work. It may include occasional Caelith Labs notes about freelance work, examples and relevant service offers. Labs promotion will be sent only to subscribers whose consent covers it. It is the same newsletter, not a separate mailing list.</p>
 
-<h2>Newsletter: how long we keep it</h2>
-<p>We keep your address for as long as you are subscribed. Every issue has an unsubscribe link, and unsubscribing stops all further emails at once. After you unsubscribe, or if your address bounces, we keep a suppressed record (your address, its status and the date) for one reason only: so we never email you again, including if your address is ever imported back by mistake. If you would rather we delete even that record, contact us (see below) and we will remove your address from our database and from Brevo.</p>
+<p>The website signup flow is designed to send a confirmation email. Follow its link and press the confirmation button to complete your subscription. Opening the link alone does not confirm it. The deployed confirmation settings still need verification before this draft is published. You do not have to join the newsletter simply to browse the website.</p>
 
-<h2>Your choices &amp; contact</h2>
-<p>To unsubscribe, use the link at the foot of any issue. To have your address or any stored marker removed, to get a copy of what we hold about you, or to ask anything about this policy, contact us at <a href="mailto:julianlaycock94@gmail.com">julianlaycock94@gmail.com</a> or by DM to <a href="https://www.instagram.com/vektor.fm/">@vektor.fm</a>. You also have the right to complain to a data protection authority.</p>
+<p>In an Instagram conversation, the newsletter invitation asks you to reply with your email address if you want to subscribe. This route currently uses single opt-in: the address can be added without an email confirmation. Replying with an address does not prove ownership of that inbox. The invitation also offers “skip” so that you can receive the resource link without joining. Commenting a resource keyword alone does not subscribe you. An address already marked as unsubscribed or bounced is not reactivated through this DM route.</p>
 
-<p class="tag">UPDATED 2026-10-31 · FIRST EFFECTIVE 2026-07-05 · VEKTOR / CAELITH LABS</p>
+<h2>Optional audience question, planned</h2>
+
+<p>An optional question, “What do you do?”, is planned for signup. It is not collected by the current signup form. If introduced, you will be able to skip it and still subscribe. The proposed use is to understand readers and choose useful topics. If an answer is linked to your email address, it is personal data, not an anonymous survey. The form will explain that use and ask for any consent it requires. It will not give permission for additional marketing.</p>
+
+<h2>Subscription and delivery records</h2>
+
+<p>The newsletter database holds your email address and a normalised version used to recognise duplicate inboxes. It also holds your status, signup source, signup and confirmation dates, unsubscribe date where applicable, and record creation and update dates.</p>
+
+<p>Confirmation records include a random confirmation identifier, delivery attempts, the accepted-send time, any next retry time and error information. For new DM consents recorded through the updated flow, the record also holds the invitation wording, campaign and experiment variant. Older records may not contain that wording. Website records currently identify the signup source but do not store the exact wording in the subscriber row.</p>
+
+<p>A delivery record can link your address to an issue, its send status, a provider message identifier, send-run identifier, timestamps and any error. A successful delivery record is not proof that you opened or read the email.</p>
+
+<p>Recipient-level email open and click tracking has not been verified for this draft. Its settings, legal basis and disclosure must be settled before publication.</p>
+
+<p>I do not sell the subscriber list or provide it for another sender's marketing.</p>
+
+<h2>Instagram messages and resource delivery</h2>
+
+<p>The resource flow processes the message or comment supplied through Instagram, identifiers needed to reply, and the progress of the request. It can include a follow check, a newsletter invitation, the resource link, a public reply and follow-up messages. Some messages that need a human answer are copied into an inbox record, including message text, sender and message identifiers, timestamp and a handling reason.</p>
+
+<p>The flow also records which invitation variant was shown so that its results can be compared. This is not an anonymous record: it can be linked to an Instagram identifier. Meta also handles the conversation within Instagram. An email address sent in a DM passes through that service before it reaches the newsletter database.</p>
+
+<h2>Who receives data and where it is processed</h2>
+
+<p>Providers may handle data on my instructions as processors, or decide how to use certain information for their own purposes as controllers. The descriptions below distinguish those roles where the vendor documentation permits. Vendor documents were checked on 1 November 2026. They describe vendor arrangements, not proof that every account agreement or transfer assessment has been completed.</p>
+
+<p><strong>Brevo, email delivery.</strong> Brevo receives recipient addresses, email content and delivery information to send confirmation messages and newsletter issues. Its own published terms identify Sendinblue SAS in France as trading as Brevo; the contracting entity for this account still needs confirmation. Brevo says its database hosting is in the EU, with OVH in France and Germany and Google Cloud in Belgium. EU database hosting does not establish that all support access or subprocessors stay in the EU. The current DPA text and applicable safeguards for any outside-EEA access could not be retrieved in this review and must be verified before publication. Sources: <a href="https://partners.brevo.com/experts-agreement">vendor identity</a>, <a href="https://help.brevo.com/hc/fr/articles/360001005510-Lieux-de-stockage-des-donn%C3%A9es">storage locations</a>, <a href="https://help.brevo.com/hc/en-us/articles/15403782599570-Where-can-I-find-the-Data-Processing-Agreement-DPA">DPA location</a>, <a href="https://www.brevo.com/legal/privacypolicy/">privacy policy</a>.</p>
+
+<p><strong>Cloudflare, signup processing, database and security.</strong> Workers runs the signup and Instagram endpoints; D1 stores the subscriber and operational records; Turnstile checks signup traffic. Cloudflare's DPA names Cloudflare, Inc., USA, and provides standard contractual clauses and additional safeguards for restricted international transfers. Its privacy policy describes US, EEA and international processing and reliance on the Data Privacy Framework for covered transfers. No EU-only location for this database has been verified. D1 documentation says a database jurisdiction setting constrains database storage, but Workers can still access it globally. Sources: <a href="https://www.cloudflare.com/cloudflare-customer-dpa/">DPA, effective 3 April 2026</a>, <a href="https://www.cloudflare.com/privacypolicy/">privacy policy</a>, <a href="https://developers.cloudflare.com/d1/configuration/data-location/">D1 data location, updated 2 October 2026</a>.</p>
+
+<p><strong>GitHub Pages, website hosting.</strong> GitHub serves the static site; it does not host the newsletter database. GitHub says Pages visitors' IP addresses are logged for security. Its privacy statement names GitHub, Inc. and GitHub B.V. as controllers for processing covered by that statement. It describes processing in the United States and other countries, standard contractual clauses and participation in the Data Privacy Framework. The precise Pages contracting role and log-retention period for this account remain to be confirmed. Sources: <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages">Pages documentation</a>, <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">privacy statement, effective 27 April 2026</a>.</p>
+
+<p><strong>GoatCounter, website measurement.</strong> The hosted service is operated by Martin Tournoij in Ireland and states that its data is stored at Hetzner in Finland and Germany. Its privacy policy describes aggregate page, referrer, browser, system, location, language and screen-size statistics. It also offers an optional individual-pageview mode; the account setting has not been verified. No routine outside-EEA storage is stated on that page. Contractual processor arrangements still need review. Source: <a href="https://www.goatcounter.com/help/privacy">privacy policy, dated 8 June 2025</a>.</p>
+
+<p><strong>Instagram / Meta, the DM channel.</strong> Instagram carries the conversation, including any email address you send. Its applicable legal entity, processing roles, locations and transfer safeguards still need verification before this draft is published. </p>
+
+<p><strong>IONOS, privacy-contact forwarding.</strong> The planned contact address forwards incoming correspondence through IONOS to the receiving mailbox. IONOS SE is identified in its German privacy notice. Its public processing agreement describes processing on customer instructions. The specific forwarding location, destination mailbox provider and account terms have not been verified. Sources: <a href="https://www.ionos.de/datenschutzerklaerung">privacy notice</a>, <a href="https://www.ionos.de/terms-gtc/avv/">processing agreement</a>. </p>
+
+<p><strong>YouTube, optional embedded video.</strong> The reviewed homepage loads a youtube-nocookie.com player after a play click. Playing connects your browser to Google/YouTube, which can process technical and viewing information under its own policies. Privacy-enhanced mode limits certain personalisation; it is not a promise of no personal-data processing. Sources: <a href="https://support.google.com/youtube/answer/171780?hl=en">YouTube embedding guidance</a>. </p>
+
+<p>Standard contractual clauses are contractual safeguards for international transfers. The Data Privacy Framework is a different mechanism for covered transfers to participating US recipients. Neither term means that all data remains in Europe. Contact me for information about the safeguards applicable to your data and how to obtain a copy. Public vendor statements alone do not prove the account's actual transfer arrangements.</p>
+
+<h2>How long data is kept</h2>
+
+<p>The periods below describe settings in the source reviewed for this draft. They have not been verified as production deletion periods. Expired records can be excluded from reads before a cleanup removes them. Provider copies, logs, exports and backups need separate schedules.</p>
+
+<div class="table-wrap"><table><thead><tr><th scope="col">Record</th><th scope="col">Current evidence and proposed retention wording</th></tr></thead><tbody><tr><td>Active newsletter subscription</td><td>Kept while your subscription is active. Consent evidence is also needed to explain the basis of past sends.</td></tr>
+<tr><td>Unconfirmed website signup</td><td><strong>Proposal: delete the pending address, confirmation identifier and retry data seven days after the first signup in that pending cycle.</strong> This is an operational proposal, not a statutory deadline or an implemented feature. Repeated attempts should not extend it indefinitely. The reviewed code currently has no pending-row purge or confirmation-token expiry.</td></tr>
+<tr><td>Unsubscribed or bounced subscription</td><td>Currently marked inactive, without removing the other row fields. A record used to prevent further sends needs a justified scope and review point.</td></tr>
+<tr><td>Per-issue delivery and experiment assignment records</td><td>No automatic expiry was found in the reviewed storage methods.</td></tr>
+<tr><td>Website abuse limits</td><td>The IP-based signup counter expires after 48 hours from its last update. A derived inbox cooldown record expires after 10 minutes. Expired database entries are ignored on reads and physically removed by the expiry sweep. Log copies may have a separate lifetime.</td></tr>
+<tr><td>Instagram flow records</td><td>Pending flow records expire seven days after their last write; follow-up records use eight days; duplicate-message and delivery markers use 30 days. These are record-specific settings, not a maximum for all Instagram data.</td></tr>
+<tr><td>Messages needing a human answer</td><td>The copied inbox record has a 90-day expiry. It can contain message text. Meta's copy and operational logs are separate.</td></tr>
+<tr><td>Browser storage</td><td>Popup dismissal timestamps stop suppressing the popup after two days, but the reviewed code does not delete the stored key then. The browser experiment assignment has no configured expiry. You can remove these through your browser's site-data settings.</td></tr>
+<tr><td>Hosting logs, provider records, backups and enquiries</td><td>Provider schedules, exports, backups and mailbox retention remain to be verified before publication.</td></tr></tbody></table></div>
+
+<h2>Cookies, browser storage and analytics</h2>
+
+<p>GoatCounter says visitor counting does not use cookies or browser storage. It does process technical information: its policy says site, IP address and browser header information can be held in memory for up to eight hours to recognise repeat visits. That is different from storing an IP address in an analytics database. Its optional individual-pageview setting means “all analytics are anonymous” is not a verified statement for this account.</p>
+
+<p>The Vektor site itself uses local storage to remember popup dismissals and, on some resource pages, which signup experiment variant a browser saw. This storage is separate from GoatCounter. The site also counts events such as form submissions, popup use and some outgoing clicks. Clearing site data removes locally stored values; blocking analytics requests prevents those requests from reaching the analytics service.</p>
+
+<h2>The Turnstile check</h2>
+
+<p>Website signup forms use Cloudflare Turnstile. Cloudflare describes signals including IP address, browser headers, TLS connection characteristics, and the site and origin. The signup server sends the challenge response and available IP address to Cloudflare for validation. A failed check prevents signup processing through that form.</p>
+
+<p>Cloudflare says it acts as a processor when protecting this website and as a controller when using signals to improve its bot detection. The proposed basis for my security use is Article 6(1)(f). </p>
+
+<p>Source: <a href="https://www.cloudflare.com/turnstile-privacy-policy/">Cloudflare Turnstile Privacy Addendum, updated 18 June 2025</a>, checked 1 November 2026. Turnstile is a security check, not consent to receive the newsletter.</p>
+
+<h2>Unsubscribing and withdrawing consent</h2>
+
+<p>Use the unsubscribe link in any issue, follow any confirmation step shown, or contact me by email, post or Instagram DM. Withdrawal does not require a reason and does not affect the lawfulness of processing before withdrawal. Newsletter consent is separate from consent to any optional tracking.</p>
+
+<p>After your withdrawal is processed, your address must be excluded from further newsletter sends. A message already handed to the delivery provider may still arrive. </p>
+
+<p>An erasure request is different from an unsubscribe request. I will delete data that is no longer needed, and explain any limited record that must lawfully remain, its purpose and retention period. I will not treat a request to delete data as permission to send again.</p>
+
+<h2>Your rights</h2>
+
+<p>Under the GDPR, you can request access to your data, correction, erasure or restriction of processing. Where the legal conditions apply, you can receive data you supplied in a portable format. You can withdraw consent at any time.</p>
+
+<p><strong>You can object at any time to use of your personal data for direct marketing, including related profiling. That use must then stop.</strong> You can also object, for reasons relating to your situation, to processing based on legitimate interests.</p>
+
+<p>Send a request to julian@caelithlabs.com or the postal address above. If relevant, identify the email address or Instagram account involved so that the records can be found. Only information reasonably needed to verify the request should be requested. Rights requests are normally answered within one month; where the law permits an extension, the reason and extension must be explained within that first month.</p>
+
+<p>You can complain to a data protection authority, especially in the EU country where you live or work or where you believe an infringement occurred. You do not have to contact me first. These rights follow GDPR Articles 12 and 15 to 22 and the complaint right in Article 77.</p>
+
+<p>Providing an email address is voluntary, but it is needed to send you the newsletter. The reviewed flows use automated bot checks and experiment assignments; they do not show a decision producing legal or similarly significant effects under Article 22.</p>
+
+<h2>Changes and contact</h2>
+
+<p>Contact: Caelith Labs, Badensche Str. 52, 10825 Berlin, Germany; julian@caelithlabs.com; Instagram @vektor.fm.</p>
+
+<p>This notice will be updated when the processing changes. A notice update does not by itself expand the consent you previously gave.</p>
+
+</main>
+<footer><div data-vk="legal-links" style="display:flex;flex-wrap:wrap;gap:16px;padding:16px 0;font:inherit;line-height:1.6;">
+  <a href="./privacy.html" style="color:inherit;text-decoration:underline;">Privacy</a>
+  <a href="./legal-notice.html" style="color:inherit;text-decoration:underline;">Legal notice</a>
+</div></footer>
 </body>
 </html>
