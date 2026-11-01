@@ -1,0 +1,21 @@
+{
+  "number": "007",
+  "title": "The Teardown 007 · Delete your dead code every morning",
+  "description": "Boris Cherny says one of Anthropic's daily routines is a single sentence that deletes their dead code. Claude Code ships the same feature as scheduled tasks (formerly routines). My version of the dead code prompt with its guardrails, the 10-minute /schedule setup from the docs, all five routines from the talk as prompts, and what to check before you merge.",
+  "og_title": "Delete your dead code every morning · The Teardown 007",
+  "og_description": "A one-sentence routine deletes Anthropic's dead code every day. My version of the prompt, the 10-minute /schedule setup, and what static analysis cannot see.",
+  "og_image": "https://vektor-fm.github.io/vektor-site/covers/2026-10-30-claude-maintains-claude-no087.jpg",
+  "og_alt": "The cover of the Vektor film Claude Cleans Up Its Own Code.",
+  "og_url": "https://vektor-fm.github.io/vektor-site/teardown-007.html",
+  "canonical": "https://vektor-fm.github.io/vektor-site/teardown-007.html",
+  "tw_title": "Delete your dead code every morning · The Teardown 007",
+  "tw_image": "https://vektor-fm.github.io/vektor-site/covers/2026-10-30-claude-maintains-claude-no087.jpg",
+  "tw_description": "My version of the one-sentence dead code routine, the 10-minute /schedule setup, and what to check before you merge.",
+  "marker": "The Teardown · 007",
+  "sticky_text": "One teardown a week · <b>the working setup</b>",
+  "backref_html": "One teardown a week, the AI tooling that actually ships. The 60-second version of this issue is on Instagram: <a href=\"https://instagram.com/vektor.fm\">@vektor.fm →</a>",
+  "footer_meta": "/// the teardown / 007 / 11-2026 · the working setup",
+  "copy_event": "teardown-007-copy",
+  "subscribe_track": true,
+  "slug": "teardown007"
+}

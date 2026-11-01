@@ -531,6 +531,12 @@
       "title": "The hook that asks before it greps",
       "date": "2026-10-20",
       "subject": "The hook that asks before grep"
+    },
+    {
+      "number": "007",
+      "title": "Delete your dead code every morning",
+      "date": "2026-11-03",
+      "subject": "Delete your dead code every morning"
     }
   ],
   "proof": {
