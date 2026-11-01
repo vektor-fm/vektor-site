@@ -806,7 +806,14 @@ footer{ display:grid; gap:1px; background:var(--bg); }
 .nl-inline{display:flex; gap:var(--p-s); flex-wrap:wrap; align-items:stretch;}
 .nl-inline input{flex:1 1 220px; min-width:0; min-height:48px; background:transparent; border:0; border-bottom:1px solid var(--rule); color:var(--fg); font-family:var(--font-sans); font-size:var(--fs-m); padding:0;}
 .nl-inline input:focus{outline:none; border-bottom-color:var(--fg);}
-.nl-inline .btn{display:inline-flex; align-items:center; min-height:48px; padding:0 var(--p-m); border:1px solid var(--rule); background:transparent; color:var(--fg); font-family:var(--font-sans); font-size:var(--fs-s); text-transform:uppercase; letter-spacing:.025em; cursor:pointer; transition:background-color .15s cubic-bezier(.4,0,.2,1), color .15s cubic-bezier(.4,0,.2,1);}
+.nl-inline .btn,.work-link{display:inline-flex; align-items:center; min-height:48px; padding:0 var(--p-m); border:1px solid var(--rule); background:transparent; color:var(--fg); font-family:var(--font-sans); font-size:var(--fs-s); text-transform:uppercase; letter-spacing:.025em; cursor:pointer; transition:background-color .15s cubic-bezier(.4,0,.2,1), color .15s cubic-bezier(.4,0,.2,1);}
+/* Homepage-only freelance entry: the newsletter keeps its accent treatment. */
+.intro .intro-top{display:flex; justify-content:space-between; align-items:center; gap:var(--p-m); flex-wrap:wrap; width:100%; padding-top:var(--p-l);}
+.intro .intro-top .eyebrow{padding:0; text-align:left; flex:1 1 180px;}
+.work-link{flex:none; white-space:nowrap; transition:none;}
+.work-link:hover{border-color:var(--fg); text-decoration:underline; text-underline-offset:4px;}
+.work-link:focus-visible{outline:2px solid var(--fg); outline-offset:4px;}
+.work-credit{padding:var(--p-m); text-align:center; color:var(--dim);}
 .nl-inline .btn.primary{border-color:var(--accent); color:var(--accent);}
 .nl-inline .btn.primary:hover{background:var(--accent); color:var(--bg);}
 input,select,textarea{font-size:16px !important;}   /* iOS zooms below 16 */
@@ -1067,7 +1074,10 @@ input,select,textarea{font-size:16px !important;}   /* iOS zooms below 16 */
       <!-- No image. sprind's first screen is ground colour + gradient + a
            wordmark at 2/3 of the viewport width, with the h1 secondary beneath
            it and a small uppercase eyebrow on top. -->
-      <div class="eyebrow">The frontier, by the numbers</div>
+      <div class="intro-top">
+        <div class="eyebrow">The frontier, by the numbers</div>
+        <a class="work-link" id="home-work-with-us" href="https://www.caelithlabs.com/?utm_source=vektor-site&amp;utm_medium=homepage&amp;utm_campaign=work-with-us" aria-label="Work with us at Caelith Labs">Work with us</a>
+      </div>
       <a class="wm bigmark" href="#top" aria-label="vektor"><span class="wm-plate wm-acid" aria-hidden="true">vektor</span><span class="wm-plate wm-orchid" aria-hidden="true">vektor</span><span class="wm-main"><span class="ch" style="--i:0"><span class="g">%</span><span class="l">v</span></span><span class="ch" style="--i:1"><span class="g">#</span><span class="l">e</span></span><span class="ch" style="--i:2"><span class="g">Z</span><span class="l">k</span></span><span class="ch" style="--i:3"><span class="g">8</span><span class="l">t</span></span><span class="ch" style="--i:4"><span class="g">@</span><span class="l">o</span></span><span class="ch" style="--i:5"><span class="g">W</span><span class="l">r</span></span></span></a>
       <div class="headline">
         <h1 class="heading1">The AI frontier, cut to what ships</h1>
@@ -1662,6 +1672,7 @@ input,select,textarea{font-size:16px !important;}   /* iOS zooms below 16 */
     <a href="./privacy.html"><span>→</span><span>Privacy</span></a>
   </div>
 
+  <p class="work-credit copyS">Vektor is built and run by Caelith Labs.</p>
   <div class="colophon copyS">vektor /// the index · 08-2026 · the frontier, by the numbers</div>
 </footer>
 
@@ -1740,6 +1751,13 @@ document.querySelectorAll('.copylink').forEach(b => {
 
 <script data-goatcounter="https://vektor.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 <script>
+  // Match the existing hyphenated GoatCounter event convention, without
+  // intercepting the link or depending on analytics for navigation.
+  document.getElementById('home-work-with-us').addEventListener('click', function(){
+    if (window.goatcounter && goatcounter.count) {
+      goatcounter.count({ path:'home-work-with-us', event:true });
+    }
+  });
   // Subscribe event + outbound UTM tagging, carried over from the previous
   // index. The form is a plain navigation POST and the page works without JS.
   document.querySelectorAll('form').forEach(function(f){
