@@ -1,0 +1,80 @@
+<section class="hero">
+  <div class="kick eye">The Teardown · 007</div>
+  <h1 class="disp">Find dead code<br>before deleting it<span class="dot">.</span></h1>
+  <p class="sub">Give Claude a daily maintenance job whose result you can check. Start with a report: a candidate, the evidence and what still needs checking.</p>
+  <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+</section>
+
+<div class="fig" id="context"><h2 class="kick">Fig. 01 ·</h2><span class="gaccent">start with evidence</span><span class="line"></span></div>
+<section class="issues"><article class="issue">
+  <p>Boris Cherny described Claude running a daily routine to find dead code and propose its removal. That is his account of Anthropic's maintenance work, not evidence that this prompt will work in your repository.<sup><a href="#s3">[3]</a></sup></p>
+  <p>Anthropic offers cloud routines that can run a saved prompt on a schedule.<sup><a href="#s1">[1]</a></sup> For a first attempt, I'd ask for a candidate and the evidence behind it. Review that report before deciding whether anything should go.</p>
+  <p>This is a new, untested Vektor prompt. It does not reproduce Anthropic's internal configuration. Run duration, time saved and success rate: no current number.</p>
+</article></section>
+
+<div class="fig" id="prompt"><h2 class="kick">Fig. 02 ·</h2><span class="gaccent">the complete prompt</span><span class="line"></span></div>
+<section class="issues"><article class="issue">
+  <p>Start with a small repository you know. Paste the whole prompt, including the limits and the instruction for an empty result.</p>
+<pre class="code"><code>Inspect this repository's default branch for one function
+that may no longer be used. Read and report only.
+Do not edit files, install tools, run project scripts,
+commit, push, open pull requests or contact services.
+
+Search the repository for references to the candidate.
+Check exports, configuration and dynamic loading paths.
+Do not treat an empty text search as proof of disuse.
+
+Return a report in this session with:
+Candidate: file path and function name.
+Evidence: searches performed and relevant file locations.
+Uncertainty: anything you could not establish.
+Next check: how a maintainer should verify usage.
+
+If nothing is convincing, say "No convincing candidate"
+and explain what you inspected. Do not invent a finding.</code></pre>
+  <p>The candidate gives you something specific to inspect. The evidence should make the reasoning traceable. The uncertainty and next check tell you what remains unresolved. An empty report is acceptable; finding something to delete is not the acceptance test.</p>
+</article></section>
+
+<div class="fig" id="setup"><h2 class="kick">Fig. 03 ·</h2><span class="gaccent">set it up</span><span class="line"></span></div>
+<section class="issues"><article class="issue">
+  <p>The setup below follows Anthropic's documentation, checked on 2026-11-01.<sup><a href="#s2">[2]</a></sup> It is a recipe to try, not a measured setup-time claim.</p>
+  <ol>
+    <li><b>Check access.</b> You need an eligible paid Claude plan, cloud sessions enabled and GitHub access.</li>
+    <li><b>Create the task on the web.</b> Open <b>Scheduled tasks</b>, sometimes labelled <b>Routines</b>. Choose <b>New task</b> or <b>New routine</b>, then <b>Set up manually</b> if offered. Name it <b>Daily dead-code check</b> and paste the complete prompt above.</li>
+    <li><b>Set its scope.</b> Select your repository, cloud environment and model. Remove all connectors for this job.</li>
+    <li><b>Choose a daily schedule.</b> Pick <b>9:07, not 9:00</b> local time: runs set on the hour can start several minutes late. This does not guarantee an exact start.</li>
+    <li><b>Inspect a first run.</b> Create it, click <b>Run now</b>, then open the run from <b>History</b>.</li>
+  </ol>
+  <p><b>Terminal shortcut:</b> in a local Claude Code session signed in to claude.ai, type <code>/schedule</code> to create the same scheduled task through a conversation; supply the prompt and settings above. Use this instead of web creation, so you do not create a duplicate.<sup><a href="#s2">[2]</a></sup></p>
+</article></section>
+
+<div class="fig" id="review"><h2 class="kick">Fig. 04 ·</h2><span class="gaccent">review the report</span><span class="line"></span></div>
+<section class="issues"><article class="issue">
+  <p>Use this checklist before accepting a candidate. These are review questions, not results from a run.</p>
+  <ul>
+    <li><b>Locate it.</b> Open the reported file and function. Check that the report describes the code you are reviewing.</li>
+    <li><b>Follow the evidence.</b> Inspect the searches and referenced file locations. A conclusion without a traceable search is not enough to act on.</li>
+    <li><b>Challenge an empty search.</b> Ask whether exports, configuration, dynamic loading or callers outside this repository could explain the missing references. Keep unresolved usage questions in the report.</li>
+    <li><b>Make the next check concrete.</b> Ask what a maintainer would inspect or test before proposing a deletion. This report-only prompt forbids running project scripts; do not mistake its report for a test result.</li>
+    <li><b>Accept no finding.</b> If it says there is no convincing candidate, read what it inspected. Do not ask it to invent one to make the run look productive.</li>
+  </ul>
+  <p>Keep the routine only if its report helps you make a decision. If the evidence is vague, narrow the prompt to a folder you know and try again. Any later change to code is a separate decision.</p>
+</article></section>
+
+<div class="fig" id="caveat"><h2 class="kick">Fig. 05 ·</h2><span class="gaccent">what remains untested</span><span class="line"></span></div>
+<section class="issues"><article class="issue">
+  <p><b>Read-only wording is an instruction, not a permissions lock.</b> Removing connectors does not prove that the remaining environment cannot write. Review what access you grant before creating the task.</p>
+  <p>No scheduled task was created and this exact prompt was not run for this issue. Account access, prompt compliance and the usefulness of its output remain unverified. Scheduled runs also use your subscription allowance.<sup><a href="#s2">[2]</a></sup></p>
+  <p>Cherny's description establishes what he said. It does not establish that Anthropic uses the public feature with this configuration, or that the same outcome will follow here.</p>
+</article></section>
+
+<div class="fig"><h2 class="kick">Fig. 06 ·</h2><span class="gaccent">dated sources</span><span class="line"></span></div>
+<section class="issues" id="sources"><article class="issue">
+  <ol class="ledger">
+    <li id="s1"><b>[1]</b> Anthropic, <a href="https://claude.com/resources/articles/introducing-routines-in-claude-code" target="_blank" rel="noopener">Introducing routines in Claude Code</a>. Published 2026-04-14; fetched 2026-11-01. Source for the public cloud routine feature and scheduled prompts. Its older daily quota wording differs from the current docs; no quota is repeated here.</li>
+    <li id="s2"><b>[2]</b> Anthropic, <a href="https://code.claude.com/docs/en/routines" target="_blank" rel="noopener">Automate work with scheduled tasks</a>. Publication date not displayed; fetched 2026-11-01. Source for access requirements, web setup, <code>/schedule</code>, the on-the-hour delay, local preset times, connectors, Run now, History and subscription usage.</li>
+    <li id="s3"><b>[3]</b> YC Root Access, <a href="https://www.ycrootaccess.com/p/boris-cherny-building-claude-code" target="_blank" rel="noopener">Boris Cherny: Building Claude Code</a>. Published 2026-07-27; fetched 2026-11-01. The transcript's dead-code passage supports the attributed account above. Internal-scale and engineer-equivalence claims are not repeated.</li>
+  </ol>
+  <p class="meta">The prompt and review checklist are Vektor's proposed recipe. They are not Anthropic's published internal prompt or a tested configuration.</p>
+  <div class="actions"><a class="btn primary" href="#subscribe">Subscribe to The Teardown →</a></div>
+</article></section>
