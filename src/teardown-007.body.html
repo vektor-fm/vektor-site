@@ -1,128 +1,80 @@
 <section class="hero">
   <div class="kick eye">The Teardown · 007</div>
-  <h1 class="disp">Delete your dead code<br>every morning<span class="dot">.</span></h1>
-  <p class="sub">Boris Cherny, who built Claude Code, says one of Anthropic's daily routines is a single sentence that deletes their dead code. The feature is public: Claude Code calls it scheduled tasks, formerly routines. Here is my version of that prompt with its guardrails, the ten-minute setup from the docs, and the one thing static analysis cannot see.</p>
-  <div class="actions">
-    <a class="btn primary" href="#prompt">The prompt ↓</a>
-    <a class="btn" href="#setup">The setup →</a>
-    <button class="btn" id="shareBtn" type="button">Send to a dev friend</button>
-  </div>
+  <h1 class="disp">Find dead code<br>before deleting it<span class="dot">.</span></h1>
+  <p class="sub">Give Claude a daily maintenance job whose result you can check. Start with a report: a candidate, the evidence and what still needs checking.</p>
   <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
 </section>
 
-<!-- ======================= WHAT HE SAID ======================= -->
-<div class="fig" id="said">
-  <h2 class="kick">Fig. 01 ·</h2>
-  <span class="gaccent">what he said</span>
-  <span class="line"></span>
-</div>
+<div class="fig" id="context"><h2 class="kick">Fig. 01 ·</h2><span class="gaccent">start with evidence</span><span class="line"></span></div>
+<section class="issues"><article class="issue">
+  <p>Boris Cherny described Claude running a daily routine to find dead code and propose its removal. That is his account of Anthropic's maintenance work, not evidence that this prompt will work in your repository.<sup><a href="#s3">[3]</a></sup></p>
+  <p>Anthropic offers cloud routines that can run a saved prompt on a schedule.<sup><a href="#s1">[1]</a></sup> For a first attempt, I'd ask for a candidate and the evidence behind it. Review that report before deciding whether anything should go.</p>
+  <p>This is a new, untested Vektor prompt. It does not reproduce Anthropic's internal configuration. Run duration, time saved and success rate: no current number.</p>
+</article></section>
 
-<section class="issues">
-  <article class="issue">
-    <p>At YC's Startup School, Boris Cherny described a Slack channel where Anthropic had Claude start "a bunch of different routines" to maintain its own code base, for the CLI, iOS, Android and desktop apps. Of the first one he said "one routine is clean up dead code", that "this is a single prompt", and that "it's one sentence." Claude runs it every day, it looks for dead code "using static and dynamic analysis", and "it'll put up pull requests every day to delete the dead code."<sup><a href="#s1">[1]</a></sup></p>
-    <p>His prompt is not public, and neither is how Anthropic's internal routines are configured. What is public is the feature: a scheduled task is a saved Claude Code configuration, a prompt plus one or more repositories and connectors, that runs on Anthropic-managed cloud infrastructure "so they keep working when your laptop is closed".<sup><a href="#s2">[2]</a></sup></p>
-  </article>
-</section>
+<div class="fig" id="prompt"><h2 class="kick">Fig. 02 ·</h2><span class="gaccent">the complete prompt</span><span class="line"></span></div>
+<section class="issues"><article class="issue">
+  <p>Start with a small repository you know. Paste the whole prompt, including the limits and the instruction for an empty result.</p>
+<pre class="code"><code>Inspect this repository's default branch for one function
+that may no longer be used. Read and report only.
+Do not edit files, install tools, run project scripts,
+commit, push, open pull requests or contact services.
 
-<!-- ======================= THE PROMPT ======================= -->
-<div class="fig" id="prompt">
-  <h2 class="kick">Fig. 02 ·</h2>
-  <span class="gaccent">the dead code prompt</span>
-  <span class="line"></span>
-</div>
+Search the repository for references to the candidate.
+Check exports, configuration and dynamic loading paths.
+Do not treat an empty text search as proof of disuse.
 
-<section class="issues">
-  <article class="issue">
-    <p>My version, written from his description. The first sentence is the job. The rest are guardrails: the docs say a scheduled task runs autonomously, so the prompt must be self-contained and explicit about what success looks like.<sup><a href="#s2">[2]</a></sup></p>
-<pre class="code"><code>Find code in this repository that nothing uses any more:
-unreferenced functions, files, exports and feature flags.
-Use static analysis, then confirm with the build and the tests.
-Skip anything that is a public API, is loaded by name from
-config, or is used by another repository.
-Delete at most ten items, run the tests, and push one branch
-with one line per item saying why it is safe to remove.
-If you are unsure about an item, leave it and say so.</code></pre>
-    <p>Why each guardrail is there. "Confirm with the build and the tests" is the cheap version of his dynamic analysis. "At most ten items" keeps the diff small enough to read in one sitting. The skip list covers the code static analysis cannot see (Fig. 04). "Leave it and say so" gives the run a way to finish without deleting something it guessed about.</p>
-  </article>
-</section>
+Return a report in this session with:
+Candidate: file path and function name.
+Evidence: searches performed and relevant file locations.
+Uncertainty: anything you could not establish.
+Next check: how a maintainer should verify usage.
 
-<!-- ======================= THE SETUP ======================= -->
-<div class="fig" id="setup">
-  <h2 class="kick">Fig. 03 ·</h2>
-  <span class="gaccent">set it up in ten minutes</span>
-  <span class="line"></span>
-</div>
+If nothing is convincing, say "No convincing candidate"
+and explain what you inspected. Do not invent a finding.</code></pre>
+  <p>The candidate gives you something specific to inspect. The evidence should make the reasoning traceable. The uncertainty and next check tell you what remains unresolved. An empty report is acceptable; finding something to delete is not the acceptance test.</p>
+</article></section>
 
-<section class="issues">
-  <article class="issue">
-    <ol>
-      <li><b>Sign in with a claude.ai plan.</b> Scheduled tasks are available on Pro, Max, Ultra, Team and Enterprise. <code>/schedule</code> needs a claude.ai subscription login: with a Console API key or a cloud provider login it does not work, and an <code>ANTHROPIC_API_KEY</code> set in your shell takes precedence over the claude.ai login.<sup><a href="#s2">[2]</a></sup></li>
-      <li><b>Create the task.</b> In the repo, type <code>/schedule daily dead code cleanup at 9:07am</code>. Claude asks follow-up questions about the schedule, repositories and prompt before saving; paste the prompt when it asks. The command also answers to <code>/routines</code>. The same task can be made on the web at <code>claude.ai/code/routines</code>.<sup><a href="#s2">[2]</a></sup></li>
-      <li><b>Pick 9:07, not 9:00.</b> A run scheduled exactly on the hour can start several minutes late. Preset times are in your local time zone; a bare cron expression is in UTC, and nothing more frequent than hourly is accepted.<sup><a href="#s2">[2]</a></sup></li>
-      <li><b>Run it once now.</b> <code>/schedule run</code> starts a task immediately, so you read the first result today instead of tomorrow.<sup><a href="#s2">[2]</a></sup></li>
-      <li><b>Review, then merge yourself.</b> Each run clones the repo from its default branch and pushes its work to a branch prefixed with <code>claude/</code>. Open the run from the task's History, read the diff, and create the pull request from there.<sup><a href="#s2">[2]</a></sup></li>
-    </ol>
-    <p>If GitHub access is missing, <code>/schedule</code> adds a setup note saying how to grant it. If a connection expires, the task skips runs for up to 72 hours and turns itself off after that.<sup><a href="#s2">[2]</a></sup></p>
-  </article>
-</section>
+<div class="fig" id="setup"><h2 class="kick">Fig. 03 ·</h2><span class="gaccent">set it up</span><span class="line"></span></div>
+<section class="issues"><article class="issue">
+  <p>The setup below follows Anthropic's documentation, checked on 2026-11-01.<sup><a href="#s2">[2]</a></sup> It is a recipe to try, not a measured setup-time claim.</p>
+  <ol>
+    <li><b>Check access.</b> You need an eligible paid Claude plan, cloud sessions enabled and GitHub access.</li>
+    <li><b>Create the task on the web.</b> Open <b>Scheduled tasks</b>, sometimes labelled <b>Routines</b>. Choose <b>New task</b> or <b>New routine</b>, then <b>Set up manually</b> if offered. Name it <b>Daily dead-code check</b> and paste the complete prompt above.</li>
+    <li><b>Set its scope.</b> Select your repository, cloud environment and model. Remove all connectors for this job.</li>
+    <li><b>Choose a daily schedule.</b> Pick <b>9:07, not 9:00</b> local time: runs set on the hour can start several minutes late. This does not guarantee an exact start.</li>
+    <li><b>Inspect a first run.</b> Create it, click <b>Run now</b>, then open the run from <b>History</b>.</li>
+  </ol>
+  <p><b>Terminal shortcut:</b> in a local Claude Code session signed in to claude.ai, type <code>/schedule</code> to create the same scheduled task through a conversation; supply the prompt and settings above. Use this instead of web creation, so you do not create a duplicate.<sup><a href="#s2">[2]</a></sup></p>
+</article></section>
 
-<!-- ======================= BEFORE YOU MERGE ======================= -->
-<div class="fig" id="caveat">
-  <h2 class="kick">Fig. 04 ·</h2>
-  <span class="gaccent">before you merge</span>
-  <span class="line"></span>
-</div>
+<div class="fig" id="review"><h2 class="kick">Fig. 04 ·</h2><span class="gaccent">review the report</span><span class="line"></span></div>
+<section class="issues"><article class="issue">
+  <p>Use this checklist before accepting a candidate. These are review questions, not results from a run.</p>
+  <ul>
+    <li><b>Locate it.</b> Open the reported file and function. Check that the report describes the code you are reviewing.</li>
+    <li><b>Follow the evidence.</b> Inspect the searches and referenced file locations. A conclusion without a traceable search is not enough to act on.</li>
+    <li><b>Challenge an empty search.</b> Ask whether exports, configuration, dynamic loading or callers outside this repository could explain the missing references. Keep unresolved usage questions in the report.</li>
+    <li><b>Make the next check concrete.</b> Ask what a maintainer would inspect or test before proposing a deletion. This report-only prompt forbids running project scripts; do not mistake its report for a test result.</li>
+    <li><b>Accept no finding.</b> If it says there is no convincing candidate, read what it inspected. Do not ask it to invent one to make the run look productive.</li>
+  </ul>
+  <p>Keep the routine only if its report helps you make a decision. If the evidence is vague, narrow the prompt to a folder you know and try again. Any later change to code is a separate decision.</p>
+</article></section>
 
-<section class="issues">
-  <article class="issue">
-    <p><b>Static analysis cannot see code that is called by name.</b> A route registered as a string, a plugin loaded from a registry, a handler named in a config file, a job that another repository triggers: none of them has a reference in the code, so all of them look dead. That is why the prompt skips them, and why every deletion still gets read by a person before it merges.</p>
-    <p>Three more things the docs state. Commits and pull requests carry your GitHub user. Runs draw on your subscription usage the same way interactive sessions do, and scheduled runs are capped at 100 per hour per account. And the feature is in research preview, so behaviour, limits and the API may change.<sup><a href="#s2">[2]</a></sup></p>
-    <p>What we have not done: we have not created this task or run this exact prompt on a repository. The setup steps are the docs' own; the prompt is ours and untested. If you run it, reply and tell me what the first pull request looked like.</p>
-  </article>
-</section>
+<div class="fig" id="caveat"><h2 class="kick">Fig. 05 ·</h2><span class="gaccent">what remains untested</span><span class="line"></span></div>
+<section class="issues"><article class="issue">
+  <p><b>Read-only wording is an instruction, not a permissions lock.</b> Removing connectors does not prove that the remaining environment cannot write. Review what access you grant before creating the task.</p>
+  <p>No scheduled task was created and this exact prompt was not run for this issue. Account access, prompt compliance and the usefulness of its output remain unverified. Scheduled runs also use your subscription allowance.<sup><a href="#s2">[2]</a></sup></p>
+  <p>Cherny's description establishes what he said. It does not establish that Anthropic uses the public feature with this configuration, or that the same outcome will follow here.</p>
+</article></section>
 
-<!-- ======================= ALL FIVE ======================= -->
-<div class="fig" id="five">
-  <h2 class="kick">Fig. 05 ·</h2>
-  <span class="gaccent">all five routines, my versions</span>
-  <span class="line"></span>
-</div>
-
-<section class="issues">
-  <article class="issue">
-    <p>He named five routines in the talk.<sup><a href="#s1">[1]</a></sup> These are my one-job versions, first published with the film.<sup><a href="#s3">[3]</a></sup> Each one goes into its own scheduled task, with the same guardrails as above added to taste.</p>
-<pre class="code"><code>DEAD CODE
-Find code in this repository that nothing uses any more (unreferenced functions, files, exports and flags) with static analysis, and with a dynamic check where the tests or build allow it, then open one pull request that deletes it and says why each item is safe to remove.
-
-SHIP FINISHED EXPERIMENTS
-Find feature flags and experiments that are already rolled out to 100%, remove the flag and the losing branch so the winning code is simply the code, and open one pull request per experiment.
-
-MISSING TESTS
-Find the parts of this codebase with the least test coverage that matter most, write tests for one of them that pass against the current behaviour, and open a pull request with the new tests only.
-
-USELESS TESTS
-Find tests that no longer earn their place (they test nothing real, duplicate another test, or only check a mock), delete them, and open a pull request that explains each deletion in one line.
-
-ABSTRACTION POLICE
-Find places where the same idea has been built more than once in slightly different ways, pick the best version, merge the others into it without changing behaviour, and open one pull request per merge.</code></pre>
-    <p>Start with one. A routine that does one thing gives you a pull request you can review in a few minutes, and you stay the one who merges it.</p>
-  </article>
-</section>
-
-<!-- ======================= SOURCES ======================= -->
-<div class="fig">
-  <h2 class="kick">Fig. 06 ·</h2>
-  <span class="gaccent">sources</span>
-  <span class="line"></span>
-</div>
-
-<section class="issues" id="sources">
-  <article class="issue">
-    <ol class="ledger">
-      <li id="s1"><b>[1]</b> Boris Cherny with Diana Hu, YC Startup School 2026. <a href="https://www.ycrootaccess.com/p/boris-cherny-building-claude-code" target="_blank" rel="noopener">Root Access transcript</a>, dated 2026-07-27, read 2026-11-01; video by Y Combinator, published 2026-07-27. Source of every quote in Fig. 01 and the five routine names. His prompts are not public; the scale figures he gives in the same passage are his own estimates and are not repeated here.</li>
-      <li id="s2"><b>[2]</b> Anthropic. <a href="https://code.claude.com/docs/en/routines" target="_blank" rel="noopener">Automate work with scheduled tasks</a>, Claude Code documentation, read 2026-11-01. Source of the plans, the <code>/schedule</code> and <code>/schedule run</code> commands, the on-the-hour delay, time zones and the hourly minimum, the <code>claude/</code> branch prefix, GitHub access and the 72-hour rule, usage and the 100-per-hour cap, attribution to your GitHub user, and the research preview status.</li>
-      <li id="s3"><b>[3]</b> Vektor. The NO.087 film, "Claude maintains Claude", posted 2026-10-30, and its ROUTINES page (no-087.html), where these five prompts first appeared. First-party; written from the talk, not tested as a configuration.</li>
-    </ol>
-    <p class="meta">Whether Anthropic's internal routines are configured like the public feature is not known and not claimed. If something here is wrong, reply and tell me; corrections go out in the next issue.</p>
-  </article>
-</section>
+<div class="fig"><h2 class="kick">Fig. 06 ·</h2><span class="gaccent">dated sources</span><span class="line"></span></div>
+<section class="issues" id="sources"><article class="issue">
+  <ol class="ledger">
+    <li id="s1"><b>[1]</b> Anthropic, <a href="https://claude.com/resources/articles/introducing-routines-in-claude-code" target="_blank" rel="noopener">Introducing routines in Claude Code</a>. Published 2026-04-14; fetched 2026-11-01. Source for the public cloud routine feature and scheduled prompts. Its older daily quota wording differs from the current docs; no quota is repeated here.</li>
+    <li id="s2"><b>[2]</b> Anthropic, <a href="https://code.claude.com/docs/en/routines" target="_blank" rel="noopener">Automate work with scheduled tasks</a>. Publication date not displayed; fetched 2026-11-01. Source for access requirements, web setup, <code>/schedule</code>, the on-the-hour delay, local preset times, connectors, Run now, History and subscription usage.</li>
+    <li id="s3"><b>[3]</b> YC Root Access, <a href="https://www.ycrootaccess.com/p/boris-cherny-building-claude-code" target="_blank" rel="noopener">Boris Cherny: Building Claude Code</a>. Published 2026-07-27; fetched 2026-11-01. The transcript's dead-code passage supports the attributed account above. Internal-scale and engineer-equivalence claims are not repeated.</li>
+  </ol>
+  <p class="meta">The prompt and review checklist are Vektor's proposed recipe. They are not Anthropic's published internal prompt or a tested configuration.</p>
+  <div class="actions"><a class="btn primary" href="#subscribe">Subscribe to The Teardown →</a></div>
+</article></section>
