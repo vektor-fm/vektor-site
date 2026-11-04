@@ -154,7 +154,8 @@ export const blocks = {
   // competes with the issue's one CTA. ONE <div> with no <div> inside it: the shape check
   // (vektor scripts/lib/newsletter-shape.mjs) finds the block by data-vk="labs" and its
   // closing tag.
-  // Redesigned 2026-11-04 (founder: the quiet grey text link read as a disclaimer): the
+  // 2026-11-01 a dark card with headline and teal button was tried on main; never sent.
+  // Redesigned 2026-11-04 (founder saw the test, picked the light card, option A): the
   // same light panel as blocks.cta, a grey label, one sentence, and a real ink button
   // (allowed inside the Labs block since 2026-11-01). Still ONE <div>, no <div> inside,
   // exactly one link, and the label text stays "From Caelith Labs".
@@ -169,7 +170,8 @@ export const blocks = {
 };
 
 // The Labs block's copy and link. Neutral, no hype, no em dashes (lint-copy blocks them).
-// 2026-11-04: the "free 30-minute call" moved from the sentence onto the button.
+// 2026-11-04: the "free 30-minute call" moved from the sentence onto the button (the 2026-11-01
+// wording "...your team owns the system at handover" was on main but never sent).
 export const LABS_COPY = 'If you run a services firm and admin is eating your week: we build the systems from this issue for clients. Fixed fee, three weeks.';
 export const LABS_BUTTON = 'Book a free 30-minute call';
 export const LABS_URL = 'https://www.caelithlabs.com/';
