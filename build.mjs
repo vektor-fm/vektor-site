@@ -61,10 +61,17 @@ const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replac
 // Newsletter issues. Separate from site.issues[] because a Teardown is not a
 // reel landing page: it has no keyword, no funnel, and no OG plate art.
 const TEARDOWNS = site.teardowns ?? [];
+// "Read the latest issue" link (founder 2026-11-04). ONE source of truth: the
+// newest entry of site.json teardowns[] (highest number). Publishing a new issue
+// means adding it there, which the index already needs; every page follows.
+const LATEST_TD = [...TEARDOWNS].sort((a, b) => b.number.localeCompare(a.number))[0];
+const LATEST_ISSUE_LINK = LATEST_TD
+  ? `Read the latest issue: <a href="./teardown-${LATEST_TD.number}.html">${esc(LATEST_TD.title)} &rarr;</a>`
+  : '';
 
 // ---- template fill: {{TOKEN}} -> value (uppercase tokens only) ----
 function fill(tpl, map) {
-  return tpl.replace(/\{\{([A-Z0-9_]+)\}\}/g, (m, k) => (k in map ? map[k] : k === 'SMOKE' ? SMOKE : k === 'LEGAL_LINKS' ? LEGAL_LINKS : m));
+  return tpl.replace(/\{\{([A-Z0-9_]+)\}\}/g, (m, k) => (k in map ? map[k] : k === 'SMOKE' ? SMOKE : k === 'LEGAL_LINKS' ? LEGAL_LINKS : k === 'LATEST_ISSUE' ? LATEST_ISSUE_LINK : m));
 }
 function assertNoTokens(html, label) {
   const left = html.match(/\{\{[A-Z0-9_]+\}\}/g);
@@ -577,6 +584,13 @@ function outputs() {
   for (const name of Object.keys(o)) if (name.endsWith('.html')) o[name] = injectTurnstile(o[name], key);
   for (const name of visitorPages()) o[name] = withLegalLinks(o[name] ?? read(name), name);
   o['legal-notice.html'] = withLegalLinks(o['legal-notice.html'], 'legal-notice.html');
+  // thanks.html is hand-authored (not built), so its latest-issue line is synced
+  // between markers from the same source as every built page's footer.
+  o['thanks.html'] = (o['thanks.html'] ?? read('thanks.html')).replace(
+    /(<!-- latest-issue:begin -->)[\s\S]*?(<!-- latest-issue:end -->)/,
+    (m, a, b) => `${a}
+  <p class="latest-issue">${LATEST_ISSUE_LINK}</p>
+  ${b}`);
   return o;
 }
 

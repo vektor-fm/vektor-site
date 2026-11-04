@@ -57,6 +57,8 @@
   .hero h1{margin:0; font-family:var(--disp); font-weight:900; text-transform:uppercase; line-height:1.02; letter-spacing:0.005em; font-size:clamp(48px,13vw,120px);}
   .hero h1 .dot{color:var(--acid);}
   .hero .sub{max-width:46ch; margin-top:24px; font-size:16px; line-height:1.55;}
+  .hero .latest-issue{margin-top:16px; font-size:14px; line-height:1.5; color:#8f8b80;}
+  .hero .latest-issue a{color:inherit; text-decoration:underline; text-underline-offset:3px;}
   .steps{padding:0 var(--rail); max-width:640px;}
   .srow{display:flex; gap:16px; align-items:baseline; border-top:2px solid #2a2a2a; padding:18px 0;}
   .srow:last-child{border-bottom:2px solid #2a2a2a;}
@@ -120,6 +122,9 @@
   <div class="kick eye">The Teardown</div>
   <h1>You're in<span class="dot">.</span></h1>
   <p class="sub" id="sub">You're on the list — no confirmation email to hunt down. The config pack is right here on this page. One email a week from now on, the working setup, nothing else.</p>
+  <!-- latest-issue:begin -->
+  <p class="latest-issue">Read the latest issue: <a href="./teardown-007.html">Find dead code before deleting it &rarr;</a></p>
+  <!-- latest-issue:end -->
 </section>
 
 <section class="pack" aria-label="The config pack">
