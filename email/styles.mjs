@@ -154,18 +154,24 @@ export const blocks = {
   // competes with the issue's one CTA. ONE <div> with no <div> inside it: the shape check
   // (vektor scripts/lib/newsletter-shape.mjs) finds the block by data-vk="labs" and its
   // closing tag.
+  // Redesigned 2026-11-04 (founder: the quiet grey text link read as a disclaimer): the
+  // same light panel as blocks.cta, a grey label, one sentence, and a real ink button
+  // (allowed inside the Labs block since 2026-11-01). Still ONE <div>, no <div> inside,
+  // exactly one link, and the label text stays "From Caelith Labs".
   labs: ({ issue }) => {
     if (!/^\d{3}$/.test(String(issue))) throw new Error(`blocks.labs needs a three-digit issue number (got "${issue}")`);
-    return `<div data-vk="labs" style="margin:40px 0 0;padding:14px 0 0;border-top:1px solid ${RULE};">`
-      + `<span style="display:block;font-family:${SANS};font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:${DIM};margin:0 0 6px;">From Caelith Labs</span>`
-      + `<p style="font-family:${SANS};font-size:13px;line-height:20px;color:${DIM};margin:0 0 6px;">${LABS_COPY}</p>`
-      + `<p style="font-family:${SANS};font-size:13px;line-height:20px;color:${DIM};margin:0;"><a href="${labsUrl(issue)}" style="color:${TEAL};text-decoration:underline;">Work with Caelith Labs</a></p>`
+    return `<div data-vk="labs" style="margin:40px 0 0;background:#F5F5F3;padding:24px 26px;">`
+      + `<span style="display:block;font-family:${SANS};font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:${DIM};margin:0 0 9px;">From Caelith Labs</span>`
+      + `<p style="font-family:${SANS};font-size:15px;line-height:1.6;color:${INK};margin:0 0 16px;">${LABS_COPY}</p>`
+      + `<a href="${labsUrl(issue)}" style="display:inline-block;background:${INK};color:${TEAL};font-family:${SANS};font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:13px 24px;text-decoration:none;">${LABS_BUTTON}</a>`
       + '</div>';
   },
 };
 
 // The Labs block's copy and link. Neutral, no hype, no em dashes (lint-copy blocks them).
-export const LABS_COPY = 'If you run a services firm and admin is eating your week, we build the systems from this issue for clients: fixed fee, three weeks. Free 30-minute call.';
+// 2026-11-04: the "free 30-minute call" moved from the sentence onto the button.
+export const LABS_COPY = 'If you run a services firm and admin is eating your week: we build the systems from this issue for clients. Fixed fee, three weeks.';
+export const LABS_BUTTON = 'Book a free 30-minute call';
 export const LABS_URL = 'https://www.caelithlabs.com/';
 export const labsUrl = (issue) => `${LABS_URL}?utm_source=vektor-newsletter&utm_medium=email&utm_campaign=issue-${issue}`;
 

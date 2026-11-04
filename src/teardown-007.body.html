@@ -59,12 +59,13 @@ and explain what you inspected. Do not invent a finding.</code></pre>
     <li><b>Accept no finding.</b> If it says there is no convincing candidate, read what it inspected. Do not ask it to invent one to make the run look productive.</li>
   </ul>
   <p>Keep the routine only if its report helps you make a decision. If the evidence is vague, narrow the prompt to a folder you know and try again. Any later change to code is a separate decision.</p>
+  <p><b>What came back on our repo.</b> We ran the exact prompt once, read-only, on Vektor's own production repo on 2026-11-04. Candidate: <code>scripts/lib/newsletter-d1.mjs</code>, <code>getProvider()</code>. Evidence: a whole-word search finds one hit, its own definition; the four scripts that load the module import other exports and never call it; two re-read the same environment variable inline; no reference in package.json, hooks, CI config or ops scripts. Uncertainty: computed access such as <code>mod[name]</code> was not ruled out; callers outside the repo and untracked scratch scripts were not searched; nothing was run. Next check: search every branch, then remove the export on a branch and run the scripts' check and dry modes. One run on one repo, about six minutes. We verified the single-hit claim ourselves and have not deleted anything.</p>
 </article></section>
 
 <div class="fig" id="caveat"><h2 class="kick">Fig. 05 ·</h2><span class="gaccent">what remains untested</span><span class="line"></span></div>
 <section class="issues"><article class="issue">
   <p><b>Read-only wording is an instruction, not a permissions lock.</b> Removing connectors does not prove that the remaining environment cannot write. Review what access you grant before creating the task.</p>
-  <p>No scheduled task was created and this exact prompt was not run for this issue. Account access, prompt compliance and the usefulness of its output remain unverified. Scheduled runs also use your subscription allowance.<sup><a href="#s2">[2]</a></sup></p>
+  <p>No scheduled task was created for this issue. The prompt was run once, by hand, in a local read-only session on 2026-11-04 (see Fig. 04); one run on one repo says nothing about success rate, and the scheduled-task path itself, account access and connector behaviour remain untested. Scheduled runs also use your subscription allowance.<sup><a href="#s2">[2]</a></sup></p>
   <p>Cherny's description establishes what he said. It does not establish that Anthropic uses the public feature with this configuration, or that the same outcome will follow here.</p>
 </article></section>
 
