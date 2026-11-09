@@ -537,6 +537,12 @@
       "title": "Find dead code before deleting it",
       "date": "2026-11-03",
       "subject": "Find dead code before deleting it"
+    },
+    {
+      "number": "008",
+      "title": "Strip secrets from a HAR file",
+      "date": "2026-11-10",
+      "subject": "Strip secrets from a HAR file"
     }
   ],
   "proof": {

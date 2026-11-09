@@ -1,0 +1,21 @@
+{
+  "number": "008",
+  "title": "The Teardown 008 · Strip secrets from a HAR file",
+  "description": "A 100-line standard-library script that removes cookies, tokens and map tiles from a browser recording before an AI sees it. Measured on one run: 123 requests to 39, 10.9 MB to 224 KB.",
+  "og_title": "Strip secrets from a HAR file · The Teardown 008",
+  "og_description": "The script that makes a browser recording safe and small before you hand it to Claude. One measured run, its first bug, and the Okta incident that shows why.",
+  "og_image": "https://vektor-fm.github.io/vektor-site/diagrams/teardown-008.png",
+  "og_alt": "Before and after strip_har.py: 123 requests and 10.9 MB become 39 data calls and 224 KB, with no cookie or token left.",
+  "og_url": "https://vektor-fm.github.io/vektor-site/teardown-008.html",
+  "canonical": "https://vektor-fm.github.io/vektor-site/teardown-008.html",
+  "tw_title": "Strip secrets from a HAR file · The Teardown 008",
+  "tw_image": "https://vektor-fm.github.io/vektor-site/diagrams/teardown-008.png",
+  "tw_description": "The script that makes a browser recording safe and small before you hand it to Claude. One measured run, its first bug, and why it matters.",
+  "marker": "The Teardown · 008",
+  "sticky_text": "One teardown a week Â· <b>the working setup</b>",
+  "backref_html": "A practical AI teardown from Vektor. This issue ships one file from the kit behind the ENDPOINT film.",
+  "footer_meta": "/// the teardown / 008 / 11-2026 · one measured run",
+  "copy_event": "teardown-008-copy",
+  "subscribe_track": true,
+  "slug": "teardown008"
+}

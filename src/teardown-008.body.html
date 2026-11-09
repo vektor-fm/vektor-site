@@ -1,0 +1,160 @@
+<section class="hero">
+  <div class="kick eye">The Teardown · 008</div>
+  <h1 class="disp">Strip secrets<br>from a HAR file<span class="dot">.</span></h1>
+  <p class="sub">A browser recording carries your cookies and tokens. Before an AI, a colleague or a git repo sees it, run one script that keeps only the data calls and removes the secrets.</p>
+  <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+</section>
+
+<div class="fig" id="stops"><h2 class="kick">Fig. 01 ·</h2><span class="gaccent">what it stops</span><span class="line"></span></div>
+<section class="issues"><article class="issue">
+  <p>A HAR file is the recording a browser makes of every request a page sends. It is the first step in the method behind our ENDPOINT film: record a site, hand the recording to Claude Code, get a small client for the data the page loads. The recording is also where the danger sits.</p>
+  <p>In October 2023 an attacker got into Okta's customer support system and accessed files customers had uploaded with support cases. Okta said some were HAR files containing session tokens that could be used for session hijacking, and that the attacker used them to hijack the sessions of 5 customers. Files tied to 134 customers were accessed.<sup><a href="#s2">[2]</a></sup> That is the failure this script is aimed at: a recording shared for a good reason, with a live credential inside.</p>
+  <p>Chrome's own export has a sanitized option, which excludes Cookie, Set-Cookie and Authorization headers.<sup><a href="#s1">[1]</a></sup> Secrets also travel elsewhere. On the page we recorded, an ArcGIS access token sat inside request URLs, and URLs are not on that list. <code>strip_har.py</code> redacts secret-looking values in URLs, headers, form data and response bodies, and drops everything that is not a data call.</p>
+  <figure class="plate"><img src="diagrams/teardown-008.png" alt="Before and after strip_har.py: 123 requests and 10.9 MB become 39 data calls and 224 KB, with no cookie or token left." width="1200" height="750"></figure>
+  <p><b>The measured result.</b> On 2026-10-31 we recorded the USGS earthquake map with Playwright driving Chrome: 123 requests, 10,912,685 bytes, a cookie header on 3 requests and the ArcGIS token in URLs. After the script: 39 data calls, 223,753 bytes (48.8 times smaller), no cookie or authorization header, the token string absent, 4 <code>token=REDACTED</code> values. We read these figures from our run notes; the raw file is no longer on disk, so they were not re-measured for this issue. One page, one run.</p>
+  <p>Some of the saving is a trade. Response bodies are cut to their first 4,000 characters, enough to see the shape of the data and not enough to hold all of it.</p>
+</article></section>
+
+<div class="fig" id="file"><h2 class="kick">Fig. 02 ·</h2><span class="gaccent">the file</span><span class="line"></span></div>
+<section class="issues"><article class="issue">
+  <p>The complete script, 103 lines, Python standard library only. Nothing is sent anywhere. It writes <code>site.clean.har</code> next to the original and prints the data calls it kept.</p>
+<pre class="code"><code>&quot;&quot;&quot;strip_har.py: make a HAR safe and small before any AI (or git) sees it.
+
+    python strip_har.py site.har            -&gt; writes site.clean.har and prints the data calls it kept
+
+What it does (Python standard library only, nothing is sent anywhere):
+  - keeps only the data calls: Fetch/XHR requests and JSON responses (drops pages, images, fonts, map tiles,
+    and analytics beacons)
+  - removes every cookie, Set-Cookie, Authorization and API-key style header
+  - replaces secret-looking values (token, key, api_key, auth, session, sig, password...) with REDACTED, in URLs,
+    headers (including HTTP/2&#x27;s :path), form data and response bodies
+  - trims each response body to its first 4,000 characters (enough to see the shape of the data)
+
+Chrome&#x27;s &quot;Export HAR (sanitized)&quot; already drops Cookie, Set-Cookie and Authorization headers, but NOT tokens
+inside URLs (the USGS map page itself loads an ArcGIS map style with ?token=... in the URL). Run this anyway.
+Still read the clean file before you share it: no filter catches every secret.
+From @vektor.fm, free to use and change.
+&quot;&quot;&quot;
+import json
+import re
+import sys
+from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
+
+SECRET_HEADERS = {&quot;cookie&quot;, &quot;set-cookie&quot;, &quot;authorization&quot;, &quot;proxy-authorization&quot;, &quot;x-api-key&quot;, &quot;api-key&quot;,
+                  &quot;x-auth-token&quot;, &quot;x-csrf-token&quot;, &quot;x-xsrf-token&quot;, &quot;x-amz-security-token&quot;}
+SECRET_NAME = re.compile(r&quot;token|key|secret|passw|auth|session|sig|signature|credential|jwt|bearer&quot;, re.I)
+BODY_LIMIT = 4000
+URL_SECRET = re.compile(r&quot;([?&amp;;](?:[\w.-]*(?:token|key|secret|passw|auth|session|sig)[\w.-]*)=)[^&amp;#\s\&quot;&#x27;]+&quot;, re.I)
+BINARY = (&quot;image/&quot;, &quot;font/&quot;, &quot;audio/&quot;, &quot;video/&quot;, &quot;application/octet-stream&quot;, &quot;application/x-protobuf&quot;,
+          &quot;application/vnd.mapbox-vector-tile&quot;, &quot;application/wasm&quot;)
+TRACKERS = (&quot;google-analytics.com&quot;, &quot;googletagmanager.com&quot;, &quot;doubleclick.net&quot;, &quot;facebook.com/tr&quot;, &quot;segment.io&quot;,
+            &quot;hotjar.com&quot;, &quot;clarity.ms&quot;, &quot;sentry.io&quot;, &quot;newrelic.com&quot;, &quot;nr-data.net&quot;)
+
+
+def scrub(text):
+    &quot;&quot;&quot;Redact secret-looking name=value pairs inside any string (pseudo-headers like :path, referers, bodies).&quot;&quot;&quot;
+    return URL_SECRET.sub(r&quot;\1REDACTED&quot;, text) if isinstance(text, str) else text
+
+
+def clean_url(url):
+    parts = urlsplit(url)
+    q = [(k, &quot;REDACTED&quot; if SECRET_NAME.search(k) else v) for k, v in parse_qsl(parts.query, keep_blank_values=True)]
+    return urlunsplit(parts._replace(query=urlencode(q, safe=&quot;,:/&quot;)))
+
+
+def is_data_call(e):
+    kind = (e.get(&quot;_resourceType&quot;) or &quot;&quot;).lower()
+    mime = (e.get(&quot;response&quot;, {}).get(&quot;content&quot;, {}).get(&quot;mimeType&quot;) or &quot;&quot;).lower()
+    url = e[&quot;request&quot;][&quot;url&quot;].lower()
+    if any(t in url for t in TRACKERS) or mime.startswith(BINARY) or url.endswith(&quot;.html&quot;) or &quot;.html?&quot; in url:
+        return False
+    return kind in (&quot;xhr&quot;, &quot;fetch&quot;) or &quot;json&quot; in mime
+
+
+def clean_entry(e):
+    req, res = e[&quot;request&quot;], e[&quot;response&quot;]
+    req[&quot;url&quot;] = clean_url(req[&quot;url&quot;])
+    for side in (req, res):
+        side[&quot;headers&quot;] = [{**h, &quot;value&quot;: scrub(h[&quot;value&quot;])} for h in side.get(&quot;headers&quot;, [])
+                           if h[&quot;name&quot;].lower() not in SECRET_HEADERS and not SECRET_NAME.search(h[&quot;name&quot;])]
+        side[&quot;cookies&quot;] = []
+    req[&quot;queryString&quot;] = [{&quot;name&quot;: q[&quot;name&quot;], &quot;value&quot;: &quot;REDACTED&quot; if SECRET_NAME.search(q[&quot;name&quot;]) else q[&quot;value&quot;]}
+                          for q in req.get(&quot;queryString&quot;, [])]
+    post = req.get(&quot;postData&quot;)
+    if post:
+        post[&quot;params&quot;] = [{**p, &quot;value&quot;: &quot;REDACTED&quot;} if SECRET_NAME.search(p.get(&quot;name&quot;, &quot;&quot;)) else p
+                          for p in post.get(&quot;params&quot;, [])]
+        text = post.get(&quot;text&quot;) or &quot;&quot;
+        post[&quot;text&quot;] = re.sub(r&#x27;(&quot;?[\w-]*(?:token|key|secret|passw|auth|session)[\w-]*&quot;?\s*[:=]\s*)(&quot;[^&quot;]*&quot;|[^&amp;,}\s]+)&#x27;,
+                              r&#x27;\1&quot;REDACTED&quot;&#x27;, text, flags=re.I)[:BODY_LIMIT]
+    content = res.get(&quot;content&quot;, {})
+    content[&quot;text&quot;] = scrub(content.get(&quot;text&quot;))
+    if isinstance(content.get(&quot;text&quot;), str) and len(content[&quot;text&quot;]) &gt; BODY_LIMIT:
+        content[&quot;text&quot;] = content[&quot;text&quot;][:BODY_LIMIT] + &quot;...[trimmed by strip_har.py]&quot;
+    for k in [k for k in e if k.startswith(&quot;_&quot;) and k != &quot;_resourceType&quot;]:
+        del e[k]
+    return e
+
+
+def main():
+    if len(sys.argv) != 2:
+        sys.exit(&quot;usage: python strip_har.py site.har&quot;)
+    src = sys.argv[1]
+    with open(src, encoding=&quot;utf-8&quot;) as f:
+        har = json.load(f)
+    entries = har[&quot;log&quot;][&quot;entries&quot;]
+    kept = [clean_entry(e) for e in entries if is_data_call(e)]
+    har[&quot;log&quot;][&quot;entries&quot;] = kept
+    out = re.sub(r&quot;\.har$&quot;, &quot;&quot;, src, flags=re.I) + &quot;.clean.har&quot;
+    with open(out, &quot;w&quot;, encoding=&quot;utf-8&quot;) as f:
+        json.dump(har, f, indent=1)
+    print(f&quot;{src}: {len(entries)} requests in, {len(kept)} data calls kept -&gt; {out}&quot;)
+    seen = {}
+    for e in kept:
+        u = urlsplit(e[&quot;request&quot;][&quot;url&quot;])
+        key = (e[&quot;request&quot;][&quot;method&quot;], u.netloc + u.path)
+        seen[key] = seen.get(key, 0) + 1
+    for (method, path), n in sorted(seen.items(), key=lambda kv: kv[0][1]):
+        print(f&quot;  {method:6} {path}&quot; + (f&quot;  (x{n})&quot; if n &gt; 1 else &quot;&quot;))
+    print(&quot;Cookies, auth headers and secret-looking values removed. Read the file once before you share it.&quot;)
+
+
+if __name__ == &quot;__main__&quot;:
+    main()</code></pre>
+</article></section>
+
+<div class="fig" id="cost"><h2 class="kick">Fig. 03 ·</h2><span class="gaccent">what it cost us before</span><span class="line"></span></div>
+<section class="issues"><article class="issue">
+  <p>The first version of this script was wrong in two ways, and we found both only by searching its output. It left the token inside HTTP/2 <code>:path</code> pseudo-headers, so the token was still in the clean file. And it kept 105 entries, because map tiles were typed as fetch requests. Both were fixed and the output re-checked before the run above.</p>
+  <p>The lesson is the check, not the script: after running it, search the output for a known secret. A filter that looks right is not the same as a file that is clean. No filter catches every secret, including this one; read the clean file once before you share it.</p>
+  <p>Google published a HAR sanitizer for the same job. Its repository is now archived and read-only, it says it is not an official Google product, and its README says it needs tests.<sup><a href="#s3">[3]</a></sup> We did not use or test it.</p>
+</article></section>
+
+<div class="fig" id="install"><h2 class="kick">Fig. 04 ·</h2><span class="gaccent">install in 2 minutes</span><span class="line"></span></div>
+<section class="issues"><article class="issue">
+  <ol>
+    <li><b>Record.</b> In Chrome DevTools, go to Network, load the page and do the thing you want data for. Change every filter you care about while recording, so the data call shows each parameter.</li>
+    <li><b>Export.</b> Use the sanitized HAR export.<sup><a href="#s1">[1]</a></sup></li>
+    <li><b>Save the script</b> as <code>strip_har.py</code> and run <code>python strip_har.py site.har</code>.</li>
+    <li><b>Check.</b> Search <code>site.clean.har</code> for a token or cookie value you know was in the page. Read the file once.</li>
+    <li><b>Hand it over.</b> Give only the clean file to Claude Code, with a prompt that tells it to use only calls present in the recording.</li>
+  </ol>
+  <p>Time: not measured with a person. Our own Claude step on the cleaned file took 48.1 seconds in the 2026-10-31 run.</p>
+</article></section>
+
+<div class="fig" id="caveat"><h2 class="kick">Fig. 05 ·</h2><span class="gaccent">what remains untested</span><span class="line"></span></div>
+<section class="issues"><article class="issue">
+  <p>One page and one run. We have not tested it on a logged-in site, on pages that put secrets in unusual field names, or on a HAR from another browser. The redaction works by recognising names like token, key, secret, auth, session and signature; a credential under another name passes through. Check a site's terms before pointing any tool at it.</p>
+</article></section>
+
+<div class="fig"><h2 class="kick">Fig. 06 ·</h2><span class="gaccent">dated sources</span><span class="line"></span></div>
+<section class="issues" id="sources"><article class="issue">
+  <ol class="ledger">
+    <li id="s1"><b>[1]</b> Chrome for Developers, <a href="https://developer.chrome.com/docs/devtools/network/reference" target="_blank" rel="noopener">Network features reference</a>. Fetched 2026-11-09; no date displayed. Source for the sanitized HAR export and the headers it excludes (Cookie, Set-Cookie, Authorization).</li>
+    <li id="s2"><b>[2]</b> BleepingComputer, <a href="https://www.bleepingcomputer.com/news/security/okta-breach-134-customers-exposed-in-october-support-system-hack/" target="_blank" rel="noopener">Okta breach: 134 customers exposed in October support system hack</a>. Published 2023-11-03; fetched 2026-11-09. Quotes Okta on HAR files with session tokens, 134 customers and 5 hijacked sessions. Okta's own advisory page was not reachable (404), so this is a report quoting Okta.</li>
+    <li id="s3"><b>[3]</b> Google, <a href="https://github.com/google/har-sanitizer" target="_blank" rel="noopener">har-sanitizer</a> (GitHub). Fetched 2026-11-09. Source for: archived and read-only, not an official Google product, README "Needs tests bad".</li>
+  </ol>
+  <p class="meta">The script, the measured run and the lesson are ours. The 2026-10-31 run notes are in our production repo.</p>
+
+  <div class="actions"><a class="btn primary" href="#subscribe">Subscribe to The Teardown →</a></div>
+</article></section>

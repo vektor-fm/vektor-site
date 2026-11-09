@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Before and after strip_har.py — diagram</title>
+<!-- Rendered to diagrams/teardown-006.png by render-diagram.mjs. 1200x750 (email shows ~600px, 2x for retina).
+     PNG, not SVG: Outlook and Gmail do not render inline SVG.
+
+     WHY A SYSTEM DIAGRAM. The hardest thing in this issue is a decision order: one tool call enters, the
+     guard asks five questions in sequence, and only one path ends in a refusal. Prose needs a paragraph of
+     "only if"; a drawing shows the single deny at the end of the chain. The deny path is drawn in accent
+     because it is the one outcome that changes what Claude does; every other path is a nudge and the
+     search or read still runs. Read from graphify 0.9.46 cli.py (_run_hook_guard) and confirmed by running
+     guard-check.sh on 2026-10-19. -->
+<style>
+@font-face{font-family:'Archivo Expanded';src:url(fonts/archivo-expanded-400.woff2) format('woff2');font-weight:400;font-display:block}
+@font-face{font-family:'Archivo Text';src:url(fonts/archivo-400.woff2) format('woff2');font-weight:400;font-display:block}
+@font-face{font-family:'Printvetica';src:url(fonts/printvetica-caps.woff2) format('woff2');font-weight:400;font-display:block}
+@font-face{font-family:'IBM Plex Mono';src:url(fonts/ibm-plex-mono-400-latin.woff2) format('woff2');font-weight:400;font-display:block}
+:root{--bg:#000;--fg:#FFF;--rule:#C9C9C9;--meta:#999;--dim:#B4B4B4;--accent:#0E9C86;
+  --extended:'Archivo Expanded','Archivo Text',system-ui,sans-serif;--sans:'Archivo Text',system-ui,sans-serif;
+  --label:'Printvetica','Archivo Text',system-ui,sans-serif;--mono:'IBM Plex Mono',ui-monospace,monospace;}
+*{box-sizing:border-box;margin:0}
+html,body{width:1200px;height:750px;overflow:hidden}
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);padding:44px 48px;display:flex;flex-direction:column;}
+.head{display:flex;justify-content:space-between;align-items:baseline;padding-bottom:14px;border-bottom:1px solid var(--rule);}
+.head .t{font-family:var(--extended);text-transform:uppercase;font-size:30px;line-height:1;}
+.head .m{font-family:var(--label);text-transform:uppercase;letter-spacing:.025em;font-size:15px;color:var(--meta);}
+.entry{margin-top:22px;border:1px solid var(--rule);padding:12px 16px;font-family:var(--mono);font-size:14px;display:flex;justify-content:space-between;}
+.entry .s{color:var(--dim);}
+.chain{margin-top:14px;display:flex;flex-direction:column;}
+.step{display:flex;align-items:stretch;border:1px solid #444;border-top:0;}
+.step:first-child{border-top:1px solid #444;}
+.q{flex:1;padding:11px 16px;font-family:var(--mono);font-size:14px;line-height:19px;}
+.q .k{display:block;font-family:var(--label);text-transform:uppercase;letter-spacing:.025em;font-size:11px;color:var(--meta);margin-bottom:3px;}
+.out{width:360px;padding:11px 16px;border-left:1px solid #444;font-family:var(--mono);font-size:13px;line-height:18px;color:var(--dim);}
+.out b{display:block;font-family:var(--label);font-weight:400;text-transform:uppercase;letter-spacing:.025em;font-size:12px;color:var(--fg);margin-bottom:2px;}
+.deny{border:1px solid var(--accent);margin-top:14px;display:flex;}
+.deny .q{color:var(--fg);}
+.deny .q .k{color:var(--accent);}
+.deny .out{border-left:1px solid var(--accent);color:var(--fg);}
+.deny .out b{color:var(--accent);}
+.prov{margin-top:auto;padding-top:14px;border-top:1px solid var(--rule);display:flex;gap:26px;align-items:baseline;}
+.prov .k{font-family:var(--label);text-transform:uppercase;letter-spacing:.025em;font-size:13px;color:var(--accent);flex:none;}
+.prov .v{font-family:var(--mono);font-size:12px;line-height:18px;color:var(--dim);}
+
+.cols{margin-top:22px;display:flex;gap:0;border:1px solid #444;}
+.col{flex:1;padding:26px 28px;font-family:var(--mono);font-size:17px;line-height:24px;}
+.col+.col{border-left:1px solid var(--accent);}
+.col .k{display:block;font-family:var(--label);text-transform:uppercase;letter-spacing:.025em;font-size:13px;color:var(--meta);margin-bottom:6px;}
+.col.after .k{color:var(--accent);}
+.big{font-family:var(--extended);font-size:84px;line-height:1.05;color:var(--fg);margin:4px 0 2px;}
+.col.after .big{color:var(--accent);}
+.sub{color:var(--dim);font-size:16px;}
+.row{display:flex;justify-content:space-between;border-top:1px solid #333;padding:15px 0;}
+.row span:last-child{color:var(--fg);}
+.col.after .row span:last-child{color:var(--accent);}
+.mid{width:160px;display:flex;flex-direction:column;justify-content:center;align-items:center;font-family:var(--label);text-transform:uppercase;letter-spacing:.025em;font-size:13px;color:var(--accent);text-align:center;padding:0 8px;}
+.mid b{font-family:var(--extended);font-weight:400;font-size:40px;color:var(--fg);line-height:1.1;}
+</style>
+</head>
+<body>
+<div class="head"><div class="t">Before and after strip_har.py</div><div class="m">The Teardown &middot; 008</div></div>
+<div class="cols">
+  <div class="col before"><span class="k">Raw HAR, USGS earthquake map</span>
+    <div class="big">123</div><div class="sub">requests &middot; 10,912,685 bytes</div>
+    <div style="margin-top:14px">
+    <div class="row"><span>map tiles (octet-stream)</span><span>57</span></div>
+    <div class="row"><span>JSON responses</span><span>37</span></div>
+    <div class="row"><span>cookie header, 3 requests</span><span>yes</span></div>
+    <div class="row"><span>ArcGIS token in URLs</span><span>yes</span></div></div></div>
+  <div class="mid"><b>48.8x</b>smaller</div>
+  <div class="col after"><span class="k">After python strip_har.py</span>
+    <div class="big">39</div><div class="sub">data calls &middot; 223,753 bytes</div>
+    <div style="margin-top:14px">
+    <div class="row"><span>map tiles</span><span>0</span></div>
+    <div class="row"><span>earthquake feed kept</span><span>yes</span></div>
+    <div class="row"><span>cookie / auth headers</span><span>0</span></div>
+    <div class="row"><span>token string in file</span><span>absent</span></div></div></div>
+</div>
+<div class="prov" style="margin-top:auto">
+  <span class="k">Source</span>
+  <span class="v">Our run, 2026-10-31: Playwright recorded earthquake.usgs.gov/earthquakes/map as HAR 1.2, then strip_har.py (sha256 03618388&hellip;3af1) ran on it. Read from our run notes; the raw file is no longer on disk, so the counts were not re-measured for this issue. One page, one run. Response bodies are trimmed to 4,000 characters, which is part of the saving.</span>
+</div>
+</body>
+</html>
