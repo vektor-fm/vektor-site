@@ -1,0 +1,63 @@
+{
+  "_doc": "Vektor NO.099: the state file schema, shown with one ticker and the weight change from our second replay run on Claude Fable 5.2 (2026-11-11, paper money, not advice). The agent appends one entry to runs on every run and never edits earlier runs; your own script fills what_happened_next from real closing prices after the fact. Field names are the ones our run used.",
+  "schema": "analyst-state-v1",
+  "current_weights": {
+    "insider_buying": 0.25,
+    "free_cash_flow": 0.3,
+    "earnings_surprise": 0.2,
+    "analyst_sentiment": 0.25
+  },
+  "runs": [
+    {
+      "run_date": "2026-10-27",
+      "cutoff": "2026-10-26",
+      "universe": ["NFLX", "GE", "PG", "IBM", "JNJ", "TSLA", "BAC", "JPM"],
+      "weights_used": { "insider_buying": 0.25, "free_cash_flow": 0.25, "earnings_surprise": 0.25, "analyst_sentiment": 0.25 },
+      "tickers": {
+        "TSLA": {
+          "insider": { "net_open_market_usd": 0, "bought_usd": 0, "sold_usd": 0, "buyers": 0, "form4_filings": 0, "window": "YYYY-MM-DD..YYYY-MM-DD", "source_urls": ["https://data.sec.gov/submissions/CIK##########.json"] },
+          "free_cash_flow": { "period": "YYYY-MM-DD..YYYY-MM-DD", "form": "10-Q", "filed": "YYYY-MM-DD", "fcf_usd": 0, "prior_fcf_usd": 0, "fcf_margin_pct": 0, "source_urls": ["https://data.sec.gov/api/xbrl/companyfacts/CIK##########.json"] },
+          "earnings": { "eps_actual": 0.48, "eps_consensus": 0.44, "surprise_pct": 9.1, "source_urls": ["<press release or coverage URL>"] },
+          "analyst_sentiment": { "buy_share_pct": 0, "rating_changes": "none counted", "source_urls": ["<consensus page URL dated on or before the cutoff>"] },
+          "factor_scores": { "insider_buying": 35, "free_cash_flow": 45, "earnings_surprise": 80, "analyst_sentiment": 50 },
+          "total": 52.5
+        }
+      },
+      "ranked": [ { "rank": 6, "ticker": "TSLA", "total": 52.5 } ],
+      "what_you_did": "paper watch only, no trade",
+      "what_happened_next": {
+        "_doc": "Filled in by your script from real closing prices, never by the agent.",
+        "period": "2026-10-27 close to 2026-11-10 close",
+        "per_ticker": {
+          "TSLA": { "close_2026_10_27": 407.46, "close_2026_11_10": 379.78, "pct_change": -6.79, "source_url": "<quote source URL>" }
+        }
+      },
+      "weight_change": null,
+      "checker": {
+        "TSLA": { "verdict": "holds | weakened | reject", "objection": "", "value": "", "source_urls": [] },
+        "strongest_objection": { "ticker": "", "text": "", "source_url": "" }
+      }
+    },
+    {
+      "run_date": "2026-11-10",
+      "cutoff": "2026-11-09",
+      "weights_used": { "insider_buying": 0.25, "free_cash_flow": 0.3, "earnings_surprise": 0.2, "analyst_sentiment": 0.25 },
+      "weight_change": {
+        "changed": true,
+        "trigger": "TSLA: earnings_surprise score 80 (+9.1% surprise) in run-1, then -6.79% from the 2026-10-27 close to the 2026-11-10 close.",
+        "decision": "Lower earnings_surprise from 0.25 to 0.20.",
+        "balancing_entry": "free_cash_flow raised from 0.25 to 0.30 so the four weights still sum to 1.0.",
+        "from": { "insider_buying": 0.25, "free_cash_flow": 0.25, "earnings_surprise": 0.25, "analyst_sentiment": 0.25 },
+        "to": { "insider_buying": 0.25, "free_cash_flow": 0.3, "earnings_surprise": 0.2, "analyst_sentiment": 0.25 },
+        "sum_check": 1,
+        "reason": "One strong-surprise pick (TSLA, score 80) fell 6.79% while its free cash flow was shrinking, so a beat counts a little less and cash flow a little more; this is one observation over two weeks, not proof.",
+        "evidence_against": "Three of the four names with a surprise score of 80 or more rose (GE +13.52%, PG +5.92%, NFLX +1.18%), which is why the step is 0.05 and no larger."
+      },
+      "tickers": {},
+      "ranked": [],
+      "what_you_did": "paper watch only, no trade",
+      "what_happened_next": null,
+      "checker": null
+    }
+  ]
+}
