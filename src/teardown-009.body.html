@@ -1,0 +1,98 @@
+<section class="hero">
+  <div class="kick eye">The Teardown · 009</div>
+  <h1 class="disp">Give your agent<br>a checker<span class="dot">.</span></h1>
+  <p class="sub">One file that reads a finished piece of work and argues with it: three claims, the strongest objection to each, and the evidence or nothing. We ran it on an issue we nearly sent, and it found a hole.</p>
+  <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+</section>
+
+<div class="fig" id="why"><h2 class="kick">Fig. 01 ·</h2><span class="gaccent">why a second pass</span><span class="line"></span></div>
+<section class="issues"><article class="issue">
+  <p>An agent that writes a plan will tell you the plan is good. Ask it to review its own work and it mostly agrees with itself, because it already believes every step. The kit behind our ANALYST film ships with a second agent whose only job is to disagree: it reads the first one's stock picks and looks for the strongest objection it can back with a source.</p>
+  <p>That prompt was written for stock research. This is the same idea rewritten for any finished piece of work: a plan, a pull request, a research note. It names the three claims the work stands on, argues with each, and must show evidence or write "no sourced objection found".</p>
+</article></section>
+
+<div class="fig" id="file"><h2 class="kick">Fig. 02 ·</h2><span class="gaccent">the file</span><span class="line"></span></div>
+<section class="issues"><article class="issue">
+  <p>The exact file we ran. <a href="files/teardown-009/checker.md" download>Download checker.md</a>, or copy it from here.</p>
+<pre class="code"><code>---
+name: checker
+description: Second pass that argues with a finished piece of work (a plan, a pull request, a research note). Use it after the work is done and before anyone acts on it.
+tools: Read, Grep, Glob, WebSearch, WebFetch
+---
+
+You are the checker: a second pass that reads a finished piece of work and ARGUES with it. You did not write it and you
+have no stake in it being right. You change nothing. You report.
+
+## Step 1: find what the work stands on
+Read the work in full, then read what it cites or touches (the files, the diff, the sources). Name the THREE claims or
+decisions the work depends on most: the ones that, if wrong, make the rest wrong. Quote each one, with where it is.
+
+## Step 2: argue with each one
+For each of the three, look for the strongest objection you can back with evidence. Evidence is one of:
+- a file and line you read,
+- a source URL with its date,
+- a quote from the work itself that contradicts another part of it.
+Where to look first:
+- a number or fact stated without a source, or one that the source does not actually say,
+- a step nobody ran: "this works" with no run, test or output behind it,
+- a case the work never considers (empty input, the second user, the day it fails),
+- anything it depends on that changed after the work was written.
+
+## Step 3: give a verdict per claim
+For each of the three write:
+- verdict: holds / weakened / reject
+- the objection in one or two sentences
+- the evidence (file and line, URL and date, or the quote)
+If you find no objection you can back with evidence, write "no sourced objection found". Do not invent one. An
+objection without evidence is an opinion: leave it out.
+
+## Step 4: say what you could not check
+List what you had no way to verify (no access, not public, would need a run). Do not guess at it.
+
+## Step 5: one line to act on
+End with one line: the single thing to check or change before anyone acts on this work.
+
+Rules: do not fix the work, do not rewrite it, do not praise it, do not summarise it. Three claims, not thirty. Keep the
+whole report under 300 words.</code></pre>
+</article></section>
+
+<div class="fig" id="run"><h2 class="kick">Fig. 03 ·</h2><span class="gaccent">what it caught on our own work</span><span class="line"></span></div>
+<section class="issues"><article class="issue">
+  <p>Issue 008, about a script that strips secrets from a browser recording, was written on 2026-11-09 and never sent. On 2026-11-17 we ran the checker on that draft, once, as a read-only subagent in Claude Code on Claude Fable 5.2. It made 13 tool calls and took about a minute. It weakened all three claims it picked and rejected none. We then checked each finding ourselves; all three are right.</p>
+  <ol>
+    <li><b>Our claim: "Cookies and tokens left: 0". Verdict: weakened.</b> The run behind that number searched for one known token on one public page. Inside response bodies the script only redacts values written like a web address (<code>?name=value</code>), so a token stored as JSON, such as <code>"access_token": "..."</code>, passes through. Evidence: the two lines of the script that handle response bodies, and the line of our run notes naming the token that was searched for. We read the script ourselves and it does what the checker says. We did not run it on a recording with a JSON token.</li>
+    <li><b>Our claim: Chrome's sanitized export "does not cover" tokens in addresses. Verdict: weakened.</b> Chrome's reference says the export "excludes sensitive information such as Cookie, Set-Cookie, and Authorization headers".<sup><a href="#s1">[1]</a></sup> "Such as" introduces examples, so the page does not document a complete list, and our own notes said the claim was not tested.</li>
+    <li><b>Our claim: the Okta incident happened "in October 2023". Verdict: weakened.</b> The numbers hold (files tied to 134 customers, 5 sessions hijacked). The date does not: the report we cited gives the access as "From September 28, 2023 to October 17, 2023".<sup><a href="#s2">[2]</a></sup></li>
+  </ol>
+  <p>Its closing line: soften "Cookies and tokens left: 0" to what was checked, or test the script on a recording with a JSON token in a response body. Issue 008 and its page will be corrected before anyone is sent there again.</p>
+  <p>It also listed what it could not check, including the measured sizes (the raw recording no longer exists) and whether Chrome's export really leaves tokens in addresses (that needs a run).</p>
+</article></section>
+
+<div class="fig" id="install"><h2 class="kick">Fig. 04 ·</h2><span class="gaccent">install in 2 minutes</span><span class="line"></span></div>
+<section class="issues"><article class="issue">
+  <ol>
+    <li><b>Save the file</b> as <code>.claude/agents/checker.md</code> in your project, or in <code>~/.claude/agents/</code> to have it everywhere.</li>
+    <li><b>Begin a new Claude Code session</b> so it is loaded.</li>
+    <li><b>When a piece of work is finished</b>, type <code>use the checker on docs/plan.md</code>, or on the current diff.</li>
+    <li><b>Read what it cites.</b> Look at the file and line, or the source, before you change anything.</li>
+  </ol>
+  <p>No Claude Code: paste everything below the second <code>---</code> into any chat, attach the work and ask for the report.</p>
+  <p>Time: not measured with a person.</p>
+</article></section>
+
+<div class="fig" id="caveat"><h2 class="kick">Fig. 05 ·</h2><span class="gaccent">what remains untested</span><span class="line"></span></div>
+<section class="issues"><article class="issue">
+  <p>One run on one document. That is a sample of the format, not a track record: we have no rate of how often its objections are right, and no case yet where it wrongly attacked a sound claim. The file has not been run on a pull request or a plan, or on any model other than Claude Fable 5.2.</p>
+  <p>The <code>tools</code> line limits it to reading and searching inside Claude Code. Pasted into a chat, "you change nothing" is only an instruction. A checker finds objections; it does not make work right, and its own evidence still has to be read.</p>
+</article></section>
+
+<div class="fig"><h2 class="kick">Fig. 06 ·</h2><span class="gaccent">dated sources</span><span class="line"></span></div>
+<section class="issues" id="sources"><article class="issue">
+  <ol class="ledger">
+    <li id="s1"><b>[1]</b> Chrome for Developers, <a href="https://developer.chrome.com/docs/devtools/network/reference" target="_blank" rel="noopener">Network features reference</a>. Fetched 2026-11-17; no date displayed. Source for the wording of the sanitized HAR export.</li>
+    <li id="s2"><b>[2]</b> BleepingComputer, <a href="https://www.bleepingcomputer.com/news/security/okta-breach-134-customers-exposed-in-october-support-system-hack/" target="_blank" rel="noopener">Okta breach: 134 customers exposed in October support system hack</a>. Published 2023-11-03; fetched 2026-11-17. Source for the access dates, 134 customers and 5 hijacked sessions.</li>
+  </ol>
+  <p class="meta">The file, the run and the findings are ours. The verbatim report of the 2026-11-17 run is in our production repo.</p>
+
+  <div class="actions"><a class="btn primary" href="#subscribe">Subscribe to The Teardown →</a></div>
+</article></section>

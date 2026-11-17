@@ -1,0 +1,21 @@
+{
+  "number": "009",
+  "title": "The Teardown 009 · Give your agent a checker",
+  "description": "One file for Claude Code: a second agent that names the three claims a finished piece of work stands on and argues with each, with evidence or nothing. Run once on our own unsent issue; it weakened three claims.",
+  "og_title": "Give your agent a checker · The Teardown 009",
+  "og_description": "A second agent that argues with finished work: three claims, the strongest sourced objection to each. The file, one real run on our own draft, and what it caught.",
+  "og_image": "https://vektor-fm.github.io/vektor-site/covers/2026-11-08-reverse-api-engineer-no093.jpg",
+  "og_alt": "The cover of the Vektor film behind issue 008, the draft the checker was run on.",
+  "og_url": "https://vektor-fm.github.io/vektor-site/teardown-009.html",
+  "canonical": "https://vektor-fm.github.io/vektor-site/teardown-009.html",
+  "tw_title": "Give your agent a checker · The Teardown 009",
+  "tw_image": "https://vektor-fm.github.io/vektor-site/covers/2026-11-08-reverse-api-engineer-no093.jpg",
+  "tw_description": "A second agent that argues with finished work. The file, one real run on our own draft, and what it caught.",
+  "marker": "The Teardown · 009",
+  "sticky_text": "One teardown a week · <b>the working setup</b>",
+  "backref_html": "A practical AI teardown from Vektor. This issue ships one file, generalised from the kit behind the ANALYST film.",
+  "footer_meta": "/// the teardown / 009 / 11-2026 · one run, one document",
+  "copy_event": "teardown-009-copy",
+  "subscribe_track": true,
+  "slug": "teardown009"
+}

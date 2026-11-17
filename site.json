@@ -543,6 +543,12 @@
       "title": "Strip secrets from a HAR file",
       "date": "2026-11-10",
       "subject": "Strip secrets from a HAR file"
+    },
+    {
+      "number": "009",
+      "title": "Give your agent a checker",
+      "date": "2026-11-18",
+      "subject": "Give your agent a checker"
     }
   ],
   "proof": {
