@@ -36,6 +36,8 @@ export const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 export const PLACEHOLDER = '__TURNSTILE_SITEKEY__';
 export const API_SRC = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
 export const SCRIPT_TAG = `<script src="${API_SRC}" async defer></script>`;
+export const NOTICE_SRC = './js/signup-notice.js';
+export const NOTICE_TAG = `<script src="${NOTICE_SRC}" defer></script>`;
 // The widget row wraps below the form's email + button row, full width. An invisible
 // (interaction-only) widget is a zero-height flex line that still costs one row gap, and a
 // flex line cannot shrink below 0, so the FORM gives that gap back with a negative bottom margin
@@ -72,6 +74,8 @@ export function injectTurnstile(html, key) {
   if (!forms) return out;
   if (!out.includes('id="cf-turnstile-css"')) out = beforeClose(out, STYLE_TAG);
   else out = out.replace(/<style id="cf-turnstile-css">[^<]*<\/style>/, STYLE_TAG);
+  // The visible "that did not go through" line for ?e=email / ?e=captcha (js/signup-notice.js).
+  if (!out.includes(NOTICE_SRC)) out = beforeClose(out, NOTICE_TAG);
   if (!out.includes(API_SRC)) out = beforeClose(out, SCRIPT_TAG);
   return out;
 }

@@ -204,8 +204,11 @@
     if(!e) return;
     var sub = document.getElementById('sub');
     var h1 = document.querySelector('.hero h1');
-    if(h1) h1.innerHTML = 'Almost<span class="dot">.</span>';
-    if(sub) sub.textContent = e === 'blocked'
+    if(h1) h1.innerHTML = (e === 'rate' ? 'Not saved' : 'Almost') + '<span class="dot">.</span>';
+    if(sub) sub.setAttribute('role', 'alert');
+    if(sub) sub.textContent = e === 'rate'
+      ? "Too many sign-ups from this connection today, so this one was not saved. Try again tomorrow."
+      : e === 'blocked'
       ? "Our spam filter blocked that address, so you're not subscribed. If you used a +alias, try again with the plain address. The config pack is below either way — it's yours."
       : "Something went wrong adding you to the list, so you're not subscribed yet. Please try the form again in a minute. The config pack is below either way — it's yours.";
   })();
