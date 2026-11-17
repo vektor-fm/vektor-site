@@ -205,6 +205,9 @@
     var sub = document.getElementById('sub');
     var h1 = document.querySelector('.hero h1');
     if(h1) h1.innerHTML = (e === 'rate' ? 'Not saved' : 'Almost') + '<span class="dot">.</span>';
+    var marker = document.querySelector('.marker');
+    if(marker) marker.textContent = 'The Teardown · Not subscribed';
+    document.title = 'vektor /// not subscribed';
     if(sub) sub.setAttribute('role', 'alert');
     if(sub) sub.textContent = e === 'rate'
       ? "Too many sign-ups from this connection today, so this one was not saved. Try again tomorrow."
