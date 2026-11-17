@@ -12,7 +12,7 @@
 <meta property="og:image" content="https://vektor-fm.github.io/vektor-site/diagrams/teardown-008.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Before and after strip_har.py: 123 requests and 10.9 MB become 39 data calls and 224 KB, with no cookie or token left.">
+<meta property="og:image:alt" content="Before and after strip_har.py: 123 requests and 10.9 MB become 39 data calls and 224 KB, with no cookie header and the one known token string absent.">
 <meta property="og:site_name" content="vektor">
 <meta property="og:url" content="https://vektor-fm.github.io/vektor-site/teardown-008.html">
 <link rel="canonical" href="https://vektor-fm.github.io/vektor-site/teardown-008.html">
@@ -945,9 +945,9 @@ pre.code code{font-size:inherit;}
 <div class="fig" id="stops"><h2 class="kick">Fig. 01 ·</h2><span class="gaccent">what it stops</span><span class="line"></span></div>
 <section class="issues"><article class="issue">
   <p>A HAR file is the recording a browser makes of every request a page sends. It is the first step in the method behind our ENDPOINT film: record a site, hand the recording to Claude Code, get a small client for the data the page loads. The recording is also where the danger sits.</p>
-  <p>In October 2023 an attacker got into Okta's customer support system and accessed files customers had uploaded with support cases. Okta said some were HAR files containing session tokens that could be used for session hijacking, and that the attacker used them to hijack the sessions of 5 customers. Files tied to 134 customers were accessed.<sup><a href="#s2">[2]</a></sup> That is the failure this script is aimed at: a recording shared for a good reason, with a live credential inside.</p>
-  <p>Chrome's own export has a sanitized option, which excludes Cookie, Set-Cookie and Authorization headers.<sup><a href="#s1">[1]</a></sup> Secrets also travel elsewhere. On the page we recorded, an ArcGIS access token sat inside request URLs, and URLs are not on that list. <code>strip_har.py</code> redacts secret-looking values in URLs, headers, form data and response bodies, and drops everything that is not a data call.</p>
-  <figure class="plate"><img src="diagrams/teardown-008.png" alt="Before and after strip_har.py: 123 requests and 10.9 MB become 39 data calls and 224 KB, with no cookie or token left." width="1200" height="750"></figure>
+  <p>Between 28 September and 17 October 2023 an attacker had access to Okta's customer support system and accessed files customers had uploaded with support cases. Okta said some were HAR files containing session tokens that could be used for session hijacking, and that the attacker used them to hijack the sessions of 5 customers. Files tied to 134 customers were accessed.<sup><a href="#s2">[2]</a></sup> That is the failure this script is aimed at: a recording shared for a good reason, with a live credential inside.</p>
+  <p>Chrome's own export has a sanitized option. Its documentation says it excludes sensitive information "such as" Cookie, Set-Cookie and Authorization headers, so that is a list of examples and not a complete one.<sup><a href="#s1">[1]</a></sup> Secrets also travel elsewhere. On the page we recorded, an ArcGIS access token sat inside request URLs. The documentation does not mention URLs, and we did not test whether the sanitized export removes a token there. <code>strip_har.py</code> redacts secret-looking values in URLs, headers and form data, and drops everything that is not a data call. Inside response bodies it only catches values written like a URL parameter (<code>?token=...</code>), so a token stored as JSON in a response passes through.</p>
+  <figure class="plate"><img src="diagrams/teardown-008.png" alt="Before and after strip_har.py: 123 requests and 10.9 MB become 39 data calls and 224 KB, with no cookie header and the one known token string absent." width="1200" height="750"></figure>
   <p><b>The measured result.</b> On 2026-10-31 we recorded the USGS earthquake map with Playwright driving Chrome: 123 requests, 10,912,685 bytes, a cookie header on 3 requests and the ArcGIS token in URLs. After the script: 39 data calls, 223,753 bytes (48.8 times smaller), no cookie or authorization header, the token string absent, 4 <code>token=REDACTED</code> values. We read these figures from our run notes; the raw file is no longer on disk, so they were not re-measured for this issue. One page, one run.</p>
   <p>Some of the saving is a trade. Response bodies are cut to their first 4,000 characters, enough to see the shape of the data and not enough to hold all of it.</p>
 </article></section>
@@ -1081,6 +1081,7 @@ if __name__ == &quot;__main__&quot;:
 
 <div class="fig" id="caveat"><h2 class="kick">Fig. 05 ·</h2><span class="gaccent">what remains untested</span><span class="line"></span></div>
 <section class="issues"><article class="issue">
+  <p><b>Corrected 2026-11-17.</b> We ran a checker agent on this piece and it weakened three claims; we re-read the script and both sources and it was right. The page first said the script redacts secrets in response bodies: there it only catches <code>name=value</code> pairs, so a JSON token in a response is not redacted (read from the code, not run). It said URLs are not covered by Chrome's sanitized export: Chrome's page gives examples, not a full list, and we never tested it; the same untested line is still in the script's opening comment, which we left as it was so the file matches the one we measured. And it dated the Okta incident to October 2023: the source gives 28 September to 17 October 2023. "Token string absent" in the result above means the one token we knew was in that recording.</p>
   <p>One page and one run. We have not tested it on a logged-in site, on pages that put secrets in unusual field names, or on a HAR from another browser. The redaction works by recognising names like token, key, secret, auth, session and signature; a credential under another name passes through. Check a site's terms before pointing any tool at it.</p>
 </article></section>
 
@@ -1328,5 +1329,6 @@ if __name__ == &quot;__main__&quot;:
 <script defer src="./js/smoke.js" data-smoke-variant="a"></script>
 
 <style id="cf-turnstile-css">form:has(> .cf-turnstile){flex-wrap:wrap;margin-bottom:calc(-1 * var(--p-s));}.cf-turnstile{flex:1 1 100%;min-width:0;line-height:0;}</style>
+<script src="./js/signup-notice.js" defer></script>
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </body></html>

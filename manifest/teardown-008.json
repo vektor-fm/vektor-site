@@ -5,7 +5,7 @@
   "og_title": "Strip secrets from a HAR file · The Teardown 008",
   "og_description": "The script that makes a browser recording safe and small before you hand it to Claude. One measured run, its first bug, and the Okta incident that shows why.",
   "og_image": "https://vektor-fm.github.io/vektor-site/diagrams/teardown-008.png",
-  "og_alt": "Before and after strip_har.py: 123 requests and 10.9 MB become 39 data calls and 224 KB, with no cookie or token left.",
+  "og_alt": "Before and after strip_har.py: 123 requests and 10.9 MB become 39 data calls and 224 KB, with no cookie header and the one known token string absent.",
   "og_url": "https://vektor-fm.github.io/vektor-site/teardown-008.html",
   "canonical": "https://vektor-fm.github.io/vektor-site/teardown-008.html",
   "tw_title": "Strip secrets from a HAR file · The Teardown 008",
