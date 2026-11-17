@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>The checker, run on our own draft: diagram</title>
+<!-- Rendered to diagrams/teardown-009.png by render-diagram.mjs. 1200x750 (email shows ~600px, 2x for retina).
+     PNG, not SVG: Outlook and Gmail do not render inline SVG.
+
+     WHY A SYSTEM DIAGRAM. The hard part of this issue is how the pieces connect: finished work goes in, a
+     second agent names the three claims it stands on, and each claim leaves with a verdict. Prose needs
+     three paragraphs for that; one picture shows it, and it shows it on the real run instead of a made-up
+     example. Type is large on purpose: the email shows this at half size and a phone at less, so nothing
+     here is under 20px.
+
+     Every figure is from data/newsletter/009-give-your-agent-a-checker/checker-run-2026-11-17.md in
+     vektor-producer (run 2026-11-17, Claude Fable 5.2 in Claude Code, 13 tool calls, 60,453 ms; three
+     claims, three weakened, none rejected). The three findings were re-read against the script and the
+     two sources the same day. -->
+<style>
+@font-face{font-family:'Archivo Expanded';src:url(fonts/archivo-expanded-400.woff2) format('woff2');font-weight:400;font-display:block}
+@font-face{font-family:'Archivo Text';src:url(fonts/archivo-400.woff2) format('woff2');font-weight:400;font-display:block}
+@font-face{font-family:'Printvetica';src:url(fonts/printvetica-caps.woff2) format('woff2');font-weight:400;font-display:block}
+@font-face{font-family:'IBM Plex Mono';src:url(fonts/ibm-plex-mono-400-latin.woff2) format('woff2');font-weight:400;font-display:block}
+:root{--bg:#000;--fg:#FFF;--rule:#C9C9C9;--meta:#999;--dim:#B4B4B4;--accent:#0E9C86;
+  --extended:'Archivo Expanded','Archivo Text',system-ui,sans-serif;--sans:'Archivo Text',system-ui,sans-serif;
+  --label:'Printvetica','Archivo Text',system-ui,sans-serif;--mono:'IBM Plex Mono',ui-monospace,monospace;}
+*{box-sizing:border-box;margin:0}
+html,body{width:1200px;height:750px;overflow:hidden}
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);padding:40px 48px;display:flex;flex-direction:column;}
+.head{display:flex;justify-content:space-between;align-items:baseline;padding-bottom:14px;border-bottom:1px solid var(--rule);}
+.head .t{font-family:var(--extended);text-transform:uppercase;font-size:30px;line-height:1;}
+.head .m{font-family:var(--label);text-transform:uppercase;letter-spacing:.025em;font-size:16px;color:var(--meta);}
+
+.flow{margin-top:22px;display:flex;align-items:stretch;}
+.node{flex:1;border:1px solid #555;padding:14px 18px;}
+.node .k{display:block;font-family:var(--label);text-transform:uppercase;letter-spacing:.025em;font-size:14px;color:var(--meta);margin-bottom:6px;}
+.node .v{font-family:var(--extended);font-size:25px;line-height:1.15;}
+.node.on{border-color:var(--accent);}
+.node.on .k{color:var(--accent);}
+.arrow{width:54px;flex:none;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:30px;color:var(--accent);}
+
+.claims{margin-top:20px;border:1px solid #555;}
+.claim{display:flex;align-items:center;padding:27px 20px;}
+.claim+.claim{border-top:1px solid #333;}
+.n{width:44px;flex:none;font-family:var(--extended);font-size:30px;color:var(--meta);}
+.txt{flex:1;padding-right:20px;}
+.q{font-family:var(--mono);font-size:24px;line-height:30px;color:var(--fg);}
+.why{margin-top:5px;font-family:var(--sans);font-size:21px;line-height:27px;color:var(--dim);}
+.stamp{flex:none;border:2px solid var(--accent);color:var(--accent);padding:9px 16px 8px;font-family:var(--label);text-transform:uppercase;letter-spacing:.06em;font-size:20px;line-height:1;}
+
+.prov{margin-top:auto;padding-top:14px;border-top:1px solid var(--rule);display:flex;justify-content:space-between;align-items:baseline;gap:26px;}
+.prov .k{font-family:var(--label);text-transform:uppercase;letter-spacing:.025em;font-size:20px;color:var(--accent);flex:none;}
+.prov .v{font-family:var(--mono);font-size:20px;line-height:1.2;color:var(--dim);text-align:right;}
+</style>
+</head>
+<body>
+<div class="head"><div class="t">The checker, on our own draft</div><div class="m">The Teardown &middot; 009</div></div>
+
+<div class="flow">
+  <div class="node"><span class="k">In</span><div class="v">A finished draft</div></div>
+  <div class="arrow">&rarr;</div>
+  <div class="node on"><span class="k">The checker &middot; 1 minute</span><div class="v">Names 3 claims, argues with each</div></div>
+  <div class="arrow">&rarr;</div>
+  <div class="node"><span class="k">Out</span><div class="v">A verdict per claim</div></div>
+</div>
+
+<div class="claims">
+  <div class="claim"><div class="n">1</div>
+    <div class="txt"><div class="q">"Cookies and tokens left: 0"</div><div class="why">We checked one token on one page.</div></div>
+    <div class="stamp">Weakened</div></div>
+  <div class="claim"><div class="n">2</div>
+    <div class="txt"><div class="q">"that list does not cover" URL tokens</div><div class="why">The source says "such as". We never tested it.</div></div>
+    <div class="stamp">Weakened</div></div>
+  <div class="claim"><div class="n">3</div>
+    <div class="txt"><div class="q">"In October 2023 an attacker..."</div><div class="why">The source says 28 September to 17 October.</div></div>
+    <div class="stamp">Weakened</div></div>
+</div>
+
+<div class="prov">
+  <span class="k">0 hold &middot; 3 weakened &middot; 0 rejected</span>
+  <span class="v">one run, one document, 17 Nov 2026</span>
+</div>
+</body>
+</html>
