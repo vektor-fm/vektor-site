@@ -1,0 +1,1041 @@
+<style>
+/* =========================================================================
+   NO.103 / LEAKS. The page is the site's own language (black field, hairlines,
+   Archivo, figure heads). Two things come in from Vektor OS, and only where
+   they hold a working tool: the window (C01) and the data face (IBM Plex Mono).
+   A window needs light behind it for its ink border and solid shadow to read,
+   so it sits on the site's one light surface, the paper block, run full bleed
+   as a field. OS values are from canon/os/os.tokens.json (read 2026-11-17):
+   ink #1E1E1E, paper #FEFEFE, window body #DEDEDE, window rule #C4C4C4,
+   status green #03AA5C, border 3px, shadow 6px solid, radius 0, title bar 24px,
+   inset 16px, row 40px, chip pad 4px 8px, chrome face on its 11px cell.
+   Width: like the site, blocks run rail to rail. Prose keeps a readable measure;
+   tools and proof use the full measure, in two or three columns from 1024px.
+   ========================================================================= */
+@font-face{font-family:'IBM Plex Mono';src:url(fonts/ibm-plex-mono-500-latin.woff2) format('woff2');font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:'Departure Mono';src:url(data:font/woff2;base64,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) format('woff2');font-weight:400;font-style:normal;font-display:swap}
+
+:root{
+  --os-ink:#1E1E1E; --os-paper:#FEFEFE; --os-body:#DEDEDE; --os-rule:#C4C4C4; --os-green:#03AA5C;
+  --os-teal:#09AEA1; --os-pink:#F386A1;
+  --ink-on-paper:#0B0B0B;   /* the site's own near-black for its paper block */
+  --tool:14px;              /* reading size inside a tool */
+}
+@media (min-width:1024px){ :root{ --tool:16px; } }
+/* this page has no sticky bar, so it does not need the room reserved for one */
+body{padding-bottom:0;}
+footer{margin-top:var(--p-2xl); padding-bottom:var(--p-2xl);}
+
+/* ---- prose blocks in the site's voice ---- */
+.issue p{font-size:var(--fs-m); line-height:var(--lh-xl); max-width:68ch; color:var(--dim); margin:var(--p-s) 0;}
+.issue p b,.issue li b{color:var(--fg); font-weight:400;}
+.issue a,.field a{text-decoration:underline; text-underline-offset:3px; text-decoration-thickness:1px;}
+.issue h3{color:var(--fg);}
+.issue ol,.issue ul{margin:var(--p-s) 0; padding-left:1.3em; max-width:68ch; color:var(--dim); font-size:var(--fs-m); line-height:var(--lh-xl);}
+.issue li{margin:var(--p-xs) 0;}
+.issue p.note{font-size:var(--fs-s); line-height:1.45; color:var(--dim); max-width:72ch;}
+.hero .jump{display:flex; flex-wrap:wrap; gap:var(--p-s); margin-top:var(--p-l);}
+.hero .sub b{color:var(--fg); font-weight:400;}
+.hero .tagline{margin:var(--p-s) 0 0; font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-xs); line-height:1.4; color:var(--meta);}
+.hero .sub + .sub{margin-top:var(--p-s);}
+.label{font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s); line-height:var(--lh-s); color:var(--meta);}
+
+/* figure head: number left, title wraps inside its own column, so the separator never hangs alone */
+.fig{display:grid; grid-template-columns:auto minmax(0,1fr); column-gap:var(--p-m); align-items:baseline;}
+.fig .sub{grid-column:1 / -1; margin:var(--p-s) 0 0; color:var(--dim); max-width:72ch; font-size:var(--fs-m); line-height:var(--lh-xl);}
+@media (max-width:767px){
+  .fig{display:block;}
+  .fig .kick{margin-bottom:var(--p-xs);}
+  .fig .sep{display:none;}
+}
+
+.lrow .t .d{display:block; margin-top:var(--p-xs); text-transform:none; color:var(--dim); font-size:var(--fs-m); line-height:var(--lh-xl); max-width:72ch;}
+
+/* ---- shared column layouts ---- */
+.cols,.pair{display:grid; grid-template-columns:minmax(0,1fr); gap:var(--p-l);}
+.pair{margin-top:var(--p-l);}
+.pair > div > .issue:first-child{margin-top:0;}
+@media (min-width:1024px){
+  .cols{grid-template-columns:minmax(0,7fr) minmax(0,4fr); gap:var(--p-3xl); align-items:start;}
+  .pair{grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:var(--p-3xl); align-items:start;}
+}
+
+/* ---- the field: the site's paper, full bleed ---- */
+.field{
+  background:var(--paper); color:var(--ink-on-paper);
+  padding:var(--p-2xl) var(--rail) calc(var(--p-2xl) + 6px);
+  border-top:1px solid var(--rule); border-bottom:1px solid var(--rule);
+}
+.field .after{color:#2A2A2A; font-size:var(--fs-s); line-height:1.45; max-width:72ch; margin:var(--p-l) 0 0;}
+.field .after b{font-weight:400; color:var(--ink-on-paper); border-bottom:1px solid var(--ink-on-paper);}
+.field .aside{color:#2A2A2A; font-size:var(--fs-m); line-height:var(--lh-xl);}
+.field .aside .label{display:block; color:#4A4A4A; margin-bottom:var(--p-s);}
+.field .aside h3{margin:0 0 var(--p-s); font-family:var(--font-extended); font-weight:400; text-transform:uppercase; font-size:var(--fs-xl); line-height:var(--lh-xl); color:var(--ink-on-paper);}
+.field .aside p{margin:0 0 var(--p-m); max-width:60ch;}
+.field .aside ol{margin:0; padding-left:1.3em; max-width:60ch;}
+.field .aside li{margin:var(--p-s) 0;}
+.field .aside code{font-family:var(--font-code); font-size:.92em;}
+
+/* ---- OS window (C01) ---- */
+.win{
+  position:relative; box-sizing:border-box; margin-right:6px;
+  background:var(--os-paper); color:var(--os-ink);
+  border:3px solid var(--os-ink); box-shadow:6px 6px 0 var(--os-ink); border-radius:0;
+  font-family:var(--font-code);
+}
+.win-bar{
+  height:24px; background:var(--os-ink); color:var(--os-paper);
+  display:flex; align-items:center; justify-content:space-between; gap:8px; padding:0 8px;
+  font-family:'Departure Mono',var(--font-code); font-size:11px; line-height:1; white-space:nowrap; overflow:hidden;
+}
+.win-bar span:first-child{min-width:0; overflow:hidden; text-overflow:ellipsis;}
+.win-bar span:last-child{flex:none;}
+.win-bar .dot{display:inline-block; width:8px; height:8px; background:var(--os-green); margin-left:6px; vertical-align:middle;}
+.win.term pre{
+  margin:0; padding:16px; max-height:min(62vh,560px); overflow:auto;
+  font-family:var(--font-code); font-size:var(--tool); line-height:1.6; color:var(--os-ink);
+  white-space:pre-wrap; overflow-wrap:anywhere; tab-size:2;
+}
+.win.term pre.open{max-height:none;}
+.win.term pre .h{font-weight:500; background:var(--os-ink); color:var(--os-paper); padding:1px 6px;}
+.win.term pre .hot{background:var(--os-teal); color:var(--os-ink);}
+.win.term pre .dim{color:#5A5A5A;}
+/* the cue that the box holds more than it shows: a plain row, no fade */
+.win .more{
+  display:flex; align-items:center; justify-content:space-between; gap:8px; width:100%; min-height:44px; box-sizing:border-box;
+  padding:0 16px; border:0; border-top:3px solid var(--os-ink); border-radius:0; background:var(--os-paper); color:var(--os-ink);
+  font-family:var(--font-code); font-weight:500; font-size:14px; text-align:left; cursor:pointer;
+}
+.win .more:hover{background:var(--os-body);}
+.win-foot{
+  display:flex; flex-wrap:wrap; align-items:center; gap:8px; padding:8px;
+  border-top:3px solid var(--os-ink); background:var(--os-body);
+}
+.win-foot .meta{font-size:13px; line-height:1.4; color:var(--os-ink); margin-left:auto; padding-right:8px;}
+
+/* chip (C02): solid = sourced or active, dashed = unverified, line = a quiet button */
+.chip{
+  display:inline-block; background:var(--os-ink); color:var(--os-paper);
+  font-family:var(--font-code); font-weight:500; font-size:13px; line-height:1.4;
+  padding:4px 8px; white-space:nowrap; border:0; border-radius:0; text-decoration:none;
+}
+.chip.pending{background:transparent; color:var(--os-ink); outline:2px dashed var(--os-ink); outline-offset:-2px;}
+.chip.line{background:transparent; color:var(--os-ink); outline:2px solid var(--os-ink); outline-offset:-2px;}
+button.chip,a.chip{cursor:pointer; min-height:44px; display:inline-flex; align-items:center; padding:4px 14px; font-size:14px;}
+button.chip:hover,a.chip:hover{background:#000;}
+button.chip.line:hover,a.chip.line:hover{background:var(--os-paper);}
+button.chip:focus-visible,a.chip:focus-visible,.win input:focus-visible,.win .more:focus-visible{outline:3px solid var(--os-teal); outline-offset:2px;}
+.field a.chip{text-decoration:none;}
+
+/* row (C04): label left, value right, 1px rule below */
+.os-row{
+  min-height:40px; display:flex; align-items:center; gap:16px; padding:6px 0;
+  border-bottom:1px solid var(--os-rule); font-size:var(--tool); line-height:1.35;
+}
+.os-row:last-child{border-bottom:0;}
+.os-row > .r{margin-left:auto; text-align:right; font-weight:500;}
+.os-row.big > .r{font-size:24px; white-space:nowrap;}
+.win h4{
+  margin:0 0 10px; font-family:var(--font-code); font-weight:500; font-size:13px; line-height:1.4;
+  text-transform:uppercase; letter-spacing:.04em; color:var(--os-ink);
+}
+.win .pane{padding:16px; border-top:3px solid var(--os-ink);}
+.win .pane.grey{background:var(--os-body);}
+.win .small{font-family:var(--font-sans); font-size:var(--tool); line-height:1.45; color:#2A2A2A; margin:10px 0 0; max-width:68ch;}
+.win b{font-weight:500;}
+
+/* ---- calculator ---- */
+.lc-cols{display:grid; grid-template-columns:minmax(0,1fr);}
+.lc-col > .pane:first-child{border-top:0;}
+.lc-col + .lc-col{border-top:3px solid var(--os-ink);}
+@media (min-width:1024px){
+  .lc-cols{grid-template-columns:minmax(0,5fr) minmax(0,7fr);}
+  .lc-col + .lc-col{border-top:0; border-left:3px solid var(--os-ink);}
+  .win .pane{padding:24px;}
+}
+.lc-in label{
+  display:flex; align-items:center; justify-content:space-between; gap:16px; min-height:56px;
+  border-bottom:1px solid var(--os-rule); font-size:var(--tool); line-height:1.3; cursor:text;
+}
+.lc-in label:last-child{border-bottom:0;}
+.lc-in label span i{display:block; font-style:normal; font-size:13px; color:#4A4A4A;}
+.win input[type=text]{
+  width:7.5em; min-height:44px; padding:0 8px; text-align:right; box-sizing:border-box;
+  font-family:var(--font-code); font-weight:500; font-size:16px; color:var(--os-ink);
+  background:var(--os-paper); border:2px solid var(--os-ink); border-radius:0; -webkit-appearance:none; appearance:none;
+}
+.lc-models{display:flex; flex-wrap:wrap; gap:8px;}
+.lc-models button.chip{flex:1 1 auto; justify-content:center;}
+.lc-models button.chip:not(.on){background:transparent; color:var(--os-ink); outline:2px solid var(--os-ink); outline-offset:-2px;}
+.lc-models button.chip:not(.on):hover{background:var(--os-body);}
+.lc-rate{display:flex; align-items:baseline; flex-wrap:wrap; gap:4px 16px;}
+.lc-rate b{font-weight:500; font-size:48px; line-height:1; letter-spacing:-.02em;}
+.lc-rate span{font-size:var(--tool);}
+.lc-verdict{font-size:var(--tool); line-height:1.45; margin:10px 0 0; font-weight:500;}
+.lc-verdict.warn{background:var(--os-ink); color:var(--os-paper); padding:8px 12px;}
+
+.rg{margin-top:16px;}
+.rg-axis{display:flex; justify-content:space-between; font-size:13px; color:#4A4A4A; padding-bottom:2px; border-bottom:1px solid var(--os-ink);}
+.rg-row{padding:8px 0 0;}
+.rg-label{display:flex; flex-wrap:wrap; align-items:baseline; gap:0 8px; font-size:14px; line-height:1.4;}
+.rg-label b{font-weight:500;}
+.rg-label span{color:#4A4A4A;}
+.rg-label em{font-style:normal; margin-left:auto; font-weight:500;}
+.rg-track{position:relative; height:14px; margin-top:3px; border-bottom:1px solid var(--os-rule);}
+.rg-bar{position:absolute; top:0; bottom:0; box-sizing:border-box; border:2px solid var(--os-ink);
+  background:repeating-linear-gradient(45deg, var(--os-ink) 0 2px, transparent 2px 8px);}
+.rg-bar.great{background:repeating-linear-gradient(45deg, var(--os-ink) 0 3px, transparent 3px 6px);}
+.rg-bar.point{background:var(--os-ink); min-width:4px;}
+.rg-bar.claim{background:transparent; border:2px dashed var(--os-ink);}
+.rg-you{position:absolute; top:-4px; bottom:-4px; width:3px; margin-left:-1px; background:var(--os-ink);}
+.rg-row.you .rg-track{border-bottom:0; height:14px;}
+.rg-key{display:flex; flex-wrap:wrap; gap:8px 20px; margin-top:14px; font-size:14px; line-height:1.4; color:#2A2A2A;}
+.rg-key i{display:inline-block; width:24px; height:12px; vertical-align:-1px; margin-right:8px; position:static;}
+.rg-key i.rg-you{width:3px; height:14px; margin:0 8px 0 0; vertical-align:-2px;}
+
+.leaks{display:grid; grid-template-columns:minmax(0,1fr);}
+.leak{padding:16px 0; border-top:1px solid var(--os-rule);}
+.leak:first-child{border-top:0; padding-top:4px;}
+.lk-top b{display:block; font-weight:500; font-size:var(--tool); margin-bottom:8px;}
+.lk-if{display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin-top:12px; font-size:var(--tool);}
+.lk-if input[type=text]{width:5.5em;}
+.lk-out{font-weight:500; font-size:17px; line-height:1.35; margin-top:10px;}
+.lk-out.none{font-weight:400; color:#4A4A4A;}
+.lk-why{font-family:var(--font-sans); font-size:var(--tool); line-height:1.45; color:#2A2A2A; margin:8px 0 0; max-width:68ch;}
+.lk-all{display:flex; flex-wrap:wrap; justify-content:space-between; gap:4px 16px; margin-top:4px; padding-top:14px; border-top:3px solid var(--os-ink); font-size:var(--tool);}
+.lk-all b{font-weight:500; font-size:17px;}
+@media (min-width:1024px){
+  .leaks{grid-template-columns:repeat(3,minmax(0,1fr));}
+  .leak{border-top:0; padding:4px 24px 16px; border-left:1px solid var(--os-rule);}
+  .leak:first-child{border-left:0; padding-left:0;}
+  .leak:last-child{padding-right:0;}
+  .lc-src{columns:2; column-gap:var(--p-3xl);}
+  .lc-src .small{break-inside:avoid; margin:0 0 12px;}
+}
+
+/* ---- data strip: the run, in numbers ---- */
+.strip{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1px; background:var(--rule); border:1px solid var(--rule); margin:var(--p-l) 0 0;}
+.strip div{background:var(--bg); padding:var(--p-m);}
+.strip b{display:block; font-family:var(--font-code); font-weight:500; font-size:26px; line-height:1.1; color:var(--fg); white-space:nowrap;}
+.strip span{display:block; margin-top:6px; font-size:var(--fs-s); line-height:var(--lh-s); color:var(--dim);}
+@media (min-width:768px){ .strip{grid-template-columns:repeat(4,minmax(0,1fr));} }
+
+/* ---- before / after captures ---- */
+.shots{display:grid; grid-template-columns:1fr; gap:var(--p-l); margin:var(--p-l) 0 0;}
+@media (min-width:900px){ .shots{grid-template-columns:1fr 1fr; gap:var(--p-2xl);} }
+.shots figure{margin:0;}
+.shots img{width:100%; height:auto; border:1px solid var(--rule);}
+.shots figcaption{margin-top:var(--p-s); font-size:var(--fs-s); line-height:var(--lh-s); color:var(--dim);}
+.shots figcaption b{font-family:var(--font-label); font-weight:400; text-transform:uppercase; letter-spacing:.025em; color:var(--fg); margin-right:6px;}
+
+/* ---- the way in (public page): the site's paper block, with steps instead of a form ---- */
+.way{list-style:none; margin:0 0 var(--p-l); padding:0; counter-reset:way;}
+.way li{display:flex; gap:var(--p-m); align-items:baseline; padding:12px 0; border-top:1px solid #0B0B0B; font-size:var(--fs-m); line-height:var(--lh-xl); color:#0B0B0B;}
+.way li:last-child{border-bottom:1px solid #0B0B0B;}
+.way li::before{counter-increment:way; content:counter(way, decimal-leading-zero); font-family:var(--font-code); font-size:var(--fs-s); color:#0B7A69; flex:none;}
+.gate .go{display:inline-flex; align-items:center; min-height:52px; padding:0 var(--p-l); background:#0B0B0B; color:var(--paper); border:1px solid #0B0B0B;
+  font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-s);}
+.gate .go:hover{background:#0B7A69; border-color:#0B7A69;}
+@media (max-width:620px){ .gate .go{display:flex; justify-content:center;} }
+.gate .inner{max-width:none;}
+.gate .lede{max-width:64ch;}
+.gate-cols{display:grid; grid-template-columns:minmax(0,1fr); gap:var(--p-l);}
+@media (min-width:1024px){ .gate-cols{grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:var(--p-3xl); align-items:start;} }
+.manifest .fn{flex:0 1 auto;}
+.manifest{margin-bottom:0;}
+.gate .waytitle{margin-bottom:var(--p-s);}
+@media (max-width:620px){ .manifest .fn{white-space:normal; overflow-wrap:anywhere;} .manifest .rd{flex:1 1 16px; min-width:12px;} }
+
+/* ---- emails: the site's snippet cell ---- */
+.snippet + .snippet{margin-top:var(--p-m);}
+.snippet pre{max-height:none;}
+.snippet pre .ph{color:var(--accent);}
+.snippet .bar .f{font-size:var(--fs-s);}
+.snippet .bar .f b{font-weight:400; color:var(--fg);}
+.mailgroup{margin-top:var(--p-xl);}
+.mails{display:grid; grid-template-columns:minmax(0,1fr); gap:var(--p-l);}
+.mail .snippet{margin-top:0;}
+.mailnote{margin:var(--p-s) 0 0;}
+@media (min-width:1024px){ .mails{grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--p-xl) var(--p-2xl); align-items:start;} }
+
+/* ---- checklist ---- */
+.todo{list-style:none; margin:var(--p-s) 0 0; padding:0; max-width:none;}
+.issue ul.todo{padding-left:0; max-width:none;}
+.todo li{border-top:1px solid #3A3A3A; margin:0;}
+.todo li:last-child{border-bottom:1px solid #3A3A3A;}
+.todo label{display:flex; gap:var(--p-m); align-items:flex-start; padding:12px 0; cursor:pointer; font-size:var(--fs-m); line-height:var(--lh-xl); color:var(--dim);}
+.todo input{position:absolute; opacity:0; width:1px; height:1px;}
+.todo .box{flex:none; width:20px; height:20px; margin-top:1px; border:1px solid var(--rule); display:inline-flex; align-items:center; justify-content:center; color:var(--bg); font-size:14px; line-height:1;}
+.todo input:checked + .box{background:var(--accent); border-color:var(--accent);}
+.todo input:checked + .box::after{content:"\2713";}
+.todo input:focus-visible + .box{outline:2px solid var(--fg); outline-offset:2px;}
+.todo input:checked ~ .tx{color:var(--meta); text-decoration:line-through; text-decoration-color:#5A5A5A;}
+.todos{display:grid; grid-template-columns:minmax(0,1fr);}
+@media (min-width:1100px){
+  .todos{grid-template-columns:repeat(3,minmax(0,1fr)); column-gap:var(--p-2xl); align-items:start;}
+  .todos > .issue:first-child,.todos > .issue:last-child{grid-column:1 / -1;}
+  .todos > .issue:first-child .todo,.todos > .issue:last-child .todo{max-width:920px;}
+}
+.todo-meta{display:flex; flex-wrap:wrap; gap:var(--p-m); align-items:center; margin:var(--p-xl) 0 var(--p-2xl); padding-top:var(--p-l); border-top:1px solid var(--rule);}
+
+/* ---- sources ---- */
+.src{list-style:none; margin:var(--p-s) 0 0; padding:0; display:grid; grid-template-columns:minmax(0,1fr);}
+.src li{border-top:1px solid #3A3A3A; padding:14px 0; font-size:var(--fs-s); line-height:1.5; color:var(--dim); margin:0;}
+.src li b{color:var(--fg); font-weight:400;}
+.src .tag{font-family:var(--font-label); text-transform:uppercase; letter-spacing:.025em; font-size:var(--fs-xs); color:var(--accent); margin-right:8px;}
+.src .tag.warn{color:var(--fg);}
+@media (min-width:1024px){ .src{grid-template-columns:repeat(2,minmax(0,1fr)); column-gap:var(--p-3xl);} }
+
+/* ---- phone ---- */
+@media (max-width:767px){
+  .field{padding:var(--p-xl) var(--rail) calc(var(--p-xl) + 6px);}
+  .strip b{font-size:20px;}
+  .strip div{padding:12px;}
+  .win .pane{padding:12px;}
+  .win.term pre{padding:12px; font-size:13px;}
+  .lc-rate b{font-size:36px;}
+  .os-row{gap:10px;}
+  .os-row.big > .r{font-size:19px;}
+  .win-foot .meta{margin-left:0; flex:1 1 100%;}
+  .win-foot .chip{flex:1 1 auto; justify-content:center;}
+}
+@media (prefers-reduced-motion:reduce){ *{transition:none !important;} }
+.rg-label a{color:inherit;}
+</style>
+<!-- NO.103 / LEAKS, the UNLOCKED page: this is what the email delivers (keywords entry "page").
+     Built by .tmp/leaks-build/build.mjs on 2026-11-17 from data/2026-11-16-signup-leaks-no103/lead-magnet/.
+     noindex; the public page is no-103.html. Every figure: LANDING-NOTES.md in the film folder. -->
+<section class="unlocked">
+  <span class="k">Unlocked · The LEAKS pack</span>
+  <h2>You&#39;re in. The pack is below.</h2>
+  <p>Bookmark this page: the link keeps working. Four parts, and you can use any one without the others.</p>
+</section>
+<div id="no103-page">
+<section class="hero">
+  <div class="kick eye">The LEAKS pack · no. 103</div>
+  <h1 class="disp">Find the three leaks in your own app<span class="dot">.</span></h1>
+  <p class="sub">The film says the paying customers are lost after the signup, in three places. This is how I would check that on a real app: let Claude Code read the code and show me the three places, put a number on the gap, then fix them on a branch and write the two emails that are missing.</p>
+  <div class="jump">
+    <a class="btn primary" href="#prompt">01 · The audit prompt</a>
+    <a class="btn" href="#calc">02 · The calculator</a>
+    <a class="btn" href="#emails">03 · The emails</a>
+    <a class="btn" href="#checklist">04 · The checklist</a>
+  </div>
+</section>
+
+<div class="fig" id="prompt"><h2 class="kick">Fig. 01<span class="sep"> ·</span></h2><h2 class="disp">The audit prompt<span class="dot">.</span></h2><p class="sub">Paste it into Claude Code inside your app&#39;s folder. It reads first, shows you the three leaks with file and line, and changes nothing until you answer.</p></div>
+<section class="field">
+  <div class="cols">
+    <div class="win term">
+      <div class="win-bar"><span>leak-audit.md</span><span>68 lines<i class="dot"></i></span></div>
+      <pre id="promptView" tabindex="0">Audit this app for the three places new signups get lost before they pay, show me what you found, and then, only if I say so, fix them on a branch.
+
+Why I am asking: plenty of people sign up for my app and very few end up paying. More signups will not fix that. The usual losses all come after the signup:
+
+1. The first screen is empty. A new user lands on a blank page and has to do work before they can see what the app does.
+2. The trial is long and silent. Nothing in the app shows a deadline and nothing reminds the user before it ends, so nobody ever has to decide.
+3. Nothing is sent at the first result. The moment the app has clearly done its job for a user for the first time is when they are happiest, and that is when to ask them to pay, not when the trial timer runs out.
+
+Work in two phases and stop between them.
+
+<span class="h">Phase 1: audit (read only, change nothing)</span>
+
+Read the code and answer these three questions with evidence:
+
+1. First screen. Trace the signup flow to the screen a brand-new account lands on. What does that screen show when the account has no data yet? Is anything created for the user at signup?
+2. Trial. How long is it and where is that set? Does the app show the user the end date as a date? Is any reminder sent before it ends? What happens when it ends? List every other place the length is written down (landing page, emails, tests, docs). If the app has no trial at all (free plan, or pay up front), say so and do not invent one.
+3. First result. Name, in one sentence, the first moment the app has clearly done its job for a user, and say why you picked it over the nearest alternative. Find where it happens in the code. Is anything sent to the user at that moment? A message to someone else (a client, a teammate) does not count.
+
+While you read, also note: the stack, the commands for the project&#39;s own checks (tests, typecheck, lint, build), how email is sent, whether there is any scheduler or cron, where the price and the checkout link live, and how database changes are made.
+
+Then give me a short report. For each of the three: a verdict (leak, partly, fine, or cannot tell), the evidence as file:line with the few lines that prove it, and the fix you propose in two to four lines, including the files it would touch. If something is not a leak, say so and propose nothing. Do not pad the report.
+
+End Phase 1 by asking me which fixes to apply (1, 2, 3, all or none) and at most three questions where a wrong guess would cost me, for example what counts as the first result, or the price to put in the email. Then stop. Do not edit, create or delete any file until I answer.
+
+<span class="h">Phase 2: fixes (only the ones I approve)</span>
+
+Before the first edit:
+- Run git status. If there are uncommitted changes, stop and tell me.
+- Create a branch named fix/signup-leaks from the current branch and do all work there. Never commit to main or master, never push, never deploy.
+- Run the project&#39;s own checks once and write down the result, so we both know what was already failing before you touched anything.
+
+Rules for every fix: follow the patterns already in this codebase (same libraries, same helpers, same style). Add no dependency unless there is no other way, and say why. Never read or change secrets or .env values, never send a real email to a real person, never touch production data. If a fix needs a database change, make it the way this project makes them, and make it safe for a database that already has users in it.
+
+Fix 1, a finished example on the first screen:
+- Every new account gets one finished example of what the app produces, created at signup, so the first screen is never empty. Existing accounts are left alone.
+- Realistic content from this app&#39;s own domain. No lorem ipsum, no &quot;Test 1&quot;.
+- Clearly labelled as a sample, removable in one click, with one action that starts the user&#39;s own from it.
+- The sample must never cause a real side effect: it does not email anyone, it does not count as the user&#39;s first result, and it does not count against limits, billing or statistics.
+
+Fix 2, a 7-day trial with a visible deadline and one reminder:
+- The trial is 7 days for new signups only. Anyone already in a trial keeps the end date they were given: do not rewrite stored dates.
+- Keep the length in one place in the code, and update every place the copy states it.
+- From day one the app shows the end as a calendar date (for example &quot;Your trial ends on Friday 27 November&quot;), next to the button to subscribe.
+- One reminder email two days before the end, once per user, only to users still on the trial. It says the end date, what they keep if they subscribe and what happens to their work if they do not.
+- For the schedule, use the scheduler this app already has. If it has none, add the smallest one that fits where the app is hosted, and tell me exactly what I have to switch on. Never say something is scheduled when it only exists as code.
+
+Fix 3, the first-result email:
+- Sent to the user from the exact place in the code where the first result happens, right away.
+- Once per user, ever. Store that it was sent, so a retry, a double click or a second result cannot send it again. A failure to send must not break the user&#39;s action.
+- It says what they just got, in their terms, then the price and one link to the checkout. Use a number such as time saved only if the app really measures it for that user. If it does not, name the thing they just finished.
+- No fake urgency. Do not send it to users who already pay.
+
+Tests and checks:
+- Where an existing test asserts the old behaviour (for example the old trial length), update it and tell me which ones you changed and why. Never delete or weaken a test to get to green.
+- Add tests for what you built: the sample exists after signup and has no side effects; the trial length; the reminder goes once, on the right day, and not to paying users; the first-result email goes once, on the first real result only, and not for the sample.
+- Run all the project&#39;s checks again. Fix what you broke. If something fails that was already failing, say so and leave it.
+- Commit on the branch, one commit per fix, with plain messages.
+
+<span class="h">Final report</span>
+
+Tell me, in plain language:
+- What changed for each leak, with the files.
+- The checks, before and after, with the exact commands and results.
+- What I have to do by hand before this is live: environment variables, switching on the schedule, running a migration, copy I should read once.
+- Anything you chose not to do, and why.
+- How to undo all of it.
+
+Do not promise me a result. These are changes to test: I will compare signups against paying customers before and after.</pre>
+      <button class="more" type="button" id="promptMore" aria-expanded="false" aria-controls="promptView" data-lines="68"><span>Show all 68 lines</span><span aria-hidden="true">+</span></button>
+      <div class="win-foot">
+        <button class="chip" type="button" data-copy-target="#promptRaw" data-copy-event="no103-copy-prompt">Copy the prompt</button>
+        <a class="chip line" href="./files/no-103/leak-audit.md" download="leak-audit.md" data-goatcounter-click="no103-dl-prompt">Download leak-audit.md</a>
+        <span class="meta">tested 17 November 2026 on two sample apps</span>
+      </div>
+    </div>
+    <div class="aside">
+      <h3>How to run it</h3>
+      <ol>
+        <li>Commit your work first. The audit stops if it finds uncommitted changes.</li>
+        <li>Open Claude Code in your app&#39;s folder and paste the prompt.</li>
+        <li>Read the report. It ends with a question: which fixes, and up to three things it will not guess, like what counts as the first result.</li>
+        <li>Answer. It makes a branch called <code>fix/signup-leaks</code> and works there, one commit per fix. Claude Code will ask before it runs git and your test commands: allow those.</li>
+        <li>Read the diff before you merge. Nothing is pushed and nothing is deployed.</li>
+      </ol>
+      <p class="after">To keep it as a command: save the file as <b>.claude/commands/leak-audit.md</b> in your project and type <b>/leak-audit</b>.</p>
+    </div>
+  </div>
+</section>
+<script type="text/plain" id="promptRaw">Audit this app for the three places new signups get lost before they pay, show me what you found, and then, only if I say so, fix them on a branch.
+
+Why I am asking: plenty of people sign up for my app and very few end up paying. More signups will not fix that. The usual losses all come after the signup:
+
+1. The first screen is empty. A new user lands on a blank page and has to do work before they can see what the app does.
+2. The trial is long and silent. Nothing in the app shows a deadline and nothing reminds the user before it ends, so nobody ever has to decide.
+3. Nothing is sent at the first result. The moment the app has clearly done its job for a user for the first time is when they are happiest, and that is when to ask them to pay, not when the trial timer runs out.
+
+Work in two phases and stop between them.
+
+## Phase 1: audit (read only, change nothing)
+
+Read the code and answer these three questions with evidence:
+
+1. First screen. Trace the signup flow to the screen a brand-new account lands on. What does that screen show when the account has no data yet? Is anything created for the user at signup?
+2. Trial. How long is it and where is that set? Does the app show the user the end date as a date? Is any reminder sent before it ends? What happens when it ends? List every other place the length is written down (landing page, emails, tests, docs). If the app has no trial at all (free plan, or pay up front), say so and do not invent one.
+3. First result. Name, in one sentence, the first moment the app has clearly done its job for a user, and say why you picked it over the nearest alternative. Find where it happens in the code. Is anything sent to the user at that moment? A message to someone else (a client, a teammate) does not count.
+
+While you read, also note: the stack, the commands for the project's own checks (tests, typecheck, lint, build), how email is sent, whether there is any scheduler or cron, where the price and the checkout link live, and how database changes are made.
+
+Then give me a short report. For each of the three: a verdict (leak, partly, fine, or cannot tell), the evidence as file:line with the few lines that prove it, and the fix you propose in two to four lines, including the files it would touch. If something is not a leak, say so and propose nothing. Do not pad the report.
+
+End Phase 1 by asking me which fixes to apply (1, 2, 3, all or none) and at most three questions where a wrong guess would cost me, for example what counts as the first result, or the price to put in the email. Then stop. Do not edit, create or delete any file until I answer.
+
+## Phase 2: fixes (only the ones I approve)
+
+Before the first edit:
+- Run git status. If there are uncommitted changes, stop and tell me.
+- Create a branch named fix/signup-leaks from the current branch and do all work there. Never commit to main or master, never push, never deploy.
+- Run the project's own checks once and write down the result, so we both know what was already failing before you touched anything.
+
+Rules for every fix: follow the patterns already in this codebase (same libraries, same helpers, same style). Add no dependency unless there is no other way, and say why. Never read or change secrets or .env values, never send a real email to a real person, never touch production data. If a fix needs a database change, make it the way this project makes them, and make it safe for a database that already has users in it.
+
+Fix 1, a finished example on the first screen:
+- Every new account gets one finished example of what the app produces, created at signup, so the first screen is never empty. Existing accounts are left alone.
+- Realistic content from this app's own domain. No lorem ipsum, no "Test 1".
+- Clearly labelled as a sample, removable in one click, with one action that starts the user's own from it.
+- The sample must never cause a real side effect: it does not email anyone, it does not count as the user's first result, and it does not count against limits, billing or statistics.
+
+Fix 2, a 7-day trial with a visible deadline and one reminder:
+- The trial is 7 days for new signups only. Anyone already in a trial keeps the end date they were given: do not rewrite stored dates.
+- Keep the length in one place in the code, and update every place the copy states it.
+- From day one the app shows the end as a calendar date (for example "Your trial ends on Friday 27 November"), next to the button to subscribe.
+- One reminder email two days before the end, once per user, only to users still on the trial. It says the end date, what they keep if they subscribe and what happens to their work if they do not.
+- For the schedule, use the scheduler this app already has. If it has none, add the smallest one that fits where the app is hosted, and tell me exactly what I have to switch on. Never say something is scheduled when it only exists as code.
+
+Fix 3, the first-result email:
+- Sent to the user from the exact place in the code where the first result happens, right away.
+- Once per user, ever. Store that it was sent, so a retry, a double click or a second result cannot send it again. A failure to send must not break the user's action.
+- It says what they just got, in their terms, then the price and one link to the checkout. Use a number such as time saved only if the app really measures it for that user. If it does not, name the thing they just finished.
+- No fake urgency. Do not send it to users who already pay.
+
+Tests and checks:
+- Where an existing test asserts the old behaviour (for example the old trial length), update it and tell me which ones you changed and why. Never delete or weaken a test to get to green.
+- Add tests for what you built: the sample exists after signup and has no side effects; the trial length; the reminder goes once, on the right day, and not to paying users; the first-result email goes once, on the first real result only, and not for the sample.
+- Run all the project's checks again. Fix what you broke. If something fails that was already failing, say so and leave it.
+- Commit on the branch, one commit per fix, with plain messages.
+
+## Final report
+
+Tell me, in plain language:
+- What changed for each leak, with the files.
+- The checks, before and after, with the exact commands and results.
+- What I have to do by hand before this is live: environment variables, switching on the schedule, running a migration, copy I should read once.
+- Anything you chose not to do, and why.
+- How to undo all of it.
+
+Do not promise me a result. These are changes to test: I will compare signups against paying customers before and after.</script>
+
+<div class="fig" id="run"><h2 class="kick">Fig. 01b<span class="sep"> ·</span></h2><h2 class="disp">What happened when I ran it<span class="dot">.</span></h2><p class="sub">Our runs, 17 November 2026, on two sample apps I built for this test with the three leaks left in. Not apps with real users.</p></div>
+<section class="issues">
+  <article class="issue"><h3>Run one: Quotely, a proposal tool (Next.js 15, TypeScript, SQLite)</h3>
+    <p>It found all three, and it picked the first result itself: a client accepting a proposal, not the user sending one, <b>because sending is the user&#39;s own effort and the answer could still be silence</b>. I said yes to all three fixes.</p>
+  </article>
+  <div class="shots">
+    <figure><img src="./files/no-103/quotely-before.png" width="1280" height="940" alt="Quotely before the fixes: the first screen after signup says No proposals yet, with a New proposal button."><figcaption><b>Before</b>The first screen a new signup lands on.</figcaption></figure>
+    <figure><img src="./files/no-103/quotely-after.png" width="1280" height="940" alt="Quotely after the fixes: the first screen shows a finished sample proposal for Harbor Coffee Roasters labelled Sample, and a line saying the trial ends on Tuesday 24 November next to a Subscribe for 19 dollars a month button."><figcaption><b>After</b>The same screen on the branch: a finished sample, and the trial&#39;s end date next to the subscribe button.</figcaption></figure>
+  </div>
+  <div class="strip">
+    <div><b>3 of 3</b><span>leaks found, each with file and line</span></div>
+    <div><b>8 to 24</b><span>tests passing, before and after the fixes. Typecheck and build pass.</span></div>
+    <div><b>21 files</b><span>changed on a branch, in 3 commits</span></div>
+    <div><b>5 min 44 s</b><span>of model time: 46 s for the audit, the rest for the fixes</span></div>
+  </div>
+  <div class="pair">
+    <div>
+      <article class="issue"><h3>Then I used the app myself</h3>
+        <p>I signed up in a browser, made a proposal, sent it, and accepted it as the client. The app wrote this to its mail log, once. No real mail left the machine.</p>
+        <p>Then I moved the test account&#39;s trial to 36 hours from its end and called the reminder the way the host&#39;s scheduler would. It sent one reminder. Called again, it sent none.</p>
+      </article>
+    </div>
+    <div class="snippet"><div class="bar"><span class="f"><b>Sample app</b> · the first-result email it sent</span></div><pre>Subject: Grace Lind accepted your proposal
+
+Hi Ada Okafor,
+
+Grace Lind just accepted &quot;Website redesign&quot; ($6,000.00). That is your first accepted proposal on Quotely.
+
+To keep sending proposals this way, Quotely Pro is $19 a month, with unlimited proposals and clients:
+https://buy.stripe.com/test_quotely_pro?prefilled_email=ada%40studio-okafor.example&amp;client_reference_id=1
+
+Sam from Quotely</pre></div>
+  </div>
+
+  <article class="issue"><h3>Run two: Listwash, a mailing-list cleaner (Python, Flask, SQLite)</h3>
+    <p>A different stack, to check the prompt was not fitted to the first app. Same prompt, fresh session. It found all three again, and it caught a trap I had left in on purpose: this app stored when a trial started and worked out the end from a setting, so <b>changing 30 to 7 would have cut every current trial short</b>. It stored an end date per user first and gave existing users the 30 days they were promised. I checked that on a database with an older account in it: 30 days kept, new signups get 7. Here the app measures something real, so the first-result email carries the user&#39;s own numbers.</p>
+  </article>
+  <div class="strip">
+    <div><b>3 of 3</b><span>leaks found, each with file and line</span></div>
+    <div><b>7 to 28</b><span>tests passing, before and after the fixes</span></div>
+    <div><b>21 files</b><span>changed on a branch, in 3 commits</span></div>
+    <div><b>4 min 28 s</b><span>of model time: 50 s for the audit, the rest for the fixes</span></div>
+  </div>
+  <div class="pair">
+    <div class="snippet"><div class="bar"><span class="f"><b>Sample app</b> · the first-result email it sent</span></div><pre>Subject: Your list is clean: leads.csv
+
+Hi,
+
+leads.csv is clean. Of 5 rows in the file, 3 are good addresses. We removed 1 duplicate and 1 broken address.
+
+Your clean file: http://localhost:5000/lists/2
+
+To keep cleaning lists after your trial ends on Tuesday 24 November, Listwash is $12 a month, unlimited lists.
+
+Subscribe here: https://buy.stripe.com/test_listwash?prefilled_email=new-user%40example.com&amp;client_reference_id=2
+
+Mara, Listwash</pre></div>
+    <div>
+      <article class="issue"><h3>What it found that I had not planted</h3>
+        <p>In both apps, nothing in the code ever marks a user as paying. Someone who subscribes through the payment link would stay on the trial and be locked out when it ends. The audit flagged it both times, and built the emails to skip paying users without pretending the gap was closed. If your app takes money through a payment link, check this one first.</p>
+      </article>
+    </div>
+  </div>
+  <article class="issue"><h3>What it does not do</h3>
+    <ul>
+      <li>It does not know your users. It can find where the first result happens in the code, and it asks you whether it picked the right one.</li>
+      <li>It does not open your app in a browser. In my runs the tests and the build passed, and I looked at the screens myself afterwards. Do the same.</li>
+      <li>It does not switch anything on. The reminder needs a schedule on your host, and its final report tells you exactly what to set.</li>
+    </ul>
+    <p class="note">Setup of the runs: Claude Code 2.1.322 with Claude Sonnet 5.5, one fresh session per app, the same prompt both times, my answers typed as a second message. Edits and shell commands were allowed up front, standing in for the approvals you would click.</p>
+  </article>
+</section>
+
+<div class="fig" id="calc"><h2 class="kick">Fig. 02<span class="sep"> ·</span></h2><h2 class="disp">The leak calculator<span class="dot">.</span></h2><p class="sub">Three numbers in. Where you stand against published ranges, and what the gap is worth, out. It runs in this page: nothing you type is sent anywhere.</p></div>
+<section class="field">
+  <div class="win" id="leakCalc">
+    <div class="win-bar"><span>leak calculator</span><span>offline<i class="dot"></i></span></div>
+
+    <div class="lc-cols">
+      <div class="lc-col">
+        <div class="pane">
+          <h4>Your last 30 days</h4>
+          <div class="lc-in">
+            <label for="lcSignups"><span>Signups<i>the film&#39;s example, type yours</i></span><input id="lcSignups" type="text" inputmode="numeric" value="1000" autocomplete="off"></label>
+            <label for="lcPaying"><span>Of those, paying<i>customers who pay today</i></span><input id="lcPaying" type="text" inputmode="numeric" value="2" autocomplete="off"></label>
+            <label for="lcPrice"><span>Price per month<i>in dollars</i></span><input id="lcPrice" type="text" inputmode="decimal" value="19" autocomplete="off"></label>
+          </div>
+        </div>
+        <div class="pane">
+          <h4>How people get in</h4>
+          <div class="lc-models" role="group" aria-label="How people get in">
+            <button class="chip on" type="button" data-model="freemium" aria-pressed="true">Free plan</button>
+            <button class="chip" type="button" data-model="trial" aria-pressed="false">Free trial, no card</button>
+            <button class="chip" type="button" data-model="card" aria-pressed="false">Free trial, card first</button>
+          </div>
+          <p class="small" id="lcModelNote"></p>
+        </div>
+        <div class="pane grey">
+          <h4>What the gap is worth</h4>
+          <div id="lcGap"></div>
+          <p class="small" id="lcFloorNote"></p>
+        </div>
+      </div>
+      <div class="lc-col">
+        <div class="pane">
+          <h4>Where you stand</h4>
+          <div class="lc-rate"><b id="lcRate">0.2%</b><span id="lcPer1000"></span></div>
+          <p class="lc-verdict" id="lcVerdict"></p>
+          <div class="rg" id="lcChart"></div>
+          <div class="rg-key">
+            <span><i class="rg-you"></i>you</span>
+            <span><i class="rg-bar"></i>&quot;good&quot;, in the survey&#39;s words</span>
+            <span><i class="rg-bar great"></i>&quot;great&quot;</span>
+            <span><i class="rg-bar point"></i>one agency&#39;s average</span>
+          </div>
+          <p class="small">Surveys of software companies with revenue, so read them as a direction for a new app, not a grade.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="pane">
+      <h4>What each leak could be worth, if the assumption holds</h4>
+      <div class="leaks">
+        <div class="leak">
+          <div class="lk-top"><b>Leak 1 · the empty first screen</b><span class="chip pending">no published figure</span></div>
+          <div class="lk-if"><label for="lcLift1">If the fix lifts paying customers by</label><input id="lcLift1" type="text" inputmode="decimal" value="" placeholder="?" autocomplete="off"><span>%</span></div>
+          <div class="lk-out" id="lcOut1"></div>
+          <p class="lk-why">I found no published number for what a finished example on the first screen is worth, so this one is empty. Type your own guess, and replace it with your real number after 30 days.</p>
+        </div>
+        <div class="leak">
+          <div class="lk-top"><b>Leak 2 · the 30-day trial</b><span class="chip">one experiment · 337,724 users</span></div>
+          <div class="lk-if"><label for="lcLift2">If the fix lifts paying customers by</label><input id="lcLift2" type="text" inputmode="decimal" value="" placeholder="?" autocomplete="off"><span>%</span></div>
+          <div class="lk-out" id="lcOut2"></div>
+          <p class="lk-why">In the one randomised experiment I found, at one large software company, a 7-day trial produced 5.59% more subscriptions than a 30-day one (4.34% in the other half of the same data). That figure fills in when you pick a free trial above. It only applies if your trial is 30 days today. RevenueCat&#39;s 2026 data on mobile apps finds the opposite: longer trials go with higher conversion there.</p>
+        </div>
+        <div class="leak">
+          <div class="lk-top"><b>Leak 3 · the missing email</b><span class="chip pending">no published figure</span></div>
+          <div class="lk-if"><label for="lcLift3">If the fix lifts paying customers by</label><input id="lcLift3" type="text" inputmode="decimal" value="" placeholder="?" autocomplete="off"><span>%</span></div>
+          <div class="lk-out" id="lcOut3"></div>
+          <p class="lk-why">No published number for an email at the first result either. Type your own guess to see what it would mean.</p>
+        </div>
+      </div>
+      <div class="lk-all"><span>The rows you filled in, together</span><b id="lcAll"></b></div>
+      <p class="small" id="lcSmall"></p>
+    </div>
+
+    <div class="pane grey">
+      <h4>Sources · all read 17 November 2026</h4>
+      <div class="lc-src">
+        <p class="small"><b>Survey.</b> Kyle Poyar and Lenny Rachitsky, <a href="https://www.lennysnewsletter.com/p/what-is-a-good-free-to-paid-conversion" target="_blank" rel="noopener">What is a good free-to-paid conversion rate</a>, Lenny&#39;s Newsletter, 1 August 2023. More than 1,000 products, mostly business software, counted over six months.</p>
+        <p class="small"><b>Vendor survey.</b> Kyle Poyar, <a href="https://chartmogul.com/reports/saas-conversion-report/" target="_blank" rel="noopener">The SaaS Conversion Report</a>, ChartMogul, 4 February 2026. 200 software products, counted over six months.</p>
+        <p class="small"><b>Agency blog.</b> First Page Sage, <a href="https://firstpagesage.com/seo-blog/saas-free-trial-conversion-rate-benchmarks/" target="_blank" rel="noopener">SaaS Free Trial Conversion Rate Benchmarks</a>, 5 September 2025. 86 of the agency&#39;s own clients, 2022 to 2025. The two figures are its organic and paid traffic averages.</p>
+        <p class="small"><b>Research paper.</b> Yoganarasimhan, Barzegary and Pani, <a href="https://arxiv.org/abs/2006.13420" target="_blank" rel="noopener">Design and Evaluation of Personalized Free Trials</a>, arXiv 2006.13420, 24 June 2020. A randomised experiment at one large software company.</p>
+        <p class="small"><b>Vendor report.</b> RevenueCat, <a href="https://www.revenuecat.com/state-of-subscription-apps-2026/" target="_blank" rel="noopener">State of Subscription Apps 2026</a>. More than 115,000 mobile apps. Trials of 17 to 32 days: 42.5% median trial-to-paid. Trials of 4 days or less: 25.5%. A correlation, not an experiment.</p>
+      </div>
+    </div>
+  </div>
+  <p class="after">The calculator works on your own numbers. It cannot tell you why people leave: the audit shows you where.</p>
+</section>
+
+<div class="fig" id="emails"><h2 class="kick">Fig. 03<span class="sep"> ·</span></h2><h2 class="disp">The emails<span class="dot">.</span></h2><p class="sub">5 short emails for the two moments in the film. Replace everything in <span style="color:var(--accent)">[SQUARE BRACKETS]</span>. A number goes in only if it is true for that user.</p></div>
+<section class="issues">
+<article class="issue mailgroup"><h3>The first-result email</h3><p>Send it once per user, the first time your app has clearly done its job for them, right away, from the place in your code where that happens.</p></article>
+<div class="mails">
+<div class="mail"><div class="snippet"><div class="bar"><span class="f"><b>1</b> · With a number your app measures</span><button class="snipbtn" type="button" data-copy-target="#mail1" data-copy-event="no103-copy-mail-1">Copy</button></div><pre id="mail1">Subject: <span class="ph">[NUMBER]</span> <span class="ph">[THINGS]</span> done in <span class="ph">[APP NAME]</span>
+
+Hi <span class="ph">[FIRST NAME]</span>,
+
+You just <span class="ph">[WHAT THEY DID, WITH THE REAL NUMBER: cleaned 2,140 rows / sent your first proposal in 4 minutes]</span> with <span class="ph">[APP NAME]</span>.
+
+If you want to keep doing that, it is <span class="ph">[PRICE]</span> a month: <span class="ph">[CHECKOUT LINK]</span>
+
+Your trial runs until <span class="ph">[END DATE]</span>. Everything you made stays in your account until then either way.
+
+<span class="ph">[YOUR NAME]</span></pre></div>
+</div>
+<div class="mail"><div class="snippet"><div class="bar"><span class="f"><b>2</b> · Without a number</span><button class="snipbtn" type="button" data-copy-target="#mail2" data-copy-event="no103-copy-mail-2">Copy</button></div><pre id="mail2">Subject: Your first <span class="ph">[THING]</span> is done
+
+Hi <span class="ph">[FIRST NAME]</span>,
+
+Your first <span class="ph">[THING: proposal / report / clean list]</span> is finished: <span class="ph">[NAME OF THE THING THEY MADE]</span>.
+
+That is what <span class="ph">[APP NAME]</span> does. If you want to keep it, it is <span class="ph">[PRICE]</span> a month: <span class="ph">[CHECKOUT LINK]</span>
+
+Your trial runs until <span class="ph">[END DATE]</span>.
+
+<span class="ph">[YOUR NAME]</span></pre></div>
+</div>
+<div class="mail"><div class="snippet"><div class="bar"><span class="f"><b>3</b> · The one from the film</span><button class="snipbtn" type="button" data-copy-target="#mail3" data-copy-event="no103-copy-mail-3">Copy</button></div><pre id="mail3">Subject: You just <span class="ph">[RESULT]</span>
+
+You just <span class="ph">[RESULT: saved two hours / finished your first report]</span>, so keep it for <span class="ph">[PRICE]</span> a month: <span class="ph">[CHECKOUT LINK]</span></pre></div>
+<p class="note mailnote">&quot;Saved two hours&quot; and &quot;$19&quot; are the film&#39;s example. Put in your own true result and price.</p>
+</div>
+</div>
+<article class="issue mailgroup"><h3>The trial reminder</h3><p>Send it once per user, two days before the trial ends, only to people who are still on the trial.</p></article>
+<div class="mails">
+<div class="mail"><div class="snippet"><div class="bar"><span class="f"><b>4</b> · Two days before</span><button class="snipbtn" type="button" data-copy-target="#mail4" data-copy-event="no103-copy-mail-4">Copy</button></div><pre id="mail4">Subject: Your <span class="ph">[APP NAME]</span> trial ends on <span class="ph">[WEEKDAY, DATE]</span>
+
+Hi <span class="ph">[FIRST NAME]</span>,
+
+Your free trial ends on <span class="ph">[WEEKDAY, DATE]</span>.
+
+If you subscribe (<span class="ph">[PRICE]</span> a month), nothing changes and you keep working as you do now: <span class="ph">[CHECKOUT LINK]</span>
+
+If you do not, <span class="ph">[WHAT REALLY HAPPENS: your account is locked but nothing is deleted / your projects become read-only]</span>.
+
+<span class="ph">[YOUR NAME]</span></pre></div>
+</div>
+<div class="mail"><div class="snippet"><div class="bar"><span class="f"><b>5</b> · Two days before, for someone who has used it</span><button class="snipbtn" type="button" data-copy-target="#mail5" data-copy-event="no103-copy-mail-5">Copy</button></div><pre id="mail5">Subject: <span class="ph">[COUNT]</span> <span class="ph">[THINGS]</span> so far, and your trial ends <span class="ph">[WEEKDAY]</span>
+
+Hi <span class="ph">[FIRST NAME]</span>,
+
+You have made <span class="ph">[COUNT]</span> <span class="ph">[THINGS]</span> in <span class="ph">[APP NAME]</span> so far. Your free trial ends on <span class="ph">[WEEKDAY, DATE]</span>.
+
+To keep going it is <span class="ph">[PRICE]</span> a month: <span class="ph">[CHECKOUT LINK]</span>
+
+If you do not subscribe, <span class="ph">[WHAT REALLY HAPPENS TO THOSE THINGS]</span>.
+
+<span class="ph">[YOUR NAME]</span></pre></div>
+<p class="note mailnote">Only for users who have made something. The count has to be their real count.</p>
+</div>
+</div>
+
+  <article class="issue"><h3>Three rules</h3><ul><li>Say what really happens when the trial ends. If nothing is deleted, say so. Do not invent a loss to scare people.</li><li>One link. The checkout, not the home page.</li><li>If you do not know the number, do not write one.</li></ul>
+    <p><a href="./files/no-103/emails.md" download="emails.md" data-goatcounter-click="no103-dl-emails">Download all 5 as emails.md</a></p>
+  </article>
+</section>
+
+<div class="fig" id="checklist"><h2 class="kick">Fig. 04<span class="sep"> ·</span></h2><h2 class="disp">The checklist<span class="dot">.</span></h2><p class="sub">The three fixes by hand, as the film promised: 25 steps. For an app you cannot point Claude Code at, or if you would rather do it yourself. Ticks are saved in this browser only.</p></div>
+<section class="issues">
+<div class="todos">
+<article class="issue"><h3>Before you start</h3><p>Two numbers decide whether any of this worked, so write them down first.</p><ul class="todo">
+<li><label><input type="checkbox" data-todo="s1"><span class="box" aria-hidden="true"></span><span class="tx">Write down, for the last 30 days: how many people signed up, and how many of those pay.</span></label></li>
+<li><label><input type="checkbox" data-todo="s2"><span class="box" aria-hidden="true"></span><span class="tx">Put a date in your calendar 30 days after you finish, to count the same two numbers again.</span></label></li>
+</ul></article>
+<article class="issue"><h3>Leak 1: the empty first screen</h3><p>A new user signs up and lands on a blank page. That is homework, and most people do not do homework for an app they met a minute ago.</p><ul class="todo">
+<li><label><input type="checkbox" data-todo="s3"><span class="box" aria-hidden="true"></span><span class="tx">Sign up to your own app with a fresh email address in a private window, and screenshot the first screen you land on.</span></label></li>
+<li><label><input type="checkbox" data-todo="s4"><span class="box" aria-hidden="true"></span><span class="tx">If that screen is empty, decide what ONE finished example of your app&#39;s output looks like: a filled-in proposal, a cleaned list, a finished report.</span></label></li>
+<li><label><input type="checkbox" data-todo="s5"><span class="box" aria-hidden="true"></span><span class="tx">Create that example automatically for every new account, with realistic content. No &quot;Lorem ipsum&quot;, no &quot;Test 1&quot;.</span></label></li>
+<li><label><input type="checkbox" data-todo="s6"><span class="box" aria-hidden="true"></span><span class="tx">Label it as a sample and let the user remove it in one click.</span></label></li>
+<li><label><input type="checkbox" data-todo="s7"><span class="box" aria-hidden="true"></span><span class="tx">Make sure the sample cannot do anything real: it emails nobody, and it is left out of limits, billing and statistics.</span></label></li>
+<li><label><input type="checkbox" data-todo="s8"><span class="box" aria-hidden="true"></span><span class="tx">Put one button next to it that starts the user&#39;s own from the sample.</span></label></li>
+<li><label><input type="checkbox" data-todo="s9"><span class="box" aria-hidden="true"></span><span class="tx">Sign up again with another fresh address: can you see what the app does within ten seconds, without typing anything?</span></label></li>
+</ul></article>
+<article class="issue"><h3>Leak 2: the trial that is too long</h3><p>Nobody feels any urgency on day three of thirty.</p><ul class="todo">
+<li><label><input type="checkbox" data-todo="s10"><span class="box" aria-hidden="true"></span><span class="tx">Look up how long your free trial is today, and whether anything at all is sent before it ends.</span></label></li>
+<li><label><input type="checkbox" data-todo="s11"><span class="box" aria-hidden="true"></span><span class="tx">Set the trial to 7 days for new signups only. People already in a trial keep the end date they were given.</span></label></li>
+<li><label><input type="checkbox" data-todo="s12"><span class="box" aria-hidden="true"></span><span class="tx">Check how your app stores the trial. If it stores a start date and works out the end from a setting, changing the setting shortens everyone&#39;s trial at once: store the end date per user first.</span></label></li>
+<li><label><input type="checkbox" data-todo="s13"><span class="box" aria-hidden="true"></span><span class="tx">Show the deadline in the app from day one as a date (&quot;Your trial ends on Friday 27 November&quot;), next to the button to subscribe.</span></label></li>
+<li><label><input type="checkbox" data-todo="s14"><span class="box" aria-hidden="true"></span><span class="tx">Send one reminder email two days before the end. Say the end date, what they keep if they subscribe, and what really happens to their work if they do not.</span></label></li>
+<li><label><input type="checkbox" data-todo="s15"><span class="box" aria-hidden="true"></span><span class="tx">Find every other place the old length is written (landing page, signup page, welcome email, tests) and change it.</span></label></li>
+<li><label><input type="checkbox" data-todo="s16"><span class="box" aria-hidden="true"></span><span class="tx">Note the date you made the change, so you can compare signups before it with signups after it.</span></label></li>
+</ul><p class="note">Source: in one randomised experiment at one large software company (337,724 new users), a 7-day trial produced 5.59% more subscriptions than a 30-day one (Yoganarasimhan, Barzegary and Pani, arXiv 2006.13420, 2020, read 2026-11-17). RevenueCat&#39;s 2026 report on more than 115,000 mobile apps finds the opposite pattern for app trials (read 2026-11-17), so compare your own numbers before and after.</p></article>
+<article class="issue"><h3>Leak 3: the one missing email</h3><p>Ask when they are happiest, not when the timer is running out.</p><ul class="todo">
+<li><label><input type="checkbox" data-todo="s17"><span class="box" aria-hidden="true"></span><span class="tx">Write down the &quot;first result&quot; in your app in one sentence: the first moment the app has clearly done its job for a user.</span></label></li>
+<li><label><input type="checkbox" data-todo="s18"><span class="box" aria-hidden="true"></span><span class="tx">Find the place in your code where that happens and send one email to the user from there, the first time only.</span></label></li>
+<li><label><input type="checkbox" data-todo="s19"><span class="box" aria-hidden="true"></span><span class="tx">Store that it was sent, so a retry or a second result cannot send it twice.</span></label></li>
+<li><label><input type="checkbox" data-todo="s20"><span class="box" aria-hidden="true"></span><span class="tx">Say what they just got, in their terms, then the price and one link to the checkout.</span></label></li>
+<li><label><input type="checkbox" data-todo="s21"><span class="box" aria-hidden="true"></span><span class="tx">Use a number only if it is true for that user. If your app cannot measure it, name the thing they finished instead.</span></label></li>
+<li><label><input type="checkbox" data-todo="s22"><span class="box" aria-hidden="true"></span><span class="tx">Do not send it to people who already pay. Check that your app actually records who pays: in both sample apps I tested, nothing did.</span></label></li>
+<li><label><input type="checkbox" data-todo="s23"><span class="box" aria-hidden="true"></span><span class="tx">Trigger your own first result with a test account and check that the email arrives, reads well on a phone, and the link opens the checkout.</span></label></li>
+</ul><p class="note">The five emails in <code>emails.md</code> are ready to copy.</p></article>
+<article class="issue"><h3>After you have done all three</h3><ul class="todo">
+<li><label><input type="checkbox" data-todo="s24"><span class="box" aria-hidden="true"></span><span class="tx">In 30 days, count the same two numbers again (signups, paying) and compare.</span></label></li>
+<li><label><input type="checkbox" data-todo="s25"><span class="box" aria-hidden="true"></span><span class="tx">If nothing moved, look at where people stop: after the first screen, during the trial, or after the first result. That tells you which fix needs another pass.</span></label></li>
+</ul></article>
+</div>
+  <div class="todo-meta"><span class="label" id="todoCount"></span><button class="btn" type="button" id="todoReset">Clear the ticks</button><a class="btn" href="./files/no-103/three-leaks-checklist.md" download="three-leaks-checklist.md" data-goatcounter-click="no103-dl-checklist">Download as a file</a></div>
+</section>
+</div>
+<script>
+/* The leak calculator. Plain JavaScript, no requests, works offline.
+   Every range below was read at its source on 2026-11-17 (see the list under the calculator).
+   Units: percent of free signups that become paying customers. */
+(function () {
+  'use strict';
+
+  var MODELS = {
+    freemium: {
+      label: 'Free plan',
+      note: 'People sign up to a free plan and some of them upgrade.',
+      rows: [
+        { who: 'Poyar and Rachitsky, 2023', what: 'good', lo: 3, hi: 5, kind: 'good' },
+        { who: 'Poyar and Rachitsky, 2023', what: 'great', lo: 6, hi: 8, kind: 'great' },
+        { who: 'ChartMogul, 2026', what: 'good', lo: 3, hi: 5, kind: 'good' },
+        { who: 'ChartMogul, 2026', what: 'great', lo: 8, hi: 12, kind: 'great' },
+        { who: 'First Page Sage, 2025', what: 'one agency', lo: 2.6, hi: 2.8, kind: 'point' }
+      ],
+      floor: 3,
+      floorSource: 'the low end of "good" in both surveys'
+    },
+    trial: {
+      label: 'Free trial, no card',
+      note: 'People start a free trial without entering a card.',
+      rows: [
+        { who: 'Poyar and Rachitsky, 2023', what: 'good', lo: 8, hi: 12, kind: 'good' },
+        { who: 'Poyar and Rachitsky, 2023', what: 'great', lo: 15, hi: 25, kind: 'great' },
+        { who: 'ChartMogul, 2026', what: 'good', lo: 4, hi: 6, kind: 'good' },
+        { who: 'ChartMogul, 2026', what: 'great', lo: 10, hi: 15, kind: 'great' },
+        { who: 'First Page Sage, 2025', what: 'one agency', lo: 17.4, hi: 18.2, kind: 'point' }
+      ],
+      floor: 4,
+      floorSource: 'the low end of "good" in the newer survey (ChartMogul, 2026)'
+    },
+    card: {
+      label: 'Free trial, card up front',
+      note: 'People enter a card to start the trial. Far fewer sign up, so far more of them pay.',
+      rows: [
+        { who: 'ChartMogul, 2026', what: 'good', lo: 25, hi: 35, kind: 'good' },
+        { who: 'ChartMogul, 2026', what: 'great', lo: 50, hi: 60, kind: 'great' },
+        { who: 'First Page Sage, 2025', what: 'one agency', lo: 48.8, hi: 51, kind: 'point' }
+      ],
+      floor: 25,
+      floorSource: 'the low end of "good" (ChartMogul, 2026)'
+    }
+  };
+
+  function num(v) {
+    var n = parseFloat(String(v).replace(/[^0-9.]/g, ''));
+    return isFinite(n) && n >= 0 ? n : 0;
+  }
+  function fmtInt(n) { return Math.round(n).toLocaleString('en-US'); }
+  var SOURCES = {"Poyar and Rachitsky, 2023": "https://www.lennysnewsletter.com/p/what-is-a-good-free-to-paid-conversion", "ChartMogul, 2026": "https://chartmogul.com/reports/saas-conversion-report/", "First Page Sage, 2025": "https://firstpagesage.com/seo-blog/saas-free-trial-conversion-rate-benchmarks/"};
+  /* People come in whole numbers: under one is said in words, the rest is rounded. */
+  function fmtCust(n) {
+    if (n === 0) return '0';
+    if (n < 1) return 'less than 1';
+    return fmtInt(n);
+  }
+  function custWords(n) {
+    if (n === 0) return '0 customers';
+    if (n < 1) return 'less than one customer';
+    var r = Math.round(n);
+    return fmtInt(r) + (r === 1 ? ' customer' : ' customers');
+  }
+  function fmtMoney(n) { return '$' + fmtInt(n); }
+  function fmtPrice(n) { return Math.round(n) === n ? '$' + fmtInt(n) : '$' + n.toFixed(2); }
+  function fmtPct(p) {
+    if (p === 0) return '0%';
+    if (p < 1) return (Math.round(p * 100) / 100) + '%';
+    if (p < 10) return (Math.round(p * 10) / 10) + '%';
+    return Math.round(p) + '%';
+  }
+  function niceMax(v) {
+    var steps = [4, 6, 8, 10, 15, 20, 30, 40, 50, 60, 80, 100];
+    for (var i = 0; i < steps.length; i++) if (v <= steps[i]) return steps[i];
+    return 100;
+  }
+
+  /* Pure arithmetic, exported for the test. */
+  function compute(input) {
+    var signups = input.signups, paying = Math.min(input.paying, input.signups), price = input.price;
+    var model = MODELS[input.model] || MODELS.freemium;
+    var rate = signups > 0 ? (paying / signups) * 100 : 0;
+    var per1000 = rate * 10;
+    var atFloor = signups * model.floor / 100;
+    var gapCustomers = Math.max(0, atFloor - paying);
+    var gapMoney = gapCustomers * price;
+    var signupsNeeded = rate > 0 ? gapCustomers / (rate / 100) : null;
+    var leaks = (input.lifts || []).map(function (l) {
+      if (l === null || l === '' || typeof l === 'undefined') return null;
+      var extra = paying * num(l) / 100;
+      return { customers: extra, money: extra * price };
+    });
+    var allFilled = leaks.length > 0 && leaks.every(function (l) { return l !== null; });
+    var combined = null;
+    if (leaks.some(function (l) { return l !== null; })) {
+      var factor = 1;
+      (input.lifts || []).forEach(function (l) { if (l !== null && l !== '' && typeof l !== 'undefined') factor *= 1 + num(l) / 100; });
+      var extraAll = paying * (factor - 1);
+      combined = { customers: extraAll, money: extraAll * price, complete: allFilled };
+    }
+    var position;
+    var goods = model.rows.filter(function (r) { return r.kind === 'good'; });
+    var greats = model.rows.filter(function (r) { return r.kind === 'great'; });
+    var minGood = Math.min.apply(null, goods.map(function (r) { return r.lo; }));
+    var maxGood = Math.max.apply(null, goods.map(function (r) { return r.hi; }));
+    var maxGreat = greats.length ? Math.max.apply(null, greats.map(function (r) { return r.hi; })) : maxGood;
+    if (signups <= 0) position = 'empty';
+    else if (input.paying > input.signups) position = 'invalid';
+    else if (rate < minGood) position = 'below';
+    else if (rate > maxGreat) position = 'above';
+    else position = 'within';
+    return {
+      rate: rate, per1000: per1000, floor: model.floor, atFloor: atFloor,
+      gapCustomers: gapCustomers, gapMoney: gapMoney, signupsNeeded: signupsNeeded,
+      leaks: leaks, combined: combined, position: position, minGood: minGood, maxGood: maxGood, maxGreat: maxGreat
+    };
+  }
+
+  if (typeof module !== 'undefined' && module.exports) { module.exports = { compute: compute, MODELS: MODELS }; return; }
+
+  var root = document.getElementById('leakCalc');
+  if (!root) return;
+  var $ = function (id) { return document.getElementById(id); };
+  var state = { model: 'freemium' };
+
+  function drawChart(model, rate) {
+    var top = 0;
+    model.rows.forEach(function (r) { top = Math.max(top, r.hi); });
+    var max = niceMax(Math.max(top, rate) * 1.05);
+    var you = Math.min(100, (rate / max) * 100);
+    var html = '<div class="rg-axis" aria-hidden="true"><span>0%</span><span>' + max + '%</span></div>';
+    model.rows.forEach(function (r) {
+      var left = (r.lo / max) * 100, width = Math.max(((r.hi - r.lo) / max) * 100, 0.8);
+      var val = r.kind === 'point' ? (r.lo === r.hi ? fmtPct(r.lo) : r.lo + ' to ' + r.hi + '%') : r.lo + ' to ' + r.hi + '%';
+      var who = SOURCES[r.who] ? '<a href="' + SOURCES[r.who] + '" target="_blank" rel="noopener">' + r.who + '</a>' : r.who;
+      html += '<div class="rg-row"><div class="rg-label"><b>' + who + '</b> <span>' + r.what + '</span><em>' + val + '</em></div>' +
+        '<div class="rg-track"><i class="rg-bar ' + r.kind + '" style="left:' + left.toFixed(2) + '%;width:' + width.toFixed(2) + '%"></i>' +
+        '<i class="rg-you" style="left:' + you.toFixed(2) + '%"></i></div></div>';
+    });
+    html += '<div class="rg-row you"><div class="rg-label"><b>You</b><em>' + fmtPct(rate) + '</em></div>' +
+      '<div class="rg-track"><i class="rg-you" style="left:' + you.toFixed(2) + '%"></i></div></div>';
+    $('lcChart').innerHTML = html;
+  }
+
+  function render() {
+    var signups = num($('lcSignups').value), paying = num($('lcPaying').value), price = num($('lcPrice').value);
+    var liftEls = [$('lcLift1'), $('lcLift2'), $('lcLift3')];
+    var lifts = liftEls.map(function (el) { return el.value.trim() === '' ? null : num(el.value); });
+    var model = MODELS[state.model];
+    var r = compute({ signups: signups, paying: paying, price: price, model: state.model, lifts: lifts });
+
+    $('lcModelNote').textContent = model.note;
+    $('lcVerdict').className = 'lc-verdict' + (r.position === 'invalid' ? ' warn' : '');
+    if (r.position === 'invalid') {
+      $('lcRate').textContent = '?';
+      $('lcPer1000').textContent = '';
+      $('lcVerdict').textContent = 'Check your numbers: you entered more paying customers than signups.';
+      $('lcChart').innerHTML = '';
+      $('lcGap').innerHTML = '<div class="os-row"><span>Waiting for numbers that add up</span></div>';
+      $('lcFloorNote').textContent = '';
+      for (var k = 1; k <= 3; k++) { $('lcOut' + k).textContent = 'check your numbers above'; $('lcOut' + k).className = 'lk-out none'; }
+      $('lcAll').textContent = 'check your numbers above';
+      $('lcSmall').textContent = '';
+      return;
+    }
+    $('lcRate').textContent = fmtPct(r.rate);
+    $('lcPer1000').textContent = signups > 0 ? fmtCust(r.per1000) + ' paying per 1,000 signups' : 'Enter your signups';
+    drawChart(model, r.rate);
+
+    var verdict;
+    if (r.position === 'empty') verdict = 'Type in your numbers above.';
+    else if (r.position === 'below') verdict = 'Below every published "good" range for this model (' + r.minGood + '% and up).';
+    else if (r.position === 'within') verdict = 'Inside the published ranges for this model, which run from ' + r.minGood + '% (the low end of "good") to ' + r.maxGreat + '% (the top of "great").';
+    else verdict = 'Above every published range for this model. Whatever your problem is, it is probably not these three leaks.';
+    $('lcVerdict').textContent = verdict;
+
+    var gap = $('lcGap');
+    if (r.position === 'empty') gap.innerHTML = '';
+    else if (r.gapCustomers > 0) {
+      gap.innerHTML = '<div class="os-row"><span>At ' + r.floor + '% you would have</span><span class="r">' + fmtCust(r.atFloor) + ' paying</span></div>' +
+        '<div class="os-row"><span>The gap</span><span class="r">' + custWords(r.gapCustomers) + '</span></div>' +
+        '<div class="os-row big"><span>Worth, at ' + fmtPrice(price) + ' a month</span><span class="r">' + fmtMoney(r.gapMoney) + ' / month</span></div>' +
+        (r.signupsNeeded !== null
+          ? '<div class="os-row"><span>More signups needed at ' + fmtPct(r.rate) + ' to close it</span><span class="r">' + fmtInt(r.signupsNeeded) + '</span></div>'
+          : '<div class="os-row"><span>Signups needed to close it</span><span class="r">no number: nobody pays yet</span></div>');
+      $('lcFloorNote').textContent = r.floor + '% is ' + model.floorSource + '.';
+    } else {
+      gap.innerHTML = '<div class="os-row"><span>Gap to ' + r.floor + '%</span><span class="r">none</span></div>';
+      $('lcFloorNote').textContent = r.floor + '% is ' + model.floorSource + '.';
+    }
+
+    for (var i = 0; i < 3; i++) {
+      var out = $('lcOut' + (i + 1));
+      var l = r.leaks[i];
+      if (l === null) out.textContent = (i === 1 && state.model === 'freemium') ? 'no trial to shorten on a free plan' : 'no number yet';
+      else if (l.customers > 0 && l.customers < 1) out.textContent = 'less than one customer';
+      else out.textContent = '+' + custWords(l.customers) + ' · +' + fmtMoney(Math.round(l.customers) * price) + ' / month';
+      out.className = 'lk-out' + (l === null ? ' none' : '');
+    }
+    var all = $('lcAll');
+    if (!r.combined) all.textContent = 'no number yet: fill in a row above';
+    else if (r.combined.customers > 0 && r.combined.customers < 1) all.textContent = 'less than one customer';
+    else all.textContent = '+' + custWords(r.combined.customers) + ' · +' + fmtMoney(Math.round(r.combined.customers) * price) + ' / month';
+
+    var small = $('lcSmall');
+    if (r.position === 'below' && r.combined && r.combined.customers < r.gapCustomers) {
+      small.textContent = 'That is less than the gap. A percentage lift multiplies what you already have, and ' + custWords(paying) +
+        ' is not much to multiply. Make the change and count again in 30 days.';
+    } else if (r.position === 'within' || r.position === 'above') {
+      small.textContent = 'You are already inside or above the published ranges, so read these as upper limits.';
+    } else small.textContent = 'Make one change at a time and count again in 30 days: that is the only real number.';
+  }
+
+  /* Leak 2 follows the model until the user types in it: empty on a free plan, the experiment's 5.59 on a trial. */
+  var l2Auto = true;
+  $('lcLift2').addEventListener('input', function () { l2Auto = false; });
+  root.addEventListener('input', render);
+  root.querySelectorAll('[data-model]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      state.model = b.getAttribute('data-model');
+      if (l2Auto) $('lcLift2').value = state.model === 'freemium' ? '' : '5.59';
+      root.querySelectorAll('[data-model]').forEach(function (x) {
+        var on = x === b;
+        x.classList.toggle('on', on);
+        x.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+      render();
+    });
+  });
+  root.querySelectorAll('[data-fill]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var el = $(b.getAttribute('data-for'));
+      el.value = b.getAttribute('data-fill');
+      render();
+    });
+  });
+  render();
+})();
+</script>
+<script>
+  // NO.103: the checklist remembers its ticks in this browser only (localStorage, nothing is sent).
+  (function () {
+    var boxes = [].slice.call(document.querySelectorAll('[data-todo]'));
+    if (!boxes.length) return;
+    var KEY = 'vektor_no103_todo', done = {};
+    try { done = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { done = {}; }
+    var count = document.getElementById('todoCount');
+    function paint() {
+      var n = 0;
+      boxes.forEach(function (b) { if (b.checked) n++; });
+      if (count) count.textContent = n + ' of ' + boxes.length + ' done';
+    }
+    boxes.forEach(function (b) {
+      b.checked = !!done[b.getAttribute('data-todo')];
+      b.addEventListener('change', function () {
+        done[b.getAttribute('data-todo')] = b.checked;
+        try { localStorage.setItem(KEY, JSON.stringify(done)); } catch (e) {}
+        paint();
+      });
+    });
+    var reset = document.getElementById('todoReset');
+    if (reset) reset.addEventListener('click', function () {
+      done = {};
+      try { localStorage.removeItem(KEY); } catch (e) {}
+      boxes.forEach(function (b) { b.checked = false; });
+      paint();
+    });
+    paint();
+  })();
+  // NO.103: the prompt box shows part of the file; this row opens it whole.
+  (function () {
+    var btn = document.getElementById('promptMore'), pre = document.getElementById('promptView');
+    if (!btn || !pre) return;
+    if (pre.scrollHeight <= pre.clientHeight + 4) { btn.style.display = 'none'; return; }
+    btn.addEventListener('click', function () {
+      var open = pre.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      btn.firstElementChild.textContent = open ? 'Show fewer lines' : 'Show all ' + btn.getAttribute('data-lines') + ' lines';
+      btn.lastElementChild.textContent = open ? '-' : '+';
+    });
+  })();
+</script>

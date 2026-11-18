@@ -1,0 +1,29 @@
+{
+  "title": "vektor /// no. 103 · The LEAKS pack: find the three leaks after signup in your own app",
+  "description": "A thousand signups and two paying customers. An audit prompt for Claude Code that finds the three leaks after signup in your own code and fixes them on a branch, a leak calculator and the emails to copy. Tested on two sample apps.",
+  "og_title": "The LEAKS pack · vektor /// no. 103",
+  "og_description": "An audit prompt that finds the three leaks after signup in your own code, a leak calculator and the emails to copy. Tested on two sample apps.",
+  "og_image": "https://vektor-fm.github.io/vektor-site/og/vektor-og.png",
+  "og_alt": "Vektor · the LEAKS pack",
+  "og_url": "https://vektor-fm.github.io/vektor-site/no-103.html",
+  "canonical": "https://vektor-fm.github.io/vektor-site/no-103.html",
+  "tw_title": "The LEAKS pack · vektor /// no. 103",
+  "tw_description": "An audit prompt that finds the three leaks after signup in your own code, a leak calculator and the emails to copy. Tested on two sample apps.",
+  "tw_image": "https://vektor-fm.github.io/vektor-site/og/vektor-og.png",
+  "marker": "The LEAKS pack · the three leaks after signup, found in your own app",
+  "sticky_text": "Follow <b>@vektor.fm</b> → a new keyword every week",
+  "backref_html": "A new keyword drops every week: <b>catch it first on the reel</b>, follow @vektor.fm. <a href=\"./index.html\">Back to the index</a>",
+  "footer_meta": "/// no. 103 / leaks / 11-2026 · fewer leaks, not more signups",
+  "slug": "no103",
+  "no_capture": true,
+  "own_unlock": true,
+  "footer_news_html": "  <div class=\"news\" id=\"subscribe\">\n    <h2 class=\"kick\" style=\"color:var(--acid);\">The weekly: one working AI setup, every week</h2>\n    <form action=\"https://vektor-ig-dm.vektor-fm.workers.dev/signup\" method=\"post\" data-capture=\"footer\">\n      <input type=\"hidden\" name=\"tag\" value=\"footer\">\n      <input type=\"text\" name=\"company\" tabindex=\"-1\" autocomplete=\"off\" aria-hidden=\"true\" style=\"position:absolute;left:-9999px;width:1px;height:1px;opacity:0\">\n      <input type=\"email\" name=\"email\" placeholder=\"you@email.com\" aria-label=\"Email address\" autocomplete=\"email\" required>\n      <button class=\"btn\" type=\"submit\">Send me the weekly →</button>\n    </form>\n    <div class=\"note\">This form is the weekly only, one email a week, unsubscribe anytime. The LEAKS pack goes out through the comment on the reel.</div>\n  </div>",
+  "unlock_meta": {
+    "title": "vektor /// no. 103 · The LEAKS pack, unlocked",
+    "description": "The LEAKS pack: the audit prompt, the leak calculator, the emails and the checklist.",
+    "og_description": "The audit prompt, the leak calculator, the emails and the checklist.",
+    "tw_description": "The audit prompt, the leak calculator, the emails and the checklist.",
+    "marker": "The LEAKS pack · unlocked",
+    "footer_news_html": ""
+  }
+}

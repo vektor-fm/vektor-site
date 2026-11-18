@@ -171,6 +171,16 @@ function unlockName(num) {
   return `u-no-${num}-${meta.unlock}.html`;
 }
 
+// Replace the footer's sign-up block (<div class="news" id="subscribe"> ... its closing </div>) for a manifest
+// that sets "footer_news_html". The block is 2-space indented in partials/footer.html; '' removes it.
+function replaceFooterNews(footer, html, label) {
+  const start = footer.indexOf('  <div class="news" id="subscribe">');
+  const endMark = '\n  </div>\n';
+  const end = start === -1 ? -1 : footer.indexOf(endMark, start);
+  if (end === -1) throw new Error(`${label}: footer_news_html set but partials/footer.html has no .news block to replace`);
+  return footer.slice(0, start) + (html ? html.replace(/\n*$/, '\n') + '\n' : '') + footer.slice(end + endMark.length);
+}
+
 // ---- issue page ----
 // Two outputs per issue since 2026-08-26 (see partials/gate.html):
 //   public  — hook + the gate. No payload in the HTML at all.
@@ -180,8 +190,15 @@ function renderIssue(num, { unlocked = false } = {}) {
   for (const k of ['tw_title', 'tw_description']) {
     if (man[k] == null) throw new Error(`no-${num}: missing ${k} (issue pages require twitter tags)`);
   }
-  const body = read(`src/no-${num}.body.html`);
-  const { open, payload } = splitAtPayload(body, `no-${num}`);
+  // Opt-in (2026-11-18, NO.103): a page whose public half is a teaser and whose unlock page is a DIFFERENT
+  // page (the pack itself) sets "own_unlock" in its manifest and ships src/no-<num>.unlock.body.html. Such a
+  // page has no <div class="fig"> payload split, takes its unlock-page meta from man.unlock_meta, and may
+  // drop the capture bar ("no_capture") and replace the footer sign-up block ("footer_news_html", '' = none).
+  // Every other manifest behaves exactly as before.
+  const own = man.own_unlock === true;
+  const um = (unlocked && own && man.unlock_meta) || {};
+  const body = read(unlocked && own ? `src/no-${num}.unlock.body.html` : `src/no-${num}.body.html`);
+  const { open, payload } = own ? { open: body, payload: '' } : splitAtPayload(body, `no-${num}`);
 
   // Per-issue lead magnet, named in the ask so the gate is concrete ("the
   // Subagents pack") rather than generic ("our newsletter").
@@ -210,11 +227,11 @@ function renderIssue(num, { unlocked = false } = {}) {
     MAGNET_TITLE: hasPayload
       ? `Take ${meta.section} with you.`
       : `Keep the whole toolkit.`,
-    TITLE: man.title, DESCRIPTION: man.description,
-    OG_TITLE: man.og_title, OG_DESCRIPTION: man.og_description, OG_IMAGE: man.og_image,
+    TITLE: um.title ?? man.title, DESCRIPTION: um.description ?? man.description,
+    OG_TITLE: man.og_title, OG_DESCRIPTION: um.og_description ?? man.og_description, OG_IMAGE: man.og_image,
     OG_ALT: man.og_alt, OG_URL: man.og_url, CANONICAL: man.canonical,
-    TW_TITLE: man.tw_title, TW_DESCRIPTION: man.tw_description, TW_IMAGE: man.tw_image,
-    MARKER: man.marker, STICKY_TEXT: man.sticky_text, SLUG: man.slug,
+    TW_TITLE: man.tw_title, TW_DESCRIPTION: um.tw_description ?? man.tw_description, TW_IMAGE: man.tw_image,
+    MARKER: um.marker ?? man.marker, STICKY_TEXT: man.sticky_text, SLUG: man.slug,
     BACKREF_HTML: man.backref_html, FOOTER_META: man.footer_meta,
     COPY_EVENT_JS: man.copy_event ? `'${man.copy_event}'` : 'null',
     SUBSCRIBE_BLOCK: man.subscribe_track
@@ -223,7 +240,7 @@ function renderIssue(num, { unlocked = false } = {}) {
   };
   // capture.html carries {{SLUG}} etc, so it is filled BEFORE it is injected —
   // fill() does not re-scan what it inserts.
-  map.CAPTURE = unlocked ? '' : fill(CAPTURE, map);
+  map.CAPTURE = unlocked || man.no_capture ? '' : fill(CAPTURE, map);
 
   // THE GATE IS RETIRED (founder, 2026-09-01). A public page is now the whole
   // page: hook + payload, no email asked before the thing the DM promised. The
@@ -238,14 +255,18 @@ function renderIssue(num, { unlocked = false } = {}) {
   //
   // Unlock pages keep rendering: the u-*.html URLs are live and linked from
   // DMs already sent.
-  const middle = unlocked
+  // an own_unlock page carries its own receipt inside src/no-<num>.unlock.body.html
+  const middle = unlocked && !own
     ? fill(UNLOCKED, map) + open + payload
     : open + payload;
 
+  let footer = fill(read('partials/footer.html'), map);
+  const fn = um.footer_news_html ?? man.footer_news_html;
+  if (typeof fn === 'string') footer = replaceFooterNews(footer, fn, `no-${num}`);
   const out = fill(read('partials/head.html'), map)
     + fill(read('partials/masthead.html'), map)
     + middle
-    + fill(read('partials/footer.html'), map)
+    + footer
     + fill(read('partials/scripts.html'), map);
   const label = unlocked ? `${unlockName(num)}` : `no-${num}`;
   assertNoTokens(out, label);
@@ -615,8 +636,9 @@ function guardrail() {
     const man = JSON.parse(read(`manifest/no-${i.number}.json`));
     const og = `og/${basename(man.og_image)}`;
     if (!exists(og)) errs.push(`no-${i.number}: og:image -> missing ${og}`);
-    const body = read(`src/no-${i.number}.body.html`);
-    for (const m of body.matchAll(/(?:href|src)="\.\/(files\/[^"?#]+)"/g)) {
+    const bodies = [read(`src/no-${i.number}.body.html`)];
+    if (man.own_unlock) bodies.push(read(`src/no-${i.number}.unlock.body.html`));
+    for (const body of bodies) for (const m of body.matchAll(/(?:href|src)="\.\/(files\/[^"?#]+)"/g)) {
       if (!exists(m[1])) errs.push(`no-${i.number}: payload -> missing ${m[1]}`);
     }
   }
