@@ -1,0 +1,32 @@
+{
+  "number": "102",
+  "title": "vektor /// no. 102 · Sellbird: the open-source Claude agent that finds and emails local businesses.",
+  "description": "Sellbird (formerly Harvey) finds local businesses, reads their websites with no model call, then Claude writes each one an email about a real detail and every email waits for your yes. The repo link, the setup in Claude Code, what it really costs to run and the cold-email rules.",
+  "og_title": "Sellbird, the Claude prospecting agent · vektor /// no. 102",
+  "og_description": "Finds local businesses, reads their sites with no AI, drafts one real email each for your OK. Setup, real costs and the cold-email rules.",
+  "og_image": "https://vektor-fm.github.io/vektor-site/og/vektor-og.png",
+  "og_alt": "Vektor · Sellbird for Claude Code",
+  "og_url": "https://vektor-fm.github.io/vektor-site/no-102.html",
+  "canonical": "https://vektor-fm.github.io/vektor-site/no-102.html",
+  "tw_title": "Sellbird, the Claude prospecting agent · vektor /// no. 102",
+  "tw_description": "Finds local businesses, reads their sites with no AI, drafts one real email each for your OK. Setup, real costs and the cold-email rules.",
+  "tw_image": "https://vektor-fm.github.io/vektor-site/og/vektor-og.png",
+  "marker": "Claude Code · Sellbird",
+  "sticky_text": "Follow <b>@vektor.fm</b> → a new keyword every week",
+  "backref_html": "A new keyword drops every week: <b>catch it first on the reel</b>, follow @vektor.fm. <a href=\"./index.html\">Back to the index</a>",
+  "footer_meta": "/// no. 102 / sellbird / 11-2026 · claude code, open source, cold email",
+  "copy_event": "copy-sellbird-setup",
+  "subscribe_track": true,
+  "slug": "no102",
+  "gate_title": "The Sellbird setup, in full.",
+  "gate_lede": "The repo link, the setup in Claude Code, the real running costs and the cold-email rules, on the next screen.",
+  "og_card": {
+    "accent": "#E7371A",
+    "kick": "Claude Code · Sellbird",
+    "h1_html": "It reads their site<br>before it writes a word<span class=\"dot\">.</span>",
+    "h1_size": 52,
+    "sub_mt": 18,
+    "sub_html": "An open-source Claude agent that finds local businesses, reads their websites with no AI and drafts one real email each, for your OK.",
+    "meta_html": "/// no. 102 / sellbird / 11-2026 · <b>vektor-fm.github.io</b>"
+  }
+}

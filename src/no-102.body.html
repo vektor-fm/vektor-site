@@ -1,0 +1,119 @@
+<style>
+#no102-page .fig{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:baseline;}
+#no102-page .fig .kick{font-size:var(--fs-s);}
+#no102-page .fig .disp{min-width:0;overflow-wrap:break-word;}
+#no102-page .fig .sub{grid-column:1 / -1;min-width:0;max-width:64ch;overflow-wrap:anywhere;font-size:var(--fs-m);line-height:var(--lh-xl);color:var(--dim);}
+#no102-page pre{white-space:pre-wrap;overflow-wrap:anywhere;}
+@media(max-width:640px){#no102-page .fig{grid-template-columns:minmax(0,1fr);}#no102-page .fig .sub{grid-column:1;}#no102-page .card .top{flex-wrap:wrap;}}
+</style>
+<div id="no102-page">
+<section class="hero">
+  <div class="kick eye">Claude Code · Sellbird</div>
+  <h1 class="disp">It reads their site<br>before it writes a word<span class="dot">.</span></h1>
+  <p class="sub">Sellbird (formerly Harvey) is an open-source sales agent that runs in Claude Code. You tell it what you sell and who your dream customer is. It finds local businesses and reads every one of their websites with <b>no model call</b>, then Claude scores who fits, writes each one an email about <b>a real detail from their site</b>, and every email <b>waits for your yes</b>. Below: the repo, the setup, what it really costs and the cold-email rules.</p>
+  <div class="actions">
+    <a class="btn primary" href="#setup">Get the setup ↓</a>
+    <a class="btn" href="#costs">What it costs ↓</a>
+  </div>
+  <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+</section>
+
+<!-- ======================= THE PROMISE: THE SETUP ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 01 ·</h2>
+  <h2 class="disp">Clone it, then ask Claude<span class="dot">.</span></h2>
+  <p class="sub">From the <a href="https://github.com/ethanplusai/sellbird#let-claude-set-it-up" target="_blank" rel="noopener">Sellbird README, "Let Claude set it up"</a>, checked 2026-11-18. You need Python 3.11 or newer and Claude Code signed in to a Claude Pro or Max plan (<code>claude login</code>).</p>
+</div>
+
+<section class="issues" id="setup">
+  <article class="card c-cream">
+    <div class="top">
+      <span class="tag">Sellbird · Claude Code</span>
+      <span class="goth">1 · 2</span>
+    </div>
+    <h2>Clone and open Claude Code</h2>
+    <div class="snippet">
+      <div class="bar"><span class="f">terminal</span><button class="snipbtn" id="snipCopy" type="button">Copy</button></div>
+      <pre id="snipText">git clone https://github.com/ethanplusai/sellbird.git
+cd sellbird
+claude</pre>
+    </div>
+    <p class="one">Then type the line from the video:</p>
+    <div class="snippet">
+      <div class="bar"><span class="f">inside Claude Code</span><button class="copybtn snipbtn" type="button" data-copy="set up Sellbird for me">Copy line</button></div>
+      <pre>set up Sellbird for me</pre>
+    </div>
+    <p class="one">The repo's <code>CLAUDE.md</code> turns Claude Code into the setup guide: it checks where you are, installs what's missing, asks what it needs and trains Sellbird on your product (README). Repo: <a href="https://github.com/ethanplusai/sellbird" target="_blank" rel="noopener">github.com/ethanplusai/sellbird</a>.</p>
+  </article>
+</section>
+
+<!-- ======================= THE LOOP ======================= -->
+<div class="fig" id="loop">
+  <h2 class="kick">Fig. 02 ·</h2>
+  <h2 class="disp">What it does, step by step<span class="dot">.</span></h2>
+  <p class="sub">The pipeline as the README describes it. You can run it end to end, or stop at any step.</p>
+</div>
+
+<section class="ledger" aria-label="Pipeline">
+  <div class="lrow"><span class="n">1</span><span class="t"><b>Find companies.</b> Free on OpenStreetMap by default, or on a paid source you pick; every paid search shows its cost before it runs.</span></div>
+  <div class="lrow"><span class="n">2</span><span class="t"><b>Read their websites.</b> Three plain HTTP requests per business, checked for the buying signals you confirmed (no online booking, ads running, a role they're hiring for). No model calls, no cost.</span></div>
+  <div class="lrow"><span class="n">3</span><span class="t"><b>Score and write.</b> Claude scores each prospect against your ideal customer and writes a short email about something it found on their site.</span></div>
+  <div class="lrow"><span class="n">4</span><span class="t"><b>Wait for your yes.</b> Every outgoing email waits in the Outbox for your approval until you turn on autopilot yourself. A pre-send check with no model rejects banned phrases, unfilled merge tags, overlong emails and extra links.</span></div>
+  <div class="lrow"><span class="n">5</span><span class="t"><b>Handle replies.</b> It reads every reply, drafts an answer and honours opt-outs at once. It wakes every 15 minutes on your own machine, inside quiet hours, a daily limit and the recipient's office hours.</span></div>
+  <div class="lrow"><span class="n">6</span><span class="t"><b>Watch it.</b> <code>sellbird dashboard</code> opens a private dashboard at <code>127.0.0.1:5555</code>.</span></div>
+</section>
+
+<!-- ======================= COSTS ======================= -->
+<div class="fig" id="costs">
+  <h2 class="kick">Fig. 03 ·</h2>
+  <h2 class="disp">What it really costs<span class="dot">.</span></h2>
+  <p class="sub">"No model API bill" is true. "Free" is not the whole story. From the README's cost table and <code>docs/deliverability.md</code>, checked 2026-11-18.</p>
+</div>
+
+<section class="ledger" aria-label="Costs">
+  <div class="lrow"><span class="n">1</span><span class="t"><b>The model: your plan.</b> It thinks through the Claude Code CLI on your Claude Pro or Max plan (or Codex on a ChatGPT plan). No API key, no per-token billing; it throttles itself to leave room for your own work. Your plan's usage limits still apply.</span></div>
+  <div class="lrow"><span class="n">2</span><span class="t"><b>Finding and reading: $0</b> on the default source. The cheapest paid source is about $0.37 per 1,000 businesses, and optional.</span></div>
+  <div class="lrow"><span class="n">3</span><span class="t"><b>A mailbox: about $7 a month</b> for Google Workspace. Microsoft 365 and SMTP work too.</span></div>
+  <div class="lrow"><span class="n">4</span><span class="t"><b>A separate sending domain and 2 to 4 weeks of warm-up</b> before real volume, with SPF, DKIM and DMARC set up. Cold email from your main domain, or at volume on day one, lands in spam.</span></div>
+</section>
+
+<!-- ======================= THE RULES ======================= -->
+<div class="fig" id="rules">
+  <h2 class="kick">Fig. 04 ·</h2>
+  <h2 class="disp">You are the sender<span class="dot">.</span></h2>
+  <p class="sub">Sellbird automates the outreach; the law applies to you. From its own <a href="https://github.com/ethanplusai/sellbird/blob/main/docs/deliverability.md" target="_blank" rel="noopener">legal and deliverability page</a>.</p>
+</div>
+
+<section class="ledger" aria-label="Cold email rules">
+  <div class="lrow"><span class="n">1</span><span class="t"><b>EU and UK (GDPR / PECR).</b> Business cold email needs a defensible legitimate interest: the pitch must matter to that person's role, you must know where the data came from, and objecting must be effortless.</span></div>
+  <div class="lrow"><span class="n">2</span><span class="t"><b>Some places want consent first.</b> Germany wants prior consent even for business email; a UK sole trader needs consent where a limited company doesn't; Canada's rules depend on whether the address was published.</span></div>
+  <div class="lrow"><span class="n">3</span><span class="t"><b>Keep the defaults.</b> Approval mode, the daily limit and office hours are on out of the box. Ramp slowly: 10 to 20 a day per inbox at the start.</span></div>
+</section>
+
+<!-- ======================= LIMITS ======================= -->
+<div class="fig" id="limits">
+  <h2 class="kick">Fig. 05 ·</h2>
+  <h2 class="disp">Know what you're adding<span class="dot">.</span></h2>
+  <p class="sub">Read this before you rely on it.</p>
+</div>
+
+<section class="ledger" aria-label="Limits">
+  <div class="lrow"><span class="n">1</span><span class="t"><b>We haven't run it.</b> Every step on this page and in the film comes from the repo's README and docs. The Portland bakery email in the film is the source creator's illustration, not a real send.</span></div>
+  <div class="lrow"><span class="n">2</span><span class="t"><b>It doesn't book meetings.</b> It drafts your answers to replies; you book the call. Calendar auto-booking is on the repo's roadmap, not built.</span></div>
+  <div class="lrow"><span class="n">3</span><span class="t"><b>It runs while your machine does.</b> It is a loop on your own computer, not a hosted service, and it sleeps in quiet hours.</span></div>
+  <div class="lrow"><span class="n">4</span><span class="t"><b>The licence is AGPL-3.0.</b> Free to run yourself; obligations apply if you modify it and offer it as a network service. Harvey releases up to 0.3.x were MIT.</span></div>
+</section>
+
+<!-- ======================= SOURCES ======================= -->
+<div class="fig" id="sources">
+  <h2 class="kick">Fig. 06 ·</h2>
+  <h2 class="disp">The sources<span class="dot">.</span></h2>
+</div>
+
+<section class="issues">
+  <article class="issue">
+    <p><a href="https://github.com/ethanplusai/sellbird" target="_blank" rel="noopener">ethanplusai/sellbird README</a> · <a href="https://github.com/ethanplusai/sellbird/blob/main/docs/deliverability.md" target="_blank" rel="noopener">Legal and deliverability</a> · <a href="https://github.com/ethanplusai/sellbird/blob/main/docs/approval-and-sending.md" target="_blank" rel="noopener">Approval and sending</a> · <a href="https://github.com/ethanplusai/sellbird/blob/main/docs/how-it-works.md" target="_blank" rel="noopener">How Sellbird works</a> · <a href="https://github.com/ethanplusai/sellbird/blob/main/docs/roadmap.md" target="_blank" rel="noopener">Roadmap</a>.</p>
+    <p class="meta">README and legal page checked 2026-11-18; the other docs read 2026-11-15. The film is adapted from a reel by @nocodealex.</p>
+  </article>
+</section>
+</div>
