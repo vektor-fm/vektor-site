@@ -503,6 +503,16 @@
       "lastmod": "2026-11-18",
       "built": true,
       "unlock": "7c41e9a2d6"
+    },
+    {
+      "number": "102",
+      "title_short": "Sellbird: the Claude agent that finds and emails local businesses",
+      "section": "Sellbird",
+      "date": "11-2026",
+      "keyword": "SELLBIRD",
+      "lastmod": "2026-11-18",
+      "built": true,
+      "unlock": "c78818b29d"
     }
   ],
   "teardowns": [
