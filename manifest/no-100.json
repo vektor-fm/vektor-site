@@ -1,0 +1,32 @@
+{
+  "number": "100",
+  "title": "vektor /// no. 100 · The first prompt to run on every new Claude model.",
+  "description": "The one prompt a researcher at Anthropic runs on all his projects every time a new model ships, word for word, how to run it in Claude Code after /model, what it found on a copy of our own DM funnel with Claude Fable 5.2, and the Fable-plans, Opus-works sub-agent setting.",
+  "og_title": "The first prompt to run on every new Claude model · vektor /// no. 100",
+  "og_description": "The prompt, word for word, how to run it after /model, and what it found on a copy of our own repo: 37 findings, 13 fixed.",
+  "og_image": "https://vektor-fm.github.io/vektor-site/og/vektor-og.png",
+  "og_alt": "Vektor · the new-model prompt for Claude Code",
+  "og_url": "https://vektor-fm.github.io/vektor-site/no-100.html",
+  "canonical": "https://vektor-fm.github.io/vektor-site/no-100.html",
+  "tw_title": "The first prompt to run on every new Claude model · vektor /// no. 100",
+  "tw_description": "The prompt, word for word, how to run it after /model, and what it found on a copy of our own repo: 37 findings, 13 fixed.",
+  "tw_image": "https://vektor-fm.github.io/vektor-site/og/vektor-og.png",
+  "marker": "Claude Code · the new-model prompt",
+  "sticky_text": "Follow <b>@vektor.fm</b> → a new keyword every week",
+  "backref_html": "A new keyword drops every week: <b>catch it first on the reel</b>, follow @vektor.fm. <a href=\"./index.html\">Back to the index</a>",
+  "footer_meta": "/// no. 100 / prompt / 11-2026 · claude code, every new model",
+  "copy_event": "copy-new-model-prompt",
+  "subscribe_track": true,
+  "slug": "no100",
+  "gate_title": "The new-model prompt, in full.",
+  "gate_lede": "The prompt word for word, how to run it after /model, what it found on our own repo and the sub-agent setting, on the next screen.",
+  "og_card": {
+    "accent": "#E7371A",
+    "kick": "Claude Code · every new model",
+    "h1_html": "One prompt,<br>every new model<span class=\"dot\">.</span>",
+    "h1_size": 52,
+    "sub_mt": 18,
+    "sub_html": "Read the whole project, find what's broken, inconsistent, inefficient or no longer needed, fix what it's sure about, list the rest.",
+    "meta_html": "/// no. 100 / prompt / 11-2026 · <b>vektor-fm.github.io</b>"
+  }
+}

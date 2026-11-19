@@ -513,6 +513,16 @@
       "lastmod": "2026-11-18",
       "built": true,
       "unlock": "c78818b29d"
+    },
+    {
+      "number": "100",
+      "title_short": "The first prompt to run on every new Claude model",
+      "section": "Claude Code",
+      "date": "11-2026",
+      "keyword": "PROMPT",
+      "lastmod": "2026-11-18",
+      "built": true,
+      "unlock": "cc96aca4cb"
     }
   ],
   "teardowns": [

@@ -1,0 +1,98 @@
+<style>
+#no100-page .fig{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:baseline;}
+#no100-page .fig .kick{font-size:var(--fs-s);}
+#no100-page .fig .disp{min-width:0;overflow-wrap:break-word;}
+#no100-page .fig .sub{grid-column:1 / -1;min-width:0;max-width:64ch;overflow-wrap:anywhere;font-size:var(--fs-m);line-height:var(--lh-xl);color:var(--dim);}
+#no100-page pre{white-space:pre-wrap;overflow-wrap:anywhere;}
+@media(max-width:640px){#no100-page .fig{grid-template-columns:minmax(0,1fr);}#no100-page .fig .sub{grid-column:1;}#no100-page .card .top{flex-wrap:wrap;}}
+</style>
+<div id="no100-page">
+<section class="hero">
+  <div class="kick eye">Claude Code · every new model</div>
+  <h1 class="disp">One prompt,<br>every new model<span class="dot">.</span></h1>
+  <p class="sub">A researcher at Anthropic runs the same prompt on all his projects every time a new model ships: read the whole project, find what's <b>broken, inconsistent, inefficient or no longer needed</b>, fix what it's sure about and <b>list the rest for you to review</b>. Below: the prompt word for word, how to run it after <code>/model</code>, what it found on a copy of our own repo, and the Fable-plans, Opus-works setting.</p>
+  <div class="actions">
+    <a class="btn primary" href="#prompt">Get the prompt ↓</a>
+    <a class="btn" href="#our-run">What it found ↓</a>
+  </div>
+  <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+</section>
+
+<!-- ======================= THE PROMISE: THE PROMPT ======================= -->
+<div class="fig">
+  <h2 class="kick">Fig. 01 ·</h2>
+  <h2 class="disp">The prompt, word for word<span class="dot">.</span></h2>
+  <p class="sub">As posted by Alex Albert (Research, Anthropic) on X, 2026-11-10, in the screenshot the source reel shows. We could not open the post itself (X answered HTTP 402), so the wording is as that screenshot shows it. The film's voice leaves out "inefficient"; the prompt has it.</p>
+</div>
+
+<section class="issues" id="prompt">
+  <article class="card c-cream">
+    <div class="top">
+      <span class="tag">Claude Code · any project</span>
+      <span class="goth">1 prompt</span>
+    </div>
+    <h2>Paste it into a fresh session</h2>
+    <div class="snippet">
+      <div class="bar"><span class="f">inside Claude Code</span><button class="snipbtn" id="snipCopy" type="button">Copy</button></div>
+      <pre id="snipText">Read this entire project and find everything that's broken, inconsistent, inefficient, or no longer needed. Fix what you're sure about and list the rest for me to review.</pre>
+    </div>
+    <p class="one">The same prompt as a file: <a href="./files/no-100/new-model-prompt.md">new-model-prompt.md</a>.</p>
+  </article>
+</section>
+
+<!-- ======================= HOW TO RUN IT ======================= -->
+<div class="fig" id="run">
+  <h2 class="kick">Fig. 02 ·</h2>
+  <h2 class="disp">Switch, then run it<span class="dot">.</span></h2>
+  <p class="sub">From Claude Code's model configuration docs (code.claude.com/docs/en/model-config, read 2026-11-15): <code>/model &lt;alias|name&gt;</code> switches immediately, in the same session.</p>
+</div>
+
+<section class="ledger" aria-label="How to run it">
+  <div class="lrow"><span class="n">1</span><span class="t"><b>Open the project.</b> <code>cd</code> into it and start <code>claude</code>. Commit or branch first, so every fix it makes is a diff you can read and undo.</span></div>
+  <div class="lrow"><span class="n">2</span><span class="t"><b>Switch to the new model.</b> Type <code>/model</code> and pick it from the list. The conversation, the files and the skills stay where they are.</span></div>
+  <div class="lrow"><span class="n">3</span><span class="t"><b>Paste the prompt.</b> Let it read the whole project. It fixes what it is sure about and hands you the rest as a list.</span></div>
+  <div class="lrow"><span class="n">4</span><span class="t"><b>Review the list, then the diff.</b> Run your tests before and after. Keep what holds, revert what doesn't.</span></div>
+  <div class="lrow"><span class="n">5</span><span class="t"><b>Do it again at the next release.</b> Same prompt, same project, new model: you see what it picks up that the last one missed.</span></div>
+</section>
+
+<!-- ======================= OUR RUN ======================= -->
+<div class="fig" id="our-run">
+  <h2 class="kick">Fig. 03 ·</h2>
+  <h2 class="disp">What it found on our repo<span class="dot">.</span></h2>
+  <p class="sub">Our run, labelled as ours: the prompt above, word for word, on a throwaway copy of our own Instagram DM funnel (a Cloudflare Worker), Claude Fable 5.2 in Claude Code, 2026-11-16, 04:20 to 04:27 UTC. Nothing from this copy was deployed.</p>
+</div>
+
+<section class="ledger" aria-label="Our run">
+  <div class="lrow"><span class="n">37</span><span class="t"><b>Findings in all:</b> 13 it fixed itself, 24 it listed for us to review. By kind: broken 12, inconsistent 15, inefficient 5, no longer needed 5.</span></div>
+  <div class="lrow"><span class="n">1</span><span class="t"><b>Broken.</b> A dry run of our follow-up sweep deleted the queued record of anyone already nudged, although the code promises a dry run changes nothing. The delete now only happens on a live run.</span></div>
+  <div class="lrow"><span class="n">2</span><span class="t"><b>Inefficient.</b> One history route listed up to 1,000 keys and read each one separately, up to 1,001 database queries. It now calls a one-query helper that was already in the code, unused.</span></div>
+  <div class="lrow"><span class="n">3</span><span class="t"><b>Inefficient.</b> Keyword matching built a new regular expression for each of the 92 keywords on every comment. The patterns are now compiled once, in the same order.</span></div>
+  <div class="lrow"><span class="n">4</span><span class="t"><b>Tests before and after: the same results.</b> The same test files passed and failed before and after its fixes. That is one run on one repo, not a benchmark.</span></div>
+</section>
+
+<!-- ======================= FABLE PLANS, OPUS WORKS ======================= -->
+<div class="fig" id="cost">
+  <h2 class="kick">Fig. 04 ·</h2>
+  <h2 class="disp">Fable plans, Opus does the work<span class="dot">.</span></h2>
+  <p class="sub">Claude Fable 5.2 costs $8 / $40 per million input / output tokens, Claude Opus 5.5 $4 / $20 (Anthropic's pricing page, read 2026-11-15): twice the price per token. Anthropic's launch page also says Fable 5.2 at High effort scores about level with Opus 5.5 at Max for roughly half the cost per task, so "twice" is per token, not per job.</p>
+</div>
+
+<section class="ledger" aria-label="Sub-agent setting">
+  <div class="lrow"><span class="n">1</span><span class="t"><b>The main session on Fable 5.2</b>, as the orchestrator: it plans, splits the job and checks the results.</span></div>
+  <div class="lrow"><span class="n">2</span><span class="t"><b>Sub-agents on Opus 5.5.</b> In a sub-agent's file under <code>.claude/agents/</code>, set <code>model: opus</code> in its front matter. The Agent tool also takes a <code>model</code> parameter, and <code>CLAUDE_CODE_SUBAGENT_MODEL</code> sets it for every sub-agent (model-config docs).</span></div>
+  <div class="lrow"><span class="n">3</span><span class="t"><b>What we can and can't promise.</b> The split is the source creator's own setup for bigger projects. Nobody has measured the saving, so this page claims a cheaper per-token rate for the work, not a smaller bill.</span></div>
+</section>
+
+<!-- ======================= SOURCES ======================= -->
+<div class="fig" id="sources">
+  <h2 class="kick">Fig. 05 ·</h2>
+  <h2 class="disp">The sources<span class="dot">.</span></h2>
+</div>
+
+<section class="issues">
+  <article class="issue">
+    <p><a href="https://www.anthropic.com/claude-fable-and-mythos-5-2" target="_blank" rel="noopener">Anthropic, Claude Fable 5.2 launch page</a> (released 2026-11-09) · <a href="https://platform.claude.com/docs/en/about-claude/pricing" target="_blank" rel="noopener">Anthropic API pricing</a> · <a href="https://code.claude.com/docs/en/model-config" target="_blank" rel="noopener">Claude Code model configuration</a>.</p>
+    <p class="meta">Pages read 2026-11-15. The prompt is as shown in the source reel's screenshot of Alex Albert's post (X, 2026-11-10). Our run: 2026-11-16, on a copy of our own repo. The film is adapted from a reel by @itsmariahbrunner.</p>
+  </article>
+</section>
+</div>
