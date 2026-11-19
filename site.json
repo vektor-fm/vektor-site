@@ -523,6 +523,16 @@
       "lastmod": "2026-11-18",
       "built": true,
       "unlock": "cc96aca4cb"
+    },
+    {
+      "number": "101",
+      "title_short": "Clone a winning reel's format: the hypit setup",
+      "section": "CLONE",
+      "date": "11-2026",
+      "keyword": "CLONE",
+      "lastmod": "2026-11-19",
+      "built": true,
+      "unlock": "dc09dae749"
     }
   ],
   "teardowns": [
