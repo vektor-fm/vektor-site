@@ -1,0 +1,33 @@
+<div id="no104-page">
+<section class="hero">
+  <div class="kick eye">The SETUP page · two commands, then four agents</div>
+  <h1 class="disp">Install ECC, then start with four agents<span class="dot">.</span></h1>
+  <p class="sub">Everything Claude Code (ECC, github.com/affaan-m/ECC) is the open-source Claude Code setup by Affaan Mustafa; his README says he won the Anthropic x Forum Ventures hackathon in September 2025 building with it. It installs as one Claude Code plugin: agents, skills, commands and hooks. Here is what the video promised: the two install commands, and which agents to put to work first. Read from the repo's README on 2026-11-23 (ECC 2.2.3, MIT licence).</p>
+  <div class="actions"><a class="btn primary" data-goatcounter-click="no104-repo" href="https://github.com/affaan-m/ECC" target="_blank" rel="noopener">Open ECC on GitHub</a><a class="btn" data-goatcounter-click="no104-jump-agents" href="#agents">The agents to start with</a></div>
+</section>
+<div class="fig"><h2 class="kick">Fig. 01 ·</h2><h2 class="disp">The two install commands<span class="dot">.</span></h2><p class="sub">Type them inside Claude Code, one after the other. Word for word from the README's "Claude Code details" section.</p></div>
+<section class="issues" id="install">
+  <article class="issue"><h3>1 · Add the marketplace</h3><pre class="code"><code>/plugin marketplace add https://github.com/affaan-m/ECC</code></pre></article>
+  <article class="issue"><h3>2 · Install the plugin</h3><pre class="code"><code>/plugin install ecc@ecc</code></pre><p>This installs ECC's skills, agents, commands and plugin-managed hooks. Check what landed with <code>/plugin list ecc@ecc</code>.</p></article>
+  <article class="issue"><h3>What you need</h3><p>Claude Code 2.1 or newer and Git on your PATH. It runs on Mac and Linux; native Windows is "supported with limitations" (the continuous-learning observer and memory-vault writes have open issues), and WSL follows the Linux path.</p></article>
+  <article class="issue"><h3>Install it once</h3><p>Pick one install path per tool. The README is explicit: if you use these two commands, stop there and do not also run the full manual install, or skills, commands and hooks get duplicated. If a command reports an existing install or a scope conflict, the README points you to its guided setup instead of layering a second install on top.</p></article>
+</section>
+<div class="fig" id="agents"><h2 class="kick">Fig. 02 ·</h2><h2 class="disp">The agents to start with<span class="dot">.</span></h2><p class="sub">The plugin brings every agent at once. The README's own advice is to start with the workflow you need, not the full catalogue, so these are the four to put to work first, each with the command from the README that calls it.</p></div>
+<section class="issues">
+  <article class="issue"><h3>1 · planner, for any new feature</h3><pre class="code"><code>/ecc:plan "Add user authentication with OAuth"</code></pre><p>The planner writes the implementation blueprint before any code. For a design call, bring the <b>architect</b> agent into the same plan.</p></article>
+  <article class="issue"><h3>2 · code-reviewer, after you write code</h3><pre class="code"><code>/code-review</code></pre><p>A fresh-context review of what you just wrote, to catch regressions.</p></article>
+  <article class="issue"><h3>3 · build-error-resolver, when a build breaks</h3><pre class="code"><code>/build-fix</code></pre></article>
+  <article class="issue"><h3>4 · security-reviewer, before you ship</h3><pre class="code"><code>/security-scan</code></pre><p>An OWASP Top 10 audit of your code.</p></article>
+  <article class="issue"><h3>Then, for your stack</h3><p>Add the reviewer for the language you write: <code>/go-review</code> runs <b>go-reviewer</b>, <code>/python-review</code> runs <b>python-reviewer</b>, and <b>typescript-reviewer</b> is called directly by name. The <b>e2e-runner</b> agent (Playwright end-to-end tests) comes in through the <code>e2e-testing</code> skill once you have user flows worth testing.</p></article>
+</section>
+<div class="fig" id="extras"><h2 class="kick">Fig. 03 ·</h2><h2 class="disp">What the plugin leaves to you<span class="dot">.</span></h2></div>
+<section class="issues">
+  <article class="issue"><h3>MCP configs: copy the ones you want</h3><p>The plugin does not switch on ECC's MCP server definitions. The GitHub, Supabase, Vercel and Railway entries sit in <code>mcp-configs/mcp-servers.json</code> in the repo: copy the ones you use into your project's <code>.mcp.json</code> (or add them with <code>/mcp</code>) and replace the <code>YOUR_*_HERE</code> placeholders with your own keys.</p></article>
+  <article class="issue"><h3>Rules: add one pack, not all of them</h3><p>Plugins cannot ship rules, so the README says to copy <code>rules/common</code> plus one pack for the language you actually use.</p><pre class="code"><code>git clone https://github.com/affaan-m/ECC.git
+cd ECC
+mkdir -p ~/.claude/rules/ecc
+cp -R rules/common ~/.claude/rules/ecc/
+cp -R rules/typescript ~/.claude/rules/ecc/  # replace with your stack</code></pre></article>
+  <article class="issue"><h3>Skills from your git history</h3><pre class="code"><code>/skill-create</code></pre><p>Run it in a repo: it reads the git history locally and writes the patterns it finds as SKILL.md files. It is a command you run, not something that happens on its own.</p></article>
+</section>
+</div>
