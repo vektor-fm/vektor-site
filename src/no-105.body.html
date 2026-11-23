@@ -1,0 +1,24 @@
+<div id="no105-page">
+<section class="hero">
+  <div class="kick eye">The MATRIX page · the frames and the code</div>
+  <h1 class="disp">The game that labelled itself<span class="dot">.</span></h1>
+  <p class="sub">Hand-labelling one street photo for a self-driving dataset took about 90 minutes. In 2016 a team from TU Darmstadt and Intel Labs pulled labelled frames straight out of GTA V at 7 seconds each, and a University of Michigan team then trained a car detector on game frames alone that beat one trained on real, hand-labelled photos. Both teams put their work online. Here are the two links the video promised, with each one's own usage terms, read from their pages on 2026-11-23.</p>
+  <div class="actions"><a class="btn primary" data-goatcounter-click="no105-pfd" href="https://download.visinf.tu-darmstadt.de/data/from_games/" target="_blank" rel="noopener">The labelled GTA V frames</a><a class="btn" data-goatcounter-click="no105-ditm" href="https://github.com/umautobots/driving-in-the-matrix" target="_blank" rel="noopener">The Michigan code</a></div>
+</section>
+<div class="fig"><h2 class="kick">Fig. 01 ·</h2><h2 class="disp">The labelled GTA V frames<span class="dot">.</span></h2><p class="sub">Playing for Data: Ground Truth from Computer Games, by Stephan Richter, Vibhav Vineet, Stefan Roth and Vladlen Koltun (TU Darmstadt and Intel Labs, ECCV 2016, arXiv 1608.02192).</p></div>
+<section class="issues" id="frames">
+  <article class="issue"><h3>What is on the page</h3><p>24,966 densely labelled frames from GTA V, split into 10 parts, each part a PNG image archive (about 5.3 to 6 GB) plus a label archive (about 70 MB). The class labels are compatible with the CamVid and Cityscapes datasets, and the page links sample code and a training, validation and test split. The code for extracting data from games is linked from the same page.</p><p><a data-goatcounter-click="no105-pfd-2" href="https://download.visinf.tu-darmstadt.de/data/from_games/" target="_blank" rel="noopener">download.visinf.tu-darmstadt.de/data/from_games</a></p></article>
+  <article class="issue"><h3>The numbers from the paper</h3><p>Average annotation time 7 seconds per image, against 90 minutes per image reported for Cityscapes (771 times faster). The labelling of 25 thousand images was completed in 49 hours, about two days.</p></article>
+  <article class="issue"><h3>Usage terms</h3><p>The page says: "the data is for research and educational use only." It also asks you to cite the paper if you use the code or data.</p></article>
+</section>
+<div class="fig" id="code"><h2 class="kick">Fig. 02 ·</h2><h2 class="disp">The Michigan code<span class="dot">.</span></h2><p class="sub">Driving in the Matrix: Can Virtual Worlds Replace Human-Generated Annotations for Real World Tasks?, by Matthew Johnson-Roberson, Charles Barto, Rounak Mehta, Sharath Nittur Sridhar, Karl Rosaen and Ram Vasudevan (University of Michigan, ICRA 2017, arXiv 1610.01983).</p></div>
+<section class="issues">
+  <article class="issue"><h3>What is in the repo</h3><p>The steps to reproduce the paper's training results: train a Faster R-CNN car detector on the GTA frames, then evaluate it on the real KITTI benchmark. The README links the GTA capture tool (GTAVisionExport) and the team's download page for the 10k, 50k and 200k image sets.</p><p><a data-goatcounter-click="no105-ditm-2" href="https://github.com/umautobots/driving-in-the-matrix" target="_blank" rel="noopener">github.com/umautobots/driving-in-the-matrix</a></p></article>
+  <article class="issue"><h3>The result from the paper</h3><p>Table II, car detection on KITTI (easy cars, mAP at 0.7 overlap): trained on 50,000 GTA images, 0.6856; trained on 2,975 real, hand-labelled Cityscapes images, 0.6247. The detector never saw a KITTI image in training.</p></article>
+  <article class="issue"><h3>Usage terms</h3><p>The repo states no licence (checked on GitHub on 2026-11-23). The paper says the source code and data are made available for researchers, and the README asks you to cite the paper if you find it useful in your research. On 2026-11-23 the team's dataset page (fcav.engin.umich.edu/sim-dataset) asked for a login, so the image sets may not download without the team's access.</p></article>
+</section>
+<div class="fig" id="idea"><h2 class="kick">Fig. 03 ·</h2><h2 class="disp">Why it matters<span class="dot">.</span></h2></div>
+<section class="issues">
+  <article class="issue"><h3>Synthetic data</h3><p>A game engine already knows what every pixel is, so its frames arrive labelled. Training on generated data instead of hand-labelled photos now has its own name, synthetic data, and the two papers above are two of its early, well-known results.</p></article>
+</section>
+</div>
