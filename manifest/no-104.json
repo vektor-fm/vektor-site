@@ -1,0 +1,21 @@
+{
+  "number": "104",
+  "title": "vektor /// no. 104 · The ECC setup: two install commands and the agents to start with",
+  "description": "Everything Claude Code (affaan-m/ECC), the open-source Claude Code setup: the two install commands from its README, the agents to start with and the command that calls each one, and the MCP configs you copy across yourself.",
+  "og_title": "The ECC setup · vektor /// no. 104",
+  "og_description": "The two install commands for Everything Claude Code and which agents to start with.",
+  "og_image": "https://vektor-fm.github.io/vektor-site/og/vektor-og.png",
+  "og_alt": "Vektor · the SETUP page",
+  "og_url": "https://vektor-fm.github.io/vektor-site/no-104.html",
+  "canonical": "https://vektor-fm.github.io/vektor-site/no-104.html",
+  "tw_title": "The ECC setup · vektor /// no. 104",
+  "tw_description": "The two install commands for Everything Claude Code and which agents to start with.",
+  "tw_image": "https://vektor-fm.github.io/vektor-site/og/vektor-og.png",
+  "marker": "The SETUP page · two commands, then four agents",
+  "sticky_text": "Follow <b>@vektor.fm</b> → a new keyword every week",
+  "backref_html": "A new keyword drops every week: <b>catch it first on the reel</b>, follow @vektor.fm. <a href=\"./index.html\">Back to the index</a>",
+  "footer_meta": "/// no. 104 / setup / 11-2026 · start with four agents, not all of them",
+  "copy_event": null,
+  "subscribe_track": false,
+  "slug": "no104"
+}

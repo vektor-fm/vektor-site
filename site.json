@@ -533,6 +533,16 @@
       "lastmod": "2026-11-19",
       "built": true,
       "unlock": "dc09dae749"
+    },
+    {
+      "number": "104",
+      "title_short": "Everything Claude Code: two install commands, four agents first",
+      "section": "Claude Code",
+      "date": "11-2026",
+      "keyword": "SETUP",
+      "lastmod": "2026-11-23",
+      "built": true,
+      "unlock": "cf5ad9e909"
     }
   ],
   "teardowns": [
