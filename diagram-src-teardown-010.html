@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>The Karpathy file, same task with and without: diagram</title>
+<!-- Rendered to diagrams/teardown-010.png by render-diagram.mjs. 1200x750 (email shows ~600px, 2x for retina).
+     PNG, not SVG: Outlook and Gmail do not render inline SVG.
+
+     WHY A BEFORE / AFTER. The hard part of this issue is what the file actually changes, and the answer is
+     two diffs. Policy (docs/NEWSLETTER-VISUAL-POLICY.md): before/after only with an honest measured number on
+     both sides. Both sides are measured: the same prompt, the same repo, 4 runs each, run 2026-11-11.
+
+     Every figure is from data/2026-11-11-karpathy-file-tested-no098/test-run/RESULTS.md and the per-run
+     diffs in runs/ in vektor-producer (without-1.diff, with-1.diff; diffstats of all 8 runs read 2026-11-23).
+     The code shown is the added lines of cart.py as Claude wrote them in without-1 and with-1; the other
+     three runs of each arm are the same shape. Type is large on purpose: nothing here is under 20px. -->
+<style>
+@font-face{font-family:'Archivo Expanded';src:url(fonts/archivo-expanded-400.woff2) format('woff2');font-weight:400;font-display:block}
+@font-face{font-family:'Archivo Text';src:url(fonts/archivo-400.woff2) format('woff2');font-weight:400;font-display:block}
+@font-face{font-family:'Printvetica';src:url(fonts/printvetica-caps.woff2) format('woff2');font-weight:400;font-display:block}
+@font-face{font-family:'IBM Plex Mono';src:url(fonts/ibm-plex-mono-400-latin.woff2) format('woff2');font-weight:400;font-display:block}
+:root{--bg:#000;--fg:#FFF;--rule:#C9C9C9;--meta:#AAA;--dim:#D2D2D2;--accent:#0E9C86;
+  --extended:'Archivo Expanded','Archivo Text',system-ui,sans-serif;--sans:'Archivo Text',system-ui,sans-serif;
+  --label:'Printvetica','Archivo Text',system-ui,sans-serif;--mono:'IBM Plex Mono',ui-monospace,monospace;}
+*{box-sizing:border-box;margin:0}
+html,body{width:1200px;height:750px;overflow:hidden}
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);padding:30px 48px 34px;display:flex;flex-direction:column;}
+.head{display:flex;justify-content:space-between;align-items:baseline;padding-bottom:14px;border-bottom:1px solid var(--rule);}
+.head .t{font-family:var(--extended);text-transform:uppercase;font-size:30px;line-height:1;}
+.head .m{font-family:var(--label);text-transform:uppercase;letter-spacing:.025em;font-size:16px;color:var(--meta);}
+.task{margin-top:16px;font-family:var(--sans);font-size:21px;line-height:26px;color:var(--meta);}
+.task b{display:block;margin-top:4px;font-family:var(--mono);font-size:20px;color:var(--fg);}
+
+.cols{margin-top:16px;display:flex;flex-direction:column;gap:14px;}
+.col{border:1px solid #555;}
+.col.on{border-color:var(--accent);}
+.ch{padding:10px 20px 8px;border-bottom:1px solid #333;display:flex;justify-content:space-between;align-items:baseline;white-space:nowrap;}
+.ch .k{font-family:var(--label);text-transform:uppercase;letter-spacing:.025em;font-size:20px;color:var(--meta);}
+.col.on .ch .k{color:var(--accent);}
+.ch .n{font-family:var(--extended);font-size:36px;line-height:1;}
+.ch .n small{font-family:var(--label);font-size:20px;color:var(--meta);letter-spacing:.025em;text-transform:uppercase;margin-left:8px;}
+.code{padding:9px 20px;font-family:var(--mono);font-size:21px;line-height:26px;white-space:pre;color:var(--dim);}
+.code .a{color:var(--fg);}
+.code .p{color:var(--accent);}
+.code .m{color:#999;}
+
+.prov{margin-top:auto;padding-top:12px;border-top:1px solid var(--rule);display:flex;justify-content:space-between;align-items:baseline;gap:26px;}
+.prov .k{font-family:var(--label);text-transform:uppercase;letter-spacing:.025em;font-size:20px;color:var(--accent);flex:none;}
+.prov .v{font-family:var(--mono);font-size:20px;line-height:1.2;color:var(--dim);text-align:right;}
+</style>
+</head>
+<body>
+<div class="head"><div class="t">One task, with and without the file</div><div class="m">The Teardown &middot; 010</div></div>
+
+<div class="task">The prompt, word for word: <b>"Add discount code support to total(). The code SAVE10 takes 10% off."</b></div>
+
+<div class="cols">
+  <div class="col">
+    <div class="ch"><span class="k">Without the file &middot; a lookup table, 4 of 4 runs</span><span class="n">6<small>lines added</small></span></div>
+    <div class="code"><span class="m">-def total(items):</span>
+<span class="p">+</span><span class="a">DISCOUNT_CODES = {"SAVE10": 0.10}</span>
+<span class="p">+</span>
+<span class="p">+</span>
+<span class="p">+</span><span class="a">def total(items, code=None):</span>
+     ...
+<span class="p">+</span><span class="a">    if code is not None:</span>
+<span class="p">+</span><span class="a">        t = t * (1 - DISCOUNT_CODES.get(code, 0))</span></div>
+  </div>
+  <div class="col on">
+    <div class="ch"><span class="k">With the file &middot; one check, 4 of 4 runs</span><span class="n">3<small>lines added</small></span></div>
+    <div class="code"><span class="m">-def total(items):</span>
+<span class="p">+</span><span class="a">def total(items, code=None):</span>
+     ...
+<span class="p">+</span><span class="a">    if code == "SAVE10":</span>
+<span class="p">+</span><span class="a">        t = t * 0.9</span></div>
+  </div>
+</div>
+
+<div class="prov">
+  <span class="k">All 8 runs ran the tests and reported them truthfully</span>
+  <span class="v">one toy repo &middot; 11 Nov 2026</span>
+</div>
+</body>
+</html>

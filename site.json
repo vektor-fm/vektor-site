@@ -599,6 +599,12 @@
       "title": "Give your agent a checker",
       "date": "2026-11-18",
       "subject": "Give your agent a checker"
+    },
+    {
+      "number": "010",
+      "title": "Does the Karpathy file work?",
+      "date": "2026-11-24",
+      "subject": "Does the Karpathy file work?"
     }
   ],
   "proof": {
