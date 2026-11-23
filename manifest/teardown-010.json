@@ -1,0 +1,21 @@
+{
+  "number": "010",
+  "title": "The Teardown 010 · Does the Karpathy file work?",
+  "description": "We tested the 2 KB CLAUDE.md with 235,000 stars the boring way: the same task with and without it, four runs each. It cut the code Claude added from six lines to three, and changed nothing about honesty.",
+  "og_title": "Does the Karpathy file work? · The Teardown 010",
+  "og_description": "The same task, same model, with and without the Karpathy CLAUDE.md: 4 runs each. What changed, what did not, and the one-line install.",
+  "og_image": "https://vektor-fm.github.io/vektor-site/diagrams/teardown-010.png",
+  "og_alt": "The test behind issue 010: the same task with and without the Karpathy CLAUDE.md, as two code diffs.",
+  "og_url": "https://vektor-fm.github.io/vektor-site/teardown-010.html",
+  "canonical": "https://vektor-fm.github.io/vektor-site/teardown-010.html",
+  "tw_title": "Does the Karpathy file work? · The Teardown 010",
+  "tw_image": "https://vektor-fm.github.io/vektor-site/diagrams/teardown-010.png",
+  "tw_description": "The same task with and without the Karpathy CLAUDE.md, four runs each. What changed and what did not.",
+  "marker": "The Teardown · 009",
+  "sticky_text": "One teardown a week · <b>the working setup</b>",
+  "backref_html": "A practical AI teardown from Vektor. This issue tests one file that is popular on GitHub: the same task, with and without it.",
+  "footer_meta": "/// the teardown / 010 / 11-2026 · 8 runs, one toy repo",
+  "copy_event": "teardown-010-copy",
+  "subscribe_track": true,
+  "slug": "teardown010"
+}

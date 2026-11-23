@@ -1,0 +1,67 @@
+<section class="hero">
+  <div class="kick eye">The Teardown · 010</div>
+  <h1 class="disp">Does the Karpathy<br>file work<span class="dot">?</span></h1>
+  <p class="sub">A 2 KB CLAUDE.md with 235,000 stars on GitHub, tested the boring way: the same task, the same model, with and without it. It halved the code Claude added for one task, and it changed nothing about whether Claude tells the truth.</p>
+  <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+</section>
+
+<div class="fig" id="why"><h2 class="kick">Fig. 01 ·</h2><span class="gaccent">what the file is</span><span class="line"></span></div>
+<section class="issues"><article class="issue">
+  <p>The repository <code>multica-ai/andrej-karpathy-skills</code> holds one file, <code>CLAUDE.md</code>, 2,357 bytes when we fetched it.<sup><a href="#s1">[1]</a></sup> Its README says it is derived from Andrej Karpathy's observations about where language models go wrong when they write code, and it lists four principles: Think Before Coding, Simplicity First, Surgical Changes, Goal-Driven Execution.<sup><a href="#s2">[2]</a></sup> The repository showed 235,182 stars on 2026-11-23.<sup><a href="#s1">[1]</a></sup></p>
+  <p>Claude Code reads a <code>CLAUDE.md</code> in your project root at the start of every session.<sup><a href="#s3">[3]</a></sup> So the file is a standing instruction: no features beyond what was asked, no abstractions for single-use code, touch only what you must, state your assumptions. The question we wanted answered is the plain one: does a session that has this file write different code from a session that does not?</p>
+</article></section>
+
+<div class="fig" id="run"><h2 class="kick">Fig. 02 ·</h2><span class="gaccent">the same task, with and without</span><span class="line"></span></div>
+<section class="issues"><article class="issue">
+  <p>We copied a 15-line shopping-cart module and its one test into a fresh folder for every run. The prompt was the same every time: <i>"Add discount code support to total(). The code SAVE10 takes 10% off."</i> Model: Claude Sonnet, through <code>claude -p</code> in Claude Code 2.1.322. Four runs without the file, four with it. Run on 2026-11-11.</p>
+  <figure class="plate"><img src="diagrams/teardown-010.png" alt="The same discount-code task with and without the Karpathy file. Without it, Claude adds six lines including a lookup table of codes. With it, three lines and one check, in 4 of 4 runs each." width="1200" height="750"></figure>
+  <ul>
+    <li><b>Without the file, 4 of 4 runs built a lookup table of discount codes</b> to hold exactly one code, and one run's closing note says other codes "can be added to the DISCOUNT_CODES dict". Six lines added to <code>cart.py</code> every time.</li>
+    <li><b>With the file, 4 of 4 runs wrote one <code>if</code></b> for the one code. Three lines added every time. The tests Claude added were the same size in both arms (7 lines).</li>
+    <li><b>Assumptions:</b> with the file, all 4 final messages flagged what Claude did with an unknown code and offered to change it. Without the file, 2 of 4 did.</li>
+  </ul>
+  <p>Where the file did not help, or we saw no difference:</p>
+  <ul>
+    <li><b>Claiming "done" without checking: not observed.</b> Every one of the 14 runs in this test, both arms and all three tasks, ran the tests and reported the result truthfully. The file's "verify before done" idea changed nothing here because today's Claude already did it.</li>
+    <li><b>Touching code it should leave alone: not observed.</b> The unused function in the module was left untouched in 14 of 14 runs, with the file and without.</li>
+    <li><b>"Add input validation":</b> 12 and 18 lines added without the file, 10 and 10 with it. Two runs per arm, so we call that a lean, not a result.</li>
+    <li><b>"Make total() faster":</b> one run per arm, identical one-line change.</li>
+  </ul>
+</article></section>
+
+<div class="fig" id="file"><h2 class="kick">Fig. 03 ·</h2><span class="gaccent">the file and our test kit</span><span class="line"></span></div>
+<section class="issues"><article class="issue">
+  <p>We do not republish the file here: the repository carries no licence (the GitHub API reports none, 2026-11-23). Take it from the source:</p>
+<pre class="code"><code>curl -s https://raw.githubusercontent.com/multica-ai/andrej-karpathy-skills/main/CLAUDE.md</code></pre>
+  <p>Our test kit is ours to share: the script that makes one run (<a href="files/teardown-010/run.sh" download>run.sh</a>), and the cart module and test it starts from (<a href="files/teardown-010/base/cart.py" download>cart.py</a>, <a href="files/teardown-010/base/test_cart.py" download>test_cart.py</a>). Save the file you downloaded as <code>src/CLAUDE.md</code> next to <code>base/</code>, then <code>./run.sh with 4</code> and <code>./run.sh without 4</code> run one task each, in a fresh folder, and leave the diff next to the transcript. It needs Claude Code installed and runs on your own usage; our 14 runs cost $0.66 in total (sum of each run's reported cost, 2026-11-23).</p>
+  <p>How we loaded the file matters, so we say it: in the "with" arm we passed it with <code>--append-system-prompt-file</code> rather than saving it as a project <code>CLAUDE.md</code>, because this machine's own global instructions would otherwise have leaked into both arms. In both arms we switched off every other instruction file and memory. That is a close stand-in for a project install, not the same thing.</p>
+</article></section>
+
+<div class="fig" id="install"><h2 class="kick">Fig. 04 ·</h2><span class="gaccent">install in 2 minutes</span><span class="line"></span></div>
+<section class="issues"><article class="issue">
+  <ol>
+    <li><b>Add it to your project.</b> From the project root: <code>curl -s https://raw.githubusercontent.com/multica-ai/andrej-karpathy-skills/main/CLAUDE.md &gt;&gt; CLAUDE.md</code>. That creates <code>CLAUDE.md</code> if you have none and appends to it if you do.</li>
+    <li><b>Begin a new Claude Code session</b> in that folder. The file is read at the start of every session.</li>
+    <li><b>Give it a small, vague task</b> such as "add a discount code" and read the diff, not the summary. The thing to look for is structure nobody asked for.</li>
+    <li><b>Keep it only if the diffs get smaller.</b> The file adds about 2.3 KB to every session, so a project that does not need it should not carry it.</li>
+  </ol>
+  <p>Time: not measured with a person.</p>
+</article></section>
+
+<div class="fig" id="caveat"><h2 class="kick">Fig. 05 ·</h2><span class="gaccent">what remains untested</span><span class="line"></span></div>
+<section class="issues"><article class="issue">
+  <p>One model, one 15-line repository, one main task run four times per arm. The discount result is the same in every run, which is why we report it, but it is one toy task: we do not know the size of the effect on a real codebase, on a longer task, or on a model other than Claude Sonnet. The file is also not free to carry: it is text that Claude reads before every task in the project.</p>
+  <p>We could not read Karpathy's original post ourselves: X returned HTTP 402 when we tried on 2026-11-23. What we say about it comes from the repository's README, which quotes it, so treat that as relayed.</p>
+</article></section>
+
+<div class="fig"><h2 class="kick">Fig. 06 ·</h2><span class="gaccent">dated sources</span><span class="line"></span></div>
+<section class="issues" id="sources"><article class="issue">
+  <ol class="ledger">
+    <li id="s1"><b>[1]</b> GitHub, <a href="https://github.com/multica-ai/andrej-karpathy-skills" target="_blank" rel="noopener">multica-ai/andrej-karpathy-skills</a>, <code>CLAUDE.md</code> (2,357 bytes, fetched 2026-11-23). Repository data read through the GitHub API on 2026-11-23: 235,182 stars, no licence listed, last push 2026-04-20.</li>
+    <li id="s2"><b>[2]</b> The same repository's README, read 2026-11-23: describes the file as derived from Karpathy's observations and names the four principles.</li>
+    <li id="s3"><b>[3]</b> Anthropic, <a href="https://code.claude.com/docs/en/memory" target="_blank" rel="noopener">How Claude remembers your project</a>, read 2026-11-23, no date displayed: "Claude reads them at the start of every session"; a project file lives in <code>./CLAUDE.md</code> or <code>./.claude/CLAUDE.md</code>.</li>
+  </ol>
+  <p class="meta">The test, its runs and every diff are ours (2026-11-11). Results are from our run notes and the per-run diffs; counts re-read on 2026-11-23.</p>
+
+  <div class="actions"><a class="btn primary" href="#subscribe">Subscribe to The Teardown →</a></div>
+</article></section>
