@@ -855,12 +855,12 @@ pre.code code{font-size:inherit;}
 #no006-page .runs th,#no006-page .runs td{border-top:1px solid var(--rule);padding:var(--p-s) var(--p-s) var(--p-s) 0;text-align:left;vertical-align:top;}
 #no006-page .runs th{font-family:var(--font-label);text-transform:uppercase;letter-spacing:.025em;font-size:var(--fs-xs);color:var(--meta);font-weight:400;}
 #no006-page .tablewrap{overflow-x:auto;}
+@media(max-width:560px){#no006-page .runs thead{display:none;}#no006-page .runs,#no006-page .runs tbody,#no006-page .runs tr,#no006-page .runs td{display:block;width:100%;}#no006-page .runs tr{border-top:1px solid var(--rule);padding:var(--p-s) 0;}#no006-page .runs td{border-top:0;padding:2px 0 2px calc(9em + var(--p-s));display:flow-root;}#no006-page .runs td::before{float:left;width:9em;margin-left:calc(-9em - var(--p-s));content:attr(data-label);font-family:var(--font-label);text-transform:uppercase;letter-spacing:.025em;font-size:var(--fs-xs);color:var(--meta);}}
 #no006-page blockquote{margin:var(--p-m) 0;padding-left:var(--p-m);border-left:1px solid var(--accent);color:var(--fg);}
 @media(max-width:640px){#no006-page .fig{grid-template-columns:minmax(0,1fr);}#no006-page .fig .sub{grid-column:1;}#no006-page .pair{grid-template-columns:minmax(0,1fr);}}
 </style>
 <div id="no006-page">
 <section class="hero">
-  <div class="kick eye">The KARPATHY page · one file, four rules, our test</div>
   <h1 class="disp">Only what you asked for<span class="dot">.</span></h1>
   <p class="sub">The <code>CLAUDE.md</code> file from the video, the one-line install, what it changed when we tested it, and a kit to rerun our test yourself. The file is andrej-karpathy-skills: four rules, built from Andrej Karpathy's notes on how coding models fail, that Claude Code reads at the start of every session.</p>
   <div class="snippet">
@@ -871,7 +871,7 @@ pre.code code{font-size:inherit;}
   <div class="actions"><a class="btn primary" data-goatcounter-click="no006-jump-install" href="#install">Where to put it</a><a class="btn" data-goatcounter-click="no006-jump-test" href="#test">Our test</a><a class="btn" data-goatcounter-click="no006-jump-kit" href="#kit">Rerun it</a></div>
 </section>
 
-<div class="fig"><h2 class="kick">Fig. 01 ·</h2><h2 class="disp">Where to put it<span class="dot">.</span></h2><p class="sub">Pick the one row that matches you. The file and Cursor lines come from the repo's README and CURSOR.md; the every-project and Codex rows come from Anthropic's and OpenAI's own docs. Every URL below answered 200 on 2026-11-26.</p></div>
+<div class="fig"><h2 class="kick">Fig. 01</h2><h2 class="disp">Where to put it<span class="dot">.</span></h2><p class="sub">Pick the one row that matches you. The file and Cursor lines come from the repo's README and CURSOR.md; the every-project and Codex rows come from Anthropic's and OpenAI's own docs. Every URL below answered 200 on 2026-11-26.</p></div>
 <section class="issues" id="install">
   <article class="issue"><h3>This project, new <code>CLAUDE.md</code></h3><p>From your project root. Claude Code reads a <code>CLAUDE.md</code> there at the start of every session.</p>
     <div class="snippet"><div class="bar"><span class="f">terminal</span><button class="snipbtn" type="button" data-copy-target="#cmdNew" data-copy-event="no006-copy-new">Copy</button></div><pre id="cmdNew">curl -o CLAUDE.md https://raw.githubusercontent.com/multica-ai/andrej-karpathy-skills/main/CLAUDE.md</pre></div></article>
@@ -896,7 +896,7 @@ curl -o .cursor/rules/karpathy-guidelines.mdc https://raw.githubusercontent.com/
     <div class="snippet"><div class="bar"><span class="f">inside Claude Code</span><button class="snipbtn" type="button" data-copy-target="#cmdCheck" data-copy-event="no006-copy-check">Copy</button></div><pre id="cmdCheck">/context all</pre></div></article>
 </section>
 
-<div class="fig" id="file"><h2 class="kick">Fig. 02 ·</h2><h2 class="disp">The whole file<span class="dot">.</span></h2><p class="sub">All 65 lines, word for word from the repo on 2026-11-26. Paste it by hand if you would rather not use a terminal. MIT, as stated in the README (the repo has no LICENSE file). The file has one commit, from 2026-01-27: it has not changed since.</p></div>
+<div class="fig" id="file"><h2 class="kick">Fig. 02</h2><h2 class="disp">The whole file<span class="dot">.</span></h2><p class="sub">All 65 lines, word for word from the repo on 2026-11-26. Paste it by hand if you would rather not use a terminal. MIT, as stated in the README (the repo has no LICENSE file). The file has one commit, from 2026-01-27: it has not changed since.</p></div>
 <section class="issues">
   <article class="issue">
     <div class="snippet long"><div class="bar"><span class="f">CLAUDE.md · 65 lines</span><button class="snipbtn" type="button" data-copy-target="#karpathyFile" data-copy-event="no006-copy-file">Copy all</button></div><pre id="karpathyFile"># CLAUDE.md
@@ -968,7 +968,7 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
   </article>
 </section>
 
-<div class="fig" id="rules"><h2 class="kick">Fig. 03 ·</h2><h2 class="disp">The four rules<span class="dot">.</span></h2><p class="sub">The file's four headings and the line under each, word for word.</p></div>
+<div class="fig" id="rules"><h2 class="kick">Fig. 03</h2><h2 class="disp">The four rules<span class="dot">.</span></h2><p class="sub">The file's four headings and the line under each, word for word.</p></div>
 <section class="issues">
   <article class="issue"><h3>1 · Think Before Coding</h3><p>"Don't assume. Don't hide confusion. Surface tradeoffs." State assumptions, and ask when unsure.</p></article>
   <article class="issue"><h3>2 · Simplicity First</h3><p>"Minimum code that solves the problem. Nothing speculative." Its first bullet: "No features beyond what was asked."</p></article>
@@ -977,7 +977,7 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
   <article class="issue"><h3>Its own caveat</h3><p>"These guidelines bias toward caution over speed. For trivial tasks, use judgment."</p></article>
 </section>
 
-<div class="fig" id="test"><h2 class="kick">Fig. 04 ·</h2><h2 class="disp">Our test<span class="dot">.</span></h2><p class="sub">On 2026-11-11 we ran Claude Code (2.1.322) unattended with <code>claude -p --model sonnet</code> on a 15-line <code>cart.py</code> and gave it one request: "Add discount code support to total(). The code SAVE10 takes 10% off." Four runs without the file, four with it, everything else the same.</p></div>
+<div class="fig" id="test"><h2 class="kick">Fig. 04</h2><h2 class="disp">Our test<span class="dot">.</span></h2><p class="sub">On 2026-11-11 we ran Claude Code (2.1.322) unattended with <code>claude -p --model sonnet</code> on a 15-line <code>cart.py</code> and gave it one request: "Add discount code support to total(). The code SAVE10 takes 10% off." Four runs without the file, four with it, everything else the same.</p></div>
 <section class="issues">
   <div class="pair">
     <article class="issue"><h3>Without the file</h3><p>Every run (4 of 4) built a lookup table for one code. One run's summary: "Other codes can be added to the DISCOUNT_CODES dict". The real diff from run 1:</p><pre class="code"><code>-def total(items):
@@ -1000,23 +1000,23 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 +        t = t * 0.9
      return round(t, 2)</code></pre><p class="meta">cart.py: 3 lines added, 1 removed.</p></article>
   </div>
-  <article class="issue"><h3>All 14 runs</h3><p>The discount request, plus two smaller ones to see where the file stops mattering.</p>
+  <article class="issue"><h3>All 14 runs</h3><p>The discount request, plus two smaller ones to see where the file stops mattering. Lines added are to cart.py. The exact requests: "Add input validation to total()." and "Make total() faster."</p>
     <div class="tablewrap"><table class="runs">
-      <thead><tr><th>Request</th><th>Arm</th><th>Runs</th><th>Lines added to cart.py</th><th>Ran tests, reported truthfully</th></tr></thead>
+      <thead><tr><th>Task</th><th>Arm</th><th>Runs</th><th>Lines added</th><th>Tests ran + told truth</th></tr></thead>
       <tbody>
-        <tr><td>Discount code SAVE10</td><td>without</td><td>4</td><td>6, 6, 6, 6 (a codes table, every run)</td><td>4 of 4</td></tr>
-        <tr><td>Discount code SAVE10</td><td>with</td><td>4</td><td>3, 3, 3, 3 (one <code>if</code>, every run)</td><td>4 of 4</td></tr>
-        <tr><td>"Add input validation to total()."</td><td>without</td><td>2</td><td>12, 18 (one run adds a helper)</td><td>2 of 2</td></tr>
-        <tr><td>"Add input validation to total()."</td><td>with</td><td>2</td><td>10, 10</td><td>2 of 2</td></tr>
-        <tr><td>"Make total() faster."</td><td>without</td><td>1</td><td>1 (a <code>sum()</code> rewrite)</td><td>1 of 1</td></tr>
-        <tr><td>"Make total() faster."</td><td>with</td><td>1</td><td>1 (the same rewrite)</td><td>1 of 1</td></tr>
+        <tr><td data-label="Task">Discount SAVE10</td><td data-label="Arm">without</td><td data-label="Runs">4</td><td data-label="Lines added">6 each (a codes table)</td><td data-label="Tests ran + told truth">4 of 4</td></tr>
+        <tr><td data-label="Task">Discount SAVE10</td><td data-label="Arm">with</td><td data-label="Runs">4</td><td data-label="Lines added">3 each (one <code>if</code>)</td><td data-label="Tests ran + told truth">4 of 4</td></tr>
+        <tr><td data-label="Task">Input validation</td><td data-label="Arm">without</td><td data-label="Runs">2</td><td data-label="Lines added">12, 18</td><td data-label="Tests ran + told truth">2 of 2</td></tr>
+        <tr><td data-label="Task">Input validation</td><td data-label="Arm">with</td><td data-label="Runs">2</td><td data-label="Lines added">10, 10</td><td data-label="Tests ran + told truth">2 of 2</td></tr>
+        <tr><td data-label="Task">Make it faster</td><td data-label="Arm">without</td><td data-label="Runs">1</td><td data-label="Lines added">1 (a <code>sum()</code> rewrite)</td><td data-label="Tests ran + told truth">1 of 1</td></tr>
+        <tr><td data-label="Task">Make it faster</td><td data-label="Arm">with</td><td data-label="Runs">1</td><td data-label="Lines added">1 (the same rewrite)</td><td data-label="Tests ran + told truth">1 of 1</td></tr>
       </tbody>
     </table></div>
     <p>Assumptions: with the file, all 4 discount runs named the unknown-code choice as an assumption and offered to change it ("I made one assumption: ... If you'd rather reject bad codes, say so"). Without it, 2 of 4 did. No run in either arm touched the unused <code>_old_tax</code> function (14 of 14).</p></article>
   <article class="issue"><h3>The limits</h3><p>One model, one toy repo, four runs a side on the main request. Rule 4 changed nothing here: Claude already ran the tests and reported the result truthfully in all 14 runs, with or without the file. The with-file runs loaded the file through <code>--append-system-prompt-file</code>, with this machine's own <code>CLAUDE.md</code> files switched off in both arms; that stands in for the project-root install, it is not the install itself. It shows what the file did on this task, not what it will do on yours.</p></article>
 </section>
 
-<div class="fig" id="kit"><h2 class="kick">Fig. 05 ·</h2><h2 class="disp">Rerun our test<span class="dot">.</span></h2><p class="sub">The same four files we used, plus the script. Needs Claude Code logged in, git, Python and a POSIX shell. Each run is capped at $0.50; ours cost $0.037 to $0.055 each.</p></div>
+<div class="fig" id="kit"><h2 class="kick">Fig. 05</h2><h2 class="disp">Rerun our test<span class="dot">.</span></h2><p class="sub">The same four files we used, plus the script. Needs Claude Code logged in, git, Python and a POSIX shell. Each run is capped at $0.50; ours cost $0.037 to $0.055 each.</p></div>
 <section class="issues">
   <article class="issue"><h3>The kit</h3><p><a data-goatcounter-click="no006-kit-readme" href="./files/karpathy-test/README.md">README.md</a> (the steps and what to look for) · <a data-goatcounter-click="no006-kit-run" href="./files/karpathy-test/run.sh" download>run.sh</a> · <a data-goatcounter-click="no006-kit-cart" href="./files/karpathy-test/cart.py" download>cart.py</a> · <a data-goatcounter-click="no006-kit-test" href="./files/karpathy-test/test_cart.py" download>test_cart.py</a> · <a data-goatcounter-click="no006-kit-claude" href="./files/karpathy-test/CLAUDE.md" download>CLAUDE.md</a></p>
     <p>Put all five in one folder, then from that folder:</p>
@@ -1025,7 +1025,7 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
     <p>Then compare <code>runs/without-1.diff</code> with <code>runs/with-1.diff</code>. Look for an extra codes table without the file, and a single check with it. Pass your own request as a third argument, for example <code>./run.sh with 2 "Add input validation to total()."</code>.</p></article>
 </section>
 
-<div class="fig" id="source"><h2 class="kick">Fig. 06 ·</h2><h2 class="disp">Where the rules come from<span class="dot">.</span></h2><p class="sub">The file is built from his notes: a post Andrej Karpathy published on X on 2026-01-26, "A few random notes from claude coding quite a bit last few weeks." Rules 1 to 3 come from these lines, word for word:</p></div>
+<div class="fig" id="source"><h2 class="kick">Fig. 06</h2><h2 class="disp">Where the rules come from<span class="dot">.</span></h2><p class="sub">The file is built from his notes: a post Andrej Karpathy published on X on 2026-01-26, "A few random notes from claude coding quite a bit last few weeks." Rules 1 to 3 come from these lines, word for word:</p></div>
 <section class="issues">
   <article class="issue">
     <blockquote>"The most common category is that the models make wrong assumptions on your behalf and just run along with them without checking."</blockquote>
@@ -1037,7 +1037,7 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
   </article>
 </section>
 
-<div class="fig" id="faq"><h2 class="kick">Fig. 07 ·</h2><h2 class="disp">Five questions<span class="dot">.</span></h2></div>
+<div class="fig" id="faq"><h2 class="kick">Fig. 07</h2><h2 class="disp">Five questions<span class="dot">.</span></h2></div>
 <section class="issues">
   <article class="issue"><h3>Will it overwrite my CLAUDE.md?</h3><p>The <code>curl -o</code> line does. The append line does not; the file itself says "Merge with project-specific instructions as needed."</p></article>
   <article class="issue"><h3>One project, every project, or the plugin?</h3><p><code>./CLAUDE.md</code> is this project, always loaded; <code>~/.claude/CLAUDE.md</code> is every project, always loaded; the plugin is a skill Claude reads when it judges the task relevant (Anthropic's memory and plugin docs).</p></article>
@@ -1046,7 +1046,7 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
   <article class="issue"><h3>What else should go in the same file?</h3><p>Your test command. Anthropic's best-practices page: "the single most useful line in your CLAUDE.md is the command that runs it." It gives rule 4, loop until verified, something to run.</p></article>
 </section>
 
-<div class="fig" id="next"><h2 class="kick">Fig. 08 ·</h2><h2 class="disp">Next reads<span class="dot">.</span></h2></div>
+<div class="fig" id="next"><h2 class="kick">Fig. 08</h2><h2 class="disp">Next reads<span class="dot">.</span></h2></div>
 <section class="issues">
   <article class="issue"><h3>EXAMPLES.md, in the same repo</h3><p>Before-and-after code for each of the four rules. One caveat: two open pull requests (#196, #204) report that the test-first sorting example shows the same function as both "buggy" and "fixed".</p><p><a data-goatcounter-click="no006-examples" href="https://github.com/multica-ai/andrej-karpathy-skills/blob/main/EXAMPLES.md" target="_blank" rel="noopener">Read EXAMPLES.md</a></p></article>
   <article class="issue"><h3>Anthropic: Best practices for Claude Code</h3><p>What belongs in a <code>CLAUDE.md</code>, how to give Claude a pass-or-fail check, and when a rule should be a hook instead: "CLAUDE.md is for guidelines, and Claude is allowed to decide a guideline doesn't apply."</p><p><a data-goatcounter-click="no006-bestpractices" href="https://code.claude.com/docs/en/best-practices" target="_blank" rel="noopener">Read the best practices</a></p></article>
