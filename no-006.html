@@ -2,25 +2,25 @@
 <html lang="en" id="top"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>vektor /// no. 006 — one file. 188,000 stars.</title>
-<meta name="description" content="The Karpathy-derived CLAUDE.md from NO. 006 — repo, the four rules, and our starter file. As promised.">
+<title>vektor /// no. 006 · The KARPATHY page: the CLAUDE.md file, the one-line install and our test</title>
+<meta name="description" content="The andrej-karpathy-skills CLAUDE.md, built from Andrej Karpathy's notes: the one-line install for this project, every project, Cursor and Codex, the whole 65-line file, the four rules, our with-and-without test on a 15-line cart script, and a kit to rerun it.">
 
 <!-- OG / social preview (traffic arrives via DM) -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="One file. 188,000 stars. — vektor /// no. 006">
-<meta property="og:description" content="The Karpathy-derived CLAUDE.md from the reel — repo, four rules, starter file. No gate.">
-<meta property="og:image" content="https://vektor-fm.github.io/vektor-site/og/no-006.png">
+<meta property="og:title" content="The KARPATHY page · vektor /// no. 006">
+<meta property="og:description" content="One CLAUDE.md, four rules, the one-line install, and what it changed in our test. With a kit to rerun it.">
+<meta property="og:image" content="https://vektor-fm.github.io/vektor-site/og/vektor-og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="One file. 188,000 stars. — vektor /// no. 006">
+<meta property="og:image:alt" content="Vektor · the KARPATHY page">
 <meta property="og:site_name" content="vektor">
 <meta property="og:url" content="https://vektor-fm.github.io/vektor-site/no-006.html">
 <link rel="canonical" href="https://vektor-fm.github.io/vektor-site/no-006.html">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="One file. 188,000 stars. — vektor /// no. 006">
-<meta name="twitter:description" content="The Karpathy-derived CLAUDE.md from the reel — repo, four rules, starter file. No gate.">
-<meta name="twitter:image" content="https://vektor-fm.github.io/vektor-site/og/no-006.png">
+<meta name="twitter:title" content="The KARPATHY page · vektor /// no. 006">
+<meta name="twitter:description" content="One CLAUDE.md, four rules, the one-line install, and what it changed in our test. With a kit to rerun it.">
+<meta name="twitter:image" content="https://vektor-fm.github.io/vektor-site/og/vektor-og.png">
 <meta name="theme-color" content="#000000">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000000'/%3E%3Ctext x='32' y='47' font-family='Arial' font-size='46' font-weight='600' text-anchor='middle' fill='%23EFEADD'%3Ev%3C/text%3E%3C/svg%3E">
 <link rel="preload" href="fonts/archivo-expanded-400.woff2" as="font" type="font/woff2" crossorigin>
@@ -833,261 +833,255 @@ pre.code code{font-size:inherit;}
 
 
 <!-- the issue marker, kept: it is the only per-page label in the bar -->
-<div class="issue-marker">Claude Code · The File</div>
+<div class="issue-marker">The KARPATHY page · one file, four rules, our test</div>
 
 <!-- The capture furniture (sticky bar + pop-up) lives in partials/capture.html
      and is injected ONLY into public pages. Unlock pages get an empty string
      here — see build.mjs. The weave stays on both: it is structure, not an ask. -->
-<!-- Sticky ask. This used to be a Follow link back to Instagram, which spent
-     an IG click to win a visit and then returned the visitor to IG without
-     capturing anything. The goal is the email address, so the persistent ask
-     is now the email. Follow demotes to the footer.
-
-     THE PACK IS NO LONGER BEHIND THE EMAIL (founder, 2026-09-01). The reader
-     paid a follow in the DM; charging a second toll on the page spent funnel
-     conversion to grow a list that had sent one issue in its life. So the
-     sticky bar no longer promises to "open" anything — the payload is already
-     open, three screens down. It sells the WEEKLY, which is the only honest
-     thing left to sell. Wording that implies a lock is a lie now, not copy.
-     Full argument: vektor/reports/2026-09-01-email-gate-decision.md.
-
-     ABOVE-THE-FOLD FROM LOAD (v2, 2026-09-24). Evidence: the five biggest
-     keyword campaigns drew 1,097 opens and captured 41 emails lifetime (~4 per
-     100; worker /report). This bar previously stayed translateY(110%) — off
-     screen — until the reader scrolled past the LAST card on the page, i.e.
-     past the entire free payload. On mobile that is several screens down, so
-     most readers who bounce before finishing the page never saw an ask at
-     all. It now ships .show by default (scripts.html) so it is inside the
-     initial viewport on load, same as a cookie bar — it does not cover the
-     hook or the payload, it just rides the bottom 130-190px. Dismiss (the ×)
-     still hides it for the session.
-
-     ROLE PILLS (v2). One optional tap, POSTs as `role` alongside the email.
-     The worker (signup.js → Buttondown) does not yet turn it into a tag —
-     see vektor-site/WORKER-CHANGE-NEEDED.md for the exact change. Until that
-     ships the value still reaches the funnel worker's logs/notes field, it
-     is just not yet a Buttondown tag.
-
-     The tag still carries the PAGE slug (no006-sticky) — the worker no
-     longer needs it to decide what to unlock, but it is the only per-source
-     attribution we get in Buttondown and in /report's count:email:<source>.
-
-     This whole file is omitted from unlock pages — asking a reader for the
-     email they just gave you is how a funnel reads as a machine. -->
-<div class="sticky-cta" id="stickyCta" aria-hidden="true">
-  <div class="ask-copy">
-    <span class="t">The files stay free. One email a week — unsubscribe anytime.</span>
-    <fieldset class="role-pick">
-      <legend class="sr-only">What do you do? (optional)</legend>
-      <label class="pill"><input type="radio" name="role" value="developer" form="stickyForm"><span>Developer</span></label>
-      <label class="pill"><input type="radio" name="role" value="founder-operator" form="stickyForm"><span>Founder/operator</span></label>
-      <label class="pill"><input type="radio" name="role" value="other" form="stickyForm"><span>Other</span></label>
-    </fieldset>
-  </div>
-  <form class="sticky-form" id="stickyForm" method="post" action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" data-capture="sticky">
-      <input type="hidden" name="tag" value="no006-sticky">
-      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
-    <label class="sr-only" for="stickyEmail">Email address</label>
-    <input id="stickyEmail" name="email" type="email" placeholder="you@email.com" autocomplete="email" required>
-    <button class="btn primary" type="submit">Subscribe &rarr;</button>
-    <div class="cf-turnstile" data-sitekey="0x4AAAAAAFu7hiCL7Op-0nJV" data-theme="auto" data-appearance="interaction-only"></div>
-  </form>
-  <button class="x" id="ctaClose" type="button" aria-label="Dismiss">&times;</button>
-</div>
-
-<!-- THE ASK MODAL — one markup, two triggers, running as an A/B (2026-09-01).
-     Founder call after the evidence: the pop-up in its 50%-scroll form was
-     viewed ~47 times and dismissed ~46 of those across NO.006/034/036/038/039
-     (live /report, 30 d, pulled 2026-09-01), with no signup attributable to it.
-     The founder's read is that the ask should land at PEAK ATTENTION; the
-     disagreement was only about what signals attention — a clock or an action.
-     So both are built and split 50/50 rather than argued:
-
-       arm A — 6 s timer (the founder's version)
-       arm B — fires on the download / copy action, i.e. the moment the reader
-               takes the thing they came for
-
-     The trigger is the ONLY difference. Same markup, same copy, same cooldown,
-     so a difference in the numbers is a difference in the trigger. The arm is
-     sticky per browser (localStorage) so one reader never sees both.
-
-     The copy has to be true for BOTH arms, which is why it does not say "that
-     one's yours" (arm A fires before any download) and does not say "opens on
-     the next screen" (nothing is locked any more). It sells the weekly. -->
-<div class="pop" id="askPop" hidden>
-  <div class="pop-scrim" data-pop-close></div>
-  <div class="pop-card" role="dialog" aria-modal="true" aria-labelledby="askPopH">
-    <button class="pop-x" type="button" data-pop-close aria-label="Close">×</button>
-    <span class="k">One email a week · the working setup</span>
-    <h2 id="askPopH">Where the next one comes from.</h2>
-    <p>the File setup is yours, free, no email needed — it is on this page. The weekly teardown is where the next one gets built: one working AI setup, every week, with the numbers checked at source.</p>
-    <form action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="ask">
-      <input type="hidden" name="tag" id="askTag" value="no006-ask">
-      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
-      <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
-      <button class="btn" type="submit">Send me the weekly →</button>
-      <div class="cf-turnstile" data-sitekey="0x4AAAAAAFu7hiCL7Op-0nJV" data-theme="auto" data-appearance="interaction-only"></div>
-    </form>
-    <div class="note">One email a week. Unsubscribe in one click.</div>
-  </div>
-</div>
 
 <div class="weave" aria-hidden="true"></div>
 
 <main>
+<style>
+#no006-page .fig{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:baseline;}
+#no006-page .fig .kick{font-size:var(--fs-s);}
+#no006-page .fig .disp{min-width:0;overflow-wrap:break-word;}
+#no006-page .fig .sub{grid-column:1 / -1;min-width:0;max-width:64ch;overflow-wrap:anywhere;font-size:var(--fs-m);line-height:var(--lh-xl);color:var(--dim);}
+#no006-page pre{white-space:pre-wrap;overflow-wrap:anywhere;}
+#no006-page .snippet pre{max-height:none;}
+#no006-page .snippet.long pre{max-height:60vh;}
+#no006-page .pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--p-m);}
+#no006-page .runs{width:100%;border-collapse:collapse;margin:var(--p-m) 0;font-family:var(--font-code);font-size:var(--fs-s);line-height:var(--lh-s);}
+#no006-page .runs th,#no006-page .runs td{border-top:1px solid var(--rule);padding:var(--p-s) var(--p-s) var(--p-s) 0;text-align:left;vertical-align:top;}
+#no006-page .runs th{font-family:var(--font-label);text-transform:uppercase;letter-spacing:.025em;font-size:var(--fs-xs);color:var(--meta);font-weight:400;}
+#no006-page .tablewrap{overflow-x:auto;}
+@media(max-width:560px){#no006-page .runs thead{display:none;}#no006-page .runs,#no006-page .runs tbody,#no006-page .runs tr,#no006-page .runs td{display:block;width:100%;}#no006-page .runs tr{border-top:1px solid var(--rule);padding:var(--p-s) 0;}#no006-page .runs td{border-top:0;padding:2px 0 2px calc(9em + var(--p-s));display:flow-root;}#no006-page .runs td::before{float:left;width:9em;margin-left:calc(-9em - var(--p-s));content:attr(data-label);font-family:var(--font-label);text-transform:uppercase;letter-spacing:.025em;font-size:var(--fs-xs);color:var(--meta);}}
+#no006-page blockquote{margin:var(--p-m) 0;padding-left:var(--p-m);border-left:1px solid var(--accent);color:var(--fg);}
+@media(max-width:640px){#no006-page .fig{grid-template-columns:minmax(0,1fr);}#no006-page .fig .sub{grid-column:1;}#no006-page .pair{grid-template-columns:minmax(0,1fr);}}
+</style>
+<div id="no006-page">
 <section class="hero">
-  <div class="kick eye">Claude Code · The File</div>
-  <h1 class="disp">One file.<br>188,000<br>stars<span class="dot">.</span></h1>
-  <p class="sub">The Karpathy-derived CLAUDE.md from NO. 006 — repo, the four rules, and our starter file. As promised.</p>
-  <div class="actions">
-    <a class="btn primary" href="#starter">Our starter file ↓</a>
-    <a class="btn" data-goatcounter-click="no006-get-file" href="https://github.com/forrestchang/andrej-karpathy-skills" target="_blank" rel="noopener">Get the file →</a>
-    <button class="btn" id="shareBtn" type="button">Send to a dev friend</button>
+  <h1 class="disp">Only what you asked for<span class="dot">.</span></h1>
+  <p class="sub">The <code>CLAUDE.md</code> file from the video, the one-line install, what it changed when we tested it, and a kit to rerun our test yourself. The file is andrej-karpathy-skills: four rules, built from Andrej Karpathy's notes on how coding models fail, that Claude Code reads at the start of every session.</p>
+  <div class="snippet">
+    <div class="bar"><span class="f">terminal · your project folder</span><button class="snipbtn" type="button" data-copy-target="#cmdHero" data-copy-event="no006-copy-hero">Copy</button></div>
+    <pre id="cmdHero">curl -o CLAUDE.md https://raw.githubusercontent.com/multica-ai/andrej-karpathy-skills/main/CLAUDE.md</pre>
   </div>
-  <div class="rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
+  <p class="sub">This line replaces any <code>CLAUDE.md</code> already in the folder. Already have one? Use the append line in the install section.</p>
+  <div class="actions"><a class="btn primary" data-goatcounter-click="no006-jump-install" href="#install">Where to put it</a><a class="btn" data-goatcounter-click="no006-jump-test" href="#test">Our test</a><a class="btn" data-goatcounter-click="no006-jump-kit" href="#kit">Rerun it</a></div>
 </section>
 
-<!-- ======================= ISSUE DIVIDER ======================= -->
-<div class="fig">
-  <h2 class="kick">Fig. 01 ·</h2>
-  <span class="gaccent">the file</span>
-  <span class="line"></span>
-</div>
-
-<!-- =====================================================================
-     ISSUE BLOCK — NO. 006 · the Karpathy-derived CLAUDE.md.
-     ===================================================================== -->
-<section class="issues" id="no-006">
-
-  <!-- THE REPO (primary card) -->
-  <article class="card c-cream">
-    <div class="top">
-      <span class="tag">The repo · CLAUDE.md · Karpathy-derived</span>
-      <span class="goth">the file</span>
-    </div>
-    <h2>andrej&#8209;karpathy&#8209;skills</h2>
-    <p class="one">One CLAUDE.md in your repo root. Claude Code reads it before every task — four working rules distilled from Karpathy's notes on how LLMs fail at code.</p>
-    <span class="stars">187,849 ★ · live count via GitHub API · 2026-07-05</span>
-    <div class="actions">
-      <a class="btn" data-goatcounter-click="no006-get-file" href="https://github.com/forrestchang/andrej-karpathy-skills" target="_blank" rel="noopener">Get the file →</a>
-      <div class="copy"><code>curl -O https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md</code><button class="copybtn" data-copy="curl -O https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md">Copy</button></div>
-    </div>
-  </article>
-
-  <!-- THE HONEST PART -->
-  <article class="card c-ink">
-    <div class="top">
-      <span class="tag">The honest part</span>
-      <span class="goth">honest</span>
-    </div>
-    <h2>Karpathy didn't write it.</h2>
-    <p class="one">Forrest Chang built it from Karpathy's public notes on how LLMs fail at code. It still works.</p>
-  </article>
-
+<div class="fig"><h2 class="kick">Fig. 01</h2><h2 class="disp">Where to put it<span class="dot">.</span></h2><p class="sub">Pick the one row that matches you. The file and Cursor lines come from the repo's README and CURSOR.md; the every-project and Codex rows come from Anthropic's and OpenAI's own docs. Every URL below answered 200 on 2026-11-26.</p></div>
+<section class="issues" id="install">
+  <article class="issue"><h3>This project, new <code>CLAUDE.md</code></h3><p>From your project root. Claude Code reads a <code>CLAUDE.md</code> there at the start of every session.</p>
+    <div class="snippet"><div class="bar"><span class="f">terminal</span><button class="snipbtn" type="button" data-copy-target="#cmdNew" data-copy-event="no006-copy-new">Copy</button></div><pre id="cmdNew">curl -o CLAUDE.md https://raw.githubusercontent.com/multica-ai/andrej-karpathy-skills/main/CLAUDE.md</pre></div></article>
+  <article class="issue"><h3>This project, already has a <code>CLAUDE.md</code></h3><p>The README's append form adds the four rules under what you have. Then delete any of your own lines that disagree with them: Anthropic's docs say that when two instructions contradict, "Claude may pick one arbitrarily".</p>
+    <div class="snippet"><div class="bar"><span class="f">terminal</span><button class="snipbtn" type="button" data-copy-target="#cmdAppend" data-copy-event="no006-copy-append">Copy</button></div><pre id="cmdAppend">echo "" &gt;&gt; CLAUDE.md
+curl https://raw.githubusercontent.com/multica-ai/andrej-karpathy-skills/main/CLAUDE.md &gt;&gt; CLAUDE.md</pre></div>
+    <p>The file is 65 lines. Anthropic's target is under 200 lines per <code>CLAUDE.md</code>, so this fits if yours is under about 135.</p></article>
+  <article class="issue"><h3>Every project on your machine</h3><p>Anthropic's docs: <code>~/.claude/CLAUDE.md</code> holds "Personal preferences for all projects" and loads in every session. This route is not in the README.</p>
+    <div class="snippet"><div class="bar"><span class="f">terminal</span><button class="snipbtn" type="button" data-copy-target="#cmdUser" data-copy-event="no006-copy-user">Copy</button></div><pre id="cmdUser">mkdir -p ~/.claude
+echo "" &gt;&gt; ~/.claude/CLAUDE.md
+curl https://raw.githubusercontent.com/multica-ai/andrej-karpathy-skills/main/CLAUDE.md &gt;&gt; ~/.claude/CLAUDE.md</pre></div></article>
+  <article class="issue"><h3>Cursor</h3><p>CURSOR.md: "Copy <code>.cursor/rules/karpathy-guidelines.mdc</code> into that project's <code>.cursor/rules/</code> directory". The rule is set to always apply. Cursor does not read <code>CLAUDE.md</code> by default.</p>
+    <div class="snippet"><div class="bar"><span class="f">terminal</span><button class="snipbtn" type="button" data-copy-target="#cmdCursor" data-copy-event="no006-copy-cursor">Copy</button></div><pre id="cmdCursor">mkdir -p .cursor/rules
+curl -o .cursor/rules/karpathy-guidelines.mdc https://raw.githubusercontent.com/multica-ai/andrej-karpathy-skills/main/.cursor/rules/karpathy-guidelines.mdc</pre></div></article>
+  <article class="issue"><h3>Codex and other agents</h3><p>The repo ships no <code>AGENTS.md</code> (proposals to add one are open, unmerged). Codex reads <code>AGENTS.md</code> from your project root, and from <code>~/.codex/AGENTS.md</code> for every project, so save the same text under that name. CURSOR.md says the same for any tool with one root instruction file.</p>
+    <div class="snippet"><div class="bar"><span class="f">terminal</span><button class="snipbtn" type="button" data-copy-target="#cmdAgents" data-copy-event="no006-copy-agents">Copy</button></div><pre id="cmdAgents">curl -o AGENTS.md https://raw.githubusercontent.com/multica-ai/andrej-karpathy-skills/main/CLAUDE.md</pre></div></article>
+  <article class="issue"><h3>The plugin route, and how it differs</h3><p>The README recommends a Claude Code plugin. Inside Claude Code:</p>
+    <div class="snippet"><div class="bar"><span class="f">inside Claude Code</span><button class="snipbtn" type="button" data-copy-target="#cmdPlugin" data-copy-event="no006-copy-plugin">Copy</button></div><pre id="cmdPlugin">/plugin marketplace add forrestchang/andrej-karpathy-skills
+/plugin install andrej-karpathy-skills@karpathy-skills</pre></div>
+    <p>Know what you get: the plugin installs the rules as a <b>skill</b>, not as an always-on file. Anthropic's docs say Claude sees a skill's name and description every session but "only reads the full file when the task calls for it", and Claude Code's own plugin validator warns that a <code>CLAUDE.md</code> at a plugin's root "is not loaded as project context". If you want the four rules in front of Claude every session, use one of the file routes above. These are the README's commands word for word (the repo has since moved to multica-ai; the old name redirects). We validated the plugin's manifest but did not run the install end to end.</p></article>
+  <article class="issue"><h3>Check it loaded</h3><p>Anthropic's docs: "run <code>/context all</code> in a session and check the list under <b>Memory files</b>." <code>/memory</code> also lists every <code>CLAUDE.md</code> Claude has loaded and opens any of them.</p>
+    <div class="snippet"><div class="bar"><span class="f">inside Claude Code</span><button class="snipbtn" type="button" data-copy-target="#cmdCheck" data-copy-event="no006-copy-check">Copy</button></div><pre id="cmdCheck">/context all</pre></div></article>
 </section>
 
-<!-- THE FOUR RULES — ledger -->
-<div class="fig">
-  <h2 class="kick">Fig. 02 ·</h2>
-  <span class="gaccent">the four rules</span>
-  <span class="line"></span>
-</div>
-<section class="ledger" aria-label="The four rules inside the file">
-  <div class="lrow"><span class="n">01</span><span class="t">No silent assumptions</span></div>
-  <div class="lrow"><span class="n">02</span><span class="t">No over-engineering</span></div>
-  <div class="lrow"><span class="n">03</span><span class="t">No orthogonal changes</span></div>
-  <div class="lrow"><span class="n">04</span><span class="t">Verify before you claim done</span></div>
+<div class="fig" id="file"><h2 class="kick">Fig. 02</h2><h2 class="disp">The whole file<span class="dot">.</span></h2><p class="sub">All 65 lines, word for word from the repo on 2026-11-26. Paste it by hand if you would rather not use a terminal. MIT, as stated in the README (the repo has no LICENSE file). The file has one commit, from 2026-01-27: it has not changed since.</p></div>
+<section class="issues">
+  <article class="issue">
+    <div class="snippet long"><div class="bar"><span class="f">CLAUDE.md · 65 lines</span><button class="snipbtn" type="button" data-copy-target="#karpathyFile" data-copy-event="no006-copy-file">Copy all</button></div><pre id="karpathyFile"># CLAUDE.md
+
+Behavioral guidelines to reduce common LLM coding mistakes. Merge with project-specific instructions as needed.
+
+**Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
+
+## 1. Think Before Coding
+
+**Don't assume. Don't hide confusion. Surface tradeoffs.**
+
+Before implementing:
+- State your assumptions explicitly. If uncertain, ask.
+- If multiple interpretations exist, present them - don't pick silently.
+- If a simpler approach exists, say so. Push back when warranted.
+- If something is unclear, stop. Name what's confusing. Ask.
+
+## 2. Simplicity First
+
+**Minimum code that solves the problem. Nothing speculative.**
+
+- No features beyond what was asked.
+- No abstractions for single-use code.
+- No "flexibility" or "configurability" that wasn't requested.
+- No error handling for impossible scenarios.
+- If you write 200 lines and it could be 50, rewrite it.
+
+Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
+
+## 3. Surgical Changes
+
+**Touch only what you must. Clean up only your own mess.**
+
+When editing existing code:
+- Don't "improve" adjacent code, comments, or formatting.
+- Don't refactor things that aren't broken.
+- Match existing style, even if you'd do it differently.
+- If you notice unrelated dead code, mention it - don't delete it.
+
+When your changes create orphans:
+- Remove imports/variables/functions that YOUR changes made unused.
+- Don't remove pre-existing dead code unless asked.
+
+The test: Every changed line should trace directly to the user's request.
+
+## 4. Goal-Driven Execution
+
+**Define success criteria. Loop until verified.**
+
+Transform tasks into verifiable goals:
+- "Add validation" → "Write tests for invalid inputs, then make them pass"
+- "Fix the bug" → "Write a test that reproduces it, then make it pass"
+- "Refactor X" → "Ensure tests pass before and after"
+
+For multi-step tasks, state a brief plan:
+```
+1. [Step] → verify: [check]
+2. [Step] → verify: [check]
+3. [Step] → verify: [check]
+```
+
+Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
+
+---
+
+**These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes.</pre></div>
+    <p class="meta">Published at <a data-goatcounter-click="no006-repo" href="https://github.com/multica-ai/andrej-karpathy-skills" target="_blank" rel="noopener">github.com/multica-ai/andrej-karpathy-skills</a> (formerly forrestchang/andrej-karpathy-skills) · <a data-goatcounter-click="no006-file-dl" href="./files/karpathy-test/CLAUDE.md" download>download the file</a></p>
+  </article>
+</section>
+
+<div class="fig" id="rules"><h2 class="kick">Fig. 03</h2><h2 class="disp">The four rules<span class="dot">.</span></h2><p class="sub">The file's four headings and the line under each, word for word.</p></div>
+<section class="issues">
+  <article class="issue"><h3>1 · Think Before Coding</h3><p>"Don't assume. Don't hide confusion. Surface tradeoffs." State assumptions, and ask when unsure.</p></article>
+  <article class="issue"><h3>2 · Simplicity First</h3><p>"Minimum code that solves the problem. Nothing speculative." Its first bullet: "No features beyond what was asked."</p></article>
+  <article class="issue"><h3>3 · Surgical Changes</h3><p>"Touch only what you must. Clean up only your own mess." Every changed line should trace back to the request.</p></article>
+  <article class="issue"><h3>4 · Goal-Driven Execution</h3><p>"Define success criteria. Loop until verified." Turn a task into a check, such as a test, then make it pass.</p></article>
+  <article class="issue"><h3>Its own caveat</h3><p>"These guidelines bias toward caution over speed. For trivial tasks, use judgment."</p></article>
+</section>
+
+<div class="fig" id="test"><h2 class="kick">Fig. 04</h2><h2 class="disp">Our test<span class="dot">.</span></h2><p class="sub">On 2026-11-11 we ran Claude Code (2.1.322) unattended with <code>claude -p --model sonnet</code> on a 15-line <code>cart.py</code> and gave it one request: "Add discount code support to total(). The code SAVE10 takes 10% off." Four runs without the file, four with it, everything else the same.</p></div>
+<section class="issues">
+  <div class="pair">
+    <article class="issue"><h3>Without the file</h3><p>Every run (4 of 4) built a lookup table for one code. One run's summary: "Other codes can be added to the DISCOUNT_CODES dict". The real diff from run 1:</p><pre class="code"><code>-def total(items):
++DISCOUNT_CODES = {"SAVE10": 0.10}
++
++
++def total(items, code=None):
+     t = 0
+     for i in items:
+         t = t + line_total(i)
++    if code is not None:
++        t = t * (1 - DISCOUNT_CODES.get(code, 0))
+     return round(t, 2)</code></pre><p class="meta">cart.py: 6 lines added (2 of them blank), 1 removed.</p></article>
+    <article class="issue"><h3>With the file</h3><p>Every run (4 of 4) wrote the check that was asked for, and stopped. The real diff from run 1:</p><pre class="code"><code>-def total(items):
++def total(items, code=None):
+     t = 0
+     for i in items:
+         t = t + line_total(i)
++    if code == "SAVE10":
++        t = t * 0.9
+     return round(t, 2)</code></pre><p class="meta">cart.py: 3 lines added, 1 removed.</p></article>
+  </div>
+  <article class="issue"><h3>All 14 runs</h3><p>The discount request, plus two smaller ones to see where the file stops mattering. Lines added are to cart.py. The exact requests: "Add input validation to total()." and "Make total() faster."</p>
+    <div class="tablewrap"><table class="runs">
+      <thead><tr><th>Task</th><th>Arm</th><th>Runs</th><th>Lines added</th><th>Tests ran + told truth</th></tr></thead>
+      <tbody>
+        <tr><td data-label="Task">Discount SAVE10</td><td data-label="Arm">without</td><td data-label="Runs">4</td><td data-label="Lines added">6 each (a codes table)</td><td data-label="Tests ran + told truth">4 of 4</td></tr>
+        <tr><td data-label="Task">Discount SAVE10</td><td data-label="Arm">with</td><td data-label="Runs">4</td><td data-label="Lines added">3 each (one <code>if</code>)</td><td data-label="Tests ran + told truth">4 of 4</td></tr>
+        <tr><td data-label="Task">Input validation</td><td data-label="Arm">without</td><td data-label="Runs">2</td><td data-label="Lines added">12, 18</td><td data-label="Tests ran + told truth">2 of 2</td></tr>
+        <tr><td data-label="Task">Input validation</td><td data-label="Arm">with</td><td data-label="Runs">2</td><td data-label="Lines added">10, 10</td><td data-label="Tests ran + told truth">2 of 2</td></tr>
+        <tr><td data-label="Task">Make it faster</td><td data-label="Arm">without</td><td data-label="Runs">1</td><td data-label="Lines added">1 (a <code>sum()</code> rewrite)</td><td data-label="Tests ran + told truth">1 of 1</td></tr>
+        <tr><td data-label="Task">Make it faster</td><td data-label="Arm">with</td><td data-label="Runs">1</td><td data-label="Lines added">1 (the same rewrite)</td><td data-label="Tests ran + told truth">1 of 1</td></tr>
+      </tbody>
+    </table></div>
+    <p>Assumptions: with the file, all 4 discount runs named the unknown-code choice as an assumption and offered to change it ("I made one assumption: ... If you'd rather reject bad codes, say so"). Without it, 2 of 4 did. No run in either arm touched the unused <code>_old_tax</code> function (14 of 14).</p></article>
+  <article class="issue"><h3>The limits</h3><p>One model, one toy repo, four runs a side on the main request. Rule 4 changed nothing here: Claude already ran the tests and reported the result truthfully in all 14 runs, with or without the file. The with-file runs loaded the file through <code>--append-system-prompt-file</code>, with this machine's own <code>CLAUDE.md</code> files switched off in both arms; that stands in for the project-root install, it is not the install itself. It shows what the file did on this task, not what it will do on yours.</p></article>
+</section>
+
+<div class="fig" id="kit"><h2 class="kick">Fig. 05</h2><h2 class="disp">Rerun our test<span class="dot">.</span></h2><p class="sub">The same four files we used, plus the script. Needs Claude Code logged in, git, Python and a POSIX shell. Each run is capped at $0.50; ours cost $0.037 to $0.055 each.</p></div>
+<section class="issues">
+  <article class="issue"><h3>The kit</h3><p><a data-goatcounter-click="no006-kit-readme" href="./files/karpathy-test/README.md">README.md</a> (the steps and what to look for) · <a data-goatcounter-click="no006-kit-run" href="./files/karpathy-test/run.sh" download>run.sh</a> · <a data-goatcounter-click="no006-kit-cart" href="./files/karpathy-test/cart.py" download>cart.py</a> · <a data-goatcounter-click="no006-kit-test" href="./files/karpathy-test/test_cart.py" download>test_cart.py</a> · <a data-goatcounter-click="no006-kit-claude" href="./files/karpathy-test/CLAUDE.md" download>CLAUDE.md</a></p>
+    <p>Put all five in one folder, then from that folder:</p>
+    <div class="snippet"><div class="bar"><span class="f">terminal · the kit folder</span><button class="snipbtn" type="button" data-copy-target="#cmdKit" data-copy-event="no006-copy-kit">Copy</button></div><pre id="cmdKit">chmod +x run.sh
+./run.sh without 1 &amp;&amp; ./run.sh with 1</pre></div>
+    <p>Then compare <code>runs/without-1.diff</code> with <code>runs/with-1.diff</code>. Look for an extra codes table without the file, and a single check with it. Pass your own request as a third argument, for example <code>./run.sh with 2 "Add input validation to total()."</code>.</p></article>
+</section>
+
+<div class="fig" id="source"><h2 class="kick">Fig. 06</h2><h2 class="disp">Where the rules come from<span class="dot">.</span></h2><p class="sub">The file is built from his notes: a post Andrej Karpathy published on X on 2026-01-26, "A few random notes from claude coding quite a bit last few weeks." Rules 1 to 3 come from these lines, word for word:</p></div>
+<section class="issues">
+  <article class="issue">
+    <blockquote>"The most common category is that the models make wrong assumptions on your behalf and just run along with them without checking."</blockquote>
+    <blockquote>"They also really like to overcomplicate code and APIs, they bloat abstractions, they don't clean up dead code after themselves, etc."</blockquote>
+    <blockquote>"They still sometimes change/remove comments and code they don't like or don't sufficiently understand as side effects, even if it is orthogonal to the task at hand."</blockquote>
+    <p>Rule 4 comes from the same post: "Don't tell it what to do, give it success criteria and watch it go. Get it to write tests first and then pass them."</p>
+    <p>And his own caveat: all of this happens "despite a few simple attempts to fix it via instructions in CLAUDE . md". So treat the file as a good attempt, not a proven fix: our test is one small check of it.</p>
+    <p><a data-goatcounter-click="no006-karpathy-post" href="https://x.com/karpathy/status/2015883857489522876" target="_blank" rel="noopener">Read the post on X</a></p>
+  </article>
+</section>
+
+<div class="fig" id="faq"><h2 class="kick">Fig. 07</h2><h2 class="disp">Five questions<span class="dot">.</span></h2></div>
+<section class="issues">
+  <article class="issue"><h3>Will it overwrite my CLAUDE.md?</h3><p>The <code>curl -o</code> line does. The append line does not; the file itself says "Merge with project-specific instructions as needed."</p></article>
+  <article class="issue"><h3>One project, every project, or the plugin?</h3><p><code>./CLAUDE.md</code> is this project, always loaded; <code>~/.claude/CLAUDE.md</code> is every project, always loaded; the plugin is a skill Claude reads when it judges the task relevant (Anthropic's memory and plugin docs).</p></article>
+  <article class="issue"><h3>Will it make Claude slower, or ask too much?</h3><p>The file says it will lean that way: "bias toward caution over speed". In unattended <code>claude -p</code> runs nobody answers a question, and an open pull request on the repo (#169) flags that "stop and ask" can stall them; for those, tell Claude to note its assumptions and carry on. No independent speed measurement exists that we could find.</p></article>
+  <article class="issue"><h3>Do newer models still need it?</h3><p>Less than older ones. Anthropic's July 2026 post on context engineering for Claude 5 models says "newer models have better judgement and can handle these decisions well without explicit rules". An archived issue on the repo (#65) points out that Claude Code's own instructions already say "Don't add features, refactor, or introduce abstractions beyond what the task requires." Our test still saw a difference on rule 2, on today's Sonnet.</p></article>
+  <article class="issue"><h3>What else should go in the same file?</h3><p>Your test command. Anthropic's best-practices page: "the single most useful line in your CLAUDE.md is the command that runs it." It gives rule 4, loop until verified, something to run.</p></article>
+</section>
+
+<div class="fig" id="next"><h2 class="kick">Fig. 08</h2><h2 class="disp">Next reads<span class="dot">.</span></h2></div>
+<section class="issues">
+  <article class="issue"><h3>EXAMPLES.md, in the same repo</h3><p>Before-and-after code for each of the four rules. One caveat: two open pull requests (#196, #204) report that the test-first sorting example shows the same function as both "buggy" and "fixed".</p><p><a data-goatcounter-click="no006-examples" href="https://github.com/multica-ai/andrej-karpathy-skills/blob/main/EXAMPLES.md" target="_blank" rel="noopener">Read EXAMPLES.md</a></p></article>
+  <article class="issue"><h3>Anthropic: Best practices for Claude Code</h3><p>What belongs in a <code>CLAUDE.md</code>, how to give Claude a pass-or-fail check, and when a rule should be a hook instead: "CLAUDE.md is for guidelines, and Claude is allowed to decide a guideline doesn't apply."</p><p><a data-goatcounter-click="no006-bestpractices" href="https://code.claude.com/docs/en/best-practices" target="_blank" rel="noopener">Read the best practices</a></p></article>
+  <article class="issue"><h3>Audit your instruction files</h3><p>After you paste the rules in, run this in Claude Code (version 2.1.283 or later). It flags lines that contradict each other, outdated instructions, and references to files or commands that do not exist.</p>
+    <div class="snippet"><div class="bar"><span class="f">inside Claude Code</span><button class="snipbtn" type="button" data-copy-target="#cmdAudit" data-copy-event="no006-copy-audit">Copy</button></div><pre id="cmdAudit">/doctor prompt-audit</pre></div>
+    <p><a data-goatcounter-click="no006-memory-docs" href="https://code.claude.com/docs/en/memory" target="_blank" rel="noopener">Anthropic's CLAUDE.md docs</a></p></article>
+  <article class="issue"><h3>The repo today</h3><p class="meta">235,639 GitHub stars (GitHub API, 2026-11-25, 14:42 UTC).</p></article>
 </section>
 
 <section class="issues">
-
-  <!-- OUR STARTER CLAUDE.md — the combo with NO. 005 -->
-  <article class="card c-ink" id="starter">
-    <div class="top">
-      <span class="tag">Our starter · The combo · NO. 005 × NO. 006</span>
-      <span class="goth">starter</span>
-    </div>
-    <h2>Two layers, one file.</h2>
-    <p class="one">The context layer is the brain.md from <a data-goatcounter-click="no006-see-no005" href="./no-005.html">NO. 005</a>. This starter wires it in, then hands behavior to the Karpathy file. Copy, fill in, ship.</p>
-<pre class="tpl" id="starterTpl"><code># CLAUDE.md — source of truth for &lt;project&gt;
-_Last updated: &lt;date&gt; — update this YOURSELF after every real decision. No AI edits._
-_Context layer: the brain.md template from vektor NO. 005._
-
-## 1 · What &amp; why
-What this is: …
-Who it's for / the job it does: …
-What "done" looks like: …
-
-## 2 · Decisions (append-only)
-- &lt;date&gt; — Chose X over Y because … (revisit if: …)
-- &lt;date&gt; — …
-
-## 3 · Right now
-Working on: …
-Next up: …
-Known mess / debt: …
-
-&lt;!-- For the behavioral layer, append the Karpathy-skills file below this line. --&gt;
-&lt;!-- curl -O https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md --&gt;</code></pre>
-    <div class="actions">
-      <button class="btn" id="copyStarter" type="button" data-copy-target="#starterTpl" data-copy-event="no006-copy-starter">Copy the starter</button>
-      <a class="btn" data-goatcounter-click="no006-see-no005-btn" href="./no-005.html">The brain file — NO. 005 →</a>
-    </div>
-  </article>
-
-</section>
-
-<section class="midcap" aria-label="Get the weekly pack">
-  <span class="k">One email a week · the working setup</span>
-  <h2>Keep the whole toolkit.</h2>
-  <p>The Teardown sends the config pack and one working AI setup a week — the same rig behind this channel. Free, and you can unsubscribe anytime.</p>
-  <form action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="midcap">
-      <input type="hidden" name="tag" value="no-006-midcap">
-      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
-    <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
-    <button class="btn" type="submit">Get the weekly pack →</button>
-    <div class="cf-turnstile" data-sitekey="0x4AAAAAAFu7hiCL7Op-0nJV" data-theme="auto" data-appearance="interaction-only"></div>
-  </form>
-  <div class="note">Free. The config pack lands in your inbox straight away. Unsubscribe anytime.</div>
-</section>
-
-<section class="issues">
-  <!-- FOLLOW ASK — the reciprocity moment -->
   <article class="card c-ink">
-    <div class="top">
-      <span class="tag">No gate / no catch</span>
-      <span class="goth">follow</span>
-    </div>
-    <h2>That's the whole file. Follow for the next one.</h2>
-    <p class="one">This page exists because people follow — a new teardown drops daily, and followers catch it first. If it saved you an afternoon, the follow is the thank-you.</p>
-    <div class="actions">
-      <a class="btn primary" data-goatcounter-click="no006-follow-instagram" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Follow @vektor.fm →</a>
-    </div>
+    <div class="top"><span class="tag">One tool a day</span><span class="goth">follow</span></div>
+    <h2>Follow for the next one.</h2>
+    <p class="one">A new film every day: one AI tool, shown working on a real task. The next keyword is only on the reel.</p>
+    <div class="actions"><a class="btn primary" data-goatcounter-click="no006-follow-instagram" href="https://instagram.com/vektor.fm" target="_blank" rel="noopener">Follow @vektor.fm</a></div>
   </article>
 </section>
-<!-- ===================== END ISSUE BLOCK — NO. 006 ===================== -->
-
-<!-- ======================= FOOTER ======================= -->
+</div>
 </main>
 
 <footer>
   <div class="rule foot-rule" aria-hidden="true">////////////////////////////////////////////////////////////////////////////////////////////////</div>
 
   <div class="news" id="subscribe">
-    <h2 class="kick" style="color:var(--acid);">Get the pack — the working setup, one config</h2>
-    <div class="pack">
-      <span>The config pack</span><span>Claude Code settings</span><span>One teardown / week</span>
-    </div>
+    <h2 class="kick" style="color:var(--acid);">The weekly: one working AI setup, every week</h2>
     <form action="https://vektor-ig-dm.vektor-fm.workers.dev/signup" method="post" data-capture="footer">
-      <input type="hidden" name="tag" value="footer">
+      <input type="hidden" name="tag" value="no-006-footer">
       <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
       <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
-      <button class="btn" type="submit">Send me the pack →</button>
+      <button class="btn" type="submit">Send me the weekly →</button>
       <div class="cf-turnstile" data-sitekey="0x4AAAAAAFu7hiCL7Op-0nJV" data-theme="auto" data-appearance="interaction-only"></div>
     </form>
-    <div class="note">Free. The config pack lands in your inbox straight away. Unsubscribe anytime.</div>
-    <div class="note latest-issue">Read the latest issue: <a href="./teardown-010.html">Does the Karpathy file work? &rarr;</a></div>
+    <div class="note">Optional. Everything on this page is already yours above. One email a week, unsubscribe anytime.</div>
   </div>
+
 
   <nav class="socials" aria-label="Social links">
     <a data-goatcounter-click="no006-follow-tiktok-foot" href="https://tiktok.com/@vektor.fm" target="_blank" rel="noopener">TikTok · @vektor.fm</a>
@@ -1102,11 +1096,11 @@ Known mess / debt: …
   <a href="./legal-notice.html" style="color:inherit;text-decoration:underline;">Legal notice</a>
 </div>
 
-  <div class="backref"><a href="./no-007.html">No. 007 is live →</a> <b>The next keyword is only on the reel</b> — follow @vektor.fm to catch it.</div>
+  <div class="backref">A new keyword drops every week: <b>catch it first on the reel</b>, follow @vektor.fm. <a href="./index.html">Back to the index</a></div>
 
   <div class="wordmark-foot">
     <span class="wm-foot" id="wmFoot" aria-label="vektor"><span class="ch2" style="--i:0"><span class="g">%</span><span class="l">v</span></span><span class="ch2" style="--i:1"><span class="g">#</span><span class="l">e</span></span><span class="ch2" style="--i:2"><span class="g">Z</span><span class="l">k</span></span><span class="ch2" style="--i:3"><span class="g">8</span><span class="l">t</span></span><span class="ch2" style="--i:4"><span class="g">@</span><span class="l">o</span></span><span class="ch2" style="--i:5"><span class="g">W</span><span class="l">r</span></span></span>
-    <span class="m">/// no. 006 / the file / 07-2026 · the frontier, by the numbers</span>
+    <span class="m">/// no. 006 / karpathy / 11-2026 · only what was asked</span>
   </div>
 </footer>
 
@@ -1119,7 +1113,7 @@ Known mess / debt: …
   function fallback(text){ var t=document.createElement('textarea'); t.value=text; t.style.position='fixed'; t.style.opacity='0'; document.body.appendChild(t); t.focus(); t.select(); try{ document.execCommand('copy'); }catch(e){} document.body.removeChild(t); }
   function copyText(text, btn, doneLabel){ var o=btn.textContent, done=function(){ btn.textContent=doneLabel; setTimeout(function(){btn.textContent=o;},1600); }; if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(done).catch(function(){ fallback(text); done(); }); } else { fallback(text); done(); } }
   function gcEvent(name){ if(name && window.goatcounter && goatcounter.count){ goatcounter.count({path:name, event:true}); } }
-  var COPY_EVENT='no006-copy-curl';
+  var COPY_EVENT='no006-copy';
   document.querySelectorAll('.copybtn').forEach(function(btn){ btn.addEventListener('click', function(){ copyText(btn.getAttribute('data-copy'), btn, 'Copied ✓'); gcEvent(COPY_EVENT); }); });
   var snip=document.getElementById('snipCopy');
   if(snip){ snip.addEventListener('click', function(){ var el=document.getElementById('snipText'); copyText(el.textContent, snip, 'Copied ✓'); gcEvent(COPY_EVENT); }); }
