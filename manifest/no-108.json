@@ -1,0 +1,21 @@
+{
+  "number": "108",
+  "title": "vektor /// no. 108 · The LAYER page: AirLLM's commands, memory table and Mac notes",
+  "description": "AirLLM keeps one layer of a model on the GPU at a time, which is how its README runs Kimi K3 (2.8T) in 3.72 GB of GPU memory. The install commands including the Kimi K3 extras, the README memory table, the Mac notes, and the honest cost in speed and disk, each read at its source on 2026-11-27.",
+  "og_title": "The LAYER page · vektor /// no. 108",
+  "og_description": "AirLLM: the install commands, the memory table and the Mac notes, word for word from its README.",
+  "og_image": "https://vektor-fm.github.io/vektor-site/og/vektor-og.png",
+  "og_alt": "Vektor · the LAYER page",
+  "og_url": "https://vektor-fm.github.io/vektor-site/no-108.html",
+  "canonical": "https://vektor-fm.github.io/vektor-site/no-108.html",
+  "tw_title": "The LAYER page · vektor /// no. 108",
+  "tw_description": "AirLLM: the install commands, the memory table and the Mac notes, word for word from its README.",
+  "tw_image": "https://vektor-fm.github.io/vektor-site/og/vektor-og.png",
+  "marker": "The LAYER page · commands, table, Mac notes",
+  "sticky_text": "Follow <b>@vektor.fm</b> → a new keyword every week",
+  "backref_html": "A new keyword drops every week: <b>catch it first on the reel</b>, follow @vektor.fm. <a href=\"./index.html\">Back to the index</a>",
+  "footer_meta": "/// no. 108 / layer / 11-2026 · one layer at a time",
+  "copy_event": null,
+  "subscribe_track": false,
+  "slug": "no108"
+}

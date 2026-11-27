@@ -1,0 +1,43 @@
+<div id="no108-page">
+<section class="hero">
+  <div class="kick eye">The LAYER page · commands, table, Mac notes</div>
+  <h1 class="disp">A 2.8T model, one layer at a time<span class="dot">.</span></h1>
+  <p class="sub">AirLLM "only ever keeps one layer on the GPU at a time, so the VRAM you need depends on the model's layer size, not its total size". That is how its README runs Kimi K3, 2.8 trillion parameters, in 3.72 GB of GPU memory. Here are the commands from the video, the README's memory table, the Mac notes, and the honest cost in speed and disk. Every line was read at its source on 2026-11-27: the README and the v3.1.0 release notes of <a data-goatcounter-click="no108-repo-hero" href="https://github.com/lyogavin/airllm" target="_blank" rel="noopener">github.com/lyogavin/airllm</a>.</p>
+  <div class="actions"><a class="btn primary" data-goatcounter-click="no108-jump-install" href="#install">The commands</a><a class="btn" data-goatcounter-click="no108-jump-table" href="#table">The memory table</a><a class="btn" data-goatcounter-click="no108-jump-mac" href="#mac">The Mac notes</a></div>
+</section>
+<div class="fig"><h2 class="kick">Fig. 01 ·</h2><h2 class="disp">The commands<span class="dot">.</span></h2><p class="sub">The base install is one line. Kimi K3 needs a few extras on top, which its release notes call "none of them optional". All of it runs in a terminal and in Python.</p></div>
+<section class="issues" id="install">
+  <article class="issue"><h3>1 · Install AirLLM</h3><p>From the README's Quickstart:</p><pre class="code"><code>pip install airllm</code></pre></article>
+  <article class="issue"><h3>2 · Run a model</h3><p>Pass a Hugging Face repo id (or a local path) and generate as with a normal transformers model. The README's example, trimmed to the two lines that matter:</p><pre class="code"><code>from airllm import AutoModel
+model = AutoModel.from_pretrained("Qwen/Qwen3-32B")</code></pre><p>Swap in the repo id of the model you want; Kimi K3's is <code>moonshotai/Kimi-K3</code> on Hugging Face. The README's full example, with the tokenizer and <code>model.generate</code>, is in its Quickstart.</p></article>
+  <article class="issue"><h3>3 · The Kimi K3 extras</h3><p>From the v3.1.0 release notes, "Before you run K3":</p><pre class="code"><code>pip install airllm compressed-tensors flash-attn</code></pre><p>Plus two version rules, in the notes' words: "A CUDA 12 build of torch, because no prebuilt flash-attn wheel exists for CUDA 13 yet", and "transformers 4.56.x, as K3's remote code does not load on 5.x". Flash attention is mandatory: "K3's model code overwrites whatever attention implementation you request". So K3 needs an NVIDIA card with CUDA 12; it does not run on a Mac (Fig. 03).</p></article>
+  <article class="issue"><h3>4 · Disk first</h3><p>The weights live on your disk and stream to the card. Kimi K3's checkpoint is 1.56 TB. For other models the README warns that "the original model will first be decomposed and saved layer-wise", so plan for room in the Hugging Face cache; setting <code>delete_original</code> to true keeps only the split copy "to save half of the disk space". For K3 the release notes say the split layers are hardlinked to the originals instead of copied, so it does not need the 3.12 TB a naive split would.</p></article>
+</section>
+<div class="fig" id="table"><h2 class="kick">Fig. 02 ·</h2><h2 class="disp">The memory table<span class="dot">.</span></h2><p class="sub">GPU memory each model needs under AirLLM, copied from the README's "Tiny GPU, huge models" table (read 2026-11-27). These are the maintainer's own figures, self-reported; the "~" is the README's.</p></div>
+<section class="issues">
+  <article class="issue"><h3>From the README</h3><pre class="code"><code>Model                              Size      GPU VRAM
+Qwen3 / Mistral / Phi (~8B)        8B        ~1-2 GB
+Qwen3-30B / Mixtral (MoE)          30-47B    ~1-3 GB
+Qwen3.8-27B (dense VL)             27B       3.33 GB
+Qwen3.8-Flash-Next (MoE + PLE)     ~180B     5.95 GB
+Qwen3-235B (MoE)                   235B      ~3 GB
+Llama 3.x 70B (full precision)     70B       ~4 GB
+Llama 3.1 405B                     405B      ~8 GB
+DeepSeek-V3                        671B      ~12 GB</code></pre></article>
+  <article class="issue"><h3>And Kimi K3</h3><p>Not in the table but in the README's update line: Kimi K3 (2.8T) "runs on a single card in 3.72GB of VRAM, measured end to end on one RTX 6000 Ada". That card has 48 GB; the run used 3.72 GB of it at peak. It fits because K3 is a mixture of experts: the release notes say each layer holds 896 experts and each token is routed to 16 of them, and AirLLM loads just those.</p></article>
+</section>
+<div class="fig" id="mac"><h2 class="kick">Fig. 03 ·</h2><h2 class="disp">The Mac notes<span class="dot">.</span></h2><p class="sub">From the README's MacOS section: "Just install airllm and run the code the same as on linux."</p></div>
+<section class="issues">
+  <article class="issue"><h3>What a Mac needs</h3><p>In the README's words: "make sure you installed mlx and torch"; "you probably need to install python native"; "only Apple silicon is supported".</p><p><a data-goatcounter-click="no108-mlx" href="https://github.com/ml-explore/mlx" target="_blank" rel="noopener">github.com/ml-explore/mlx</a></p></article>
+  <article class="issue"><h3>Which models</h3><p>"Only Llama-style models (<code>LlamaForCausalLM</code>, <code>MistralForCausalLM</code>) run on macOS for now; other architectures raise an error before anything is downloaded." Kimi K3 is not on that list, so on a Mac you run Llama- and Mistral-style models. The README's macOS notebook shows the setup, and notes that on macOS <code>generate()</code> takes the input ids positionally and returns the decoded text.</p><p><a data-goatcounter-click="no108-mac-notebook" href="https://github.com/lyogavin/airllm/blob/main/air_llm/examples/run_on_macos.ipynb" target="_blank" rel="noopener">The macOS notebook</a></p></article>
+</section>
+<div class="fig"><h2 class="kick">Fig. 04 ·</h2><h2 class="disp">The catch: speed<span class="dot">.</span></h2><p class="sub">The README says it plainly: "every new token streams all layers from disk, so a reply can take a while". The v3.1.0 release notes measured how long, on one RTX 6000 Ada (48 GB) against the full 1.56 TB checkpoint.</p></div>
+<section class="issues">
+  <article class="issue"><h3>The measurement</h3><pre class="code"><code>Peak VRAM during generation   3.72 GB
+Peak VRAM after init          0.83 GB
+Init (one-time per process)   900 s
+Generation                    292 s/token, disk-bound</code></pre><p>292 seconds is about five minutes a token, so a 100-token reply is about eight hours (our arithmetic). It is one machine and one run, self-reported; a faster disk would move it.</p></article>
+  <article class="issue"><h3>What it is for</h3><p>Jobs you leave running, not chat. For the wait you get a frontier-size open model, private, on your own machine, with no API bill. Electricity and the disk are still yours to pay for.</p></article>
+  <article class="issue"><h3>The repo</h3><p>AirLLM by Gavin Li (the README's citation block), Apache-2.0 licence, 43,518 GitHub stars (GitHub API, 2026-11-27).</p><p><a data-goatcounter-click="no108-repo" href="https://github.com/lyogavin/airllm" target="_blank" rel="noopener">github.com/lyogavin/airllm</a> · <a data-goatcounter-click="no108-release" href="https://github.com/lyogavin/airllm/releases/tag/v3.1.0" target="_blank" rel="noopener">v3.1.0 release notes</a></p></article>
+</section>
+</div>
