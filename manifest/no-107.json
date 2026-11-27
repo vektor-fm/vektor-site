@@ -1,0 +1,21 @@
+{
+  "number": "107",
+  "title": "vektor /// no. 107 · The PROOF page: the claimed Riemann hypothesis proof, the note and the checks",
+  "description": "Levent Alpöge's note claiming a proof of the Riemann hypothesis made with Claude, and what the checkers found: the Lean FRO and Mathlib Initiative certification, Andrew Sutherland's verification page, and why it is not peer reviewed yet.",
+  "og_title": "The PROOF page · vektor /// no. 107",
+  "og_description": "The claimed Riemann hypothesis proof: the note, the Lean certification and the verification page.",
+  "og_image": "https://vektor-fm.github.io/vektor-site/og/vektor-og.png",
+  "og_alt": "Vektor · the PROOF page",
+  "og_url": "https://vektor-fm.github.io/vektor-site/no-107.html",
+  "canonical": "https://vektor-fm.github.io/vektor-site/no-107.html",
+  "tw_title": "The PROOF page · vektor /// no. 107",
+  "tw_description": "The claimed Riemann hypothesis proof: the note, the Lean certification and the verification page.",
+  "tw_image": "https://vektor-fm.github.io/vektor-site/og/vektor-og.png",
+  "marker": "The PROOF page · the note and the checks",
+  "sticky_text": "Follow <b>@vektor.fm</b> → a new keyword every week",
+  "backref_html": "A new keyword drops every week: <b>catch it first on the reel</b>, follow @vektor.fm. <a href=\"./index.html\">Back to the index</a>",
+  "footer_meta": "/// no. 107 / proof / 11-2026 · claimed, checked, not yet reviewed",
+  "copy_event": null,
+  "subscribe_track": false,
+  "slug": "no107"
+}

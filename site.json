@@ -563,6 +563,26 @@
       "lastmod": "2026-11-24",
       "built": true,
       "unlock": "555387c224"
+    },
+    {
+      "number": "107",
+      "title_short": "The claimed Riemann hypothesis proof: the note and the checks",
+      "section": "The Frontier",
+      "date": "11-2026",
+      "keyword": "PROOF",
+      "lastmod": "2026-11-25",
+      "built": true,
+      "unlock": "2a92bf9ccb"
+    },
+    {
+      "number": "108",
+      "title_short": "AirLLM: the commands, the memory table and the Mac notes",
+      "section": "Local AI",
+      "date": "11-2026",
+      "keyword": "LAYER",
+      "lastmod": "2026-11-27",
+      "built": true,
+      "unlock": "13d86f45f7"
     }
   ],
   "teardowns": [
